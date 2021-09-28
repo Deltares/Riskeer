@@ -39,6 +39,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -96,15 +97,23 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_WithContext_ReturnsFormattedTargetProbability()
+        [TestCase(0.1, 0.01, "1/10")]
+        [TestCase(0.1, 0.1, "1/10 (1)")]
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForLowerLimitNorm(double lowerLimitNorm, double signalingNorm, string expectedText)
         {
             // Setup
+            var lowerLimitNormCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(lowerLimitNorm, signalingNorm));
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(lowerLimitNormCalculations);
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
+
             mockRepository.ReplayAll();
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                    assessmentSection,
-                                                                                    () => 0.01);
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(lowerLimitNormCalculations, assessmentSection, () => lowerLimitNorm);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -114,7 +123,40 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("1/100", text);
+                Assert.AreEqual(expectedText, text);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.1, 0.01, "1/100")]
+        [TestCase(0.1, 0.1, "1/10 (2)")]
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForSignalingNorm(double lowerLimitNorm, double signalingNorm, string expectedText)
+        {
+            // Setup
+            var signalingNormCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(lowerLimitNorm, signalingNorm));
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(signalingNormCalculations);
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
+
+            mockRepository.ReplayAll();
+
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(signalingNormCalculations, assessmentSection, () => lowerLimitNorm);
+
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                string text = info.Text(context);
+
+                // Assert
+                Assert.AreEqual(expectedText, text);
             }
 
             mockRepository.VerifyAll();

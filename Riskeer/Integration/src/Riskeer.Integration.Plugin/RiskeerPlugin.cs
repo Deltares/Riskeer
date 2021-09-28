@@ -1018,7 +1018,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilityContext>
             {
-                Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc()),
+                Text = context => CalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
+                                                                                                              context.WrappedData),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaterLevelCalculationsForNormTargetProbabilityContextMenuStrip
             };
@@ -1225,12 +1226,12 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ExportInfo<T> CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<T>(
-        HydraulicBoundaryLocationCalculationsType calculationsType, string displayName)
+            HydraulicBoundaryLocationCalculationsType calculationsType, string displayName)
             where T : HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
         {
             return new ExportInfo<T>
             {
-                Name = context => $"{displayName} ({ ProbabilityFormattingHelper.Format(context.WrappedData.TargetProbability)})",
+                Name = context => $"{displayName} ({ProbabilityFormattingHelper.Format(context.WrappedData.TargetProbability)})",
                 Extension = RiskeerCommonIOResources.Shape_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
                     context.WrappedData.HydraulicBoundaryLocationCalculations, filePath, calculationsType),
@@ -1256,7 +1257,6 @@ namespace Riskeer.Integration.Plugin
                                                                                                            Resources.Zip_file_filter_Description))
             };
         }
-        
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
             TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
