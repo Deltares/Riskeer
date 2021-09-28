@@ -354,13 +354,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var duneLocationsMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[duneLocationsIndex].Attach(duneLocationsMapDataObserver);
-
             return new[]
             {
-                referenceLineMapDataObserver,
-                duneLocationsMapDataObserver
+                referenceLineMapDataObserver
             };
         }
 
