@@ -64,8 +64,26 @@ namespace Riskeer.Common.Forms.Factories
             return feature;
         }
 
-        private static void AddTargetProbabilityMetaData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
+        /// <summary>
+        /// Adds target probability related meta data to the given <paramref name="feature"/>.
+        /// </summary>
+        /// <param name="feature">The feature to add the meta data to.</param>
+        /// <param name="targetProbabilities">The collection of target probabilities to add.</param>
+        /// <param name="displayName">The display name of the meta data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="feature"/> or
+        /// <paramref name="targetProbabilities"/> is <c>null</c>.</exception>
+        public static void AddTargetProbabilityMetaData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
         {
+            if (feature == null)
+            {
+                throw new ArgumentNullException(nameof(feature));
+            }
+
+            if (targetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(targetProbabilities));
+            }
+
             var addedMetaDataItems = new List<string>();
 
             foreach (Tuple<double, RoundedDouble> calculationOutputForTargetProbability in targetProbabilities)

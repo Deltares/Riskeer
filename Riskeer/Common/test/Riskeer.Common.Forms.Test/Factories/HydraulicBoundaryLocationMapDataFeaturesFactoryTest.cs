@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
+using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -71,10 +72,57 @@ namespace Riskeer.Common.Forms.Test.Factories
             // Assert
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Id, feature, "ID");
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.Name, feature, "Naam");
-            
+
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationsForTargetProbabilities.First().Item2.ToString(), feature, "h - 1/10");
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaterLevelCalculationsForTargetProbabilities.Last().Item2.ToString(), feature, "h - 1/10 (1)");
             MapFeaturesMetaDataTestHelper.AssertMetaData(location.WaveHeightCalculationsForTargetProbabilities.First().Item2.ToString(), feature, "Hs - 1/1.000");
+        }
+
+        [Test]
+        public void AddTargetProbabilityMetaData_FeatureNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(
+                null, Enumerable.Empty<Tuple<double, RoundedDouble>>(), string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("feature", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTargetProbabilityMetaData_TargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(new MapFeature(Enumerable.Empty<MapGeometry>()), null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("targetProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void AddTargetProbabilityMetaData_WithAllData_AddsMetaDataItems()
+        {
+            // Setup
+            var random = new Random(21);
+            var feature = new MapFeature(Enumerable.Empty<MapGeometry>());
+            var targetProbabilities = new[]
+            {
+                new Tuple<double, RoundedDouble>(0.01, random.NextRoundedDouble()),
+                new Tuple<double, RoundedDouble>(0.01, RoundedDouble.NaN),
+                new Tuple<double, RoundedDouble>(0.0001, random.NextRoundedDouble())
+            };
+            const string displayName = "Test - {0}";
+
+            // Call
+            HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(feature, targetProbabilities, displayName);
+
+            // Assert
+            Assert.AreEqual(3, feature.MetaData.Count);
+            MapFeaturesMetaDataTestHelper.AssertMetaData(targetProbabilities[0].Item2.ToString(), feature, string.Format(displayName, "1/100"));
+            MapFeaturesMetaDataTestHelper.AssertMetaData(targetProbabilities[1].Item2.ToString(), feature, string.Format(displayName, "1/100 (1)"));
+            MapFeaturesMetaDataTestHelper.AssertMetaData(targetProbabilities[2].Item2.ToString(), feature, string.Format(displayName, "1/10.000"));
         }
     }
 }
