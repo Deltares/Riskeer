@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Views;
@@ -33,6 +34,50 @@ namespace Riskeer.DuneErosion.Forms
     /// </summary>
     public static class AggregatedDuneLocationFactory
     {
+        /// <summary>
+        /// Creates the aggregated dune locations based on the locations and calculations.
+        /// </summary>
+        /// <param name="duneLocations">The locations.</param>
+        /// <param name="calculationsForTargetProbabilities">The calculations.</param>
+        /// <returns>A collection of <see cref="AggregatedDuneLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<AggregatedDuneLocation> CreateAggregatedDuneLocations(
+            IEnumerable<DuneLocation> duneLocations,
+            IDictionary<IObservableEnumerable<DuneLocationCalculation>, double> calculationsForTargetProbabilities)
+        {
+            if (duneLocations == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocations));
+            }
+
+            if (calculationsForTargetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsForTargetProbabilities));
+            }
+
+            return duneLocations.Select(location =>
+                                {
+                                    Tuple<double, DuneLocationCalculation>[] calculationsForLocation =
+                                        calculationsForTargetProbabilities.Select(c => new Tuple<double, DuneLocationCalculation>(
+                                                                                      c.Value, c.Key.ToDictionary(
+                                                                                          x => x.DuneLocation,
+                                                                                          x => x)[location]))
+                                                                          .ToArray();
+                                    return new AggregatedDuneLocation(
+                                        location.Id, location.Name, location.Location, location.CoastalAreaId, location.Offset, location.D50,
+                                        calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
+                                                                           c.Item1, GetWaterLevel(c.Item2)))
+                                                               .ToArray(),
+                                        calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
+                                                                           c.Item1, GetWaveHeight(c.Item2)))
+                                                               .ToArray(),
+                                        calculationsForLocation.Select(c => new Tuple<double, RoundedDouble>(
+                                                                           c.Item1, GetWavePeriod(c.Item2)))
+                                                               .ToArray());
+                                })
+                                .ToArray();
+        }
+
         /// <summary>
         /// Creates the aggregated dune locations based on the locations and calculations
         /// from the failure mechanism.

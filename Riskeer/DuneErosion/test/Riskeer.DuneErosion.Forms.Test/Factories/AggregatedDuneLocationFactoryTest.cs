@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -34,6 +35,100 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
     [TestFixture]
     public class AggregatedDuneLocationFactoryTest
     {
+        [Test]
+        public void CreateAggregatedDuneLocations_DuneLocationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(null, new Dictionary<IObservableEnumerable<DuneLocationCalculation>, double>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("duneLocations", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateAggregatedDuneLocations_CalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(Enumerable.Empty<DuneLocation>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationsForTargetProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateAggregatedDuneLocations_WithAllData_ReturnAggregatedDuneLocations()
+        {
+            // Setup
+            var random = new Random(21);
+            var duneLocations = new[]
+            {
+                new DuneLocation(1, "location1", new Point2D(1, 1), new DuneLocation.ConstructionProperties()),
+                new DuneLocation(2, "location2", new Point2D(2, 2), new DuneLocation.ConstructionProperties())
+            };
+
+            var calculations = new Dictionary<IObservableEnumerable<DuneLocationCalculation>, double>
+            {
+                {
+                    new ObservableList<DuneLocationCalculation>
+                    {
+                        new DuneLocationCalculation(duneLocations[0])
+                        {
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
+                        },
+                        new DuneLocationCalculation(duneLocations[1])
+                        {
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
+                        }
+                    },
+                    0.1
+                },
+                {
+                    new ObservableList<DuneLocationCalculation>
+                    {
+                        new DuneLocationCalculation(duneLocations[0])
+                        {
+                            Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
+                        },
+                        new DuneLocationCalculation(duneLocations[1])
+                    },
+                    0.001
+                }
+            };
+
+            // Call
+            IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(duneLocations, calculations);
+
+            // Assert
+            Assert.AreEqual(duneLocations.Length, aggregatedLocations.Count());
+
+            for (var i = 0; i < duneLocations.Length; i++)
+            {
+                DuneLocation duneLocation = duneLocations[i];
+                AggregatedDuneLocation aggregatedLocation = aggregatedLocations.ElementAt(i);
+
+                Assert.AreEqual(duneLocation.Id, aggregatedLocation.Id);
+                Assert.AreEqual(duneLocation.Name, aggregatedLocation.Name);
+                Assert.AreEqual(duneLocation.Location, aggregatedLocation.Location);
+                Assert.AreEqual(duneLocation.CoastalAreaId, aggregatedLocation.CoastalAreaId);
+                Assert.AreEqual(duneLocation.Offset, aggregatedLocation.Offset);
+                Assert.AreEqual(duneLocation.D50, aggregatedLocation.D50);
+
+                for (var j = 0; j < calculations.Count; j++)
+                {
+                    Assert.AreEqual(calculations.ElementAt(j).Value, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(calculations.ElementAt(j).Value, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(calculations.ElementAt(j).Value, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item1);
+
+                    DuneLocationCalculationOutput output = GetOutput(calculations.ElementAt(j).Key, duneLocations[i]);
+                    Assert.AreEqual(output?.WaterLevel ?? RoundedDouble.NaN, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item2);
+                    Assert.AreEqual(output?.WaveHeight ?? RoundedDouble.NaN, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item2);
+                    Assert.AreEqual(output?.WavePeriod ?? RoundedDouble.NaN, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item2);
+                }
+            }
+        }
+
         [Test]
         public void CreateAggregatedDuneLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -156,6 +251,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                 Assert.IsNaN(aggregatedDuneLocation.WavePeriodForLowerLimitNorm);
                 Assert.IsNaN(aggregatedDuneLocation.WavePeriodForFactorizedLowerLimitNorm);
             }
+        }
+
+        private static DuneLocationCalculationOutput GetOutput(IEnumerable<DuneLocationCalculation> calculations,
+                                                               DuneLocation location)
+        {
+            return calculations.Single(c => c.DuneLocation.Equals(location))
+                               .Output;
         }
 
         private static DuneLocation CreateDuneLocation(int seed)
