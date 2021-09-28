@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -287,6 +287,134 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetDisplayNameFormats))]
+        public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdatedSelectedMetaDataAttributeResetToDefault(string displayName)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
+                new DuneLocationCalculationsForTargetProbability(0.1));
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("test1")
+            });
+
+            using (var mapLayer = new DuneErosionLocationsMapLayer(failureMechanism))
+            {
+                DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First();
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
+                mapLayer.MapData.NotifyObservers();
+
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+
+                // When
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Remove(calculationsForTargetProbability);
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+                Assert.AreEqual("Naam", mapLayer.MapData.SelectedMetaDataAttribute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetDisplayNameFormats))]
+        public void GivenMapLayerWithDuneLocations_WhenNotSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated(string displayName)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
+                new DuneLocationCalculationsForTargetProbability(0.1));
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
+                new DuneLocationCalculationsForTargetProbability(0.001));
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("test1")
+            });
+
+            using (var mapLayer = new DuneErosionLocationsMapLayer(failureMechanism))
+            {
+                DuneLocationCalculationsForTargetProbability calculationsForTargetProbabilityToRemove = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First();
+                DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Last();
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
+                mapLayer.MapData.NotifyObservers();
+
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+
+                // When
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Remove(calculationsForTargetProbabilityToRemove);
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+                Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetDisplayNameFormats))]
+        public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityChangedAndNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(string displayName)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(
+                new DuneLocationCalculationsForTargetProbability(0.1));
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("test1")
+            });
+
+            using (var mapLayer = new DuneErosionLocationsMapLayer(failureMechanism))
+            {
+                DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Last();
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability));
+                mapLayer.MapData.NotifyObservers();
+
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+
+                // When
+                calculationsForTargetProbability.TargetProbability = 0.005;
+                calculationsForTargetProbability.NotifyObservers();
+
+                // Then
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+                Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
+            }
+
+            mocks.VerifyAll();
+        }
+
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,
                                                        MapData mapData)
         {
@@ -295,6 +423,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var duneLocationsMapData = (MapPointData) mapData;
             DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, duneLocationsMapData.Features);
+        }
+
+        private static IEnumerable<TestCaseData> GetDisplayNameFormats()
+        {
+            yield return new TestCaseData("Rekenwaarde h - {0}");
+            yield return new TestCaseData("Rekenwaarde Hs - {0}");
+            yield return new TestCaseData("Rekenwaarde Tp - {0}");
         }
     }
 }

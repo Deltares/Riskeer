@@ -27,6 +27,8 @@ using Core.Components.Gis.Data;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Factories;
+using Riskeer.DuneErosion.Forms.Properties;
+using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views
 {
@@ -42,6 +44,8 @@ namespace Riskeer.DuneErosion.Forms.Views
         private RecursiveObserver<IObservableEnumerable<DuneLocationCalculationsForTargetProbability>, DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilitiesObserver;
 
         private List<RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>> calculationsForTargetProbabilityObservers;
+
+        private ISet<MetaDataItemsLookup> currentMetaDataItems;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionLocationsMapLayer"/>.
@@ -62,6 +66,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             CreateObservers();
 
             MapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            currentMetaDataItems = new HashSet<MetaDataItemsLookup>();
             SetFeatures();
         }
 
@@ -150,12 +155,110 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private void SetFeatures()
         {
+            IReadOnlyDictionary<IObservableEnumerable<DuneLocationCalculation>, double> calculationsForTargetProbabilities =
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                .OrderByDescending(tp => tp.TargetProbability)
+                                .ToDictionary(tp => (IObservableEnumerable<DuneLocationCalculation>) tp.DuneLocationCalculations,
+                                              tp => tp.TargetProbability);
+
             IEnumerable<AggregatedDuneLocation> locations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(
-                failureMechanism.DuneLocations, failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
-                                                                .OrderByDescending(tp => tp.TargetProbability)
-                                                                .ToDictionary(tp => (IObservableEnumerable<DuneLocationCalculation>) tp.DuneLocationCalculations,
-                                                                              tp => tp.TargetProbability));
+                failureMechanism.DuneLocations, calculationsForTargetProbabilities);
+
             MapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(locations);
+
+            if (MapData.Features.Any())
+            {
+                UpdateMetaData(calculationsForTargetProbabilities);
+            }
+        }
+
+        private void UpdateMetaData(IReadOnlyDictionary<IObservableEnumerable<DuneLocationCalculation>, double> calculationsForTargetProbabilities)
+        {
+            var newMetaDataItems = new HashSet<MetaDataItemsLookup>();
+
+            var waterLevelMetaDataItemsCounter = 0;
+            var waveHeightMetaDataItemsCounter = 0;
+            var wavePeriodMetaDataItemsCounter = 0;
+            foreach (string metaData in MapData.MetaData)
+            {
+                if (metaData.Contains(string.Format(Resources.MetaData_WaterLevel_TargetProbability_0, string.Empty)))
+                {
+                    AddMetaDataItemToLookup(newMetaDataItems, calculationsForTargetProbabilities.ElementAt(waterLevelMetaDataItemsCounter).Key,
+                                            lookupItem => lookupItem.WaterLevelMetaDataItem = metaData);
+                    waterLevelMetaDataItemsCounter++;
+                }
+                else if (metaData.Contains(string.Format(Resources.MetaData_WaveHeight_TargetProbability_0, string.Empty)))
+                {
+                    AddMetaDataItemToLookup(newMetaDataItems, calculationsForTargetProbabilities.ElementAt(waveHeightMetaDataItemsCounter).Key,
+                                            lookupItem => lookupItem.WaveHeightMetaDataItem = metaData);
+                    waveHeightMetaDataItemsCounter++;
+                }
+                else if (metaData.Contains(string.Format(Resources.MetaData_WavePeriod_TargetProbability_0, string.Empty)))
+                {
+                    AddMetaDataItemToLookup(newMetaDataItems, calculationsForTargetProbabilities.ElementAt(wavePeriodMetaDataItemsCounter).Key,
+                                            lookupItem => lookupItem.WavePeriodMetaDataItem = metaData);
+                    wavePeriodMetaDataItemsCounter++;
+                }
+            }
+
+            foreach (MetaDataItemsLookup currentMetaDataItem in currentMetaDataItems)
+            {
+                if (MapData.SelectedMetaDataAttribute == currentMetaDataItem.WaterLevelMetaDataItem
+                    || MapData.SelectedMetaDataAttribute == currentMetaDataItem.WaveHeightMetaDataItem
+                    || MapData.SelectedMetaDataAttribute == currentMetaDataItem.WavePeriodMetaDataItem)
+                {
+                    MetaDataItemsLookup newMetaDataItem = newMetaDataItems.FirstOrDefault(i => i.Calculations.Equals(currentMetaDataItem.Calculations));
+
+                    if (newMetaDataItem == null)
+                    {
+                        MapData.SelectedMetaDataAttribute = RiskeerCommonUtilResources.MetaData_Name;
+                    }
+                    else
+                    {
+                        SetSelectedMetaDataAttribute(currentMetaDataItem.WaterLevelMetaDataItem, newMetaDataItem.WaterLevelMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentMetaDataItem.WaveHeightMetaDataItem, newMetaDataItem.WaveHeightMetaDataItem);
+                        SetSelectedMetaDataAttribute(currentMetaDataItem.WavePeriodMetaDataItem, newMetaDataItem.WavePeriodMetaDataItem);
+                    }
+                }
+            }
+
+            currentMetaDataItems = newMetaDataItems;
+        }
+
+        private static void AddMetaDataItemToLookup(ISet<MetaDataItemsLookup> lookup, IObservableEnumerable<DuneLocationCalculation> calculations,
+                                                    Action<MetaDataItemsLookup> setMetaDataAction)
+        {
+            MetaDataItemsLookup lookupItem = lookup.FirstOrDefault(i => i.Calculations.Equals(calculations));
+
+            if (lookupItem == null)
+            {
+                lookupItem = new MetaDataItemsLookup
+                {
+                    Calculations = calculations
+                };
+                lookup.Add(lookupItem);
+            }
+
+            setMetaDataAction(lookupItem);
+        }
+
+        private void SetSelectedMetaDataAttribute(string metaDataItem, string newMetaDataItem)
+        {
+            if (metaDataItem != newMetaDataItem && metaDataItem == MapData.SelectedMetaDataAttribute)
+            {
+                MapData.SelectedMetaDataAttribute = newMetaDataItem;
+            }
+        }
+
+        private class MetaDataItemsLookup
+        {
+            public IObservableEnumerable<DuneLocationCalculation> Calculations { get; set; }
+
+            public string WaterLevelMetaDataItem { get; set; }
+
+            public string WaveHeightMetaDataItem { get; set; }
+
+            public string WavePeriodMetaDataItem { get; set; }
         }
     }
 }
