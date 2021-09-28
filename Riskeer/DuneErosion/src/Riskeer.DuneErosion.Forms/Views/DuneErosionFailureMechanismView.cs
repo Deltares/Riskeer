@@ -27,7 +27,6 @@ using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.Factories;
 using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views
@@ -37,18 +36,11 @@ namespace Riskeer.DuneErosion.Forms.Views
     /// </summary>
     public partial class DuneErosionFailureMechanismView : UserControl, IMapView
     {
+        private DuneErosionLocationsMapLayer duneErosionLocationsMapLayer;
         private MapLineData referenceLineMapData;
-        private MapPointData duneLocationsMapData;
 
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
-        private Observer duneLocationsObserver;
-
-        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForLowerLimitNormObserver;
-        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForFactorizedLowerLimitNormObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismView"/>.
@@ -88,13 +80,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         public object Data { get; set; }
 
-        public IMapControl Map
-        {
-            get
-            {
-                return riskeerMapControl.MapControl;
-            }
-        }
+        public IMapControl Map => riskeerMapControl.MapControl;
 
         /// <summary>
         /// Gets the <see cref="MapDataCollection"/>.
@@ -118,13 +104,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
-            duneLocationsObserver.Dispose();
-
-            calculationsForMechanismSpecificFactorizedSignalingNormObserver.Dispose();
-            calculationsForMechanismSpecificSignalingNormObserver.Dispose();
-            calculationsForMechanismSpecificLowerLimitNormObserver.Dispose();
-            calculationsForLowerLimitNormObserver.Dispose();
-            calculationsForFactorizedLowerLimitNormObserver.Dispose();
+            duneErosionLocationsMapLayer.Dispose();
 
             if (disposing)
             {
@@ -147,16 +127,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 Observable = AssessmentSection.ReferenceLine
             };
-            duneLocationsObserver = new Observer(UpdateDuneLocationMapData)
-            {
-                Observable = FailureMechanism.DuneLocations
-            };
-
-            calculationsForMechanismSpecificFactorizedSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            calculationsForMechanismSpecificSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            calculationsForMechanismSpecificLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            calculationsForLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForLowerLimitNorm);
-            calculationsForFactorizedLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForFactorizedLowerLimitNorm);
         }
 
         /// <summary>
@@ -166,26 +136,15 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             MapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
-            duneLocationsMapData = RiskeerMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
+            duneErosionLocationsMapLayer = new DuneErosionLocationsMapLayer(FailureMechanism);
 
             MapDataCollection.Add(referenceLineMapData);
-
-            MapDataCollection.Add(duneLocationsMapData);
+            MapDataCollection.Add(duneErosionLocationsMapLayer.MapData);
         }
 
         protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
-            SetDuneLocationMapData();
-        }
-
-        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> CreateDuneLocationCalculationsObserver(
-            IObservableEnumerable<DuneLocationCalculation> calculations)
-        {
-            return new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(UpdateDuneLocationMapData, calc => calc)
-            {
-                Observable = calculations
-            };
         }
 
         #region AssessmentSection MapData
@@ -201,21 +160,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
                                                                                                       AssessmentSection.Id,
                                                                                                       AssessmentSection.Name);
-        }
-
-        #endregion
-
-        #region DuneLocation MapData
-
-        private void UpdateDuneLocationMapData()
-        {
-            SetDuneLocationMapData();
-            duneLocationsMapData.NotifyObservers();
-        }
-
-        private void SetDuneLocationMapData()
-        {
-            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(FailureMechanism);
         }
 
         #endregion

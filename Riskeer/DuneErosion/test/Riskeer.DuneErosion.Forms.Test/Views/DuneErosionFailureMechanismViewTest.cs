@@ -48,31 +48,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private const int referenceLineIndex = 0;
         private const int duneLocationsIndex = 1;
 
-        private const int duneLocationsObserverIndex = 1;
-
         private Form testForm;
-
-        private static IEnumerable<TestCaseData> GetCalculationFuncs
-        {
-            get
-            {
-                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
-                                                  failureMechanism => failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First()))
-                    .SetName("Mechanism specific factorized signaling norm");
-                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
-                                                  failureMechanism => failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First()))
-                    .SetName("Mechanism specific signaling norm");
-                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
-                                                  failureMechanism => failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First()))
-                    .SetName("Mechanism specific lower limit norm");
-                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
-                                                  failureMechanism => failureMechanism.CalculationsForLowerLimitNorm.First()))
-                    .SetName("Lower limit norm");
-                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
-                                                  failureMechanism => failureMechanism.CalculationsForFactorizedLowerLimitNorm.First()))
-                    .SetName("Factorized lower limit norm");
-            }
-        }
 
         [SetUp]
         public void Setup()
@@ -202,82 +178,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
             AssertDuneLocationsMapData(failureMechanism, mapDataList[duneLocationsIndex]);
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithDuneLocationsData_WhenHydraulicBoundaryDatabaseUpdatedAndNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation()
-            });
-
-            DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[duneLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
-
-            // Precondition
-            AssertDuneLocationsMapData(failureMechanism, hydraulicBoundaryLocationsMapData);
-
-            // When
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation()
-            });
-            failureMechanism.DuneLocations.NotifyObservers();
-
-            // Then
-            AssertDuneLocationsMapData(failureMechanism, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        [TestCaseSource(nameof(GetCalculationFuncs))]
-        public void GivenViewWithDuneLocationsData_WhenDuneLocationCalculationUpdatedAndNotified_ThenMapDataUpdated(
-            Func<DuneErosionFailureMechanism, DuneLocationCalculation> getCalculationFunc)
-        {
-            // Given
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                new TestDuneLocation()
-            });
-
-            DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
-
-            IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-            var mocks = new MockRepository();
-            IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-            observers[duneLocationsObserverIndex].Expect(obs => obs.UpdateObserver());
-            mocks.ReplayAll();
-
-            MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
-
-            // Precondition
-            AssertDuneLocationsMapData(failureMechanism, hydraulicBoundaryLocationsMapData);
-
-            // When
-            DuneLocationCalculation duneLocationCalculation = getCalculationFunc(failureMechanism);
-            duneLocationCalculation.Output = new TestDuneLocationCalculationOutput();
-            duneLocationCalculation.NotifyObservers();
-
-            // Then
-            AssertDuneLocationsMapData(failureMechanism, hydraulicBoundaryLocationsMapData);
-            mocks.VerifyAll();
         }
 
         [Test]
