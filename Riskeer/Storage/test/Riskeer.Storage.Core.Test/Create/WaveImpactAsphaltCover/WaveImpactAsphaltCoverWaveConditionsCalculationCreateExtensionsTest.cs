@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -33,7 +32,6 @@ using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {
@@ -84,8 +82,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                     LowerBoundaryRevetment = (RoundedDouble) 3.58,
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
-                    StepSize = random.NextEnumValue<WaveConditionsInputStepSize>(),
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                    StepSize = random.NextEnumValue<WaveConditionsInputStepSize>()
                 }
             };
 
@@ -174,7 +171,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         }
 
         [Test]
-        public void Create_WaveImpactAsphaltCoverWithHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
+        public void Create_HasHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
@@ -198,7 +195,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         }
 
         [Test]
-        public void Create_WaveImpactAsphaltCoverWithHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
+        public void Create_HasHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
         {
             // Setup
             var random = new Random(21);

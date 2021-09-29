@@ -26,7 +26,8 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for collections of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> related to creating a 
+    /// Extension methods for collections of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> related to
+    /// creating a
     /// <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.
     /// </summary>
     internal static class HydraulicLocationCalculationForTargetProbabilityCollectionCreateExtensions
@@ -35,13 +36,15 @@ namespace Riskeer.Storage.Core.Create
         /// Creates a <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/> based on the information
         /// of the <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
-        /// to create a database entity for.</param>
+        /// <param name="calculations">
+        /// The collection of <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
+        /// to create a database entity for.
+        /// </param>
         /// <param name="calculationType">The type of calculation the entity should be created for.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculations"/> or <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="registry"/> is <c>null</c>.</exception>
         internal static HydraulicLocationCalculationForTargetProbabilityCollectionEntity Create(this HydraulicBoundaryLocationCalculationsForTargetProbability calculations,
                                                                                                 HydraulicBoundaryLocationCalculationType calculationType,
                                                                                                 int order,
@@ -61,7 +64,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 return registry.Get(calculations);
             }
-            
+
             var collectionEntity = new HydraulicLocationCalculationForTargetProbabilityCollectionEntity
             {
                 HydraulicBoundaryLocationCalculationType = Convert.ToByte(calculationType),
@@ -73,7 +76,7 @@ namespace Riskeer.Storage.Core.Create
             {
                 collectionEntity.HydraulicLocationCalculationEntities.Add(calculation.Create(registry));
             }
-            
+
             registry.Register(collectionEntity, calculations);
             return collectionEntity;
         }

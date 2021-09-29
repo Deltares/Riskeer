@@ -28,7 +28,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Revetment.Data;
 using Riskeer.Storage.Core.DbContext;
-using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
 {
@@ -43,10 +42,8 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
         /// Reads the <see cref="GrassCoverErosionInwardsCalculationEntity"/> and use the
         /// information to update a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="entity">
-        /// The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// to create <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for.
-        /// </param>
+        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
+        /// to create <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

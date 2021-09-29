@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -85,8 +84,8 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
                     StepSize = random.NextEnumValue<WaveConditionsInputStepSize>(),
-                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>(),
-                    CalculationType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>()
+                    CalculationType = random.NextEnumValue<GrassCoverErosionOutwardsWaveConditionsCalculationType>(),
+                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
                 }
             };
 
@@ -176,7 +175,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Create_GrassCoverErosionOutwardsWithHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
+        public void Create_HasHydraulicLocationEntity_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
@@ -201,7 +200,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Create_GrassCoverErosionOutwardsWithHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
+        public void Create_HasHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
         {
             // Setup
             var random = new Random(21);

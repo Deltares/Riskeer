@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -84,7 +83,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
                     LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
                     StepSize = random.NextEnumValue<WaveConditionsInputStepSize>(),
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>(),
+                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>(),
                     CalculationType = random.NextEnumValue<StabilityStoneCoverWaveConditionsCalculationType>()
                 }
             };
@@ -175,7 +174,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        public void Create_StabilityStoneCoverWithHydraulicBoundaryLocation_EntityHasHydraulicLocationEntity()
+        public void Create_HasHydraulicBoundaryLocation_EntityHasHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
@@ -199,7 +198,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        public void Create_StabilityStoneCoverWithHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
+        public void Create_HasHydraulicLocationCalculationsForTargetProbability_EntityHasHydraulicLocationCalculationForTargetProbabilityCollectionEntity()
         {
             // Setup
             var random = new Random(21);

@@ -28,7 +28,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.DbContext;
-using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Read.StabilityStoneCover
 {
