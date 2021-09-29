@@ -393,7 +393,7 @@ namespace Core.Common.Controls.TreeView.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CanRemoveNodeForData_DataSet_ReturnsValueOfCanRename(bool expected)
+        public void CanRemoveNodeForData_DataSet_ReturnsValueOfCanRemove(bool expected)
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -459,6 +459,94 @@ namespace Core.Common.Controls.TreeView.Test
                 Assert.AreEqual(0, onDataDeletedHit);
 
                 Assert.AreEqual("Het geselecteerde element kan niet worden verwijderd.", messageBoxText);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeNodeInfoWithoutBeforeNodeRemoveText_WhenRemoving_ThenDefaultConfirmationMessageShown()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    CanRemove = (o, p) => true
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    string messageBoxText = null;
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        var helper = new MessageBoxTester(wnd);
+
+                        messageBoxText = helper.Text;
+
+                        helper.ClickOk();
+                    };
+
+                    // When
+                    treeViewControl.TryRemoveNodeForData(dataObject);
+
+                    // Then
+                    Assert.AreEqual("Weet u zeker dat u het geselecteerde element wilt verwijderen?", messageBoxText);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeNodeInfoWithBeforeNodeRemoveText_WhenRemoving_ThenConfirmationMessageShown()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var confirmationMessage = "Are you sure?";
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    CanRemove = (o, p) => true,
+                    BeforeNodeRemoveText = o => confirmationMessage
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    string messageBoxText = null;
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        var helper = new MessageBoxTester(wnd);
+
+                        messageBoxText = helper.Text;
+
+                        helper.ClickOk();
+                    };
+
+                    // When
+                    treeViewControl.TryRemoveNodeForData(dataObject);
+
+                    // Then
+                    Assert.AreEqual(confirmationMessage, messageBoxText);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
             }
         }
 
