@@ -84,6 +84,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNotNull(info.CanRemove);
+                Assert.IsNotNull(info.BeforeNodeRemoveText);
                 Assert.IsNotNull(info.OnNodeRemoved);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CheckedState);
@@ -164,6 +165,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.IsTrue(canRemove);
+            }
+        }
+
+        [Test]
+        public void BeforeRemoveNodeText_Always_ReturnsConfirmationMessage()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                string beforeNodeRemoveText = info.BeforeNodeRemoveText(null);
+
+                // Assert
+                string expectedText = "Als u deze doelkans verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd."
+                                      + Environment.NewLine
+                                      + Environment.NewLine
+                                      + "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedText, beforeNodeRemoveText);
             }
         }
 

@@ -495,6 +495,18 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u deze doelkans verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd.
+        ///
+        ///Weet u zeker dat u wilt doorgaan?.
+        /// </summary>
+        public static string RiskeerPlugin_GetTreeNodeInfos_HydraulicBoundaryDatabaseUpdateHandler_Confirm_remove_TargetProbability {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetTreeNodeInfos_HydraulicBoundaryDatabaseUpdateHandler_Confirm_rem" +
+                        "ove_TargetProbability", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit toetsspoor die voorlandprofielen gebruiken verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
