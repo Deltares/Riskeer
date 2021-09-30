@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.Util;
@@ -86,9 +87,10 @@ namespace Riskeer.Integration.IO.Helpers
                                     ? Resources.WaterLevels_DisplayName
                                     : Resources.WaveHeights_DisplayName;
 
-            string uniqueName = NamingHelper.GetUniqueName(
-                exportedCalculationFileNames, $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}",
-                c => c);
+            string returnPeriod = ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)
+                                                              .ToString(CultureInfo.InvariantCulture)
+                                                              .Replace(".", "");
+            string uniqueName = NamingHelper.GetUniqueName(exportedCalculationFileNames, $"{exportType}_{returnPeriod}", c => c);
             exportedCalculationFileNames.Add(uniqueName);
 
             string tempFilePath = Path.Combine(folderPath, $"{uniqueName}.{RiskeerCommonIOResources.Shape_file_filter_Extension}");

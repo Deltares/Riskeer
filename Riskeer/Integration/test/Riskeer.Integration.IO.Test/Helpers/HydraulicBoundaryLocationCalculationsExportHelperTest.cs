@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -130,7 +131,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
         public void ExportLocationCalculationsForTargetProbabilities_DuplicateTargetProbability_ReturnsTrueAndWritesExpectedFiles(HydraulicBoundaryLocationCalculationsType calculationsType)
         {
             // Setup
-            const double targetProbability = 0.05;
+            const double targetProbability = 0.00005;
 
             string directoryPath = TestHelper.GetScratchPadPath(nameof(ExportLocationCalculationsForTargetProbabilities_DuplicateTargetProbability_ReturnsTrueAndWritesExpectedFiles));
             Directory.CreateDirectory(directoryPath);
@@ -213,7 +214,10 @@ namespace Riskeer.Integration.IO.Test.Helpers
                                     ? "Waterstanden"
                                     : "Golfhoogten";
 
-            return $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}";
+            string returnPeriod = ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)
+                                                              .ToString(CultureInfo.CurrentCulture)
+                                                              .Replace(".", "");
+            return $"{exportType}_{returnPeriod}";
         }
     }
 }
