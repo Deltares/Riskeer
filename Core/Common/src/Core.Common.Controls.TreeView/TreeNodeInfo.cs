@@ -102,17 +102,23 @@ namespace Core.Common.Controls.TreeView
         public Func<object, object, bool> CanRemove { get; set; }
 
         /// <summary>
+        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
+        /// The first <c>object</c> parameter represents the data of the tree node.
+        /// The second <c>object</c> parameter represents the data of the parent tree node.
+        /// </summary>
+        public Action<object, object> OnNodeRemoved { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for obtaining the confirmation text that is shown before the tree node is removed.
         /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>        
         public Func<object, string> OnRemoveConfirmationText { get; set; }
 
         /// <summary>
-        /// Gets or sets an action for obtaining the logic to perform after removing the tree node.
-        /// The first <c>object</c> parameter represents the data of the tree node.
-        /// The second <c>object</c> parameter represents the data of the parent tree node.
+        /// Gets or sets a function for obtaining the confirmation text that is shown before all child nodes are removed.
+        /// The <c>object</c> parameter represents the data of the tree node.
         /// </summary>
-        public Action<object, object> OnNodeRemoved { get; set; }
+        public Func<object, string> OnRemoveChildNodesConfirmationText { get; set; }
 
         /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be checked.
@@ -265,6 +271,12 @@ namespace Core.Common.Controls.TreeView
         public Func<TData, string> OnRemoveConfirmationText { get; set; }
 
         /// <summary>
+        /// Gets or sets a function for obtaining the confirmation text that is shown before all child nodes are removed.
+        /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
+        /// </summary>
+        public Func<TData, string> OnRemoveChildNodesConfirmationText { get; set; }
+
+        /// <summary>
         /// Gets or sets a function for checking whether or not the tree node can be checked.
         /// The <typeparamref name="TData"/> parameter represents the data of the tree node.
         /// </summary>
@@ -357,12 +369,15 @@ namespace Core.Common.Controls.TreeView
                 CanRemove = treeNodeInfo.CanRemove != null
                                 ? (tag, parentTag) => treeNodeInfo.CanRemove((TData) tag, parentTag)
                                 : (Func<object, object, bool>) null,
-                OnRemoveConfirmationText = treeNodeInfo.OnRemoveConfirmationText != null
-                                           ? tag => treeNodeInfo.OnRemoveConfirmationText((TData) tag)
-                                           : (Func<object, string>) null,
                 OnNodeRemoved = treeNodeInfo.OnNodeRemoved != null
                                     ? (tag, parentTag) => treeNodeInfo.OnNodeRemoved((TData) tag, parentTag)
                                     : (Action<object, object>) null,
+                OnRemoveConfirmationText = treeNodeInfo.OnRemoveConfirmationText != null
+                                               ? tag => treeNodeInfo.OnRemoveConfirmationText((TData) tag)
+                                               : (Func<object, string>) null,
+                OnRemoveChildNodesConfirmationText = treeNodeInfo.OnRemoveChildNodesConfirmationText != null
+                                                         ? tag => treeNodeInfo.OnRemoveChildNodesConfirmationText((TData) tag)
+                                                         : (Func<object, string>) null,
                 CanCheck = treeNodeInfo.CanCheck != null
                                ? tag => treeNodeInfo.CanCheck((TData) tag)
                                : (Func<object, bool>) null,

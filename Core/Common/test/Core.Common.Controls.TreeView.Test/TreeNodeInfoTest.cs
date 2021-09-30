@@ -47,8 +47,9 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.CanRename);
             Assert.IsNull(treeNodeInfo.OnNodeRenamed);
             Assert.IsNull(treeNodeInfo.CanRemove);
-            Assert.IsNull(treeNodeInfo.OnRemoveConfirmationText);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.OnRemoveConfirmationText);
+            Assert.IsNull(treeNodeInfo.OnRemoveChildNodesConfirmationText);
             Assert.IsNull(treeNodeInfo.CanCheck);
             Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
@@ -73,9 +74,10 @@ namespace Core.Common.Controls.TreeView.Test
             Func<object, object[]> childNodeObjects = o => new object[0];
             Func<object, object, bool> canRename = (o1, o2) => true;
             Action<object, string> onNodeRenamed = (o, newName) => {};
-            Func<object, string> onRemoveConfirmationText = o => "";
             Func<object, object, bool> canRemove = (o1, o2) => true;
             Action<object, object> onNodeRemoved = (o1, o2) => {};
+            Func<object, string> onRemoveConfirmationText = o => "";
+            Func<object, string> onRemoveChildNodesConfirmationText = o => "";
             Func<object, bool> canCheck = o => true;
             Func<object, TreeNodeCheckedState> isChecked = o => TreeNodeCheckedState.Checked;
             Action<object, object> onNodeChecked = (o1, o2) => {};
@@ -96,8 +98,9 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.CanRename = canRename;
             treeNodeInfo.OnNodeRenamed = onNodeRenamed;
             treeNodeInfo.CanRemove = canRemove;
-            treeNodeInfo.OnRemoveConfirmationText = onRemoveConfirmationText;
             treeNodeInfo.OnNodeRemoved = onNodeRemoved;
+            treeNodeInfo.OnRemoveConfirmationText = onRemoveConfirmationText;
+            treeNodeInfo.OnRemoveChildNodesConfirmationText = onRemoveChildNodesConfirmationText;
             treeNodeInfo.CanCheck = canCheck;
             treeNodeInfo.CheckedState = isChecked;
             treeNodeInfo.OnNodeChecked = onNodeChecked;
@@ -118,8 +121,9 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(canRename, treeNodeInfo.CanRename);
             Assert.AreEqual(onNodeRenamed, treeNodeInfo.OnNodeRenamed);
             Assert.AreEqual(canRemove, treeNodeInfo.CanRemove);
-            Assert.AreEqual(onRemoveConfirmationText, treeNodeInfo.OnRemoveConfirmationText);
             Assert.AreEqual(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
+            Assert.AreEqual(onRemoveConfirmationText, treeNodeInfo.OnRemoveConfirmationText);
+            Assert.AreEqual(onRemoveChildNodesConfirmationText, treeNodeInfo.OnRemoveChildNodesConfirmationText);
             Assert.AreEqual(canCheck, treeNodeInfo.CanCheck);
             Assert.AreEqual(isChecked, treeNodeInfo.CheckedState);
             Assert.AreEqual(onNodeChecked, treeNodeInfo.OnNodeChecked);
@@ -147,8 +151,9 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.CanRename);
             Assert.IsNull(treeNodeInfo.OnNodeRenamed);
             Assert.IsNull(treeNodeInfo.CanRemove);
-            Assert.IsNull(treeNodeInfo.OnRemoveConfirmationText);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.OnRemoveConfirmationText);
+            Assert.IsNull(treeNodeInfo.OnRemoveChildNodesConfirmationText);
             Assert.IsNull(treeNodeInfo.CanCheck);
             Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
@@ -173,8 +178,9 @@ namespace Core.Common.Controls.TreeView.Test
             Func<int, object, bool> canRename = (o1, o2) => true;
             Action<int, string> onNodeRenamed = (o, newName) => {};
             Func<int, object, bool> canRemove = (o1, o2) => true;
-            Func<int, string> onRemoveConfirmationText = o => "";
             Action<int, object> onNodeRemoved = (o1, o2) => {};
+            Func<int, string> onRemoveConfirmationText = o => "";
+            Func<int, string> onRemoveChildNodesConfirmationText = o => "";
             Func<int, bool> canCheck = o => true;
             Func<int, TreeNodeCheckedState> isChecked = o => TreeNodeCheckedState.Checked;
             Action<int, object> onNodeChecked = (o1, o2) => {};
@@ -194,8 +200,9 @@ namespace Core.Common.Controls.TreeView.Test
             treeNodeInfo.CanRename = canRename;
             treeNodeInfo.OnNodeRenamed = onNodeRenamed;
             treeNodeInfo.CanRemove = canRemove;
-            treeNodeInfo.OnRemoveConfirmationText = onRemoveConfirmationText;
             treeNodeInfo.OnNodeRemoved = onNodeRemoved;
+            treeNodeInfo.OnRemoveConfirmationText = onRemoveConfirmationText;
+            treeNodeInfo.OnRemoveChildNodesConfirmationText = onRemoveChildNodesConfirmationText;
             treeNodeInfo.CanCheck = canCheck;
             treeNodeInfo.CheckedState = isChecked;
             treeNodeInfo.OnNodeChecked = onNodeChecked;
@@ -216,8 +223,9 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.AreEqual(canRename, treeNodeInfo.CanRename);
             Assert.AreEqual(onNodeRenamed, treeNodeInfo.OnNodeRenamed);
             Assert.AreEqual(canRemove, treeNodeInfo.CanRemove);
-            Assert.AreEqual(onRemoveConfirmationText, treeNodeInfo.OnRemoveConfirmationText);
             Assert.AreEqual(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
+            Assert.AreEqual(onRemoveConfirmationText, treeNodeInfo.OnRemoveConfirmationText);
+            Assert.AreEqual(onRemoveChildNodesConfirmationText, treeNodeInfo.OnRemoveChildNodesConfirmationText);
             Assert.AreEqual(canCheck, treeNodeInfo.CanCheck);
             Assert.AreEqual(isChecked, treeNodeInfo.CheckedState);
             Assert.AreEqual(onNodeChecked, treeNodeInfo.OnNodeChecked);
@@ -250,8 +258,9 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsNull(treeNodeInfo.CanRename);
             Assert.IsNull(treeNodeInfo.OnNodeRenamed);
             Assert.IsNull(treeNodeInfo.CanRemove);
-            Assert.IsNull(treeNodeInfo.OnRemoveConfirmationText);
             Assert.IsNull(treeNodeInfo.OnNodeRemoved);
+            Assert.IsNull(treeNodeInfo.OnRemoveConfirmationText);
+            Assert.IsNull(treeNodeInfo.OnRemoveChildNodesConfirmationText);
             Assert.IsNull(treeNodeInfo.CanCheck);
             Assert.IsNull(treeNodeInfo.CheckedState);
             Assert.IsNull(treeNodeInfo.OnNodeChecked);
@@ -291,8 +300,9 @@ namespace Core.Common.Controls.TreeView.Test
                 CanRename = (o1, o2) => true,
                 OnNodeRenamed = (o, newName) => { onNodeRenamedCounter++; },
                 CanRemove = (o1, o2) => true,
-                OnRemoveConfirmationText = o => "Confirmation message",
                 OnNodeRemoved = (o1, o2) => { onNodeRemovedCounter++; },
+                OnRemoveConfirmationText = o => "Confirmation message",
+                OnRemoveChildNodesConfirmationText = o => "Confirmation message 2",
                 CanCheck = o => true,
                 CheckedState = o => TreeNodeCheckedState.Checked,
                 OnNodeChecked = (o1, o2) => { onNodeCheckedCounter++; },
@@ -327,6 +337,7 @@ namespace Core.Common.Controls.TreeView.Test
             Assert.IsTrue(treeNodeInfo.CanRename(0, 1));
             Assert.IsTrue(treeNodeInfo.CanRemove(0, 1));
             Assert.AreEqual("Confirmation message", treeNodeInfo.OnRemoveConfirmationText(0));
+            Assert.AreEqual("Confirmation message 2", treeNodeInfo.OnRemoveChildNodesConfirmationText(0));
             Assert.IsTrue(treeNodeInfo.CanCheck(0));
             Assert.AreEqual(TreeNodeCheckedState.Checked, treeNodeInfo.CheckedState(0));
             Assert.IsTrue(treeNodeInfo.CanDrag(0, 1));
