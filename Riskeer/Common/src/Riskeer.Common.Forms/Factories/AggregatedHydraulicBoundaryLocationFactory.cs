@@ -66,13 +66,15 @@ namespace Riskeer.Common.Forms.Factories
                                         location.Id, location.Name, location.Location,
                                         waterLevelCalculations.Select(c => new Tuple<double, RoundedDouble>(
                                                                           c.Value, GetCalculationResult(
-                                                                              c.Key.ToDictionary(x => x.HydraulicBoundaryLocation,
-                                                                                                 x => x)[location].Output)))
+                                                                              c.Key.Single(x => x.HydraulicBoundaryLocation
+                                                                                                 .Equals(location))
+                                                                               .Output)))
                                                               .ToArray(),
                                         waveHeightCalculations.Select(c => new Tuple<double, RoundedDouble>(
                                                                           c.Value, GetCalculationResult(
-                                                                              c.Key.ToDictionary(x => x.HydraulicBoundaryLocation,
-                                                                                                 x => x)[location].Output)))
+                                                                              c.Key.Single(x => x.HydraulicBoundaryLocation
+                                                                                                 .Equals(location))
+                                                                               .Output)))
                                                               .ToArray()))
                             .ToArray();
         }
