@@ -28,6 +28,11 @@ using Core.Common.Controls.PresentationObjects;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
+    /// <summary>
+    /// Base class for location calculation related presentation objects that should be uniquely identifiable.
+    /// </summary>
+    /// <typeparam name="TWrappedData">The object type of the wrapped instance.</typeparam>
+    /// <typeparam name="TObservable">The object type of the instances that effect the unique identification.</typeparam>
     public abstract class LocationCalculationsContext<TWrappedData, TObservable>
         : WrappedObjectContextBase<TWrappedData>, IObservable
         where TObservable : class, IObservable
@@ -36,6 +41,11 @@ namespace Riskeer.Common.Forms.PresentationObjects
 
         private RecursiveObserver<ObservableList<TObservable>, TObservable> recursiveObserver;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="LocationCalculationsContext{TWrappedData, TObservable}"/>.
+        /// </summary>
+        /// <param name="wrappedData">The wrapped data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
         protected LocationCalculationsContext(TWrappedData wrappedData)
             : base(wrappedData) {}
 
@@ -45,7 +55,10 @@ namespace Riskeer.Common.Forms.PresentationObjects
         {
             if (!observers.Any())
             {
-                recursiveObserver = InitializeRecursiveObserver();
+                recursiveObserver = new RecursiveObserver<ObservableList<TObservable>, TObservable>(NotifyObservers, list => list)
+                {
+                    Observable = LocationCalculationsListToObserve
+                };
             }
 
             observers.Add(observer);
@@ -75,19 +88,14 @@ namespace Riskeer.Common.Forms.PresentationObjects
                 }
                 catch (InvalidOperationException)
                 {
-                    // Catch any exception due to inevitably updating a tree node for data that was already removed 
+                    // Catch any exception due to inevitably updating the unique identification of data that was already removed 
                 }
             }
         }
 
+        /// <summary>
+        /// Gets the list of instances that effect the unique identification.
+        /// </summary>
         protected abstract ObservableList<TObservable> LocationCalculationsListToObserve { get; }
-
-        private RecursiveObserver<ObservableList<TObservable>, TObservable> InitializeRecursiveObserver()
-        {
-            return new RecursiveObserver<ObservableList<TObservable>, TObservable>(NotifyObservers, list => list)
-            {
-                Observable = LocationCalculationsListToObserve
-            };
-        }
     }
 }
