@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [TestCase(0.1, 0.01, "1/10")]
-        [TestCase(0.1, 0.1, "1/10 (1)")]
+        [TestCase(0.1, 0.1, "1/10")]
         public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForLowerLimitNorm(double lowerLimitNorm, double signalingNorm, string expectedText)
         {
             // Setup
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [TestCase(0.1, 0.01, "1/100")]
-        [TestCase(0.1, 0.1, "1/10 (2)")]
+        [TestCase(0.1, 0.1, "1/10 (1)")]
         public void Text_WithContext_ReturnsUniquelyFormattedTargetProbabilityForSignalingNorm(double lowerLimitNorm, double signalingNorm, string expectedText)
         {
             // Setup
