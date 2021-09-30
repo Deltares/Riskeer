@@ -726,9 +726,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryLocationCalculation calculation = getHydraulicLocationCalculationFunc(assessmentSection);
             calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
 
-            HydraulicBoundaryLocationCalculation unaffectedCalculation = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(1);
-
             HydraulicBoundaryLocationCalculation[] calculationsWithOutput = GetAllHydraulicLocationCalculationsWithOutput(assessmentSection).ToArray();
+            HydraulicBoundaryLocationCalculation unaffectedCalculation = calculationsWithOutput.First(calc => !calc.Output.HasGeneralResult);
 
             var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
@@ -837,13 +836,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicLocationCalculationsWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm)
+            return assessmentSection.WaterLevelCalculationsForSignalingNorm
                                     .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
-                                    .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations)
-                                    .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations)
-                                    .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations)
+                                    .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.SelectMany(tp => tp.HydraulicBoundaryLocationCalculations))
+                                    .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.SelectMany(tp => tp.HydraulicBoundaryLocationCalculations))
                                     .Where(calc => calc.HasOutput);
         }
 

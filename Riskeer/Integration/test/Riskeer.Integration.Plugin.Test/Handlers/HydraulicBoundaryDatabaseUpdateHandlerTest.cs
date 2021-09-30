@@ -510,14 +510,18 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             // Assert
             CollectionAssert.IsNotSubsetOf(oldLocations, hydraulicBoundaryDatabase.Locations);
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.IsNotSubsetOf(oldLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)
+            {
+                CollectionAssert.IsNotSubsetOf(oldLocations, targetProbability.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
+            }
+
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities)
+            {
+                CollectionAssert.IsNotSubsetOf(oldLocations, targetProbability.HydraulicBoundaryLocationCalculations.Select(hblc => hblc.HydraulicBoundaryLocation));
+            }
 
             mocks.VerifyAll();
         }
@@ -948,14 +952,19 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         private static void AssertHydraulicBoundaryLocationsAndCalculations(IEnumerable<HydraulicBoundaryLocation> locations, AssessmentSection assessmentSection)
         {
-            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
             CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-            CollectionAssert.AreEqual(locations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
+            AssertHydraulicBoundaryLocationsOfUserDefinedTargetProbabilities(locations, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+            AssertHydraulicBoundaryLocationsOfUserDefinedTargetProbabilities(locations, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
+        }
+
+        private static void AssertHydraulicBoundaryLocationsOfUserDefinedTargetProbabilities(IEnumerable<HydraulicBoundaryLocation> locations,
+                                                                                             IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> targetProbabilities)
+        {
+            foreach (HydraulicBoundaryLocationCalculationsForTargetProbability targetProbability in targetProbabilities)
+            {
+                CollectionAssert.AreEqual(locations, targetProbability.HydraulicBoundaryLocationCalculations.Select(calc => calc.HydraulicBoundaryLocation));
+            }
         }
 
         private static void AssertHydraulicBoundaryLocations(IEnumerable<ReadHydraulicBoundaryLocation> readLocations,
