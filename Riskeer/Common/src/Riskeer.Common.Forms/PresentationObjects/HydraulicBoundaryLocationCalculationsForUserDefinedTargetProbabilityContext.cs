@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -29,7 +28,8 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all hydraulic boundary location calculations based on a user defined target probability.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext : ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculationsForTargetProbability>
+    public abstract class HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext
+        : LocationCalculationsContext<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsForTargetProbability>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext"/>.

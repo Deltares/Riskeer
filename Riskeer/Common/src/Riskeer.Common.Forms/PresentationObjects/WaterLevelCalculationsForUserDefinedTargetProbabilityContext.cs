@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -39,5 +40,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         public WaterLevelCalculationsForUserDefinedTargetProbabilityContext(HydraulicBoundaryLocationCalculationsForTargetProbability wrappedData,
                                                                             IAssessmentSection assessmentSection)
             : base(wrappedData, assessmentSection) {}
+
+        protected override ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> LocationCalculationsListToObserve => AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
     }
 }

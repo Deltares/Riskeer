@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -59,7 +59,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
                 calculationsForTargetProbability, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<HydraulicBoundaryLocationCalculationsForTargetProbability>>(context);
+            Assert.IsInstanceOf<LocationCalculationsContext<HydraulicBoundaryLocationCalculationsForTargetProbability, HydraulicBoundaryLocationCalculationsForTargetProbability>>(context);
             Assert.AreSame(calculationsForTargetProbability, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
@@ -71,6 +71,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             public TestHydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext(
                 HydraulicBoundaryLocationCalculationsForTargetProbability wrappedData, IAssessmentSection assessmentSection)
                 : base(wrappedData, assessmentSection) {}
+
+            protected override ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> LocationCalculationsListToObserve { get; }
+                = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
         }
     }
 }
