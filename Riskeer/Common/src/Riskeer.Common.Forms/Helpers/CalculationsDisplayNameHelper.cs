@@ -128,20 +128,18 @@ namespace Riskeer.Common.Forms.Helpers
                 IList<KeyValuePair<object, string>> elementsWithSameDisplayNameAsFirstElement = nonUniqueDisplayNameLookup.Where(e => e.Value.Equals(firstElement.Value))
                                                                                                                           .ToList();
 
+                uniqueDisplayNameLookup.Add(firstElement.Key, firstElement.Value);
+                nonUniqueDisplayNameLookup.Remove(firstElement.Key);
+                
                 if (elementsWithSameDisplayNameAsFirstElement.Count > 1)
                 {
-                    for (var i = 0; i < elementsWithSameDisplayNameAsFirstElement.Count; i++)
+                    for (var i = 1; i < elementsWithSameDisplayNameAsFirstElement.Count; i++)
                     {
                         KeyValuePair<object, string> elementWithNonUniqueDisplayName = elementsWithSameDisplayNameAsFirstElement.ElementAt(i);
 
-                        uniqueDisplayNameLookup.Add(elementWithNonUniqueDisplayName.Key, elementWithNonUniqueDisplayName.Value + $" ({i + 1})");
+                        uniqueDisplayNameLookup.Add(elementWithNonUniqueDisplayName.Key, elementWithNonUniqueDisplayName.Value + $" ({i})");
                         nonUniqueDisplayNameLookup.Remove(elementWithNonUniqueDisplayName.Key);
                     }
-                }
-                else
-                {
-                    uniqueDisplayNameLookup.Add(firstElement.Key, firstElement.Value);
-                    nonUniqueDisplayNameLookup.Remove(firstElement.Key);
                 }
             }
 
