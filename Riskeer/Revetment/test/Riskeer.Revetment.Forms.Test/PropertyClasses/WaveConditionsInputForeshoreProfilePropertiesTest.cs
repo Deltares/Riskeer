@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
 
 namespace Riskeer.Revetment.Forms.Test.PropertyClasses
@@ -56,7 +55,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties();
 
             // Call
@@ -71,7 +70,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -104,7 +103,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties
             {
                 Data = input
@@ -127,7 +126,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithOrWithoutForeshoreProfileAndPoints_ReturnExpectedValues(bool withForeshoreProfile, int numberOfProfilePoints, bool expectedCoordinatesPropertyReadOnly)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             if (withForeshoreProfile)
             {

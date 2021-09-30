@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.Revetment.Data.Test
 {
@@ -50,7 +49,7 @@ namespace Riskeer.Revetment.Data.Test
                                                                                      double assessmentLevel)
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
@@ -70,7 +69,7 @@ namespace Riskeer.Revetment.Data.Test
         public void GetWaterLevels_WaveConditionsInputWithWithAllBoundariesAboveUpperBoundaryAssessmentLevel_ReturnsEmptyEnumerable()
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 6,
                 UpperBoundaryRevetment = (RoundedDouble) 6.10,
@@ -90,7 +89,7 @@ namespace Riskeer.Revetment.Data.Test
         public void GetWaterLevels_AssessmentLevelNaN_ReturnsEmptyEnumerable()
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
@@ -117,7 +116,7 @@ namespace Riskeer.Revetment.Data.Test
                                                                          IEnumerable<RoundedDouble> expectedWaterLevels)
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,

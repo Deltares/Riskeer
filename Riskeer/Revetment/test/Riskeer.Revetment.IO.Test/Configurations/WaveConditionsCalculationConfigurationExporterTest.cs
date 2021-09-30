@@ -59,7 +59,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         public void Export_VariousTargetProbabilities_ReturnTrueAndWritesFile()
         {
             // Setup
-            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput())
             {
                 Name = "Calculation 1 (lower limit)",
                 InputParameters =
@@ -68,7 +68,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 }
             };
 
-            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput())
             {
                 Name = "Calculation 2 (signaling)",
                 InputParameters =
@@ -77,7 +77,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 }
             };
 
-            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput())
             {
                 Name = "Calculation 3 (user defined)",
                 InputParameters =
@@ -87,7 +87,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 }
             };
 
-            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput())
+            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput())
             {
                 Name = "Calculation 4 (none)",
                 InputParameters =
@@ -130,7 +130,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
 
         protected override ICalculation<WaveConditionsInput> CreateCalculation()
         {
-            return new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput());
+            return new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput());
         }
 
         protected override WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>> CallConfigurationFilePathConstructor(

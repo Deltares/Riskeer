@@ -28,7 +28,7 @@ namespace Riskeer.Revetment.Forms.TestUtil
     /// Class that defines the style that is used in the <see cref="WaveConditionsInputView"/>
     /// which can be used for test purposes.
     /// </summary>
-    public class TestWaveConditionsInputViewStyle : IWaveConditionsInputViewStyle
+    public class WaveConditionsInputViewStyle : IWaveConditionsInputViewStyle
     {
         public Color RevetmentLineColor
         {

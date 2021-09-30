@@ -66,7 +66,7 @@ namespace Riskeer.Revetment.Service.Test
         public void Validate_HydraulicBoundaryDatabaseNull_ThrowArgumentNullException()
         {
             // Setup 
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             void Call() => WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(), null);
@@ -84,7 +84,7 @@ namespace Riskeer.Revetment.Service.Test
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new TestWaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryDatabase
                                                                                    {
@@ -130,7 +130,7 @@ namespace Riskeer.Revetment.Service.Test
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new TestWaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
                                                                                    GetValidAssessmentLevel(),
                                                                                    hydraulicBoundaryDatabase);
 
@@ -155,7 +155,7 @@ namespace Riskeer.Revetment.Service.Test
             string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new TestWaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryDatabase
                                                                                    {
@@ -188,7 +188,7 @@ namespace Riskeer.Revetment.Service.Test
             var isValid = false;
 
             // Call
-            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new TestWaveConditionsInput(),
+            void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(new WaveConditionsInput(),
                                                                                    GetValidAssessmentLevel(),
                                                                                    new HydraulicBoundaryDatabase());
 
@@ -211,7 +211,7 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             void Call() => isValid = WaveConditionsCalculationServiceBase.Validate(input, GetValidAssessmentLevel(),
@@ -236,7 +236,7 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
@@ -268,7 +268,7 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 Orientation = (RoundedDouble) 0,
@@ -472,7 +472,7 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
@@ -531,7 +531,7 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
@@ -594,7 +594,7 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
@@ -657,7 +657,7 @@ namespace Riskeer.Revetment.Service.Test
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -771,7 +771,7 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -828,7 +828,7 @@ namespace Riskeer.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double targetProbability = 0.2;
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -866,7 +866,7 @@ namespace Riskeer.Revetment.Service.Test
 
         private static WaveConditionsInput GetDefaultValidationInput()
         {
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),

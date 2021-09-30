@@ -74,19 +74,19 @@ namespace Riskeer.Revetment.Service.Test
         public void ClearAllWaveConditionsCalculationOutputWithNormType_WithAllData_ClearsOutputAndReturnsAffectedObjects(NormType normType)
         {
             // Setup
-            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
             }, true);
-            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
             }, true);
-            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.None
             }, true);
-            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
             }, true);
@@ -151,27 +151,27 @@ namespace Riskeer.Revetment.Service.Test
             var calculationsForTargetProbabilityToClear = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             var otherCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
-            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
-            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
-            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.None,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
-            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
-            var calculation5 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation5 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 CalculationsTargetProbability = otherCalculationsForTargetProbability
@@ -236,24 +236,24 @@ namespace Riskeer.Revetment.Service.Test
             var calculationsForTargetProbabilityToClear = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             var otherCalculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01);
 
-            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
             }, true);
-            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
             }, true);
-            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.None
             }, true);
-            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation4 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
-            var calculation5 = new TestWaveConditionsCalculation<WaveConditionsInput>(new TestWaveConditionsInput
+            var calculation5 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
                 WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 CalculationsTargetProbability = otherCalculationsForTargetProbability

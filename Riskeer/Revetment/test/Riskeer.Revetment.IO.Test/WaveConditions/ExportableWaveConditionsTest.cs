@@ -93,7 +93,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         public void Constructor_WaveConditionsInputHydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Call
-            void Call() => new ExportableWaveConditions("aName", new TestWaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, "1/100");
+            void Call() => new ExportableWaveConditions("aName", new WaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns, "1/100");
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
@@ -184,7 +184,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
 
         private static WaveConditionsInput CreateValidWaveConditionsInput()
         {
-            return new TestWaveConditionsInput
+            return new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0)
             };

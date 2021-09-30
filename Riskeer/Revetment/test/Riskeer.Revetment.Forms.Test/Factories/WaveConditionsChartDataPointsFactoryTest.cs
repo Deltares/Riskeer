@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.Factories;
 
 namespace Riskeer.Revetment.Forms.Test.Factories
@@ -48,7 +47,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_ForeshoreProfileNull_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UseForeshore = true
             };
@@ -64,7 +63,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_ForeshoreProfileSetUseForeshoreFalse_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -90,7 +89,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             };
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreGeometry),
                 UseForeshore = true
@@ -134,7 +133,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
@@ -158,7 +157,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -194,7 +193,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 9;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -249,7 +248,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
@@ -273,7 +272,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -309,7 +308,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -345,7 +344,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             const double upperBoundaryRevetment = 8;
             const double lowerBoundaryWaterLevels = -3;
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
@@ -383,7 +382,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryRevetmentGeometryPoints_LowerBoundaryRevetmentNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new TestWaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -393,7 +392,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
@@ -414,7 +413,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -446,7 +445,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -481,7 +480,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryRevetmentGeometryPoints_UpperBoundaryRevetmentNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new TestWaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -491,7 +490,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 9
             };
@@ -512,7 +511,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -544,7 +543,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 8,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -579,7 +578,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryWaterLevelsGeometryPoints_LowerBoundaryWaterLevelsNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(new TestWaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -589,7 +588,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) 3
             };
@@ -610,7 +609,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -642,7 +641,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -677,7 +676,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryWaterLevelsGeometryPoints_UpperBoundaryWaterLevelsNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(new TestWaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -687,7 +686,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) 9
             };
@@ -708,7 +707,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -740,7 +739,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -775,7 +774,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateAssessmentLevelGeometryPoints_AssessmentLevelNaN_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, RoundedDouble.NaN);
@@ -788,7 +787,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateAssessmentLevelGeometryPoints_NoForeshoreProfile_ReturnsAssessmentLevelGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateAssessmentLevelGeometryPoints(input, GetValidAssessmentLevel());
@@ -806,7 +805,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateAssessmentLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsAssessmentLevelGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -838,7 +837,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         {
             // Setup
             RoundedDouble assessmentLevel = GetValidAssessmentLevel();
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
             };
@@ -872,7 +871,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateWaterLevelsGeometryPoints_NoWaterLevels_ReturnsEmptyLinesList()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, RoundedDouble.NaN);
@@ -885,7 +884,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         public void CreateWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 5,
                 UpperBoundaryRevetment = (RoundedDouble) 7,
@@ -923,7 +922,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         {
             // Setup
             RoundedDouble assessmentLevel = GetValidAssessmentLevel();
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),
                 LowerBoundaryRevetment = (RoundedDouble) 5,
@@ -977,13 +976,13 @@ namespace Riskeer.Revetment.Forms.Test.Factories
 
         private static IEnumerable<TestCaseData> GetInputWithoutRevetmentBoundaries(string testNameFormat)
         {
-            yield return new TestCaseData(new TestWaveConditionsInput())
+            yield return new TestCaseData(new WaveConditionsInput())
                 .SetName(string.Format(testNameFormat, "NoRevetmentBoundaries"));
-            yield return new TestCaseData(new TestWaveConditionsInput
+            yield return new TestCaseData(new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 2
             }).SetName(string.Format(testNameFormat, "LowerBoundaryRevetmentSet"));
-            yield return new TestCaseData(new TestWaveConditionsInput
+            yield return new TestCaseData(new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 7
             }).SetName(string.Format(testNameFormat, "UpperBoundaryRevetmentSet"));

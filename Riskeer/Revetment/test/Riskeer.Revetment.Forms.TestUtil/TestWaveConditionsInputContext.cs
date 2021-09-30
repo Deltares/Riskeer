@@ -24,6 +24,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PresentationObjects;
 
@@ -33,40 +34,40 @@ namespace Riskeer.Revetment.Forms.TestUtil
     /// Simple <see cref="WaveConditionsInputContext{T}"/> implementation which can be used
     /// for test purposes.
     /// </summary>
-    public class TestWaveConditionsInputContext : WaveConditionsInputContext<TestWaveConditionsInput>
+    public class WaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
     {
         /// <summary>
-        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
+        /// Creates a new <see cref="WaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
-        public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData)
+        public WaveConditionsInputContext(WaveConditionsInput wrappedData)
             : this(wrappedData,
                    new ForeshoreProfile[0],
                    new AssessmentSectionStub()) {}
 
         /// <summary>
-        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
+        /// Creates a new <see cref="WaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
+        public WaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                               IAssessmentSection assessmentSection)
             : this(wrappedData,
-                   new TestWaveConditionsCalculation<TestWaveConditionsInput>(wrappedData),
+                   new TestWaveConditionsCalculation<WaveConditionsInput>(wrappedData),
                    assessmentSection,
                    foreshoreProfiles) {}
 
         /// <summary>
-        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
+        /// Creates a new <see cref="WaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
-                                              ICalculation<TestWaveConditionsInput> calculation,
+        public WaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                              ICalculation<WaveConditionsInput> calculation,
                                               IAssessmentSection assessmentSection,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)

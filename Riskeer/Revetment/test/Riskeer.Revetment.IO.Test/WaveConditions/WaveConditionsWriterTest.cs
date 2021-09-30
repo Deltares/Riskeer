@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
-using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.IO.WaveConditions;
 
 namespace Riskeer.Revetment.IO.Test.WaveConditions
@@ -142,7 +141,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             // Setup
             ExportableWaveConditions[] exportableWaveConditions =
             {
-                new ExportableWaveConditions("blocksName", new TestWaveConditionsInput
+                new ExportableWaveConditions("blocksName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
                     LowerBoundaryRevetment = (RoundedDouble) 5.68,
@@ -152,7 +151,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247,
                     UseBreakWater = true
                 }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks, "1/100"),
-                new ExportableWaveConditions("columnsName", new TestWaveConditionsInput
+                new ExportableWaveConditions("columnsName", new WaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
                     LowerBoundaryRevetment = (RoundedDouble) 1.384,

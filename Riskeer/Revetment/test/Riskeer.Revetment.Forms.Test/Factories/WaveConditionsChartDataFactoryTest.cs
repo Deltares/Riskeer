@@ -24,7 +24,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Revetment.Data.TestUtil;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Factories;
 
 namespace Riskeer.Revetment.Forms.Test.Factories
@@ -158,7 +158,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UseForeshore = true
             };
@@ -175,7 +175,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile("profile name"),
                 UseForeshore = false
@@ -193,7 +193,7 @@ namespace Riskeer.Revetment.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile("profile name"),
                 UseForeshore = true

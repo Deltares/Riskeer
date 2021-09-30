@@ -30,7 +30,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Revetment.Data.TestUtil;
 
 namespace Riskeer.Revetment.Data.Test
 {
@@ -74,7 +73,7 @@ namespace Riskeer.Revetment.Data.Test
             const NormType normType = (NormType) 99;
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new TestWaveConditionsInput(), normType);
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new WaveConditionsInput(), normType);
 
             // Assert
             var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
@@ -90,7 +89,7 @@ namespace Riskeer.Revetment.Data.Test
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput();
+            var waveConditionsInput = new WaveConditionsInput();
 
             // Call
             WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
@@ -114,7 +113,7 @@ namespace Riskeer.Revetment.Data.Test
         public void GetHydraulicBoundaryLocationCalculation_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(new TestWaveConditionsInput(), null);
+            void Call() => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(new WaveConditionsInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -126,7 +125,7 @@ namespace Riskeer.Revetment.Data.Test
         {
             // Setup
             const WaveConditionsInputWaterLevelType waterLevelType = (WaveConditionsInputWaterLevelType) 99;
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 WaterLevelType = waterLevelType
             };
@@ -155,7 +154,7 @@ namespace Riskeer.Revetment.Data.Test
                 hydraulicBoundaryLocation
             }, true);
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 WaterLevelType = waterLevelType,
@@ -184,7 +183,7 @@ namespace Riskeer.Revetment.Data.Test
         public void GetTargetProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsInputHelper.GetTargetProbability(new TestWaveConditionsInput(), null);
+            void Call() => WaveConditionsInputHelper.GetTargetProbability(new WaveConditionsInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -196,7 +195,7 @@ namespace Riskeer.Revetment.Data.Test
         {
             // Setup
             const WaveConditionsInputWaterLevelType waterLevelType = (WaveConditionsInputWaterLevelType) 99;
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 WaterLevelType = waterLevelType
             };
@@ -219,7 +218,7 @@ namespace Riskeer.Revetment.Data.Test
             // Setup
             var assessmentSection = new AssessmentSectionStub();
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 WaterLevelType = waterLevelType,
                 CalculationsTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
@@ -247,7 +246,7 @@ namespace Riskeer.Revetment.Data.Test
         public void GetAssessmentLevel_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsInputHelper.GetAssessmentLevel(new TestWaveConditionsInput(), null);
+            void Call() => WaveConditionsInputHelper.GetAssessmentLevel(new WaveConditionsInput(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -259,7 +258,7 @@ namespace Riskeer.Revetment.Data.Test
         {
             // Setup
             const WaveConditionsInputWaterLevelType waterLevelType = (WaveConditionsInputWaterLevelType) 99;
-            var waveConditionsInput = new TestWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 WaterLevelType = waterLevelType
             };
@@ -288,7 +287,7 @@ namespace Riskeer.Revetment.Data.Test
                 new TestHydraulicBoundaryLocation()
             }, true);
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 WaterLevelType = waterLevelType,
                 CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
@@ -316,7 +315,7 @@ namespace Riskeer.Revetment.Data.Test
                 hydraulicBoundaryLocation
             }, true);
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 WaterLevelType = waterLevelType,

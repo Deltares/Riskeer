@@ -28,6 +28,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PresentationObjects;
 
@@ -40,14 +41,14 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput();
+            var waveConditionsInput = new WaveConditionsInput();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new TestWaveConditionsInputContext(waveConditionsInput,
+            TestDelegate call = () => new WaveConditionsInputContext(waveConditionsInput,
                                                                          null,
                                                                          assessmentSection);
 
@@ -61,11 +62,11 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(waveConditionsInput);
+            var waveConditionsInput = new WaveConditionsInput();
+            var calculation = new TestWaveConditionsCalculation<WaveConditionsInput>(waveConditionsInput);
 
             // Call
-            TestDelegate call = () => new TestWaveConditionsInputContext(waveConditionsInput,
+            TestDelegate call = () => new WaveConditionsInputContext(waveConditionsInput,
                                                                          calculation,
                                                                          null);
 
@@ -78,27 +79,27 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         public void Constructor_ValidInput_ExpectedValues()
         {
             // Setup
-            var waveConditionsInput = new TestWaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(waveConditionsInput);
+            var waveConditionsInput = new WaveConditionsInput();
+            var calculation = new TestWaveConditionsCalculation<WaveConditionsInput>(waveConditionsInput);
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var context = new TestWaveConditionsInputContext(waveConditionsInput,
+            var context = new WaveConditionsInputContext(waveConditionsInput,
                                                              calculation,
                                                              assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<TestWaveConditionsInput>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
         }
 
-        private class TestWaveConditionsInputContext : WaveConditionsInputContext<TestWaveConditionsInput>
+        private class WaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
         {
-            public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
-                                                  ICalculation<TestWaveConditionsInput> calculation,
+            public WaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                                  ICalculation<WaveConditionsInput> calculation,
                                                   IAssessmentSection assessmentSection)
                 : base(wrappedData, calculation, assessmentSection) {}
 

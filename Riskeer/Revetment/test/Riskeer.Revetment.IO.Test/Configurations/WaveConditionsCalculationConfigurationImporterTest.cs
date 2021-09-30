@@ -576,9 +576,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             }
         }
 
-        private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<TestWaveConditionsInput>
+        private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<WaveConditionsInput>
         {
-            public TestTargetTestWaveConditionsCalculation() : base(new TestWaveConditionsInput()) {}
+            public TestTargetTestWaveConditionsCalculation() : base(new WaveConditionsInput()) {}
         }
 
         private class TestWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>

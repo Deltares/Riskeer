@@ -43,7 +43,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(input);
@@ -80,7 +80,7 @@ namespace Riskeer.Revetment.Data.Test
             [Values(true, false)] bool withValidForeshore)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
@@ -141,7 +141,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Foreshore_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
@@ -190,7 +190,7 @@ namespace Riskeer.Revetment.Data.Test
         public void IsForeshoreProfileInputSynchronized_ForeshoreProfileNotSet_ReturnFalse()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
@@ -203,7 +203,7 @@ namespace Riskeer.Revetment.Data.Test
         public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputInSync_ReturnTrue()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -227,7 +227,7 @@ namespace Riskeer.Revetment.Data.Test
             ForeshoreProfile modifiedProfile)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -245,7 +245,7 @@ namespace Riskeer.Revetment.Data.Test
         public void SynchronizeForeshoreProfileInput_ForeshoreProfileNotSet_ExpectedValues()
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UseBreakWater = true,
                 UseForeshore = true,
@@ -279,7 +279,7 @@ namespace Riskeer.Revetment.Data.Test
                                                             Orientation = 123.0
                                                         });
 
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -305,7 +305,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Orientation_ValidValue_NewValueSet(double orientation)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             input.Orientation = (RoundedDouble) orientation;
@@ -326,7 +326,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Orientation_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             void Call() => input.Orientation = (RoundedDouble) invalidValue;
@@ -340,7 +340,7 @@ namespace Riskeer.Revetment.Data.Test
         public void LowerBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryRevetment.NumberOfDecimalPlaces;
 
@@ -363,7 +363,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
@@ -384,7 +384,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
@@ -403,7 +403,7 @@ namespace Riskeer.Revetment.Data.Test
         public void LowerBoundaryRevetment_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             input.LowerBoundaryRevetment = (RoundedDouble) newValue;
@@ -416,7 +416,7 @@ namespace Riskeer.Revetment.Data.Test
         public void UpperBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.UpperBoundaryRevetment.NumberOfDecimalPlaces;
 
@@ -439,7 +439,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
@@ -460,7 +460,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
@@ -479,7 +479,7 @@ namespace Riskeer.Revetment.Data.Test
         public void UpperBoundaryRevetment_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             input.UpperBoundaryRevetment = (RoundedDouble) newValue;
@@ -492,7 +492,7 @@ namespace Riskeer.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces;
 
@@ -515,7 +515,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -536,7 +536,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -555,7 +555,7 @@ namespace Riskeer.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             input.LowerBoundaryWaterLevels = (RoundedDouble) newValue;
@@ -568,7 +568,7 @@ namespace Riskeer.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces;
 
@@ -591,7 +591,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels
             };
@@ -612,7 +612,7 @@ namespace Riskeer.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new TestWaveConditionsInput
+            var input = new WaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryWaterLevels
             };
@@ -631,7 +631,7 @@ namespace Riskeer.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new TestWaveConditionsInput();
+            var input = new WaveConditionsInput();
 
             // Call
             input.UpperBoundaryWaterLevels = (RoundedDouble) newValue;
@@ -644,7 +644,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new TestWaveConditionsInput();
+            var original = new WaveConditionsInput();
 
             WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
 
@@ -659,7 +659,7 @@ namespace Riskeer.Revetment.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new TestWaveConditionsInput();
+            var original = new WaveConditionsInput();
 
             WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
 
@@ -676,7 +676,7 @@ namespace Riskeer.Revetment.Data.Test
         private static void AssertForeshoreProfileInputProperties(ForeshoreProfile expectedForeshoreProfile,
                                                                   WaveConditionsInput input)
         {
-            var defaultInput = new TestWaveConditionsInput();
+            var defaultInput = new WaveConditionsInput();
             if (expectedForeshoreProfile == null)
             {
                 Assert.AreEqual(defaultInput.UseBreakWater, input.UseBreakWater);
