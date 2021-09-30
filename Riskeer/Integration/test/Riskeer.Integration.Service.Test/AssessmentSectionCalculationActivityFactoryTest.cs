@@ -217,7 +217,6 @@ namespace Riskeer.Integration.Service.Test
                 });
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);

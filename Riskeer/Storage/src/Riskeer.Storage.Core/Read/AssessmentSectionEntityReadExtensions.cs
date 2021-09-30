@@ -130,7 +130,6 @@ namespace Riskeer.Storage.Core.Read
                                                                                    .ToArray();
                 hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
-                assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
 
                 entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
             }

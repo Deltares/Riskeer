@@ -267,14 +267,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Test");
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
 
             var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(failureMechanism, assessmentSection);
 

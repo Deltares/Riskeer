@@ -112,7 +112,7 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.ClosingStructures, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocation);
             MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.MacroStabilityInwards, hydraulicBoundaryLocation);
-            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, random);
+            SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.HeightStructures, hydraulicBoundaryLocation);
             PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(assessmentSection.Piping, hydraulicBoundaryLocation);
             SetFullyConfiguredFailureMechanism(assessmentSection.StabilityPointStructures, hydraulicBoundaryLocation);
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.TestUtil
         public static GrassCoverErosionOutwardsFailureMechanism GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation(), new Random(21));
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -799,21 +799,8 @@ namespace Riskeer.Integration.TestUtil
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                               Random random)
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-
             var profile1 = new ForeshoreProfile(new Point2D(0, 0),
                                                 new[]
                                                 {
