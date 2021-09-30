@@ -74,11 +74,6 @@ namespace Riskeer.Common.Data.AssessmentSection
         BackgroundData BackgroundData { get; }
 
         /// <summary>
-        /// Gets the water level calculations corresponding to the factorized signaling norm.
-        /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm { get; }
-
-        /// <summary>
         /// Gets the water level calculations corresponding to the signaling norm.
         /// </summary>
         IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm { get; }
@@ -89,34 +84,9 @@ namespace Riskeer.Common.Data.AssessmentSection
         IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the water level calculations corresponding to the factorized lower limit norm.
-        /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm { get; }
-
-        /// <summary>
         /// Gets the water level calculations corresponding to the user defined target probabilities.
         /// </summary>
         ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the factorized signaling norm.
-        /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the signaling norm.
-        /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm { get; }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the lower limit norm.
-        /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm { get; }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the factorized lower limit norm.
-        /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm { get; }
 
         /// <summary>
         /// Gets the wave height calculations corresponding to the user defined target probabilities.

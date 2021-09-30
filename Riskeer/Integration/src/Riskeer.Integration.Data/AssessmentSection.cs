@@ -52,14 +52,8 @@ namespace Riskeer.Integration.Data
         private const double defaultNorm = 1.0 / 30000;
         private const RiskeerWellKnownTileSource defaultWellKnownTileSource = RiskeerWellKnownTileSource.BingAerial;
 
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
         private PipingFailureMechanism piping;
         private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards;
@@ -487,14 +481,6 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForFactorizedSignalingNorm;
-            }
-        }
-
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
         {
             get
@@ -510,49 +496,9 @@ namespace Riskeer.Integration.Data
                 return waterLevelCalculationsForLowerLimitNorm;
             }
         }
-
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedLowerLimitNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForFactorizedLowerLimitNorm;
-            }
-        }
-
+        
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
-
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedSignalingNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForFactorizedSignalingNorm;
-            }
-        }
-
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForSignalingNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForSignalingNorm;
-            }
-        }
-
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForLowerLimitNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForLowerLimitNorm;
-            }
-        }
-
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForFactorizedLowerLimitNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForFactorizedLowerLimitNorm;
-            }
-        }
-
+        
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
         public string Id { get; set; }
@@ -718,20 +664,13 @@ namespace Riskeer.Integration.Data
 
         private void ClearHydraulicBoundaryLocationCalculations()
         {
-            waterLevelCalculationsForFactorizedSignalingNorm.Clear();
             waterLevelCalculationsForSignalingNorm.Clear();
             waterLevelCalculationsForLowerLimitNorm.Clear();
-            waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {
                 element.HydraulicBoundaryLocationCalculations.Clear();
             }
-
-            waveHeightCalculationsForFactorizedSignalingNorm.Clear();
-            waveHeightCalculationsForSignalingNorm.Clear();
-            waveHeightCalculationsForLowerLimitNorm.Clear();
-            waveHeightCalculationsForFactorizedLowerLimitNorm.Clear();
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
             {
@@ -741,20 +680,13 @@ namespace Riskeer.Integration.Data
 
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            waterLevelCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waterLevelCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             waterLevelCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waterLevelCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {
                 element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             }
-
-            waveHeightCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightCalculationsForSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightCalculationsForLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightCalculationsForFactorizedLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaveHeightCalculationsForUserDefinedTargetProbabilities)
             {
