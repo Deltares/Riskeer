@@ -84,12 +84,6 @@ namespace Riskeer.DuneErosion.Data.TestUtil
 
             var random = new Random(39);
 
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, random);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, random);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, random);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm, random);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm, random);
-            
             SetDuneLocationCalculationOutput(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
                                                              .SelectMany(dlc => dlc.DuneLocationCalculations), random);
         }
