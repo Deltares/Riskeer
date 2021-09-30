@@ -36,11 +36,6 @@ namespace Riskeer.DuneErosion.Data
     public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
     {
         private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
-        private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<DuneLocationCalculation>();
-        private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificSignalingNorm = new ObservableList<DuneLocationCalculation>();
-        private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
-        private readonly ObservableList<DuneLocationCalculation> calculationsForLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
-        private readonly ObservableList<DuneLocationCalculation> calculationsForFactorizedLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
         /// <summary>
@@ -75,61 +70,6 @@ namespace Riskeer.DuneErosion.Data
         /// </summary>
         public ObservableList<DuneLocationCalculationsForTargetProbability> DuneLocationCalculationsForUserDefinedTargetProbabilities { get; }
 
-        /// <summary>
-        /// Gets the calculations corresponding to the mechanism specific factorized signaling norm.
-        /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificFactorizedSignalingNorm
-        {
-            get
-            {
-                return calculationsForMechanismSpecificFactorizedSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculations corresponding to the mechanism specific signaling norm.
-        /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificSignalingNorm
-        {
-            get
-            {
-                return calculationsForMechanismSpecificSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculations corresponding to the mechanism specific lower limit norm.
-        /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificLowerLimitNorm
-        {
-            get
-            {
-                return calculationsForMechanismSpecificLowerLimitNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculations corresponding to the lower limit norm.
-        /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForLowerLimitNorm
-        {
-            get
-            {
-                return calculationsForLowerLimitNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the calculations corresponding to the factorized lower limit norm.
-        /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForFactorizedLowerLimitNorm
-        {
-            get
-            {
-                return calculationsForFactorizedLowerLimitNorm;
-            }
-        }
-
         public override IEnumerable<ICalculation> Calculations
         {
             get
@@ -160,21 +100,6 @@ namespace Riskeer.DuneErosion.Data
 
             duneLocationCollection.Clear();
             duneLocationCollection.AddRange(duneLocations);
-
-            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            calculationsForMechanismSpecificFactorizedSignalingNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
-
-            calculationsForMechanismSpecificSignalingNorm.Clear();
-            calculationsForMechanismSpecificSignalingNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
-
-            calculationsForMechanismSpecificLowerLimitNorm.Clear();
-            calculationsForMechanismSpecificLowerLimitNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
-
-            calculationsForLowerLimitNorm.Clear();
-            calculationsForLowerLimitNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
-
-            calculationsForFactorizedLowerLimitNorm.Clear();
-            calculationsForFactorizedLowerLimitNorm.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
 
             DuneLocationCalculationsForUserDefinedTargetProbabilities.ForEach(dlc =>
             {

@@ -47,12 +47,6 @@ namespace Riskeer.DuneErosion.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
             Assert.IsNotNull(failureMechanism.GeneralInput);
-
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
         }
 
         [Test]
