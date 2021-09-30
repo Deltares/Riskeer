@@ -69,10 +69,11 @@ namespace Riskeer.Common.Forms.Factories
         /// </summary>
         /// <param name="feature">The feature to add the meta data to.</param>
         /// <param name="targetProbabilities">The collection of target probabilities to add.</param>
-        /// <param name="displayName">The display name of the meta data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="feature"/> or
-        /// <paramref name="targetProbabilities"/> is <c>null</c>.</exception>
-        public static void AddTargetProbabilityMetaData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayName)
+        /// <param name="displayNameFormat">The display name format of the meta data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="FormatException">Thrown when <paramref name="displayNameFormat"/> is invalid;
+        /// or the index of a format item is not zero.</exception>
+        public static void AddTargetProbabilityMetaData(MapFeature feature, IEnumerable<Tuple<double, RoundedDouble>> targetProbabilities, string displayNameFormat)
         {
             if (feature == null)
             {
@@ -84,12 +85,17 @@ namespace Riskeer.Common.Forms.Factories
                 throw new ArgumentNullException(nameof(targetProbabilities));
             }
 
+            if (displayNameFormat == null)
+            {
+                throw new ArgumentNullException(nameof(displayNameFormat));
+            }
+
             var addedMetaDataItems = new List<string>();
 
             foreach (Tuple<double, RoundedDouble> calculationOutputForTargetProbability in targetProbabilities)
             {
                 string uniqueName = NamingHelper.GetUniqueName(
-                    addedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(calculationOutputForTargetProbability.Item1)),
+                    addedMetaDataItems, string.Format(displayNameFormat, ProbabilityFormattingHelper.Format(calculationOutputForTargetProbability.Item1)),
                     v => v);
 
                 feature.MetaData[uniqueName] = calculationOutputForTargetProbability.Item2.ToString();
