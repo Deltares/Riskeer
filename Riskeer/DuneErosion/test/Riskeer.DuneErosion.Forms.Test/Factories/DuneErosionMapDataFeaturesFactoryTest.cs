@@ -48,7 +48,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDuneLocationFeatures_NoLocation_ReturnsEmptyFeaturesCollection()
+        public void CreateDuneLocationFeatures_NoLocations_ReturnsEmptyFeaturesCollection()
         {
             // Call
             IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(Enumerable.Empty<AggregatedDuneLocation>());

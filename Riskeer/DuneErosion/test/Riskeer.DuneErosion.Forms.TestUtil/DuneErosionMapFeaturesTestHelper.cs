@@ -93,10 +93,11 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
 
         private static void AssertMetaData(IEnumerable<DuneLocationCalculation> calculations, DuneLocation hydraulicBoundaryLocation,
                                            Func<IEnumerable<DuneLocationCalculation>, DuneLocation, string> getExpectedResultFunc,
-                                           MapFeature mapFeature, double targetProbability, string displayName, List<string> presentedMetaDataItems)
+                                           MapFeature mapFeature, double targetProbability, string displayNameFormat,
+                                           List<string> presentedMetaDataItems)
         {
             string uniqueName = NamingHelper.GetUniqueName(
-                presentedMetaDataItems, string.Format(displayName, ProbabilityFormattingHelper.Format(targetProbability)),
+                presentedMetaDataItems, string.Format(displayNameFormat, ProbabilityFormattingHelper.Format(targetProbability)),
                 v => v);
 
             MapFeaturesMetaDataTestHelper.AssertMetaData(

@@ -33,6 +33,23 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
     public class AggregatedDuneLocationTest
     {
         [Test]
+        public void Constructor_NameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AggregatedDuneLocation(0, null, new Point2D(0, 0), 0,
+                                                      RoundedDouble.NaN, RoundedDouble.NaN,
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>(),
+                                                      Array.Empty<Tuple<double, RoundedDouble>>());
+
+            ;
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("name", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_WaterLevelCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
         {
             // Call
