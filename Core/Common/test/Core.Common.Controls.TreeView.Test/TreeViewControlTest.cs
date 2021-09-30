@@ -512,7 +512,7 @@ namespace Core.Common.Controls.TreeView.Test
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var confirmationMessage = "Are you sure?";
+                const string confirmationMessage = "Are you sure?";
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
@@ -574,13 +574,9 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.Show(treeViewControl);
 
-                    string messageBoxText = null;
                     DialogBoxHandler = (name, wnd) =>
                     {
                         var helper = new MessageBoxTester(wnd);
-
-                        messageBoxText = helper.Text;
-
                         helper.ClickOk();
                     };
 
@@ -590,8 +586,6 @@ namespace Core.Common.Controls.TreeView.Test
                     // Assert
                     Assert.AreEqual(1, onNodeRemovedHit);
                     Assert.AreEqual(1, onDataDeletedHit);
-
-                    Assert.AreEqual("Weet u zeker dat u het geselecteerde element wilt verwijderen?", messageBoxText);
                 }
                 finally
                 {
@@ -631,13 +625,9 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.Show(treeViewControl);
 
-                    string messageBoxText = null;
                     DialogBoxHandler = (name, wnd) =>
                     {
                         var helper = new MessageBoxTester(wnd);
-
-                        messageBoxText = helper.Text;
-
                         helper.ClickCancel();
                     };
 
@@ -646,8 +636,6 @@ namespace Core.Common.Controls.TreeView.Test
 
                     // Assert
                     Assert.AreEqual(0, onNodeRemovedHit);
-
-                    Assert.AreEqual("Weet u zeker dat u de subonderdelen van het geselecteerde element wilt verwijderen?", messageBoxText);
                 }
                 finally
                 {
@@ -690,6 +678,55 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     WindowsFormsTestHelper.Show(treeViewControl);
 
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        var helper = new MessageBoxTester(wnd);
+                        helper.ClickOk();
+                    };
+
+                    // Call
+                    treeViewControl.TryRemoveChildNodesOfData(dataObject);
+
+                    // Assert
+                    Assert.AreEqual(1, onNodeRemovedHit);
+                    Assert.AreEqual(1, onDataDeletedHit);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeNodeInfoWithoutOnRemoveChildNodesConfirmationText_WhenRemoving_ThenDefaultConfirmationMessageShown()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new object[]
+                    {
+                        string.Empty
+                    }
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    CanRemove = (o, p) => true
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
                     string messageBoxText = null;
                     DialogBoxHandler = (name, wnd) =>
                     {
@@ -700,14 +737,65 @@ namespace Core.Common.Controls.TreeView.Test
                         helper.ClickOk();
                     };
 
-                    // Call
+                    // When
                     treeViewControl.TryRemoveChildNodesOfData(dataObject);
 
-                    // Assert
-                    Assert.AreEqual(1, onNodeRemovedHit);
-                    Assert.AreEqual(1, onDataDeletedHit);
-
+                    // Then
                     Assert.AreEqual("Weet u zeker dat u de subonderdelen van het geselecteerde element wilt verwijderen?", messageBoxText);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenTreeNodeInfoWithOnRemoveChildNodesConfirmationText_WhenRemoving_ThenConfirmationMessageShown()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                const string confirmationMessage = "Are you sure?";
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new object[]
+                    {
+                        string.Empty
+                    },
+                    OnRemoveChildNodesConfirmationText = o => confirmationMessage
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    CanRemove = (o, p) => true
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    string messageBoxText = null;
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        var helper = new MessageBoxTester(wnd);
+
+                        messageBoxText = helper.Text;
+
+                        helper.ClickOk();
+                    };
+
+                    // When
+                    treeViewControl.TryRemoveChildNodesOfData(dataObject);
+
+                    // Then
+                    Assert.AreEqual(confirmationMessage, messageBoxText);
                 }
                 finally
                 {

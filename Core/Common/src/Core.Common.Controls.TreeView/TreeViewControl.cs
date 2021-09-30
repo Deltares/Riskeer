@@ -421,7 +421,12 @@ namespace Core.Common.Controls.TreeView
 
         private void TryRemoveChildNodes(TreeNode treeNode)
         {
-            string message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item;
+            TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            
+            string message = treeNodeInfo.OnRemoveChildNodesConfirmationText != null
+                                 ? treeNodeInfo.OnRemoveChildNodesConfirmationText(treeNode.Tag)
+                                 : Resources.TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item;
+            
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
