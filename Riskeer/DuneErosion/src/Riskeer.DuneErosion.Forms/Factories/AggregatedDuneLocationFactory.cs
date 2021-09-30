@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Views;
@@ -43,7 +42,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<AggregatedDuneLocation> CreateAggregatedDuneLocations(
             IEnumerable<DuneLocation> duneLocations,
-            IReadOnlyDictionary<IObservableEnumerable<DuneLocationCalculation>, double> calculationsForTargetProbabilities)
+            IEnumerable<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
         {
             if (duneLocations == null)
             {
@@ -59,7 +58,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                                 {
                                     Tuple<double, DuneLocationCalculation>[] calculationsForLocation =
                                         calculationsForTargetProbabilities.Select(c => new Tuple<double, DuneLocationCalculation>(
-                                                                                      c.Value, c.Key.ToDictionary(
+                                                                                      c.TargetProbability, c.DuneLocationCalculations.ToDictionary(
                                                                                           x => x.DuneLocation,
                                                                                           x => x)[location]))
                                                                           .ToArray();

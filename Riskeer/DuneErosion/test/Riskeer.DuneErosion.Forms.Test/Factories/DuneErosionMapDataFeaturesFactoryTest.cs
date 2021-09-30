@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
@@ -85,9 +84,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
 
             IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(
                 failureMechanism.DuneLocations,
-                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.ToDictionary(
-                    tp => (IObservableEnumerable<DuneLocationCalculation>) tp.DuneLocationCalculations,
-                    tp => tp.TargetProbability));
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);
 
             // Call
             IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(aggregatedLocations);

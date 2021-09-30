@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -40,7 +39,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
         public void CreateAggregatedDuneLocations_DuneLocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(null, new Dictionary<IObservableEnumerable<DuneLocationCalculation>, double>());
+            void Call() => AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(null, Enumerable.Empty<DuneLocationCalculationsForTargetProbability>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,10 +68,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                 new DuneLocation(2, "location2", new Point2D(2, 2), new DuneLocation.ConstructionProperties())
             };
 
-            var calculations = new Dictionary<IObservableEnumerable<DuneLocationCalculation>, double>
+            var targetProbabilities = new[]
             {
+                new DuneLocationCalculationsForTargetProbability(0.1)
                 {
-                    new ObservableList<DuneLocationCalculation>
+                    DuneLocationCalculations =
                     {
                         new DuneLocationCalculation(duneLocations[0])
                         {
@@ -82,24 +82,23 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                         {
                             Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
                         }
-                    },
-                    0.1
+                    }
                 },
+                new DuneLocationCalculationsForTargetProbability(0.001)
                 {
-                    new ObservableList<DuneLocationCalculation>
+                    DuneLocationCalculations =
                     {
                         new DuneLocationCalculation(duneLocations[0])
                         {
                             Output = new TestDuneLocationCalculationOutput(random.NextDouble(), random.NextDouble(), random.NextDouble())
                         },
                         new DuneLocationCalculation(duneLocations[1])
-                    },
-                    0.001
+                    }
                 }
             };
 
             // Call
-            IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(duneLocations, calculations);
+            IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(duneLocations, targetProbabilities);
 
             // Assert
             Assert.AreEqual(duneLocations.Length, aggregatedLocations.Count());
@@ -116,13 +115,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
                 Assert.AreEqual(duneLocation.Offset, aggregatedLocation.Offset);
                 Assert.AreEqual(duneLocation.D50, aggregatedLocation.D50);
 
-                for (var j = 0; j < calculations.Count; j++)
+                for (var j = 0; j < targetProbabilities.Length; j++)
                 {
-                    Assert.AreEqual(calculations.ElementAt(j).Value, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item1);
-                    Assert.AreEqual(calculations.ElementAt(j).Value, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item1);
-                    Assert.AreEqual(calculations.ElementAt(j).Value, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item1);
+                    Assert.AreEqual(targetProbabilities[j].TargetProbability, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item1);
 
-                    DuneLocationCalculationOutput output = GetOutput(calculations.ElementAt(j).Key, duneLocations[i]);
+                    DuneLocationCalculationOutput output = GetOutput(targetProbabilities[j].DuneLocationCalculations, duneLocations[i]);
                     Assert.AreEqual(output?.WaterLevel ?? RoundedDouble.NaN, aggregatedLocation.WaterLevelCalculationsForTargetProbabilities.ElementAt(j).Item2);
                     Assert.AreEqual(output?.WaveHeight ?? RoundedDouble.NaN, aggregatedLocation.WaveHeightCalculationsForTargetProbabilities.ElementAt(j).Item2);
                     Assert.AreEqual(output?.WavePeriod ?? RoundedDouble.NaN, aggregatedLocation.WavePeriodCalculationsForTargetProbabilities.ElementAt(j).Item2);
