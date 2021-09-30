@@ -82,6 +82,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
                 Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNotNull(info.OnRemoveChildNodesConfirmationText);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CheckedState);
                 Assert.IsNull(info.OnNodeChecked);
@@ -121,6 +122,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
+            }
+        }
+
+        [Test]
+        public void OnRemoveConfirmationText_Always_ReturnsConfirmationMessage()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                string infoOnRemoveChildNodesConfirmationText = info.OnRemoveChildNodesConfirmationText(null);
+
+                // Assert
+                string expectedText = "Als u deze doelkansen verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd."
+                                      + Environment.NewLine
+                                      + Environment.NewLine
+                                      + "Weet u zeker dat u wilt doorgaan?";
+                Assert.AreEqual(expectedText, infoOnRemoveChildNodesConfirmationText);
             }
         }
 

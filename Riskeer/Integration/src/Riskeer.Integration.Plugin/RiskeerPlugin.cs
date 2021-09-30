@@ -1031,7 +1031,8 @@ namespace Riskeer.Integration.Plugin
                 ChildNodeObjects = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes,
                 CanInsert = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
                 CanDrop = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
-                OnDrop = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop
+                OnDrop = WaterLevelCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop,
+                OnRemoveChildNodesConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbabilities
             };
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext>
@@ -1039,7 +1040,7 @@ namespace Riskeer.Integration.Plugin
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
-                OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_HydraulicBoundaryDatabaseUpdateHandler_Confirm_remove_TargetProbability,
+                OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbability,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = WaterLevelHydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
                 ContextMenuStrip = WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip,
@@ -1054,7 +1055,8 @@ namespace Riskeer.Integration.Plugin
                 ChildNodeObjects = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContextChildNodes,
                 CanInsert = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
                 CanDrop = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert,
-                OnDrop = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop
+                OnDrop = WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_OnDrop,
+                OnRemoveChildNodesConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbabilities
             };
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext>
@@ -1062,7 +1064,7 @@ namespace Riskeer.Integration.Plugin
                 Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
-                OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_HydraulicBoundaryDatabaseUpdateHandler_Confirm_remove_TargetProbability,
+                OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbability,
                 CanRemove = (context, o) => true,
                 OnNodeRemoved = HydraulicBoundaryCalculationsForUserDefinedTargetProbabilityOnNodeRemoved,
                 ContextMenuStrip = WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip,

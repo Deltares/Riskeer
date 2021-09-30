@@ -303,8 +303,13 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="Zip_file_filter_Description" xml:space="preserve">
         <value>zip archief</value>
     </data>
-    <data name="RiskeerPlugin_GetTreeNodeInfos_HydraulicBoundaryDatabaseUpdateHandler_Confirm_remove_TargetProbability" xml:space="preserve">
+    <data name="RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbability" xml:space="preserve">
         <value>Als u deze doelkans verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd.
+
+Weet u zeker dat u wilt doorgaan?</value>
+    </data>
+    <data name="RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbabilities" xml:space="preserve">
+        <value>Als u deze doelkansen verwijdert, dan wordt de uitvoer van alle ervan afhankelijke berekeningen verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
