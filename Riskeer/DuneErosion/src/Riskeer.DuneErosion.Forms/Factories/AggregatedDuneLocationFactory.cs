@@ -27,7 +27,7 @@ using Core.Common.Base.Data;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Views;
 
-namespace Riskeer.DuneErosion.Forms
+namespace Riskeer.DuneErosion.Forms.Factories
 {
     /// <summary>
     /// Factory for creating <see cref="AggregatedDuneLocation"/> instances.

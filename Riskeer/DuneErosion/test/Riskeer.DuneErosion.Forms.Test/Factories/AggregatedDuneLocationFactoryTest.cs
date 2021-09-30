@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
+using Riskeer.DuneErosion.Forms.Factories;
 using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Forms.Test.Factories
