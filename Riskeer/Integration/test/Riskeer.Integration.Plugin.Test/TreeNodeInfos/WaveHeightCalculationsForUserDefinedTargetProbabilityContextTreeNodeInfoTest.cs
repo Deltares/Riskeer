@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [TestCase(0.025, 0.0025, "1/400")]
-        [TestCase(0.0025, 0.0025, "1/400 (2)")]
+        [TestCase(0.0025, 0.0025, "1/400 (1)")]
         public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double userDefinedTargetProbability1,
                                                                                double userDefinedTargetProbability2,
                                                                                string expectedText)
