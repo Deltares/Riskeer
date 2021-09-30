@@ -121,7 +121,7 @@
     <value>*</value>
   </data>
   <data name="DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine" xml:space="preserve">
-    <value>Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2023_Waarde</value>
+    <value>Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_BOI2023_Waarde</value>
   </data>
   <data name="DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine" xml:space="preserve">
     <value>*Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Pfdsn</value>

@@ -100,7 +100,7 @@ namespace Riskeer.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2023_Waarde.
+        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_BOI2023_Waarde.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine {
             get {

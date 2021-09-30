@@ -169,7 +169,7 @@ namespace Riskeer.DuneErosion.IO.Test
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2023_Waarde{Environment.NewLine}" +
+                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_BOI2023_Waarde{Environment.NewLine}" +
                                       $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tPfdsn{Environment.NewLine}" +
                                       $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[1/jaar]{Environment.NewLine}" +
                                       $"9\t9740\t*\t*\t*\t*\t0.000196\t0.5{Environment.NewLine}" +
