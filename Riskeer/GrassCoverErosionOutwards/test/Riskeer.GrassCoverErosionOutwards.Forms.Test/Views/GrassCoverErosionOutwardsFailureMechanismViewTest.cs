@@ -34,12 +34,10 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
@@ -206,10 +204,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 ReferenceLine = referenceLine
             };
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
-            {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
-            });
 
             // Call
             GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);

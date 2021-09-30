@@ -854,13 +854,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -870,6 +867,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
@@ -913,13 +911,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -927,8 +922,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism.WaveConditionsCalculationGroup,
                                                                                               failureMechanism,
@@ -968,25 +963,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
+
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism.WaveConditionsCalculationGroup,
@@ -1027,25 +1020,23 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
+
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
+            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                               failureMechanism.WaveConditionsCalculationGroup,
@@ -1086,13 +1077,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -1113,6 +1101,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
@@ -1159,13 +1148,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             var group = new CalculationGroup();
@@ -1176,6 +1162,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
@@ -1792,13 +1779,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         NormativeNorm = normType
                     }
                 };
-
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                    failureMechanism, assessmentSection, new[]
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    });
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
+                });
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1867,13 +1852,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
-
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                    failureMechanism, assessmentSection, new[]
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    });
+                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                {
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
+                });
 
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   null,

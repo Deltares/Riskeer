@@ -35,7 +35,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -113,7 +112,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
@@ -129,7 +128,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(
                 activity,
                 calculation,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result,
                 hydraulicBoundaryDatabase);
         }
 
@@ -191,10 +190,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             hydraulicBoundaryDatabase.FilePath = validFilePath;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             }, true);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            RoundedDouble assessmentLevel = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }

@@ -35,7 +35,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data;
@@ -59,25 +58,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
+
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             assessmentSection.HydraulicBoundaryDatabase.FilePath = invalidFilePath;
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    hydraulicBoundaryLocation
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -109,13 +101,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -128,6 +113,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -158,17 +144,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -214,19 +194,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
             calculation.InputParameters.BreakWater.Type = breakWaterType;
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -301,17 +274,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -367,17 +334,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -417,17 +378,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -465,13 +420,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -493,6 +441,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                              .Times(nrOfCalculators);
             mockRepository.ReplayAll();
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -517,17 +466,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -566,17 +509,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -611,13 +548,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -626,6 +556,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -660,13 +591,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -675,6 +599,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -724,19 +649,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
             mockRepository.ReplayAll();
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new TestHydraulicBoundaryLocation()
-                });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
             calculation.Attach(observer);
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                                         failureMechanism,
                                                                                                                                         assessmentSection);
@@ -792,6 +710,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                     FilePath = validFilePath
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             return assessmentSection;

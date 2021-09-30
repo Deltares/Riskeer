@@ -43,7 +43,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
@@ -300,6 +299,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Test");
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
@@ -307,19 +307,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     FilePath = validFilePath
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 Contribution = 5
             };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Test");
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism, assessmentSection, new[]
-                {
-                    hydraulicBoundaryLocation
-                });
 
             assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output =
                 new TestHydraulicBoundaryLocationCalculationOutput(2.0);
