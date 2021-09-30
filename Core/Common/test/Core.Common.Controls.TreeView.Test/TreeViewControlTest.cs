@@ -517,7 +517,7 @@ namespace Core.Common.Controls.TreeView.Test
                 {
                     TagType = typeof(object),
                     CanRemove = (o, p) => true,
-                    BeforeNodeRemoveText = o => confirmationMessage
+                    OnRemoveConfirmationText = o => confirmationMessage
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 var dataObject = new object();

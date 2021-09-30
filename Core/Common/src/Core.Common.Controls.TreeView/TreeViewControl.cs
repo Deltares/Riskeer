@@ -407,8 +407,8 @@ namespace Core.Common.Controls.TreeView
 
             TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
 
-            string message = treeNodeInfo.BeforeNodeRemoveText != null
-                                 ? treeNodeInfo.BeforeNodeRemoveText(treeNode.Tag)
+            string message = treeNodeInfo.OnRemoveConfirmationText != null
+                                 ? treeNodeInfo.OnRemoveConfirmationText(treeNode.Tag)
                                  : Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item;
 
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
