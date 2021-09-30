@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -27,7 +26,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
@@ -53,13 +51,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
         }
 
         [Test]
@@ -137,101 +128,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(2, calculations.Count);
             Assert.IsTrue(calculations.All(c => c is GrassCoverErosionOutwardsWaveConditionsCalculation));
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void SetHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => failureMechanism.SetHydraulicBoundaryLocationCalculations(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocations", paramName);
-        }
-
-        [Test]
-        public void SetHydraulicBoundaryLocationCalculations_Always_PreviousCalculationsCleared()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
-
-            // Call
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
-        }
-
-        [Test]
-        public void SetHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
-            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-            TestHydraulicBoundaryLocation[] hydraulicBoundaryLocations =
-            {
-                hydraulicBoundaryLocation1,
-                hydraulicBoundaryLocation2
-            };
-
-            // Call
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
-            // Assert
-            AssertNumberOfHydraulicBoundaryLocationCalculations(failureMechanism, 2);
-            AssertDefaultHydraulicBoundaryLocationCalculations(failureMechanism, 0, hydraulicBoundaryLocation1);
-            AssertDefaultHydraulicBoundaryLocationCalculations(failureMechanism, 1, hydraulicBoundaryLocation2);
-        }
-
-        private static void AssertNumberOfHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism, int expectedNumberOfCalculations)
-        {
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Count());
-        }
-
-        private static void AssertDefaultHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism, int index, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            AssertDefaultHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
-        }
-
-        private static void AssertDefaultHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                                              HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            Assert.AreSame(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
-            Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
-            Assert.IsFalse(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
         }
     }
 }

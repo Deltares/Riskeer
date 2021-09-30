@@ -19,14 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.GrassCoverErosionOutwards.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -40,13 +38,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                                                              IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
         private readonly ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults;
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMechanismSpecificLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForMechanismSpecificLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
+       
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
         /// </summary>
@@ -76,73 +68,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
-
-        /// <summary>
-        /// Gets the water level calculations corresponding to the mechanism specific factorized signaling norm.
-        /// </summary>
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the water level calculations corresponding to the mechanism specific signaling norm.
-        /// </summary>
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificSignalingNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForMechanismSpecificSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the water level calculations corresponding to the mechanism specific lower limit norm.
-        /// </summary>
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForMechanismSpecificLowerLimitNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the mechanism specific factorized signaling norm.
-        /// </summary>
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the mechanism specific signaling norm.
-        /// </summary>
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificSignalingNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForMechanismSpecificSignalingNorm;
-            }
-        }
-
-        /// <summary>
-        /// Gets the wave height calculations corresponding to the mechanism specific lower limit norm.
-        /// </summary>
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
-        {
-            get
-            {
-                return waveHeightCalculationsForMechanismSpecificLowerLimitNorm;
-            }
-        }
-
+        
         public override IEnumerable<ICalculation> Calculations
         {
             get
@@ -158,27 +84,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                 return sectionResults;
             }
         }
-
-        /// <summary>
-        /// Sets hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to add calculations for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            if (hydraulicBoundaryLocations == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
-            }
-
-            ClearHydraulicBoundaryLocationCalculations();
-
-            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
-            {
-                AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocation);
-            }
-        }
-
+        
         protected override void AddSectionResult(FailureMechanismSection section)
         {
             base.AddSectionResult(section);
@@ -188,26 +94,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         protected override void ClearSectionResults()
         {
             sectionResults.Clear();
-        }
-
-        private void ClearHydraulicBoundaryLocationCalculations()
-        {
-            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            waterLevelCalculationsForMechanismSpecificSignalingNorm.Clear();
-            waterLevelCalculationsForMechanismSpecificLowerLimitNorm.Clear();
-            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            waveHeightCalculationsForMechanismSpecificSignalingNorm.Clear();
-            waveHeightCalculationsForMechanismSpecificLowerLimitNorm.Clear();
-        }
-
-        private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waterLevelCalculationsForMechanismSpecificSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waterLevelCalculationsForMechanismSpecificLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightCalculationsForMechanismSpecificSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
-            waveHeightCalculationsForMechanismSpecificLowerLimitNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
         }
     }
 }
