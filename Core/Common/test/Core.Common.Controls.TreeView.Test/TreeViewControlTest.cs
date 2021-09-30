@@ -464,7 +464,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenTreeNodeInfoWithoutBeforeNodeRemoveText_WhenRemoving_ThenDefaultConfirmationMessageShown()
+        public void GivenTreeNodeInfoWithoutOnRemoveConfirmationText_WhenRemoving_ThenDefaultConfirmationMessageShown()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -507,7 +507,7 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenTreeNodeInfoWithBeforeNodeRemoveText_WhenRemoving_ThenConfirmationMessageShown()
+        public void GivenTreeNodeInfoWithOnRemoveConfirmationText_WhenRemoving_ThenConfirmationMessageShown()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
