@@ -156,8 +156,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
-                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                             new[]
@@ -213,7 +212,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -269,7 +267,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -325,7 +322,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -381,7 +377,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -438,7 +433,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(

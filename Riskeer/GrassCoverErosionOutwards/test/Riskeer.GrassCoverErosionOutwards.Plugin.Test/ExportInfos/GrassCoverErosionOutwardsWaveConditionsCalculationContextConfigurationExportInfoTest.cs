@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -34,7 +33,6 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
-using Riskeer.Revetment.Data;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
@@ -93,14 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
             mocks.ReplayAll();
 
-            var random = new Random(21);
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
-                }
-            };
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         new CalculationGroup(),
                                                                                         new GrassCoverErosionOutwardsFailureMechanism(),

@@ -235,7 +235,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =

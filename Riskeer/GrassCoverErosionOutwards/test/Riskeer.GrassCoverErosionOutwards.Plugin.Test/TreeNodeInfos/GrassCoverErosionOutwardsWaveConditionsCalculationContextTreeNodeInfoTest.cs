@@ -999,16 +999,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            var random = new Random(21);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = validCalculation
                                                                                  ? GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First())
                                                                                  : new GrassCoverErosionOutwardsWaveConditionsCalculation
                                                                                  {
-                                                                                     Name = "A",
-                                                                                     InputParameters =
-                                                                                     {
-                                                                                         WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
-                                                                                     }
+                                                                                     Name = "A"
                                                                                  };
 
             var parent = new CalculationGroup();

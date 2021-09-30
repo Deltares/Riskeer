@@ -93,14 +93,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithStylingApplied()
         {
             // Setup
-            var random = new Random(21);
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
-                }
-            };
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
                 new GrassCoverErosionOutwardsWaveConditionsInput(),
                 calculation,

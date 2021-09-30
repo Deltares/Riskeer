@@ -1095,7 +1095,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
             ConfigureAssessmentSectionWithHydraulicBoundaryOutput(assessmentSection);
 
-            var random = new Random(21);
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "A",
@@ -1107,8 +1106,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0,
-                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
+                    Orientation = (RoundedDouble) 0
                 }
             };
 
