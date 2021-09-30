@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         }
 
         private static void SetInputParameters(WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity,
-                                               AssessmentSectionCategoryWaveConditionsInput calculationInput,
+                                               WaveConditionsInput calculationInput,
                                                PersistenceRegistry registry)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = calculationInput.HydraulicBoundaryLocation;

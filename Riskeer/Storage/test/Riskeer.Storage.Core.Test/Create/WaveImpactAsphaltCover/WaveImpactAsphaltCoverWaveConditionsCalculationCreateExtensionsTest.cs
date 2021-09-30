@@ -92,7 +92,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, order);
 
             // Assert
-            AssessmentSectionCategoryWaveConditionsInput input = calculation.InputParameters;
+            WaveConditionsInput input = calculation.InputParameters;
             Assert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);

@@ -30,7 +30,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculation : CloneableObservable, ICalculation<AssessmentSectionCategoryWaveConditionsInput>
+    public class WaveImpactAsphaltCoverWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
@@ -38,7 +38,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverWaveConditionsCalculation()
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
-            InputParameters = new AssessmentSectionCategoryWaveConditionsInput();
+            InputParameters = new WaveConditionsInput();
             Comments = new Comment();
         }
 
@@ -47,7 +47,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public WaveImpactAsphaltCoverWaveConditionsOutput Output { get; set; }
 
-        public AssessmentSectionCategoryWaveConditionsInput InputParameters { get; private set; }
+        public WaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -79,7 +79,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             var clone = (WaveImpactAsphaltCoverWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (AssessmentSectionCategoryWaveConditionsInput) InputParameters.Clone();
+            clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();
 
             if (Output != null)
             {

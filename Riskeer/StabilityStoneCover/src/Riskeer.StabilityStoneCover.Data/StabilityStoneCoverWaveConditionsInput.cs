@@ -26,7 +26,7 @@ namespace Riskeer.StabilityStoneCover.Data
     /// <summary>
     /// Wave conditions input for stability stone cover.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsInput : AssessmentSectionCategoryWaveConditionsInput
+    public class StabilityStoneCoverWaveConditionsInput : WaveConditionsInput
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsInput"/>.

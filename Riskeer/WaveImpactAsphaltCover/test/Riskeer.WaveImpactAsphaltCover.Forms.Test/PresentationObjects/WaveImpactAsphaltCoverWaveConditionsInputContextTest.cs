@@ -53,7 +53,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
                                                                                foreshoreProfiles);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<WaveConditionsInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

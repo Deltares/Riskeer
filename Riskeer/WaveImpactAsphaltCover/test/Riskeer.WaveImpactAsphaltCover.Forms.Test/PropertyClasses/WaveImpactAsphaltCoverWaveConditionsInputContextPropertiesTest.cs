@@ -60,7 +60,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext,
-                AssessmentSectionCategoryWaveConditionsInput, string>>(properties);
+                WaveConditionsInput, string>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Asfalt", properties.RevetmentType);
             mockRepository.VerifyAll();

@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -164,8 +163,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Exporters
                             UpperBoundaryRevetment = (RoundedDouble) 11.54898963,
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
-                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm
+                            UpperBoundaryWaterLevels = (RoundedDouble) 84.26548
                         },
                         Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                         {

@@ -1038,16 +1038,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var random = new Random(21);
             StabilityStoneCoverWaveConditionsCalculation calculation = validCalculation
                                                                            ? GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First())
                                                                            : new StabilityStoneCoverWaveConditionsCalculation
                                                                            {
-                                                                               Name = "A",
-                                                                               InputParameters =
-                                                                               {
-                                                                                   CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
-                                                                               }
+                                                                               Name = "A"
                                                                            };
 
             var parent = new CalculationGroup();

@@ -119,7 +119,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
 
             yield return new ViewInfo<WaveImpactAsphaltCoverWaveConditionsInputContext,
-                ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
+                ICalculation<WaveConditionsInput>,
                 WaveConditionsInputView>
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,

@@ -118,7 +118,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverWaveConditionsInputContext),
-                    typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>),
+                    typeof(ICalculation<WaveConditionsInput>),
                     typeof(WaveConditionsInputView));
             }
         }

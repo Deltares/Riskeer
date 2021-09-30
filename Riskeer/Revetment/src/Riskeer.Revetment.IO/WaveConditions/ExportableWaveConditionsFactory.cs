@@ -78,41 +78,5 @@ namespace Riskeer.Revetment.IO.WaveConditions
             return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
                                                                                       coverType, getTargetProbabilityFunc(waveConditionsInput))).ToArray();
         }
-
-        /// <summary>
-        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
-        /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
-        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
-        /// <param name="coverType">The <see cref="CoverType"/> that the <paramref name="output"/> represents.</param>
-        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
-        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="AssessmentSectionCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
-        public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(string name,
-                                                                                                     AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
-                                                                                                     IEnumerable<WaveConditionsOutput> output,
-                                                                                                     CoverType coverType,
-                                                                                                     Func<WaveConditionsInput, string> getTargetProbabilityFunc)
-        {
-            if (waveConditionsInput == null)
-            {
-                throw new ArgumentNullException(nameof(waveConditionsInput));
-            }
-
-            if (coverType == null)
-            {
-                throw new ArgumentNullException(nameof(coverType));
-            }
-
-            if (getTargetProbabilityFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
-            }
-
-            return CreateExportableWaveConditionsCollection(name, (WaveConditionsInput) waveConditionsInput, output, coverType, getTargetProbabilityFunc);
-        }
     }
 }

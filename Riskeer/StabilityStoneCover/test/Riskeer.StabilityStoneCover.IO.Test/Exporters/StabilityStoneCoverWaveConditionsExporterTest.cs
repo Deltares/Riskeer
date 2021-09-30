@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -165,7 +164,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Both
                         },
                         Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
@@ -218,7 +216,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns
                         },
                         Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
@@ -270,7 +267,6 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = AssessmentSectionCategoryType.SignalingNorm,
                             CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Blocks
                         },
                         Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]

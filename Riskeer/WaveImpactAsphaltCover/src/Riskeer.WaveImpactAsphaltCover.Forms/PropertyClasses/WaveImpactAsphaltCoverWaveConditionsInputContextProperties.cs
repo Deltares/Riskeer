@@ -34,7 +34,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext,
-            AssessmentSectionCategoryWaveConditionsInput, string>
+            WaveConditionsInput, string>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContextProperties"/>.

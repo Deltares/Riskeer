@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
             return calculation;
         }
 
-        private static void ReadInputParameters(AssessmentSectionCategoryWaveConditionsInput inputParameters,
+        private static void ReadInputParameters(WaveConditionsInput inputParameters,
                                                 WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity,
                                                 ReadConversionCollector collector)
         {

@@ -978,16 +978,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var random = new Random(21);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = validCalculation
                                                                               ? GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First())
                                                                               : new WaveImpactAsphaltCoverWaveConditionsCalculation
                                                                               {
-                                                                                  Name = "A",
-                                                                                  InputParameters =
-                                                                                  {
-                                                                                      CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
-                                                                                  }
+                                                                                  Name = "A"
                                                                               };
 
             var parent = new CalculationGroup();

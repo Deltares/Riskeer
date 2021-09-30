@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -92,14 +91,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
             mocks.ReplayAll();
 
-            var random = new Random(21);
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
-                }
-            };
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      new WaveImpactAsphaltCoverFailureMechanism(),

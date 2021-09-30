@@ -112,7 +112,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
-            AssessmentSectionCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            WaveConditionsInput calculationInput = calculation.InputParameters;
             Assert.AreEqual(useBreakWater, calculationInput.UseBreakWater);
             Assert.AreEqual(breakWaterType, calculationInput.BreakWater.Type);
             RoundedDoubleTestHelper.AssertRoundedDouble(breakWaterHeight, calculationInput.BreakWater.Height);
@@ -145,7 +145,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             Assert.IsNull(calculation.Name);
             Assert.IsNull(calculation.Comments.Body);
 
-            AssessmentSectionCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            WaveConditionsInput calculationInput = calculation.InputParameters;
             Assert.IsNaN(calculationInput.BreakWater.Height);
             Assert.IsNaN(calculationInput.Orientation);
             Assert.IsNaN(calculationInput.UpperBoundaryRevetment);

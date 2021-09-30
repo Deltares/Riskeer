@@ -76,7 +76,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(WaveImpactAsphaltCoverWaveConditionsInputContext), info.DataType);
-            Assert.AreEqual(typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>), info.ViewDataType);
+            Assert.AreEqual(typeof(ICalculation<WaveConditionsInput>), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
@@ -94,16 +94,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void CreateInstance_WaveImpactAsphaltCoverWaveConditionsInputContext_ReturnViewWithStylingApplied()
         {
             // Setup
-            var random = new Random(21);
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
-                }
-            };
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                new AssessmentSectionCategoryWaveConditionsInput(),
+                new WaveConditionsInput(),
                 calculation,
                 new AssessmentSectionStub(),
                 Array.Empty<ForeshoreProfile>());

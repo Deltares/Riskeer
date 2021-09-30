@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
@@ -43,10 +42,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         };
 
         [Test]
-        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_NameNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_NameNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new AssessmentSectionCategoryWaveConditionsInput(),
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(null, new WaveConditionsInput(),
                                                                                                     waveConditionsOutputCollection, CoverType.Asphalt, i => "1/100");
 
             // Assert
@@ -55,7 +54,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_WaveConditionsInputNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_WaveConditionsInputNull_ThrowArgumentNullException()
         {
             // Call
             void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", null,
@@ -67,10 +66,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_OutputNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_OutputNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(),
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(),
                                                                                                     null, CoverType.Asphalt, i => "1/100");
 
             // Assert
@@ -79,10 +78,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_CoverTypeNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_CoverTypeNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(),
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(),
                                                                                                     waveConditionsOutputCollection, null, i => "1/100");
 
             // Assert
@@ -91,10 +90,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_GetTargetProbabilityFuncNull_ThrowArgumentNullException()
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_GetTargetProbabilityFuncNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new AssessmentSectionCategoryWaveConditionsInput(),
+            void Call() => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(),
                                                                                                     waveConditionsOutputCollection, CoverType.Asphalt, null);
 
             // Assert
@@ -104,15 +103,14 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
 
         [Test]
         [TestCaseSource(nameof(GetCoverTypes))]
-        public void CreateExportableWaveConditionsCollectionWithAssessmentSectionCategoryWaveConditionsInput_ValidDataWithCoverType_ReturnsValidCollection_ValidDataWithCoverType_ReturnsValidCollection(CoverType coverType)
+        public void CreateExportableWaveConditionsCollectionWithWaveConditionsInput_ValidDataWithCoverType_ReturnsValidCollection_ValidDataWithCoverType_ReturnsValidCollection(CoverType coverType)
         {
             // Setup
-            var waveConditionsInput = new AssessmentSectionCategoryWaveConditionsInput
+            var waveConditionsInput = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new TestForeshoreProfile(),
-                UseForeshore = true,
-                CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
+                UseForeshore = true
             };
 
             // Call

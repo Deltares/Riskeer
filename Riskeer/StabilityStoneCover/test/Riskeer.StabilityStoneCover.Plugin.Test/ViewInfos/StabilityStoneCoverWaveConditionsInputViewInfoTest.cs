@@ -94,14 +94,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CreateInstance_StabilityStoneCoverWaveConditionsInputContext_ReturnViewWithStylingApplied()
         {
             // Setup
-            var random = new Random(21);
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
-                }
-            };
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsInputContext(
                 new StabilityStoneCoverWaveConditionsInput(),
                 calculation,

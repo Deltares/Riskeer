@@ -33,7 +33,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for wave conditions input of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsInputContext : WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>
+    public class WaveImpactAsphaltCoverWaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/>.
@@ -43,8 +43,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsInputContext(AssessmentSectionCategoryWaveConditionsInput wrappedData,
-                                                                ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation,
+        public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                                                ICalculation<WaveConditionsInput> calculation,
                                                                 IAssessmentSection assessmentSection,
                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)

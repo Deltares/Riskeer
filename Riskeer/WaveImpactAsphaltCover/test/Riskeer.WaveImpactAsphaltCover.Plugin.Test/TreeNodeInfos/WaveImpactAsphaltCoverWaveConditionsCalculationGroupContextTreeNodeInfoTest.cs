@@ -1069,7 +1069,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var random = new Random(21);
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
@@ -1081,8 +1080,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0,
-                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                    Orientation = (RoundedDouble) 0
                 }
             };
 
@@ -1584,13 +1582,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
-                AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+                WaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInput.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
                 var secondCalculation = group.Children[3] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
-                AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+                WaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
             }

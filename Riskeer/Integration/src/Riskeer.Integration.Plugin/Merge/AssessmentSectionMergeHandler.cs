@@ -269,7 +269,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeWaveImpactAsphaltCover)
             {
                 targetAssessmentSection.WaveImpactAsphaltCover = sourceAssessmentSection.WaveImpactAsphaltCover;
-                UpdateCalculationHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, WaveConditionsInput>(
                     targetAssessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.WaveImpactAsphaltCover);
             }

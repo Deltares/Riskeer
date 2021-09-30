@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.TestUtil;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -49,19 +48,6 @@ namespace Riskeer.Revetment.Data.TestUtil
                                             random.NextDouble(),
                                             random.NextDouble(),
                                             random.NextEnumValue<CalculationConvergence>());
-        }
-
-        /// <summary>
-        /// This method sets random data values to all properties of <paramref name="input"/>.
-        /// </summary>
-        /// <param name="input">The input to set the random data values to.</param>
-        public static void SetRandomDataToWaveConditionsInput(AssessmentSectionCategoryWaveConditionsInput input)
-        {
-            var random = new Random(21);
-
-            input.CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>();
-
-            SetRandomDataToWaveConditionsInput((WaveConditionsInput) input);
         }
 
         /// <summary>

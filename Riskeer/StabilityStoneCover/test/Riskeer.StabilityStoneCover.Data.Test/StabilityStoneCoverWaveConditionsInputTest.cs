@@ -37,7 +37,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             var input = new StabilityStoneCoverWaveConditionsInput();
 
             // Assert
-            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInput>(input);
+            Assert.IsInstanceOf<WaveConditionsInput>(input);
             Assert.AreEqual(StabilityStoneCoverWaveConditionsCalculationType.Both, input.CalculationType);
         }
 

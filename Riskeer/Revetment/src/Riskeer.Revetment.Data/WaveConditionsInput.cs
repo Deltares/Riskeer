@@ -35,7 +35,7 @@ namespace Riskeer.Revetment.Data
     /// <summary>
     /// Abstract class that holds all generic wave conditions calculation input parameters.
     /// </summary>
-    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation,
+    public class WaveConditionsInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation,
                                                 IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
@@ -54,7 +54,7 @@ namespace Riskeer.Revetment.Data
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
-        protected WaveConditionsInput()
+        public WaveConditionsInput()
         {
             orientation = new RoundedDouble(orientationNumberOfDecimals, double.NaN);
 
