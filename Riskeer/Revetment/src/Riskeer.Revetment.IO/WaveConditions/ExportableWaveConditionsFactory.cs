@@ -35,24 +35,34 @@ namespace Riskeer.Revetment.IO.WaveConditions
         /// Creates a collection of <see cref="ExportableWaveConditions"/>.
         /// </summary>
         /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
-        /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> used in the calculations.</param>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
         /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
         /// <param name="coverType">The <see cref="CoverType"/> that the <paramref name="output"/> represents.</param>
         /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
         /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="FailureMechanismCategoryWaveConditionsInput.HydraulicBoundaryLocation"/> 
+        /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
         public static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
             string name,
-            FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
+            WaveConditionsInput waveConditionsInput,
             IEnumerable<WaveConditionsOutput> output,
             CoverType coverType,
             Func<WaveConditionsInput, string> getTargetProbabilityFunc)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            if (output == null)
+            {
+                throw new ArgumentNullException(nameof(output));
             }
 
             if (coverType == null)
@@ -65,7 +75,8 @@ namespace Riskeer.Revetment.IO.WaveConditions
                 throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
             }
 
-            return CreateExportableWaveConditionsCollection(name, (WaveConditionsInput) waveConditionsInput, output, coverType, getTargetProbabilityFunc);
+            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
+                                                                                      coverType, getTargetProbabilityFunc(waveConditionsInput))).ToArray();
         }
 
         /// <summary>
@@ -102,39 +113,6 @@ namespace Riskeer.Revetment.IO.WaveConditions
             }
 
             return CreateExportableWaveConditionsCollection(name, (WaveConditionsInput) waveConditionsInput, output, coverType, getTargetProbabilityFunc);
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="ExportableWaveConditions"/>.
-        /// </summary>
-        /// <param name="name">The name of the calculation to which the <see cref="WaveConditionsOutput"/> belong.</param>
-        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> used in the calculations.</param>
-        /// <param name="output">The <see cref="WaveConditionsOutput"/> resulting from the calculations.</param>
-        /// <param name="coverType">The type of cover.</param>
-        /// <param name="getTargetProbabilityFunc"><see cref="Func{TResult}"/> for getting the target probability to use.</param>
-        /// <returns>A collection of <see cref="ExportableWaveConditions"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
-        /// is <c>null</c> in <paramref name="waveConditionsInput"/>.</exception>
-        private static IEnumerable<ExportableWaveConditions> CreateExportableWaveConditionsCollection(
-            string name,
-            WaveConditionsInput waveConditionsInput,
-            IEnumerable<WaveConditionsOutput> output,
-            CoverType coverType,
-            Func<WaveConditionsInput, string> getTargetProbabilityFunc)
-        {
-            if (name == null)
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-
-            if (output == null)
-            {
-                throw new ArgumentNullException(nameof(output));
-            }
-
-            return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput,
-                                                                                      coverType, getTargetProbabilityFunc(waveConditionsInput))).ToArray();
         }
     }
 }

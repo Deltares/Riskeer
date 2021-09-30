@@ -75,7 +75,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveConditionsInputContext), info.DataType);
-            Assert.AreEqual(typeof(ICalculation<FailureMechanismCategoryWaveConditionsInput>), info.ViewDataType);
+            Assert.AreEqual(typeof(ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             {
                 InputParameters =
                 {
-                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
+                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
                 }
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(

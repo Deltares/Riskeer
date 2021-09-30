@@ -39,7 +39,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var input = new GrassCoverErosionOutwardsWaveConditionsInput();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInput>(input);
+            Assert.IsInstanceOf<WaveConditionsInput>(input);
             Assert.AreEqual(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, input.CalculationType);
         }
 

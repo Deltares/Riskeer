@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
 
             yield return new ViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
-                ICalculation<FailureMechanismCategoryWaveConditionsInput>,
+                ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>,
                 WaveConditionsInputView>
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,

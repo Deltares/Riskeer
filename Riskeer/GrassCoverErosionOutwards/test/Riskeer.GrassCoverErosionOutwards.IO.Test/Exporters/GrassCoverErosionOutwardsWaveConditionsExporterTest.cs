@@ -24,7 +24,6 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -158,7 +157,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = FailureMechanismCategoryType.LowerLimitNorm
+                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                             new[]
@@ -214,7 +213,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -270,7 +269,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -326,7 +325,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -382,7 +381,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
@@ -439,7 +438,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Exporters
                             StepSize = WaveConditionsInputStepSize.Half,
                             LowerBoundaryWaterLevels = (RoundedDouble) 1.98699,
                             UpperBoundaryWaterLevels = (RoundedDouble) 84.26548,
-                            CategoryType = FailureMechanismCategoryType.LowerLimitNorm,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
                             CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All
                         },
                         Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(

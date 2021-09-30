@@ -75,21 +75,6 @@ namespace Riskeer.Revetment.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(FailureMechanismCategoryWaveConditionsInput original, FailureMechanismCategoryWaveConditionsInput clone)
-        {
-            Assert.AreEqual(original.CategoryType, clone.CategoryType);
-
-            AreClones((WaveConditionsInput) original, clone);
-        }
-
-        /// <summary>
-        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
-        /// are clones.
-        /// </summary>
-        /// <param name="original">The original object.</param>
-        /// <param name="clone">The cloned object.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
-        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(WaveConditionsInput original, WaveConditionsInput clone)
         {
             CoreCloneAssert.AreObjectClones(original.BreakWater, clone.BreakWater, CommonCloneAssert.AreClones);

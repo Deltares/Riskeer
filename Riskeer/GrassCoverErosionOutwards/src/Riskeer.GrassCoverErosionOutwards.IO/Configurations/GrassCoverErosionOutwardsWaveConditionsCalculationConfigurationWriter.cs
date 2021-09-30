@@ -20,14 +20,14 @@
 // All rights reserved.
 
 using System.Xml;
+using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.IO.Configurations;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
-    /// Writer for calculations that contain <see cref="FailureMechanismCategoryWaveConditionsInput"/> as input,
+    /// Writer for calculations that contain <see cref="GrassCoverErosionOutwardsWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter
@@ -43,7 +43,6 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         protected override void WriteWaveConditionsSpecificParameters(
             XmlWriter writer, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)
         {
-
             if (configuration.CalculationType.HasValue)
             {
                 writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CalculationType,

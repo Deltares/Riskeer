@@ -42,7 +42,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms;
@@ -1109,7 +1108,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
                     Orientation = (RoundedDouble) 0,
-                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
+                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
                 }
             };
 
@@ -1847,13 +1846,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
-                FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+                GrassCoverErosionOutwardsWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInput.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
                 var secondCalculation = group.Children[3] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
-                FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+                GrassCoverErosionOutwardsWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
                 Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
             }

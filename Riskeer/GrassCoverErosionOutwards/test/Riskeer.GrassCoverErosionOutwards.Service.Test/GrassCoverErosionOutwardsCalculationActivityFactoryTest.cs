@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
@@ -236,7 +235,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =

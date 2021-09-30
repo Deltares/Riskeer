@@ -34,7 +34,6 @@ using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Hydraulics;
-using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {
@@ -148,7 +147,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             Assert.IsNull(calculation.Name);
             Assert.IsNull(calculation.Comments.Body);
 
-            FailureMechanismCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsInput calculationInput = calculation.InputParameters;
             Assert.IsNaN(calculationInput.BreakWater.Height);
             Assert.IsNaN(calculationInput.Orientation);
             Assert.IsNaN(calculationInput.UpperBoundaryRevetment);

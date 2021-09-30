@@ -103,13 +103,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
             Assert.AreEqual(2, calculationBases.Count);
             var firstCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.First();
             Assert.AreEqual(name, firstCalculation.Name);
-            FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
             var secondCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", secondCalculation.Name);
-            FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
         }
@@ -143,13 +143,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
             Assert.AreEqual(3, calculationBases.Count);
             var firstCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", firstCalculation.Name);
-            FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
             Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, firstCalculationInput.WaterLevelType);
 
             var secondCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual($"{name} (2)", secondCalculation.Name);
-            FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            GrassCoverErosionOutwardsWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
             Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, secondCalculationInput.WaterLevelType);
         }

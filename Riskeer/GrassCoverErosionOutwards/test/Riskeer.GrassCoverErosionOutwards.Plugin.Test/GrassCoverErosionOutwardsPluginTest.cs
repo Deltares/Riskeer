@@ -34,7 +34,6 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
-using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
@@ -84,7 +83,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContext),
-                    typeof(ICalculation<FailureMechanismCategoryWaveConditionsInput>),
+                    typeof(ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>),
                     typeof(WaveConditionsInputView));
             }
         }

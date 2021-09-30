@@ -31,10 +31,10 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations;
+using Riskeer.Revetment.Data;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             {
                 InputParameters =
                 {
-                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
+                    WaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>()
                 }
             };
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,

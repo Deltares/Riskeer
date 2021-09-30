@@ -26,7 +26,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Wave conditions input for grass cover erosion outwards.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsInput : FailureMechanismCategoryWaveConditionsInput
+    public class GrassCoverErosionOutwardsWaveConditionsInput : WaveConditionsInput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GeneralGrassCoverErosionOutwardsInput"/>.
