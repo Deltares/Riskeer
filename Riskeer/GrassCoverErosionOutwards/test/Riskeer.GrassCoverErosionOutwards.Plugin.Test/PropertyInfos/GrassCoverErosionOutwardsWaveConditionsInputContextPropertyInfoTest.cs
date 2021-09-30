@@ -26,6 +26,7 @@ using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -68,7 +69,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                                   calculation,
                                                                                   assessmentSection,
-                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                  Enumerable.Empty<ForeshoreProfile>());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {

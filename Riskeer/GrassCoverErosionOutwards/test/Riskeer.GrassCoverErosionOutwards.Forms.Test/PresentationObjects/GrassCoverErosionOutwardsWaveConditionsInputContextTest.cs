@@ -38,26 +38,28 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
+            var foreshoreProfiles = new[]
+            {
+                new TestForeshoreProfile()
+            };
 
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                                   calculation,
                                                                                   assessmentSection,
-                                                                                  failureMechanism);
+                                                                                  foreshoreProfiles);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext<GrassCoverErosionOutwardsWaveConditionsInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
+            Assert.AreSame(foreshoreProfiles, context.ForeshoreProfiles);
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_ForeshoreProfilesNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
@@ -74,7 +76,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("foreshoreProfiles", exception.ParamName);
             mocks.VerifyAll();
         }
     }

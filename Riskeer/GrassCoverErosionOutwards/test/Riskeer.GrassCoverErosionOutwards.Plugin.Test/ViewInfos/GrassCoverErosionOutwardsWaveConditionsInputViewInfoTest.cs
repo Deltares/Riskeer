@@ -30,6 +30,7 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
@@ -98,7 +99,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsWaveConditionsInput(),
                 calculation,
                 new AssessmentSectionStub(),
-                new GrassCoverErosionOutwardsFailureMechanism());
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call 
             var view = (WaveConditionsInputView) info.CreateInstance(context);
@@ -136,7 +137,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 calculation.InputParameters,
                 calculation,
                 assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);

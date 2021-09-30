@@ -623,7 +623,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                         calculation,
                                                                         context.AssessmentSection,
-                                                                        context.FailureMechanism)
+                                                                        context.FailureMechanism.ForeshoreProfiles)
             };
 
             if (calculation.HasOutput)

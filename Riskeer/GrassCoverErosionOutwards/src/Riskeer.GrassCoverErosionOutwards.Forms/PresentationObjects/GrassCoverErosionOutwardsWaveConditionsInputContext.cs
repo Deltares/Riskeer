@@ -40,34 +40,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
-        /// the context belongs to.</param>
+        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsInputContext(GrassCoverErosionOutwardsWaveConditionsInput wrappedData,
                                                                    ICalculation<GrassCoverErosionOutwardsWaveConditionsInput> calculation,
                                                                    IAssessmentSection assessmentSection,
-                                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+                                                                   IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)
         {
-            if (failureMechanism == null)
+            if (foreshoreProfiles == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
 
-            FailureMechanism = failureMechanism;
+            ForeshoreProfiles = foreshoreProfiles;
         }
 
-        public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
-        {
-            get
-            {
-                return FailureMechanism.ForeshoreProfiles;
-            }
-        }
-
-        /// <summary>
-        /// Gets the failure mechanism.
-        /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
+        public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
     }
 }

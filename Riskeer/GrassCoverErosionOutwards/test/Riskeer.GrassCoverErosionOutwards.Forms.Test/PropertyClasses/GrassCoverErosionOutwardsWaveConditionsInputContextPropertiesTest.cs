@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -28,6 +29,7 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
@@ -55,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 calculation.InputParameters,
                 calculation,
                 assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
@@ -85,7 +87,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 calculation.InputParameters,
                 calculation,
                 assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
+                Enumerable.Empty<ForeshoreProfile>());
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
@@ -126,7 +128,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 calculation.InputParameters,
                 calculation,
                 assessmentSection,
-                new GrassCoverErosionOutwardsFailureMechanism());
+                Enumerable.Empty<ForeshoreProfile>());
 
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(
                 context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
