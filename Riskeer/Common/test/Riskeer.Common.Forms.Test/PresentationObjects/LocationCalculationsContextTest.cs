@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
@@ -110,6 +111,32 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var observable = new TestObservable();
+            var locationCalculationsListToObserve = new ObservableList<TestObservable>
+            {
+                observable
+            };
+
+            var context = new TestLocationCalculationsContext(new object(), locationCalculationsListToObserve);
+
+            context.Attach(observer);
+
+            // When
+            observable.NotifyObservers();
+
+            // Then
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenContextWithObserverAttachedThatThrowsInvalidOperationException_WhenNotifyingLocationCalculationsElementInListToObserve_ThenNoExceptionThrown()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Do((Action) (() => throw new InvalidOperationException()));
             mockRepository.ReplayAll();
 
             var observable = new TestObservable();
