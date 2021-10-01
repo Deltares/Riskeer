@@ -422,11 +422,11 @@ namespace Core.Common.Controls.TreeView
         private void TryRemoveChildNodes(TreeNode treeNode)
         {
             TreeNodeInfo treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
-            
+
             string message = treeNodeInfo.OnRemoveChildNodesConfirmationText != null
                                  ? treeNodeInfo.OnRemoveChildNodesConfirmationText(treeNode.Tag)
                                  : Resources.TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item;
-            
+
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
@@ -731,11 +731,14 @@ namespace Core.Common.Controls.TreeView
             newlyAddedTreeNodes.Add(newTreeNode);
         }
 
-        private static void RemovePossiblyOutdatedChildNodesAtEnd(TreeNode parentNode, int expectedChildNodeLength)
+        private void RemovePossiblyOutdatedChildNodesAtEnd(TreeNode parentNode, int expectedChildNodeLength)
         {
             for (int i = parentNode.Nodes.Count - 1; i >= expectedChildNodeLength; i--)
             {
-                parentNode.Nodes.RemoveAt(i);
+                TreeNode nodeToRemove = parentNode.Nodes[i];
+
+                parentNode.Nodes.Remove(nodeToRemove);
+                RemoveTreeNodeFromLookupRecursively(nodeToRemove);
             }
         }
 
