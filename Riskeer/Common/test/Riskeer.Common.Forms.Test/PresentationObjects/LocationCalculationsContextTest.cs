@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Call
-            var context = new TestLocationCalculationsContext(new object(), new ObservableList<IObservable>());
+            var context = new TestLocationCalculationsContext(new object(), new ObservableList<TestObservable>());
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<object>>(context);
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var observer = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var context = new TestLocationCalculationsContext(new object(), new ObservableList<IObservable>());
+            var context = new TestLocationCalculationsContext(new object(), new ObservableList<TestObservable>());
 
             // When
             context.Attach(observer);
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var observer = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
 
-            var context = new TestLocationCalculationsContext(new object(), new ObservableList<IObservable>());
+            var context = new TestLocationCalculationsContext(new object(), new ObservableList<TestObservable>());
 
             context.Attach(observer);
 
@@ -88,10 +88,10 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Given
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Any();
+            observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var locationCalculationsListToObserve = new ObservableList<IObservable>();
+            var locationCalculationsListToObserve = new ObservableList<TestObservable>();
             var context = new TestLocationCalculationsContext(new object(), locationCalculationsListToObserve);
 
             context.Attach(observer);
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             var observable = new TestObservable();
-            var locationCalculationsListToObserve = new ObservableList<IObservable>
+            var locationCalculationsListToObserve = new ObservableList<TestObservable>
             {
                 observable
             };
@@ -129,14 +129,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        private class TestLocationCalculationsContext : LocationCalculationsContext<object, IObservable>
+        private class TestLocationCalculationsContext : LocationCalculationsContext<object, TestObservable>
         {
-            public TestLocationCalculationsContext(object wrappedData, ObservableList<IObservable> locationCalculationsListToObserve) : base(wrappedData)
+            public TestLocationCalculationsContext(object wrappedData, ObservableList<TestObservable> locationCalculationsListToObserve) : base(wrappedData)
             {
                 LocationCalculationsListToObserve = locationCalculationsListToObserve;
             }
 
-            protected override ObservableList<IObservable> LocationCalculationsListToObserve { get; }
+            protected override ObservableList<TestObservable> LocationCalculationsListToObserve { get; }
         }
 
         private class TestObservable : Observable {}
