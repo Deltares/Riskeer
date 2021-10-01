@@ -100,7 +100,7 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0:n0}.
+        ///   Looks up a localized string similar to {0:f0}.
         /// </summary>
         public static string ReturnPeriodFormat {
             get {

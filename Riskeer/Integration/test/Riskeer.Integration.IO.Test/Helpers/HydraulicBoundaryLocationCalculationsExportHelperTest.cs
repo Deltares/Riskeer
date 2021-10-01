@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -214,10 +213,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
                                     ? "Waterstanden"
                                     : "Golfhoogten";
 
-            string returnPeriod = ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)
-                                                              .ToString(CultureInfo.CurrentCulture)
-                                                              .Replace(".", "");
-            return $"{exportType}_{returnPeriod}";
+            return $"{exportType}_{ReturnPeriodFormattingHelper.FormatFromProbability(targetProbability)}";
         }
     }
 }

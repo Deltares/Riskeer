@@ -136,6 +136,6 @@
     <value>Golfhoogten bij doelkans</value>
   </data>
   <data name="ReturnPeriodFormat" xml:space="preserve">
-    <value>{0:n0}</value>
+    <value>{0:f0}</value>
   </data>
 </root>
