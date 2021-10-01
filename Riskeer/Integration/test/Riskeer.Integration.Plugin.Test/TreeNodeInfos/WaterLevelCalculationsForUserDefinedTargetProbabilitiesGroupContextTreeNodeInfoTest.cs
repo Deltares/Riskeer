@@ -931,7 +931,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnDrop_DataDroppedToDifferentIndex_DroppedDataCorrectlyMoved()
+        public void OnDrop_DataDroppedToDifferentIndex_DroppedDataCorrectlyMovedAndObserversNotified()
         {
             // Setup
             using (var plugin = new RiskeerPlugin())
@@ -959,6 +959,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculationsForTargetProbability3,
                     assessmentSectionStub);
 
+                var mockRepository = new MockRepository();
+                var observer = mockRepository.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mockRepository.ReplayAll();
+
+                calculationsForTargetProbabilities.Attach(observer);
+
                 // Call
                 info.OnDrop(droppedData, parentData, parentData, 1, null);
 
@@ -969,6 +976,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     calculationsForTargetProbability3,
                     calculationsForTargetProbability2
                 }, calculationsForTargetProbabilities);
+
+                mockRepository.VerifyAll();
             }
         }
 

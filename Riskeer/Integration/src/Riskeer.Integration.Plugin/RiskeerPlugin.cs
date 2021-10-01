@@ -1409,6 +1409,8 @@ namespace Riskeer.Integration.Plugin
                 waterLevelCalculationsForTargetProbabilityContext.WrappedData);
             waterLevelCalculationsForTargetProbabilitiesGroupContext.WrappedData.Insert(
                 position, waterLevelCalculationsForTargetProbabilityContext.WrappedData);
+
+            waterLevelCalculationsForTargetProbabilitiesGroupContext.WrappedData.NotifyObservers();
         }
 
         private static bool WaveHeightCalculationsForUserDefinedTargetProbabilitiesGroupContext_CanDropOrInsert(object draggedData, object targetData)
@@ -1428,6 +1430,8 @@ namespace Riskeer.Integration.Plugin
                 waveHeightCalculationsForTargetProbabilityContext.WrappedData);
             waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.Insert(
                 position, waveHeightCalculationsForTargetProbabilityContext.WrappedData);
+
+            waveHeightCalculationsForTargetProbabilitiesGroupContext.WrappedData.NotifyObservers();
         }
 
         #region ViewInfos
