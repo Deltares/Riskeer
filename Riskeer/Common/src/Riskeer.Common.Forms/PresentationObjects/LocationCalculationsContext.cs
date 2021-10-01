@@ -56,10 +56,13 @@ namespace Riskeer.Common.Forms.PresentationObjects
         {
             if (!observers.Any())
             {
-                locationCalculationsListObserver = new Observer(NotifyObservers)
+                if (!(LocationCalculationsListToObserve is TObservable))
                 {
-                    Observable = LocationCalculationsListToObserve
-                };
+                    locationCalculationsListObserver = new Observer(NotifyObservers)
+                    {
+                        Observable = LocationCalculationsListToObserve
+                    };
+                }
 
                 locationCalculationsObserver = new RecursiveObserver<ObservableList<TObservable>, TObservable>(NotifyObservers, list => list)
                 {
@@ -76,7 +79,11 @@ namespace Riskeer.Common.Forms.PresentationObjects
 
             if (!observers.Any())
             {
-                locationCalculationsListObserver.Dispose();
+                if (!(LocationCalculationsListToObserve is TObservable))
+                {
+                    locationCalculationsListObserver.Dispose();
+                }
+
                 locationCalculationsObserver.Dispose();
             }
         }
