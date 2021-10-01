@@ -131,6 +131,27 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void GivenContextWithObserverAttachedThatThrowsInvalidOperationException_WhenNotifyingLocationCalculationsListToObserve_ThenNoExceptionThrown()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Do((Action) (() => throw new InvalidOperationException()));
+            mockRepository.ReplayAll();
+
+            var locationCalculationsListToObserve = new ObservableList<TestObservable>();
+            var context = new TestLocationCalculationsContext(new object(), locationCalculationsListToObserve);
+
+            context.Attach(observer);
+
+            // When
+            locationCalculationsListToObserve.NotifyObservers();
+
+            // Then
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void GivenContextWithObserverAttachedThatThrowsInvalidOperationException_WhenNotifyingLocationCalculationsElementInListToObserve_ThenNoExceptionThrown()
         {
             // Given
