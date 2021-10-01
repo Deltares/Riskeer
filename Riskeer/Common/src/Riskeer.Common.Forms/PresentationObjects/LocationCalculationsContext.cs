@@ -38,7 +38,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
     {
         private readonly Collection<IObserver> observers = new Collection<IObserver>();
 
-        private RecursiveObserver<ObservableList<TObservable>, TObservable> recursiveObserver;
+        private Observer locationCalculationsListObserver;
+
+        private RecursiveObserver<ObservableList<TObservable>, TObservable> locationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="LocationCalculationsContext{TWrappedData, TObservable}"/>.
@@ -54,26 +56,28 @@ namespace Riskeer.Common.Forms.PresentationObjects
         {
             if (!observers.Any())
             {
-                recursiveObserver = new RecursiveObserver<ObservableList<TObservable>, TObservable>(NotifyObservers, list => list)
+                locationCalculationsListObserver = new Observer(NotifyObservers)
+                {
+                    Observable = LocationCalculationsListToObserve
+                };
+
+                locationCalculationsObserver = new RecursiveObserver<ObservableList<TObservable>, TObservable>(NotifyObservers, list => list)
                 {
                     Observable = LocationCalculationsListToObserve
                 };
             }
 
             observers.Add(observer);
-
-            LocationCalculationsListToObserve.Attach(observer);
         }
 
         public virtual void Detach(IObserver observer)
         {
-            LocationCalculationsListToObserve.Detach(observer);
-
             observers.Remove(observer);
 
             if (!observers.Any())
             {
-                recursiveObserver.Dispose();
+                locationCalculationsListObserver.Dispose();
+                locationCalculationsObserver.Dispose();
             }
         }
 
