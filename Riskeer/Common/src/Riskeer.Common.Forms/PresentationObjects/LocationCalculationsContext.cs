@@ -61,10 +61,14 @@ namespace Riskeer.Common.Forms.PresentationObjects
             }
 
             observers.Add(observer);
+
+            LocationCalculationsListToObserve.Attach(observer);
         }
 
         public virtual void Detach(IObserver observer)
         {
+            LocationCalculationsListToObserve.Detach(observer);
+
             observers.Remove(observer);
 
             if (!observers.Any())

@@ -88,7 +88,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Given
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver()).Repeat.Any();
             mockRepository.ReplayAll();
 
             var locationCalculationsListToObserve = new ObservableList<IObservable>();
