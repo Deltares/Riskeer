@@ -24,7 +24,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
@@ -2442,7 +2441,7 @@ namespace Riskeer.Migration.Integration.Test
             /// but unsupported.</exception>
             public string GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType normType)
             {
-                AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
+                int categoryType = ConvertToAssessmentSectionCategoryType(normType);
 
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT  " +
@@ -2459,7 +2458,7 @@ namespace Riskeer.Migration.Integration.Test
                        "JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
                        GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
                        "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
-                       $"AND NEW.CategoryType = {(int) categoryType}; " +
+                       $"AND NEW.CategoryType = {categoryType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -2474,7 +2473,7 @@ namespace Riskeer.Migration.Integration.Test
             /// but unsupported.</exception>
             public string GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType normType)
             {
-                AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
+                int categoryType = ConvertToAssessmentSectionCategoryType(normType);
 
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT  " +
@@ -2491,7 +2490,7 @@ namespace Riskeer.Migration.Integration.Test
                        "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity OLD USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId) " +
                        GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
                        "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
-                       $"AND NEW.CategoryType = {(int) categoryType}; " +
+                       $"AND NEW.CategoryType = {categoryType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -2546,15 +2545,15 @@ namespace Riskeer.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="AssessmentSectionCategoryType"/>.</returns>
+            /// <returns>Returns an integer representing the category type.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
             /// but unsupported.</exception>
-            private static AssessmentSectionCategoryType ConvertToAssessmentSectionCategoryType(NormativeNormType normType)
+            private static int ConvertToAssessmentSectionCategoryType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
                 {
@@ -2564,9 +2563,9 @@ namespace Riskeer.Migration.Integration.Test
                 switch (normType)
                 {
                     case NormativeNormType.SignalingNorm:
-                        return AssessmentSectionCategoryType.SignalingNorm;
+                        return 2;
                     case NormativeNormType.LowerLimitNorm:
-                        return AssessmentSectionCategoryType.LowerLimitNorm;
+                        return 3;
                     default:
                         throw new NotSupportedException();
                 }

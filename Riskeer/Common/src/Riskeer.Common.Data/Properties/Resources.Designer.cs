@@ -92,42 +92,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C.
-        /// </summary>
-        public static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A+.
-        /// </summary>
-        public static string AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to B.
-        /// </summary>
-        public static string AssessmentSectionCategoryType_LowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A.
-        /// </summary>
-        public static string AssessmentSectionCategoryType_SignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionCategoryType_SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijk.
         /// </summary>
         public static string AssessmentSectionComposition_Dike {

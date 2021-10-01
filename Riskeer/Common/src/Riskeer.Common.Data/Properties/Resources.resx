@@ -384,18 +384,6 @@
   <data name="ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor 'a' moet in het bereik {0} liggen.</value>
   </data>
-  <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>A+</value>
-  </data>
-  <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
-    <value>A</value>
-  </data>
-  <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>B</value>
-  </data>
-  <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>C</value>
-  </data>
   <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
     <value>Iv</value>
   </data>
