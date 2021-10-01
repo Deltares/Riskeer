@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -412,52 +412,6 @@ namespace Riskeer.Common.Data.Properties {
         public static string FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism {
             get {
                 return ResourceManager.GetString("FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vv.
-        /// </summary>
-        public static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IVv.
-        /// </summary>
-        public static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Iv.
-        /// </summary>
-        public static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IIIv.
-        /// </summary>
-        public static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IIv.
-        /// </summary>
-        public static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName", resourceCulture);
             }
         }
         

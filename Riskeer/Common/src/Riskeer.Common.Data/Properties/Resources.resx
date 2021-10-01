@@ -384,21 +384,6 @@
   <data name="ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_" xml:space="preserve">
     <value>De waarde voor 'a' moet in het bereik {0} liggen.</value>
   </data>
-  <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>Iv</value>
-  </data>
-  <data name="FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName" xml:space="preserve">
-    <value>IIv</value>
-  </data>
-  <data name="FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>IIIv</value>
-  </data>
-  <data name="FailureMechanismCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>IVv</value>
-  </data>
-  <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Vv</value>
-  </data>
   <data name="FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism" xml:space="preserve">
     <value>Voor een of meerdere vakken kan geen resultaat worden bepaald.</value>
   </data>

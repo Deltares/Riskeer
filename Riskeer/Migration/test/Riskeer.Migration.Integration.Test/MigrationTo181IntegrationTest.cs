@@ -24,7 +24,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Migration.Core;
 using Riskeer.Migration.Core.TestUtil;
 
@@ -2382,7 +2381,7 @@ namespace Riskeer.Migration.Integration.Test
             /// but unsupported.</exception>
             public string GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType normType)
             {
-                FailureMechanismCategoryType categoryType = ConvertToFailureMechanismCategoryType(normType);
+                int categoryType = ConvertToFailureMechanismCategoryType(normType);
 
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                        "SELECT  " +
@@ -2426,7 +2425,7 @@ namespace Riskeer.Migration.Integration.Test
                        ") OLD USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
                        GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
                        "AND OLD.LocationId IS hl.LocationId " +
-                       $"AND NEW.CategoryType = {(int) categoryType}; " +
+                       $"AND NEW.CategoryType = {categoryType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
@@ -2518,15 +2517,15 @@ namespace Riskeer.Migration.Integration.Test
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding failure mechanism category type.
             /// </summary>
-            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns an integer representing the category type.</returns>
             /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
             /// but unsupported.</exception>
-            private static FailureMechanismCategoryType ConvertToFailureMechanismCategoryType(NormativeNormType normType)
+            private static int ConvertToFailureMechanismCategoryType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
                 {
@@ -2536,16 +2535,16 @@ namespace Riskeer.Migration.Integration.Test
                 switch (normType)
                 {
                     case NormativeNormType.SignalingNorm:
-                        return FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                        return 2;
                     case NormativeNormType.LowerLimitNorm:
-                        return FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                        return 3;
                     default:
                         throw new NotSupportedException();
                 }
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding assessment section category type.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
             /// <returns>Returns an integer representing the category type.</returns>
