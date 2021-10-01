@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
@@ -48,6 +51,52 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext>(context);
             Assert.AreSame(calculationsForTargetProbability, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenContextWithObserverAttached_WhenNotifyingObserversOfWaveHeightCalculationsForUserDefinedTargetProbabilities_ThenObserverCorrectlyNotified()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                           assessmentSection);
+
+            context.Attach(observer);
+
+            // When
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+            // Then
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenContextWithObserverAttached_WhenNotifyingObserversOfWaveHeightCalculationsForUserDefinedTargetProbability_ThenObserverCorrectlyNotified()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                           assessmentSection);
+
+            context.Attach(observer);
+
+            // When
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().NotifyObservers();
+
+            // Then
             mockRepository.VerifyAll();
         }
     }
