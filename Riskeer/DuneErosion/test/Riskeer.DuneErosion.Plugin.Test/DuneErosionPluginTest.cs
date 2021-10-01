@@ -223,7 +223,6 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 gui.SetProject(project, null);
 
-                gui.DocumentViewController.CloseAllViews();
                 gui.DocumentViewController.OpenViewForData(new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
                                                                                                                               failureMechanism,
                                                                                                                               assessmentSection));
