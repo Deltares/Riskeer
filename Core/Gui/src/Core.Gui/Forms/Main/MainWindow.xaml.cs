@@ -328,6 +328,8 @@ namespace Core.Gui.Forms.Main
                 firstStateToggleButton.IsChecked = true;
 
                 HandleStateButtonClick(firstStateToggleButton);
+
+                gui.DocumentViewController.OpenViewForData(stateToggleButtonLookup[firstStateToggleButton](gui.Project));
             }
         }
 
@@ -347,10 +349,6 @@ namespace Core.Gui.Forms.Main
             {
                 stateToggleButton.IsChecked = false;
             }
-
-            gui.DocumentViewController.CloseAllViews();
-
-            gui.DocumentViewController.OpenViewForData(stateToggleButtonLookup[clickedStateToggleButton](gui.Project));
 
             UpdateProjectExplorer();
         }
