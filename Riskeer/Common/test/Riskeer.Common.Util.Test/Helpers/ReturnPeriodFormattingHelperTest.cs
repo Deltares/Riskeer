@@ -46,8 +46,8 @@ namespace Riskeer.Common.Util.Test.Helpers
         [TestCase(1.0, "1")]
         [TestCase(0.5, "2")]
         [TestCase(0.6, "2")]
-        [TestCase(0.0001, "10.000")]
-        [TestCase(0.000000123456789, "8.100.000")]
+        [TestCase(0.0001, "10000")]
+        [TestCase(0.000000123456789, "8100000")]
         public void FormatFromProbability_ValidValue_ReturnsReturnPeriod(double probability, string expectedText)
         {
             // Call
