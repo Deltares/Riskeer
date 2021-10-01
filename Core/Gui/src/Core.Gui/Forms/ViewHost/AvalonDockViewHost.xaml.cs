@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -389,10 +389,9 @@ namespace Core.Gui.Forms.ViewHost
                 toolViews.Remove(view);
             }
 
-            CleanupHostControl(view);
-
             view.Data = null;
-            view.Dispose();
+
+            CleanupHostControl(view);
 
             OnViewClosed(view);
 
@@ -414,7 +413,6 @@ namespace Core.Gui.Forms.ViewHost
         {
             WindowsFormsHost hostControl = hostControls.First(hc => hc.Child == view);
 
-            hostControl.Child = null; // Prevent views from getting disposed here by clearing the child
             hostControl.Dispose();
 
             hostControls.Remove(hostControl);
