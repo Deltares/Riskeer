@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.IO.Compression;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
@@ -91,7 +90,7 @@ namespace Riskeer.Integration.IO.Exporters
                     return false;
                 }
 
-                ZipFile.CreateFromDirectory(tempFolderPath, filePath);
+                HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
 
                 return true;
             }

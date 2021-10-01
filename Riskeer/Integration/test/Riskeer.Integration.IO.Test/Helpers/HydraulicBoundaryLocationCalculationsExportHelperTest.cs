@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
@@ -199,6 +200,95 @@ namespace Riskeer.Integration.IO.Test.Helpers
                     TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
                     Assert.IsFalse(isExported);
                 }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void CreateZipFileFromExportedFiles_SourceFolderPathNull_ThrowsArgumentException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(null, "test");
+
+            // Assert
+            Assert.Throws<ArgumentException>(Call);
+        }
+
+        [Test]
+        public void CreateZipFileFromExportedFiles_DestinationFilePathNull_ThrowsArgumentException()
+        {
+            // Call
+            void Call() => HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles("test", null);
+
+            // Assert
+            Assert.Throws<ArgumentException>(Call);
+        }
+
+        [Test]
+        public void CreateZipFileFromExportedFiles_ValidPaths_CreatesExpectedZipFile()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(CreateZipFileFromExportedFiles_ValidPaths_CreatesExpectedZipFile));
+            Directory.CreateDirectory(directoryPath);
+
+            string sourceFolderPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
+                                                   nameof(HydraulicBoundaryLocationCalculationsExportHelper));
+            string destinationFilePath = Path.Combine(directoryPath, "test.zip");
+
+            try
+            {
+                // Call
+                HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath, destinationFilePath);
+
+                // Assert
+                Assert.IsTrue(File.Exists(destinationFilePath));
+
+                using (ZipArchive zipArchive = ZipFile.OpenRead(destinationFilePath))
+                {
+                    var expectedFiles = new[]
+                    {
+                        "ExpectedWaterLevelExport.dbf",
+                        "ExpectedWaterLevelExport.shp",
+                        "ExpectedWaterLevelExport.shx",
+                        "ExpectedWaveHeightExport.dbf",
+                        "ExpectedWaveHeightExport.shp",
+                        "ExpectedWaveHeightExport.shx"
+                    };
+                    CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void CreateZipFileFromExportedFiles_FileAlreadyExists_DoesNotThrow()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(CreateZipFileFromExportedFiles_FileAlreadyExists_DoesNotThrow));
+            Directory.CreateDirectory(directoryPath);
+
+            string sourceFolderPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
+                                                   nameof(HydraulicBoundaryLocationCalculationsExportHelper));
+            string destinationFilePath = Path.Combine(directoryPath, "test.zip");
+
+            try
+            {
+                HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath, destinationFilePath);
+
+                // Precondition
+                Assert.IsTrue(File.Exists(destinationFilePath));
+
+                // Call
+                void Call() => HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath, destinationFilePath);
+
+                // Assert
+                Assert.DoesNotThrow(Call);
             }
             finally
             {

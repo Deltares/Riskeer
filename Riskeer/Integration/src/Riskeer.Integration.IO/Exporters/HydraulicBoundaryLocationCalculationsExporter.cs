@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
@@ -79,7 +78,7 @@ namespace Riskeer.Integration.IO.Exporters
                     return false;
                 }
 
-                ZipFile.CreateFromDirectory(tempFolderPath, filePath);
+                HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
                 return true;
             }
             catch (Exception e)

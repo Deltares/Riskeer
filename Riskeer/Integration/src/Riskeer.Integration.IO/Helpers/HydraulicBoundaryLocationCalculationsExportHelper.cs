@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
@@ -71,6 +72,26 @@ namespace Riskeer.Integration.IO.Helpers
             var exportedCalculationFileNames = new List<string>();
             return calculationsForTargetProbabilities.All(calculations => ExportCalculationsForTargetProbability(
                                                               calculations, calculationsType, exportedCalculationFileNames, folderPath));
+        }
+
+        /// <summary>
+        /// Creates a zip file on the <paramref name="destinationFilePath"/> from the files that are at <paramref name="sourceFolderPath"/>.
+        /// </summary>
+        /// <param name="sourceFolderPath"></param>
+        /// <param name="destinationFilePath"></param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFolderPath"/>
+        /// or <paramref name="destinationFilePath"/> is invalid.</exception>
+        public static void CreateZipFileFromExportedFiles(string sourceFolderPath, string destinationFilePath)
+        {
+            IOUtils.ValidateFolderPath(sourceFolderPath);
+            IOUtils.ValidateFilePath(destinationFilePath);
+
+            if (File.Exists(destinationFilePath))
+            {
+                File.Delete(destinationFilePath);
+            }
+
+            ZipFile.CreateFromDirectory(sourceFolderPath, destinationFilePath);
         }
 
         private static bool ExportCalculationsForTargetProbability(
