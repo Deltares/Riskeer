@@ -274,11 +274,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                     waveImpactAsphaltCoverFailureMechanism.GeneralInput);
 
                 // Assert
-                WaveConditionsCosineCalculationInput[] WaveConditionsInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(3, WaveConditionsInputs.Length);
+                WaveConditionsCosineCalculationInput[] waveConditionsInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(3, waveConditionsInputs.Length);
 
                 var waterLevelIndex = 0;
-                foreach (WaveConditionsCosineCalculationInput actualInput in WaveConditionsInputs)
+                foreach (WaveConditionsCosineCalculationInput actualInput in waveConditionsInputs)
                 {
                     GeneralWaveConditionsInput generalInput = waveImpactAsphaltCoverFailureMechanism.GeneralInput;
 

@@ -401,8 +401,8 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                     stabilityStoneCoverFailureMechanism.GeneralInput);
 
                 // Assert
-                WaveConditionsCosineCalculationInput[] WaveConditionsInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(6, WaveConditionsInputs.Length);
+                WaveConditionsCosineCalculationInput[] waveConditionsInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(6, waveConditionsInputs.Length);
 
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
@@ -411,7 +411,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 double expectedTargetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
 
                 var waterLevelIndex = 0;
-                for (var i = 0; i < WaveConditionsInputs.Length / 2; i++)
+                for (var i = 0; i < waveConditionsInputs.Length / 2; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
@@ -424,11 +424,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                  generalInput.GeneralBlocksWaveConditionsInput.B,
                                                                                  generalInput.GeneralBlocksWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
 
                 waterLevelIndex = 0;
-                for (int i = WaveConditionsInputs.Length / 2; i < WaveConditionsInputs.Length; i++)
+                for (int i = waveConditionsInputs.Length / 2; i < waveConditionsInputs.Length; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
@@ -441,7 +441,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                  generalInput.GeneralColumnsWaveConditionsInput.B,
                                                                                  generalInput.GeneralColumnsWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
             }
 

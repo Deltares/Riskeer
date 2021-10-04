@@ -410,8 +410,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                           assessmentSection);
 
                 // Assert
-                WaveConditionsCosineCalculationInput[] WaveConditionsInputs = waveConditionsCosineCalculator.ReceivedInputs.ToArray();
-                int nrOfReceivedInputs = WaveConditionsInputs.Length;
+                WaveConditionsCosineCalculationInput[] waveConditionsInputs = waveConditionsCosineCalculator.ReceivedInputs.ToArray();
+                int nrOfReceivedInputs = waveConditionsInputs.Length;
                 Assert.AreEqual(nrOfCalculators, nrOfReceivedInputs);
 
                 var waterLevelIndex = 0;
@@ -432,7 +432,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                  generalInput.GeneralWaveRunUpWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveRunUpWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
 
                 waterLevelIndex = 0;
@@ -450,7 +450,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                  generalInput.GeneralWaveImpactWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveImpactWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
 
                 waterLevelIndex = 0;
@@ -468,7 +468,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                                                                                  generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput.B,
                                                                                  generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
             }
 

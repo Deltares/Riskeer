@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -34,24 +35,24 @@ namespace Riskeer.Revetment.Forms.TestUtil
     /// Simple <see cref="WaveConditionsInputContext{T}"/> implementation which can be used
     /// for test purposes.
     /// </summary>
-    public class WaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
+    public class TestWaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
     {
         /// <summary>
-        /// Creates a new <see cref="WaveConditionsInputContext"/>.
+        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
-        public WaveConditionsInputContext(WaveConditionsInput wrappedData)
+        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData)
             : this(wrappedData,
-                   new ForeshoreProfile[0],
+                   Array.Empty<ForeshoreProfile>(),
                    new AssessmentSectionStub()) {}
 
         /// <summary>
-        /// Creates a new <see cref="WaveConditionsInputContext"/>.
+        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
         /// <param name="assessmentSection">The assessment section.</param>
-        public WaveConditionsInputContext(WaveConditionsInput wrappedData,
+        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                               IAssessmentSection assessmentSection)
             : this(wrappedData,
@@ -60,13 +61,13 @@ namespace Riskeer.Revetment.Forms.TestUtil
                    foreshoreProfiles) {}
 
         /// <summary>
-        /// Creates a new <see cref="WaveConditionsInputContext"/>.
+        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        public WaveConditionsInputContext(WaveConditionsInput wrappedData,
+        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               ICalculation<WaveConditionsInput> calculation,
                                               IAssessmentSection assessmentSection,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles)

@@ -224,15 +224,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 activity.Run();
 
                 // Assert
-                WaveConditionsCosineCalculationInput[] WaveConditionsInputs = waveConditionsCosineCalculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(nrOfCalculators, WaveConditionsInputs.Length);
+                WaveConditionsCosineCalculationInput[] waveConditionsInputs = waveConditionsCosineCalculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(nrOfCalculators, waveConditionsInputs.Length);
 
                 WaveConditionsInput input = calculation.InputParameters;
                 double targetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
 
                 var waterLevelIndex = 0;
                 GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
-                for (var i = 0; i < WaveConditionsInputs.Length / 2; i++)
+                for (var i = 0; i < waveConditionsInputs.Length / 2; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
@@ -245,11 +245,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                                                                                  generalInput.GeneralWaveRunUpWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveRunUpWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
 
                 waterLevelIndex = 0;
-                for (int i = WaveConditionsInputs.Length / 2; i < WaveConditionsInputs.Length; i++)
+                for (int i = waveConditionsInputs.Length / 2; i < waveConditionsInputs.Length; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
@@ -262,7 +262,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                                                                                  generalInput.GeneralWaveImpactWaveConditionsInput.B,
                                                                                  generalInput.GeneralWaveImpactWaveConditionsInput.C);
 
-                    HydraRingDataEqualityHelper.AreEqual(expectedInput, WaveConditionsInputs[i]);
+                    HydraRingDataEqualityHelper.AreEqual(expectedInput, waveConditionsInputs[i]);
                 }
             }
 
