@@ -60,6 +60,18 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
+        public void GetUniqueDisplayNameForWaterLevelCalculations_CalculationsNotInWaterLevelCalculationsOfAssessmentSection_ThrowsInvalidOperationException()
+        {
+            // Call
+            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(
+                new AssessmentSectionStub(), Enumerable.Empty<HydraulicBoundaryLocationCalculation>());
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(Call);
+            Assert.AreEqual("The provided calculations object is not part of the water level calculations within the assessment section.", exception.Message);
+        }
+
+        [Test]
         [TestCase(0.0025, 0.00025, 0.0025, 0.0025, "1/400")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400")]
         public void GetUniqueDisplayNameForWaterLevelCalculations_ValidParameters_ReturnsExpectedDisplayNameForLowerLimitNorm(
@@ -196,6 +208,18 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void GetUniqueDisplayNameForCalculations_CalculationsNotInEnumerationOfAllCalculations_ThrowsInvalidOperationException()
+        {
+            // Call
+            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(
+                new object(), Enumerable.Empty<object>(), o => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(Call);
+            Assert.AreEqual("The provided calculations object is not part of the enumeration that contains all calculations.", exception.Message);
         }
 
         [Test]
