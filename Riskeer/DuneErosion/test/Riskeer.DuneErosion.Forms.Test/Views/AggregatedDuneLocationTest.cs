@@ -42,8 +42,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                       Array.Empty<Tuple<double, RoundedDouble>>(),
                                                       Array.Empty<Tuple<double, RoundedDouble>>());
 
-            ;
-
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
