@@ -84,19 +84,19 @@ namespace Riskeer.Common.Forms.Helpers
         }
 
         /// <summary>
-        /// Gets a unique wave height calculations display name for the provided <paramref name="calculations"/>.
+        /// Gets a unique display name for the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
-        /// <param name="calculations">The wave height calculations to get the unique display name for.</param>
-        /// <returns>A unique wave height calculations display name.</returns>
+        /// <param name="allCalculations">The enumeration of all calculations (containing <paramref name="calculations"/>).</param>
+        /// <param name="calculations">The calculations to get the unique display name for.</param>
+        /// <param name="getTargetProbabilityFunc">The function to obtain the target probability for elements within <paramref name="allCalculations"/>.</param>
+        /// <returns>A unique calculations display name.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the wave height
-        /// calculations within <paramref name="assessmentSection"/>.</exception>
-        public static string GetUniqueDisplayNameForWaveHeightCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of <paramref name="allCalculations"/>.</exception>
+        public static string GetUniqueDisplayNameForCalculations<T>(T calculations, IEnumerable<T> allCalculations, Func<T, double> getTargetProbabilityFunc)
         {
-            if (assessmentSection == null)
+            if (allCalculations == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(allCalculations));
             }
 
             if (calculations == null)
@@ -104,17 +104,16 @@ namespace Riskeer.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            Dictionary<object, string> nonUniqueWaveHeightCalculationsDisplayNameLookup =
-                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
-                                 .ToDictionary(whc => (object) whc.HydraulicBoundaryLocationCalculations,
-                                               whc => noProbabilityValueDoubleConverter.ConvertToString(whc.TargetProbability));
+            Dictionary<object, string> nonUniqueCalculationsDisplayNameLookup =
+                allCalculations.ToDictionary(c => (object) c,
+                                             c => noProbabilityValueDoubleConverter.ConvertToString(getTargetProbabilityFunc(c)));
 
-            if (!nonUniqueWaveHeightCalculationsDisplayNameLookup.ContainsKey(calculations))
+            if (!nonUniqueCalculationsDisplayNameLookup.ContainsKey(calculations))
             {
-                throw new InvalidOperationException("The provided calculations object is not part of the wave height calculations within the assessment section.");
+                throw new InvalidOperationException("The provided calculations object is not part of the enumeration.");
             }
 
-            return GetUniqueDisplayNameLookup(nonUniqueWaveHeightCalculationsDisplayNameLookup)[calculations];
+            return GetUniqueDisplayNameLookup(nonUniqueCalculationsDisplayNameLookup)[calculations];
         }
 
         private static Dictionary<object, string> GetUniqueDisplayNameLookup(IDictionary<object, string> nonUniqueDisplayNameLookup)
@@ -130,7 +129,7 @@ namespace Riskeer.Common.Forms.Helpers
 
                 uniqueDisplayNameLookup.Add(firstElement.Key, firstElement.Value);
                 nonUniqueDisplayNameLookup.Remove(firstElement.Key);
-                
+
                 if (elementsWithSameDisplayNameAsFirstElement.Count > 1)
                 {
                     for (var i = 1; i < elementsWithSameDisplayNameAsFirstElement.Count; i++)
