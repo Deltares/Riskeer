@@ -307,6 +307,8 @@ namespace Core.Gui.Forms.Main
                 return;
             }
 
+            gui.DocumentViewController.CloseAllViews();
+
             if (gui.Project == null)
             {
                 stateToggleButtonLookup.Keys.ForEachElementDo(stb =>
@@ -314,8 +316,6 @@ namespace Core.Gui.Forms.Main
                     stb.IsChecked = false;
                     stb.IsEnabled = false;
                 });
-
-                gui.DocumentViewController.CloseAllViews();
 
                 UpdateProjectExplorer();
             }
