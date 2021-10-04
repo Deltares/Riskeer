@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PresentationObjects;
@@ -37,15 +35,6 @@ namespace Riskeer.Revetment.Forms.TestUtil
     /// </summary>
     public class TestWaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
     {
-        /// <summary>
-        /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
-        /// </summary>
-        /// <param name="wrappedData">The wrapped wave conditions input.</param>
-        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData)
-            : this(wrappedData,
-                   Array.Empty<ForeshoreProfile>(),
-                   new AssessmentSectionStub()) {}
-
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>

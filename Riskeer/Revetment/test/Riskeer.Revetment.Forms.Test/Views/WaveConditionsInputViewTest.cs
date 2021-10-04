@@ -75,7 +75,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
             // Call
             TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
                                                                   null,
-                                                                  new WaveConditionsInputViewStyle());
+                                                                  new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -88,7 +88,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
             // Call
             TestDelegate test = () => new WaveConditionsInputView(null,
                                                                   GetHydraulicBoundaryLocationCalculation,
-                                                                  new WaveConditionsInputViewStyle());
+                                                                  new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -102,7 +102,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
             TestWaveConditionsCalculation<WaveConditionsInput> calculation = CreateTestCalculation();
             using (var view = new WaveConditionsInputView(calculation,
                                                           GetHydraulicBoundaryLocationCalculation,
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -140,7 +140,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
             // Call
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 IChartControl chartControl = view.Chart;
@@ -199,7 +199,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
 
             using (var view = new WaveConditionsInputView(calculation,
                                                           GetHydraulicBoundaryLocationCalculation,
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -243,7 +243,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
 
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -345,7 +345,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
 
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => hydraulicBoundaryLocationCalculation,
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -427,7 +427,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
 
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => hydraulicBoundaryLocationCalculation,
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -506,7 +506,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
             var assessmentLevel = (RoundedDouble) 6;
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -590,7 +590,7 @@ namespace Riskeer.Revetment.Forms.Test.Views
 
             using (var view = new WaveConditionsInputView(calculation,
                                                           () => hydraulicBoundaryLocationCalculation,
-                                                          new WaveConditionsInputViewStyle()))
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
