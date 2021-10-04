@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
+using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.Forms.PresentationObjects
@@ -29,7 +30,8 @@ namespace Riskeer.DuneErosion.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all dune location calculations based on a user defined target probability.
     /// </summary>
-    public class DuneLocationCalculationsForUserDefinedTargetProbabilityContext : ObservableWrappedObjectContextBase<DuneLocationCalculationsForTargetProbability>
+    public class DuneLocationCalculationsForUserDefinedTargetProbabilityContext
+        : LocationCalculationsContext<DuneLocationCalculationsForTargetProbability, DuneLocationCalculationsForTargetProbability>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsForUserDefinedTargetProbabilityContext"/>.
@@ -66,5 +68,7 @@ namespace Riskeer.DuneErosion.Forms.PresentationObjects
         /// Gets the assessment section that the context belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
+
+        protected override IObservableEnumerable<DuneLocationCalculationsForTargetProbability> LocationCalculationsEnumerationToObserve => FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
     }
 }

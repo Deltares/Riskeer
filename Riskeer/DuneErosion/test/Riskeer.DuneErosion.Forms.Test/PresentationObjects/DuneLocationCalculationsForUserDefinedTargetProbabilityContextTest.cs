@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
+using System.Linq;
+using Core.Common.Base;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 
@@ -71,9 +74,60 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects
                                                                                              assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<DuneLocationCalculationsForTargetProbability>>(context);
+            Assert.IsInstanceOf<LocationCalculationsContext<DuneLocationCalculationsForTargetProbability, DuneLocationCalculationsForTargetProbability>>(context);
             Assert.AreSame(duneLocationCalculationsForTargetProbability, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+        }
+
+        [Test]
+        public void GivenContextWithObserverAttached_WhenNotifyingObserversOfDuneLocationCalculationsForUserDefinedTargetProbabilities_ThenObserverCorrectlyNotified()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            context.Attach(observer);
+
+            // When
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+            // Then
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenContextWithObserverAttached_WhenNotifyingObserversOfDuneLocationCalculationsForUserDefinedTargetProbability_ThenObserverCorrectlyNotified()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1);
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection);
+
+            context.Attach(observer);
+
+            // When
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.First().NotifyObservers();
+
+            // Then
+            mockRepository.VerifyAll();
         }
     }
 }

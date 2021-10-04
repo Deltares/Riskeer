@@ -36,6 +36,7 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.TypeConverters;
@@ -149,7 +150,9 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext>
             {
-                Text = context => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability),
+                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
+                                                                                                                     context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                     probability => probability.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 CanRemove = (context, o) => true,
@@ -200,7 +203,10 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.AssessmentSection,
                                                                              () => context.WrappedData.TargetProbability,
                                                                              () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
-                AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = duneLocationCalculationGuiService;
+                }
             };
         }
 
@@ -499,6 +505,8 @@ namespace Riskeer.DuneErosion.Plugin
                 duneLocationCalculationsForUserDefinedTargetProbabilityContext.WrappedData);
             duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData.Insert(
                 position, duneLocationCalculationsForUserDefinedTargetProbabilityContext.WrappedData);
+
+            duneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext.WrappedData.NotifyObservers();
         }
 
         #endregion

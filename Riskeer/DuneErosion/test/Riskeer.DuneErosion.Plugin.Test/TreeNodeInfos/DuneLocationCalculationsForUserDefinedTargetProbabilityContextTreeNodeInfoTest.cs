@@ -109,21 +109,37 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_WithContext_ReturnsFormattedTargetProbability()
+        [TestCase(0.025, 0.0025, 0.00025, "1/400")]
+        [TestCase(0.0025, 0.0025, 0.025, "1/400 (1)")]
+        [TestCase(0.0025, 0.0025, 0.0025, "1/400 (2)")]
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double userDefinedTargetProbability1,
+                                                                               double userDefinedTargetProbability2,
+                                                                               double userDefinedTargetProbability3,
+                                                                               string expectedText)
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
+            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability3);
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
+                calculationsForTargetProbability2,
+                calculationsForTargetProbability
+            });
 
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.01),
-                                                                                             new DuneErosionFailureMechanism(),
-                                                                                             assessmentSection);
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                             failureMechanism,
+                                                                                             new AssessmentSectionStub(new[]
+                                                                                             {
+                                                                                                 failureMechanism
+                                                                                             }));
 
             // Call
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("1/100", text);
+            Assert.AreEqual(expectedText, text);
         }
 
         [Test]
