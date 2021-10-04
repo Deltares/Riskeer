@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Riskeer.Common.Data.AssessmentSection;
@@ -81,7 +82,7 @@ namespace Riskeer.Integration.IO.Exporters
                 HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
                 return true;
             }
-            catch (Exception e)
+            catch (CriticalFileWriteException e)
             {
                 log.ErrorFormat(RiskeerCommonIOResources.HydraulicBoundaryLocationsExporter_Error_Exception_0_no_HydraulicBoundaryLocations_exported,
                                 e.Message);

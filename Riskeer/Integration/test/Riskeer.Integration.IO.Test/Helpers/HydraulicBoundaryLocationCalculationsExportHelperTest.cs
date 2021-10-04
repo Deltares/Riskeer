@@ -26,6 +26,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Security.AccessControl;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
@@ -289,6 +290,37 @@ namespace Riskeer.Integration.IO.Test.Helpers
 
                 // Assert
                 Assert.DoesNotThrow(Call);
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
+        public void CreateZipFileFromExportedFiles_OperationThrowsIOException_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(CreateZipFileFromExportedFiles_OperationThrowsIOException_ThrowsCriticalFileWriteException));
+            Directory.CreateDirectory(directoryPath);
+
+            string sourceFolderPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
+                                                   nameof(HydraulicBoundaryLocationCalculationsExportHelper));
+            string destinationFilePath = Path.Combine(directoryPath, "test.zip");
+
+            try
+            {
+                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
+                {
+                    // Call
+                    void Call() => HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath, destinationFilePath);
+
+                    // Assert
+                    var exception = Assert.Throws<CriticalFileWriteException>(Call);
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{destinationFilePath}'.";
+                    Assert.AreEqual(expectedMessage, exception.Message);
+                    Assert.IsNotNull(exception.InnerException);
+                }
             }
             finally
             {
