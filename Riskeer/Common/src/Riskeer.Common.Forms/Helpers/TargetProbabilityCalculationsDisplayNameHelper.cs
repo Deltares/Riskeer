@@ -86,22 +86,27 @@ namespace Riskeer.Common.Forms.Helpers
         /// <summary>
         /// Gets a unique display name for the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="allCalculations">The enumeration of all calculations (containing <paramref name="calculations"/>).</param>
         /// <param name="calculations">The calculations to get the unique display name for.</param>
+        /// <param name="allCalculations">The enumeration of all calculations (containing <paramref name="calculations"/>).</param>
         /// <param name="getTargetProbabilityFunc">The function to obtain the target probability for elements within <paramref name="allCalculations"/>.</param>
         /// <returns>A unique calculations display name.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of <paramref name="allCalculations"/>.</exception>
         public static string GetUniqueDisplayNameForCalculations<T>(T calculations, IEnumerable<T> allCalculations, Func<T, double> getTargetProbabilityFunc)
         {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException(nameof(calculations));
+            }
+
             if (allCalculations == null)
             {
                 throw new ArgumentNullException(nameof(allCalculations));
             }
 
-            if (calculations == null)
+            if (getTargetProbabilityFunc == null)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                throw new ArgumentNullException(nameof(getTargetProbabilityFunc));
             }
 
             Dictionary<object, string> nonUniqueCalculationsDisplayNameLookup =
