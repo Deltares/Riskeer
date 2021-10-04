@@ -161,5 +161,70 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void GetUniqueDisplayNameForCalculations_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(
+                null, Enumerable.Empty<object>(), calculation => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void GetUniqueDisplayNameForCalculations_AllCalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(
+                new object(), null, calculation => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("allCalculations", exception.ParamName);
+        }
+
+        [Test]
+        public void GetUniqueDisplayNameForCalculations_GetTargetProbabilityFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(
+                new object(), Enumerable.Empty<object>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getTargetProbabilityFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void GetUniqueDisplayNameForCalculations_ValidParameters_ReturnsExpectedDisplayName()
+        {
+            // Setup
+            var calculation = new object();
+            var allCalculations = new ObservableList<object>();
+            int randomNumberOfCalculationElements = new Random().Next() % 10;
+
+            for (var i = 0; i < randomNumberOfCalculationElements; i++)
+            {
+                allCalculations.Add(new object());
+            }
+
+            allCalculations.Add(calculation);
+
+            // Call
+            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(calculation, allCalculations, o => 0.01);
+
+            // Assert
+            var expectedName = "1/100";
+
+            if (randomNumberOfCalculationElements != 0)
+            {
+                expectedName += $" ({randomNumberOfCalculationElements})";
+            }
+
+            Assert.AreEqual(expectedName, name);
+        }
     }
 }
