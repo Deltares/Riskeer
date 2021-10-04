@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_Always_ConfirmationRequired()
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithOutput_ConfirmationRequired()
         {
             // Setup
             var title = "";
@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+                CreateCalculationsForTargetProbabilityWithAndWithoutOutput());
 
             // Call
             handler.SetPropertyValueAfterConfirmation(() => {});
@@ -101,6 +101,20 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                      + Environment.NewLine +
                                      "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_NoConfirmationRequired()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
+                CreateCalculationsForTargetProbabilityWithoutOutput());
+
+            // Call
+            handler.SetPropertyValueAfterConfirmation(() => {});
+
+            // Assert
+            // No assert as the check is to verify whether a modal dialog is spawned
         }
 
         [Test]
@@ -139,23 +153,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsNoAffectedObjects()
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsAffectedObjectsAndDoesNotLog()
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
-            {
-                HydraulicBoundaryLocationCalculations =
-                {
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-                }
-            };
-
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = CreateCalculationsForTargetProbabilityWithoutOutput();
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
                 calculationsForTargetProbability);
 
@@ -175,6 +176,22 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationNotRequired_HandlerExecuted()
+        {
+            // Setup
+            var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
+                CreateCalculationsForTargetProbabilityWithoutOutput());
+
+            var handlerExecuted = false;
+
+            // Call
+            handler.SetPropertyValueAfterConfirmation(() => handlerExecuted = true);
+
+            // Assert
+            Assert.IsTrue(handlerExecuted);
+        }
+
+        [Test]
         public void SetPropertyValueAfterConfirmation_ConfirmationGiven_HandlerExecuted()
         {
             // Setup
@@ -185,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+                CreateCalculationsForTargetProbabilityWithAndWithoutOutput());
 
             var handlerExecuted = false;
 
@@ -222,17 +239,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_ConfirmationGivenExceptionInSetValue_ExceptionBubbled()
+        public void SetPropertyValueAfterConfirmation_ExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
             var handler = new HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler(
-                new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
+                CreateCalculationsForTargetProbabilityWithoutOutput());
 
             var expectedException = new Exception();
 
@@ -246,29 +257,42 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         private static HydraulicBoundaryLocationCalculationsForTargetProbability CreateCalculationsForTargetProbabilityWithAndWithoutOutput()
         {
-            var random = new Random(21);
-
-            var calculationWithOutput1 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
-            };
-
-            var calculationWithOutput2 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
-            };
-
             return new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
                 HydraulicBoundaryLocationCalculations =
                 {
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                    calculationWithOutput1,
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                    calculationWithOutput2,
-                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    CreateCalculation(),
+                    CreateCalculation(true),
+                    CreateCalculation(),
+                    CreateCalculation(true),
+                    CreateCalculation()
                 }
             };
+        }
+
+        private static HydraulicBoundaryLocationCalculationsForTargetProbability CreateCalculationsForTargetProbabilityWithoutOutput()
+        {
+            return new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    CreateCalculation(),
+                    CreateCalculation(),
+                    CreateCalculation()
+                }
+            };
+        }
+
+        private static HydraulicBoundaryLocationCalculation CreateCalculation(bool hasOutput = false)
+        {
+            var random = new Random(21);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            if (hasOutput)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            }
+
+            return calculation;
         }
     }
 }

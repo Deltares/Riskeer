@@ -131,12 +131,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsOnlyCalculationsForTargetProbability()
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities

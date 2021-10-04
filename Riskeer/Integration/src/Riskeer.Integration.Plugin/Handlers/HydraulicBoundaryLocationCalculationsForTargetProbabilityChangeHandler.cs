@@ -98,12 +98,22 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private static bool ConfirmPropertyChange()
+        private bool ConfirmPropertyChange()
         {
+            if (!HasCalculationOutput())
+            {
+                return true;
+            }
+
             DialogResult result = MessageBox.Show(RiskeerCommonPluginResources.TargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
             return result == DialogResult.OK;
+        }
+
+        private bool HasCalculationOutput()
+        {
+            return CalculationsForTargetProbability.HydraulicBoundaryLocationCalculations.Any(calc => calc.HasOutput);
         }
     }
 }
