@@ -77,8 +77,13 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
             return affectedObjects;
         }
 
-        private static bool ConfirmPropertyChange()
+        private bool ConfirmPropertyChange()
         {
+            if (!HasCalculationOutput())
+            {
+                return true;
+            }
+
             DialogResult result = MessageBox.Show(RiskeerCommonPluginResources.TargetProbabilityChangeHandler_Confirm_change_target_probability_and_clear_dependent_data,
                                                   CoreCommonBaseResources.Confirm,
                                                   MessageBoxButtons.OKCancel);
@@ -97,6 +102,11 @@ namespace Riskeer.DuneErosion.Plugin.Handlers
             }
 
             return Enumerable.Empty<IObservable>();
+        }
+
+        private bool HasCalculationOutput()
+        {
+            return calculationsForTargetProbability.DuneLocationCalculations.Any(calc => calc.Output != null);
         }
     }
 }

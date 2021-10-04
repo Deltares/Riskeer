@@ -74,7 +74,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_Always_ConfirmationRequired()
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithOutput_ConfirmationRequired()
         {
             // Setup
             var title = "";
@@ -89,7 +89,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             };
 
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability(0.1));
+                CreateCalculationsForTargetProbabilityWithAndWithoutOutput());
 
             // Call
             handler.SetPropertyValueAfterConfirmation(() => {});
@@ -101,6 +101,27 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
                                      + Environment.NewLine +
                                      "Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_NoConfirmationRequired()
+        {
+            // Setup
+            var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
+                new DuneLocationCalculationsForTargetProbability(0.1)
+                {
+                    DuneLocationCalculations =
+                    {
+                        CreateCalculation(),
+                        CreateCalculation()
+                    }
+                });
+
+            // Call
+            handler.SetPropertyValueAfterConfirmation(() => {});
+
+            // Assert
+            // No assert as the check is to verify whether a modal dialog is spawned
         }
 
         [Test]
@@ -139,23 +160,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
-        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsNoAffectedObjects()
+        public void SetPropertyValueAfterConfirmation_CalculationsForTargetProbabilityWithoutOutput_ReturnsAffectedObjectsAndDoesNotLog()
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
-            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(0.1)
-            {
-                DuneLocationCalculations =
-                {
-                    new DuneLocationCalculation(new TestDuneLocation())
-                }
-            };
-
+            DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = CreateCalculationsForTargetProbabilityWithoutOutput();
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
                 calculationsForTargetProbability);
 
@@ -175,6 +183,22 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         }
 
         [Test]
+        public void SetPropertyValueAfterConfirmation_ConfirmationNotRequired_HandlerExecuted()
+        {
+            // Setup
+            var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
+                CreateCalculationsForTargetProbabilityWithoutOutput());
+
+            var handlerExecuted = false;
+
+            // Call
+            handler.SetPropertyValueAfterConfirmation(() => handlerExecuted = true);
+
+            // Assert
+            Assert.IsTrue(handlerExecuted);
+        }
+
+        [Test]
         public void SetPropertyValueAfterConfirmation_ConfirmationGiven_HandlerExecuted()
         {
             // Setup
@@ -185,7 +209,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             };
 
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability(0.1));
+                CreateCalculationsForTargetProbabilityWithAndWithoutOutput());
 
             var handlerExecuted = false;
 
@@ -207,7 +231,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             };
 
             DuneLocationCalculationsForTargetProbability calculationsForTargetProbability = CreateCalculationsForTargetProbabilityWithAndWithoutOutput();
-
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(calculationsForTargetProbability);
 
             var propertySet = 0;
@@ -225,14 +248,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         public void SetPropertyValueAfterConfirmation_ConfirmationGivenExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var tester = new MessageBoxTester(wnd);
-                tester.ClickOk();
-            };
-
             var handler = new DuneLocationCalculationsForTargetProbabilityChangeHandler(
-                new DuneLocationCalculationsForTargetProbability(0.1));
+                CreateCalculationsForTargetProbabilityWithoutOutput());
 
             var expectedException = new Exception();
 
@@ -246,27 +263,42 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
 
         private static DuneLocationCalculationsForTargetProbability CreateCalculationsForTargetProbabilityWithAndWithoutOutput()
         {
-            var calculationWithOutput1 = new DuneLocationCalculation(new TestDuneLocation())
-            {
-                Output = new TestDuneLocationCalculationOutput()
-            };
-
-            var calculationWithOutput2 = new DuneLocationCalculation(new TestDuneLocation())
-            {
-                Output = new TestDuneLocationCalculationOutput()
-            };
-
             return new DuneLocationCalculationsForTargetProbability(0.1)
             {
                 DuneLocationCalculations =
                 {
-                    new DuneLocationCalculation(new TestDuneLocation()),
-                    calculationWithOutput1,
-                    new DuneLocationCalculation(new TestDuneLocation()),
-                    calculationWithOutput2,
-                    new DuneLocationCalculation(new TestDuneLocation())
+                    CreateCalculation(),
+                    CreateCalculation(true),
+                    CreateCalculation(),
+                    CreateCalculation(true),
+                    CreateCalculation()
                 }
             };
+        }
+        
+        private static DuneLocationCalculationsForTargetProbability CreateCalculationsForTargetProbabilityWithoutOutput()
+        {
+            return new DuneLocationCalculationsForTargetProbability(0.1)
+            {
+                DuneLocationCalculations =
+                {
+                    CreateCalculation(),
+                    CreateCalculation(),
+                    CreateCalculation()
+                }
+            };
+        }
+
+        private static DuneLocationCalculation CreateCalculation(bool hasOutput = false)
+        {
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
+
+            if (hasOutput)
+            {
+                calculation.Output = new TestDuneLocationCalculationOutput();
+            }
+
+            return calculation;
         }
     }
 }
