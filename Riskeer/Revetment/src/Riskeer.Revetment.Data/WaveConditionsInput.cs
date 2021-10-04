@@ -33,10 +33,10 @@ using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 namespace Riskeer.Revetment.Data
 {
     /// <summary>
-    /// Abstract class that holds all generic wave conditions calculation input parameters.
+    /// Class that holds all generic wave conditions calculation input parameters.
     /// </summary>
     public class WaveConditionsInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation,
-                                                IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+                                       IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
 

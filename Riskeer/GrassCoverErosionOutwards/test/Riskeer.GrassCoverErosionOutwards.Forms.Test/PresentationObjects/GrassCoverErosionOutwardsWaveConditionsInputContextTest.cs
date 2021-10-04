@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -39,10 +42,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var assessmentSection = new AssessmentSectionStub();
-            var foreshoreProfiles = new[]
-            {
-                new TestForeshoreProfile()
-            };
+            IEnumerable<ForeshoreProfile> foreshoreProfiles = Enumerable.Empty<ForeshoreProfile>();
 
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
@@ -69,13 +69,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
-                                                                                              calculation,
-                                                                                              assessmentSection,
-                                                                                              null);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters, calculation, assessmentSection, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
             mocks.VerifyAll();
         }

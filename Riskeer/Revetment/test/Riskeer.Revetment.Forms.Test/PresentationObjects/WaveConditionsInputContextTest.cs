@@ -48,12 +48,10 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new WaveConditionsInputContext(waveConditionsInput,
-                                                                         null,
-                                                                         assessmentSection);
+            void Call() => new WaveConditionsInputContext(waveConditionsInput, null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculation", paramName);
             mocks.VerifyAll();
         }
@@ -66,12 +64,10 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             var calculation = new TestWaveConditionsCalculation<WaveConditionsInput>(waveConditionsInput);
 
             // Call
-            TestDelegate call = () => new WaveConditionsInputContext(waveConditionsInput,
-                                                                         calculation,
-                                                                         null);
+            void Call() => new WaveConditionsInputContext(waveConditionsInput, calculation, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -85,8 +81,8 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
 
             // Call
             var context = new WaveConditionsInputContext(waveConditionsInput,
-                                                             calculation,
-                                                             assessmentSection);
+                                                         calculation,
+                                                         assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
@@ -99,8 +95,8 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         private class WaveConditionsInputContext : WaveConditionsInputContext<WaveConditionsInput>
         {
             public WaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                  ICalculation<WaveConditionsInput> calculation,
-                                                  IAssessmentSection assessmentSection)
+                                              ICalculation<WaveConditionsInput> calculation,
+                                              IAssessmentSection assessmentSection)
                 : base(wrappedData, calculation, assessmentSection) {}
 
             public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }

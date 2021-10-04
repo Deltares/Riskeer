@@ -81,12 +81,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new WaveConditionsInputContextProperties(null,
-                                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                                   handler);
+            void Call() => new WaveConditionsInputContextProperties(null, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("context", paramName);
             mocks.VerifyAll();
         }
@@ -107,10 +105,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 assessmentSection);
 
             // Call
-            TestDelegate test = () => new WaveConditionsInputContextProperties(context, null, handler);
+            void Call() => new WaveConditionsInputContextProperties(context, null, handler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getAssessmentLevelFunc", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -125,12 +123,10 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 new AssessmentSectionStub());
 
             // Call
-            TestDelegate test = () => new WaveConditionsInputContextProperties(context,
-                                                                                   AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                                   null);
+            void Call() => new WaveConditionsInputContextProperties(context, AssessmentSectionTestHelper.GetTestAssessmentLevel, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("propertyChangeHandler", exception.ParamName);
         }
 
@@ -251,8 +247,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             // Call
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -585,8 +581,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
@@ -619,8 +615,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call 
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -663,8 +659,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = properties.SelectedHydraulicBoundaryLocation;
@@ -707,8 +703,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -745,8 +741,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
@@ -788,8 +784,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations = properties.GetSelectableHydraulicBoundaryLocations();
@@ -831,8 +827,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
             var customHandler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          customHandler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      customHandler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
@@ -873,8 +869,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, foreshoreProfiles, assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call
             IEnumerable<ForeshoreProfile> availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
@@ -898,8 +894,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call
             SelectableTargetProbability selectedTargetProbability = properties.SelectedTargetProbability;
@@ -936,8 +932,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call
             SelectableTargetProbability selectedTargetProbability = properties.SelectedTargetProbability;
@@ -963,8 +959,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, Array.Empty<ForeshoreProfile>(), assessmentSection);
 
             var properties = new WaveConditionsInputContextProperties(inputContext,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          handler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      handler);
 
             // Call 
             IEnumerable<SelectableTargetProbability> selectableTargetProbabilities = properties.GetSelectableTargetProbabilities();
@@ -1014,8 +1010,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             });
 
             var properties = new WaveConditionsInputContextProperties(context,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                          customHandler);
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                      customHandler);
 
             // Call
             setProperty(properties);
@@ -1050,8 +1046,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         private class WaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, WaveConditionsInput, object>
         {
             public WaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
-                                                            Func<RoundedDouble> getAssessmentLevelFunc,
-                                                            IObservablePropertyChangeHandler handler)
+                                                        Func<RoundedDouble> getAssessmentLevelFunc,
+                                                        IObservablePropertyChangeHandler handler)
                 : base(context, getAssessmentLevelFunc, handler) {}
 
             public override object RevetmentType
