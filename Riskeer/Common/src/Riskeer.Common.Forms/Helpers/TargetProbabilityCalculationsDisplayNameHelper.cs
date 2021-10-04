@@ -115,7 +115,7 @@ namespace Riskeer.Common.Forms.Helpers
 
             if (!nonUniqueCalculationsDisplayNameLookup.ContainsKey(calculations))
             {
-                throw new InvalidOperationException("The provided calculations object is not part of the enumeration.");
+                throw new InvalidOperationException("The provided calculations object is not part of the enumeration that contains all calculations.");
             }
 
             return GetUniqueDisplayNameLookup(nonUniqueCalculationsDisplayNameLookup)[calculations];

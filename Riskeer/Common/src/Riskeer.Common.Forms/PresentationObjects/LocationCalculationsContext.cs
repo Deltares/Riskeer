@@ -29,7 +29,7 @@ using Core.Common.Controls.PresentationObjects;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Base class for location calculation related presentation objects that should be uniquely identifiable.
+    /// Base class for location calculations related presentation objects that should be uniquely identifiable.
     /// </summary>
     /// <typeparam name="TWrappedData">The object type of the wrapped instance.</typeparam>
     /// <typeparam name="TObservable">The object type of the instances that effect the unique identification.</typeparam>
@@ -38,9 +38,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
     {
         private readonly Collection<IObserver> observers = new Collection<IObserver>();
 
-        private Observer locationCalculationsListObserver;
+        private Observer locationCalculationsEnumerationObserver;
 
-        private RecursiveObserver<ObservableList<TObservable>, TObservable> locationCalculationsObserver;
+        private RecursiveObserver<IObservableEnumerable<TObservable>, TObservable> locationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="LocationCalculationsContext{TWrappedData, TObservable}"/>.
@@ -56,17 +56,17 @@ namespace Riskeer.Common.Forms.PresentationObjects
         {
             if (!observers.Any())
             {
-                if (!(LocationCalculationsListToObserve is TObservable))
+                if (!(LocationCalculationsEnumerationToObserve is TObservable))
                 {
-                    locationCalculationsListObserver = new Observer(NotifyObservers)
+                    locationCalculationsEnumerationObserver = new Observer(NotifyObservers)
                     {
-                        Observable = LocationCalculationsListToObserve
+                        Observable = LocationCalculationsEnumerationToObserve
                     };
                 }
 
-                locationCalculationsObserver = new RecursiveObserver<ObservableList<TObservable>, TObservable>(NotifyObservers, list => list)
+                locationCalculationsObserver = new RecursiveObserver<IObservableEnumerable<TObservable>, TObservable>(NotifyObservers, enumerable => enumerable)
                 {
-                    Observable = LocationCalculationsListToObserve
+                    Observable = LocationCalculationsEnumerationToObserve
                 };
             }
 
@@ -79,9 +79,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
 
             if (!observers.Any())
             {
-                if (!(LocationCalculationsListToObserve is TObservable))
+                if (!(LocationCalculationsEnumerationToObserve is TObservable))
                 {
-                    locationCalculationsListObserver.Dispose();
+                    locationCalculationsEnumerationObserver.Dispose();
                 }
 
                 locationCalculationsObserver.Dispose();
@@ -104,8 +104,8 @@ namespace Riskeer.Common.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the list of instances that effect the unique identification.
+        /// Gets the enumeration of instances that effect the unique identification.
         /// </summary>
-        protected abstract ObservableList<TObservable> LocationCalculationsListToObserve { get; }
+        protected abstract IObservableEnumerable<TObservable> LocationCalculationsEnumerationToObserve { get; }
     }
 }

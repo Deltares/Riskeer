@@ -41,6 +41,6 @@ namespace Riskeer.Common.Forms.PresentationObjects
                                                                             IAssessmentSection assessmentSection)
             : base(wrappedData, assessmentSection) {}
 
-        protected override ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> LocationCalculationsListToObserve => AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+        protected override IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> LocationCalculationsEnumerationToObserve => AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
     }
 }
