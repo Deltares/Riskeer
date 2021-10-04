@@ -1018,8 +1018,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilityContext>
             {
-                Text = context => CalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
-                                                                                                              context.WrappedData),
+                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
+                                                                                                                               context.WrappedData),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaterLevelCalculationsForNormTargetProbabilityContextMenuStrip
             };
@@ -1038,8 +1038,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext>
             {
-                Text = context => CalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
-                                                                                                              context.WrappedData.HydraulicBoundaryLocationCalculations),
+                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
+                                                                                                                               context.WrappedData.HydraulicBoundaryLocationCalculations),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbability,
@@ -1063,9 +1063,9 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext>
             {
-                Text = context => CalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
-                                                                                                    context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                                    probability => probability.TargetProbability),
+                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
+                                                                                                                     context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                     probability => probability.TargetProbability),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbability,

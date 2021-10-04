@@ -29,10 +29,10 @@ using Riskeer.Common.Forms.TypeConverters;
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// This class helps in obtaining unique display names for different types of calculations within
-    /// an <see cref="IAssessmentSection"/>.
+    /// This class helps in obtaining unique display names for different types of calculations that can be identified
+    /// by their target probability.
     /// </summary>
-    public static class CalculationsDisplayNameHelper
+    public static class TargetProbabilityCalculationsDisplayNameHelper
     {
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
