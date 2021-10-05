@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -179,10 +180,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
             using (mockRepository.Ordered())
@@ -199,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -226,12 +229,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_Always_AddCustomItems(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -274,12 +279,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
-
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -314,12 +320,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = "invalidFilePath"
+                }
+            };
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -354,19 +369,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var assessmentSection = new AssessmentSectionStub
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -400,28 +417,28 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
             var random = new Random(21);
-            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
-            };
-            var calculationWithIllustrationPoints = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
-            };
-            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            });
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculationWithOutput = calculations.ElementAt(0);
+            calculationWithOutput.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-                                                                                     {
-                                                                                         calculationWithOutput,
-                                                                                         calculationWithIllustrationPoints,
-                                                                                         calculationWithoutOutput
-                                                                                     },
+            HydraulicBoundaryLocationCalculation calculationWithIllustrationPoints = calculations.ElementAt(1);
+            calculationWithIllustrationPoints.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
+
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -456,23 +473,24 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
             var random = new Random(21);
-            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
-            };
-            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            });
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+            HydraulicBoundaryLocationCalculation calculation = calculations.First();
+            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-                                                                                     {
-                                                                                         calculationWithOutput,
-                                                                                         calculationWithoutOutput
-                                                                                     },
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
@@ -503,10 +521,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
         [Apartment(ApartmentState.STA)]
-        public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
+        public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -514,16 +535,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            };
-
             double GetNormFunc() => 0.01;
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                     assessmentSection,
                                                                                     GetNormFunc);
 
@@ -578,11 +597,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
         [Apartment(ApartmentState.STA)]
-        public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
+        public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -596,17 +618,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             double GetNormFunc() => 0.01;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            };
-
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                     assessmentSection,
                                                                                     GetNormFunc);
 
@@ -661,10 +681,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
         [Apartment(ApartmentState.STA)]
-        public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
+        public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -678,17 +701,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             double GetNormFunc() => 0.01;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            };
-
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
                                                                                     assessmentSection,
                                                                                     GetNormFunc);
 
@@ -743,27 +764,35 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationConfigurations))]
         [Apartment(ApartmentState.STA)]
-        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet(
+            double lowerLimitNorm, double signallingNorm,
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
             const string locationName = "locationName";
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signallingNorm
+                },
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
                 }
             };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation("locationName")
+            });
+
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                hydraulicBoundaryLocationCalculation
-            };
-
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
                                                                                     assessmentSection,
                                                                                     () => 0.01);
 
@@ -818,7 +847,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (1/100) is gelukt.", msgs[7]);
                         });
 
-                        HydraulicBoundaryLocationCalculationOutput output = hydraulicBoundaryLocationCalculation.Output;
+                        HydraulicBoundaryLocationCalculationOutput output = calculations.First().Output;
                         Assert.AreEqual(calculator.DesignWaterLevel, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }
@@ -829,41 +858,38 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationContinuationCases))]
         [Apartment(ApartmentState.STA)]
-        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenInquiryAndExpectedOutputAndCalculationObserversNotified(bool continuation)
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedOutputAndCalculationObserversNotified(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc, bool continuation)
         {
             // Given
             var random = new Random(21);
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
-            };
 
             var calculationObserver = mockRepository.StrictMock<IObserver>();
-
             if (continuation)
             {
                 calculationObserver.Expect(o => o.UpdateObserver());
             }
 
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
+
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = calculations.First();
+            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
             calculation.Attach(calculationObserver);
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
-
-            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-                                                                                     {
-                                                                                         calculation
-                                                                                     },
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
                                                                                      assessmentSection,
                                                                                      () => 0.01);
 
-            var messageBoxText = "";
             DialogBoxHandler = (name, wnd) =>
             {
                 var helper = new MessageBoxTester(wnd);
-                messageBoxText = helper.Text;
 
                 if (continuation)
                 {
@@ -893,9 +919,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        string expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij '1/100' wilt wissen?";
-                        Assert.AreEqual(expectedMessage, messageBoxText);
-
                         Assert.IsTrue(calculation.HasOutput);
                         Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
                     }
@@ -903,6 +926,117 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases))]
+        [Apartment(ApartmentState.STA)]
+        public void GivenLowerLimitNormCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
+            double lowerLimitNorm, double signalingNorm, string expectedText)
+        {
+            // Given
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signalingNorm
+                }
+            };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
+
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);
+            HydraulicBoundaryLocationCalculation calculation = calculations.First();
+            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint());
+
+            var nodeData = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
+                                                                                     assessmentSection,
+                                                                                     () => 0.1);
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // When
+                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                        // Then
+                        var expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij '{expectedText}' wilt wissen?";
+                        Assert.AreEqual(expectedMessage, messageBoxText);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculations()
+        {
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
+                .SetName("SignalingNormCalculations");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
+                .SetName("LowerLimitNormCalculations");
+        }
+
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationConfigurations()
+        {
+            yield return new TestCaseData(1 / 10.0, 1 / 100.0, new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
+                .SetName("SignalingNormCalculations");
+            yield return new TestCaseData(1 / 100.0, 1 / 200.0, new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
+                .SetName("LowerLimitNormCalculations");
+        }
+
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationContinuationCases()
+        {
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm), true)
+                .SetName("SignalingNormCalculationsContinued");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm), false)
+                .SetName("SignalingNormCalculationsCancelled");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm), true)
+                .SetName("LowerLimitNormCalculationsContinued");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm), false)
+                .SetName("LowerLimitNormCalculationsCancelled");
+        }
+
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases()
+        {
+            const double lowerLimitNorm = 0.1;
+            const double signalingNorm = 0.01;
+
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
+                                          signalingNorm, signalingNorm, "1/100 (1)")
+                .SetName("SignalingNormCalculationsNormsSame");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
+                                          lowerLimitNorm, signalingNorm, "1/100")
+                .SetName("SignalingNormCalculationsNormsDifferent");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
+                                          lowerLimitNorm, lowerLimitNorm, "1/10")
+                .SetName("LowerLimitNormCalculationsNormsSame");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
+                                          lowerLimitNorm, signalingNorm, "1/10")
+                .SetName("LowerLimitNormCalculationsNormsDifferent");
         }
 
         public override void Setup()
