@@ -120,11 +120,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
-            var calculationsForTargetProbability2 = new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability3);
             failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
             {
                 new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
-                calculationsForTargetProbability2,
+                new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability3),
                 calculationsForTargetProbability
             });
 
