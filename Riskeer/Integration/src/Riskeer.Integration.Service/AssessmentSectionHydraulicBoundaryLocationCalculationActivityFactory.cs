@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Service
                                                     whc.TargetProbability,
                                                     TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(whc,
                                                                                                                                        assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                                                                       c => c.TargetProbability)))\.ToList();
+                                                                                                                                       c => c.TargetProbability))).ToList();
         }
     }
 }
