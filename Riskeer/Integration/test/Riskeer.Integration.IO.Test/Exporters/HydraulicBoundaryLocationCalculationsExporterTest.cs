@@ -116,7 +116,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 Directory.Delete(directoryPath, true);
             }
         }
-        
+
         [Test]
         public void Export_HydraulicBoundaryLocationCalculationsExporterReturnsFalse_LogErrorAndReturnFalse()
         {
@@ -155,6 +155,45 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
         }
 
+        [Test]
+        public void Export_CreatingZipFileThrowsCriticalFileWriteException_LogErrorAndReturnFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
+            });
+
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CreatingZipFileThrowsCriticalFileWriteException_LogErrorAndReturnFalse));
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.zip");
+
+            var exporter = new HydraulicBoundaryLocationCalculationsExporter(assessmentSection, filePath);
+
+            try
+            {
+                using (var helper = new FileDisposeHelper(filePath))
+                {
+                    helper.LockFiles();
+
+                    // Call
+                    var isExported = true;
+                    void Call() => isExported = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                                             "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
+                    TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
+                    Assert.IsFalse(isExported);
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
         private static IEnumerable<TestCaseData> GetAssessmentSectionConfigurations()
         {
             var assessmentSectionWithTargetProbabilities = new AssessmentSectionStub();
@@ -162,7 +201,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             });
-            yield return new TestCaseData(assessmentSectionWithTargetProbabilities,new[]
+            yield return new TestCaseData(assessmentSectionWithTargetProbabilities, new[]
             {
                 "Waterstanden bij norm/Waterstanden_30000.shp",
                 "Waterstanden bij norm/Waterstanden_30000 (1).shp",
@@ -171,7 +210,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 "Golfhoogten bij doelkans/Golfhoogten_4000.shp",
                 "Golfhoogten bij doelkans/Golfhoogten_40000.shp"
             }).SetName("With UserDefinedTargetProbabilities");
-            
+
             var assessmentSectionWithoutTargetProbabilities = new AssessmentSectionStub();
             assessmentSectionWithoutTargetProbabilities.SetHydraulicBoundaryLocationCalculations(new[]
             {

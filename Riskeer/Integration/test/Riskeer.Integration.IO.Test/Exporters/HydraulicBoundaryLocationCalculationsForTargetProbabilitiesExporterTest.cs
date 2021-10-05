@@ -133,6 +133,46 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        public void Export_CreatingZipFileThrowsCriticalFileWriteException_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(Export_CreatingZipFileThrowsCriticalFileWriteException_LogsErrorAndReturnsFalse));
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "export.zip");
+
+            var calculationsForTargetProbabilities = new[]
+            {
+                new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
+                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), 0.1)
+            };
+
+            var exporter = new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
+                calculationsForTargetProbabilities, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath);
+
+            try
+            {
+                using (var helper = new FileDisposeHelper(filePath))
+                {
+                    helper.LockFiles();
+
+                    // Call
+                    var isExported = true;
+                    void Call() => isExported = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                                             "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
+                    TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
+                    Assert.IsFalse(isExported);
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
+        }
+
+        [Test]
         [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, "Waterstanden")]
         [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, "Golfhoogten")]
         public void Export_WithHydraulicBoundaryLocationCalculationsForTargetProbabilities_WritesFilesAndReturnsTrue(
