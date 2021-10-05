@@ -86,11 +86,28 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithContext_ReturnsExpectedViewName()
+        [TestCase(0.025, 0.0025, 0.00025, "1/400")]
+        [TestCase(0.0025, 0.0025, 0.025, "1/400 (1)")]
+        [TestCase(0.0025, 0.0025, 0.0025, "1/400 (2)")]
+        public void GetViewName_WithContext_ReturnsExpectedViewName(double userDefinedTargetProbability1,
+                                                                    double userDefinedTargetProbability2,
+                                                                    double userDefinedTargetProbability3,
+                                                                    string expectedProbabilityText)
         {
             // Setup
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),
-                                                                                           new AssessmentSectionStub());
+            var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
+            var assessmentSection = new AssessmentSectionStub
+            {
+                WaterLevelCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability3),
+                    calculationsForTargetProbability
+                }
+            };
+
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                           assessmentSection);
             using (var plugin = new RiskeerPlugin())
             {
                 ViewInfo info = GetViewInfo(plugin);
@@ -99,7 +116,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij doelkans - 1/100", viewName);
+                Assert.AreEqual($"Waterstanden bij doelkans - {expectedProbabilityText}", viewName);
             }
         }
 

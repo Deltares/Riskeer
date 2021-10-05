@@ -360,12 +360,15 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  () => noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData),
+                GetViewName = (view, context) => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData, context.AssessmentSection),
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseForWaterLevelCalculationsForUserDefinedTargetProbabilityContextData,
@@ -373,12 +376,15 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  () => context.WrappedData.TargetProbability,
                                                                                  () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData),
+                GetViewName = (view, context) => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData, context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities),
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseForWaveHeightCalculationsForUserDefinedTargetProbabilityContextData,
@@ -386,7 +392,10 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            () => context.WrappedData.TargetProbability,
                                                                            () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
@@ -1325,33 +1334,37 @@ namespace Riskeer.Integration.Plugin
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
             Func<string> getTitleFunc = null;
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities = null;
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability = null;
 
             if (e.View is DesignWaterLevelCalculationsView designWaterLevelCalculationsView)
             {
-                calculationsForUserDefinedTargetProbabilities =
-                    designWaterLevelCalculationsView.AssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
-                                                    .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
+                IAssessmentSection assessmentSection = designWaterLevelCalculationsView.AssessmentSection;
+                calculationsForUserDefinedTargetProbability =
+                    assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
+                                     .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
 
-                getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbabilities);
+                getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
             }
             else if (e.View is WaveHeightCalculationsView waveHeightCalculationsView)
             {
-                calculationsForUserDefinedTargetProbabilities =
-                    waveHeightCalculationsView.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
-                                              .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForUserDefinedTargetProbabilities =
+                    waveHeightCalculationsView.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
 
-                getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbabilities);
+                calculationsForUserDefinedTargetProbability =
+                    calculationsForUserDefinedTargetProbabilities
+                        .FirstOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
+
+                getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, calculationsForUserDefinedTargetProbabilities);
             }
 
-            if (calculationsForUserDefinedTargetProbabilities == null)
+            if (calculationsForUserDefinedTargetProbability == null)
             {
                 return;
             }
 
             observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, getTitleFunc()))
             {
-                Observable = calculationsForUserDefinedTargetProbabilities
+                Observable = calculationsForUserDefinedTargetProbability
             };
         }
 
@@ -1365,17 +1378,22 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static string GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities)
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability,
+            IAssessmentSection assessmentSection)
         {
-            return $"{RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
-                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserDefinedTargetProbabilities.TargetProbability)}";
+            string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(
+                calculationsForUserDefinedTargetProbability.HydraulicBoundaryLocationCalculations, assessmentSection);
+            return $"{RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - {targetProbability}";
         }
 
         private static string GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(
-            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities)
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability,
+            IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForUserDefinedTargetProbabilities)
         {
-            return $"{RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - " +
-                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForUserDefinedTargetProbabilities.TargetProbability)}";
+            string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(calculationsForUserDefinedTargetProbability,
+                                                                                                                          calculationsForUserDefinedTargetProbabilities,
+                                                                                                                          probability => probability.TargetProbability);
+            return $"{RiskeerCommonUtilResources.WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName} - {targetProbability}";
         }
 
         private static bool HasGeometry(ReferenceLine referenceLine)
