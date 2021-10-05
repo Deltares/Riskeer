@@ -1018,8 +1018,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForNormTargetProbabilityContext>
             {
-                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
-                                                                                                                               context.WrappedData),
+                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData,
+                                                                                                                               context.AssessmentSection),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaterLevelCalculationsForNormTargetProbabilityContextMenuStrip
             };
@@ -1038,8 +1038,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext>
             {
-                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.AssessmentSection,
-                                                                                                                               context.WrappedData.HydraulicBoundaryLocationCalculations),
+                Text = context => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                                                                               context.AssessmentSection),
                 Image = context => RiskeerCommonFormsResources.GenericInputOutputIcon,
                 EnsureVisibleOnCreate = (context, o) => true,
                 OnRemoveConfirmationText = context => Resources.RiskeerPlugin_GetTreeNodeInfos_Confirm_remove_TargetProbability,

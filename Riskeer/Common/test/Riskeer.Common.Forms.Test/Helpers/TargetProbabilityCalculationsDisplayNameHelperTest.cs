@@ -36,23 +36,11 @@ namespace Riskeer.Common.Forms.Test.Helpers
     public class TargetProbabilityCalculationsDisplayNameHelperTest
     {
         [Test]
-        public void GetUniqueDisplayNameForWaterLevelCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(
-                null, Enumerable.Empty<HydraulicBoundaryLocationCalculation>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void GetUniqueDisplayNameForWaterLevelCalculations_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(
-                new AssessmentSectionStub(), null);
+                null, new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,11 +48,23 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
+        public void GetUniqueDisplayNameForWaterLevelCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void GetUniqueDisplayNameForWaterLevelCalculations_CalculationsNotInWaterLevelCalculationsOfAssessmentSection_ThrowsInvalidOperationException()
         {
             // Call
             void Call() => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(
-                new AssessmentSectionStub(), Enumerable.Empty<HydraulicBoundaryLocationCalculation>());
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(Call);
@@ -96,7 +96,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection, hydraulicBoundaryLocationCalculations);
+            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(hydraulicBoundaryLocationCalculations,
+                                                                                                                       assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedName, name);
@@ -129,7 +130,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection, hydraulicBoundaryLocationCalculations);
+            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(hydraulicBoundaryLocationCalculations,
+                                                                                                                       assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedName, name);
@@ -166,7 +168,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             mockRepository.ReplayAll();
 
             // Call
-            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection, calculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
+            string name = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+                                                                                                                       assessmentSection);
 
             // Assert
             Assert.AreEqual(expectedName, name);

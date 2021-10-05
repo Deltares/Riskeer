@@ -39,22 +39,22 @@ namespace Riskeer.Common.Forms.Helpers
         /// <summary>
         /// Gets a unique water level calculations display name for the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The water level calculations to get the unique display name for.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <returns>A unique water level calculations display name.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculations"/> is not part of the water level
         /// calculations within <paramref name="assessmentSection"/>.</exception>
-        public static string GetUniqueDisplayNameForWaterLevelCalculations(IAssessmentSection assessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        public static string GetUniqueDisplayNameForWaterLevelCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, IAssessmentSection assessmentSection)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var nonUniqueWaterLevelCalculationsDisplayNameLookup = new Dictionary<object, string>
