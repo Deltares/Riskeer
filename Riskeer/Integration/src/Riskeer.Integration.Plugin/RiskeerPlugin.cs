@@ -2453,7 +2453,7 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
-                noProbabilityValueDoubleConverter.ConvertToString(nodeData.GetNormFunc()),
+                TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData, nodeData.AssessmentSection),
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData));
 
             return builder.AddOpenItem()
@@ -2531,12 +2531,15 @@ namespace Riskeer.Integration.Plugin
                 nodeData, treeViewControl, (calculation, section) =>
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         calculation.HydraulicBoundaryLocationCalculations, section, calculation.TargetProbability,
-                        noProbabilityValueDoubleConverter.ConvertToString(calculation.TargetProbability)),
+                        noProbabilityValueDoubleConverter.ConvertToString(calculation.TargetProbability)), 
+                TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                                                             nodeData.AssessmentSection),
                 RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip);
         }
 
         private ContextMenuStrip HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContext nodeData, TreeViewControl treeViewControl,
                                                                                                                       Action<HydraulicBoundaryLocationCalculationsForTargetProbability, IAssessmentSection> calculationAction,
+                                                                                                                      string nodeDataDisplayName,
                                                                                                                       string calculationItemToolTip)
         {
             var calculationItem = new StrictContextMenuItem(
@@ -2558,7 +2561,7 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var changeHandler = new ClearIllustrationPointsOfHydraulicBoundaryLocationCalculationCollectionChangeHandler(
                 GetInquiryHelper(),
-                noProbabilityValueDoubleConverter.ConvertToString(nodeData.WrappedData.TargetProbability),
+                nodeDataDisplayName,
                 () => RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(nodeData.WrappedData.HydraulicBoundaryLocationCalculations));
 
             return builder.AddOpenItem()
@@ -2657,7 +2660,10 @@ namespace Riskeer.Integration.Plugin
                 nodeData, treeViewControl, (calculation, section) =>
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         calculation.HydraulicBoundaryLocationCalculations, section, calculation.TargetProbability,
-                        noProbabilityValueDoubleConverter.ConvertToString(calculation.TargetProbability)),
+                        noProbabilityValueDoubleConverter.ConvertToString(calculation.TargetProbability)), 
+                TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(nodeData.WrappedData, 
+                                                                                                   nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, 
+                                                                                                   probability => probability.TargetProbability),
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip);
         }
 
