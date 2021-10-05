@@ -189,6 +189,7 @@ namespace Core.Gui.Forms.ViewHost
                 PerformWithoutChangingActiveContent(() =>
                 {
                     layoutDocument.Close();
+                    UpdateDockingManager();
                 });
 
                 if (ReferenceEquals(ActiveDocumentView, view))
@@ -203,6 +204,7 @@ namespace Core.Gui.Forms.ViewHost
                 PerformWithoutChangingActiveContent(() =>
                 {
                     layoutAnchorable.Hide();
+                    UpdateDockingManager();
                 });
             }
         }
@@ -274,7 +276,7 @@ namespace Core.Gui.Forms.ViewHost
                 {
                     layoutContent.IsActive = true;
 
-                    DockingManager.UpdateLayout(); // This method is called in order to get rid of problems caused by AvalonDock's latency
+                    UpdateDockingManager();
                 }
             });
         }
@@ -389,13 +391,12 @@ namespace Core.Gui.Forms.ViewHost
                 toolViews.Remove(view);
             }
 
-            view.Data = null;
-
             CleanupHostControl(view);
 
-            OnViewClosed(view);
+            view.Data = null;
+            view.Dispose();
 
-            Application.DoEvents(); // This method is called in order to get rid of problems caused by AvalonDock's latency
+            OnViewClosed(view);
         }
 
         private void PerformWithoutChangingActiveContent(Action actionToPerform)
@@ -409,10 +410,19 @@ namespace Core.Gui.Forms.ViewHost
             DockingManager.ActiveContentChanged += OnActiveContentChanged;
         }
 
+        /// <summary>
+        /// This method can be called in order to get rid of problems caused by AvalonDock's latency.
+        /// </summary>
+        private void UpdateDockingManager()
+        {
+            DockingManager.UpdateLayout();
+        }
+
         private void CleanupHostControl(IView view)
         {
             WindowsFormsHost hostControl = hostControls.First(hc => hc.Child == view);
 
+            hostControl.Child = null; // Prevent views from getting disposed here by clearing the child
             hostControl.Dispose();
 
             hostControls.Remove(hostControl);
