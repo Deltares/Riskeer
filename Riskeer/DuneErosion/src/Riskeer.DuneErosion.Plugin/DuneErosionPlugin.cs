@@ -194,7 +194,7 @@ namespace Riskeer.DuneErosion.Plugin
 
             yield return new ViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
-                GetViewName = (view, context) => GetDuneLocationCalculationsViewName(context.WrappedData),
+                GetViewName = (view, context) => GetDuneLocationCalculationsViewName(context.WrappedData, context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities),
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData.DuneLocationCalculations,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
@@ -260,13 +260,15 @@ namespace Riskeer.DuneErosion.Plugin
         {
             if (e.View is DuneLocationCalculationsView duneLocationCalculationsView)
             {
+                DuneErosionFailureMechanism duneErosionFailureMechanism = duneLocationCalculationsView.FailureMechanism;
                 DuneLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities =
-                    duneLocationCalculationsView.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
-                                                .FirstOrDefault(calculations => ReferenceEquals(calculations.DuneLocationCalculations, duneLocationCalculationsView.Data));
+                    duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
+                                               .FirstOrDefault(calculations => ReferenceEquals(calculations.DuneLocationCalculations, duneLocationCalculationsView.Data));
 
                 if (calculationsForUserDefinedTargetProbabilities != null)
                 {
-                    observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserDefinedTargetProbabilities)))
+                    observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserDefinedTargetProbabilities,
+                                                                                                                                          duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)))
                     {
                         Observable = calculationsForUserDefinedTargetProbabilities
                     };
@@ -283,10 +285,13 @@ namespace Riskeer.DuneErosion.Plugin
             }
         }
 
-        private static string GetDuneLocationCalculationsViewName(DuneLocationCalculationsForTargetProbability calculationsForTargetProbabilities)
+        private static string GetDuneLocationCalculationsViewName(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability,
+                                                                  IEnumerable<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
         {
-            return $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
-                   $"{noProbabilityValueDoubleConverter.ConvertToString(calculationsForTargetProbabilities.TargetProbability)}";
+            string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(calculationsForTargetProbability,
+                                                                                                                          calculationsForTargetProbabilities,
+                                                                                                                          probability => probability.TargetProbability);
+            return $"{RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {targetProbability}";
         }
 
         #region ViewInfos

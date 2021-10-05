@@ -44,15 +44,32 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
     public class DuneLocationCalculationsViewInfoTest
     {
         [Test]
-        public void GetViewName_WithContext_ReturnsExpectedViewName()
+        [TestCase(0.025, 0.0025, 0.00025, "1/400")]
+        [TestCase(0.0025, 0.0025, 0.025, "1/400 (1)")]
+        [TestCase(0.0025, 0.0025, 0.0025, "1/400 (2)")]
+        public void GetViewName_WithContext_ReturnsExpectedViewName(double userDefinedTargetProbability1,
+                                                                    double userDefinedTargetProbability2,
+                                                                    double userDefinedTargetProbability3,
+                                                                    string expectedProbabilityText)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(new DuneLocationCalculationsForTargetProbability(0.01),
-                                                                                             new DuneErosionFailureMechanism(),
+            var calculationsForTargetProbability = new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability2);
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
+                    new DuneLocationCalculationsForTargetProbability(userDefinedTargetProbability3),
+                    calculationsForTargetProbability
+                }
+            };
+
+            var context = new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
+                                                                                             failureMechanism,
                                                                                              assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
@@ -63,7 +80,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual("Hydraulische belastingen - 1/100", viewName);
+                Assert.AreEqual($"Hydraulische belastingen - {expectedProbabilityText}", viewName);
                 mocks.VerifyAll();
             }
         }
