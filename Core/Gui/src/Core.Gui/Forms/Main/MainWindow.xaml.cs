@@ -45,6 +45,7 @@ using Core.Gui.Forms.PropertyView;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
+using Application = System.Windows.Forms.Application;
 using FontFamily = System.Windows.Media.FontFamily;
 using UserControl = System.Windows.Forms.UserControl;
 
@@ -308,6 +309,8 @@ namespace Core.Gui.Forms.Main
             }
 
             gui.DocumentViewController.CloseAllViews();
+
+            Application.DoEvents();
 
             if (gui.Project == null)
             {
