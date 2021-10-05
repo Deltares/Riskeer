@@ -248,7 +248,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
             var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
             using (mockRepository.Ordered())
@@ -266,8 +268,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -295,10 +296,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
+
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -342,10 +345,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -381,10 +385,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = "invalidFilePath"
+                }
+            };
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -420,17 +431,19 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub
             {
-                FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase)), "complete.sqlite")
+                }
             };
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1),
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -466,28 +479,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var random = new Random(21);
-            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    {
+                        Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+                    },
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    {
+                        Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+                    },
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                }
             };
-            var calculationWithIllustrationPoints = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
-            };
-            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
-                                                                                            {
-                                                                                                HydraulicBoundaryLocationCalculations =
-                                                                                                {
-                                                                                                    calculationWithOutput,
-                                                                                                    calculationWithIllustrationPoints,
-                                                                                                    calculationWithoutOutput
-                                                                                                }
-                                                                                            },
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -524,23 +535,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var random = new Random(21);
-            var calculationWithOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
             {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    {
+                        Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
+                    },
+                    new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                }
             };
-            var calculationWithoutOutput = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculations);
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1)
-                                                                                            {
-                                                                                                HydraulicBoundaryLocationCalculations =
-                                                                                                {
-                                                                                                    calculationWithOutput,
-                                                                                                    calculationWithoutOutput
-                                                                                                }
-                                                                                            },
-                                                                                            assessmentSection);
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -573,27 +583,31 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double targetProbability = 0.01;
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }
+            };
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                },
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculations
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-
-            const double targetProbability = 0.01;
-
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
-                                                                                           {
-                                                                                               HydraulicBoundaryLocationCalculations =
-                                                                                               {
-                                                                                                   new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                                                                                               }
-                                                                                           },
-                                                                                           assessmentSection);
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -650,6 +664,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
         {
             // Setup
+            const double targetProbability = 0.01;
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }
+            };
+
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
@@ -662,22 +687,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         UsePreprocessor = true,
                         PreprocessorDirectory = preprocessorDirectory
                     }
+                },
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculations
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            const double targetProbability = 0.01;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
-                                                                                           {
-                                                                                               HydraulicBoundaryLocationCalculations =
-                                                                                               {
-                                                                                                   new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                                                                                               }
-                                                                                           },
-                                                                                           assessmentSection);
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -734,6 +752,17 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void CalculateWaveHeightsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double targetProbability = 0.01;
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }
+            };
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -745,22 +774,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         UsePreprocessor = false,
                         PreprocessorDirectory = "InvalidPreprocessorDirectory"
                     }
+                },
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculations
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-
-            const double targetProbability = 0.01;
-
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
-                                                                                           {
-                                                                                               HydraulicBoundaryLocationCalculations =
-                                                                                               {
-                                                                                                   new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-                                                                                               }
-                                                                                           },
-                                                                                           assessmentSection);
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
@@ -816,26 +838,32 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
+            const double targetProbability = 0.01;
             const string locationName = "locationName";
+
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName));
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    calculation
+                }
+            };
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
+                },
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculations
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));
-
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
-                                                                                           {
-                                                                                               HydraulicBoundaryLocationCalculations =
-                                                                                               {
-                                                                                                   calculation
-                                                                                               }
-                                                                                           },
-                                                                                           assessmentSection);
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mockRepository);
@@ -901,39 +929,43 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCase(true)]
         [TestCase(false)]
         [Apartment(ApartmentState.STA)]
-        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenInquiryAndExpectedOutputAndCalculationObserversNotified(bool continuation)
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedOutputAndCalculationObserversNotified(bool continuation)
         {
             // Given
-            var random = new Random(21);
-            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
-            };
+            const double targetProbability = 0.01;
 
             var calculationObserver = mockRepository.StrictMock<IObserver>();
-
             if (continuation)
             {
                 calculationObserver.Expect(o => o.UpdateObserver());
             }
 
+            var random = new Random(21);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
             calculation.Attach(calculationObserver);
 
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mockRepository, "invalidFilePath");
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    calculation
+                }
+            };
 
-            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01)
-                                                                                            {
-                                                                                                HydraulicBoundaryLocationCalculations =
-                                                                                                {
-                                                                                                    calculation
-                                                                                                }
-                                                                                            },
-                                                                                            assessmentSection);
-            var messageBoxText = "";
+            var assessmentSection = new AssessmentSectionStub
+            {
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                {
+                    calculations
+                }
+            };
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
             DialogBoxHandler = (name, wnd) =>
             {
                 var helper = new MessageBoxTester(wnd);
-                messageBoxText = helper.Text;
 
                 if (continuation)
                 {
@@ -963,11 +995,75 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
 
                         // Then
-                        var expectedMessage = "Weet u zeker dat u alle berekende illustratiepunten bij '1/100' wilt wissen?";
-                        Assert.AreEqual(expectedMessage, messageBoxText);
-
                         Assert.IsTrue(calculation.HasOutput);
                         Assert.AreEqual(!continuation, calculation.Output.HasGeneralResult);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.025, 0.0025, "1/400")]
+        [TestCase(0.0025, 0.0025, "1/400 (1)")]
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(double userDefinedTargetProbability1,
+                                                                                                                       double userDefinedTargetProbability2,
+                                                                                                                       string expectedText)
+        {
+            // Given
+            var random = new Random(21);
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), new TestGeneralResultSubMechanismIllustrationPoint())
+            };
+
+            var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability2)
+            {
+                HydraulicBoundaryLocationCalculations =
+                {
+                    calculation
+                }
+            };
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new HydraulicBoundaryLocationCalculationsForTargetProbability(userDefinedTargetProbability1),
+                    calculations
+                }
+            };
+
+            var nodeData = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculations, assessmentSection);
+            var messageBoxText = "";
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var helper = new MessageBoxTester(wnd);
+                messageBoxText = helper.Text;
+                helper.ClickCancel();
+            };
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mockRepository);
+                gui.Stub(cmp => cmp.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                    {
+                        // When
+                        contextMenu.Items[contextMenuClearIllustrationPointsIndex].PerformClick();
+
+                        // Then
+                        var expectedMessage = $"Weet u zeker dat u alle berekende illustratiepunten bij '{expectedText}' wilt wissen?";
+                        Assert.AreEqual(expectedMessage, messageBoxText);
                     }
                 }
             }
