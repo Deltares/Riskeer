@@ -77,14 +77,16 @@ namespace Riskeer.Integration.Service
                                     assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                     assessmentSection,
                                     lowerLimitNorm,
-                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection)));
+                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                                                                                 assessmentSection)));
 
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                     assessmentSection,
                                     signalingNorm,
-                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection)));
+                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                                                                                 assessmentSection)));
 
             return activities;
         }
@@ -108,8 +110,8 @@ namespace Riskeer.Integration.Service
                                                     wlc.HydraulicBoundaryLocationCalculations,
                                                     assessmentSection,
                                                     wlc.TargetProbability,
-                                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(wlc.HydraulicBoundaryLocationCalculations, assessmentSection)))
-                                    .ToList();
+                                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(wlc.HydraulicBoundaryLocationCalculations,
+                                                                                                                                                 assessmentSection))).ToList();
         }
 
         /// <summary>
@@ -131,8 +133,9 @@ namespace Riskeer.Integration.Service
                                                     whc.HydraulicBoundaryLocationCalculations,
                                                     assessmentSection,
                                                     whc.TargetProbability,
-                                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(whc, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, _ => whc.TargetProbability)))
-                                    .ToList();
+                                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(whc,
+                                                                                                                                       assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                                       c => c.TargetProbability)))\.ToList();
         }
     }
 }
