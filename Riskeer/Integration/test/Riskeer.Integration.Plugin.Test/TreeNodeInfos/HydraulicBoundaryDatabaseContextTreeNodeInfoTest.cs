@@ -46,7 +46,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Common.Service.TestUtil;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
@@ -617,23 +616,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                         const string designWaterLevelCalculationTypeDisplayName = "Waterstand";
                         const string designWaterLevelCalculationDisplayName = "Waterstand berekening";
 
-                        var noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
-
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalingNorm),
+                            "1/30.000",
                             msgs, 0);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                            "1/30.000 (1)",
                             msgs, 8);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability),
+                            "1/10",
                             msgs, 16);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelCalculationTypeDisplayName, designWaterLevelCalculationDisplayName,
-                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].TargetProbability),
+                            "1/100",
                             msgs, 24);
 
                         const string waveHeightCalculationTypeDisplayName = "Golfhoogte";
@@ -641,11 +638,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName,
-                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability),
+                            "1/40",
                             msgs, 32);
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightCalculationTypeDisplayName, waveHeightCalculationDisplayName,
-                            noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].TargetProbability),
+                            "1/400",
                             msgs, 40);
                     });
                 }
