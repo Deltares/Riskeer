@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.TestUtil;
@@ -85,9 +86,9 @@ namespace Riskeer.Integration.Service.Test
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
-            string lowerLimitNormText = noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm);
+            string lowerLimitNormText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection);
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
-            string signalingNormText = noProbabilityValueDoubleConverter.ConvertToString(signalingNorm);
+            string signalingNormText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
@@ -112,9 +113,9 @@ namespace Riskeer.Integration.Service.Test
                                                       hydraulicBoundaryDatabase);
 
             double firstWaterLevelTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
-            string firstWaterLevelTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstWaterLevelTargetProbability);
+            string firstWaterLevelTargetProbabilityText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations, assessmentSection);
             double secondWaterLevelTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
-            string secondWaterLevelTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondWaterLevelTargetProbability);
+            string secondWaterLevelTargetProbabilityText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations, assessmentSection);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(4),
                                                       hydraulicBoundaryLocation1,
@@ -139,9 +140,9 @@ namespace Riskeer.Integration.Service.Test
                                                       hydraulicBoundaryDatabase);
 
             double firstWaveHeightTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
-            string firstWaveHeightTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstWaveHeightTargetProbability);
+            string firstWaveHeightTargetProbabilityText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0], assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, _ => firstWaveHeightTargetProbability);
             double secondWaveHeightTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
-            string secondWaveHeightTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondWaveHeightTargetProbability);
+            string secondWaveHeightTargetProbabilityText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1], assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, _ => secondWaveHeightTargetProbability);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(8),
                                                 hydraulicBoundaryLocation1,
@@ -203,30 +204,30 @@ namespace Riskeer.Integration.Service.Test
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
-            string signalingNormText = noProbabilityValueDoubleConverter.ConvertToString(signalingNorm);
+            string signalingNormText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection);
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
-            string lowerLimitNormText = noProbabilityValueDoubleConverter.ConvertToString(lowerLimitNorm);
+            string lowerLimitNormText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
-                                                      signalingNorm,
-                                                      signalingNormText,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
                                                       hydraulicBoundaryLocation2,
-                                                      signalingNorm,
-                                                      signalingNormText,
+                                                      lowerLimitNorm,
+                                                      lowerLimitNormText,
                                                       hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
                                                       hydraulicBoundaryLocation1,
-                                                      lowerLimitNorm,
-                                                      lowerLimitNormText,
+                                                      signalingNorm,
+                                                      signalingNormText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
                                                       hydraulicBoundaryLocation2,
-                                                      lowerLimitNorm,
-                                                      lowerLimitNormText,
+                                                      signalingNorm,
+                                                      signalingNormText,
                                                       hydraulicBoundaryDatabase);
         }
 
@@ -331,9 +332,9 @@ namespace Riskeer.Integration.Service.Test
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
             double firstTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
-            string firstTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(firstTargetProbability);
+            string firstTargetProbabilityText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[0], assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, _ => firstTargetProbability);
             double secondTargetProbability = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1].TargetProbability;
-            string secondTargetProbabilityText = noProbabilityValueDoubleConverter.ConvertToString(secondTargetProbability);
+            string secondTargetProbabilityText = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities[1], assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, _ => secondTargetProbability);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(0),
                                                 hydraulicBoundaryLocation1,
