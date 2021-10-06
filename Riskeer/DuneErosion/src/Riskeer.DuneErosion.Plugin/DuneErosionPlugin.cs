@@ -65,7 +65,7 @@ namespace Riskeer.DuneErosion.Plugin
     {
         private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
-        private static readonly IDictionary<IView, Observer> observersForViewTitles = new Dictionary<IView, Observer>();
+        private static readonly IDictionary<IView, IEnumerable<IObserver>> observersForViewTitles = new Dictionary<IView, IEnumerable<IObserver>>();
 
         private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
 
@@ -261,26 +261,44 @@ namespace Riskeer.DuneErosion.Plugin
             if (e.View is DuneLocationCalculationsView duneLocationCalculationsView)
             {
                 DuneErosionFailureMechanism duneErosionFailureMechanism = duneLocationCalculationsView.FailureMechanism;
+                IObservableEnumerable<DuneLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
+                    duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
                 DuneLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbabilities =
-                    duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities
-                                               .FirstOrDefault(calculations => ReferenceEquals(calculations.DuneLocationCalculations, duneLocationCalculationsView.Data));
+                    userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.DuneLocationCalculations, duneLocationCalculationsView.Data));
 
                 if (calculationsForUserDefinedTargetProbabilities != null)
                 {
-                    observersForViewTitles[e.View] = new Observer(() => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserDefinedTargetProbabilities,
-                                                                                                                                          duneErosionFailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities)))
+                    Action updateViewTitleAction = () => Gui.ViewHost.SetTitle(e.View, GetDuneLocationCalculationsViewName(calculationsForUserDefinedTargetProbabilities,
+                                                                                                                           userDefinedTargetProbabilities));
+
+                    var observers = new IObserver[]
                     {
-                        Observable = calculationsForUserDefinedTargetProbabilities
+                        new Observer(updateViewTitleAction)
+                        {
+                            Observable = calculationsForUserDefinedTargetProbabilities
+                        },
+                        new RecursiveObserver<IObservableEnumerable<DuneLocationCalculationsForTargetProbability>, DuneLocationCalculationsForTargetProbability>(
+                            updateViewTitleAction, item => item)
+                        {
+                            Observable = userDefinedTargetProbabilities
+                        }
                     };
+
+                    observersForViewTitles[e.View] = observers;
                 }
             }
         }
 
         private static void OnViewClosed(object sender, ViewChangeEventArgs e)
         {
-            if (observersForViewTitles.TryGetValue(e.View, out Observer observerForViewTitle))
+            if (observersForViewTitles.TryGetValue(e.View, out IEnumerable<IObserver> observersForViewTitle))
             {
-                observerForViewTitle.Dispose();
+                foreach (IObserver observer in observersForViewTitle)
+                {
+                    var disposableObserver = observer as IDisposable;
+                    disposableObserver?.Dispose();
+                }
+
                 observersForViewTitles.Remove(e.View);
             }
         }
