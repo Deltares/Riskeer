@@ -111,7 +111,8 @@ namespace Riskeer.Integration.Service
                                                     assessmentSection,
                                                     wlc.TargetProbability,
                                                     TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(wlc.HydraulicBoundaryLocationCalculations,
-                                                                                                                                                 assessmentSection))).ToList();
+                                                                                                                                                 assessmentSection)))
+                                    .ToList();
         }
 
         /// <summary>
@@ -135,7 +136,8 @@ namespace Riskeer.Integration.Service
                                                     whc.TargetProbability,
                                                     TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(whc,
                                                                                                                                        assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                                                                       c => c.TargetProbability))).ToList();
+                                                                                                                                       c => c.TargetProbability)))
+                                    .ToList();
         }
     }
 }
