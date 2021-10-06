@@ -36,6 +36,7 @@ using Core.Gui.Plugin;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.GuiServices;
@@ -86,11 +87,22 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithContext_ReturnsExpectedViewName()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases))]
+        public void GetViewName_WithContext_ReturnsExpectedViewName(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
+            double lowerLimitNorm, double signalingNorm, string expectedProbabilityText)
         {
             // Setup
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                    new AssessmentSectionStub(),
+            var assessmentSection = new AssessmentSectionStub()
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signalingNorm
+                }
+            };
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
+                                                                                    assessmentSection,
                                                                                     () => 0.01);
             using (var plugin = new RiskeerPlugin())
             {
@@ -100,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij norm - 1/100", viewName);
+                Assert.AreEqual($"Waterstanden bij norm - {expectedProbabilityText}", viewName);
             }
         }
 
@@ -376,6 +388,25 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+        }
+        
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases()
+        {
+            const double lowerLimitNorm = 0.1;
+            const double signalingNorm = 0.01;
+
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
+                                          signalingNorm, signalingNorm, "1/100 (1)")
+                .SetName("SignalingNormCalculationsNormsSame");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
+                                          lowerLimitNorm, signalingNorm, "1/100")
+                .SetName("SignalingNormCalculationsNormsDifferent");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
+                                          lowerLimitNorm, lowerLimitNorm, "1/10")
+                .SetName("LowerLimitNormCalculationsNormsSame");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
+                                          lowerLimitNorm, signalingNorm, "1/10")
+                .SetName("LowerLimitNormCalculationsNormsDifferent");
         }
 
         private static ViewInfo GetViewInfo(RiskeerPlugin plugin)
