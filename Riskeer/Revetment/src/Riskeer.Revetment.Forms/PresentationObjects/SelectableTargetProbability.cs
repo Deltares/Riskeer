@@ -120,10 +120,10 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
 
         private bool Equals(SelectableTargetProbability other)
         {
-            return ReferenceEquals(AssessmentSection, other.AssessmentSection)
-                   && (ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
-                       || WaterLevelType == other.WaterLevelType)
-                   && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6;
+            return ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
+                   || WaterLevelType == other.WaterLevelType
+                   && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6
+                   && ReferenceEquals(AssessmentSection, other.AssessmentSection);
         }
     }
 }
