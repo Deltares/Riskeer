@@ -40,7 +40,7 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         /// <param name="hydraulicBoundaryLocationCalculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
         /// <param name="waterLevelType">The <see cref="WaveConditionsInputWaterLevelType"/> belonging to the <paramref name="hydraulicBoundaryLocationCalculations"/>.</param>
         /// <param name="targetProbability">The target probability belonging to the <paramref name="hydraulicBoundaryLocationCalculations"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> or <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
         public SelectableTargetProbability(IAssessmentSection assessmentSection,
                                            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
                                            WaveConditionsInputWaterLevelType waterLevelType, double targetProbability)
@@ -120,10 +120,10 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
 
         private bool Equals(SelectableTargetProbability other)
         {
-            return ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
-                   || WaterLevelType == other.WaterLevelType
-                   && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6
-                   && ReferenceEquals(AssessmentSection, other.AssessmentSection);
+            return ReferenceEquals(AssessmentSection, other.AssessmentSection)
+                   && (ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
+                       || WaterLevelType == other.WaterLevelType
+                       && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6);
         }
     }
 }
