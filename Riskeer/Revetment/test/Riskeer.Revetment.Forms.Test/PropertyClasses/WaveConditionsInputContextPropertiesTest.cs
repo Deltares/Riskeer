@@ -968,14 +968,14 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             var expectedTargetProbabilities = new[]
             {
-                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability),
-                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
                                                 assessmentSection.FailureMechanismContribution.LowerLimitNorm),
-                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
                                                 assessmentSection.FailureMechanismContribution.SignalingNorm),
-                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().TargetProbability)
             };

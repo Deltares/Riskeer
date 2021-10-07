@@ -137,7 +137,7 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             private static IEnumerable<TestCaseData> GetEqualTestCases()
             {
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.None, 0.1),
-                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.01));
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.1));
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, 0.1),
                                               new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                               WaveConditionsInputWaterLevelType.LowerLimit, 0.1));
