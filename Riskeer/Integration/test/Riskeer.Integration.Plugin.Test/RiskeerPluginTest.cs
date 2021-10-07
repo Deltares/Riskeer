@@ -768,6 +768,140 @@ namespace Riskeer.Integration.Plugin.Test
             }
         }
 
+        private static void SetPlugins(IPluginsHost gui)
+        {
+            gui.Plugins.AddRange(new PluginBase[]
+            {
+                new RiskeerPlugin()
+            });
+        }
+
+        #region WaterLevelCalculations for norms
+
+        [Test]
+        [TestCase(0.01, 0.01, "1/100", 0.1, 0.01, "1/10")]
+        [TestCase(0.1, 0.01, "1/10", 0.01, 0.01, "1/100")]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForLowerLimitNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
+            double lowerLimitNorm, double signallingNorm, string originalProbabilityText,
+            double newLowerLimitNorm, double newSignallingNorm, string expectedProbabilityText)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    FailureMechanismContribution =
+                    {
+                        LowerLimitNorm = lowerLimitNorm,
+                        SignalingNorm = signallingNorm
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForNormTargetProbabilityContext(
+                                                               assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection, () => 0.1));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {originalProbabilityText}"));
+
+                // When
+                FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+                failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
+                failureMechanismContribution.SignalingNorm = newSignallingNorm;
+                failureMechanismContribution.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {expectedProbabilityText}"));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(0.01, 0.01, "1/100 (1)", 0.1, 0.01, "1/100")]
+        [TestCase(0.1, 0.01, "1/100", 0.01, 0.01, "1/100 (1)")]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignallingNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
+            double lowerLimitNorm, double signallingNorm, string originalProbabilityText,
+            double newLowerLimitNorm, double newSignallingNorm, string expectedProbabilityText)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    FailureMechanismContribution =
+                    {
+                        LowerLimitNorm = lowerLimitNorm,
+                        SignalingNorm = signallingNorm
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForNormTargetProbabilityContext(
+                                                               assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection, () => 0.1));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {originalProbabilityText}"));
+
+                // When
+                FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+                failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
+                failureMechanismContribution.SignalingNorm = newSignallingNorm;
+                failureMechanismContribution.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {expectedProbabilityText}"));
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
+
+        #region WaterLevelCalculations for target probabilities
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
@@ -824,6 +958,179 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenFailureMechanismContributionUpdatedAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                const double targetProbability = 0.1;
+                var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaterLevelCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        calculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(
+                                                               calculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+
+                // When
+                assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
+                assessmentSection.FailureMechanismContribution.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenItemInUserDefinedTargetProbabilityCollectionUpdatedAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                const double targetProbability = 0.1;
+                var updatedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var affectedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaterLevelCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        updatedCalculations,
+                        affectedCalculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(
+                                                               affectedCalculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+
+                // When
+                updatedCalculations.TargetProbability = 0.01;
+                updatedCalculations.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenUserDefinedTargetProbabilityCollectionRemovedItemAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                const double targetProbability = 0.1;
+                var removedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var affectedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaterLevelCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        removedCalculations,
+                        affectedCalculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(
+                                                               affectedCalculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+
+                // When
+                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
+                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
+
+        #region WaveHeightCalculationsView
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenChangingCorrespondingUserDefinedTargetProbabilityAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
@@ -876,12 +1183,120 @@ namespace Riskeer.Integration.Plugin.Test
             }
         }
 
-        private static void SetPlugins(IPluginsHost gui)
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenItemInUserDefinedTargetProbabilityCollectionUpdatedAndObserversNotified_ThenViewTitleUpdated()
         {
-            gui.Plugins.AddRange(new PluginBase[]
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
             {
-                new RiskeerPlugin()
-            });
+                SetPlugins(gui);
+                gui.Run();
+
+                const double targetProbability = 0.1;
+                var updatedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var affectedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        updatedCalculations,
+                        affectedCalculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                                                               affectedCalculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10 (1)"));
+
+                // When
+                updatedCalculations.TargetProbability = 0.01;
+                updatedCalculations.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                mocks.VerifyAll();
+            }
         }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenUserDefinedTargetProbabilityCollectionRemovedItemAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                const double targetProbability = 0.1;
+                var removedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var affectedCalculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        removedCalculations,
+                        affectedCalculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                                                               affectedCalculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10 (1)"));
+
+                // When
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
     }
 }

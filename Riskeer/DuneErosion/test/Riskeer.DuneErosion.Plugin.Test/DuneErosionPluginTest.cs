@@ -242,5 +242,123 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 mocks.VerifyAll();
             }
         }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenItemInUserDefinedTargetProbabilityCollectionUpdatedAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var project = mocks.Stub<IProject>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.AddRange(new PluginBase[]
+                {
+                    new DuneErosionPlugin()
+                });
+
+                gui.Run();
+
+                gui.SetProject(project, null);
+
+                const double targetProbability = 0.1;
+                var updatedCalculations = new DuneLocationCalculationsForTargetProbability(targetProbability);
+                var affectedCalculations = new DuneLocationCalculationsForTargetProbability(targetProbability);
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        updatedCalculations,
+                        affectedCalculations
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(affectedCalculations,
+                                                                                                                              failureMechanism,
+                                                                                                                              assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DuneLocationCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10 (1)"));
+
+                // When
+                updatedCalculations.TargetProbability = 0.01;
+                updatedCalculations.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedDuneLocationCalculationsView_WhenUserDefinedTargetProbabilityCollectionRemovedItemAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var project = mocks.Stub<IProject>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
+            {
+                gui.Plugins.AddRange(new PluginBase[]
+                {
+                    new DuneErosionPlugin()
+                });
+
+                gui.Run();
+
+                gui.SetProject(project, null);
+
+                const double targetProbability = 0.1;
+                var removedCalculations = new DuneLocationCalculationsForTargetProbability(targetProbability);
+                var affectedCalculations = new DuneLocationCalculationsForTargetProbability(targetProbability);
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        removedCalculations,
+                        affectedCalculations
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new DuneLocationCalculationsForUserDefinedTargetProbabilityContext(affectedCalculations,
+                                                                                                                              failureMechanism,
+                                                                                                                              assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DuneLocationCalculationsView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10 (1)"));
+
+                // When
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Hydraulische belastingen - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
     }
 }
