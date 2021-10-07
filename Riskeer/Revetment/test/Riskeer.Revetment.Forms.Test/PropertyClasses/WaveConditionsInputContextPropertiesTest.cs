@@ -441,7 +441,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             });
 
             var properties = new WaveConditionsInputContextProperties(context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
-            var newSelectableTargetProbability = new SelectableTargetProbability(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+            var newSelectableTargetProbability = new SelectableTargetProbability(new AssessmentSectionStub(), Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                                  waterLevelType, 0.01);
 
             // Call
@@ -482,7 +482,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var properties = new WaveConditionsInputContextProperties(context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
 
             const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
-            var selectableTargetProbability = new SelectableTargetProbability(calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+            var selectableTargetProbability = new SelectableTargetProbability(new AssessmentSectionStub(), calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                               waterLevelType, calculationsForTargetProbability.TargetProbability);
 
             // Call
@@ -968,14 +968,14 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             // Assert
             var expectedTargetProbabilities = new[]
             {
-                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
+                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability),
-                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
+                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
                                                 assessmentSection.FailureMechanismContribution.LowerLimitNorm),
-                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
+                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
                                                 assessmentSection.FailureMechanismContribution.SignalingNorm),
-                new SelectableTargetProbability(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
+                new SelectableTargetProbability(new AssessmentSectionStub(), assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().TargetProbability)
             };

@@ -24,8 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 
@@ -35,10 +36,21 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
     public class SelectableTargetProbabilityTest
     {
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new SelectableTargetProbability(null, new List<HydraulicBoundaryLocationCalculation>(), WaveConditionsInputWaterLevelType.None, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SelectableTargetProbability(null, WaveConditionsInputWaterLevelType.None, double.NaN);
+            void Call() => new SelectableTargetProbability(new AssessmentSectionStub(), null, WaveConditionsInputWaterLevelType.None, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,41 +62,46 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         {
             // Setup
             var random = new Random(21);
+            var assessmentSection = new AssessmentSectionStub();
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations = Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
             var waveConditionsInputWaterLevelType = random.NextEnumValue<WaveConditionsInputWaterLevelType>();
             double targetProbability = random.NextDouble(0, 0.1);
 
             // Call
-            var selectableTargetProbability = new SelectableTargetProbability(calculations, waveConditionsInputWaterLevelType, targetProbability);
+            var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, calculations, waveConditionsInputWaterLevelType, targetProbability);
 
             // Assert
+            Assert.AreSame(assessmentSection, selectableTargetProbability.AssessmentSection);
             Assert.AreSame(calculations, selectableTargetProbability.HydraulicBoundaryLocationCalculations);
             Assert.AreEqual(waveConditionsInputWaterLevelType, selectableTargetProbability.WaterLevelType);
             Assert.AreEqual(targetProbability, selectableTargetProbability.TargetProbability);
         }
 
         [Test]
-        public void ToString_Always_ReturnsExpectedString()
+        [TestCaseSource(nameof(GetTestCases))]
+        public void ToString_Always_ReturnsExpectedString(SelectableTargetProbability selectableTargetProbability, string expectedString)
         {
-            // Setup
-            var random = new Random(21);
-            double targetProbability = random.NextDouble(0, 0.1);
-
-            var selectableTargetProbability = new SelectableTargetProbability(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                              random.NextEnumValue<WaveConditionsInputWaterLevelType>(),
-                                                                              targetProbability);
-
             // Call
             var actualString = selectableTargetProbability.ToString();
 
             // Assert
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(targetProbability), actualString);
+            Assert.AreEqual(expectedString, actualString);
+        }
+
+        private static IEnumerable<TestCaseData> GetTestCases()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+
+            yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                          WaveConditionsInputWaterLevelType.LowerLimit, assessmentSection.FailureMechanismContribution.LowerLimitNorm), "1/30.000");
+            yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                          WaveConditionsInputWaterLevelType.Signaling, assessmentSection.FailureMechanismContribution.SignalingNorm), "1/30.000 (1)");
         }
 
         [TestFixture]
         private class SelectableTargetProbabilityEqualsTest : EqualsTestFixture<SelectableTargetProbability>
         {
-            private static readonly IEnumerable<HydraulicBoundaryLocationCalculation> calculations = Enumerable.Empty<HydraulicBoundaryLocationCalculation>();
+            private static readonly IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             [Test]
             [TestCaseSource(nameof(GetEqualTestCases))]
@@ -102,27 +119,27 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
 
             protected override SelectableTargetProbability CreateObject()
             {
-                return new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.Signaling, 0.1);
+                return new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.1);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new SelectableTargetProbability(
-                                                  Array.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                  WaveConditionsInputWaterLevelType.Signaling,
-                                                  0.01));
-                yield return new TestCaseData(new SelectableTargetProbability(
-                                                  Array.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                  WaveConditionsInputWaterLevelType.LowerLimit,
-                                                  0.1));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                              WaveConditionsInputWaterLevelType.Signaling,
+                                                                              0.01));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
+                                                                              assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                              WaveConditionsInputWaterLevelType.LowerLimit,
+                                                                              0.1));
             }
-            
+
             private static IEnumerable<TestCaseData> GetEqualTestCases()
             {
-                yield return new TestCaseData(new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.None, 0.1),
-                                              new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.Signaling, 0.01));
-                yield return new TestCaseData(new SelectableTargetProbability(calculations, WaveConditionsInputWaterLevelType.LowerLimit, 0.1),
-                                              new SelectableTargetProbability(Array.Empty<HydraulicBoundaryLocationCalculation>(),
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.None, 0.1),
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.01));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, 0.1),
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                               WaveConditionsInputWaterLevelType.LowerLimit, 0.1));
             }
         }

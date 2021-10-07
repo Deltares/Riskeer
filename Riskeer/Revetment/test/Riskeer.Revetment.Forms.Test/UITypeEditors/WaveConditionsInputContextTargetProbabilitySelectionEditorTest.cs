@@ -29,6 +29,7 @@ using Core.Gui.UITypeEditors;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PresentationObjects;
 using Riskeer.Revetment.Forms.UITypeEditors;
@@ -53,7 +54,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
         {
             // Setup
             var selectableTargetProbability = new SelectableTargetProbability(
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                new AssessmentSectionStub(), Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 WaveConditionsInputWaterLevelType.None, 0.1);
 
             var properties = new ObjectPropertiesWithSelectableTargetProbability(
@@ -88,10 +89,10 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             const double targetProbability = 0.1;
 
             var properties = new ObjectPropertiesWithSelectableTargetProbability(
-                new SelectableTargetProbability(calculations, waterLevelType, targetProbability),
+                new SelectableTargetProbability(new AssessmentSectionStub(), calculations, waterLevelType, targetProbability),
                 new[]
                 {
-                    new SelectableTargetProbability(calculations, waterLevelType, targetProbability)
+                    new SelectableTargetProbability(new AssessmentSectionStub(), calculations, waterLevelType, targetProbability)
                 });
 
             var propertyBag = new DynamicPropertyBag(properties);
@@ -110,7 +111,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             object result = editor.EditValue(descriptorContext, serviceProvider, someValue);
 
             // Assert
-            Assert.AreEqual(new SelectableTargetProbability(calculations, waterLevelType, targetProbability), result);
+            Assert.AreEqual(new SelectableTargetProbability(new AssessmentSectionStub(), calculations, waterLevelType, targetProbability), result);
             mocks.VerifyAll();
         }
 

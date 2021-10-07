@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Revetment.Data;
@@ -35,22 +36,40 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="SelectableTargetProbability"/>.
         /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>.</param>
         /// <param name="hydraulicBoundaryLocationCalculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
         /// <param name="waterLevelType">The <see cref="WaveConditionsInputWaterLevelType"/> belonging to the <paramref name="hydraulicBoundaryLocationCalculations"/>.</param>
         /// <param name="targetProbability">The target probability belonging to the <paramref name="hydraulicBoundaryLocationCalculations"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        public SelectableTargetProbability(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public SelectableTargetProbability(IAssessmentSection assessmentSection,
+                                           IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations,
                                            WaveConditionsInputWaterLevelType waterLevelType, double targetProbability)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (hydraulicBoundaryLocationCalculations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
+            AssessmentSection = assessmentSection;
             HydraulicBoundaryLocationCalculations = hydraulicBoundaryLocationCalculations;
             WaterLevelType = waterLevelType;
             TargetProbability = targetProbability;
         }
+
+        /// <summary>
+        /// Gets the <see cref="IAssessmentSection"/>.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the collection of <see cref="HydraulicBoundaryLocationCalculation"/>.
+        /// </summary>
+        public IEnumerable<HydraulicBoundaryLocationCalculation> HydraulicBoundaryLocationCalculations { get; }
 
         /// <summary>
         /// Gets the <see cref="WaveConditionsInputWaterLevelType"/>.
@@ -61,11 +80,6 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         /// Gets the target probability.
         /// </summary>
         public double TargetProbability { get; }
-
-        /// <summary>
-        /// Gets the collection of <see cref="HydraulicBoundaryLocationCalculation"/>.
-        /// </summary>
-        public IEnumerable<HydraulicBoundaryLocationCalculation> HydraulicBoundaryLocationCalculations { get; }
 
         public override bool Equals(object obj)
         {
@@ -100,13 +114,15 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
 
         public override string ToString()
         {
-            return ProbabilityFormattingHelper.Format(TargetProbability);
+            return TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(HydraulicBoundaryLocationCalculations,
+                                                                                                                AssessmentSection);
         }
 
         private bool Equals(SelectableTargetProbability other)
         {
-            return ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
-                   || WaterLevelType == other.WaterLevelType
+            return ReferenceEquals(AssessmentSection, other.AssessmentSection)
+                   && (ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
+                       || WaterLevelType == other.WaterLevelType)
                    && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6;
         }
     }
