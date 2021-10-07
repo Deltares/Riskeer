@@ -275,7 +275,7 @@ namespace Riskeer.DuneErosion.Plugin
                     {
                         new Observer(updateViewTitleAction)
                         {
-                            Observable = calculationsForUserDefinedTargetProbabilities
+                            Observable = userDefinedTargetProbabilities
                         },
                         new RecursiveObserver<IObservableEnumerable<DuneLocationCalculationsForTargetProbability>, DuneLocationCalculationsForTargetProbability>(
                             updateViewTitleAction, item => item)
@@ -306,6 +306,11 @@ namespace Riskeer.DuneErosion.Plugin
         private static string GetDuneLocationCalculationsViewName(DuneLocationCalculationsForTargetProbability calculationsForTargetProbability,
                                                                   IEnumerable<DuneLocationCalculationsForTargetProbability> calculationsForTargetProbabilities)
         {
+            if (!calculationsForTargetProbabilities.Contains(calculationsForTargetProbability))
+            {
+                return null;
+            }
+
             string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(calculationsForTargetProbability,
                                                                                                                           calculationsForTargetProbabilities,
                                                                                                                           probability => probability.TargetProbability);

@@ -1367,7 +1367,7 @@ namespace Riskeer.Integration.Plugin
                         observers = new[]
                         {
                             CreateViewTitleObserver(designWaterLevelCalculationsView, assessmentSection.FailureMechanismContribution, getTitleFunc),
-                            CreateViewTitleObserver(designWaterLevelCalculationsView, calculationsForUserDefinedTargetProbability, getTitleFunc),
+                            CreateViewTitleObserver(designWaterLevelCalculationsView, (IObservable) userDefinedTargetProbabilities, getTitleFunc),
                             CreateViewTitleObserver(designWaterLevelCalculationsView, userDefinedTargetProbabilities, getTitleFunc)
                         };
                     }
@@ -1382,14 +1382,14 @@ namespace Riskeer.Integration.Plugin
                 HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability =
                     userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
 
-                if (userDefinedTargetProbabilities != null)
+                if (calculationsForUserDefinedTargetProbability != null)
                 {
                     Func<string> getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability,
                                                                                                                          userDefinedTargetProbabilities);
                     observers = new[]
                     {
-                        CreateViewTitleObserver(waveHeightCalculationsView, calculationsForUserDefinedTargetProbability, getTitleFunc),
-                        CreateViewTitleObserver(waveHeightCalculationsView, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, getTitleFunc)
+                        CreateViewTitleObserver(waveHeightCalculationsView, (IObservable) userDefinedTargetProbabilities, getTitleFunc),
+                        CreateViewTitleObserver(waveHeightCalculationsView, userDefinedTargetProbabilities, getTitleFunc)
                     };
                 }
             }
@@ -1462,6 +1462,11 @@ namespace Riskeer.Integration.Plugin
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability,
             IAssessmentSection assessmentSection)
         {
+            if (!assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Contains(calculationsForUserDefinedTargetProbability))
+            {
+                return null;
+            }
+        
             string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(calculationsForUserDefinedTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                                                                                     assessmentSection);
             return $"{RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - {targetProbability}";
@@ -1471,6 +1476,11 @@ namespace Riskeer.Integration.Plugin
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability,
             IEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> calculationsForUserDefinedTargetProbabilities)
         {
+            if (!calculationsForUserDefinedTargetProbabilities.Contains(calculationsForUserDefinedTargetProbability))
+            {
+                return null;
+            }
+            
             string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(calculationsForUserDefinedTargetProbability,
                                                                                                                           calculationsForUserDefinedTargetProbabilities,
                                                                                                                           probability => probability.TargetProbability);
