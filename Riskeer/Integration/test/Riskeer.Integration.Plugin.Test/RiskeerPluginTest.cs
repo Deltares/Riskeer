@@ -1070,7 +1070,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenUserDefinedTargetProbabilityCollectionRemovedItemAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenUserDefinedTargetProbabilityRemovedFromCollectionAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -1121,6 +1121,59 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaterLevelCalculationsView_WhenRemovingDataForOpenedViewAndObserversNotified_ThenNoExceptionThrown()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaterLevelCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        calculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(
+                                                               calculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
+
+                // When
+                assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Remove(calculations);
+                void Call() => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                Assert.DoesNotThrow(Call);
                 mocks.VerifyAll();
             }
         }
@@ -1242,7 +1295,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenUserDefinedTargetProbabilityCollectionRemovedItemAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenUserDefinedTargetProbabilityRemovedFromCollectionAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -1293,6 +1346,59 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedWaveHeightCalculationsView_WhenRemovingDataForOpenedViewAndObserversNotified_ThenNoExceptionThrown()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                var calculations = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    WaveHeightCalculationsForUserDefinedTargetProbabilities =
+                    {
+                        calculations
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(
+                                                               calculations, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
+
+                // When
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Remove(calculations);
+                void Call() => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                Assert.DoesNotThrow(Call);
                 mocks.VerifyAll();
             }
         }
