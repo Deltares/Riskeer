@@ -36,7 +36,7 @@ namespace Riskeer.Revetment.IO.WaveConditions
     /// </summary>
     public static class WaveConditionsWriter
     {
-        private const string separator = ", ";
+        private const string separator = "; ";
 
         /// <summary>
         /// Writes wave conditions to a csv file.
