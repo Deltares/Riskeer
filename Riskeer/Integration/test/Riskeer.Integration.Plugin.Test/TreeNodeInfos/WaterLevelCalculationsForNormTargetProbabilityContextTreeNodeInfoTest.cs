@@ -931,7 +931,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases))]
         [Apartment(ApartmentState.STA)]
-        public void GivenLowerLimitNormCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(
+        public void GivenNormCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
             double lowerLimitNorm, double signalingNorm, string expectedText)
         {
