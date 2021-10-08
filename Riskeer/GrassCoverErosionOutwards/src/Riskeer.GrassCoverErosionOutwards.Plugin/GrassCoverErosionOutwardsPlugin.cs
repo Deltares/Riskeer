@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -40,7 +41,6 @@ using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
@@ -68,8 +68,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
     /// </summary>
     public class GrassCoverErosionOutwardsPlugin : PluginBase
     {
-        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsHydraulicLoadsProperties>
@@ -224,8 +222,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CreateFileExporter = (context, filePath) =>
                 {
                     IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = context.WrappedData.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-                    return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, input => noProbabilityValueDoubleConverter.ConvertToString(
-                                                                                   WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)));
+                    return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath, input => WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)
+                                                                                                                                         .ToString(CultureInfo.InvariantCulture));
                 },
                 IsEnabled = context => context.WrappedData.GetCalculations().Any(c => c.HasOutput),
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
@@ -241,8 +239,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                                     context.WrappedData
                                                                                                                 }, filePath,
                                                                                                                 input =>
-                                                                                                                    noProbabilityValueDoubleConverter.ConvertToString(
-                                                                                                                        WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection))),
+                                                                                                                    WaveConditionsInputHelper.GetTargetProbability(input, context.AssessmentSection)
+                                                                                                                                             .ToString(CultureInfo.InvariantCulture)),
                 IsEnabled = context => context.WrappedData.HasOutput,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                                                                                                            RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
