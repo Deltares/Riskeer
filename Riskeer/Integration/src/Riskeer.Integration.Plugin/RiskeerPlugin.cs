@@ -1355,7 +1355,7 @@ namespace Riskeer.Integration.Plugin
                 }
                 else
                 {
-                    IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities = 
+                    IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
                         assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
                     HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability =
                         userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
@@ -1466,7 +1466,7 @@ namespace Riskeer.Integration.Plugin
             {
                 return null;
             }
-        
+
             string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(calculationsForUserDefinedTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                                                                                     assessmentSection);
             return $"{RiskeerCommonUtilResources.WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName} - {targetProbability}";
@@ -1480,7 +1480,7 @@ namespace Riskeer.Integration.Plugin
             {
                 return null;
             }
-            
+
             string targetProbability = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(calculationsForUserDefinedTargetProbability,
                                                                                                                           calculationsForUserDefinedTargetProbabilities,
                                                                                                                           probability => probability.TargetProbability);
@@ -1975,12 +1975,13 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(Resources.GenericFailurePathsCategoryTreeFolder_DisplayName, GetFailurePaths(assessmentSection)),
+                new CategoryTreeFolder(Resources.GenericFailurePathsCategoryTreeFolder_DisplayName, GetGenericFailurePaths(assessmentSection)),
+                new CategoryTreeFolder(Resources.SpecificFailurePathsCategoryTreeFolder_DisplayName, Enumerable.Empty<object>()),
                 new AssemblyResultsContext(assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetFailurePaths(AssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGenericFailurePaths(AssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2053,8 +2054,8 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
-                                                                                    object parentData,
-                                                                                    TreeViewControl treeViewControl)
+                                                                               object parentData,
+                                                                               TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2166,7 +2167,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static IEnumerable<object> GetMacroStabilityOutwardsFailurePathOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
-                                                                                            IAssessmentSection assessmentSection)
+                                                                                       IAssessmentSection assessmentSection)
         {
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
             return new object[]
@@ -2243,7 +2244,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static IEnumerable<object> GetPipingStructureFailurePathOutputs(PipingStructureFailureMechanism nodeData,
-                                                                                     IAssessmentSection assessmentSection)
+                                                                                IAssessmentSection assessmentSection)
         {
             return new object[]
             {

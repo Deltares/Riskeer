@@ -313,4 +313,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
+    <data name="SpecificFailurePathsCategoryTreeFolder_DisplayName" xml:space="preserve">
+        <value>Specifieke faalpaden</value>
+    </data>
 </root>

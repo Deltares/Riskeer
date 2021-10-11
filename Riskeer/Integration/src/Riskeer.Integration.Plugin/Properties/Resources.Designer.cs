@@ -541,6 +541,15 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Specifieke faalpaden.
+        /// </summary>
+        public static string SpecificFailurePathsCategoryTreeFolder_DisplayName {
+            get {
+                return ResourceManager.GetString("SpecificFailurePathsCategoryTreeFolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to zip archief.
         /// </summary>
         public static string Zip_file_filter_Description {
