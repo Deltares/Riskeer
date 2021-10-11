@@ -403,6 +403,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var failureMechanism = new DuneErosionFailureMechanism();
+                failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(duneLocationCalculationsForTargetProbability);
 
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
@@ -501,6 +502,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(duneLocationCalculationsForTargetProbability);
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -584,6 +586,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(duneLocationCalculationsForTargetProbability);
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -672,6 +675,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities.Add(duneLocationCalculationsForTargetProbability);
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
