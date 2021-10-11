@@ -21,12 +21,15 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
+using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -45,6 +48,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneErosionFailurePathContextTreeNodeInfoTest
     {
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuRelevancyIndexWhenRelevant = 2;
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -95,7 +101,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual("Duinwaterkering - Duinafslag", text);
             }
-            
+
             mocks.VerifyAll();
         }
 
@@ -116,7 +122,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
+        public void ChildNodeObjects_WithFailureMechanismRelevant_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -173,7 +179,33 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                object[] children = info.ChildNodeObjects(context).ToArray();
+
+                // Assert
+                Assert.AreEqual(1, children.Length);
+
+                var comment = (Comment) children[0];
+                Assert.AreSame(failureMechanism.NotRelevantComments, comment);
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
@@ -188,6 +220,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
@@ -212,8 +246,232 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
-            
+
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new DuneErosionFailureMechanism
+                {
+                    IsRelevant = false
+                };
+                var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    // Call
+                    info.ContextMenuStrip(context, null, treeViewControl);
+                }
+            }
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    TreeNodeInfo info = GetInfo(plugin);
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // Call
+                        contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
+
+                        // Assert
+                        Assert.IsFalse(failureMechanism.IsRelevant);
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ViewCommands).Return(viewCommands);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // Call
+                        contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+
+                        // Assert
+                        Assert.IsTrue(failureMechanism.IsRelevant);
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        {
+            // Setup
+            var mocks = new MockRepository();
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeView = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                    {
+                        // Assert
+                        Assert.AreEqual(8, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
+                                                                      "I&s relevant",
+                                                                      "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                      RiskeerCommonFormsResources.Checkbox_ticked);
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevant_AddCustomItems()
+        {
+            // Setup
+            var mocks = new MockRepository();
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+
+            using (var treeView = new TreeViewControl())
+            {
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                    {
+                        // Assert
+                        Assert.AreEqual(6, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
+                                                                      "I&s relevant",
+                                                                      "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                      RiskeerCommonFormsResources.Checkbox_empty);
+                    }
+                }
+            }
+
             mocks.VerifyAll();
         }
 

@@ -118,9 +118,11 @@ namespace Riskeer.DuneErosion.Plugin
                 HydraulicLoadsChildNodeObjects,
                 HydraulicLoadsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<DuneErosionFailurePathContext>(
-                FailurePathChildNodeObjects,
-                FailurePathContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<DuneErosionFailurePathContext>(
+                FailurePathEnabledChildNodeObjects,
+                FailurePathDisabledChildNodeObjects,
+                FailurePathEnabledContextMenuStrip,
+                FailurePathDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
             {
@@ -400,7 +402,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region DuneErosionFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathChildNodeObjects(DuneErosionFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(DuneErosionFailurePathContext context)
         {
             DuneErosionFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -411,6 +413,14 @@ namespace Riskeer.DuneErosion.Plugin
                                        GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] FailurePathDisabledChildNodeObjects(DuneErosionFailurePathContext context)
+        {
+            return new object[]
+            {
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -434,19 +444,41 @@ namespace Riskeer.DuneErosion.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathContextMenuStrip(DuneErosionFailurePathContext context,
-                                                             object parentData,
-                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(DuneErosionFailurePathContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(DuneErosionFailurePathContext context,
+                                                                     object parentData,
+                                                                     TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(DuneErosionFailurePathContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion
