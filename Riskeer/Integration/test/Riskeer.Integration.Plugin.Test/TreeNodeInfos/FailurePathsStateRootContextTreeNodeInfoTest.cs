@@ -38,6 +38,7 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
@@ -172,7 +173,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
 
-                Assert.AreEqual(10, failurePathsFolder.Contents.Count());
+                Assert.AreEqual(18, failurePathsFolder.Contents.Count());
                 var pipingFailurePathContext = (PipingFailurePathContext) failurePathsFolder.Contents.ElementAt(0);
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
@@ -185,33 +186,65 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.MacroStabilityInwards, macroStabilityInwardsFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, macroStabilityInwardsFailurePathContext.Parent);
 
-                var stabilityStoneCoverFailurePathContext = (StabilityStoneCoverFailurePathContext) failurePathsFolder.Contents.ElementAt(3);
+                var macroStabilityOutwardsFailurePathContext = (MacroStabilityOutwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(3);
+                Assert.AreSame(assessmentSection.MacroStabilityOutwards, macroStabilityOutwardsFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, macroStabilityOutwardsFailurePathContext.Parent);
+
+                var microStabilityFailurePathContext = (MicrostabilityFailurePathContext) failurePathsFolder.Contents.ElementAt(4);
+                Assert.AreSame(assessmentSection.Microstability, microStabilityFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, microStabilityFailurePathContext.Parent);
+
+                var stabilityStoneCoverFailurePathContext = (StabilityStoneCoverFailurePathContext) failurePathsFolder.Contents.ElementAt(5);
                 Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityStoneCoverFailurePathContext.Parent);
 
-                var waveImpactAsphaltCoverFailurePathContext = (WaveImpactAsphaltCoverFailurePathContext) failurePathsFolder.Contents.ElementAt(4);
+                var waveImpactAsphaltCoverFailurePathContext = (WaveImpactAsphaltCoverFailurePathContext) failurePathsFolder.Contents.ElementAt(6);
                 Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, waveImpactAsphaltCoverFailurePathContext.Parent);
 
-                var grassCoverErosionOutwardsFailurePathContext = (GrassCoverErosionOutwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(5);
+                var waterPressureAsphaltCoverFailurePathContext = (WaterPressureAsphaltCoverFailurePathContext) failurePathsFolder.Contents.ElementAt(7);
+                Assert.AreSame(assessmentSection.WaterPressureAsphaltCover, waterPressureAsphaltCoverFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, waterPressureAsphaltCoverFailurePathContext.Parent);
+
+                var grassCoverErosionOutwardsFailurePathContext = (GrassCoverErosionOutwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(8);
                 Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailurePathContext.Parent);
 
-                var heightStructuresFailurePathContext = (HeightStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(6);
+                var grassCoverSlipOffOutwardsFailurePathContext = (GrassCoverSlipOffOutwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(9);
+                Assert.AreSame(assessmentSection.GrassCoverSlipOffOutwards, grassCoverSlipOffOutwardsFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverSlipOffOutwardsFailurePathContext.Parent);
+
+                var grassCoverSlipOffInwardsFailurePathContext = (GrassCoverSlipOffInwardsFailurePathContext) failurePathsFolder.Contents.ElementAt(10);
+                Assert.AreSame(assessmentSection.GrassCoverSlipOffInwards, grassCoverSlipOffInwardsFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverSlipOffInwardsFailurePathContext.Parent);
+
+                var heightStructuresFailurePathContext = (HeightStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(11);
                 Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, heightStructuresFailurePathContext.Parent);
 
-                var closingStructuresFailurePathContext = (ClosingStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(7);
+                var closingStructuresFailurePathContext = (ClosingStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(12);
                 Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructuresFailurePathContext.Parent);
 
-                var stabilityPointStructuresFailurePathContext = (StabilityPointStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(8);
+                var pipingStructureFailurePathContext = (PipingStructureFailurePathContext) failurePathsFolder.Contents.ElementAt(13);
+                Assert.AreSame(assessmentSection.PipingStructure, pipingStructureFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, pipingStructureFailurePathContext.Parent);
+
+                var stabilityPointStructuresFailurePathContext = (StabilityPointStructuresFailurePathContext) failurePathsFolder.Contents.ElementAt(14);
                 Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, stabilityPointStructuresFailurePathContext.Parent);
 
-                var duneErosionFailurePathContext = (DuneErosionFailurePathContext) failurePathsFolder.Contents.ElementAt(9);
+                var strengthStabilityLengthwiseConstructionFailurePathContext = (StrengthStabilityLengthwiseConstructionFailurePathContext) failurePathsFolder.Contents.ElementAt(15);
+                Assert.AreSame(assessmentSection.StrengthStabilityLengthwiseConstruction, strengthStabilityLengthwiseConstructionFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, strengthStabilityLengthwiseConstructionFailurePathContext.Parent);
+
+                var duneErosionFailurePathContext = (DuneErosionFailurePathContext) failurePathsFolder.Contents.ElementAt(16);
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, duneErosionFailurePathContext.Parent);
+
+                var technicalInnovationFailurePathContext = (TechnicalInnovationFailurePathContext) failurePathsFolder.Contents.ElementAt(17);
+                Assert.AreSame(assessmentSection.TechnicalInnovation, technicalInnovationFailurePathContext.WrappedData);
+                Assert.AreSame(assessmentSection, technicalInnovationFailurePathContext.Parent);
 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);

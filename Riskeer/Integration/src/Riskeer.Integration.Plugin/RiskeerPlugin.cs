@@ -1987,13 +1987,21 @@ namespace Riskeer.Integration.Plugin
                 new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsFailurePathContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsFailurePathContext(assessmentSection.MacroStabilityInwards, assessmentSection),
+                new MacroStabilityOutwardsFailurePathContext(assessmentSection.MacroStabilityOutwards, assessmentSection),
+                new MicrostabilityFailurePathContext(assessmentSection.Microstability, assessmentSection),
                 new StabilityStoneCoverFailurePathContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new WaterPressureAsphaltCoverFailurePathContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsFailurePathContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new GrassCoverSlipOffOutwardsFailurePathContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
+                new GrassCoverSlipOffInwardsFailurePathContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
                 new HeightStructuresFailurePathContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection),
+                new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
                 new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
-                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection)
+                new StrengthStabilityLengthwiseConstructionFailurePathContext(assessmentSection.StrengthStabilityLengthwiseConstruction, assessmentSection),
+                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection),
+                new TechnicalInnovationFailurePathContext(assessmentSection.TechnicalInnovation, assessmentSection)
             };
         }
 
