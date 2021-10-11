@@ -234,8 +234,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     hydraulicBoundaryLocationCalculation
                 }
             };
+            
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 
-            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, new AssessmentSectionStub());
+            var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
 
             var mockRepository = new MockRepository();
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();

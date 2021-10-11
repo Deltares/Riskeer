@@ -235,7 +235,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 }
             };
 
-            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, new AssessmentSectionStub());
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
+            
+            var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
 
             var mockRepository = new MockRepository();
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();

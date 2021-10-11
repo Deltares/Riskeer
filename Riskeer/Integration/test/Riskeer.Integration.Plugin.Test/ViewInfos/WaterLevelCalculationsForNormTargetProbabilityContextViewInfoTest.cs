@@ -221,19 +221,21 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetsExpectedCalculationData()
+        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilities))]
+        public void CreateInstance_WithContext_SetsExpectedCalculationData(
+            Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Setup
             double GetNormFunc() => 0.01;
-
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-            var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                hydraulicBoundaryLocationCalculation
-            };
+                new TestHydraulicBoundaryLocation()
+            });
 
-            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(hydraulicBoundaryLocationCalculations,
-                                                                                    new AssessmentSectionStub(),
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations = getCalculationsFunc(assessmentSection);
+            var context = new WaterLevelCalculationsForNormTargetProbabilityContext(calculations,
+                                                                                    assessmentSection,
                                                                                     GetNormFunc);
 
             var mockRepository = new MockRepository();
@@ -274,7 +276,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
                     // Assert
                     Assert.AreEqual(GetNormFunc(), actualNormValue);
-                    Assert.AreSame(hydraulicBoundaryLocationCalculation, performedCalculations.Single());
+                    Assert.AreSame(calculations.Single(), performedCalculations.Single());
                 }
             }
 
@@ -388,6 +390,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+        }
+        
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilities()
+        {
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
+                .SetName("SignalingNorm");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
+                .SetName("LowerLimitNorm");
         }
         
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases()
