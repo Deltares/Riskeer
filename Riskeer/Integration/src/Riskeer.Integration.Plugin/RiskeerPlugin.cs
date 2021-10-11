@@ -1975,7 +1975,7 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(Resources.FailurePathsCategoryTreeFolder_DisplayName, GetFailurePaths(assessmentSection)),
+                new CategoryTreeFolder(Resources.GenericFailurePathsCategoryTreeFolder_DisplayName, GetFailurePaths(assessmentSection)),
                 new AssemblyResultsContext(assessmentSection)
             };
         }

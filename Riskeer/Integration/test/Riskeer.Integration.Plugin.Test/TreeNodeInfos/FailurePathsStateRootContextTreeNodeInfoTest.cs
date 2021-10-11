@@ -170,7 +170,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(2, objects.Length);
 
                 var failurePathsFolder = (CategoryTreeFolder) objects[0];
-                Assert.AreEqual("Faalpaden", failurePathsFolder.Name);
+                Assert.AreEqual("Generieke faalpaden", failurePathsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.General, failurePathsFolder.Category);
 
                 Assert.AreEqual(18, failurePathsFolder.Contents.Count());
