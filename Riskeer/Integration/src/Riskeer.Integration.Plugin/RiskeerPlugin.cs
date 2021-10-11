@@ -59,7 +59,6 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters;
@@ -126,8 +125,6 @@ namespace Riskeer.Integration.Plugin
         private static readonly FontFamily fontFamily = new FontFamily(
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Riskeer.Integration.Plugin;component/Resources/"),
             "./#Symbols");
-
-        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
 
         private static readonly IDictionary<IView, IEnumerable<IObserver>> observersForViewTitles = new Dictionary<IView, IEnumerable<IObserver>>();
 
@@ -358,7 +355,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
-                                                                                 () => noProbabilityValueDoubleConverter.ConvertToString(context.GetNormFunc())),
+                                                                                 () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData, context.AssessmentSection)),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
@@ -374,7 +371,8 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                                  context.AssessmentSection,
                                                                                  () => context.WrappedData.TargetProbability,
-                                                                                 () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
+                                                                                 () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                                                                                                                                    context.AssessmentSection)),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
@@ -390,7 +388,9 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                            context.AssessmentSection,
                                                                            () => context.WrappedData.TargetProbability,
-                                                                           () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
+                                                                           () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
+                                                                                                                                                                    context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                                                                    probability => probability.TargetProbability)),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
@@ -2545,7 +2545,7 @@ namespace Riskeer.Integration.Plugin
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(nodeData.WrappedData,
                                                                                               assessmentSection,
                                                                                               nodeData.GetNormFunc(),
-                                                                                              noProbabilityValueDoubleConverter.ConvertToString(nodeData.GetNormFunc()));
+                                                                                              TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waterLevelCalculationItem);
@@ -2627,13 +2627,14 @@ namespace Riskeer.Integration.Plugin
 
         private ContextMenuStrip WaterLevelCalculationsForUserDefinedTargetProbabilityContextMenuStrip(WaterLevelCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            string displayNameForWaterLevelCalculations = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData.HydraulicBoundaryLocationCalculations,
+                                                                                                                                                       nodeData.AssessmentSection);
             return HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(
                 nodeData, treeViewControl, (calculation, section) =>
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         calculation.HydraulicBoundaryLocationCalculations, section, calculation.TargetProbability,
-                        noProbabilityValueDoubleConverter.ConvertToString(calculation.TargetProbability)),
-                TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(nodeData.WrappedData.HydraulicBoundaryLocationCalculations,
-                                                                                                             nodeData.AssessmentSection),
+                        displayNameForWaterLevelCalculations),
+                displayNameForWaterLevelCalculations,
                 RiskeerCommonFormsResources.WaterLevel_Calculate_All_ToolTip);
         }
 
@@ -2756,14 +2757,15 @@ namespace Riskeer.Integration.Plugin
         private ContextMenuStrip WaveHeightCalculationsForUserDefinedTargetProbabilityContextMenuStrip(
             WaveHeightCalculationsForUserDefinedTargetProbabilityContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            string displayNameForWaveHeightCalculations = TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(nodeData.WrappedData,
+                                                                                                                                             nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                                             probability => probability.TargetProbability);
             return HydraulicBoundaryLocationCalculationsForUserDefinedTargetProbabilityContextMenuStrip(
                 nodeData, treeViewControl, (calculation, section) =>
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         calculation.HydraulicBoundaryLocationCalculations, section, calculation.TargetProbability,
-                        noProbabilityValueDoubleConverter.ConvertToString(calculation.TargetProbability)),
-                TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(nodeData.WrappedData,
-                                                                                                   nodeData.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                                   probability => probability.TargetProbability),
+                        displayNameForWaveHeightCalculations),
+                displayNameForWaveHeightCalculations,
                 RiskeerCommonFormsResources.WaveHeight_Calculate_All_ToolTip);
         }
 

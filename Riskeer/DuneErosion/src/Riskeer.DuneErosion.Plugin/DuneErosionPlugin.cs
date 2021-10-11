@@ -39,7 +39,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
-using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
@@ -63,8 +62,6 @@ namespace Riskeer.DuneErosion.Plugin
     /// </summary>
     public class DuneErosionPlugin : PluginBase
     {
-        private static readonly NoProbabilityValueDoubleConverter noProbabilityValueDoubleConverter = new NoProbabilityValueDoubleConverter();
-
         private static readonly IDictionary<IView, IEnumerable<IObserver>> observersForViewTitles = new Dictionary<IView, IEnumerable<IObserver>>();
 
         private DuneLocationCalculationGuiService duneLocationCalculationGuiService;
@@ -202,7 +199,9 @@ namespace Riskeer.DuneErosion.Plugin
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
                                                                              () => context.WrappedData.TargetProbability,
-                                                                             () => noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability)),
+                                                                             () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
+                                                                                                                                                                      context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                                                                      probability => probability.TargetProbability)),
                 AfterCreate = (view, context) =>
                 {
                     view.CalculationGuiService = duneLocationCalculationGuiService;
@@ -565,7 +564,9 @@ namespace Riskeer.DuneErosion.Plugin
                     duneLocationCalculationGuiService.Calculate(context.WrappedData.DuneLocationCalculations,
                                                                 context.AssessmentSection,
                                                                 context.WrappedData.TargetProbability,
-                                                                noProbabilityValueDoubleConverter.ConvertToString(context.WrappedData.TargetProbability));
+                                                                TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
+                                                                                                                                                   context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                                                   probability => probability.TargetProbability));
                 });
 
             string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(context.AssessmentSection.HydraulicBoundaryDatabase);
