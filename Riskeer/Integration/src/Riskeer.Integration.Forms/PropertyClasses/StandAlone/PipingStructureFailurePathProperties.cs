@@ -24,51 +24,59 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.Input;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// ViewModel of <see cref="MacroStabilityOutwardsFailureMechanism"/> for properties panel.
+    /// Failure paths related ViewModel of <see cref="PipingStructureFailureMechanism"/> for properties panel.
     /// </summary>
-    public class MacroStabilityOutwardsFailureMechanismProperties : ObjectProperties<MacroStabilityOutwardsFailureMechanism>
+    public class PipingStructureFailurePathProperties : ObjectProperties<PipingStructureFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int isRelevantPropertyIndex = 5;
-        private const int aPropertyIndex = 6;
-        private const int bPropertyIndex = 7;
-        private const int sectionLengthPropertyIndex = 8;
-        private const int nPropertyIndex = 9;
-        private readonly IAssessmentSection assessmentSection;
+        private const int nPropertyIndex = 6;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="PipingStructureFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityOutwardsFailureMechanismProperties(MacroStabilityOutwardsFailureMechanism data, IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> input parameter is <c>null</c>.</exception>
+        public PipingStructureFailurePathProperties(PipingStructureFailureMechanism data)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             Data = data;
-            this.assessmentSection = assessmentSection;
         }
+
+        #region Length effect parameters
+
+        [DynamicVisible]
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.N;
+            }
+            set
+            {
+                data.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -83,11 +91,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
+            return nameof(Contribution).Equals(propertyName) || nameof(N).Equals(propertyName);
         }
 
         #region General
@@ -150,68 +154,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 return data.IsRelevant;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(aPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
-        public double A
-        {
-            get
-            {
-                return data.MacroStabilityOutwardsProbabilityAssessmentInput.A;
-            }
-            set
-            {
-                data.MacroStabilityOutwardsProbabilityAssessmentInput.A = value;
-                data.NotifyObservers();
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(bPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
-        public double B
-        {
-            get
-            {
-                return data.MacroStabilityOutwardsProbabilityAssessmentInput.B;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
-        public RoundedDouble SectionLength
-        {
-            get
-            {
-                return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityOutwardsProbabilityAssessmentInput;
-                return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
             }
         }
 

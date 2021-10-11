@@ -32,7 +32,7 @@ using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsFailureMechanismPropertyInfoTest
+    public class PipingStructureFailurePathPropertyInfoTest
     {
         private RiskeerPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityOutwardsFailureMechanismProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingStructureFailurePathProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityOutwardsFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityOutwardsFailureMechanismProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingStructureFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(PipingStructureFailurePathProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -66,14 +66,14 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new PipingStructureFailureMechanism();
+            var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityOutwardsFailureMechanismProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingStructureFailurePathProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }

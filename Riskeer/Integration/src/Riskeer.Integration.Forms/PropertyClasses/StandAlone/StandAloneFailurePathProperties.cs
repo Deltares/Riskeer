@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,63 +20,53 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
+using System.Linq;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingStructureFailureMechanism"/> for properties panel.
+    /// Failure path related ViewModel of <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
-    public class PipingStructureFailureMechanismProperties : ObjectProperties<PipingStructureFailureMechanism>
+    public class StandAloneFailurePathProperties : ObjectProperties<IFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int isRelevantPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
+
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingStructureFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="StandAloneFailurePathProperties"/>.
         /// </summary>
-        /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> input parameter is <c>null</c>.</exception>
-        public PipingStructureFailureMechanismProperties(PipingStructureFailureMechanism data)
+        /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StandAloneFailurePathProperties(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            if (data == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            Data = data;
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+
+            Data = failureMechanism;
         }
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.N;
-            }
-            set
-            {
-                data.N = value;
-                data.NotifyObservers();
-            }
-        }
-
-        #endregion
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -91,7 +81,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName) || nameof(N).Equals(propertyName);
+            return nameof(Contribution).Equals(propertyName);
         }
 
         #region General
@@ -137,11 +127,12 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
+        public string Contribution
         {
             get
             {
-                return data.Contribution;
+                return string.Format(Resources.FailureMechanismProperties_Contribution_Other_Percentage_0,
+                                     assessmentSection.GetContributingFailureMechanisms().Single(fm => fm is OtherFailureMechanism).Contribution);
             }
         }
 

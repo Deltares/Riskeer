@@ -21,35 +21,29 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 {
-    public class MacroStabilityOutwardsFailureMechanismPropertiesTest
+    [TestFixture]
+    public class StandAloneFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int isRelevantPropertyIndex = 4;
-        private const int aPropertyIndex = 5;
-        private const int bPropertyIndex = 6;
-        private const int sectionLengthPropertyIndex = 7;
-        private const int nPropertyIndex = 8;
 
         [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -57,23 +51,23 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityOutwardsFailureMechanismProperties(null, assessmentSection);
+            TestDelegate test = () => new StandAloneFailurePathProperties(null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("data", paramName);
+            Assert.AreEqual("failureMechanism", paramName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityOutwardsFailureMechanismProperties(new MacroStabilityOutwardsFailureMechanism(), null);
+            TestDelegate test = () => new StandAloneFailurePathProperties(new TestFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
@@ -82,38 +76,37 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            mocks.ReplayAll();
+            var random = new Random(39);
+            double otherContribution = random.NextDouble();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailureMechanism[]
+            {
+                failureMechanism,
+                new OtherFailureMechanism
+                {
+                    Contribution = otherContribution
+                }
+            });
+            mocks.ReplayAll();
+
             // Call
-            var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<MacroStabilityOutwardsFailureMechanism>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
+            Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
-
-            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
-            Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
-            Assert.AreEqual(probabilityAssessmentInput.B, properties.B);
-            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
-                            properties.N,
-                            properties.N.GetAccuracy());
-            Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentSection.ReferenceLine.Length,
-                            properties.SectionLength,
-                            properties.SectionLength.GetAccuracy());
+            Assert.AreEqual($"Overig ({otherContribution})", properties.Contribution);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
             mocks.VerifyAll();
         }
 
@@ -125,20 +118,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = true
             };
 
             // Call
-            var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
             // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
-
             const string generalCategory = "Algemeen";
-            const string lengthEffectCategory = "Lengte-effect parameters";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -147,8 +139,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
@@ -174,33 +166,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-
-            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
-                                                                            lengthEffectCategory,
-                                                                            "a [-]",
-                                                                            "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
-
-            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
-                                                                            lengthEffectCategory,
-                                                                            "b [m]",
-                                                                            "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
-                                                                            true);
-
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[sectionLengthPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
-                                                                            lengthEffectCategory,
-                                                                            "Lengte* [m]",
-                                                                            "Totale lengte van het traject in meters (afgerond).",
-                                                                            true);
-
-            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
-                                                                            lengthEffectCategory,
-                                                                            "N* [-]",
-                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
-                                                                            true);
             mocks.VerifyAll();
         }
 
@@ -212,13 +177,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = false
             };
 
             // Call
-            var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -257,60 +222,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-1)]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(8)]
-        public void A_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanism.Attach(observer);
-            var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism, assessmentSection);
-
-            // Call
-            TestDelegate call = () => properties.A = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.1)]
-        [TestCase(1)]
-        [TestCase(0.0000001)]
-        [TestCase(0.9999999)]
-        public void A_SetValidValue_SetsValueAndUpdatesObserver(double value)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanism.Attach(observer);
-            var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism, assessmentSection);
-
-            // Call
-            properties.A = value;
-
-            // Assert
-            Assert.AreEqual(value, failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
@@ -320,11 +231,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            var failureMechanism = new TestFailureMechanism
             {
                 IsRelevant = isRelevant
             };
-            var properties = new MacroStabilityOutwardsFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -333,10 +244,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
             mocks.VerifyAll();

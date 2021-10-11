@@ -21,53 +21,37 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 {
-    [TestFixture]
-    public class StandAloneFailureMechanismPropertiesTest
+    public class PipingStructureFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int isRelevantPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate test = () => new StandAloneFailureMechanismProperties(null, assessmentSection);
+            TestDelegate test = () => new PipingStructureFailurePathProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new StandAloneFailureMechanismProperties(new TestFailureMechanism(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            Assert.AreEqual("data", paramName);
         }
 
         [Test]
@@ -76,61 +60,46 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         public void Constructor_ExpectedValues(bool isRelevant)
         {
             // Setup
-            var random = new Random(39);
-            double otherContribution = random.NextDouble();
-
-            var failureMechanism = new TestFailureMechanism
+            var failureMechanism = new PipingStructureFailureMechanism
             {
                 IsRelevant = isRelevant
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailureMechanism[]
-            {
-                failureMechanism,
-                new OtherFailureMechanism
-                {
-                    Contribution = otherContribution
-                }
-            });
-            mocks.ReplayAll();
-
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new PipingStructureFailurePathProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
-            Assert.AreSame(failureMechanism, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<PipingStructureFailureMechanism>>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
-            Assert.AreEqual($"Overig ({otherContribution})", properties.Contribution);
-            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
-            mocks.VerifyAll();
+            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+            Assert.AreEqual(isRelevant, properties.IsRelevant);
+
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(failureMechanism.N,
+                            properties.N,
+                            properties.N.GetAccuracy());
         }
 
         [Test]
         public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism
+            var failureMechanism = new PipingStructureFailureMechanism
             {
                 IsRelevant = true
             };
 
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new PipingStructureFailurePathProperties(failureMechanism);
 
             // Assert
-            const string generalCategory = "Algemeen";
-
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -139,8 +108,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
@@ -166,24 +135,25 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
-            mocks.VerifyAll();
+
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
         }
 
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism
+            var failureMechanism = new PipingStructureFailureMechanism
             {
                 IsRelevant = false
             };
 
             // Call
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new PipingStructureFailurePathProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -218,6 +188,55 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-1)]
+        [TestCase(0.9)]
+        [TestCase(20.1)]
+        [TestCase(30)]
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingStructureFailureMechanism();
+            failureMechanism.Attach(observer);
+            var properties = new PipingStructureFailurePathProperties(failureMechanism);
+
+            // Call
+            TestDelegate call = () => properties.N = (RoundedDouble) value;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(12)]
+        [TestCase(20)]
+        public void N_SetValidValue_SetsValueAndUpdatesObserver(double value)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingStructureFailureMechanism();
+            failureMechanism.Attach(observer);
+            var properties = new PipingStructureFailurePathProperties(failureMechanism);
+
+            // Call
+            properties.N = (RoundedDouble) value;
+
+            // Assert
+            Assert.AreEqual(value, failureMechanism.N, failureMechanism.N.GetAccuracy());
             mocks.VerifyAll();
         }
 
@@ -227,15 +246,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism
+            var failureMechanism = new PipingStructureFailureMechanism
             {
                 IsRelevant = isRelevant
             };
-            var properties = new StandAloneFailureMechanismProperties(failureMechanism, assessmentSection);
+            var properties = new PipingStructureFailurePathProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -244,9 +259,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-            mocks.VerifyAll();
         }
     }
 }

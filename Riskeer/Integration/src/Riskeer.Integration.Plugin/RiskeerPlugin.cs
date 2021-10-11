@@ -243,17 +243,17 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
-            yield return new PropertyInfo<IFailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismProperties>
+            yield return new PropertyInfo<IFailureMechanismContext<IFailureMechanism>, StandAloneFailurePathProperties>
             {
-                CreateInstance = context => new StandAloneFailureMechanismProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData, context.Parent)
             };
-            yield return new PropertyInfo<MacroStabilityOutwardsFailurePathContext, MacroStabilityOutwardsFailureMechanismProperties>
+            yield return new PropertyInfo<MacroStabilityOutwardsFailurePathContext, MacroStabilityOutwardsFailurePathProperties>
             {
-                CreateInstance = context => new MacroStabilityOutwardsFailureMechanismProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new MacroStabilityOutwardsFailurePathProperties(context.WrappedData, context.Parent)
             };
-            yield return new PropertyInfo<PipingStructureFailurePathContext, PipingStructureFailureMechanismProperties>
+            yield return new PropertyInfo<PipingStructureFailurePathContext, PipingStructureFailurePathProperties>
             {
-                CreateInstance = context => new PipingStructureFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new PipingStructureFailurePathProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
             {

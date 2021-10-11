@@ -259,17 +259,17 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(IFailureMechanismContext<IFailureMechanism>),
-                    typeof(StandAloneFailureMechanismProperties));
+                    typeof(StandAloneFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityOutwardsFailurePathContext),
-                    typeof(MacroStabilityOutwardsFailureMechanismProperties));
+                    typeof(MacroStabilityOutwardsFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingStructureFailurePathContext),
-                    typeof(PipingStructureFailureMechanismProperties));
+                    typeof(PipingStructureFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
