@@ -940,52 +940,52 @@ namespace Riskeer.Integration.Plugin
             };
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffInwardsFailurePathContext>(
-                GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailurePathContext>(
-                GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MacroStabilityOutwardsFailurePathContext>(
-                MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                MacroStabilityOutwardsFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MicrostabilityFailurePathContext>(
-                MicrostabilityFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                MicrostabilityFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingStructureFailurePathContext>(
-                PipingStructureFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                PipingStructureFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailurePathContext>(
-                StrengthStabilityLengthwiseConstructionFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                StrengthStabilityLengthwiseConstructionFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TechnicalInnovationFailurePathContext>(
-                TechnicalInnovationFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                TechnicalInnovationFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaterPressureAsphaltCoverFailurePathContext>(
-                WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects,
-                StandAloneFailureMechanismDisabledChildNodeObjects,
-                StandAloneFailureMechanismEnabledContextMenuStrip,
-                StandAloneFailureMechanismDisabledContextMenuStrip);
+                WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects,
+                StandAloneFailurePathDisabledChildNodeObjects,
+                StandAloneFailurePathEnabledContextMenuStrip,
+                StandAloneFailurePathDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
@@ -2014,9 +2014,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region StandAloneFailureMechanism TreeNodeInfo
+        #region StandAloneFailurePath TreeNodeInfo
 
-        private static object[] StandAloneFailureMechanismDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -2024,7 +2024,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2044,7 +2044,7 @@ namespace Riskeer.Integration.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailureMechanismDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
+        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
                                                                                     object parentData,
                                                                                     TreeViewControl treeViewControl)
         {
@@ -2061,22 +2061,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GrassCoverSlipOffInwardsFailureMechanismContext TreeNodeInfo
+        #region GrassCoverSlipOffInwardsFailurePathContext TreeNodeInfo
 
-        private static object[] GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailurePathContext nodeData)
+        private static object[] GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetGrassCoverSlipOffInwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffInwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetGrassCoverSlipOffInwardsFailureMechanismOutputs(nodeData.WrappedData),
+                                       GetGrassCoverSlipOffInwardsFailurePathOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailureMechanismInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailurePathInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2085,7 +2085,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailureMechanismOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailurePathOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2097,22 +2097,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GrassCoverSlipOffOutwardsFailureMechanismContext TreeNodeInfo
+        #region GrassCoverSlipOffOutwardsFailurePathContext TreeNodeInfo
 
-        private static object[] GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailurePathContext nodeData)
+        private static object[] GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetGrassCoverSlipOffOutwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffOutwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetGrassCoverSlipOffOutwardsFailureMechanismOutputs(nodeData.WrappedData),
+                                       GetGrassCoverSlipOffOutwardsFailurePathOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailureMechanismInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailurePathInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2121,7 +2121,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailureMechanismOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailurePathOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2133,22 +2133,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region MacroStabilityOutwardsFailureMechanismContext TreeNodeInfo
+        #region MacroStabilityOutwardsFailurePathContext TreeNodeInfo
 
-        private static object[] MacroStabilityOutwardsFailureMechanismEnabledChildNodeObjects(MacroStabilityOutwardsFailurePathContext nodeData)
+        private static object[] MacroStabilityOutwardsFailurePathEnabledChildNodeObjects(MacroStabilityOutwardsFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetMacroStabilityOutwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMacroStabilityOutwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetMacroStabilityOutwardsFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMacroStabilityOutwardsFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetMacroStabilityOutwardsFailureMechanismInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMacroStabilityOutwardsFailurePathInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2157,7 +2157,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetMacroStabilityOutwardsFailureMechanismOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
+        private static IEnumerable<object> GetMacroStabilityOutwardsFailurePathOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
                                                                                             IAssessmentSection assessmentSection)
         {
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
@@ -2174,22 +2174,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region MicrostabilityFailureMechanismContext TreeNodeInfo
+        #region MicrostabilityFailurePathContext TreeNodeInfo
 
-        private static object[] MicrostabilityFailureMechanismEnabledChildNodeObjects(MicrostabilityFailurePathContext nodeData)
+        private static object[] MicrostabilityFailurePathEnabledChildNodeObjects(MicrostabilityFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetMicrostabilityFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMicrostabilityFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetMicrostabilityFailureMechanismOutputs(nodeData.WrappedData),
+                                       GetMicrostabilityFailurePathOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetMicrostabilityFailureMechanismInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMicrostabilityFailurePathInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2198,7 +2198,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetMicrostabilityFailureMechanismOutputs(MicrostabilityFailureMechanism nodeData)
+        private static IEnumerable<object> GetMicrostabilityFailurePathOutputs(MicrostabilityFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2210,22 +2210,22 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region PipingStructureFailureMechanismContext TreeNodeInfo
+        #region PipingStructureFailurePathContext TreeNodeInfo
 
-        private static object[] PipingStructureFailureMechanismEnabledChildNodeObjects(PipingStructureFailurePathContext nodeData)
+        private static object[] PipingStructureFailurePathEnabledChildNodeObjects(PipingStructureFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetPipingStructureFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetPipingStructureFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetPipingStructureFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetPipingStructureFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetPipingStructureFailureMechanismInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetPipingStructureFailurePathInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2234,7 +2234,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetPipingStructureFailureMechanismOutputs(PipingStructureFailureMechanism nodeData,
+        private static IEnumerable<object> GetPipingStructureFailurePathOutputs(PipingStructureFailureMechanism nodeData,
                                                                                      IAssessmentSection assessmentSection)
         {
             return new object[]
@@ -2252,21 +2252,21 @@ namespace Riskeer.Integration.Plugin
 
         #region StrengthStabilityLengthwiseConstructionFailurePathContext TreeNodeInfo
 
-        private static object[] StrengthStabilityLengthwiseConstructionFailureMechanismEnabledChildNodeObjects(
+        private static object[] StrengthStabilityLengthwiseConstructionFailurePathEnabledChildNodeObjects(
             StrengthStabilityLengthwiseConstructionFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetStrengthStabilityLengthwiseConstructionFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetStrengthStabilityLengthwiseConstructionFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetStrengthStabilityLengthwiseConstructionFailureMechanismOutputs(nodeData.WrappedData),
+                                       GetStrengthStabilityLengthwiseConstructionFailurePathOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailureMechanismInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailurePathInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2275,7 +2275,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailureMechanismOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
+        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailurePathOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2289,20 +2289,20 @@ namespace Riskeer.Integration.Plugin
 
         #region TechnicalInnovationFailurePathContext TreeNodeInfo
 
-        private static object[] TechnicalInnovationFailureMechanismEnabledChildNodeObjects(TechnicalInnovationFailurePathContext nodeData)
+        private static object[] TechnicalInnovationFailurePathEnabledChildNodeObjects(TechnicalInnovationFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetTechnicalInnovationFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetTechnicalInnovationFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetTechnicalInnovationFailureMechanismOutputs(nodeData.WrappedData),
+                                       GetTechnicalInnovationFailurePathOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetTechnicalInnovationFailureMechanismInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetTechnicalInnovationFailurePathInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2311,7 +2311,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetTechnicalInnovationFailureMechanismOutputs(TechnicalInnovationFailureMechanism nodeData)
+        private static IEnumerable<object> GetTechnicalInnovationFailurePathOutputs(TechnicalInnovationFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2325,20 +2325,20 @@ namespace Riskeer.Integration.Plugin
 
         #region WaterPressureAsphaltCoverFailurePathContext TreeNodeInfo
 
-        private static object[] WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects(WaterPressureAsphaltCoverFailurePathContext nodeData)
+        private static object[] WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects(WaterPressureAsphaltCoverFailurePathContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetWaterPressureAsphaltCoverFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetWaterPressureAsphaltCoverFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetWaterPressureAsphaltCoverFailureMechanismOutputs(nodeData.WrappedData),
+                                       GetWaterPressureAsphaltCoverFailurePathOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailureMechanismInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailurePathInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2347,7 +2347,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailureMechanismOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailurePathOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
         {
             return new object[]
             {
