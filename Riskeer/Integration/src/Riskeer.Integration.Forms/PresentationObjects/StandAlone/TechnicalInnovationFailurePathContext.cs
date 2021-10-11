@@ -27,17 +27,17 @@ using Riskeer.Integration.Data.StandAlone;
 namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="WaterPressureAsphaltCoverFailureMechanism"/>.
+    /// Presentation object for the failure path of <see cref="TechnicalInnovationFailureMechanism"/>.
     /// </summary>
-    public class WaterPressureAsphaltCoverFailureMechanismContext : FailureMechanismContext<WaterPressureAsphaltCoverFailureMechanism>
+    public class TechnicalInnovationFailurePathContext : FailureMechanismContext<TechnicalInnovationFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanismContext"/> class.
+        /// Initializes a new instance of the <see cref="TechnicalInnovationFailurePathContext"/> class.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public WaterPressureAsphaltCoverFailureMechanismContext(WaterPressureAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public TechnicalInnovationFailurePathContext(TechnicalInnovationFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

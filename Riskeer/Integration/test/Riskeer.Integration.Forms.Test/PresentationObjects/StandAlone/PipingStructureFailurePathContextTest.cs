@@ -19,25 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
-namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
+namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
 {
-    /// <summary>
-    /// This class is a presentation object for an instance of <see cref="MacroStabilityOutwardsFailureMechanism"/>.
-    /// </summary>
-    public class MacroStabilityOutwardsFailureMechanismContext : FailureMechanismContext<MacroStabilityOutwardsFailureMechanism>
+    [TestFixture]
+    public class PipingStructureFailurePathContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityOutwardsFailureMechanismContext"/> class.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism.</param>
-        /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public MacroStabilityOutwardsFailureMechanismContext(MacroStabilityOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(failureMechanism, assessmentSection) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingStructureFailureMechanism();
+
+            // Call
+            var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<PipingStructureFailureMechanism>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            mocks.VerifyAll();
+        }
     }
 }

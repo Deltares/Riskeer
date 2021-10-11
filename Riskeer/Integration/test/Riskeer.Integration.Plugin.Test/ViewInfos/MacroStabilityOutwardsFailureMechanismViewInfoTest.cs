@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityOutwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityOutwardsFailurePathContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityOutwardsFailureMechanism), info.ViewDataType);
         }
 
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var failureMechanismContext = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -168,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            var context = new MacroStabilityOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

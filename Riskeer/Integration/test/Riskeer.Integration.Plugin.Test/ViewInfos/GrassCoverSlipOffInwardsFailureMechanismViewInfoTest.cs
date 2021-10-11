@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverSlipOffInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverSlipOffInwardsFailurePathContext), info.DataType);
             Assert.AreEqual(typeof(GrassCoverSlipOffInwardsFailureMechanism), info.ViewDataType);
         }
 
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

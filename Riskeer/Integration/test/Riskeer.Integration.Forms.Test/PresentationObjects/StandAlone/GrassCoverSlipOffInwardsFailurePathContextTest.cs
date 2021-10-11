@@ -29,7 +29,7 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsFailureMechanismContextTest
+    public class GrassCoverSlipOffInwardsFailurePathContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<GrassCoverSlipOffInwardsFailureMechanism>>(context);

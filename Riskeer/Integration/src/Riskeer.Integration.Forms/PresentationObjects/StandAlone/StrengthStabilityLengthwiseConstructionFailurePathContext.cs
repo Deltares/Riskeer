@@ -27,17 +27,18 @@ using Riskeer.Integration.Data.StandAlone;
 namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
     /// <summary>
-    /// This class is a presentation object for an instance of <see cref="PipingStructureFailureMechanism"/>.
+    /// Presentation object for the failure path of  <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/>.
     /// </summary>
-    public class PipingStructureFailureMechanismContext : FailureMechanismContext<PipingStructureFailureMechanism>
+    public class StrengthStabilityLengthwiseConstructionFailurePathContext : FailureMechanismContext<StrengthStabilityLengthwiseConstructionFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingStructureFailureMechanismContext"/> class.
+        /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailurePathContext"/> class.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingStructureFailureMechanismContext(PipingStructureFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public StrengthStabilityLengthwiseConstructionFailurePathContext(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

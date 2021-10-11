@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingStructureFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(PipingStructureFailurePathContext), info.DataType);
             Assert.AreEqual(typeof(PipingStructureFailureMechanism), info.ViewDataType);
         }
 
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingStructureFailureMechanism();
-            var failureMechanismContext = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, failureMechanismContext);
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 IsRelevant = isRelevant
             };
 
-            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingStructureFailureMechanism();
 
-            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);

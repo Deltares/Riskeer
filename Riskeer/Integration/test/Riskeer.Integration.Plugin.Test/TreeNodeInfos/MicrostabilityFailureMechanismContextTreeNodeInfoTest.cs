@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MicrostabilityFailureMechanismContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MicrostabilityFailurePathContext));
         }
 
         [TearDown]
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
-            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
-            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
-            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
 
-            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new MicrostabilityFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new MicrostabilityFailureMechanism();
-                var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+                var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -365,7 +365,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
