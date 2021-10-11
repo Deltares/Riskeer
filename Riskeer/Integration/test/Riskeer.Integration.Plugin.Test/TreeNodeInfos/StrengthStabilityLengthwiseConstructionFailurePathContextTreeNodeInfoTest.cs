@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StrengthStabilityLengthwiseConstructionFailureMechanismContextTreeNodeInfoTest
+    public class StrengthStabilityLengthwiseConstructionFailurePathContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuRelevancyIndexWhenRelevant = 2;

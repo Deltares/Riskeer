@@ -31,19 +31,26 @@ using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsFailureMechanismContextTreeNodeInfoTest
+    public class MacroStabilityOutwardsFailurePathContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
@@ -56,7 +63,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityOutwardsFailurePathContext));
         }
 
         [TearDown]
@@ -100,8 +107,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanismContext = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -130,8 +137,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -144,11 +151,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanismContext = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -160,7 +165,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-            var failureMechanismSectionsContext = (GrassCoverSlipOffOutwardsFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (MacroStabilityOutwardsFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
@@ -168,16 +173,30 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var outputFolder = (CategoryTreeFolder) children[1];
-            Assert.AreEqual(2, outputFolder.Contents.Count());
+            Assert.AreEqual(3, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>)
-                outputFolder.Contents.ElementAt(0);
+            var failureMechanismAssemblyCategoriesContext = (MacroStabilityOutwardsAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
+                MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
+                Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length), calculator.FailureMechanismN);
+            }
+
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>)
+                outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputFolder.Contents.ElementAt(1);
+            var outputComment = (Comment) outputFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
@@ -188,12 +207,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 IsRelevant = false
             };
 
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -210,9 +229,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -245,12 +264,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 IsRelevant = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -286,8 +305,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-                var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+                var context = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -317,14 +336,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 IsRelevant = true
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -358,14 +377,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 IsRelevant = false
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MacroStabilityOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));

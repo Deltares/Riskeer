@@ -43,7 +43,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverFailureMechanismContextTreeNodeInfoTest
+    public class MicrostabilityFailurePathContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MicrostabilityFailurePathContext));
         }
 
         [TearDown]
@@ -100,8 +100,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -130,8 +130,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -147,8 +147,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-            var failureMechanismSectionsContext = (WaterPressureAsphaltCoverFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (MicrostabilityFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>)
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>)
                 outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
@@ -188,12 +188,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 IsRelevant = false
             };
 
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -210,9 +210,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+                var failureMechanism = new MicrostabilityFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -245,12 +245,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 IsRelevant = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -286,8 +286,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-                var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                var failureMechanism = new MicrostabilityFailureMechanism();
+                var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -317,14 +317,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 IsRelevant = true
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
@@ -358,14 +358,14 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failureMechanismObserver = mocks.Stub<IObserver>();
             failureMechanismObserver.Expect(o => o.UpdateObserver());
 
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 IsRelevant = false
             };
             failureMechanism.Attach(failureMechanismObserver);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
 
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
