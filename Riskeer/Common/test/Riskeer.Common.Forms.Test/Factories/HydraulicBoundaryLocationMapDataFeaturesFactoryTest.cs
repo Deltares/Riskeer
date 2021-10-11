@@ -53,14 +53,14 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Setup
             var random = new Random(39);
-            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationForTargetProbabilities = new[]
+            IEnumerable<Tuple<string, RoundedDouble>> waterLevelCalculationForTargetProbabilities = new[]
             {
-                new Tuple<double, RoundedDouble>(0.1, random.NextRoundedDouble()),
-                new Tuple<double, RoundedDouble>(0.1, random.NextRoundedDouble())
+                new Tuple<string, RoundedDouble>("h - 1/10", random.NextRoundedDouble()),
+                new Tuple<string, RoundedDouble>("h - 1/10 (1)", random.NextRoundedDouble())
             };
-            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationForTargetProbabilities = new[]
+            IEnumerable<Tuple<string, RoundedDouble>> waveHeightCalculationForTargetProbabilities = new[]
             {
-                new Tuple<double, RoundedDouble>(0.001, random.NextRoundedDouble())
+                new Tuple<string, RoundedDouble>("Hs - 1/1.000", random.NextRoundedDouble())
             };
             var location = new AggregatedHydraulicBoundaryLocation(1, "test", new Point2D(0, 0),
                                                                    waterLevelCalculationForTargetProbabilities,
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(
-                new MapFeature(Enumerable.Empty<MapGeometry>()), null, string.Empty);
+                new MapFeature(Enumerable.Empty<MapGeometry>()), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

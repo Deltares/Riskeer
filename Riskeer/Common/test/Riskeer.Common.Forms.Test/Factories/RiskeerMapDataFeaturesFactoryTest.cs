@@ -36,6 +36,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TestUtil;
 
@@ -161,20 +162,20 @@ namespace Riskeer.Common.Forms.Test.Factories
                 new HydraulicBoundaryLocation(2, "location2", 2, 2)
             }, setOutput);
 
-            Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevels =
+            Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waterLevels =
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.ToDictionary(
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
-                    tp => tp.TargetProbability);
+                    tp => $"h - {ProbabilityFormattingHelper.Format(tp.TargetProbability)}");
 
-            waterLevels.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            waterLevels.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm);
+            waterLevels.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, "h - 1/30.000");
+            waterLevels.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, "h - 1/30.000 (1)");
 
             IEnumerable<AggregatedHydraulicBoundaryLocation> locations = AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
                 assessmentSection.HydraulicBoundaryDatabase.Locations,
                 waterLevels,
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ToDictionary(
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
-                    tp => tp.TargetProbability));
+                    tp => $"Hs - {ProbabilityFormattingHelper.Format(tp.TargetProbability)}"));
 
             // Call
             IEnumerable<MapFeature> features = RiskeerMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeatures(locations);

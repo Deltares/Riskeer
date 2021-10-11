@@ -40,8 +40,8 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             void Call() => AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
-                null, new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double>(),
-                new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double>());
+                null, new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>(),
+                new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             // Call
             void Call() => AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
                 Enumerable.Empty<HydraulicBoundaryLocation>(), null,
-                new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double>());
+                new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             // Call
             void Call() => AggregatedHydraulicBoundaryLocationFactory.CreateAggregatedHydraulicBoundaryLocations(
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double>(),
+                new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>(),
                 null);
 
             // Assert
@@ -86,7 +86,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                 new HydraulicBoundaryLocation(2, "location2", 2, 2)
             };
 
-            var waterLevelCalculations = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double>
+            var waterLevelCalculations = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>
             {
                 {
                     new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                             Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                         }
                     },
-                    0.1
+                    "1/10"
                 },
                 {
                     new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -111,10 +111,10 @@ namespace Riskeer.Common.Forms.Test.Factories
                         },
                         new HydraulicBoundaryLocationCalculation(locations[1])
                     },
-                    0.001
+                    "1/100"
                 }
             };
-            var waveHeightCalculations = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double>
+            var waveHeightCalculations = new Dictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string>
             {
                 {
                     new ObservableList<HydraulicBoundaryLocationCalculation>
@@ -125,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.Factories
                             Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                         }
                     },
-                    0.005
+                    "1/200"
                 }
             };
 

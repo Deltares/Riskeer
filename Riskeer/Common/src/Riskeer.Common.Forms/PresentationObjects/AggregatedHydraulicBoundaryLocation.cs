@@ -46,8 +46,8 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// or <paramref name="waveHeightCalculationsForTargetProbabilities"/> is <c>null</c>.</exception>
         public AggregatedHydraulicBoundaryLocation(
             long id, string name, Point2D location,
-            IEnumerable<Tuple<double, RoundedDouble>> waterLevelCalculationsForTargetProbabilities,
-            IEnumerable<Tuple<double, RoundedDouble>> waveHeightCalculationsForTargetProbabilities)
+            IEnumerable<Tuple<string, RoundedDouble>> waterLevelCalculationsForTargetProbabilities,
+            IEnumerable<Tuple<string, RoundedDouble>> waveHeightCalculationsForTargetProbabilities)
         {
             if (name == null)
             {
@@ -94,11 +94,11 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the results of the water level calculations for different target probabilities.
         /// </summary>
-        public IEnumerable<Tuple<double, RoundedDouble>> WaterLevelCalculationsForTargetProbabilities { get; }
+        public IEnumerable<Tuple<string, RoundedDouble>> WaterLevelCalculationsForTargetProbabilities { get; }
 
         /// <summary>
         /// Gets the results of the wave height calculations for different target probabilities.
         /// </summary>
-        public IEnumerable<Tuple<double, RoundedDouble>> WaveHeightCalculationsForTargetProbabilities { get; }
+        public IEnumerable<Tuple<string, RoundedDouble>> WaveHeightCalculationsForTargetProbabilities { get; }
     }
 }

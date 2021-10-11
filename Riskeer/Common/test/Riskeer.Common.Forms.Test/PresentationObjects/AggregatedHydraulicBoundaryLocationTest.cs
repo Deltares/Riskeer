@@ -38,8 +38,8 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Call
             void Call() => new AggregatedHydraulicBoundaryLocation(
                 0, null, new Point2D(0, 0),
-                Enumerable.Empty<Tuple<double, RoundedDouble>>(),
-                Enumerable.Empty<Tuple<double, RoundedDouble>>());
+                Enumerable.Empty<Tuple<string, RoundedDouble>>(),
+                Enumerable.Empty<Tuple<string, RoundedDouble>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,8 +52,8 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Call
             void Call() => new AggregatedHydraulicBoundaryLocation(
                 0, string.Empty, null,
-                Enumerable.Empty<Tuple<double, RoundedDouble>>(),
-                Enumerable.Empty<Tuple<double, RoundedDouble>>());
+                Enumerable.Empty<Tuple<string, RoundedDouble>>(),
+                Enumerable.Empty<Tuple<string, RoundedDouble>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Call
             void Call() => new AggregatedHydraulicBoundaryLocation(
                 0, string.Empty, new Point2D(0, 0),
-                null, Enumerable.Empty<Tuple<double, RoundedDouble>>());
+                null, Enumerable.Empty<Tuple<string, RoundedDouble>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Call
             void Call() => new AggregatedHydraulicBoundaryLocation(
                 0, string.Empty, new Point2D(0, 0),
-                Enumerable.Empty<Tuple<double, RoundedDouble>>(), null);
+                Enumerable.Empty<Tuple<string, RoundedDouble>>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -95,8 +95,8 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var random = new Random(39);
             long id = random.Next();
             var location = new Point2D(random.NextDouble(), random.NextDouble());
-            var waterLevelCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
-            var waveHeightCalculationsForTargetProbabilities = new List<Tuple<double, RoundedDouble>>();
+            var waterLevelCalculationsForTargetProbabilities = new List<Tuple<string, RoundedDouble>>();
+            var waveHeightCalculationsForTargetProbabilities = new List<Tuple<string, RoundedDouble>>();
 
             // Call
             var aggregatedLocation = new AggregatedHydraulicBoundaryLocation(

@@ -44,8 +44,8 @@ namespace Riskeer.Common.Forms.Factories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<AggregatedHydraulicBoundaryLocation> CreateAggregatedHydraulicBoundaryLocations(
             IEnumerable<HydraulicBoundaryLocation> locations,
-            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waterLevelCalculations,
-            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, double> waveHeightCalculations)
+            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waterLevelCalculations,
+            IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> waveHeightCalculations)
         {
             if (locations == null)
             {
@@ -64,13 +64,13 @@ namespace Riskeer.Common.Forms.Factories
 
             return locations.Select(location => new AggregatedHydraulicBoundaryLocation(
                                         location.Id, location.Name, location.Location,
-                                        waterLevelCalculations.Select(c => new Tuple<double, RoundedDouble>(
+                                        waterLevelCalculations.Select(c => new Tuple<string, RoundedDouble>(
                                                                           c.Value, GetCalculationResult(
                                                                               c.Key.Single(x => x.HydraulicBoundaryLocation
                                                                                                  .Equals(location))
                                                                                .Output)))
                                                               .ToArray(),
-                                        waveHeightCalculations.Select(c => new Tuple<double, RoundedDouble>(
+                                        waveHeightCalculations.Select(c => new Tuple<string, RoundedDouble>(
                                                                           c.Value, GetCalculationResult(
                                                                               c.Key.Single(x => x.HydraulicBoundaryLocation
                                                                                                  .Equals(location))

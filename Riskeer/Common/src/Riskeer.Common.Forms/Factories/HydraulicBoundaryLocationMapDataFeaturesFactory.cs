@@ -25,7 +25,6 @@ using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -55,11 +54,9 @@ namespace Riskeer.Common.Forms.Factories
             feature.MetaData[RiskeerCommonUtilResources.MetaData_ID] = location.Id;
             feature.MetaData[RiskeerCommonUtilResources.MetaData_Name] = location.Name;
 
-            AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationsForTargetProbabilities,
-                                         Resources.MetaData_WaterLevel_TargetProbability_0);
+            AddTargetProbabilityMetaData(feature, location.WaterLevelCalculationsForTargetProbabilities);
 
-            AddTargetProbabilityMetaData(feature, location.WaveHeightCalculationsForTargetProbabilities,
-                                         Resources.MetaData_WaveHeight_TargetProbability_0);
+            AddTargetProbabilityMetaData(feature, location.WaveHeightCalculationsForTargetProbabilities);
 
             return feature;
         }
@@ -100,6 +97,32 @@ namespace Riskeer.Common.Forms.Factories
 
                 feature.MetaData[uniqueName] = calculationOutputForTargetProbability.Item2.ToString();
                 addedMetaDataItems.Add(uniqueName);
+            }
+        }
+
+        /// <summary>
+        /// Adds target probability related meta data to the given <paramref name="feature"/>.
+        /// </summary>
+        /// <param name="feature">The feature to add the meta data to.</param>
+        /// <param name="targetProbabilities">The collection of target probabilities to add.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddTargetProbabilityMetaData(MapFeature feature, IEnumerable<Tuple<string, RoundedDouble>> targetProbabilities)
+        {
+            if (feature == null)
+            {
+                throw new ArgumentNullException(nameof(feature));
+            }
+
+            if (targetProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(targetProbabilities));
+            }
+
+            foreach (Tuple<string, RoundedDouble> calculationOutputForTargetProbability in targetProbabilities)
+            {
+                string uniqueName = calculationOutputForTargetProbability.Item1;
+
+                feature.MetaData[uniqueName] = calculationOutputForTargetProbability.Item2.ToString();
             }
         }
     }
