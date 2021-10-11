@@ -96,6 +96,18 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
                                                                           WaveConditionsInputWaterLevelType.LowerLimit, assessmentSection.FailureMechanismContribution.LowerLimitNorm), "1/30.000");
             yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                           WaveConditionsInputWaterLevelType.Signaling, assessmentSection.FailureMechanismContribution.SignalingNorm), "1/30.000 (1)");
+            
+            var sectionWithNonUniqueTargetProbability = new AssessmentSectionStub();
+            var nonUniqueTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            sectionWithNonUniqueTargetProbability.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(nonUniqueTargetProbability);
+            yield return new TestCaseData(new SelectableTargetProbability(sectionWithNonUniqueTargetProbability, nonUniqueTargetProbability.HydraulicBoundaryLocationCalculations,
+                                                                          WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, nonUniqueTargetProbability.TargetProbability), "1/30.000 (2)");
+            
+            var sectionWithUniqueTargetProbability = new AssessmentSectionStub();
+            var targetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
+            sectionWithUniqueTargetProbability.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(targetProbability);
+            yield return new TestCaseData(new SelectableTargetProbability(sectionWithUniqueTargetProbability, targetProbability.HydraulicBoundaryLocationCalculations,
+                                                                          WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, targetProbability.TargetProbability), "1/10");
         }
 
         [TestFixture]
@@ -132,6 +144,12 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
                                                                               assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                               WaveConditionsInputWaterLevelType.LowerLimit,
                                                                               0.1));
+                var otherAssessmentSection = new AssessmentSectionStub();
+                yield return new TestCaseData(new SelectableTargetProbability(otherAssessmentSection,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                              WaveConditionsInputWaterLevelType.Signaling,
+                                                                              0.1))
+                    .SetName("differentAssessmentSection");
             }
 
             private static IEnumerable<TestCaseData> GetEqualTestCases()

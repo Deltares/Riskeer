@@ -482,7 +482,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             var properties = new WaveConditionsInputContextProperties(context, AssessmentSectionTestHelper.GetTestAssessmentLevel, customHandler);
 
             const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability;
-            var selectableTargetProbability = new SelectableTargetProbability(new AssessmentSectionStub(), calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
+            var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                               waterLevelType, calculationsForTargetProbability.TargetProbability);
 
             // Call
