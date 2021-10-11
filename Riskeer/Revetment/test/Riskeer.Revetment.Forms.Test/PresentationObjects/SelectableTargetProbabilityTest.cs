@@ -71,7 +71,6 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, calculations, waveConditionsInputWaterLevelType, targetProbability);
 
             // Assert
-            Assert.AreSame(assessmentSection, selectableTargetProbability.AssessmentSection);
             Assert.AreSame(calculations, selectableTargetProbability.HydraulicBoundaryLocationCalculations);
             Assert.AreEqual(waveConditionsInputWaterLevelType, selectableTargetProbability.WaterLevelType);
             Assert.AreEqual(targetProbability, selectableTargetProbability.TargetProbability);
@@ -96,13 +95,13 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
                                                                           WaveConditionsInputWaterLevelType.LowerLimit, assessmentSection.FailureMechanismContribution.LowerLimitNorm), "1/30.000");
             yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                           WaveConditionsInputWaterLevelType.Signaling, assessmentSection.FailureMechanismContribution.SignalingNorm), "1/30.000 (1)");
-            
+
             var sectionWithNonUniqueTargetProbability = new AssessmentSectionStub();
             var nonUniqueTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection.FailureMechanismContribution.LowerLimitNorm);
             sectionWithNonUniqueTargetProbability.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(nonUniqueTargetProbability);
             yield return new TestCaseData(new SelectableTargetProbability(sectionWithNonUniqueTargetProbability, nonUniqueTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                           WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, nonUniqueTargetProbability.TargetProbability), "1/30.000 (2)");
-            
+
             var sectionWithUniqueTargetProbability = new AssessmentSectionStub();
             var targetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1);
             sectionWithUniqueTargetProbability.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(targetProbability);

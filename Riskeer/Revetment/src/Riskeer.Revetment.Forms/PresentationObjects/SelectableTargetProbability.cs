@@ -33,6 +33,8 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
     /// </summary>
     public class SelectableTargetProbability
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="SelectableTargetProbability"/>.
         /// </summary>
@@ -55,16 +57,11 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculations));
             }
 
-            AssessmentSection = assessmentSection;
+            this.assessmentSection = assessmentSection;
             HydraulicBoundaryLocationCalculations = hydraulicBoundaryLocationCalculations;
             WaterLevelType = waterLevelType;
             TargetProbability = targetProbability;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the collection of <see cref="HydraulicBoundaryLocationCalculation"/>.
@@ -108,6 +105,7 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
                 int hashCode = WaterLevelType.GetHashCode();
                 hashCode = (hashCode * 397) ^ HydraulicBoundaryLocationCalculations.GetHashCode();
                 hashCode = (hashCode * 397) ^ TargetProbability.GetHashCode();
+                hashCode = (hashCode * 397) ^ assessmentSection.GetHashCode();
                 return hashCode;
             }
         }
@@ -115,12 +113,12 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         public override string ToString()
         {
             return TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(HydraulicBoundaryLocationCalculations,
-                                                                                                                AssessmentSection);
+                                                                                                                assessmentSection);
         }
 
         private bool Equals(SelectableTargetProbability other)
         {
-            return ReferenceEquals(AssessmentSection, other.AssessmentSection)
+            return ReferenceEquals(assessmentSection, other.assessmentSection)
                    && (ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
                        || WaterLevelType == other.WaterLevelType
                        && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6);
