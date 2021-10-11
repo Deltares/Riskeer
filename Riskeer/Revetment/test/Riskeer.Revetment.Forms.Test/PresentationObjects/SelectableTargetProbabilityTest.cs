@@ -77,6 +77,18 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         }
 
         [Test]
+        public void ToString_CalculationsNotInAssessmentSectionCalculations_ThrowsInvalidOperationException()
+        {
+            // Call
+            void Call() => new SelectableTargetProbability(new AssessmentSectionStub(), Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                           WaveConditionsInputWaterLevelType.LowerLimit, 0.1).ToString();
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(Call);
+            Assert.AreEqual("The provided calculations object is not part of the water level calculations within the assessment section.", exception.Message);
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetTestCases))]
         public void ToString_Always_ReturnsExpectedString(SelectableTargetProbability selectableTargetProbability, string expectedString)
         {
@@ -153,10 +165,11 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetEqualTestCases()
             {
-                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.None, 0.1),
-                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.01));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.1),
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling, 0.1));
+
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, 0.1),
-                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.LowerLimit, 0.1));
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, 0.1));
             }
         }
     }

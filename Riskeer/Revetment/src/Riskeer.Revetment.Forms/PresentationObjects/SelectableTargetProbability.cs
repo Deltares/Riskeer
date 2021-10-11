@@ -110,6 +110,8 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
             }
         }
 
+        /// <inheritdoc />
+        /// <exception cref="InvalidOperationException"> Thrown when the <see cref="HydraulicBoundaryLocationCalculations"/> is not in the assessment section.</exception> 
         public override string ToString()
         {
             return TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(HydraulicBoundaryLocationCalculations,
@@ -119,9 +121,9 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
         private bool Equals(SelectableTargetProbability other)
         {
             return ReferenceEquals(assessmentSection, other.assessmentSection)
-                   && (ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
-                       || WaterLevelType == other.WaterLevelType
-                       && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6);
+                   && ReferenceEquals(HydraulicBoundaryLocationCalculations, other.HydraulicBoundaryLocationCalculations)
+                   && WaterLevelType == other.WaterLevelType
+                   && Math.Abs(TargetProbability - other.TargetProbability) < 1e-6;
         }
     }
 }

@@ -95,7 +95,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
                 selectableTargetProbability,
                 new[]
                 {
-                    new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, waterLevelType, targetProbability)
+                    new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, waterLevelType, targetProbability)
                 });
 
             var propertyBag = new DynamicPropertyBag(properties);
