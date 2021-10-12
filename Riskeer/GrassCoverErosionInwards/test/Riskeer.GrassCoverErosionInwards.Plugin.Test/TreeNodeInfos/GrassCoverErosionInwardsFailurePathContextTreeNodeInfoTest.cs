@@ -21,14 +21,11 @@
 
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.Main;
-using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -38,6 +35,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -47,9 +45,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsFailurePathContextTreeNodeInfoTest
     {
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
-
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
@@ -277,150 +272,17 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
+        [TestFixture]
+        public class GrassCoverErosionInwardsFailurePathContextIsRelevantTreeNodeInfoTest :
+            FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<GrassCoverErosionInwardsPlugin, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailurePathContext>
         {
-            // Setup
-            var mocks = new MockRepository();
+            public GrassCoverErosionInwardsFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-            using (var treeViewControl = new TreeViewControl())
+            protected override GrassCoverErosionInwardsFailurePathContext CreateFailureMechanismContext(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                                                        IAssessmentSection assessmentSection)
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
-                }
+                return new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
             }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-            {
-                IsRelevant = false
-            };
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(context));
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
-                }
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            using (var treeView = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(8, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
-                }
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_AddCustomItems()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            using (var treeView = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
-                {
-                    IsRelevant = false
-                };
-                var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    Assert.AreEqual(6, menu.Items.Count);
-
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_empty);
-                }
-            }
-
-            mocks.VerifyAll();
         }
     }
 }
