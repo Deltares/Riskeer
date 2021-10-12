@@ -248,20 +248,20 @@ namespace Riskeer.Common.Forms.Views
             waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm);
 
             return waterLevelCalculations.OrderByDescending(pair => pair.Value)
-                                         .ToDictionary(x => x.Key, x => $"h - {TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(x.Key, assessmentSection)}");
+                                         .ToDictionary(x => x.Key, x => string.Format(Resources.MetaData_WaterLevel_TargetProbability_0,
+                                                                                      TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(x.Key,
+                                                                                                                                                                                   assessmentSection)));
         }
 
         private IReadOnlyDictionary<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> GetWaveHeightCalculations()
         {
-            Dictionary<HydraulicBoundaryLocationCalculationsForTargetProbability, double> waveHeightCalculations = assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ToDictionary(
-                tp => tp,
-                tp => tp.TargetProbability);
-
-            return waveHeightCalculations.OrderByDescending(pair => pair.Value)
-                                         .ToDictionary(x => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) x.Key.HydraulicBoundaryLocationCalculations,
-                                                       x => $@"Hs - {TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(x.Key,
+            return assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities
+                                    .OrderByDescending(tp => tp.TargetProbability)
+                                    .ToDictionary(x => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) x.HydraulicBoundaryLocationCalculations,
+                                                  x => string.Format(Resources.MetaData_WaveHeight_TargetProbability_0,
+                                                                     TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(x,
                                                                                                                                                         assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
-                                                                                                                                                        y => y.TargetProbability)}");
+                                                                                                                                                        y => y.TargetProbability)));
         }
     }
 }
