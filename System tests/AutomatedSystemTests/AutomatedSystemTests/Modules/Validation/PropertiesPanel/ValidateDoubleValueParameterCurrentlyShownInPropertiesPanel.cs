@@ -102,12 +102,12 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Focus();
             
-            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
+            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel, false, new RecordItemIndex(2));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel, false, new RecordItemIndex(2));
             
         }
 

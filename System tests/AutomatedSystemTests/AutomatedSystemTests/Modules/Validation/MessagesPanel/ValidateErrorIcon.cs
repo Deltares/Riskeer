@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.Validation.MessagesPanel
 
             Init();
 
-            Validate_GenericCellIcon(repo.RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.GenericCellIconInfo);
+            Validate_GenericCellIcon(repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.GenericRowMessage.GenericCellIconInfo);
             Delay.Milliseconds(0);
             
         }

@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 
             Init();
 
-            ExpandDamInPropertiesPanelMethod(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
+            ExpandDamInPropertiesPanelMethod(repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo);
             
         }
 

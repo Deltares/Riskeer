@@ -934,7 +934,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="37dc9800-96a2-44f2-a03c-4be94a13de43"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -1829,7 +1829,7 @@
 			</testmodule>
 			<testmodule
 			id="6d99a24f-0cca-4af7-9275-447e3baad9d9"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -1946,7 +1946,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="79ca2f3f-bd71-43d5-8968-0b7dfd8893b8"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -2483,7 +2483,7 @@
 			</testmodule>
 			<testmodule
 			id="afc63787-50de-42eb-85a6-9c006e637433"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -2763,7 +2763,7 @@
 			</testmodule>
 			<testmodule
 			id="cb7ba909-3291-4a38-a537-685d58a42e25"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -3325,7 +3325,7 @@
 							name="New_project">
 								<testmodule
 								id="37dc9800-96a2-44f2-a03c-4be94a13de43"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -3397,7 +3397,7 @@
 							name="New_Project">
 								<testmodule
 								id="79ca2f3f-bd71-43d5-8968-0b7dfd8893b8"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -3441,7 +3441,7 @@
 							name="New_Project">
 								<testmodule
 								id="afc63787-50de-42eb-85a6-9c006e637433"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -3524,7 +3524,7 @@
 								name="New_Project">
 									<testmodule
 									id="6d99a24f-0cca-4af7-9275-447e3baad9d9"
-									name="NewProject">
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
@@ -3792,7 +3792,7 @@
 								name="New_Project">
 									<testmodule
 									id="cb7ba909-3291-4a38-a537-685d58a42e25"
-									name="NewProject">
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>

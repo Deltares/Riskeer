@@ -103,7 +103,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             Init();
 
             // With the cached version, it takes extremely long to identify objects
-            Validate_ContributionCell(repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ContributionView.Table.ContributionCellUnchachedInfo);
+            Validate_ContributionCell(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ContributionView.Table.ContributionCellUnchachedInfo);
             
         }
 

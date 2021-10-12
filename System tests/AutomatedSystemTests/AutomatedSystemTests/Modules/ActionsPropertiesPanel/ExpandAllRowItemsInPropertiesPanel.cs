@@ -57,7 +57,7 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             Delay.SpeedFactor = 0.0;
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
+            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             var rowsList = propertiesPanelAdapter.As<Table>().Rows.ToList();
             if (rowsList.Count>0) {

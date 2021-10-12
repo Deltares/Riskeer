@@ -92,7 +92,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            SelectTreeItemInMapLayersPanel(pathToItem, repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo);
+            SelectTreeItemInMapLayersPanel(pathToItem, repo.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode.SelfInfo);
             
         }
 

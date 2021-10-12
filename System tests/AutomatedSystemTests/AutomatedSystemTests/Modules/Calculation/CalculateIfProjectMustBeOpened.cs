@@ -65,7 +65,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             Delay.SpeedFactor = 1.0;
             
             var myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var rootProjectNode = myRepository.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.FindAdapter<TreeItem>();
+            var rootProjectNode = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo.FindAdapter<TreeItem>();
             string projectCurrentlyOpen = NameOfTreeItem(rootProjectNode);
             int idx = fileNameOfProjectThatShouldBeOpen.LastIndexOf('\\');
             string projectThatShouldBeOpen = fileNameOfProjectThatShouldBeOpen.Substring(idx+1, fileNameOfProjectThatShouldBeOpen.Length-idx-6);

@@ -131,17 +131,17 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedSecurityAssessment) on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.SecurityAssessment'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.SecurityAssessmentInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.SecurityAssessmentInfo, "Text", expectedSecurityAssessment);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedSecurityAssessment) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.SecurityAssessment'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.SecurityAssessmentInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.SecurityAssessmentInfo, "Text", expectedSecurityAssessment);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedAssessmentLabelGroups1And2) on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentLabelGroups1And2'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentLabelGroups1And2Info, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentLabelGroups1And2Info, "AccessibleName", expectedAssessmentLabelGroups1And2);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedAssessmentLabelGroups1And2) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentLabelGroups1And2'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentLabelGroups1And2Info, new RecordItemIndex(1));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentLabelGroups1And2Info, "AccessibleName", expectedAssessmentLabelGroups1And2);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedAssessmentProbabilityGroups1And2) on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentProbabilityGroups1And2'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentProbabilityGroups1And2Info, new RecordItemIndex(2));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentProbabilityGroups1And2Info, "AccessibleName", expectedAssessmentProbabilityGroups1And2);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedAssessmentProbabilityGroups1And2) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentProbabilityGroups1And2'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentProbabilityGroups1And2Info, new RecordItemIndex(2));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentProbabilityGroups1And2Info, "AccessibleName", expectedAssessmentProbabilityGroups1And2);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedAssessmentGroups3And4) on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentGroups3And4'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentGroups3And4Info, new RecordItemIndex(3));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentGroups3And4Info, "Text", expectedAssessmentGroups3And4);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedAssessmentGroups3And4) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentGroups3And4'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentGroups3And4Info, new RecordItemIndex(3));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary.AssessmentGroups3And4Info, "Text", expectedAssessmentGroups3And4);
             
         }
 

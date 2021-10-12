@@ -2360,24 +2360,6 @@ AH8b/GrOKMUXYWRW8k/35P8Av43+NHkn+/J/38b/ABqzijFF2FkVvJP9+T/v43+NKIAcbmc4OcFy
 f61YxSii7CyBRiinCikM/9k=
 			</helperscreenshot>
 		</mouseitem>
-		<WaitForRecordItem
-		enabled="False"
-		optional="False"
-		searchpropertyid="f9b39367-69e1-4f3e-bc55-a5c2f622328d"
-		waitaction="Exists"
-		waittimeout="10000ms">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
-				</path>
-			</info>
-		</WaitForRecordItem>
 		<explicitdelayitem
 		duration="1000ms"
 		enabled="True"

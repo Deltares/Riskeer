@@ -79,8 +79,8 @@ namespace AutomatedSystemTests.Modules.ActionsMapLayersPanel
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence ' ' with focus on 'RiskeerMainWindow.MapLegendPanel.RootNode'.", repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.MapLegendPanel.RootNode.Self.PressKeys(" ");
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence ' ' with focus on 'RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode'.", repo.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode.Self.PressKeys(" ");
             
         }
 

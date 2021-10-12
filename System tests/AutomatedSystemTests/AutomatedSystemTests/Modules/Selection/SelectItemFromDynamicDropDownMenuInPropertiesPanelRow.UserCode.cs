@@ -72,7 +72,7 @@ namespace AutomatedSystemTests.Modules.Selection
         public void SelectItemFromDynamicDropDownMenuInRowPropertiesPanel(RepoItemInfo listitemInfo, string pathToRowItemInPropertiesPanel)
         {
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
+            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToRowItemInPropertiesPanel);
             row.Click();
             row.Click(".98;.5");

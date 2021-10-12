@@ -92,7 +92,7 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Init();
 
-            Report.Screenshot(ReportLevel.Warn, "User", warningMessageToLog, repo.RiskeerMainWindow.MessagesDataGridView.Self, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Warn, "User", warningMessageToLog, repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.Self, false, new RecordItemIndex(0));
             
         }
 

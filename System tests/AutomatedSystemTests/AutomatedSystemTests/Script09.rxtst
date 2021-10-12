@@ -1996,12 +1996,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="norm"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -2020,6 +2014,14 @@
 					variablename="lowLimitValue">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="9aade94c-19a7-4e82-808b-52cab7896d61"
@@ -3638,13 +3640,15 @@
 					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
 					variablename="lowLimitValue">
 					</var>
+				</databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="disjointedTrajectToAdd"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
 					variablename="trajectToAdd">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testcase
 			id="f606085b-17f4-49ab-8d8f-66fb813bb5f3"

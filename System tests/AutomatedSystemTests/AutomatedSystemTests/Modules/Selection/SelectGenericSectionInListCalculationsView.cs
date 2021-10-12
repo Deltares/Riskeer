@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            SelectGenericSectionInListCalculationsViewMethod(repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItemInfo);
+            SelectGenericSectionInListCalculationsViewMethod(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.ListItems.GenericItemInfo);
             
         }
 

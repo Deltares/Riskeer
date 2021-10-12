@@ -64,7 +64,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblySectionsView.Table.Self;
+            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblySectionsView.Table.Self;
             List<double> allSubsections = new List<double>();
             allSubsections.Add(0);
             foreach (var fmTrjAssInfo in trajectAssessmentInformation.ListFMsAssessmentInformation) {

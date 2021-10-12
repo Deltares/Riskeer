@@ -773,7 +773,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="0ee1d8a9-7b84-466c-8a66-6919f6a3ca10"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -802,12 +802,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="lowerLimitValue"
 					datasourceid="9c1c15d6-1c2a-4eae-bc2b-96703d08b8f7"
 					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
@@ -826,6 +820,14 @@
 					variablename="normType">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="0f8dec68-542b-431e-a90f-55dbfe1092b7"
@@ -6492,7 +6494,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="8590eb49-e100-42c5-9bc3-593dc6ff83f4"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -11168,7 +11170,7 @@
 			</testmodule>
 			<testmodule
 			id="e2fe22e1-ff16-4a66-bd9a-224e0547c948"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -11779,7 +11781,7 @@
 			</testmodule>
 			<testmodule
 			id="ed991328-a6cd-46cd-893b-3f7fc29dec73"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -11897,7 +11899,7 @@
 			</testmodule>
 			<testmodule
 			id="ef8a0301-ead0-4f85-b56e-5c3ee3d13c22"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -13333,7 +13335,7 @@
 							name="New_project">
 								<testmodule
 								id="ef8a0301-ead0-4f85-b56e-5c3ee3d13c22"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -13405,7 +13407,7 @@
 							name="New_Project">
 								<testmodule
 								id="0ee1d8a9-7b84-466c-8a66-6919f6a3ca10"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -13449,7 +13451,7 @@
 							name="New_Project">
 								<testmodule
 								id="e2fe22e1-ff16-4a66-bd9a-224e0547c948"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -13532,7 +13534,7 @@
 								name="New_Project">
 									<testmodule
 									id="ed991328-a6cd-46cd-893b-3f7fc29dec73"
-									name="NewProject">
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
@@ -13800,7 +13802,7 @@
 								name="New_Project">
 									<testmodule
 									id="8590eb49-e100-42c5-9bc3-593dc6ff83f4"
-									name="NewProject">
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>

@@ -46,15 +46,15 @@ namespace AutomatedSystemTests.Modules.Calculation
             if (listformulaAB.IndexOf(fmLabel)!=-1) {
             	// Calculate N based on formula with a, b
             	nameOfParameterInPropertiesPanel = "a [-]";
-            	var a  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var a  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of a: " + a);
             	
             	nameOfParameterInPropertiesPanel = "b [m]";
-            	var b  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var b  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of b: " + b);
             	
             	nameOfParameterInPropertiesPanel = "Lengte* [m]";
-            	var length  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var length  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of Length: " + length);
             	
             	double aDouble = Double.Parse(a, currentCulture);
@@ -67,11 +67,11 @@ namespace AutomatedSystemTests.Modules.Calculation
             } else if (fmLabel == "BSKW") {
             	// Calculate N based on formula with 2NA, C
             	nameOfParameterInPropertiesPanel = "2NA [-]";
-            	var twoNA  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var twoNA  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of 2NA: " + twoNA);
             	
             	nameOfParameterInPropertiesPanel = "C [-]";
-            	var C  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var C  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of C: " + C);
             	
             	double twoNADouble = Double.Parse(twoNA, currentCulture);
@@ -84,11 +84,11 @@ namespace AutomatedSystemTests.Modules.Calculation
             } else if (fmLabel == "AGK") {
             	// Calculate N based on formula with DeltaL
             	nameOfParameterInPropertiesPanel = "ΔL [m]";
-            	var deltaL  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var deltaL  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of ΔL: " + deltaL);
             	
             	nameOfParameterInPropertiesPanel = "Lengte* [m]";
-            	var length  = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	var length  = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             	Report.Log(ReportLevel.Info, "", "Value of Length: " + length);
             	
             	double deltaLDouble = Double.Parse(deltaL, currentCulture);
@@ -98,7 +98,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             	valueOfParameterInPropertiesPanel = parameterN.ToString(currentCulture);
             } else {
             	nameOfParameterInPropertiesPanel = "N [-]";
-            	valueOfParameterInPropertiesPanel = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
+            	valueOfParameterInPropertiesPanel = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.GetAttributeValueText("AccessibleValue");
             }
             
             Report.Log(ReportLevel.Info, "", "Value of N: " + valueOfParameterInPropertiesPanel);

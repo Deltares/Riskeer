@@ -5198,7 +5198,7 @@
 			</testmodule>
 			<testmodule
 			id="daaf07c0-5004-4078-b63a-0a1418865a11"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -7447,7 +7447,7 @@
 							name="NewProject">
 								<testmodule
 								id="daaf07c0-5004-4078-b63a-0a1418865a11"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode

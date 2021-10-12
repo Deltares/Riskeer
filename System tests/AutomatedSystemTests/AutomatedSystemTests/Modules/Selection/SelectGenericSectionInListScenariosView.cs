@@ -89,7 +89,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            FocusSelectAndClick(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.ListSectionsNames.GenericSectionInfo);
+            FocusSelectAndClick(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.ListSectionsNames.GenericSectionInfo);
             
         }
 

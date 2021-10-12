@@ -92,17 +92,17 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0Info, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0Info, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0Info, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0Info, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0Info, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0Info, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.OverruleAssessmentRow0.Click();
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$newValueManualAssessmentRow0' on item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.ManualAssessmentRow0'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.ManualAssessmentRow0Info, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.ManualAssessmentRow0.Element.SetAttributeValue("AccessibleValue", newValueManualAssessmentRow0);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$newValueManualAssessmentRow0' on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.ManualAssessmentRow0'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.ManualAssessmentRow0Info, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.ManualAssessmentRow0.Element.SetAttributeValue("AccessibleValue", newValueManualAssessmentRow0);
             
         }
 

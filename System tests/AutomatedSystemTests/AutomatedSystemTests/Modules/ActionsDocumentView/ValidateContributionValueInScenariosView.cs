@@ -92,7 +92,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Validate_GenericRowContribution(repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo);
+            Validate_GenericRowContribution(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo);
             
         }
 

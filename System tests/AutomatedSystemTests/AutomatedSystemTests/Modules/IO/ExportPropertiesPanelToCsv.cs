@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Jitbit.Utils;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -66,7 +67,7 @@ namespace AutomatedSystemTests.Modules.IO
             Delay.SpeedFactor = 0;
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
+            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             var allRows = propertiesPanelAdapter.As<Table>().Rows.ToList();
             var myExport = new CsvExport(separationCharacter, false,true);
@@ -76,7 +77,7 @@ namespace AutomatedSystemTests.Modules.IO
                 myExport.AddRow();
                 myExport["indexRow"] = index.ToString();
                 myExport["AccessibleName"] = row.Element.GetAttributeValueText("AccessibleName");
-                myExport["AccessibleValue"] = row.Element.GetAttributeValueText("AccessibleValue");
+                myExport["AccessibleValue"] = row.Element.GetAttributeValueText("AccessibleValue").ToInvariantCulture();
                 index++;
             }
             myExport.ExportToFile(fileName);

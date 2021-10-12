@@ -70,7 +70,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
 
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableResults = repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.Self.As<Table>();
+            var tableResults = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.Self.As<Table>();
             var rowsData = tableResults.Rows;
             var rowHeader = rowsData[0];
             
@@ -91,7 +91,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 }
                 rowIndex++;
             }
-            var resultView = repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView;
+            var resultView = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView;
             if (indexCombinedAssessmentProbability!=-1) {
                 currentFMAssessmentInformation.AssessmentLabel = resultView.AssemblyWithProb.Label.TextValue;
                 currentFMAssessmentInformation.AssessmentProbability = resultView.AssemblyWithProb.Probability.TextValue;

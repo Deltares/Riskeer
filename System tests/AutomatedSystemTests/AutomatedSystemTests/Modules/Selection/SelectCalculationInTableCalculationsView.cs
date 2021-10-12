@@ -89,8 +89,8 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow' at .02;.5.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.Self.Click(".02;.5");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow' at .02;.5.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.Self.Click(".02;.5");
             
         }
 

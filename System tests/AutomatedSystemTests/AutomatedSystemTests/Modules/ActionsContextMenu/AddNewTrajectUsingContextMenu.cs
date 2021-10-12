@@ -80,13 +80,13 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         }
 
         /// <summary>
-        /// Gets or sets the value of variable trajectToAdd.
+        /// Gets or sets the value of variable trajectID.
         /// </summary>
-        [TestVariable("4ea4fb61-50c3-4243-9a99-25901a404ce2")]
-        public string trajectToAdd
+        [TestVariable("171a542e-eb85-404b-a2fe-920346f601f6")]
+        public string trajectID
         {
-            get { return repo.trajectToAdd; }
-            set { repo.trajectToAdd = value; }
+            get { return repo.trajectID; }
+            set { repo.trajectID = value; }
         }
 
         /// <summary>
@@ -125,11 +125,11 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.Self.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Self.Focus();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.Self.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode' at Center.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Self.Click();
             
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(2));
             Keyboard.Press("{Apps}");
@@ -155,13 +155,10 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogNewTraject.ButtonOk' at Center.", repo.DialogNewTraject.ButtonOkInfo, new RecordItemIndex(9));
             repo.DialogNewTraject.ButtonOk.Click();
             
-            //Report.Log(ReportLevel.Info, "Wait", "Waiting 10s to exist. Associated repository item: 'RiskeerMainWindow.DocumentViewContainer'", repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo, new ActionTimeout(10000), new RecordItemIndex(10));
-            //repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo.WaitForExists(10000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(11));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(10));
             Delay.Duration(1000, false);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.Self, false, new RecordItemIndex(12));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.Self, false, new RecordItemIndex(11));
             
         }
 

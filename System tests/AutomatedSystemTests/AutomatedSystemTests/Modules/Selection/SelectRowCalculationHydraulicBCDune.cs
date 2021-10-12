@@ -89,11 +89,11 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Focus();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunesInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.GenericRowHydraulicBCDunes.Click();
             
         }
 

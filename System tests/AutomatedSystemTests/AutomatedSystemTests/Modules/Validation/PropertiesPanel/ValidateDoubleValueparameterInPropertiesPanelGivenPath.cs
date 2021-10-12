@@ -105,7 +105,7 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Init();
 
-            ValidateValueDoubleOfParameterInPropertiesPanelGivenPath(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self, pathToRowInPropertiesPanel);
+            ValidateValueDoubleOfParameterInPropertiesPanelGivenPath(repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self, pathToRowInPropertiesPanel);
             Delay.Milliseconds(0);
             
         }

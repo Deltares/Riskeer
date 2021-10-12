@@ -112,9 +112,9 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCell, false, new RecordItemIndex(0));
             
-            Abstract.ValidateCategoryBoundary.Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, expectedBoundary);
+            Abstract.ValidateCategoryBoundary.Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssessmentSectionAssemblyCategoriesView.TableDataGridView.GenericAssessmentSectionBoundaryCellInfo, expectedBoundary);
             
         }
 

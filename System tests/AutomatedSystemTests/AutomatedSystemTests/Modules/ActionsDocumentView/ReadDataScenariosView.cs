@@ -8,7 +8,6 @@
  */
 using System;
 using System.Linq;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -16,6 +15,7 @@ using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
 using Newtonsoft.Json;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -76,11 +76,10 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Delay.SpeedFactor = 0.0;
             
             var repo =global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
             var dataSectionScenariosView = BuildDataScenariosView(jsonDataScenariosView);
             
 
-            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.Self;
+            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.Self;
             var rows = table.Rows;
             
             var rowHeader = rows[0];
@@ -101,7 +100,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 
                 currentCell = row.Cells[indexContribution];
                 currentCell.Select();
-                calcInfo.Contribution = Double.Parse(GetAV(currentCell), currentCulture);
+                calcInfo.Contribution = Double.Parse(GetAV(currentCell).ToInvariantCulture());
                 
                 currentCell = row.Cells[indexName];
                 currentCell.Select();
@@ -109,7 +108,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 
                 currentCell = row.Cells[indexFailureProbability];
                 currentCell.Select();
-                calcInfo.FailureProbability = GetAV(currentCell);
+                calcInfo.FailureProbability = GetAV(currentCell).ToInvariantCulture();
                 
                 dataView.DataScenariosViewList.Add(calcInfo);
             }
@@ -149,7 +148,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                     }
                 }
             );
-                if (error==true) {
+                if (error) {
                     
                     Report.Log(ReportLevel.Error, "error unserializing json string for data scenarios view: " + jsonString);
                 }

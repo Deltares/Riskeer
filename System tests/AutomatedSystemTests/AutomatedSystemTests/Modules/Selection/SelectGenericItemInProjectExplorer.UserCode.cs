@@ -38,12 +38,14 @@ namespace AutomatedSystemTests.Modules.Selection
         	{
         	Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 0.0;
             var stepsPathItem = pathItem.Split('>').ToList();
-        	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
-        	// start up variable stepChild
-        	var stepChild = children[0].As<TreeItem>();
+        	//var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
+        	
+        	IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
+        	var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
         	var nameStepChild = NameOfTreeItem(stepChild);
+
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step
         			var step = stepsPathItem[i];

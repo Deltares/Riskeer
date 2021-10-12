@@ -118,7 +118,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             
             Report.Log(ReportLevel.Info, "User", substringFMName, new RecordItemIndex(1));
             
-            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
+            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
             
         }
 

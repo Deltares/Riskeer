@@ -76,7 +76,7 @@ namespace AutomatedSystemTests.Modules.Validation.MapLayersPanel
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            var rootNode = myRepository.RiskeerMainWindow.MapLegendPanel.RootNode.Self;
+            var rootNode = myRepository.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode.Self;
             TreeItem stepChild = rootNode.As<TreeItem>();
             var children = rootNode.Children;
             

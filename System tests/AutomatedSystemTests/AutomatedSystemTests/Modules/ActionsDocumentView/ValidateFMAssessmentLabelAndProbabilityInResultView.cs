@@ -105,11 +105,11 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedFMAssesmentLabel) on item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.Label'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.LabelInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.LabelInfo, "AccessibleName", expectedFMAssesmentLabel);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedFMAssesmentLabel) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.Label'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.LabelInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.LabelInfo, "AccessibleName", expectedFMAssesmentLabel);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedFMAssesmentProbability) on item 'RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.Probability'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.ProbabilityInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.ProbabilityInfo, "AccessibleName", expectedFMAssesmentProbability);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleName=$expectedFMAssesmentProbability) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.Probability'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.ProbabilityInfo, new RecordItemIndex(1));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.AssemblyWithProb.ProbabilityInfo, "AccessibleName", expectedFMAssesmentProbability);
             
         }
 

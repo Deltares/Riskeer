@@ -92,7 +92,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            SelectTreeItemInProjectExplorerGivenPath(pathToItemInProjectExplorer, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
+            SelectTreeItemInProjectExplorerGivenPath(pathToItemInProjectExplorer, repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo);
             
         }
 

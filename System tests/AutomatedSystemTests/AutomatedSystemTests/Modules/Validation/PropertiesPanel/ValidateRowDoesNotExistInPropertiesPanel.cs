@@ -92,7 +92,7 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Report.Log(ReportLevel.Info, "User", "Counting occurrences of $nameOfParameterInPropertiesPanel  in Properties Panel", new RecordItemIndex(0));
             
-            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self);
+            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self);
             
         }
 

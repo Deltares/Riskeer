@@ -2352,12 +2352,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="norm"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -2376,6 +2370,14 @@
 					variablename="lowLimitValue">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="1fb169c5-331e-403e-afe5-09a717ee8f74"
@@ -2854,7 +2856,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="253b6612-33dd-426b-9e7c-04e0f931fdf2"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -3588,7 +3590,7 @@
 			</testmodule>
 			<testmodule
 			id="314493c5-2cc6-49c0-9af5-e0cafee169f5"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -4416,12 +4418,6 @@
 					variablename="lowLimitValue">
 					</var>
 					<var
-					dataname="trajectIDDisjointWithSurfaceLines"
-					datasourceid="a7a2ba87-50a6-41d2-97b1-c72272b1b86e"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="norm"
 					datasourceid="a7a2ba87-50a6-41d2-97b1-c72272b1b86e"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -4454,6 +4450,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectIDDisjointWithSurfaceLines"
+					datasourceid="a7a2ba87-50a6-41d2-97b1-c72272b1b86e"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="3c2ab227-f59d-4e4a-b64e-306feb8bb28a"
@@ -8001,12 +8005,6 @@
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
 					</var>
-					<var
-					dataname="disjointedTrajectToAdd"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -8022,6 +8020,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="disjointedTrajectToAdd"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script07_TrajectCategories"
@@ -8692,7 +8698,7 @@
 			</testmodule>
 			<testmodule
 			id="6cb17d30-a153-49da-8304-6c6f6c5fddf0"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -9481,12 +9487,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectIncompatibleWithFMSections"
-					datasourceid="92bf3946-f83e-47bc-8efb-af3080330624"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="normType"
 					datasourceid="743c2e8f-859a-42ad-a5ae-cedb63013f72"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -9505,6 +9505,14 @@
 					variablename="lowLimitValue">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectIncompatibleWithFMSections"
+					datasourceid="92bf3946-f83e-47bc-8efb-af3080330624"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="75685827-f71d-44e1-ba88-a7889da4b16f"
@@ -10244,13 +10252,15 @@
 					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
 					variablename="lowLimitValue">
 					</var>
+				</databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="trajectID"
 					datasourceid="03409d1f-d6b9-4fd6-a43b-dde66b7b4bba"
 					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
 					variablename="trajectToAdd">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="7e430a93-1410-4b07-a536-3cbb5d22d66a"
@@ -11819,7 +11829,7 @@
 			</testmodule>
 			<testmodule
 			id="8e0b88a6-16a6-4b59-8f87-4eee57b5b6a4"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -13142,12 +13152,6 @@
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
 					</var>
-					<var
-					dataname="TrajectName"
-					datasourceid="bb8318c1-b74e-44e5-9e89-4bd3337fd8c8"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -13175,6 +13179,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="bb8318c1-b74e-44e5-9e89-4bd3337fd8c8"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="9caec79b-38f4-4c48-b07d-318c2887a019"
@@ -15210,13 +15222,15 @@
 					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
 					variablename="lowLimitValue">
 					</var>
+				</databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="disjointedTrajectToAdd"
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
 					variablename="trajectToAdd">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="b5cebadc-aa03-4d41-80c3-7d89a01bdc61"
@@ -15552,12 +15566,6 @@
 					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
 					variablename="signallingValue">
 					</var>
-					<var
-					dataname="trajectLabel"
-					datasourceid="a31d7390-e71b-44b2-8a69-d3f654448b17"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -15585,6 +15593,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectLabel"
+					datasourceid="a31d7390-e71b-44b2-8a69-d3f654448b17"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="b9c8731b-01d3-492c-90da-f66371855e11"
@@ -16036,12 +16052,6 @@
 					variablename="lowLimitValue">
 					</var>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="norm"
 					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -16062,6 +16072,14 @@
 					variablename="normType">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="bf2a76f3-fd38-4d1f-a189-78750f84ea65"
@@ -16706,12 +16724,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectCompatibleWithFMSections"
-					datasourceid="92bf3946-f83e-47bc-8efb-af3080330624"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="normType"
 					datasourceid="9cbf13fc-47c0-4502-83cc-50a78b535247"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -16730,6 +16742,14 @@
 					variablename="lowLimitValue">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectCompatibleWithFMSections"
+					datasourceid="92bf3946-f83e-47bc-8efb-af3080330624"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="c5c770b8-b27f-41ff-b002-7c68795e3891"
@@ -21601,7 +21621,7 @@
 									name="NewProject">
 										<testmodule
 										id="314493c5-2cc6-49c0-9af5-e0cafee169f5"
-										name="NewProject">
+										name="NewProjectUsingKeyboard">
 										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
@@ -24427,7 +24447,7 @@
 							name="NewProject">
 								<testmodule
 								id="8e0b88a6-16a6-4b59-8f87-4eee57b5b6a4"
-								name="NewProject">
+								name="NewProjectUsingKeyboard">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -25780,7 +25800,7 @@
 						name="NewProject">
 							<testmodule
 							id="253b6612-33dd-426b-9e7c-04e0f931fdf2"
-							name="NewProject">
+							name="NewProjectUsingKeyboard">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
@@ -26078,7 +26098,7 @@
 								name="NewProject">
 									<testmodule
 									id="6cb17d30-a153-49da-8304-6c6f6c5fddf0"
-									name="NewProject">
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode

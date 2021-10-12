@@ -92,8 +92,8 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.MapLegendPanel.RootNode' at Center.", repo.RiskeerMainWindow.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.MapLegendPanel.RootNode.Self.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.RootNode.Self.Click();
             
             Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(1));
             Keyboard.Press("{Apps}");

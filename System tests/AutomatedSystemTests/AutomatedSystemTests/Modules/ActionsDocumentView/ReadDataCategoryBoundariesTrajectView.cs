@@ -58,7 +58,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Delay.SpeedFactor = 0.0;
             
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableCategoryBoundariesTraject = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResultsCategoryView.Table;
+            var tableCategoryBoundariesTraject = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResultsCategoryView.Table;
             
             int idxColumn = 3;
             for (int indexRow = 2; indexRow < 7; indexRow++) {

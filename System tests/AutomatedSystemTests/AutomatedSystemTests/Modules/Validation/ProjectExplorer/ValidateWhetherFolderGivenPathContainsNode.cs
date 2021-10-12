@@ -71,15 +71,17 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
             Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
+            var stepsPathItem = pathToFolder.Split('>').ToList();
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
+            var rootNodeInfo = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo;
             
-            var rootNode = myRepository.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.Self;
-            var stepsPathItem = pathToFolder.Split('>').ToList();
-            var children = rootNode.Children;
+            //var children = rootNode.Children;
+            IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
             
-            TreeItem stepChild = children[0].As<TreeItem>();
+            var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
         	var nameStepChild = NameOfTreeItem(stepChild);
+
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step
         			var step = stepsPathItem[i];

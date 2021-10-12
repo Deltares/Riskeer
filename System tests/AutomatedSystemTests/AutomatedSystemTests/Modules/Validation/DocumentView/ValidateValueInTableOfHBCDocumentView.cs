@@ -90,7 +90,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             
             var myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             // To create the variable
-            Ranorex.Table table = myRepository.RiskeerMainWindow.MessagesDataGridView.Self;
+            Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.Self;
             if (labelFM=="GEBU") {
                 table = myRepository.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.Self;
             } else if (labelFM=="DA") {

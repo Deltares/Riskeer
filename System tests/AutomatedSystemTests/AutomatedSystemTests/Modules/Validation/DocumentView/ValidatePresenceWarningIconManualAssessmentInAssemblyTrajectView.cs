@@ -79,10 +79,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessment, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessment, false, new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessment'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessmentInfo, new RecordItemIndex(1));
-            Validate.Exists(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessmentInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Validating Exists on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessment'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessmentInfo, new RecordItemIndex(1));
+            Validate.Exists(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.WarningIconManualAssessmentInfo);
             
         }
 

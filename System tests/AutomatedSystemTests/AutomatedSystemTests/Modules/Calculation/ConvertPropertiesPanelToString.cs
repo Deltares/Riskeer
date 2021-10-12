@@ -55,7 +55,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             Delay.SpeedFactor = 0.0;
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
+            Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             var allRows = propertiesPanelAdapter.As<Table>().Rows.ToList();
             stringifiedPropertiesPanel = "";

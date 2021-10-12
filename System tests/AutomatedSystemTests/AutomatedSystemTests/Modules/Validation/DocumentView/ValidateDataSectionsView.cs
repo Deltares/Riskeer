@@ -244,7 +244,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            ValidationOfDataInSectionsView(repo.RiskeerMainWindow.DocumentViewContainerUncached.TableVakindeling);
+            ValidationOfDataInSectionsView(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.TableVakindeling);
             
         }
 

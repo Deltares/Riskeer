@@ -112,8 +112,8 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueParameter' on item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Element.SetAttributeValue("AccessibleValue", valueParameter);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueParameter' on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Element.SetAttributeValue("AccessibleValue", valueParameter);
             
         }
 

@@ -92,8 +92,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'Text' from item 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution' and assigning its value to variable 'valueContributionCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
-            valueContributionCell = repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.Element.GetAttributeValueText("Text");
+            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'Text' from item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution' and assigning its value to variable 'valueContributionCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
+            valueContributionCell = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.Element.GetAttributeValueText("Text");
             
         }
 

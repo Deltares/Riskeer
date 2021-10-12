@@ -102,10 +102,10 @@ namespace AutomatedSystemTests.Modules.Validation.MessagesPanel
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeContains (Text>$expectedMessage) on item 'RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.GenericCellMessage'.", repo.RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.GenericCellMessageInfo, new RecordItemIndex(0));
-            Validate.AttributeContains(repo.RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.GenericCellMessageInfo, "Text", expectedMessage);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeContains (Text>$expectedMessage) on item 'RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.GenericRowMessage.GenericCellMessage'.", repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.GenericRowMessage.GenericCellMessageInfo, new RecordItemIndex(0));
+            Validate.AttributeContains(repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.GenericRowMessage.GenericCellMessageInfo, "Text", expectedMessage);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.Self, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.GenericRowMessage.Self, false, new RecordItemIndex(1));
             
         }
 

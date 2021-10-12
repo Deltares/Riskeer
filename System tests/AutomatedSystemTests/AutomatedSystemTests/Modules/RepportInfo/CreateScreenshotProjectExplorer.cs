@@ -79,7 +79,7 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "Screenshot of Project Explorer.", repo.RiskeerMainWindow.ProjectExplorer.Self, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "Screenshot of Project Explorer.", repo.RiskeerMainWindow.ProjectExplorerPanel.Self, false, new RecordItemIndex(0));
             
         }
 

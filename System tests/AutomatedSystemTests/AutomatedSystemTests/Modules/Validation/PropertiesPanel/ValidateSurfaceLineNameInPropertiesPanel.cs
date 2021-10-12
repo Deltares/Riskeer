@@ -92,10 +92,10 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Name, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Name, false, new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedSurfaceLineName) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Name'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.NameInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.NameInfo, "AccessibleValue", expectedSurfaceLineName);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedSurfaceLineName) on item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Name'.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.NameInfo, new RecordItemIndex(1));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.NameInfo, "AccessibleValue", expectedSurfaceLineName);
             
         }
 

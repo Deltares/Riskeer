@@ -105,26 +105,16 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(0));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(1));
-            Delay.Duration(100, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 200ms.", new RecordItemIndex(0));
+            Delay.Duration(200, false);
             
             ResolveAppPath();
             Delay.Milliseconds(0);
             
-            //Report.Log(ReportLevel.Info, "Application", "Run application with file name from variable $AppPath in normal mode. Return value bound to $StartAutProcessIDVar.", new RecordItemIndex(3));
-            //StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
-            //Delay.Milliseconds(0);
-            
             StartAUT_Run_application();
             Delay.Milliseconds(0);
             
-            //Report.Log(ReportLevel.Info, "Wait", "Waiting 1m to exist. Associated repository item: 'RiskeerMainWindow'", repo.RiskeerMainWindow.SelfInfo, new ActionTimeout(60000), new RecordItemIndex(5));
-            //repo.RiskeerMainWindow.SelfInfo.WaitForExists(60000);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(3));
             Delay.Duration(1000, false);
             
         }

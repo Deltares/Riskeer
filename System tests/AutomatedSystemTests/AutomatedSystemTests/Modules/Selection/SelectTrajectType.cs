@@ -99,14 +99,14 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Trajecttype' at CenterLeft.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.TrajecttypeInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Trajecttype.Click(Location.CenterLeft);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Trajecttype' at CenterLeft.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.TrajecttypeInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Trajecttype.Click(Location.CenterLeft);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Trajecttype' at .98;.5.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.TrajecttypeInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Trajecttype.Click(".98;.5");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Trajecttype' at .98;.5.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.TrajecttypeInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Trajecttype.Click(".98;.5");
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuInRowPropertiesPanel.TrajectType' at Center.", repo.DropDownMenuInRowPropertiesPanel.TrajectTypeInfo, new RecordItemIndex(3));
             repo.DropDownMenuInRowPropertiesPanel.TrajectType.Click();

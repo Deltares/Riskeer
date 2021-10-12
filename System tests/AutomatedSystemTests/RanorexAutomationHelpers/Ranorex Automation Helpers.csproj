@@ -152,6 +152,9 @@
     <Compile Include="UserCodeCollections\PopupWatcherLibrary.cs">
       <id>ccf4cad7-1bc4-40a6-b288-1febfb110a85</id>
     </Compile>
+    <Compile Include="UserCodeCollections\StringHelpers.cs">
+      <id>6d3c4cef-8b99-4723-aa23-e9ca0eb7f931</id>
+    </Compile>
     <Compile Include="UserCodeCollections\StringLibrary.cs">
       <id>c889c9f3-f02b-47b0-86a5-559d07620e5b</id>
     </Compile>

@@ -79,8 +79,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.CalculationButtonsDA.CalculateForSelectedButton.Click();
             Delay.Milliseconds(0);
             
         }

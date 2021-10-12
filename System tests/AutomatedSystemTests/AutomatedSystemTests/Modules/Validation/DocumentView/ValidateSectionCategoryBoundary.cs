@@ -70,7 +70,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private string GetCategoriesBoundariesFromDocumentView()
         {
             var repo =global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var viewCategoryBoundaries = repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries;
+            var viewCategoryBoundaries = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ViewCategoryBoundaries;
 
             Ranorex.Table tableTraject = viewCategoryBoundaries.CategoryBoundariesTraject.Self;
             Ranorex.Table tableVak = viewCategoryBoundaries.CategoryBoundariesSection.Self;
@@ -122,7 +122,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
         private string GetCategoriesBoundariesFromPropertiesPanel()
         {
             AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            Adapter propertiesPanelAdapter = repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self;
+            Adapter propertiesPanelAdapter = repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             var allRows = propertiesPanelAdapter.As<Table>().Rows.ToList();
             string allResults = "";

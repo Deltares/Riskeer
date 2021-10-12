@@ -116,17 +116,17 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRow'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRowInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRow.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRow'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRowInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRow.Select();
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedAssessmentLabel) on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRow'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRowInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRowInfo, "Text", expectedAssessmentLabel);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedAssessmentLabel) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRow'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRowInfo, new RecordItemIndex(1));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentLabelGenericRowInfo, "Text", expectedAssessmentLabel);
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRow'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRowInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRow.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRow'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRowInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRow.Select();
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedAssessmentApproxProb) on item 'RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRow'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRowInfo, new RecordItemIndex(3));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRowInfo, "Text", expectedAssessmentApproxProb);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedAssessmentApproxProb) on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRow'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRowInfo, new RecordItemIndex(3));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.AssessmentApproxProbGenericRowInfo, "Text", expectedAssessmentApproxProb);
             
         }
 

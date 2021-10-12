@@ -69,7 +69,7 @@ namespace AutomatedSystemTests.Modules.IO
             Delay.SpeedFactor = 0.0;
             
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableResultView = repo.RiskeerMainWindow.DocumentViewContainerUncached.FM_ResultView.Table.Self.As<Table>();
+            var tableResultView = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.FM_ResultView.Table.Self.As<Table>();
             
             var allRows = tableResultView.Rows.ToList();
             var myExport = new CsvExport(separationCharacter, false,true);

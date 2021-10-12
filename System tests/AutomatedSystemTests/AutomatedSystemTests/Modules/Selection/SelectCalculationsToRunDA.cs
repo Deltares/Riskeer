@@ -103,7 +103,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            SelectCalculationsToAddInHydraulicBC_DA(repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.SelfInfo);
+            SelectCalculationsToAddInHydraulicBC_DA(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.SelfInfo);
             Delay.Milliseconds(0);
             
         }

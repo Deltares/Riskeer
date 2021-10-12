@@ -79,7 +79,7 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.MapLegendPanel.Self, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.MapLegendPanel.Self, false, new RecordItemIndex(0));
             
         }
 

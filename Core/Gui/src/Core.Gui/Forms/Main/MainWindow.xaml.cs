@@ -83,7 +83,7 @@ namespace Core.Gui.Forms.Main
             InitializeComponent();
 
             windowInteropHelper = new WindowInteropHelper(this);
-            Name = "MainWindow";
+            Name = "RiskeerMainWindow";
 
             NewProjectCommand = new RelayCommand(OnNewProject);
             SaveProjectCommand = new RelayCommand(OnSaveProject, CanExecuteSaveCommand);

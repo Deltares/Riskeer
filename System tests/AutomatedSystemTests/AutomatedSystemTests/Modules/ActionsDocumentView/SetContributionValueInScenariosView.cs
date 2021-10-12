@@ -90,14 +90,14 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.Click();
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$newValue' with focus on 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.PressKeys(newValue);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$newValue' with focus on 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.PressKeys(newValue);
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Return}' with focus on 'RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.PressKeys("{Return}");
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Return}' with focus on 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContributionInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.ScenariosView.Table.GenericRowContribution.PressKeys("{Return}");
             
         }
 

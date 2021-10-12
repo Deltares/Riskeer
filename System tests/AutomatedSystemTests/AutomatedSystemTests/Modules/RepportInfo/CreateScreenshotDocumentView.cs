@@ -79,7 +79,7 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.Self, false, new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.Self, false, new RecordItemIndex(0));
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(1));
             Delay.Duration(100, false);

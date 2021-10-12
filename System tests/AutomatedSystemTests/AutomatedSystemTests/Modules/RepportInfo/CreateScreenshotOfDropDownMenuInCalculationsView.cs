@@ -99,24 +99,24 @@ namespace AutomatedSystemTests.Modules.RepportInfo
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking EnsureVisible() on item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.EnsureVisible();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking EnsureVisible() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.EnsureVisible();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell'.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Click();
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.DropDownMenuItemList.Self, false, new RecordItemIndex(4));
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.Self, false, new RecordItemIndex(5));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.Self, false, new RecordItemIndex(5));
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell' at Center.", repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(6));
-            repo.RiskeerMainWindow.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCellInfo, new RecordItemIndex(6));
+            repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.CalculationsView.TableSelectedSection.GenericRow.GenericCell.Click();
             
         }
 

@@ -35,7 +35,7 @@ namespace AutomatedSystemTests.Modules.Validation.MessagesPanel
 
         public void Validate_GenericCellIcon(RepoItemInfo cellInfo)
         {
-            CompressedImage GenericCellIcon_ErrorIcon = repo.RiskeerMainWindow.MessagesDataGridView.GenericRowMessage.GenericCellIconInfo.GetErrorIcon(new Rectangle(0, 1, 17, 15));
+            CompressedImage GenericCellIcon_ErrorIcon = repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.GenericRowMessage.GenericCellIconInfo.GetErrorIcon(new Rectangle(0, 1, 17, 15));
             Imaging.FindOptions GenericCellIcon_ErrorIcon_Options = Imaging.FindOptions.Parse("0.8;Edges;0,0,0,0;True;10000000;0ms");
             Report.Log(ReportLevel.Info, "Validation", "(Optional Action)\r\nValidating ContainsImage (Screenshot: 'ErrorIcon' with region {X=0,Y=1,Width=17,Height=15}) on item 'cellInfo'.", cellInfo);
             Validate.ContainsImage(cellInfo, GenericCellIcon_ErrorIcon, GenericCellIcon_ErrorIcon_Options, "Comparing with error icon", new Validate.Options(){ReportSimilarity=Validate.ResultOption.Always, ReportDifferenceImages=Validate.ResultOption.OnFail, ReportExpectedAndActualImages=Validate.ResultOption.Always});

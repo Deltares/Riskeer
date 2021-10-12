@@ -1502,7 +1502,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="98655c19-2c21-45d8-851c-0289b0a73899"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -1589,7 +1589,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="a93ee4c3-7e82-43cb-a74f-bf493ea263f1"
-			name="NewProject"
+			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
@@ -2670,7 +2670,7 @@
 						name="NewProject">
 							<testmodule
 							id="98655c19-2c21-45d8-851c-0289b0a73899"
-							name="NewProject">
+							name="NewProjectUsingKeyboard">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
@@ -2968,7 +2968,7 @@
 								name="NewProject">
 									<testmodule
 									id="a93ee4c3-7e82-43cb-a74f-bf493ea263f1"
-									name="NewProject">
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode

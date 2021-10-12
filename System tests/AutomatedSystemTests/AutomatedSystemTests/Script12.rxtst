@@ -824,12 +824,6 @@
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
 					</var>
-					<var
-					dataname="disjointedTrajectToAdd"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -845,6 +839,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="disjointedTrajectToAdd"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="4a4996b9-e4ea-4335-947f-b00c211f5ed5"
@@ -1851,12 +1853,6 @@
 					variablename="lowLimitValue">
 					</var>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="norm"
 					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
@@ -1877,6 +1873,14 @@
 					variablename="normType">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="9d7dba73-9cb1-458c-92da-11309947eff3"

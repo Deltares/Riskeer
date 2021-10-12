@@ -165,6 +165,18 @@
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsBackstage\NewProjectBackstage.cs">
+      <BoundTo>d45e90df-b917-4d7a-86b6-2316333a0f72</BoundTo>
+      <DependentUpon>NewProjectBackstage.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>4bc39657-c2dc-4deb-be2b-b0e1f9096440</id>
+    </Compile>
+    <Compile Include="Modules\ActionsBackstage\NewProjectBackstage.UserCode.cs">
+      <BoundTo>d45e90df-b917-4d7a-86b6-2316333a0f72</BoundTo>
+      <DependentUpon>NewProjectBackstage.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>0cc7197c-fa70-4d6b-960e-8b0847868149</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\AddBackgroundLayer.cs">
       <DependentUpon>AddBackgroundLayer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -633,6 +645,18 @@
       <UserCode>true</UserCode>
       <id>ad1b407f-d5d9-429b-a732-b051aedc7a90</id>
     </Compile>
+    <Compile Include="Modules\ActionsRibbon\SelectState.cs">
+      <BoundTo>e256c001-5d4e-4fed-867b-c1d56e944ac4</BoundTo>
+      <DependentUpon>SelectState.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>38b8750f-9004-40ad-8da4-a3acb6e52b1a</id>
+    </Compile>
+    <Compile Include="Modules\ActionsRibbon\SelectState.UserCode.cs">
+      <BoundTo>e256c001-5d4e-4fed-867b-c1d56e944ac4</BoundTo>
+      <DependentUpon>SelectState.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e479ed1b-27d4-4cf1-bb76-a8a00af7afec</id>
+    </Compile>
     <Compile Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.cs">
       <BoundTo>1a2c2ff6-3175-4621-8731-c6b45579fc0c</BoundTo>
       <DependentUpon>DragAndDropItemOntoAnotherItem.rxrec</DependentUpon>
@@ -1098,14 +1122,14 @@
     <Compile Include="Modules\IO\MigrateAllFilesInFolderUsingCommandLineTool.cs">
       <id>2a82ac1c-983a-4fbb-bfe6-1ba8c7b0d338</id>
     </Compile>
-    <Compile Include="Modules\IO\NewProject.cs">
-      <DependentUpon>NewProject.rxrec</DependentUpon>
+    <Compile Include="Modules\IO\NewProjectUsingKeyboard.cs">
+      <DependentUpon>NewProjectUsingKeyboard.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>8e04af26-6cb4-4ddc-99d3-815547ab48e0</id>
       <BoundTo>39b9d06d-71b7-4758-9b92-32814138b9d3</BoundTo>
     </Compile>
-    <Compile Include="Modules\IO\NewProject.UserCode.cs">
-      <DependentUpon>NewProject.rxrec</DependentUpon>
+    <Compile Include="Modules\IO\NewProjectUsingKeyboard.UserCode.cs">
+      <DependentUpon>NewProjectUsingKeyboard.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>58917d69-2f81-4b87-9767-540983f1b18d</id>
       <BoundTo>39b9d06d-71b7-4758-9b92-32814138b9d3</BoundTo>
@@ -2597,6 +2621,11 @@
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
     </None>
+    <None Include="Modules\ActionsBackstage\NewProjectBackstage.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d45e90df-b917-4d7a-86b6-2316333a0f72</id>
+      <recordtableid>2c7465e0-4b16-45ab-a42a-4089c0acceb1</recordtableid>
+    </None>
     <None Include="Modules\ActionsContextMenu\AddBackgroundLayer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
@@ -2782,6 +2811,11 @@
       <id>c2bbe5ad-0b01-4d4d-96ea-d1a409b864c9</id>
       <recordtableid>9e09a6da-7c2a-433b-9b61-c8fc413c2e93</recordtableid>
     </None>
+    <None Include="Modules\ActionsRibbon\SelectState.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e256c001-5d4e-4fed-867b-c1d56e944ac4</id>
+      <recordtableid>c80e171a-4479-4f25-8072-e92859e1fa11</recordtableid>
+    </None>
     <None Include="Modules\ActionsWithItemsInProjectExplorer\DragAndDropItemOntoAnotherItem.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1a2c2ff6-3175-4621-8731-c6b45579fc0c</id>
@@ -2937,7 +2971,7 @@
       <id>fb360840-4623-47a1-a936-f62b3f14df39</id>
       <recordtableid>65d26ded-850f-4a04-a479-9d3870513676</recordtableid>
     </None>
-    <None Include="Modules\IO\NewProject.rxrec">
+    <None Include="Modules\IO\NewProjectUsingKeyboard.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>39b9d06d-71b7-4758-9b92-32814138b9d3</id>
       <recordtableid>f0658d7f-65e3-4f38-afe8-97fd942c1478</recordtableid>
@@ -3565,6 +3599,12 @@
     <Folder Include="Modules\ActionsMapLayersPanel">
       <id>fe5d5f36-0d60-4a1a-8018-4e469c240742</id>
     </Folder>
+    <Folder Include="Modules\ActionsBackstage">
+      <id>4408b284-562b-42f3-8343-b6584e9b3d60</id>
+    </Folder>
+    <Folder Include="Modules\ActionsRibbon">
+      <id>7c232303-3507-4621-919f-e51f67706be7</id>
+    </Folder>
     <Folder Include="Modules\SettingsTestSuite">
       <id>70adccec-360c-4240-9723-fdc7d4f728df</id>
     </Folder>
@@ -3612,9 +3652,6 @@
     </Folder>
     <Folder Include="Modules\OpenViews">
       <id>7df97b20-1c35-4243-a0b3-c4947cc3b006</id>
-    </Folder>
-    <Folder Include="Modules\Ribbon">
-      <id>38509785-8e37-4d81-82ce-0f3a73e76bba</id>
     </Folder>
     <Folder Include="Modules\Validation">
       <id>4442ef79-2bb9-4a72-8114-f70b1ff5bc23</id>

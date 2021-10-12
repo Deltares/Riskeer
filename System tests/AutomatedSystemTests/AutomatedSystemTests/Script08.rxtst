@@ -3143,12 +3143,6 @@
 					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
 					variablename="signallingValue">
 					</var>
-					<var
-					dataname="trajectLabel"
-					datasourceid="70ab6d23-6aa6-45ed-bbe6-deee64dfe401"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -3176,6 +3170,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectLabel"
+					datasourceid="70ab6d23-6aa6-45ed-bbe6-deee64dfe401"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="d9712046-10e9-4ac6-b8f6-f54a6cec16b3"

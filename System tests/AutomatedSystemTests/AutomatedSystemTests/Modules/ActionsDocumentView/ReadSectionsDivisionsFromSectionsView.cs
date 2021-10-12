@@ -79,7 +79,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            var tableSectionsDivisions = repo.RiskeerMainWindow.DocumentViewContainerUncached.TableVakindeling;
+            var tableSectionsDivisions = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.TableVakindeling;
 
             var rowsData = tableSectionsDivisions.Rows;
             

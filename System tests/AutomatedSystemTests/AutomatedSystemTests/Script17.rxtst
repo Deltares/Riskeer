@@ -1379,12 +1379,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectToAdd"
-					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-					<var
 					dataname="lowerLimitValue"
 					datasourceid="9fd7570f-bade-4ac5-8477-91abca7dfe49"
 					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
@@ -1403,6 +1397,14 @@
 					variablename="normType">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectToAdd"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="acd8f11f-6a15-4223-9284-1a038c1c87b7"

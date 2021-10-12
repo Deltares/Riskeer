@@ -148,8 +148,8 @@ namespace AutomatedSystemTests.Modules.IO
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(13));
             Delay.Duration(1000, false);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotContains (Text!>'Openen van project is mislukt.') on item 'RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessage'.", repo.RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, new RecordItemIndex(14));
-            Validate.AttributeNotContains(repo.RiskeerMainWindow.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, "Text", "Openen van project is mislukt.");
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotContains (Text!>'Openen van project is mislukt.') on item 'RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.LastRowMessage.LastCellMessage'.", repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, new RecordItemIndex(14));
+            Validate.AttributeNotContains(repo.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.LastRowMessage.LastCellMessageInfo, "Text", "Openen van project is mislukt.");
             
         }
 

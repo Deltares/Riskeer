@@ -102,10 +102,10 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            ValidateValueWaterLevelInDocumentViewDA(repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.CellCalculatedWaterLevelDAInfo);
+            ValidateValueWaterLevelInDocumentViewDA(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.CellCalculatedWaterLevelDAInfo);
             Delay.Milliseconds(0);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.HydraulicBCDunes.Table.CellCalculatedWaterLevelDA, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.CellCalculatedWaterLevelDA, false, new RecordItemIndex(1));
             
         }
 

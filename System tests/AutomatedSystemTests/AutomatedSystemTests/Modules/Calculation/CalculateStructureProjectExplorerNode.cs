@@ -68,7 +68,7 @@ namespace AutomatedSystemTests.Modules.Calculation
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            RepoItemInfo rootNodeProject = myRepository.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo;
+            RepoItemInfo rootNodeProject = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo;
             TreeItem nodeTreeItem = GetNodeInProjectExplorerGivenPath(pathToNodeInProjectExplorer, rootNodeProject);
             structureNode = GetStructureTreeItem(nodeTreeItem);
         }

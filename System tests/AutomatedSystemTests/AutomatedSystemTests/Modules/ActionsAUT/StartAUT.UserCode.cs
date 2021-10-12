@@ -49,7 +49,7 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
                 repo.RiskeerMainWindow.SelfInfo.WaitForExists(120000);
                 Delay.Duration(1000, false);
                 try {
-                    repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+                    repo.RiskeerMainWindow.ProjectExplorerPanel.SelfInfo.WaitForExists(5000);
                     Report.Info("Application started up properly!");
                     i=20;
                 } catch (Exception e) {

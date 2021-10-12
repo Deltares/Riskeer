@@ -71,10 +71,10 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var trajectAssessmentInformation = BuildAssessmenTrajectInformation(trajectAssessmentInformationString);
             var repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
-            var table = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Table.Self;
+            var table = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Table.Self;
             ValidateTableAssemblyTrajectView(table, trajectAssessmentInformation);
             
-            var summaryTraject = repo.RiskeerMainWindow.DocumentViewContainerUncached.AssemblyResult.Summary;
+            var summaryTraject = repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.AssemblyResult.Summary;
             
             string expectedAssessmentProb1and2 = CalculateAssessmentProbabilityGroups1and2(trajectAssessmentInformation);
             string actualAssessmentProb1and2 = summaryTraject.AssessmentProbabilityGroups1And2.TextValue;

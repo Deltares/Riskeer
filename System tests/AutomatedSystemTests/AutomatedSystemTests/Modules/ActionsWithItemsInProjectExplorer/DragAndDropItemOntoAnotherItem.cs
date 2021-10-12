@@ -105,7 +105,7 @@ namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
 
             Init();
 
-            DragAndDropProjectExplorerItemOntoAnotherOne(pathItemToMove, pathItemDestination, repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo);
+            DragAndDropProjectExplorerItemOntoAnotherOne(pathItemToMove, pathItemDestination, repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo);
             Delay.Milliseconds(0);
             
         }

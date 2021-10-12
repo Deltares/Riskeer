@@ -176,12 +176,6 @@
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
 					</var>
-					<var
-					dataname="TrajectName"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -209,6 +203,14 @@
 					variablename="trajectToAdd">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script07_TrajectCategories"

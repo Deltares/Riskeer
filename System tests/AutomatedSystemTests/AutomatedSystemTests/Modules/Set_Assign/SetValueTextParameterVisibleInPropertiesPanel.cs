@@ -102,8 +102,8 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueOfTextParameterInPropertiesPanel' on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.SetAttributeValue("AccessibleValue", valueOfTextParameterInPropertiesPanel);
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueOfTextParameterInPropertiesPanel' on item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel'.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanelInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.GenericParameterVisibleInPropertiesPanel.Element.SetAttributeValue("AccessibleValue", valueOfTextParameterInPropertiesPanel);
             Delay.Milliseconds(0);
             
         }
