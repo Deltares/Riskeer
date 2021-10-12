@@ -149,9 +149,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 HydraulicLoadsChildNodeObjects,
                 HydraulicLoadsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<WaveImpactAsphaltCoverFailurePathContext>(
-                FailurePathChildNodeObjects,
-                FailurePathContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<WaveImpactAsphaltCoverFailurePathContext>(
+                FailurePathEnabledChildNodeObjects,
+                FailurePathDisabledChildNodeObjects,
+                FailurePathEnabledContextMenuStrip,
+                FailurePathDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
             {
@@ -351,7 +353,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCoverFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathChildNodeObjects(WaveImpactAsphaltCoverFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(WaveImpactAsphaltCoverFailurePathContext context)
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -362,6 +364,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                        GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] FailurePathDisabledChildNodeObjects(WaveImpactAsphaltCoverFailurePathContext context)
+        {
+            return new object[]
+            {
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -387,19 +397,41 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathContextMenuStrip(WaveImpactAsphaltCoverFailurePathContext context,
-                                                             object parentData,
-                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(WaveImpactAsphaltCoverFailurePathContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(WaveImpactAsphaltCoverFailurePathContext context,
+                                                                     object parentData,
+                                                                     TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(WaveImpactAsphaltCoverFailurePathContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion

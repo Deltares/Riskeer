@@ -35,6 +35,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -113,7 +114,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithContext_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -164,7 +165,33 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
+        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, children.Length);
+
+            var comment = (Comment) children[0];
+            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
@@ -179,6 +206,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 using (mocks.Ordered())
                 {
                     menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
@@ -200,6 +229,61 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+                {
+                    IsRelevant = false
+                };
+                var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                info.ContextMenuStrip(context, null, treeViewControl);
+            }
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [TestFixture]
+        public class WaveImpactAsphaltCoverFailurePathContextIsRelevantTreeNodeInfoTest :
+            FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<WaveImpactAsphaltCoverPlugin, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailurePathContext>
+        {
+            public WaveImpactAsphaltCoverFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+
+            protected override WaveImpactAsphaltCoverFailurePathContext CreateFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                                                      IAssessmentSection assessmentSection)
+            {
+                return new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            }
         }
     }
 }
