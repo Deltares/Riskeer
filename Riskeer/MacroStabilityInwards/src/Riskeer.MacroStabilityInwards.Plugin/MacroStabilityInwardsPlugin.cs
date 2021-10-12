@@ -328,9 +328,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<MacroStabilityInwardsFailurePathContext>(
-                FailurePathChildNodeObjects,
-                FailurePathContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<MacroStabilityInwardsFailurePathContext>(
+                FailurePathEnabledChildNodeObjects,
+                FailurePathDisabledChildNodeObjects,
+                FailurePathEnabledContextMenuStrip,
+                FailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<MacroStabilityInwardsCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
@@ -656,7 +658,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathChildNodeObjects(MacroStabilityInwardsFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(MacroStabilityInwardsFailurePathContext context)
         {
             MacroStabilityInwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -667,6 +669,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                        GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] FailurePathDisabledChildNodeObjects(MacroStabilityInwardsFailurePathContext context)
+        {
+            return new object[]
+            {
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -693,19 +703,41 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathContextMenuStrip(MacroStabilityInwardsFailurePathContext context,
-                                                             object parentData,
-                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(MacroStabilityInwardsFailurePathContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(MacroStabilityInwardsFailurePathContext context,
+                                                                     object parentData,
+                                                                     TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(MacroStabilityInwardsFailurePathContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion
