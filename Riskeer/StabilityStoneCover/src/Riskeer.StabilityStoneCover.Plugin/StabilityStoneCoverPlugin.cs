@@ -139,9 +139,11 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 HydraulicLoadsChildNodeObjects,
                 HydraulicLoadsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityStoneCoverFailurePathContext>(
-                FailurePathChildNodeObjects,
-                FailurePathContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<StabilityStoneCoverFailurePathContext>(
+                FailurePathEnabledChildNodeObjects,
+                FailurePathDisabledChildNodeObjects,
+                FailurePathEnabledContextMenuStrip,
+                FailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 WaveConditionsCalculationGroupContextChildNodeObjects,
@@ -352,7 +354,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathChildNodeObjects(StabilityStoneCoverFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(StabilityStoneCoverFailurePathContext context)
         {
             StabilityStoneCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -363,6 +365,14 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                        GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] FailurePathDisabledChildNodeObjects(StabilityStoneCoverFailurePathContext context)
+        {
+            return new object[]
+            {
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -386,19 +396,41 @@ namespace Riskeer.StabilityStoneCover.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathContextMenuStrip(StabilityStoneCoverFailurePathContext context,
-                                                             object parentData,
-                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(StabilityStoneCoverFailurePathContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(StabilityStoneCoverFailurePathContext context,
+                                                                     object parentData,
+                                                                     TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(StabilityStoneCoverFailurePathContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion
