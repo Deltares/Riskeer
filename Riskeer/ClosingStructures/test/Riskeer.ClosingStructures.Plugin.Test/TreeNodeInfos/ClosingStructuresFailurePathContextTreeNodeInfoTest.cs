@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.Main;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -222,7 +221,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -264,7 +262,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -296,7 +293,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -367,9 +363,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -407,9 +400,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

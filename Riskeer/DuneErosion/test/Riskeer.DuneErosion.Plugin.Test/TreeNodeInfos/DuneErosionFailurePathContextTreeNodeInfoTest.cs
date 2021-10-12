@@ -27,7 +27,6 @@ using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
@@ -232,7 +231,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
@@ -280,7 +278,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
@@ -318,7 +315,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.ViewCommands).Return(viewCommands);
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
@@ -401,9 +397,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
                 gui.Stub(g => g.ViewHost).Return(mocks.Stub<IViewHost>());
                 mocks.ReplayAll();
 
