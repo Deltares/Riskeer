@@ -382,9 +382,11 @@ namespace Riskeer.Piping.Plugin
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<PipingFailurePathContext>(
-                FailurePathChildNodeObjects,
-                FailurePathContextMenuStrip);
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<PipingFailurePathContext>(
+                FailurePathEnabledChildNodeObjects,
+                FailurePathDisabledChildNodeObjects,
+                FailurePathEnabledContextMenuStrip,
+                FailurePathDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 SemiProbabilisticPipingCalculationScenarioContextChildNodeObjects,
@@ -846,7 +848,7 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathChildNodeObjects(PipingFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(PipingFailurePathContext context)
         {
             PipingFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -857,6 +859,14 @@ namespace Riskeer.Piping.Plugin
                                        GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
                                        GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+            };
+        }
+
+        private static object[] FailurePathDisabledChildNodeObjects(PipingFailurePathContext context)
+        {
+            return new object[]
+            {
+                context.WrappedData.NotRelevantComments
             };
         }
 
@@ -883,19 +893,41 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathContextMenuStrip(PipingFailurePathContext context,
-                                                             object parentData,
-                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(PipingFailurePathContext context,
+                                                                    object parentData,
+                                                                    TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
             return builder.AddOpenItem()
+                          .AddSeparator()
+                          .AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(PipingFailurePathContext context,
+                                                                     object parentData,
+                                                                     TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddToggleRelevancyOfFailureMechanismItem(context, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private void RemoveAllViewsForItem(PipingFailurePathContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         #endregion
