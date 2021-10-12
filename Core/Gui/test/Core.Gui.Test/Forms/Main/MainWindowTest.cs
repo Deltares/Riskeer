@@ -106,7 +106,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.AreEqual(WindowState.Maximized, mainWindow.WindowState);
                 Assert.AreEqual(ResizeMode.CanResizeWithGrip, mainWindow.ResizeMode);
                 Assert.AreEqual(FlowDirection.LeftToRight, mainWindow.FlowDirection);
-                Assert.AreEqual("MainWindow", mainWindow.Name);
+                Assert.AreEqual("RiskeerMainWindow", mainWindow.Name);
 
                 Assert.IsNotNull(mainWindow.NewProjectCommand);
                 Assert.IsNotNull(mainWindow.SaveProjectCommand);
