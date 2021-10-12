@@ -91,18 +91,6 @@ namespace Riskeer.Common.Forms.Test.Factories
         }
 
         [Test]
-        public void AddTargetProbabilityMetaData_TargetProbabilitiesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => HydraulicBoundaryLocationMapDataFeaturesFactory.AddTargetProbabilityMetaData(
-                new MapFeature(Enumerable.Empty<MapGeometry>()), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("targetProbabilities", exception.ParamName);
-        }
-
-        [Test]
         public void AddTargetProbabilityMetaData_DisplayNameFormatNull_ThrowsArgumentNullException()
         {
             // Call
