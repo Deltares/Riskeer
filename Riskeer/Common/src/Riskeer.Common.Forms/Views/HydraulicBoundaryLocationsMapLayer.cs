@@ -259,7 +259,9 @@ namespace Riskeer.Common.Forms.Views
 
             return waveHeightCalculations.OrderByDescending(pair => pair.Value)
                                          .ToDictionary(x => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) x.Key.HydraulicBoundaryLocationCalculations,
-                                                       x => $"Hs - {TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(x.Key, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities, y => y.TargetProbability)}");
+                                                       x => $@"Hs - {TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(x.Key,
+                                                                                                                                                        assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
+                                                                                                                                                        y => y.TargetProbability)}");
         }
     }
 }
