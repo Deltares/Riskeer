@@ -148,12 +148,16 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
-                                                                              assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                               WaveConditionsInputWaterLevelType.Signaling,
                                                                               0.01));
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
-                                                                              assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                               WaveConditionsInputWaterLevelType.LowerLimit,
+                                                                              0.1));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
+                                                                              assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                              WaveConditionsInputWaterLevelType.Signaling,
                                                                               0.1));
                 var otherAssessmentSection = new AssessmentSectionStub();
                 yield return new TestCaseData(new SelectableTargetProbability(otherAssessmentSection,
