@@ -172,7 +172,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 IsRelevant = false
@@ -187,6 +190,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var comment = (Comment) children[0];
             Assert.AreSame(failureMechanism.NotRelevantComments, comment);
+            
+            mocks.VerifyAll();
         }
 
         [Test]
