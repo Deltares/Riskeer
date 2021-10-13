@@ -38,15 +38,20 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int cPropertyIndex = 4;
-        private const int n2APropertyIndex = 5;
-        private const int nPropertyIndex = 6;
+        private const int isRelevantPropertyIndex = 4;
+        private const int cPropertyIndex = 5;
+        private const int n2APropertyIndex = 6;
+        private const int nPropertyIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var random = new Random(21);
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                IsRelevant = random.NextBoolean()
+            };
 
             // Call
             var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
@@ -58,6 +63,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
 
@@ -68,7 +74,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributeValues()
         {
             // Call
             var properties = new ClosingStructuresFailurePathProperties(new ClosingStructuresFailureMechanism());
@@ -78,7 +84,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -108,6 +114,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
             PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             lengthEffectCategory,
@@ -126,6 +139,51 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
+                                                                            true);
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributeValues()
+        {
+            // Call
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                IsRelevant = false
+            };
+            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+
+            // Assert
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
         }
 
@@ -180,6 +238,32 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A, failureMechanism.GeneralInput.N2A);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }

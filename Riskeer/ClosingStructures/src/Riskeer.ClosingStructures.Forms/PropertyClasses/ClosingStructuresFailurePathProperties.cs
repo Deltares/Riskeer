@@ -38,10 +38,11 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-
-        private const int cPropertyIndex = 5;
-        private const int n2APropertyIndex = 6;
-        private const int nPropertyIndex = 7;
+        private const int isRelevantPropertyIndex = 5;
+        
+        private const int cPropertyIndex = 6;
+        private const int n2APropertyIndex = 7;
+        private const int nPropertyIndex = 8;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailurePathProperties"/>.
@@ -55,8 +56,41 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             GroupPropertyIndex = groupPropertyIndex
         }) {}
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(C).Equals(propertyName)
+                   || nameof(N2A).Equals(propertyName)
+                   || nameof(N).Equals(propertyName);
+        }
+
+        
         #region General
 
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
+            }
+        }
+        
+        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -73,6 +107,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_C_DisplayName))]
@@ -85,6 +120,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_N2A_DisplayName))]
@@ -102,6 +138,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
