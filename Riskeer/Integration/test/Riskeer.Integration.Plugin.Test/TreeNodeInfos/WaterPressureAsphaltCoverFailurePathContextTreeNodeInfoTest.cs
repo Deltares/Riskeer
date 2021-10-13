@@ -238,6 +238,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(context, assessmentSection, treeView);
 
                 // Assert
+                // Assert expectancies are called in TearDown()
             }
         }
 
@@ -276,6 +277,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 info.ContextMenuStrip(context, assessmentSection, treeView);
 
                 // Assert
+                // Assert expectancies are called in TearDown()
             }
         }
 
@@ -300,13 +302,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
+                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   "I&s relevant",
                                                                   "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                   RiskeerCommonFormsResources.Checkbox_ticked);
                 }
-
-                // Assert
             }
         }
 
