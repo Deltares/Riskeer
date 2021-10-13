@@ -119,7 +119,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
                                                                             true);
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
@@ -172,7 +172,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
                                                                             true);
         }
 

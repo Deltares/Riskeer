@@ -154,7 +154,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                       "I&s relevant",
-                                                                      "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
                     }
                 }
@@ -199,7 +199,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
                                                                       "I&s relevant",
-                                                                      "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
                     }
                 }

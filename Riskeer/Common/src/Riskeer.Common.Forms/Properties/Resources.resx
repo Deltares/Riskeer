@@ -315,7 +315,7 @@ handmatig</value>
     <value>I&amp;s relevant</value>
   </data>
   <data name="FailureMechanism_IsRelevant_Description" xml:space="preserve">
-    <value>Geeft aan of dit toetsspoor relevant is of niet.</value>
+    <value>Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.</value>
   </data>
   <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze map met berekeningen.</value>

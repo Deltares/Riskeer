@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1569,7 +1569,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit toetsspoor relevant is of niet..
+        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet..
         /// </summary>
         public static string FailureMechanism_IsRelevant_Description {
             get {

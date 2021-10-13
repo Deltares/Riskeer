@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
                                                                             true);
 
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
                                                                             true);
             mocks.VerifyAll();
         }
