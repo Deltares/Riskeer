@@ -21,14 +21,10 @@
 
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
-using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
-using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data;
@@ -45,8 +41,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StrengthStabilityLengthwiseConstructionFailurePathContextTreeNodeInfoTest
     {
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private MockRepository mocks;
         private TreeNodeInfo info;
         private RiskeerPlugin plugin;
@@ -242,154 +236,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
         }
 
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        [TestFixture]
+        public class StrengthStabilityLenghtWiseConstructionFailurePathContextIsRelevantTreeNodeInfoTest
+            : FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<RiskeerPlugin, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailurePathContext>
         {
-            // Setup
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
+            public StrengthStabilityLenghtWiseConstructionFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+
+            protected override StrengthStabilityLengthwiseConstructionFailurePathContext CreateFailureMechanismContext(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
+                                                                                                                       IAssessmentSection assessmentSection)
             {
-                IsRelevant = false
-            };
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new StrengthStabilityLengthwiseConstructionFailurePathContext(failureMechanism, assessmentSection);
-
-            using (var treeView = new TreeViewControl())
-            {
-                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-                using (mocks.Ordered())
-                {
-                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                    menuBuilder.Expect(mb => mb.Build()).Return(null);
-                }
-
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                info.ContextMenuStrip(context, assessmentSection, treeView);
-
-                // Assert
-                // Assert expectancies are called in TearDown()
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_IsRelevantEnabled()
-        {
-            // Setup
-            using (var treeView = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-                var context = new StrengthStabilityLengthwiseConstructionFailurePathContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  "I&s relevant",
-                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
-                                                                  RiskeerCommonFormsResources.Checkbox_ticked);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevant()
-        {
-            // Setup
-            var failureMechanismObserver = mocks.Stub<IObserver>();
-            failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
-            {
-                IsRelevant = true
-            };
-            failureMechanism.Attach(failureMechanismObserver);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new StrengthStabilityLengthwiseConstructionFailurePathContext(failureMechanism, assessmentSection);
-
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsFalse(failureMechanism.IsRelevant);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()
-        {
-            // Setup
-            var failureMechanismObserver = mocks.Stub<IObserver>();
-            failureMechanismObserver.Expect(o => o.UpdateObserver());
-
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
-            {
-                IsRelevant = false
-            };
-            failureMechanism.Attach(failureMechanismObserver);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = new StrengthStabilityLengthwiseConstructionFailurePathContext(failureMechanism, assessmentSection);
-
-            var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vs => vs.RemoveAllViewsForItem(failureMechanismContext));
-
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.ViewCommands).Return(viewCommands);
-                gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                    // Assert
-                    Assert.IsTrue(failureMechanism.IsRelevant);
-                }
+                return new StrengthStabilityLengthwiseConstructionFailurePathContext(failureMechanism, assessmentSection);
             }
         }
     }
