@@ -34,15 +34,17 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 {
+    [TestFixture]
     public class WaveImpactAsphaltCoverFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int sectionLengthPropertyIndex = 4;
-        private const int deltaLPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
+        private const int isRelevantPropertyIndex = 4;
+        private const int sectionLengthPropertyIndex = 5;
+        private const int deltaLPropertyIndex = 6;
+        private const int nPropertyIndex = 7;
         private MockRepository mocks;
 
         [SetUp]
@@ -76,7 +78,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var random = new Random(21);
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                IsRelevant = random.NextBoolean()
+            };
 
             // Call
             var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
@@ -88,6 +94,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
 
             Assert.AreEqual(2, properties.SectionLength.NumberOfDecimalPlaces);
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
@@ -107,7 +114,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -118,7 +125,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
@@ -151,6 +158,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
             PropertyDescriptor sectionLength = dynamicProperties[sectionLengthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLength,
                                                                             lengthEffectCategory,
@@ -170,6 +184,56 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect " +
                                                                             "mee te nemen in de beoordeling (afgerond).",
+                                                                            true);
+        }
+
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            // Call
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(4, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
         }
 
@@ -224,6 +288,35 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.DeltaL)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
