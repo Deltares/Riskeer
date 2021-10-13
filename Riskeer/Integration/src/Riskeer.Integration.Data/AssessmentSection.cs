@@ -496,9 +496,9 @@ namespace Riskeer.Integration.Data
                 return waterLevelCalculationsForLowerLimitNorm;
             }
         }
-        
+
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
-        
+
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
         public string Id { get; set; }
@@ -644,6 +644,7 @@ namespace Riskeer.Integration.Data
             }
 
             Composition = newComposition;
+            SetFailureMechanismRelevancy();
         }
 
         /// <summary>
@@ -692,6 +693,21 @@ namespace Riskeer.Integration.Data
             {
                 element.HydraulicBoundaryLocationCalculations.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
             }
+        }
+
+        private void SetFailureMechanismRelevancy()
+        {
+            Piping.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            GrassCoverErosionInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            MacroStabilityInwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            StabilityStoneCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            WaveImpactAsphaltCover.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            GrassCoverErosionOutwards.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            HeightStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            ClosingStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            StabilityPointStructures.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            PipingStructure.IsRelevant = Composition != AssessmentSectionComposition.Dune;
+            DuneErosion.IsRelevant = Composition != AssessmentSectionComposition.Dike;
         }
     }
 }
