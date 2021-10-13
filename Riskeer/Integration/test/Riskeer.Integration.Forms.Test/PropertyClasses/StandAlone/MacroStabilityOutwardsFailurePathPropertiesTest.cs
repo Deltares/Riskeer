@@ -77,9 +77,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -87,9 +85,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
+            var random = new Random(21);
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = random.NextBoolean()
             };
 
             // Call
@@ -101,7 +100,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
 
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
