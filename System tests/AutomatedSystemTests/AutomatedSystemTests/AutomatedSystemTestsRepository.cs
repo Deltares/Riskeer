@@ -1026,7 +1026,13 @@ namespace AutomatedSystemTests
         public partial class TrajectNodeFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder _trajectwithsubstringinname;
+            AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder _genericfmitemwithsubstringinname;
+            AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder _genericitemintrajectwithsubstringinname;
             RepoItemInfo _achtergrondkaartInfo;
+            RepoItemInfo _normenInfo;
+            RepoItemInfo _faalkansbegrotingInfo;
+            RepoItemInfo _genericitemintrajectInfo;
+            RepoItemInfo _copy_of_genericitemintrajectInfo;
 
             /// <summary>
             /// Creates a new TrajectNode  folder.
@@ -1035,7 +1041,13 @@ namespace AutomatedSystemTests
                     base("TrajectNode", "treeitem[1]", parentFolder, 30000, null, false, "b466899e-e209-4d83-a46c-0533f333cea5", "")
             {
                 _trajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder(this);
-                _achtergrondkaartInfo = new RepoItemInfo(this, "Achtergrondkaart", "?/?/treeitem[@accessiblename='Achtergrondkaart']", 30000, null, "6131d385-9dd7-4e3e-b606-103f620b1765");
+                _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
+                _genericitemintrajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder(this);
+                _achtergrondkaartInfo = new RepoItemInfo(this, "Achtergrondkaart", "treeitem[@accessiblename='Achtergrondkaart']", 30000, null, "6131d385-9dd7-4e3e-b606-103f620b1765");
+                _normenInfo = new RepoItemInfo(this, "Normen", "treeitem[@accessiblename='Normen']", 30000, null, "b5de4289-6f05-447d-a40a-c6f33536af15");
+                _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
+                _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
+                _copy_of_genericitemintrajectInfo = new RepoItemInfo(this, "Copy_of_GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "dfd880dc-8e6a-4cff-9056-0c9f313b3d6d");
             }
 
             /// <summary>
@@ -1083,67 +1095,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _achtergrondkaartInfo;
-                }
-            }
-
-            /// <summary>
-            /// The TrajectWithSubstringInName folder.
-            /// </summary>
-            [RepositoryFolder("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
-            public virtual AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder TrajectWithSubstringInName
-            {
-                get { return _trajectwithsubstringinname; }
-            }
-        }
-
-        /// <summary>
-        /// The TrajectWithSubstringInNameFolder folder.
-        /// </summary>
-        [RepositoryFolder("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
-        public partial class TrajectWithSubstringInNameFolder : RepoGenBaseFolder
-        {
-            AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder _genericfmitemwithsubstringinname;
-            AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder _genericitemintrajectwithsubstringinname;
-            RepoItemInfo _normenInfo;
-            RepoItemInfo _faalkansbegrotingInfo;
-            RepoItemInfo _genericitemintrajectInfo;
-            RepoItemInfo _copy_of_genericitemintrajectInfo;
-
-            /// <summary>
-            /// Creates a new TrajectWithSubstringInName  folder.
-            /// </summary>
-            public TrajectWithSubstringInNameFolder(RepoGenBaseFolder parentFolder) :
-                    base("TrajectWithSubstringInName", "treeitem[@accessiblename~$substringTrajectName]", parentFolder, 30000, null, false, "3bb01c51-3d9c-4c3f-adc4-408396425ed8", "")
-            {
-                _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
-                _genericitemintrajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder(this);
-                _normenInfo = new RepoItemInfo(this, "Normen", "treeitem[@accessiblename='Normen']", 30000, null, "b5de4289-6f05-447d-a40a-c6f33536af15");
-                _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
-                _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
-                _copy_of_genericitemintrajectInfo = new RepoItemInfo(this, "Copy_of_GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "dfd880dc-8e6a-4cff-9056-0c9f313b3d6d");
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
-            public virtual Ranorex.TreeItem Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.TreeItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
                 }
             }
 
@@ -1244,6 +1195,15 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
+            /// The TrajectWithSubstringInName folder.
+            /// </summary>
+            [RepositoryFolder("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder TrajectWithSubstringInName
+            {
+                get { return _trajectwithsubstringinname; }
+            }
+
+            /// <summary>
             /// The GenericFMItemWithSubstringInName folder.
             /// </summary>
             [RepositoryFolder("92f53398-7bb2-45f8-a305-0adb56ec8aa7")]
@@ -1259,6 +1219,46 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder GenericItemInTrajectWithSubstringInName
             {
                 get { return _genericitemintrajectwithsubstringinname; }
+            }
+        }
+
+        /// <summary>
+        /// The TrajectWithSubstringInNameFolder folder.
+        /// </summary>
+        [RepositoryFolder("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
+        public partial class TrajectWithSubstringInNameFolder : RepoGenBaseFolder
+        {
+
+            /// <summary>
+            /// Creates a new TrajectWithSubstringInName  folder.
+            /// </summary>
+            public TrajectWithSubstringInNameFolder(RepoGenBaseFolder parentFolder) :
+                    base("TrajectWithSubstringInName", "treeitem[@accessiblename~$substringTrajectName]", parentFolder, 30000, null, false, "3bb01c51-3d9c-4c3f-adc4-408396425ed8", "")
+            {
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
+            public virtual Ranorex.TreeItem Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
             }
         }
 

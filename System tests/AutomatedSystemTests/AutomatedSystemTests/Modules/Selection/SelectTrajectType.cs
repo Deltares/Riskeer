@@ -54,16 +54,6 @@ namespace AutomatedSystemTests.Modules.Selection
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable trajectType.
         /// </summary>
         [TestVariable("7e8f3140-795e-40f1-a611-9c126ff7de4f")]
@@ -99,8 +89,8 @@ namespace AutomatedSystemTests.Modules.Selection
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.FaalkansbegrotingInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting.Select();
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Trajecttype' at CenterLeft.", repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.TrajecttypeInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Trajecttype.Click(Location.CenterLeft);

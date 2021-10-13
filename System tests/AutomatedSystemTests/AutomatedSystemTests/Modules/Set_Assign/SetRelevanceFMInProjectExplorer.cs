@@ -69,16 +69,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("51976da0-b6de-418b-bda5-bc27195d3616")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable substringFMName.
         /// </summary>
         [TestVariable("1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be")]
@@ -86,6 +76,16 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         {
             get { return repo.substringFMName; }
             set { repo.substringFMName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable substringTrajectName.
+        /// </summary>
+        [TestVariable("51976da0-b6de-418b-bda5-bc27195d3616")]
+        public string substringTrajectName
+        {
+            get { return repo.substringTrajectName; }
+            set { repo.substringTrajectName = value; }
         }
 
 #endregion
@@ -118,7 +118,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             
             Report.Log(ReportLevel.Info, "User", substringFMName, new RecordItemIndex(1));
             
-            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
+            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
             
         }
 

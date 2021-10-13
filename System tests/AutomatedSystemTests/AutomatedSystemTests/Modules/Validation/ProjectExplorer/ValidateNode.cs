@@ -54,16 +54,6 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
 #region Variables
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable substringFMName.
         /// </summary>
         [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
@@ -103,10 +93,10 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
             repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Self.Select();
             
             // Validates that Item with Name containing $TextInItemName exists
-            Report.Log(ReportLevel.Info, "Validation", "Validates that Item with Name containing $TextInItemName exists\r\nValidating Exists on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(1));
-            Validate.Exists(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Validates that Item with Name containing $TextInItemName exists\r\nValidating Exists on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(1));
+            Validate.Exists(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.SelfInfo);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self, false, new RecordItemIndex(2));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.Self, false, new RecordItemIndex(2));
             
         }
 

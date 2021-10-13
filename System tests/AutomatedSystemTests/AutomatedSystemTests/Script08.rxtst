@@ -9,12 +9,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="a5841966-9b7d-465a-8963-98b79f40df82"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -53,6 +47,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="035a45d0-ebd4-491c-9dd1-bcd955689ee9"
@@ -60,12 +62,6 @@
 			ref="502bc375-64a0-4290-aa3d-5d8fa8819d35"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="contribution"
 					datasourceid="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f"
@@ -79,6 +75,14 @@
 					variablename="substringFMName">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="03b878e4-1ad5-4ea7-b1f3-d7ec1515de1e"
@@ -86,12 +90,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="b"
 					datasourceid="0a7c484b-a8bd-4be8-a780-f6d338b2c113"
@@ -131,6 +129,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="0a799e76-7742-4e4b-b388-345355e7431f"
@@ -205,12 +211,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -249,6 +249,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="0d4a744e-6fed-4d07-95a8-1240b149a0a7"
@@ -326,12 +334,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="lengthValue"
 					datasourceid="46532e05-40d9-4829-8d2f-5a1ff200522f"
 					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
@@ -370,6 +372,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="1da3d43e-f1f9-42ed-959e-43ed8867a49a"
@@ -436,18 +446,20 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="2699941f-41b7-4230-a187-2f2c9c1e873f"
@@ -455,12 +467,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="normItemName"
 					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
@@ -480,6 +486,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="269c4e97-8bac-4c9d-9242-d93c8406f02c"
@@ -512,12 +526,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="normItemName"
 					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -536,6 +544,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="2f036f34-cff0-47e7-a2a0-21c191dad311"
@@ -574,12 +590,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="normItemName"
 					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -598,6 +608,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
@@ -743,12 +761,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="a"
 					datasourceid="0a7c484b-a8bd-4be8-a780-f6d338b2c113"
 					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
@@ -787,6 +799,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="tableFMsForNewValueParameter_a"
@@ -899,12 +919,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="12e9dff7-d117-4313-9d7d-2edf4975608f"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -917,6 +931,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="477a965f-fdc1-4145-a5e8-49d0d2be6990"
@@ -924,12 +946,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="fmName"
 					datasourceid="46532e05-40d9-4829-8d2f-5a1ff200522f"
@@ -969,6 +985,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="4923c400-4b7b-458a-9b7a-44eae472528e"
@@ -976,12 +1000,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="nameOfParameter_2NA_InPropertiesPanel"
 					datasourceid="aa91298b-143b-487c-982b-fc84fe01889c"
@@ -1021,6 +1039,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testcase
 			id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
@@ -1177,12 +1203,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="newArbitraryNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
@@ -1221,6 +1241,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5101e389-0f0a-424d-b518-531949888d0c"
@@ -1258,12 +1286,6 @@
 			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
 					datasourceid="216b836c-b2b6-435a-9ee1-c49ea7612013"
@@ -1303,6 +1325,14 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5585b7b9-dd33-47de-abcb-ded396dd142e"
@@ -1325,12 +1355,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="normItemName"
 					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -1349,6 +1373,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="63483576-888f-4739-b375-5ed22953f933"
@@ -1367,12 +1399,6 @@
 					datasourceid="4f1d6611-54b5-4e83-b1c2-c5adc3d5cd75"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
 					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
 					</var>
 					<var
 					dataname="lowLimitText"
@@ -1407,6 +1433,14 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="63c12419-02aa-4ec0-a910-4ad1214f588a"
@@ -1439,18 +1473,20 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="685853ec-3de6-4f68-862b-370a18617963"
@@ -1477,12 +1513,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="fmName"
 					datasourceid="a5841966-9b7d-465a-8963-98b79f40df82"
@@ -1522,6 +1552,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="tableFMsNValue"
@@ -1553,12 +1591,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="nameOfParameter_a_InPropertiesPanel"
 					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
@@ -1598,6 +1630,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="7790a632-568a-4f83-b264-189bc654fbd0"
@@ -1605,12 +1645,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="NParameterNameInPropertiesPanel"
 					datasourceid="2168be67-e412-4d7f-be64-59f6d51d1717"
@@ -1650,6 +1684,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="77f0fa21-b0f2-442b-b735-93780f606441"
@@ -1657,12 +1699,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="Ltraject"
 					datasourceid="0a7c484b-a8bd-4be8-a780-f6d338b2c113"
@@ -1702,6 +1738,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="78ad8033-9193-4354-8f72-0a87333e1209"
@@ -1713,12 +1757,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="NCalculated"
 					datasourceid="0a7c484b-a8bd-4be8-a780-f6d338b2c113"
@@ -1758,6 +1796,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="7b61b963-bdcc-4c8d-9339-5fc23a353290"
@@ -1770,12 +1816,6 @@
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="e5da979c-abe6-4a71-b419-78bbd2a92489"
 					variablename="fmLabel">
-					</var>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
 					</var>
 					<var
 					dataname="fmName"
@@ -1796,6 +1836,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="7cd204d0-7a9b-47ea-aaf6-ee383b83fe6c"
@@ -1810,12 +1858,6 @@
 					variablename="substringNameItemInTraject">
 					</var>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="nameOfParameter_a_InPropertiesPanel"
 					datasourceid="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
@@ -1828,6 +1870,14 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="7cddad47-a608-426f-a4a5-0b4025b75610"
@@ -1910,18 +1960,20 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
 					variablename="substringNameItemInTraject">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="7e51d787-7b9f-4e8a-8823-4aee3e493621"
@@ -1933,12 +1985,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="expectedOriginalNValue"
 					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
@@ -1978,6 +2024,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3"
@@ -2028,18 +2082,20 @@
 					variablename="expectedValueOfParameterForItemInTraject">
 					</var>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="nameOfLengthParameterToValidate"
 					datasourceid="fcb08619-a998-4b9f-a9d9-3947e75b0ca3"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="85d4aac8-4c12-465e-a5e3-14473be463f7"
@@ -2047,12 +2103,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
 					datasourceid="216b836c-b2b6-435a-9ee1-c49ea7612013"
@@ -2092,6 +2142,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="87031ad4-6dc3-41aa-99c4-73d1ff3b1993"
@@ -2170,12 +2228,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="normItemName"
 					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -2194,6 +2246,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="8fad36d8-cd16-490f-8f6b-433eb407eee3"
@@ -2201,12 +2261,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="fmName"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
@@ -2246,6 +2300,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="903511f9-343e-42be-8c83-70bf9d478ec7"
@@ -2253,12 +2315,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="nameOfParameter_2NA_InPropertiesPanel"
 					datasourceid="aa91298b-143b-487c-982b-fc84fe01889c"
@@ -2298,6 +2354,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="93fb08fc-a92a-4313-9bdf-201cf996f628"
@@ -2311,12 +2375,6 @@
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="fmName"
 					datasourceid="46532e05-40d9-4829-8d2f-5a1ff200522f"
@@ -2356,6 +2414,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="contributionsFMsTypeDijkFMCView"
@@ -2388,12 +2454,6 @@
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="initialValueParameter_DeltaL"
 					datasourceid="216b836c-b2b6-435a-9ee1-c49ea7612013"
@@ -2433,6 +2493,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="9c344f0f-ecf5-46d9-92cd-818092c512a6"
@@ -2487,12 +2555,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="normItemName"
 					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -2511,6 +2573,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="a103d806-76cc-48a1-a797-1bac4e909c7a"
@@ -2551,12 +2621,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -2595,6 +2659,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
@@ -2717,12 +2789,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="a5841966-9b7d-465a-8963-98b79f40df82"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -2761,6 +2827,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="b15e431d-f465-4c16-a118-453b32686266"
@@ -2794,12 +2868,6 @@
 					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -2827,6 +2895,14 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testcase
 			id="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
@@ -2855,13 +2931,15 @@
 					variableid="7e8f3140-795e-40f1-a611-9c126ff7de4f"
 					variablename="trajectType">
 					</var>
+				</databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="hardCodedTrajectToAdd"
 					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="baadb165-b61c-4de8-af1f-30465183b113"
@@ -3014,14 +3092,6 @@
 			name="OpenViewForFailureMechanismContribution"
 			ref="5e81345e-66bc-4e08-8ade-03d386d824fd"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="substringInTrajectName"
@@ -3030,6 +3100,14 @@
 					variablename="substringTrajectName">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="d17abbd7-9d75-42a8-9007-f8c5ee610999"
@@ -3037,12 +3115,6 @@
 			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="nameOfParameter_2NA_InPropertiesPanel"
 					datasourceid="aa91298b-143b-487c-982b-fc84fe01889c"
@@ -3082,6 +3154,14 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="d5d82505-e566-4c07-af08-bac7c5428185"
@@ -3102,18 +3182,20 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
 					variablename="substringNameItemInTraject">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="d849ec75-f115-4c47-9c9e-92f5368b374f"
@@ -3186,12 +3268,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -3230,6 +3306,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
@@ -3303,12 +3387,6 @@
 					variablename="fmLabel">
 					</var>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmName"
 					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -3327,6 +3405,14 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="e6c035a9-cb03-4690-8920-95311a66702a"
@@ -3377,12 +3463,6 @@
 					variablename="substringnameitemintraject">
 					</var>
 					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="nameLengthParameterInPropertiesPanel"
 					datasourceid="65699a3b-a6bc-4727-bd0e-f832127575ce"
 					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
@@ -3395,6 +3475,14 @@
 					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="eddd4a16-d38c-4696-aed2-3c72f40cf427"

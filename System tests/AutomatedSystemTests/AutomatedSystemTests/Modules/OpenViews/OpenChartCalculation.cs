@@ -68,16 +68,6 @@ namespace AutomatedSystemTests.Modules.OpenViews
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable substringFMName.
         /// </summary>
         [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
@@ -123,8 +113,8 @@ namespace AutomatedSystemTests.Modules.OpenViews
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculation' at Center.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculationInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculation.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculation' at Center.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculationInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculation.Click(System.Windows.Forms.MouseButtons.Right);
             Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at Center.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(1));

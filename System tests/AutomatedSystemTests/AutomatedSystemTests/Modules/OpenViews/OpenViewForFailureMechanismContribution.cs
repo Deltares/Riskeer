@@ -53,16 +53,6 @@ namespace AutomatedSystemTests.Modules.OpenViews
 
 #region Variables
 
-        /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
 #endregion
 
         /// <summary>
@@ -89,14 +79,14 @@ namespace AutomatedSystemTests.Modules.OpenViews
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.FaalkansbegrotingInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.FaalkansbegrotingInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting' at Center.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.Faalkansbegroting.DoubleClick();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting' at Center.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.FaalkansbegrotingInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.Faalkansbegroting.DoubleClick();
             
             // Screenshot of FailureMechanismContributionView
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(3));

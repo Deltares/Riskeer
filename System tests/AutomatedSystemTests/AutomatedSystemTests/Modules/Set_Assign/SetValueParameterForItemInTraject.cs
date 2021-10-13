@@ -67,16 +67,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable substringNameItemInTraject.
         /// </summary>
         [TestVariable("cb52c14e-9bef-4f4a-9d11-1758141c50cb")]
@@ -122,11 +112,11 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericItemInTraject.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericItemInTrajectInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericItemInTraject.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericItemInTraject.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericItemInTrajectInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericItemInTraject.Select();
             
             Report.Log(ReportLevel.Info, "User", valueToSetParameterForItemInTraject, new RecordItemIndex(2));
             

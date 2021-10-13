@@ -27,12 +27,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="TrajectName"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="substringNameItemInTraject"
 					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
 					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
@@ -77,25 +71,19 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<smartfoldernode
-			id="192e6baa-4a40-46e8-8772-533d4387f8c7"
-			name="ValidateCategoryBoundaries">
-			</smartfoldernode>
-			<testmodule
-			id="1f247da7-e714-4e86-9b57-808ba123afca"
-			name="OpenTrajectNormenView"
-			ref="d4189ba6-04e4-4c32-a503-2b635376521a"
-			type="Recording">
-				<databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="TrajectName"
 					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
+			<smartfoldernode
+			id="192e6baa-4a40-46e8-8772-533d4387f8c7"
+			name="ValidateCategoryBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="23c45f94-68bc-471e-80da-b61952b4fdd6"
 			name="CloseAUT"
@@ -152,66 +140,6 @@
 					</param>
 				</parameters>
 			</testcase>
-			<testmodule
-			id="37cff09e-0b7b-44de-9cee-8cbed629123f"
-			name="AddNewTrajectUsingContextMenu"
-			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
-					variablename="lowLimitValue">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="NormType"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="normType"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
-					dataname="signallingValue"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="lowLimitValue"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
-					variablename="lowLimitValue">
-					</var>
-					<var
-					dataname="trajectID"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-				</missingdatavariablesbinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="script07_TrajectCategories"
 			id="3f0ab4d1-92e4-4e67-bf64-390845d45caf"
@@ -220,6 +148,12 @@
 			<smartfoldernode
 			id="4118f277-3c9f-40d7-aa1f-533c497557b0"
 			name="PrepareRiskeer">
+				<parameters>
+					<param
+					name="pathToNormTreeItem"
+					value="Traject>Normen">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="488ce255-ac25-4147-9f92-f82cfce4bb16"
@@ -238,6 +172,38 @@
 					datasourceid="dba441a6-0552-4228-823c-eda631abaa89"
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="527a42ff-6fde-4f62-9fc6-95bb1500ccb0"
+			name="NewProjectUsingKeyboard"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="NormType"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="5cbfe7da-3ce3-4a31-baa8-dcc95a2c80d7"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="3624ac3a-3bbc-43cf-8c5b-c6a96b97116f"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="TrajectName"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="171a542e-eb85-404b-a2fe-920346f601f6"
+					variablename="trajectID">
 					</var>
 				</databinding>
 			</testmodule>
@@ -261,6 +227,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="59c1a0f9-68c8-46b4-b48f-d67e70ea2bd7"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<setup
 			id="5b32098b-d373-4db4-9f3c-28b0214798d9"
 			name="setup">
@@ -271,12 +243,6 @@
 			ref="e550d732-7780-4b40-a989-f787f458a7c7"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
 					<var
 					dataname="substringNameItemInTraject"
 					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
@@ -322,6 +288,14 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="TrajectName"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
@@ -380,6 +354,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="7ee09b90-765f-458e-85da-0f878b2774e7"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToNormTreeItem"
+					datasourceid="4118f277-3c9f-40d7-aa1f-533c497557b0"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<teardown
 			id="81ba8163-5d1c-4705-a2b5-c334c3ff30e7"
 			name="teardown">
@@ -388,6 +384,12 @@
 			id="8b4dbfaa-75bf-477e-865a-8c4755146402"
 			name="ValidateCategoryBoundaries">
 			</smartfoldernode>
+			<testmodule
+			id="9ec04dce-fe54-4a06-96e4-3b651d02d543"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="9f7eb21c-de9f-46bf-a78b-fdfd80510be3"
 			name="CreateOutputFolder"
@@ -583,12 +585,20 @@
 						id="4118f277-3c9f-40d7-aa1f-533c497557b0"
 						name="PrepareRiskeer">
 							<testmodule
-							id="37cff09e-0b7b-44de-9cee-8cbed629123f"
-							name="AddNewTrajectUsingContextMenu">
+							id="527a42ff-6fde-4f62-9fc6-95bb1500ccb0"
+							name="NewProjectUsingKeyboard">
 							</testmodule>
 							<testmodule
-							id="1f247da7-e714-4e86-9b57-808ba123afca"
-							name="OpenTrajectNormenView">
+							id="9ec04dce-fe54-4a06-96e4-3b651d02d543"
+							name="CloseViewCentralPanelWithFocus">
+							</testmodule>
+							<testmodule
+							id="7ee09b90-765f-458e-85da-0f878b2774e7"
+							name="SelectGenericItemInProjectExplorer">
+							</testmodule>
+							<testmodule
+							id="59c1a0f9-68c8-46b4-b48f-d67e70ea2bd7"
+							name="OpenViewForCurrentlySelectedItemInProjectExplorer">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode

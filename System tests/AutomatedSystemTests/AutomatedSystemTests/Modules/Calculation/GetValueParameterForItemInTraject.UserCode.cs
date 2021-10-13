@@ -35,7 +35,7 @@ namespace AutomatedSystemTests.Modules.Calculation
 
         public void Report_Log()
         {
-            Report.Log(ReportLevel.Info, "", "For traject: " + substringTrajectName + ", item: " + substringNameItemInTraject + ", parameter: " + nameOfParameterInPropertiesPanel + ", value read = " + valueOfParameterInPropertiesPanel);
+            Report.Log(ReportLevel.Info, "", "For item: " + substringNameItemInTraject + ", parameter: " + nameOfParameterInPropertiesPanel + ", value read = " + valueOfParameterInPropertiesPanel);
         }
 
     }

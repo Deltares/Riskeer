@@ -67,16 +67,6 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
         /// Gets or sets the value of variable substringFMName.
         /// </summary>
         [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
@@ -122,10 +112,10 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedSurfaceLineName) on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, "Text", expectedSurfaceLineName);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedSurfaceLineName) on item 'RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine'.", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, "Text", expectedSurfaceLineName);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine, false, new RecordItemIndex(1));
             
         }
 
