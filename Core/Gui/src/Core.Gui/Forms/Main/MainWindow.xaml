@@ -34,7 +34,7 @@ All rights reserved.
                    mc:Ignorable="d" 
                    Width="1366"
                    Height="768"
-                   x:Name="Window"
+                   x:Name="RiskeerMainWindow"
                    ResizeMode="CanResizeWithGrip"
                    FlowDirection="LeftToRight"
                    WindowState="Maximized">
