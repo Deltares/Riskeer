@@ -39,10 +39,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int aPropertyIndex = 5;
-        private const int bPropertyIndex = 6;
-        private const int sectionLengthPropertyIndex = 7;
-        private const int nPropertyIndex = 8;
+        private const int isRelevantPropertyIndex = 5;
+        private const int aPropertyIndex = 6;
+        private const int bPropertyIndex = 7;
+        private const int sectionLengthPropertyIndex = 8;
+        private const int nPropertyIndex = 9;
+        
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -52,12 +54,13 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailurePathProperties(PipingFailureMechanism data,
-                                           IAssessmentSection assessmentSection) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
-        })
+                                           IAssessmentSection assessmentSection) :
+            base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex,
+                GroupPropertyIndex = groupPropertyIndex
+            })
         {
             if (assessmentSection == null)
             {
@@ -67,8 +70,41 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             this.assessmentSection = assessmentSection;
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        {
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(A).Equals(propertyName)
+                   || nameof(B).Equals(propertyName)
+                   || nameof(SectionLength).Equals(propertyName)
+                   || nameof(N).Equals(propertyName);
+        }
+
         #region General
 
+        [PropertyOrder(isRelevantPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
+        public bool IsRelevant
+        {
+            get
+            {
+                return data.IsRelevant;
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
@@ -85,6 +121,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region Length effect parameters
 
+        [DynamicVisible]
         [PropertyOrder(aPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
@@ -102,6 +139,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(bPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
@@ -114,6 +152,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(sectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
@@ -126,6 +165,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
