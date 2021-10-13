@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int bPropertyIndex = 7;
         private const int sectionLengthPropertyIndex = 8;
         private const int nPropertyIndex = 9;
-        
+
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>

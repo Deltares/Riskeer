@@ -55,14 +55,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
             var failureMechanism = new PipingStructureFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = random.NextBoolean()
             };
 
             // Call
@@ -74,7 +73,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(failureMechanism.N,
