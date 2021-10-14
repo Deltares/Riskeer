@@ -254,7 +254,8 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent)
+                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent),
+                CloseForData = ClosePipingFailurePathViewForData
             };
 
             yield return new ViewInfo<
@@ -606,6 +607,15 @@ namespace Riskeer.Piping.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+        }
+
+        private static bool ClosePipingFailurePathViewForData(PipingFailureMechanismView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var pipingFailureMechanism = o as PipingFailureMechanism;
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
