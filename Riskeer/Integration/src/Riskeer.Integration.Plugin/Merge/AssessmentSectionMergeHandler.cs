@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Util.Extensions;
-using Core.Gui.Commands;
 using log4net;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -54,25 +53,6 @@ namespace Riskeer.Integration.Plugin.Merge
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMergeHandler));
 
-        private readonly IViewCommands viewCommands;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionMergeHandler"/>.
-        /// </summary>
-        /// <param name="viewCommands">The view commands used to close views for the target
-        /// <see cref="AssessmentSection"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
-        /// is <c>null</c>.</exception>
-        public AssessmentSectionMergeHandler(IViewCommands viewCommands)
-        {
-            if (viewCommands == null)
-            {
-                throw new ArgumentNullException(nameof(viewCommands));
-            }
-
-            this.viewCommands = viewCommands;
-        }
-
         public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData)
         {
             if (targetAssessmentSection == null)
@@ -85,8 +65,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(mergeData));
             }
 
-            BeforeMerge(targetAssessmentSection, mergeData);
-
             var changedObjects = new List<IObservable>
             {
                 targetAssessmentSection
@@ -97,36 +75,6 @@ namespace Riskeer.Integration.Plugin.Merge
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
 
             AfterMerge(changedObjects);
-        }
-
-        private void BeforeMerge(AssessmentSection assessmentSection, AssessmentSectionMergeData mergeData)
-        {
-            CloseViewsForFailureMechanism(mergeData.MergePiping, assessmentSection.Piping);
-            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards);
-            CloseViewsForFailureMechanism(mergeData.MergeMacroStabilityInwards, assessmentSection.MacroStabilityInwards);
-            CloseViewsForFailureMechanism(mergeData.MergeMacroStabilityOutwards, assessmentSection.MacroStabilityOutwards);
-            CloseViewsForFailureMechanism(mergeData.MergeMicrostability, assessmentSection.Microstability);
-            CloseViewsForFailureMechanism(mergeData.MergeStabilityStoneCover, assessmentSection.StabilityStoneCover);
-            CloseViewsForFailureMechanism(mergeData.MergeWaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover);
-            CloseViewsForFailureMechanism(mergeData.MergeWaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover);
-            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards);
-            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards);
-            CloseViewsForFailureMechanism(mergeData.MergeGrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards);
-            CloseViewsForFailureMechanism(mergeData.MergeHeightStructures, assessmentSection.HeightStructures);
-            CloseViewsForFailureMechanism(mergeData.MergeClosingStructures, assessmentSection.ClosingStructures);
-            CloseViewsForFailureMechanism(mergeData.MergePipingStructure, assessmentSection.PipingStructure);
-            CloseViewsForFailureMechanism(mergeData.MergeStabilityPointStructures, assessmentSection.StabilityPointStructures);
-            CloseViewsForFailureMechanism(mergeData.MergeStrengthStabilityLengthwiseConstruction, assessmentSection.StrengthStabilityLengthwiseConstruction);
-            CloseViewsForFailureMechanism(mergeData.MergeDuneErosion, assessmentSection.DuneErosion);
-            CloseViewsForFailureMechanism(mergeData.MergeTechnicalInnovation, assessmentSection.TechnicalInnovation);
-        }
-
-        private void CloseViewsForFailureMechanism(bool shouldClose, IFailureMechanism failureMechanism)
-        {
-            if (shouldClose)
-            {
-                viewCommands.RemoveAllViewsForItem(failureMechanism);
-            }
         }
 
         private static void AfterMerge(IEnumerable<IObservable> changedObjects)
