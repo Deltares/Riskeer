@@ -32,7 +32,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Plugin.Handlers;
@@ -196,18 +195,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             return calculation.HasOutput;
         }
 
-        #region Dune Erosion failure mechanism helpers
-
-        private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
-        {
-            return DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
-        }
-
         private static bool HasDuneLocationCalculationOutput(DuneLocationCalculation calculation)
         {
             return calculation.Output != null;
         }
-
-        #endregion
     }
 }
