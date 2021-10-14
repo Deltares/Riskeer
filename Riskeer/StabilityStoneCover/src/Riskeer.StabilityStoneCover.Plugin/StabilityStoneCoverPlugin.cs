@@ -282,7 +282,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
         {
-            StabilityStoneCoverFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {

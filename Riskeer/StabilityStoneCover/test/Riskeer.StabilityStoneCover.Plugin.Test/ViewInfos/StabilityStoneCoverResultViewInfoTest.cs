@@ -179,6 +179,38 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new StabilityStoneCoverFailureMechanism());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+        
+        [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
