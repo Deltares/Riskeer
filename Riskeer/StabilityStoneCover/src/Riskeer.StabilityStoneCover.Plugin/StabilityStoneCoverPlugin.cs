@@ -103,7 +103,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent)
+                CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent),
+                CloseForData = CloseFailurePathViewForData
             };
 
             yield return new ViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
@@ -268,6 +269,16 @@ namespace Riskeer.StabilityStoneCover.Plugin
         }
 
         #region ViewInfos
+
+        private static bool CloseFailurePathViewForData(StabilityStoneCoverFailurePathView view, object dataToCloseFor)
+        {
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+        }
 
         private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
         {
