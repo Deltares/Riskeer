@@ -430,7 +430,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
