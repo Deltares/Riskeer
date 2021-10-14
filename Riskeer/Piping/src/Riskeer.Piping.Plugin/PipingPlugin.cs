@@ -609,7 +609,7 @@ namespace Riskeer.Piping.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool ClosePipingFailurePathViewForData(PipingFailureMechanismView view, object dataToCloseFor)
+        private static bool ClosePipingFailurePathViewForData(PipingFailurePathView view, object dataToCloseFor)
         {
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var pipingFailureMechanism = dataToCloseFor as PipingFailureMechanism;
