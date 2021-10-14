@@ -399,7 +399,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(GrassCoverErosionInwardsFailureMechanismView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(GrassCoverErosionInwardsFailurePathView view, object dataToCloseFor)
         {
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
