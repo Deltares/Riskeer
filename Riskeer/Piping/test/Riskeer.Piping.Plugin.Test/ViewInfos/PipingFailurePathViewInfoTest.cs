@@ -116,5 +116,75 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new PipingFailureMechanism();
+
+            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, otherAssessmentSection);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new PipingFailureMechanism();
+
+            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSection);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new PipingFailureMechanism();
+            var otherPipingFailureMechanism = new PipingFailureMechanism();
+
+            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, otherPipingFailureMechanism);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new PipingFailureMechanism();
+
+            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
     }
 }

@@ -254,7 +254,8 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent)
+                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent),
+                CloseForData = ClosePipingFailurePathViewForData
             };
 
             yield return new ViewInfo<
@@ -591,7 +592,7 @@ namespace Riskeer.Piping.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object dataToCloseFor)
         {
-            PipingFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as PipingFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
@@ -606,6 +607,15 @@ namespace Riskeer.Piping.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+        }
+
+        private static bool ClosePipingFailurePathViewForData(PipingFailurePathView view, object dataToCloseFor)
+        {
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var pipingFailureMechanism = dataToCloseFor as PipingFailureMechanism;
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
@@ -629,7 +639,7 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object dataToCloseFor)
         {
-            PipingFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as PipingFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {

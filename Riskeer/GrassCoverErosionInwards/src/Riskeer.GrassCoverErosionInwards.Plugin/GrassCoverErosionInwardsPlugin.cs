@@ -188,6 +188,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CloseForData = CloseFailurePathViewForData,
                 CreateInstance = context => new GrassCoverErosionInwardsFailurePathView(context.WrappedData, context.Parent)
             };
 
@@ -398,9 +399,19 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region ViewInfos
 
+        private static bool CloseFailurePathViewForData(GrassCoverErosionInwardsFailurePathView view, object dataToCloseFor)
+        {
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+        }
+
         private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object dataToCloseFor)
         {
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
 
             if (dataToCloseFor is FailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failureMechanismContext)
             {
@@ -419,7 +430,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {

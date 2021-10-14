@@ -168,6 +168,36 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
+        {
+            // Setup
+            using (var view = new MacroStabilityInwardsScenariosView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new MacroStabilityInwardsFailureMechanism());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnTrue()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            using (var view = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
         {
             // Setup

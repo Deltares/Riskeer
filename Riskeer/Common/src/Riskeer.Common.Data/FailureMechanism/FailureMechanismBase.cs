@@ -30,7 +30,7 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This class is the base implementation for a failure mechanism. Classes which want
+    /// This class is the base implementation for a specific failure mechanism. Classes which want
     /// to implement <see cref="IFailureMechanism"/> can and should most likely inherit
     /// from this class.
     /// </summary>
