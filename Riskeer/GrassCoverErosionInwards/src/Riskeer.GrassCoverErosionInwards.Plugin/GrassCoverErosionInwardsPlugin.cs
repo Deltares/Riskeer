@@ -181,7 +181,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CloseForData = CloseFailurePathViewForData,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
@@ -189,6 +188,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                CloseForData = CloseFailurePathViewForData,
                 CreateInstance = context => new GrassCoverErosionInwardsFailurePathView(context.WrappedData, context.Parent)
             };
 
