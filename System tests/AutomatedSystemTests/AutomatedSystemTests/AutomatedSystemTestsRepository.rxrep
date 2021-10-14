@@ -41,12 +41,12 @@ name="AutomatedSystemTestsRepository">
 					capname="treeitem"
 					id="3bb01c51-3d9c-4c3f-adc4-408396425ed8"
 					isrooted="True"
-					name="TrajectWithSubstringInName"
+					name="ItemWithSubstringInName"
 					refimgid="6748b979-d963-4540-b8a3-bfc97c2b6b3c"
 					searchtimeout="30000ms"
 					usecache="False">
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
+							/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@accessiblename~$substringName]
 						</basepath>
 					</folder>
 					<item
@@ -2787,7 +2787,7 @@ OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 			capname="table"
 			id="16f13009-a75d-4921-8b3e-033e2bed69ca"
 			isrooted="True"
-			name="TableTrajects"
+			name="TrajectsTable"
 			refimgid="2ba06692-a4c1-48ac-9c46-26ef72184461"
 			searchtimeout="30000ms"
 			usecache="True">
@@ -3566,6 +3566,10 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="171a542e-eb85-404b-a2fe-920346f601f6"
 		name="trajectID">
+		</var>
+		<var
+		id="c8f26984-6161-4190-9006-d6b627a1bf14"
+		name="substringName">
 		</var>
 	</variables>
 </repository>

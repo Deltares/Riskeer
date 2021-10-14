@@ -96,9 +96,10 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
         			// Update the children
         			children = stepChild.Children;
         			// Expand if intermediate node is collased
-                    stepChild.Focus();
-                    stepChild.Expand();
+                    //stepChild.Focus();
+                    //stepChild.Expand();
         			}
+        	stepChild.Focus();
         	int numberOfChildrenWithNodeName = children.Where(ch => NameOfTreeItem(ch.As<TreeItem>())==nameOfNode).ToList().Count;
         	if (nodeIsExpectedToBeContained=="true") {
         	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains one node with name '" + nameOfNode + "'.");

@@ -862,6 +862,14 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="IsRelevant"
+					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
+					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
+					variablename="fmShouldBeRelevant">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
 					dataname="substringInTrajectName"
 					datasourceid="10a12ad7-e7c7-4084-b51f-aa7bab2c05ed"
 					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
@@ -873,13 +881,7 @@
 					variableid="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
 					variablename="substringFMName">
 					</var>
-					<var
-					dataname="IsRelevant"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
-					variablename="fmShouldBeRelevant">
-					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="2d3d36d3-da4a-456d-8176-799fe996c703"

@@ -41,8 +41,6 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         /// </summary>
         public SetRelevanceFMInProjectExplorer()
         {
-            substringTrajectName = "";
-            substringFMName = "";
             fmShouldBeRelevant = "";
         }
 
@@ -69,23 +67,13 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringFMName.
+        /// Gets or sets the value of variable substringName.
         /// </summary>
-        [TestVariable("1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be")]
-        public string substringFMName
+        [TestVariable("c8f26984-6161-4190-9006-d6b627a1bf14")]
+        public string substringName
         {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("51976da0-b6de-418b-bda5-bc27195d3616")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
+            get { return repo.substringName; }
+            set { repo.substringName = value; }
         }
 
 #endregion
@@ -114,11 +102,9 @@ namespace AutomatedSystemTests.Modules.Set_Assign
 
             Init();
 
-            Report.Log(ReportLevel.Info, "User", substringTrajectName, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "User", "$substringName", new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "User", substringFMName, new RecordItemIndex(1));
-            
-            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.GenericFMItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
+            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.ItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
             
         }
 

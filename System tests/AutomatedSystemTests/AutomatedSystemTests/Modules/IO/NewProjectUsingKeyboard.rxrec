@@ -375,9 +375,40 @@ iigBn4CiiigD/9k=
 				</argument>
 			</arguments>
 		</userrecorditem>
+		<userrecorditem
+		classname="NewProjectUsingKeyboard"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="FocusAndSelectTrajectIdCell"
+		namespace="AutomatedSystemTests.Modules.IO"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="31fff3a1-b1b7-46ac-8de5-b6c9715eac53">
+				<argument
+				argname="trajectsTableInfo"
+				id="5ef93b94-9227-432d-9e36-e2be1e2c6b53">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="16f13009-a75d-4921-8b3e-033e2bed69ca"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<invokeactionrecorditem
 		action="Focus"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="a112fd87-0ec7-4dc0-a921-361fb8d490f9">
 			<comment>
@@ -397,7 +428,7 @@ iigBn4CiiigD/9k=
 		</invokeactionrecorditem>
 		<invokeactionrecorditem
 		action="Select"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="df2fcae8-f12c-4099-9f6e-68e8cf191069">
 			<comment>
@@ -417,7 +448,7 @@ iigBn4CiiigD/9k=
 		</invokeactionrecorditem>
 		<getvaluerecorditem
 		attrname="Text"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="26c45c00-9cf4-4252-be46-2668816464b8"
 		varname="signallingValue">
@@ -435,7 +466,7 @@ iigBn4CiiigD/9k=
 		</getvaluerecorditem>
 		<getvaluerecorditem
 		attrname="Text"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="205059d1-be48-4ca0-b7ff-6edf430b6567"
 		varname="lowLimitValue">

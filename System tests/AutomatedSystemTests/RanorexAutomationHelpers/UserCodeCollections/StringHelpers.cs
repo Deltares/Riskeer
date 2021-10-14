@@ -53,6 +53,39 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             return originalString.ToNewCulture(CultureInfo.InvariantCulture, CultureInfo.CurrentCulture);
         }
         
+        [UserCodeMethod]
+        public static string ToCurrentCultureDecimalSeparator(this string originalString)
+        {
+            return originalString.ReplaceNumberSeparator(CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator, 
+                                                         CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        }
+        
+        [UserCodeMethod]
+        public static string ToCurrentCultureGroupSeparator(this string originalString)
+        {
+            return originalString.ReplaceNumberSeparator(CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator, 
+                                                         CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator);
+        }
+        
+        [UserCodeMethod]
+        public static string ToInvariantCultureDecimalSeparator(this string originalString)
+        {
+            return originalString.ReplaceNumberSeparator(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, 
+                                                         CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
+        }
+        
+        [UserCodeMethod]
+        public static string ToInvariantCultureGroupSeparator(this string originalString)
+        {
+            return originalString.ReplaceNumberSeparator(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, 
+                                                         CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator);
+        }
+        
+        [UserCodeMethod]
+        public static string ToNoGroupSeparator(this string originalString)
+        {
+            return originalString.ReplaceNumberSeparator(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
+        }
         
         private static string ToNewCulture(this string originalString, CultureInfo currentCulture, CultureInfo newCulture)
         {

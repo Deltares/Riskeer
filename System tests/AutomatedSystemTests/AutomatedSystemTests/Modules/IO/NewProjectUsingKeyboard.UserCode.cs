@@ -8,17 +8,19 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Globalization;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
-
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 namespace AutomatedSystemTests.Modules.IO
 {
@@ -49,6 +51,16 @@ namespace AutomatedSystemTests.Modules.IO
                 Report.Log(ReportLevel.Info, "Mouse", "(Optional Action)\r\nMouse Left Click item 'buttonInfo' at Center.", buttonInfo);
                 buttonInfo.FindAdapter<Button>().Click();
                 }
+        }
+
+        public void FocusAndSelectTrajectIdCell(RepoItemInfo trajectsTableInfo)
+        {
+            var rowToSelect = trajectsTableInfo.CreateAdapter<Table>(true).
+                Rows.Where(rw=>rw.GetAttributeValue<string>("AccessibleValue").ToString().StartsWith(trajectID)).First();
+            rowToSelect.Focus();
+            rowToSelect.Select();
+            signallingValue = rowToSelect.Cells[2].Text.ToNoGroupSeparator();
+            lowLimitValue = rowToSelect.Cells[3].Text.ToNoGroupSeparator();
         }
 
     }

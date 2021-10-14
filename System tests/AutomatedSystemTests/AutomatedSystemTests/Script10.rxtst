@@ -344,39 +344,6 @@
 			name="DeletePreviousFiles">
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
-			id="248b330f-aa81-43bc-aa71-1d85cf99f8aa"
-			name="NewProjectBackstage"
-			ref="2c7465e0-4b16-45ab-a42a-4089c0acceb1"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectID"
-					datasourceid="55e5215b-d287-4338-849f-b3d67b5d2013"
-					variableid="171a542e-eb85-404b-a2fe-920346f601f6"
-					variablename="trajectID">
-					</var>
-					<var
-					dataname="normType"
-					datasourceid="55e5215b-d287-4338-849f-b3d67b5d2013"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
-					dataname="signallingValue"
-					datasourceid="55e5215b-d287-4338-849f-b3d67b5d2013"
-					variableid="57b1a4d8-f2d2-4a16-954c-39ae02f58117"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="lowLimitValue"
-					datasourceid="55e5215b-d287-4338-849f-b3d67b5d2013"
-					variableid="9e637732-8780-48f3-859b-3bced88621ee"
-					variablename="lowLimitValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="24cf9acb-4a79-436f-b880-5c43a8875923"
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
@@ -3980,10 +3947,6 @@
 									<testmodule
 									id="47c533af-cc59-43ac-9bb7-3dadd9eaf48c"
 									name="NewProjectUsingKeyboard">
-									</testmodule>
-									<testmodule
-									id="248b330f-aa81-43bc-aa71-1d85cf99f8aa"
-									name="NewProjectBackstage">
 									</testmodule>
 									<testmodule
 									id="124a656f-3a7d-4c8b-ab9e-cf5cfe898143"

@@ -40,7 +40,6 @@ namespace AutomatedSystemTests.Modules.Selection
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             var stepsPathItem = pathItem.Split('>').ToList();
-        	//var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
         	
         	IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
         	var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
@@ -49,33 +48,26 @@ namespace AutomatedSystemTests.Modules.Selection
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step
         			var step = stepsPathItem[i];
-        			if (children.Count(ch => ch.ToString().Contains(step))==1)
+        			var childrenWithStepInName = children.Where(ch => ch.ToString().Contains(step));
+        			int amountChildrenWithStepInName = childrenWithStepInName.Count();
+        			if (amountChildrenWithStepInName==1)
         				{
-        				Report.Log(ReportLevel.Info, "Information", "Only one occurrence of '" + step + "' found: choosing item containing the string in its name.");
-        				stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
-        			} else if (children.Count(ch => ch.ToString().Contains(step))>1){
-        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
-        				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
+        			    stepChild = childrenWithStepInName.FirstOrDefault().As<TreeItem>();
+        			} else if (amountChildrenWithStepInName>1){
+        				Report.Info("Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
+        				stepChild = childrenWithStepInName.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
         			} else {
-        			    Report.Log(ReportLevel.Error, "Information", "No occurrences of '" + step + "' found.");
+        			    Report.Error("Error", "No occurrences of '" + step + "' found.");
         			}
-        			//
         			if (i != stepsPathItem.Count - 1)
         				{
         				// Update the children
         				children = stepChild.Children;
-        				// Expand if intermediate node is collased
-        			    var stateIntermediateChild = stepChild.Element.GetAttributeValueText("AccessibleState");
-        			    stepChild.Focus();
-        			    if (stateIntermediateChild.Contains("Collapsed")) {
-        			        stepChild.Expand();
-        			         }
         				} else {
-        				// child is last one in path
+        			    // child is last one in path
         			    stepChild.Focus();
-        			    // Disable warning that clicked outside boundaries of object
         			    stepChild.ClickWithoutBoundsCheck(new Location(-0.02, 0.5));
-        			     }
+        			    }
         			}
         	return;
         }

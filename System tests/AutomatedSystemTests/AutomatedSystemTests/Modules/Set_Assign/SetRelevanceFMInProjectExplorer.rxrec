@@ -24,14 +24,6 @@ mode="Global">
 	</codegen>
 	<variables>
 		<var
-		id="51976da0-b6de-418b-bda5-bc27195d3616"
-		name="substringTrajectName">
-		</var>
-		<var
-		id="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
-		name="substringFMName">
-		</var>
-		<var
 		id="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
 		name="fmShouldBeRelevant">
 		</var>
@@ -40,33 +32,13 @@ mode="Global">
 		<loggingrecorditem
 		category="User"
 		enabled="True"
-		message=""
+		message="$substringName"
 		optional="False"
 		reportlevel="Info;20"
 		searchpropertyid="7f05d9b4-e46e-440d-a47e-cd1a63f18c5e">
 			<comment>
 			</comment>
 			<bindings>
-				<binding
-				target="Message"
-				variable="substringTrajectName">
-				</binding>
-			</bindings>
-		</loggingrecorditem>
-		<loggingrecorditem
-		category="User"
-		enabled="True"
-		message=""
-		optional="False"
-		reportlevel="Info;20"
-		searchpropertyid="7f05d9b4-e46e-440d-a47e-cd1a63f18c5e">
-			<comment>
-			</comment>
-			<bindings>
-				<binding
-				target="Message"
-				variable="substringFMName">
-				</binding>
 			</bindings>
 		</loggingrecorditem>
 		<userrecorditem
@@ -91,10 +63,10 @@ mode="Global">
 					<argvalue>
 					</argvalue>
 					<info
-					id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
+					id="3bb01c51-3d9c-4c3f-adc4-408396425ed8"
 					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+							/form[@automationid='RiskeerMainWindow']/*/*/container/container[@instance='0']/container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]//treeitem[@accessiblename~$substringTrajectName]
 						</path>
 					</info>
 				</argument>

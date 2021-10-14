@@ -577,6 +577,18 @@ namespace AutomatedSystemTests
             set { _trajectID = value; }
         }
 
+        string _substringName = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable substringName.
+        /// </summary>
+        [TestVariable("c8f26984-6161-4190-9006-d6b627a1bf14")]
+        public string substringName
+        {
+            get { return _substringName; }
+            set { _substringName = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -1025,7 +1037,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("b466899e-e209-4d83-a46c-0533f333cea5")]
         public partial class TrajectNodeFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder _trajectwithsubstringinname;
+            AutomatedSystemTestsRepositoryFolders.ItemWithSubstringInNameFolder _itemwithsubstringinname;
             AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder _genericfmitemwithsubstringinname;
             AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder _genericitemintrajectwithsubstringinname;
             RepoItemInfo _achtergrondkaartInfo;
@@ -1040,7 +1052,7 @@ namespace AutomatedSystemTests
             public TrajectNodeFolder(RepoGenBaseFolder parentFolder) :
                     base("TrajectNode", "treeitem[1]", parentFolder, 30000, null, false, "b466899e-e209-4d83-a46c-0533f333cea5", "")
             {
-                _trajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder(this);
+                _itemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.ItemWithSubstringInNameFolder(this);
                 _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
                 _genericitemintrajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericItemInTrajectWithSubstringInNameFolder(this);
                 _achtergrondkaartInfo = new RepoItemInfo(this, "Achtergrondkaart", "treeitem[@accessiblename='Achtergrondkaart']", 30000, null, "6131d385-9dd7-4e3e-b606-103f620b1765");
@@ -1195,12 +1207,12 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The TrajectWithSubstringInName folder.
+            /// The ItemWithSubstringInName folder.
             /// </summary>
             [RepositoryFolder("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
-            public virtual AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder TrajectWithSubstringInName
+            public virtual AutomatedSystemTestsRepositoryFolders.ItemWithSubstringInNameFolder ItemWithSubstringInName
             {
-                get { return _trajectwithsubstringinname; }
+                get { return _itemwithsubstringinname; }
             }
 
             /// <summary>
@@ -1223,17 +1235,17 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The TrajectWithSubstringInNameFolder folder.
+        /// The ItemWithSubstringInNameFolder folder.
         /// </summary>
         [RepositoryFolder("3bb01c51-3d9c-4c3f-adc4-408396425ed8")]
-        public partial class TrajectWithSubstringInNameFolder : RepoGenBaseFolder
+        public partial class ItemWithSubstringInNameFolder : RepoGenBaseFolder
         {
 
             /// <summary>
-            /// Creates a new TrajectWithSubstringInName  folder.
+            /// Creates a new ItemWithSubstringInName  folder.
             /// </summary>
-            public TrajectWithSubstringInNameFolder(RepoGenBaseFolder parentFolder) :
-                    base("TrajectWithSubstringInName", "treeitem[@accessiblename~$substringTrajectName]", parentFolder, 30000, null, false, "3bb01c51-3d9c-4c3f-adc4-408396425ed8", "")
+            public ItemWithSubstringInNameFolder(RepoGenBaseFolder parentFolder) :
+                    base("ItemWithSubstringInName", ".//treeitem[@accessiblename~$substringName]", parentFolder, 30000, null, false, "3bb01c51-3d9c-4c3f-adc4-408396425ed8", "")
             {
             }
 
@@ -9567,7 +9579,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("a95f8dbe-df2d-4b86-9086-a6751d400a59")]
         public partial class DialogNewTrajectAppFolder : RepoGenBaseFolder
         {
-            AutomatedSystemTestsRepositoryFolders.TableTrajectsFolder _tabletrajects;
+            AutomatedSystemTestsRepositoryFolders.TrajectsTableFolder _trajectstable;
             RepoItemInfo _normradiobuttonInfo;
             RepoItemInfo _buttonokInfo;
 
@@ -9577,7 +9589,7 @@ namespace AutomatedSystemTests
             public DialogNewTrajectAppFolder(RepoGenBaseFolder parentFolder) :
                     base("DialogNewTraject", "/form[@controlname='ReferenceLineMetaSelectionDialog']", parentFolder, 30000, null, true, "a95f8dbe-df2d-4b86-9086-a6751d400a59", "")
             {
-                _tabletrajects = new AutomatedSystemTestsRepositoryFolders.TableTrajectsFolder(this);
+                _trajectstable = new AutomatedSystemTestsRepositoryFolders.TrajectsTableFolder(this);
                 _normradiobuttonInfo = new RepoItemInfo(this, "NormRadioButton", "container/container/radiobutton[@controlname>$normType]", 30000, null, "f1bdec4b-e243-4cfe-8459-731408c338d4");
                 _buttonokInfo = new RepoItemInfo(this, "ButtonOk", "container/container/button[@controlname='Ok']", 30000, null, "ce4cea6f-cbb0-4c97-a077-14d79e60ca7d");
             }
@@ -9655,28 +9667,28 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The TableTrajects folder.
+            /// The TrajectsTable folder.
             /// </summary>
             [RepositoryFolder("16f13009-a75d-4921-8b3e-033e2bed69ca")]
-            public virtual AutomatedSystemTestsRepositoryFolders.TableTrajectsFolder TableTrajects
+            public virtual AutomatedSystemTestsRepositoryFolders.TrajectsTableFolder TrajectsTable
             {
-                get { return _tabletrajects; }
+                get { return _trajectstable; }
             }
         }
 
         /// <summary>
-        /// The TableTrajectsFolder folder.
+        /// The TrajectsTableFolder folder.
         /// </summary>
         [RepositoryFolder("16f13009-a75d-4921-8b3e-033e2bed69ca")]
-        public partial class TableTrajectsFolder : RepoGenBaseFolder
+        public partial class TrajectsTableFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.GenericTrajectIDRowFolder _generictrajectidrow;
 
             /// <summary>
-            /// Creates a new TableTrajects  folder.
+            /// Creates a new TrajectsTable  folder.
             /// </summary>
-            public TableTrajectsFolder(RepoGenBaseFolder parentFolder) :
-                    base("TableTrajects", "?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "16f13009-a75d-4921-8b3e-033e2bed69ca", "")
+            public TrajectsTableFolder(RepoGenBaseFolder parentFolder) :
+                    base("TrajectsTable", "?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "16f13009-a75d-4921-8b3e-033e2bed69ca", "")
             {
                 _generictrajectidrow = new AutomatedSystemTestsRepositoryFolders.GenericTrajectIDRowFolder(this);
             }

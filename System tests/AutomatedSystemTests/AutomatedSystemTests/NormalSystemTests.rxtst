@@ -1486,18 +1486,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="substringFm"
-					datasourceid="4dffe0f1-42ea-49fb-913d-dd6e8424c8ad"
-					variableid="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
-					variablename="substringFMName">
-					</var>
-					<var
-					dataname="trajectCompatibleWithFMSections"
-					datasourceid="92bf3946-f83e-47bc-8efb-af3080330624"
-					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
-					variablename="substringTrajectName">
-					</var>
-					<var
 					dataname="fmShouldBeRelevant"
 					datasourceid="4dffe0f1-42ea-49fb-913d-dd6e8424c8ad"
 					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
@@ -1524,6 +1512,20 @@
 					variablename="fmShouldBeRelevant">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="trajectCompatibleWithFMSections"
+					datasourceid="92bf3946-f83e-47bc-8efb-af3080330624"
+					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFm"
+					datasourceid="4dffe0f1-42ea-49fb-913d-dd6e8424c8ad"
+					variableid="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
+					variablename="substringFMName">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="153e7e8a-824c-4865-a35a-a0b695a11bfd"
