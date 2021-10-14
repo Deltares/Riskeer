@@ -469,7 +469,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            MacroStabilityInwardsFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as MacroStabilityInwardsFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
@@ -507,7 +507,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static bool CloseScenariosViewForData(MacroStabilityInwardsScenariosView view, object dataToCloseFor)
         {
-            MacroStabilityInwardsFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as MacroStabilityInwardsFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
