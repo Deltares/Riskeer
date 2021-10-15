@@ -54,14 +54,16 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
 #region Variables
 
+        string _newValue;
+
         /// <summary>
         /// Gets or sets the value of variable newValue.
         /// </summary>
         [TestVariable("fa77a94b-5e57-4ae0-959e-21197789d225")]
         public string newValue
         {
-            get { return repo.newValue; }
-            set { repo.newValue = value; }
+            get { return _newValue; }
+            set { _newValue = value; }
         }
 
 #endregion

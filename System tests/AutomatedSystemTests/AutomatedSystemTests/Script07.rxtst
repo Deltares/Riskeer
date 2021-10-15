@@ -280,14 +280,6 @@
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"

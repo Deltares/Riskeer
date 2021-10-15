@@ -58,36 +58,6 @@
 			id="040d9c95-6c53-41de-b260-48cbf028b41a"
 			name="SchematizationsWithElementsModified">
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="06c06fbb-b8db-4430-be26-fd0ecb53451c"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Prepend output folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="732a327d-8aa2-44fc-acf7-d93408aeaf7a"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="fullPathToOutputCsvFile"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="script09_substringsImportingSchematizationsOnWrongTraject"
 			id="08e63381-e3e9-4942-bd71-a5db9616910d"
@@ -365,36 +335,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="17f966f9-8975-40bc-8f43-34a53f72374a"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add schematization name]]>
-				</description>
-				<databinding>
-					<var
-					dataname="schematizationName"
-					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediateString1"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediateString2"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="19336fbe-799b-474b-b2b0-8e2e458395e9"
 			name="CopyFilesModifiedElements">
@@ -911,36 +851,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="2b22efd7-d5d6-434c-8d04-83dad191b077"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add extension '.csv']]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediateString2"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="extensionCSV"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="2bdc0d0c-86ec-4a26-97bb-4a7053cba586"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -1032,44 +942,6 @@
 			ref="bbe1b453-6dad-446c-8f21-3104847f3bd8"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			enabled="False"
-			id="38b2c056-a2ca-4291-81a5-1e62c08f1758"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add extension '.csv']]>
-				</description>
-				<databinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="extensionCSV"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediateString2"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="script09_LoopSchematizations"
 			errorbehavior="ContinueNextIteration"
@@ -1114,33 +986,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="39732a58-1db5-4093-8911-c4cc3b8513fe"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="pathSeparator"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="39f0d9da-d7c1-4fc2-8f3b-d6ddfa0d7934"
 			name="ConcatenateStrings"
@@ -1229,29 +1074,6 @@
 					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="3abf2982-5343-4bbd-b304-3d935b2d8a2a"
-			name="WaitForXMiliseconds"
-			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="waitTime"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTime"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1677,56 +1499,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="5d800d29-151b-44c7-909e-cfb3dfcf4b64"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add name of schematization to select]]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="efaeaf78-0e0f-4fc7-978d-729eef4c8fc0"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="5f0cfc48-0309-4b3b-913e-1993eee8de4c"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -1813,29 +1585,6 @@
 			id="5fc6520e-58e9-4a54-b552-dae60779bf9f"
 			name="GenerateCalculations">
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="606e2265-8087-4b7c-9099-72b4df4a3603"
-			name="WaitForXMiliseconds"
-			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="waitTime"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="waitTime"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
-					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="61633184-cc5b-435f-9f78-a3c42369fd08"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -2312,36 +2061,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="835bcba8-b66c-40a3-9710-5f6eb6d7c308"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add  '_']]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediateString0"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="substituteSubstring"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediateString1"
-					datasourceid="b3bde718-126d-465a-9da3-cb57226c4d9f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="84343ecf-ea71-4fff-a16d-9dd27ded0180"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -2501,33 +2220,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="8782c329-df47-42ab-9ce5-642422e4ac7d"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="887c2ace-7451-4711-9da6-ad54f4807761"
 			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
@@ -2698,44 +2390,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			enabled="False"
-			id="90cb6a4f-0121-4e47-b0bd-2c7f4f13f1f3"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add extension '.csv']]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediateString2"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="extensionCSV"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="csvFileName"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="9137f748-3fad-4a48-ba06-7894c562f652"
 			name="RemainingItems">
@@ -2868,44 +2522,6 @@
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
 					variablename="filePath1">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="a2c16bdd-67a7-48f5-aab1-377f87836c57"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add schematization name]]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediateString1"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediateString2"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="efaeaf78-0e0f-4fc7-978d-729eef4c8fc0"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="schematizationName"
-					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -3211,53 +2827,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="b18f945e-7bf4-4d40-b906-ba7b485dbd04"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToSchematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="ca659d50-2715-4a09-a656-3e239a930671"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="b204682d-6e1f-4a7a-a445-78ff3ceefde1"
 			name="SetRangeInSmartFolder"
 			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
@@ -3317,77 +2886,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="b3d01dd3-9a25-4f63-8f68-2f036d6de57a"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add  '_']]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediateString1"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="intermediateString0"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="substituteSubstring"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="b4a1824e-301b-4c16-8398-0a1d797b8337"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathSeparator"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="pathSeparator"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="b4f772a7-bb5e-4650-b109-6809166dbb63"
 			name="AddNewTrajectAppropriateForSchematization">
@@ -3406,36 +2904,6 @@
 			id="b6000a76-7640-4c94-ad79-f542e1cfa75a"
 			name="CopyOriginalFiles">
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="b77a86e2-581c-4584-b937-bd4a4e2af35c"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Prepend output folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="732a327d-8aa2-44fc-acf7-d93408aeaf7a"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToOutputCsvFile"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="bbf1a3be-4032-4ba4-a346-b6257b05eea7"
 			name="ExpandAllRowItemsInPropertiesPanel"
@@ -4110,36 +3578,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="da541b30-1ca8-4c85-bbb6-3a747568a273"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Prepend output folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="732a327d-8aa2-44fc-acf7-d93408aeaf7a"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="csvFileName"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToOutputCsvFile"
-					datasourceid="877dfc77-c2ec-46cd-81eb-9f706e0b7259"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="db2b5c3c-7d79-4beb-8099-23fe63661e72"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -4229,50 +3667,6 @@
 					variablename="string10">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="dc07dafa-cc1b-4c15-bfc0-4681f11c680d"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add '>' to path of schematizations folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToSchematizationsFolderItemInProjectExplorer"
-					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathSeparator"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="f1421b49-b258-4217-8334-2db04b20c869"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediatePathToschematizationItem"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="pathSeparator"
-					datasourceid="3958bacf-04c6-4ee6-83f1-4c792aa69b53"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="df22ac7e-568b-4d1f-b7e7-2e8fdaa8688d"
@@ -4567,74 +3961,6 @@
 					variablename="filePath1">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="e995adc9-bd19-480a-816e-d1b051f20dff"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add schematization name]]>
-				</description>
-				<databinding>
-					<var
-					dataname="intermediateString1"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediateString2"
-					datasourceid="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="schematizationName"
-					datasourceid="048693bf-acbd-4e3a-b0b7-5daaf735e2d8"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="schematizationName"
-					datasourceid="ca659d50-2715-4a09-a656-3e239a930671"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="eb0a90a4-6952-4de9-bf36-cfb13bff18c3"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<description>
-					<![CDATA[Add  '_']]>
-				</description>
-				<databinding>
-					<var
-					dataname="substituteSubstring"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediateString1"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="intermediateString0"
-					datasourceid="8cd40865-f343-43d1-ba08-135f12ff8401"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="eb44423d-80d6-4f77-9775-b4c38d8c4b43"
@@ -5161,14 +4487,6 @@
 										id="a923db8a-6f87-4452-9074-986d9ea6cfc2"
 										name="ValidateItemNameInProjectExplorer">
 											<testmodule
-											id="39732a58-1db5-4093-8911-c4cc3b8513fe"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="8782c329-df47-42ab-9ce5-642422e4ac7d"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
 											id="22c11eff-b1cc-4ee0-9d20-a3c590c3e688"
 											name="ConcatenateStrings">
 											</testmodule>
@@ -5203,22 +4521,6 @@
 											<testmodule
 											id="aae70710-2906-4a7c-b3b5-a9e2710fce34"
 											name="ReplaceSubstring">
-											</testmodule>
-											<testmodule
-											id="835bcba8-b66c-40a3-9710-5f6eb6d7c308"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="17f966f9-8975-40bc-8f43-34a53f72374a"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="2b22efd7-d5d6-434c-8d04-83dad191b077"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="b77a86e2-581c-4584-b937-bd4a4e2af35c"
-											name="ConcatenateStrings">
 											</testmodule>
 											<testmodule
 											id="e86a1bb5-0ce3-4e55-8f5f-ee6808b1b6a2"
@@ -5389,14 +4691,6 @@
 										id="cd7cd4d6-8fce-46f7-8b3b-64ac8ba1fca3"
 										name="ValidateItemNameInProjectExplorer">
 											<testmodule
-											id="b4a1824e-301b-4c16-8398-0a1d797b8337"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="b18f945e-7bf4-4d40-b906-ba7b485dbd04"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
 											id="12af3843-50d8-41eb-af4e-f1fdd41e18e6"
 											name="ConcatenateStrings">
 											</testmodule>
@@ -5412,10 +4706,6 @@
 											id="bbf1a3be-4032-4ba4-a346-b6257b05eea7"
 											name="ExpandAllRowItemsInPropertiesPanel">
 											</testmodule>
-											<testmodule
-											id="606e2265-8087-4b7c-9099-72b4df4a3603"
-											name="WaitForXMiliseconds">
-											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="c5aa86c8-c63a-47ab-bba8-6d47f3a0232f"
@@ -5427,22 +4717,6 @@
 											<testmodule
 											id="4ec278fc-fc73-4be9-8603-c7c5e755b546"
 											name="ReplaceSubstring">
-											</testmodule>
-											<testmodule
-											id="b3d01dd3-9a25-4f63-8f68-2f036d6de57a"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="e995adc9-bd19-480a-816e-d1b051f20dff"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="38b2c056-a2ca-4291-81a5-1e62c08f1758"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="da541b30-1ca8-4c85-bbb6-3a747568a273"
-											name="ConcatenateStrings">
 											</testmodule>
 											<testmodule
 											id="0f676cf3-b551-4792-a5f6-94f82bd2fe4a"
@@ -5563,14 +4837,6 @@
 													name="ValidateWhetherFolderGivenPathContainsNode">
 													</testmodule>
 													<testmodule
-													id="dc07dafa-cc1b-4c15-bfc0-4681f11c680d"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="5d800d29-151b-44c7-909e-cfb3dfcf4b64"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
 													id="79b8cf18-183f-4467-957f-652f4a6e6774"
 													name="ConcatenateStrings">
 													</testmodule>
@@ -5586,10 +4852,6 @@
 													id="1aba46dd-8388-42d3-b912-793a7c698590"
 													name="ExpandAllRowItemsInPropertiesPanel">
 													</testmodule>
-													<testmodule
-													id="3abf2982-5343-4bbd-b304-3d935b2d8a2a"
-													name="WaitForXMiliseconds">
-													</testmodule>
 												</smartfoldernode>
 												<smartfoldernode
 												id="8cd40865-f343-43d1-ba08-135f12ff8401"
@@ -5601,22 +4863,6 @@
 													<testmodule
 													id="ae7e805c-b623-435c-9616-a42b3b05f472"
 													name="ReplaceSubstring">
-													</testmodule>
-													<testmodule
-													id="eb0a90a4-6952-4de9-bf36-cfb13bff18c3"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="a2c16bdd-67a7-48f5-aab1-377f87836c57"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="90cb6a4f-0121-4e47-b0bd-2c7f4f13f1f3"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="06c06fbb-b8db-4430-be26-fd0ecb53451c"
-													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
 													id="d85cbb67-9e91-4769-b21b-8118b54bf753"

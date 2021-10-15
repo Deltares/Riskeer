@@ -85,18 +85,6 @@ namespace AutomatedSystemTests
 
 #region Variables
 
-        string _substringTrajectName = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return _substringTrajectName; }
-            set { _substringTrajectName = value; }
-        }
-
         string _substringFMName = "";
 
         /// <summary>
@@ -143,18 +131,6 @@ namespace AutomatedSystemTests
         {
             get { return _rowIndex; }
             set { _rowIndex = value; }
-        }
-
-        string _trajectToAdd = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable trajectToAdd.
-        /// </summary>
-        [TestVariable("4ea4fb61-50c3-4243-9a99-25901a404ce2")]
-        public string trajectToAdd
-        {
-            get { return _trajectToAdd; }
-            set { _trajectToAdd = value; }
         }
 
         string _normType = "";
@@ -289,18 +265,6 @@ namespace AutomatedSystemTests
             set { _substringNameItemInTraject = value; }
         }
 
-        string _textDropDownMenu = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable textDropDownMenu.
-        /// </summary>
-        [TestVariable("4f707b64-d756-4bb7-a45a-f34af402b280")]
-        public string textDropDownMenu
-        {
-            get { return _textDropDownMenu; }
-            set { _textDropDownMenu = value; }
-        }
-
         string _DropDownItem = "";
 
         /// <summary>
@@ -409,18 +373,6 @@ namespace AutomatedSystemTests
             set { _itemInDropDownMenu = value; }
         }
 
-        string _locationName = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable locationName.
-        /// </summary>
-        [TestVariable("d3f8e98c-052e-4dbf-84ca-9ec77e91cb0b")]
-        public string locationName
-        {
-            get { return _locationName; }
-            set { _locationName = value; }
-        }
-
         string _newValueForParameter = "";
 
         /// <summary>
@@ -431,18 +383,6 @@ namespace AutomatedSystemTests
         {
             get { return _newValueForParameter; }
             set { _newValueForParameter = value; }
-        }
-
-        string _newValue = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable newValue.
-        /// </summary>
-        [TestVariable("973b7938-8c88-411b-81f4-2d7160c01d81")]
-        public string newValue
-        {
-            get { return _newValue; }
-            set { _newValue = value; }
         }
 
         string _nameOfItem = "";
@@ -539,18 +479,6 @@ namespace AutomatedSystemTests
         {
             get { return _nameColumn; }
             set { _nameColumn = value; }
-        }
-
-        string _NameState = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable NameState.
-        /// </summary>
-        [TestVariable("a5fb3f89-9def-4a33-b1a0-454f91840689")]
-        public string NameState
-        {
-            get { return _NameState; }
-            set { _NameState = value; }
         }
 
         string _StateToSelect = "";
