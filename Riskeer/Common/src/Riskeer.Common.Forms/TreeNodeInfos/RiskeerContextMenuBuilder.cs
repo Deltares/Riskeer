@@ -29,6 +29,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 
@@ -266,9 +267,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public RiskeerContextMenuBuilder AddToggleRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> onChangeAction)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<IFailurePath>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, onChangeAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailurePathItem(failureMechanismContext, onChangeAction));
             return this;
         }
 

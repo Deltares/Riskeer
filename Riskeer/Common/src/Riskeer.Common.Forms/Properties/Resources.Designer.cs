@@ -1695,15 +1695,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&amp;s relevant.
-        /// </summary>
-        public static string FailureMechanismContextMenuStrip_Is_relevant {
-            get {
-                return ResourceManager.GetString("FailureMechanismContextMenuStrip_Is_relevant", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FailureMechanismIcon {
@@ -2109,6 +2100,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismSections_StartPoints_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSections_StartPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&amp;s relevant.
+        /// </summary>
+        public static string FailurePathContextMenuStrip_Is_relevant {
+            get {
+                return ResourceManager.GetString("FailurePathContextMenuStrip_Is_relevant", resourceCulture);
             }
         }
         

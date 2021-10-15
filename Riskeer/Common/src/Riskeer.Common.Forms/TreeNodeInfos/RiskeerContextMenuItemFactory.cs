@@ -31,6 +31,7 @@ using Core.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -386,29 +387,29 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevance of a failure mechanism.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevance of a failure path.
         /// </summary>
-        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
-        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
+        /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>
+        /// <param name="failurePathContext">The failure path context belonging to the failure path.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateToggleRelevancyOfFailureMechanismItem<TFailureMechanismContext>(
-            TFailureMechanismContext failureMechanismContext,
-            Action<TFailureMechanismContext> onChangeAction)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+        public static StrictContextMenuItem CreateToggleRelevancyOfFailurePathItem<TFailurePathContext>(
+            TFailurePathContext failurePathContext,
+            Action<TFailurePathContext> onChangeAction)
+            where TFailurePathContext : IFailureMechanismContext<IFailurePath>
         {
-            bool isRelevant = failureMechanismContext.WrappedData.IsRelevant;
+            bool isRelevant = failurePathContext.WrappedData.IsRelevant;
             Bitmap checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
-                Resources.FailureMechanismContextMenuStrip_Is_relevant,
+                Resources.FailurePathContextMenuStrip_Is_relevant,
                 Resources.FailureMechanism_IsRelevant_Description,
                 checkboxImage,
                 (sender, args) =>
                 {
-                    onChangeAction?.Invoke(failureMechanismContext);
+                    onChangeAction?.Invoke(failurePathContext);
 
-                    failureMechanismContext.WrappedData.IsRelevant = !isRelevant;
-                    failureMechanismContext.WrappedData.NotifyObservers();
+                    failurePathContext.WrappedData.IsRelevant = !isRelevant;
+                    failurePathContext.WrappedData.NotifyObservers();
                 });
         }
 

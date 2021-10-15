@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
-using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -445,21 +446,18 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateToggleRelevancyOfFailureMechanismItem_IsRelevant_CreateDecoratedItem(bool isRelevant)
+        public void CreateToggleRelevancyOfFailurePathItem_IsRelevant_CreateDecoratedItem(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-
+            var failurePath = mocks.StrictMock<IFailurePath>();
+            failurePath.Expect(fp => fp.IsRelevant).Return(isRelevant);
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailurePath>>();
+            failurePathContext.Expect(fpc => fpc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>())
-            {
-                IsRelevant = isRelevant
-            };
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailurePathItem(failurePathContext, null);
 
             // Assert
             Assert.AreEqual("I&s relevant", toolStripItem.Text);
@@ -473,20 +471,21 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateToggleRelevancyOfFailureMechanismItem_PerformClickOnRelevanceItem_RelevanceChangedAndObserversNotified(bool isRelevant)
+        public void CreateToggleRelevancyOfFailurePathItem_PerformClickOnRelevanceItem_RelevanceChangedAndObserversNotified(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.NotifyObservers());
-            failureMechanism.Expect(fm => fm.IsRelevant).Return(isRelevant);
-            failureMechanism.Expect(fm => fm.IsRelevant).SetPropertyWithArgument(!isRelevant);
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            var failurePath = mocks.StrictMock<IFailurePath>();
+            failurePath.Expect(fp => fp.IsRelevant).Return(isRelevant);
+            failurePath.Expect(fp => fp.IsRelevant).SetPropertyWithArgument(!isRelevant);
+            failurePath.Expect(fp => fp.NotifyObservers());
+
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailurePath>>();
+            failurePathContext.Stub(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             var actionCounter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailureMechanismItem(failureMechanismContext, context => actionCounter++);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailurePathItem(failurePathContext, context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();
