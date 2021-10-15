@@ -20,20 +20,19 @@
 // All rights reserved.
 
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Interface for a failure mechanism context which wraps an implementation of the 
-    /// <see cref="IFailureMechanism"/> interface.
+    /// <see cref="IFailurePath"/> interface.
     /// </summary>
     /// <typeparam name="T">The type of the wrapped failure mechanism.</typeparam>
-    public interface IFailureMechanismContext<out T> where T : IFailurePath
+    public interface IFailurePathContext<out T> where T : IFailurePath
     {
         /// <summary>
-        /// Gets the wrapped <see cref="IFailureMechanism"/> in this presentation object.
+        /// Gets the wrapped <see cref="IFailurePath"/> in this presentation object.
         /// </summary>
         T WrappedData { get; }
 

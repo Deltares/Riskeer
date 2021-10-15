@@ -610,9 +610,9 @@ namespace Riskeer.Piping.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<PipingFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<PipingFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);

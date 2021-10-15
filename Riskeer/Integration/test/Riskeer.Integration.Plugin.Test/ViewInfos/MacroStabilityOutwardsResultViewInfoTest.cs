@@ -186,16 +186,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
 
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failureMechanismContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MacroStabilityOutwardsFailureMechanism());
             mocks.ReplayAll();
 

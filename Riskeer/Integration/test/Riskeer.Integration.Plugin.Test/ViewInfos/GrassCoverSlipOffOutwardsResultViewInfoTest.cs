@@ -179,16 +179,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
 
             mocks.ReplayAll();
 
             using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -200,8 +200,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffOutwardsFailureMechanism());
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            failurePathContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffOutwardsFailureMechanism());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

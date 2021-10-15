@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is an abstract base presentation object for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public abstract class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailureMechanismContext<T> where T : IFailureMechanism
+    public abstract class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailurePathContext<T> where T : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.

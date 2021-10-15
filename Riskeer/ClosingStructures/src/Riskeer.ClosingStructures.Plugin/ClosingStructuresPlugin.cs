@@ -310,9 +310,9 @@ namespace Riskeer.ClosingStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<ClosingStructuresFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<ClosingStructuresFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
@@ -329,9 +329,9 @@ namespace Riskeer.ClosingStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<ClosingStructuresFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<ClosingStructuresFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);

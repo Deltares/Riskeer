@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IFailureMechanismContext<IFailureMechanism>), info.DataType);
+            Assert.AreEqual(typeof(IFailurePathContext<IFailureMechanism>), info.DataType);
             Assert.AreEqual(typeof(StandAloneFailurePathProperties), info.PropertyObjectType);
         }
 

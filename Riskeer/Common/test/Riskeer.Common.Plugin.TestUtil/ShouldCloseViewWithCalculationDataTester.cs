@@ -108,12 +108,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView(failureMechanismContext.WrappedData.Calculations.First()))
+            using (IView view = GetView(failurePathContext.WrappedData.Calculations.First()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
+                bool closeForData = ShouldCloseMethod(view, failurePathContext.WrappedData);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -124,12 +124,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
+                bool closeForData = ShouldCloseMethod(view, failurePathContext.WrappedData);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -140,12 +140,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView(failureMechanismContext.WrappedData.Calculations.First()))
+            using (IView view = GetView(failurePathContext.WrappedData.Calculations.First()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
+                bool closeForData = ShouldCloseMethod(view, failurePathContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -156,12 +156,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IFailureMechanismContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
+                bool closeForData = ShouldCloseMethod(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -274,7 +274,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// </summary>
         /// <returns>A failure mechanism context object.</returns>
         /// <remarks>A default implementation is added for creating a <see cref="TestFailureMechanismContext"/>.</remarks>
-        protected virtual IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+        protected virtual IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
             return new TestFailureMechanismContext();
         }
@@ -317,7 +317,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             public TestFailureMechanism FailureMechanism { get; }
         }
 
-        private class TestFailureMechanismContext : Observable, IFailureMechanismContext<TestFailureMechanism>
+        private class TestFailureMechanismContext : Observable, IFailurePathContext<TestFailureMechanism>
         {
             public TestFailureMechanismContext()
             {

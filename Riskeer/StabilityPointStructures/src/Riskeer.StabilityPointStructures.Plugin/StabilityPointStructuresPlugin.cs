@@ -308,9 +308,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<StabilityPointStructuresFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);

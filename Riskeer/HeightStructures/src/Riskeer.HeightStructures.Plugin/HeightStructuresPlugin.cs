@@ -332,9 +332,9 @@ namespace Riskeer.HeightStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<HeightStructuresFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<HeightStructuresFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);

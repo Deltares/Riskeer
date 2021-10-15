@@ -330,7 +330,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
@@ -365,7 +365,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanism,
             Action<TFailureMechanismContext> validateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate_All,
@@ -396,7 +396,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static StrictContextMenuItem CreateToggleRelevancyOfFailurePathItem<TFailurePathContext>(
             TFailurePathContext failurePathContext,
             Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailureMechanismContext<IFailurePath>
+            where TFailurePathContext : IFailurePathContext<IFailurePath>
         {
             bool isRelevant = failurePathContext.WrappedData.IsRelevant;
             Bitmap checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;

@@ -290,9 +290,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<WaveImpactAsphaltCoverFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);

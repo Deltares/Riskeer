@@ -199,7 +199,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+        protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
             return new GrassCoverErosionOutwardsHydraulicLoadsContext(
                 new GrassCoverErosionOutwardsFailureMechanism

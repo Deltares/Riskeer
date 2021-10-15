@@ -199,7 +199,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+        protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
         {
             return new WaveImpactAsphaltCoverHydraulicLoadsContext(
                 new WaveImpactAsphaltCoverFailureMechanism

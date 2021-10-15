@@ -398,9 +398,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var calculation = mocks.Stub<ICalculation>();
             calculation.Stub(s => s.Comments).Return(new Comment());
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var failureMechanismContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
+            var failurePathContext = mocks.Stub<IFailurePathContext<IFailureMechanism>>();
 
-            failureMechanismContext.Expect(c => c.WrappedData).Return(failureMechanism);
+            failurePathContext.Expect(c => c.WrappedData).Return(failureMechanism);
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation
@@ -417,7 +417,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -436,9 +436,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             deletedCalculation.Stub(s => s.Comments).Return(new Comment());
 
             var deletedfailureMechanism = mocks.Stub<IFailureMechanism>();
-            var failureMechanismContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
+            var failurePathContext = mocks.Stub<IFailurePathContext<IFailureMechanism>>();
 
-            failureMechanismContext.Stub(c => c.WrappedData).Return(deletedfailureMechanism);
+            failurePathContext.Stub(c => c.WrappedData).Return(deletedfailureMechanism);
             deletedfailureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 deletedCalculation
@@ -455,7 +455,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

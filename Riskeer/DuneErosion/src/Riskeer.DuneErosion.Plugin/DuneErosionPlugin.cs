@@ -342,9 +342,9 @@ namespace Riskeer.DuneErosion.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<DuneErosionFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<DuneErosionFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);

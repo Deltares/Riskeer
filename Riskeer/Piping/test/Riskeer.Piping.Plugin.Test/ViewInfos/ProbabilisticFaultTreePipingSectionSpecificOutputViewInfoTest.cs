@@ -214,7 +214,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
             {
                 return new PipingCalculationsContext(
                     new PipingFailureMechanism

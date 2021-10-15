@@ -452,7 +452,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failurePath = mocks.StrictMock<IFailurePath>();
             failurePath.Expect(fp => fp.IsRelevant).Return(isRelevant);
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailurePath>>();
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailurePath>>();
             failurePathContext.Expect(fpc => fpc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
@@ -480,7 +480,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             failurePath.Expect(fp => fp.IsRelevant).SetPropertyWithArgument(!isRelevant);
             failurePath.Expect(fp => fp.NotifyObservers());
 
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailurePath>>();
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailurePath>>();
             failurePathContext.Stub(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
@@ -1448,7 +1448,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
@@ -1471,7 +1471,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
 
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
@@ -1498,7 +1498,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1522,7 +1522,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1551,7 +1551,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, fmContext => counter++, context => null);
 
             // Call
@@ -1579,7 +1579,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
@@ -1604,7 +1604,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null);
@@ -1631,7 +1631,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1658,7 +1658,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1690,7 +1690,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
                 failureMechanismContext,
@@ -2093,9 +2093,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #region Nested types
 
-        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        private class TestFailurePathContext : FailureMechanismContext<IFailureMechanism>
         {
-            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+            public TestFailurePathContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
                 base(wrappedFailureMechanism, parent) {}
         }
 

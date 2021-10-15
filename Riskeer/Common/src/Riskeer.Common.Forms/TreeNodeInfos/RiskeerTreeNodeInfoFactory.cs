@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TFailureMechanismContext, object[]> disabledChildNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
             {
@@ -150,7 +150,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismStateContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> childNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
-            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
             {

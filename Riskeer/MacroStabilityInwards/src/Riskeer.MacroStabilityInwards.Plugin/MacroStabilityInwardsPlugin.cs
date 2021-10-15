@@ -478,9 +478,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<MacroStabilityInwardsFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<MacroStabilityInwardsFailureMechanism> failurePathContext)
             {
-                failureMechanism = failureMechanismContext.WrappedData;
+                failureMechanism = failurePathContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);

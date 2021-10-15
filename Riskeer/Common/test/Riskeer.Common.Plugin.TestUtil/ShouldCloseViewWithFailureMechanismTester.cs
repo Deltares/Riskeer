@@ -126,12 +126,12 @@ namespace Riskeer.Common.Plugin.TestUtil
             mocks.ReplayAll();
 
             IFailureMechanism failureMechanism = GetFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(new TestFailureMechanism(), assessmentSection);
+            var failurePathContext = new TestFailureMechanismContext(new TestFailureMechanism(), assessmentSection);
 
             using (IView view = GetView(failureMechanism))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
+                bool closeForData = ShouldCloseMethod(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -149,12 +149,12 @@ namespace Riskeer.Common.Plugin.TestUtil
             mocks.ReplayAll();
 
             IFailureMechanism failureMechanism = GetFailureMechanism();
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failurePathContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (IView view = GetView(failureMechanism))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
+                bool closeForData = ShouldCloseMethod(view, failurePathContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);

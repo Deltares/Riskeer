@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
-            Assert.IsInstanceOf<IFailureMechanismContext<IFailureMechanism>>(context);
+            Assert.IsInstanceOf<IFailurePathContext<IFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();

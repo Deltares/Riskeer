@@ -330,7 +330,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var failurePath = mocks.StrictMock<IFailurePath>();
             failurePath.Expect(fm => fm.IsRelevant).Return(isRelevant);
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailurePath>>();
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailurePath>>();
             failurePathContext.Expect(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
@@ -1710,7 +1710,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -1753,7 +1753,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -1800,7 +1800,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -1846,7 +1846,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -1899,7 +1899,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -1942,7 +1942,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -1989,7 +1989,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 new TestCalculation()
             });
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -2038,7 +2038,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
@@ -2078,9 +2078,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #region Nested types
 
-        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        private class TestFailurePathContext : FailureMechanismContext<IFailureMechanism>
         {
-            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+            public TestFailurePathContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
                 base(wrappedFailureMechanism, parent) {}
         }
 
