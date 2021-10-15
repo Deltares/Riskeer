@@ -25,17 +25,18 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.TestUtil;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -318,7 +319,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddToggleRelevancyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
+        public void AddToggleRelevancyOfFailurePathItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
@@ -327,10 +328,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            failureMechanism.Expect(fm => fm.IsRelevant).Return(isRelevant);
-            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fmc => fmc.WrappedData).Return(failureMechanism);
+            var failurePath = mocks.StrictMock<IFailurePath>();
+            failurePath.Expect(fm => fm.IsRelevant).Return(isRelevant);
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailurePath>>();
+            failurePathContext.Expect(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
@@ -340,12 +341,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 exportCommandHandler,
                                                                 updateCommandHandler,
                                                                 viewCommands,
-                                                                failureMechanism,
+                                                                failurePath,
                                                                 treeViewControl);
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleRelevancyOfFailurePathItem(failurePathContext, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
