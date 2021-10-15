@@ -21,6 +21,7 @@
 
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
@@ -29,7 +30,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <see cref="IFailureMechanism"/> interface.
     /// </summary>
     /// <typeparam name="T">The type of the wrapped failure mechanism.</typeparam>
-    public interface IFailureMechanismContext<out T> where T : IFailureMechanism
+    public interface IFailureMechanismContext<out T> where T : IFailurePath
     {
         /// <summary>
         /// Gets the wrapped <see cref="IFailureMechanism"/> in this presentation object.
