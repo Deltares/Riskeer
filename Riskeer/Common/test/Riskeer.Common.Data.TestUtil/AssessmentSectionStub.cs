@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil
@@ -70,7 +71,7 @@ namespace Riskeer.Common.Data.TestUtil
             waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
             waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            SpecificFailureMechanisms = new ObservableList<SpecificFailureMechanism>();
+            SpecificFailureMechanisms = new ObservableList<SpecificFailurePath>();
         }
 
         public string Id { get; }
@@ -109,7 +110,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
         
-        public ObservableList<SpecificFailureMechanism> SpecificFailureMechanisms { get; }
+        public ObservableList<SpecificFailurePath> SpecificFailureMechanisms { get; }
 
         /// <summary>
         /// Sets the hydraulic boundary locations on the assessment section stub.

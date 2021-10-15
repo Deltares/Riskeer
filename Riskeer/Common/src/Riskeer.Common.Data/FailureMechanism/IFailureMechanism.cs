@@ -21,15 +21,15 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Defines a failure mechanism.
     /// </summary>
-    public interface IFailureMechanism : IObservable
+    public interface IFailureMechanism : IFailurePath
     {
         /// <summary>
         /// Gets or sets the amount of contribution as a percentage [0, 100] for the <see cref="IFailureMechanism"/>
@@ -37,11 +37,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in the interval [0, 100].</exception>
         double Contribution { get; set; }
-
-        /// <summary>
-        /// Gets the name of the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        string Name { get; }
 
         /// <summary>
         /// Gets the code of the <see cref="IFailureMechanism"/>.
@@ -54,58 +49,9 @@ namespace Riskeer.Common.Data.FailureMechanism
         int Group { get; }
 
         /// <summary>
-        /// Gets the comments associated with the input of the data object.
-        /// </summary>
-        Comment InputComments { get; }
-
-        /// <summary>
-        /// Gets the comments associated with the output of the data object.
-        /// </summary>
-        Comment OutputComments { get; }
-
-        /// <summary>
-        /// Gets the comments associated when the failure mechanism is set to be not relevant.
-        /// </summary>
-        Comment NotRelevantComments { get; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this failure mechanism is relevant.
-        /// </summary>
-        bool IsRelevant { get; set; }
-
-        /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to
         /// the failure mechanism.
         /// </summary>
         IEnumerable<ICalculation> Calculations { get; }
-
-        /// <summary>
-        /// Gets the source path of the imported <see cref="Sections"/>.
-        /// </summary>
-        string FailureMechanismSectionSourcePath { get; }
-
-        /// <summary>
-        /// Gets the collection of sections that define areas for which a calculation could determine
-        /// a representative result.
-        /// </summary>
-        IEnumerable<FailureMechanismSection> Sections { get; }
-
-        /// <summary>
-        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
-        /// </summary>
-        /// <param name="sections">The sections to set.</param>
-        /// <param name="sourcePath">The path of the file the sections originate from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="sourcePath"/> is not a valid file path.</item>
-        /// <item><paramref name="sections"/> contains sections that are not properly chained.</item>
-        /// </list></exception>
-        void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath);
-
-        /// <summary>
-        /// Clears all sections from <see cref="Sections"/>.
-        /// </summary>
-        void ClearAllSections();
     }
 }

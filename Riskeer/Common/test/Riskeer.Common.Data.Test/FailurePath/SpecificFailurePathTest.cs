@@ -26,20 +26,22 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
-namespace Riskeer.Common.Data.Test.FailureMechanism
+namespace Riskeer.Common.Data.Test.FailurePath
 {
     [TestFixture]
-    public class SpecificFailureMechanismTest
+    public class SpecificFailurePathTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath>(failureMechanism);
             Assert.AreEqual("Specifiek faalpad", failureMechanism.Name);
             Assert.IsNotNull(failureMechanism.InputComments);
             Assert.IsNotNull(failureMechanism.OutputComments);
@@ -52,7 +54,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void SetSections_SectionsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             // Call 
             TestDelegate call = () => failureMechanism.SetSections(null, string.Empty);
@@ -66,7 +68,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void SetSections_SourcePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             // Call 
             TestDelegate call = () => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
@@ -81,7 +83,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         {
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -117,7 +119,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void SetSections_SecondSectionEndConnectingToStartOfFirst_ThrowArgumentException()
         {
             // Setup
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -149,7 +151,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
         {
             // Setup
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -184,7 +186,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 new Point2D(3.3, 4.4)
             });
 
-            var failureMechanism = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
             string sourcePath = TestHelper.GetScratchPadPath();
             failureMechanism.SetSections(new[]
             {

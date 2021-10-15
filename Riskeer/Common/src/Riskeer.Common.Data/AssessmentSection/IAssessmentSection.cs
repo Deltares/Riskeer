@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.AssessmentSection
@@ -96,7 +97,7 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the collection of specific failure mechanisms within the assessment section.
         /// </summary>
-        ObservableList<SpecificFailureMechanism> SpecificFailureMechanisms { get; }
+        ObservableList<SpecificFailurePath> SpecificFailureMechanisms { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

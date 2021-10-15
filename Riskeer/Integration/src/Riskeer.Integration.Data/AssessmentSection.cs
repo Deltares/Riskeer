@@ -29,6 +29,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -109,7 +110,7 @@ namespace Riskeer.Integration.Data
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            SpecificFailureMechanisms = new ObservableList<SpecificFailureMechanism>();
+            SpecificFailureMechanisms = new ObservableList<SpecificFailurePath>();
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
             WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
@@ -503,7 +504,7 @@ namespace Riskeer.Integration.Data
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
         
-        public ObservableList<SpecificFailureMechanism> SpecificFailureMechanisms { get; }
+        public ObservableList<SpecificFailurePath> SpecificFailureMechanisms { get; }
 
         public string Id { get; set; }
 
