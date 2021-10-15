@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -109,22 +110,22 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>.
+        /// Creates a <see cref="TreeNodeInfo"/> object for a failure path context of the type <typeparamref name="TFailurePathContext"/>.
         /// </summary>
-        /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
-        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
-        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
-        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>true</c>.</param>
-        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.IsRelevant"/> is <c>false</c>.</param>
+        /// <typeparam name="TFailurePathContext">The type of failure path context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
+        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.IsRelevant"/> is <c>true</c>.</param>
+        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.IsRelevant"/> is <c>false</c>.</param>
+        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.IsRelevant"/> is <c>true</c>.</param>
+        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.IsRelevant"/> is <c>false</c>.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismContextTreeNodeInfo<TFailureMechanismContext>(
-            Func<TFailureMechanismContext, object[]> enabledChildNodeObjects,
-            Func<TFailureMechanismContext, object[]> disabledChildNodeObjects,
-            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
-            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
-            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
+        public static TreeNodeInfo<TFailurePathContext> CreateFailurePathContextTreeNodeInfo<TFailurePathContext>(
+            Func<TFailurePathContext, object[]> enabledChildNodeObjects,
+            Func<TFailurePathContext, object[]> disabledChildNodeObjects,
+            Func<TFailurePathContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
+            Func<TFailurePathContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
+            where TFailurePathContext : IFailurePathContext<IFailurePath>
         {
-            return new TreeNodeInfo<TFailureMechanismContext>
+            return new TreeNodeInfo<TFailurePathContext>
             {
                 Text = context => context.WrappedData.Name,
                 ForeColor = context => context.WrappedData.IsRelevant

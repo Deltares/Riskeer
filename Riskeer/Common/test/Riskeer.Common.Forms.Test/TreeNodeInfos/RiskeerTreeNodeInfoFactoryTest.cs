@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TestUtil;
@@ -803,13 +804,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        #region CreateFailureMechanismContextTreeNodeInfo
+        #region CreateFailurePathContextTreeNodeInfo
 
         [Test]
-        public void CreateFailureMechanismContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        public void CreateFailurePathContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Call
-            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = 
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), treeNodeInfo.TagType);
@@ -833,19 +835,20 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_FailureMechanism_Always_ReturnsWrappedDataName()
+        public void Text_FailurePath_Always_ReturnsWrappedDataName()
         {
             // Setup
             const string name = "A";
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Name).Return(name);
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failurePath = mocks.Stub<IFailurePath>();
+            failurePath.Stub(fm => fm.Name).Return(name);
+            var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            context.Stub(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+            TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(null, null, null, null);
 
             // Call
             string text = treeNodeInfo.Text(context);
@@ -856,10 +859,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_FailureMechanism_Always_ReturnsFailureMechanismIcon()
+        public void Image_FailurePath_Always_ReturnsFailureMechanismIcon()
         {
             // Setup
-            TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+            TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(null, null, null, null);
 
             // Call
             Image image = treeNodeInfo.Image(null);
@@ -869,18 +873,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailureMechanismIsRelevant_ReturnsControlText()
+        public void ForeColor_FailurePathIsRelevant_ReturnsControlText()
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failurePath = mocks.Stub<IFailurePath>();
+            var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            context.Stub(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
-            failureMechanism.IsRelevant = true;
+            failurePath.IsRelevant = true;
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+            TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(null, null, null, null);
 
             // Call
             Color color = treeNodeInfo.ForeColor(context);
@@ -891,18 +896,19 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailureMechanismIsNotRelevant_ReturnsGrayText()
+        public void ForeColor_FailurePathIsNotRelevant_ReturnsGrayText()
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failurePath = mocks.Stub<IFailurePath>();
+            var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            context.Stub(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
-            failureMechanism.IsRelevant = false;
+            failurePath.IsRelevant = false;
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(null, null, null, null);
+            TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(null, null, null, null);
 
             // Call
             Color color = treeNodeInfo.ForeColor(context);
@@ -913,15 +919,16 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnResultFromConstructorMethod()
+        public void ChildNodeObjects_FailurePathIsRelevant_ReturnResultFromConstructorMethod()
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failurePath = mocks.Stub<IFailurePath>();
+            var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            context.Stub(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
-            failureMechanism.IsRelevant = true;
+            failurePath.IsRelevant = true;
 
             object[] resultIsRelevant =
             {
@@ -935,8 +942,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 new object()
             };
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
+            TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(pathContext => resultIsRelevant,
+                                                                                                                   pathContext => resultIsNotRelevant,
+                                                                                                                   null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -948,15 +957,16 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnResultFromConstructorMethod()
+        public void ChildNodeObjects_FailurePathIsNotRelevant_ReturnResultFromConstructorMethod()
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failurePath = mocks.Stub<IFailurePath>();
+            var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            context.Stub(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
-            failureMechanism.IsRelevant = false;
+            failurePath.IsRelevant = false;
 
             object[] resultIsRelevant =
             {
@@ -970,8 +980,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 new object()
             };
 
-            var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-            TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(mechanismContext => resultIsRelevant, mechanismContext => resultIsNotRelevant, null, null);
+            TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(pathContext => resultIsRelevant,
+                                                                                                                   pathContext => resultIsNotRelevant,
+                                                                                                                   null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -983,7 +995,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_ReturnResultFromConstructorMethod()
+        public void ContextMenuStrip_FailurePathmIsRelevant_ReturnResultFromConstructorMethod()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -991,32 +1003,35 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             using (var contextMenuStripNotRelevant = new ContextMenuStrip())
             {
                 var mocks = new MockRepository();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failurePath = mocks.Stub<IFailurePath>();
+                var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+                context.Stub(c => c.WrappedData).Return(failurePath);
+                context.Stub(c => c.Parent).Return(assessmentSection);
                 mocks.ReplayAll();
 
-                failureMechanism.IsRelevant = true;
+                failurePath.IsRelevant = true;
 
-                var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(
-                    null,
-                    null,
-                    (mechanismContext, parent, treeViewControl) =>
-                    {
-                        Assert.AreEqual(context, mechanismContext);
-                        Assert.AreEqual(assessmentSection, parent);
-                        Assert.AreEqual(treeView, treeViewControl);
+                TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                    RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(
+                        null,
+                        null,
+                        (mechanismContext, parent, treeViewControl) =>
+                        {
+                            Assert.AreEqual(context, mechanismContext);
+                            Assert.AreEqual(assessmentSection, parent);
+                            Assert.AreEqual(treeView, treeViewControl);
 
-                        return contextMenuStripRelevant;
-                    },
-                    (mechanismContext, parent, treeViewControl) =>
-                    {
-                        Assert.AreEqual(context, mechanismContext);
-                        Assert.AreEqual(assessmentSection, parent);
-                        Assert.AreEqual(treeView, treeViewControl);
+                            return contextMenuStripRelevant;
+                        },
+                        (mechanismContext, parent, treeViewControl) =>
+                        {
+                            Assert.AreEqual(context, mechanismContext);
+                            Assert.AreEqual(assessmentSection, parent);
+                            Assert.AreEqual(treeView, treeViewControl);
 
-                        return contextMenuStripNotRelevant;
-                    });
+                            return contextMenuStripNotRelevant;
+                        });
 
                 // Call
                 using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
@@ -1030,7 +1045,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_ReturnResultFromConstructorMethod()
+        public void ContextMenuStrip_FailurePathIsNotRelevant_ReturnResultFromConstructorMethod()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -1038,32 +1053,35 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             using (var contextMenuStripNotRelevant = new ContextMenuStrip())
             {
                 var mocks = new MockRepository();
-                var failureMechanism = mocks.Stub<IFailureMechanism>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failurePath = mocks.Stub<IFailurePath>();
+                var context = mocks.Stub<IFailurePathContext<IFailurePath>>();
+                context.Stub(c => c.WrappedData).Return(failurePath);
+                context.Stub(c => c.Parent).Return(assessmentSection);
                 mocks.ReplayAll();
 
-                failureMechanism.IsRelevant = false;
+                failurePath.IsRelevant = false;
 
-                var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
-                TreeNodeInfo<TestFailureMechanismContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<TestFailureMechanismContext>(
-                    null,
-                    null,
-                    (mechanismContext, parent, treeViewControl) =>
-                    {
-                        Assert.AreEqual(context, mechanismContext);
-                        Assert.AreEqual(assessmentSection, parent);
-                        Assert.AreEqual(treeView, treeViewControl);
+                TreeNodeInfo<IFailurePathContext<IFailurePath>> treeNodeInfo =
+                    RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailurePathContext<IFailurePath>>(
+                        null,
+                        null,
+                        (mechanismContext, parent, treeViewControl) =>
+                        {
+                            Assert.AreEqual(context, mechanismContext);
+                            Assert.AreEqual(assessmentSection, parent);
+                            Assert.AreEqual(treeView, treeViewControl);
 
-                        return contextMenuStripRelevant;
-                    },
-                    (mechanismContext, parent, treeViewControl) =>
-                    {
-                        Assert.AreEqual(context, mechanismContext);
-                        Assert.AreEqual(assessmentSection, parent);
-                        Assert.AreEqual(treeView, treeViewControl);
+                            return contextMenuStripRelevant;
+                        },
+                        (mechanismContext, parent, treeViewControl) =>
+                        {
+                            Assert.AreEqual(context, mechanismContext);
+                            Assert.AreEqual(assessmentSection, parent);
+                            Assert.AreEqual(treeView, treeViewControl);
 
-                        return contextMenuStripNotRelevant;
-                    });
+                            return contextMenuStripNotRelevant;
+                        });
 
                 // Call
                 using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
