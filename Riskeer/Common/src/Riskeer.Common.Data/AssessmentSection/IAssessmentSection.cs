@@ -95,9 +95,9 @@ namespace Riskeer.Common.Data.AssessmentSection
         ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
         
         /// <summary>
-        /// Gets the collection of specific failure mechanisms within the assessment section.
+        /// Gets the collection of specific failure paths within the assessment section.
         /// </summary>
-        ObservableList<SpecificFailurePath> SpecificFailureMechanisms { get; }
+        ObservableList<SpecificFailurePath> SpecificFailurePaths { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.

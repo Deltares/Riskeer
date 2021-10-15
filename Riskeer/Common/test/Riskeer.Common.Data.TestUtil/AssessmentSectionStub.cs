@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.TestUtil
             waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
             waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            SpecificFailureMechanisms = new ObservableList<SpecificFailurePath>();
+            SpecificFailurePaths = new ObservableList<SpecificFailurePath>();
         }
 
         public string Id { get; }
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
         
-        public ObservableList<SpecificFailurePath> SpecificFailureMechanisms { get; }
+        public ObservableList<SpecificFailurePath> SpecificFailurePaths { get; }
 
         /// <summary>
         /// Sets the hydraulic boundary locations on the assessment section stub.
