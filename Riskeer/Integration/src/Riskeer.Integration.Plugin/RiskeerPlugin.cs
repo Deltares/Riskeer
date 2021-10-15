@@ -987,7 +987,12 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailurePathContext>(
+                SpecificFailurePathEnabledChildNodeObjects,
+                SpecificFailurePathDisabledChildNodeObjects,
+                SpecificFailurePathEnabledContextMenuStrip,
+                SpecificFailurePathDisabledContextMenuStrip);
+
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
@@ -2109,10 +2114,10 @@ namespace Riskeer.Integration.Plugin
                 nodeData.WrappedData.OutputComments
             };
         }
-        
-        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(SpecificFailurePathContext nodeData, 
-                                                                              object parentData, 
-                                                                              TreeViewControl treeViewControl)
+
+        private ContextMenuStrip SpecificFailurePathEnabledContextMenuStrip(SpecificFailurePathContext nodeData,
+                                                                            object parentData,
+                                                                            TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2132,9 +2137,9 @@ namespace Riskeer.Integration.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(SpecificFailurePathContext nodeData,
-                                                                               object parentData,
-                                                                               TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailurePathDisabledContextMenuStrip(SpecificFailurePathContext nodeData,
+                                                                             object parentData,
+                                                                             TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
