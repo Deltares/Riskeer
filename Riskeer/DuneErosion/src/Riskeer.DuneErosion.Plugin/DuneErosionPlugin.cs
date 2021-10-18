@@ -188,7 +188,8 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent)
+                CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent),
+                CloseForData = CloseFailurePathViewForData
             };
 
             yield return new ViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
@@ -319,6 +320,16 @@ namespace Riskeer.DuneErosion.Plugin
         }
 
         #region ViewInfos
+
+        private static bool CloseFailurePathViewForData(DuneErosionFailurePathView view, object dataToCloseFor)
+        {
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+        }
 
         private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object dataToCloseFor)
         {
