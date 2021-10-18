@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    context.WrappedData, ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput)
+                    (IFailureMechanism) context.WrappedData, ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput)
             };
         }
 
@@ -317,7 +317,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
-                                                                                                  context.WrappedData,
+                                                                                                  (IFailureMechanism) context.WrappedData,
                                                                                                   ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput),
                 GetViewData = context => context.WrappedData.Sections
             };
