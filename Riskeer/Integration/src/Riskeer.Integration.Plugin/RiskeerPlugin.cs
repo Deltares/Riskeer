@@ -2097,6 +2097,7 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
+                new SpecificFailurePathSectionsContext(nodeData.WrappedData, nodeData.Parent),
                 nodeData.WrappedData.InputComments
             };
         }
