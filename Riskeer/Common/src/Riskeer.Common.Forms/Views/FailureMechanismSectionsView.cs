@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
@@ -44,19 +45,19 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
         /// </summary>
         /// <param name="sections">The sections to be displayed in the view.</param>
-        /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
+        /// <param name="failurePath">The failure path the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
-            : base(failureMechanism)
+        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailurePath failurePath)
+            : base(failurePath)
         {
             if (sections == null)
             {
                 throw new ArgumentNullException(nameof(sections));
             }
 
-            if (failureMechanism == null)
+            if (failurePath == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(failurePath));
             }
 
             InitializeComponent();
@@ -76,7 +77,7 @@ namespace Riskeer.Common.Forms.Views
 
             failureMechanismObserver = new Observer(HandleFailureMechanismSectionsChange)
             {
-                Observable = failureMechanism
+                Observable = failurePath
             };
 
             Sections = sections;

@@ -23,8 +23,8 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
+using Rhino.Mocks;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
@@ -33,36 +33,40 @@ namespace Riskeer.Common.Forms.Test.Views
     public class CloseForFailureMechanismViewTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new TestCloseForFailureMechanismView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("failurePath", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var mocks = new MockRepository();
+            var failurePath = mocks.Stub<IFailurePath>();
+            mocks.ReplayAll();
 
             // Call
-            var view = new TestCloseForFailureMechanismView(failureMechanism);
+            var view = new TestCloseForFailureMechanismView(failurePath);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IView>(view);
             Assert.IsNull(view.Data);
-            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(failurePath, view.FailurePath);
             CollectionAssert.IsEmpty(view.Controls);
+            
+            mocks.VerifyAll();
         }
 
         private class TestCloseForFailureMechanismView : CloseForFailureMechanismView
         {
-            public TestCloseForFailureMechanismView(IFailureMechanism failureMechanism) : base(failureMechanism) {}
+            public TestCloseForFailureMechanismView(IFailurePath failurePath) : base(failurePath) {}
         }
     }
 }

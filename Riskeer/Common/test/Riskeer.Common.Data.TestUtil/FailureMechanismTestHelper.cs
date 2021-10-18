@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.TestUtil
 {
@@ -34,17 +35,17 @@ namespace Riskeer.Common.Data.TestUtil
     public static class FailureMechanismTestHelper
     {
         /// <summary>
-        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailureMechanism.Sections"/>
+        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailurePath.Sections"/>
         /// with an empty source path.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to set the sections to.</param>
+        /// <param name="failurePath">The failure path to set the sections to.</param>
         /// <param name="sections">The sections to set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="sections"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> contains elements that
         /// are not properly connected.</exception>
-        public static void SetSections(IFailureMechanism failureMechanism, IEnumerable<FailureMechanismSection> sections)
+        public static void SetSections(IFailurePath failurePath, IEnumerable<FailureMechanismSection> sections)
         {
-            failureMechanism.SetSections(sections, string.Empty);
+            failurePath.SetSections(sections, string.Empty);
         }
 
         /// <summary>

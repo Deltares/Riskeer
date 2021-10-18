@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -34,23 +35,23 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="CloseForFailureMechanismView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism belonging to the view.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <param name="failurePath">The failure path belonging to the view.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
-        protected CloseForFailureMechanismView(IFailureMechanism failureMechanism)
+        protected CloseForFailureMechanismView(IFailurePath failurePath)
         {
-            if (failureMechanism == null)
+            if (failurePath == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(failurePath));
             }
 
-            FailureMechanism = failureMechanism;
+            FailurePath = failurePath;
         }
 
         /// <summary>
-        /// Gets the <see cref="IFailureMechanism"/> the view belongs to.
+        /// Gets the <see cref="IFailurePath"/> the view belongs to.
         /// </summary>
-        public IFailureMechanism FailureMechanism { get; }
+        public IFailurePath FailurePath { get; }
 
         public object Data { get; set; }
     }
