@@ -246,9 +246,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.TechnicalInnovation, technicalInnovationFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, technicalInnovationFailurePathContext.Parent);
 
-                var specificFailurePathsFolder = (CategoryTreeFolder) objects[1];
-                Assert.AreEqual("Specifieke faalpaden", specificFailurePathsFolder.Name);
-                CollectionAssert.IsEmpty(specificFailurePathsFolder.Contents);
+                var specificFailurePathsContext = (SpecificFailurePathsContext) objects[1];
+                Assert.AreSame(assessmentSection.SpecificFailurePaths, specificFailurePathsContext.WrappedData);
+                Assert.AreSame(assessmentSection, specificFailurePathsContext.AssessmentSection);
                 
                 var assemblyResultsContext = (AssemblyResultsContext) objects[2];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);

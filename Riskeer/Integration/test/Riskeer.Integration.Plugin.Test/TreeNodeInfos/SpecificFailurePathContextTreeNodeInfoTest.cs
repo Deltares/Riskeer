@@ -162,8 +162,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var outputComment = (Comment) outputFolder.Contents.ElementAt(0);
             Assert.AreSame(specificFailurePath.OutputComments, outputComment);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -178,17 +176,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 IsRelevant = false
             };
 
-            var failureMechanismContext = new SpecificFailurePathContext(failurePath, assessmentSection);
+            var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(1, children.Length);
             var comment = (Comment) children[0];
             Assert.AreSame(failurePath.NotRelevantComments, comment);
-
-            mocks.VerifyAll();
         }
 
         [Test]
