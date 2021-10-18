@@ -94,7 +94,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnHeightStructuresFailureMechanismView()
+        public void CreateInstance_WithContext_ReturnHeightStructuresFailurePathView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -126,7 +126,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -144,7 +144,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -161,7 +161,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var otherHeightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherHeightStructuresFailureMechanism);
@@ -177,7 +177,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);

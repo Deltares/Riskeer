@@ -304,7 +304,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object dataToCloseFor)
         {
-            HeightStructuresFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as HeightStructuresFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
