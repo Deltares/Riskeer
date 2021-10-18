@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -61,27 +63,79 @@ namespace Riskeer.Common.Plugin.Test
         }
 
         [TestFixture]
-        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailureMechanismTester
+        public class ShouldCloseFailureMechanismViewForDataTester : ShouldCloseViewWithFailureMechanismTester
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RiskeerPluginHelper.ShouldCloseForFailureMechanismView((FailureMechanismSectionsView) view, o);
+                return RiskeerPluginHelper.ShouldCloseForFailureMechanismView((CloseForFailurePathView)view, o);
             }
 
             protected override IView GetView(IFailureMechanism failureMechanism)
             {
-                return new TestFailureMechanismSectionsView(failureMechanism);
+                return new TestFailureMechanismView(failureMechanism);
             }
 
-            private class TestFailureMechanismSectionsView : FailureMechanismSectionsView
+            private class TestFailureMechanismView : CloseForFailurePathView
             {
-                public TestFailureMechanismSectionsView(IFailurePath failurePath)
-                    : base(failurePath.Sections, failurePath) {}
+                public TestFailureMechanismView(IFailureMechanism failureMechanism)
+                    : base(failureMechanism) {}
             }
 
             protected override IFailureMechanism GetFailureMechanism()
             {
                 return new TestFailureMechanism();
+            }
+        }
+
+        [TestFixture]
+        public class ShouldCloseFailurePathViewForDataTester : ShouldCloseViewWithFailurePathTester
+        {
+            [Test]
+            public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndFailureMechanism_ReturnsTrue()
+            {
+                // Setup
+                IFailureMechanism failureMechanism = new TestFailureMechanism();
+
+                var mocks = new MockRepository();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+                {
+                    failureMechanism
+                });
+                assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
+                mocks.ReplayAll();
+
+                using (IView view = GetView(failureMechanism))
+                {
+                    // Call
+                    bool closeForData = ShouldCloseMethod(view, assessmentSection);
+
+                    // Assert
+                    Assert.IsTrue(closeForData);
+                }
+
+                mocks.VerifyAll();
+            }
+
+            protected override bool ShouldCloseMethod(IView view, object o)
+            {
+                return RiskeerPluginHelper.ShouldCloseForFailurePathView((CloseForFailurePathView) view, o);
+            }
+
+            protected override IView GetView(IFailurePath failurePath)
+            {
+                return new TestFailurePathView(failurePath);
+            }
+
+            protected override IFailurePath GetFailurePath()
+            {
+                return new TestFailurePath();
+            }
+
+            private class TestFailurePathView : CloseForFailurePathView
+            {
+                public TestFailurePathView(IFailurePath failurePath)
+                    : base(failurePath) {}
             }
         }
     }
