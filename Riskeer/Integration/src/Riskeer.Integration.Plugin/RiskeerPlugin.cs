@@ -600,7 +600,7 @@ namespace Riskeer.Integration.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RiskeerCommonFormsResources.SectionsIcon,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };
@@ -1693,6 +1693,12 @@ namespace Riskeer.Integration.Plugin
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
+            if (dataToCloseFor is IFailurePathContext<IFailurePath> failurePathContext)
+            {
+                return GetCommentElements(failurePathContext.WrappedData)
+                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
+            }
+
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
                 return GetCommentElements(assessmentSection)
@@ -1714,13 +1720,27 @@ namespace Riskeer.Integration.Plugin
             {
                 yield return comment;
             }
+
+            foreach (Comment comment in assessmentSection.SpecificFailurePaths.SelectMany(GetCommentElements))
+            {
+                yield return comment;
+            }
+        }
+
+        private static IEnumerable<Comment> GetCommentElements(IFailurePath failurePath)
+        {
+            yield return failurePath.InputComments;
+            yield return failurePath.OutputComments;
+            yield return failurePath.NotRelevantComments;
         }
 
         private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
         {
-            yield return failureMechanism.InputComments;
-            yield return failureMechanism.OutputComments;
-            yield return failureMechanism.NotRelevantComments;
+            foreach (Comment comment in GetCommentElements((IFailurePath) failureMechanism))
+            {
+                yield return comment;
+            }
+
             foreach (ICalculation calculation in failureMechanism.Calculations)
             {
                 yield return calculation.Comments;

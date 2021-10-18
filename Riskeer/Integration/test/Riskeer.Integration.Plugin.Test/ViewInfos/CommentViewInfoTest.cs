@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -148,6 +149,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
+            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
 
@@ -172,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCalculationOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsFailureMechanismCalculationOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
             var calculation = mocks.Stub<ICalculation>();
@@ -211,7 +213,43 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCalculationButNotOfDeletedAssessmentSection_ReturnFalse()
+        public void CloseForData_ViewDataIsCommentButNotOfDeletedAssessmentSection_ReturnFalse()
+        {
+            // Setup
+            var viewDataComment = new Comment();
+
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
+            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = viewDataComment
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailureMechanismCalculationButNotOfDeletedAssessmentSection_ReturnFalse()
         {
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
@@ -229,6 +267,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             deletedfailureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
+            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 deletedfailureMechanism
@@ -252,7 +291,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsInputCommentOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsFailureMechanismInputCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
             var comment = new Comment();
@@ -287,42 +326,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsCommentButNotOfDeletedAssessmentSection_ReturnFalse()
-        {
-            // Setup
-            var viewDataComment = new Comment();
-
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.NotRelevantComments).Return(new Comment());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-            assessmentSection.Stub(s => s.Comments).Return(new Comment());
-            mocks.ReplayAll();
-
-            using (var view = new CommentView
-            {
-                Data = viewDataComment
-            })
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewDataIsOutputCommentOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsFailureMechanismOutputCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
             var comment = new Comment();
@@ -357,7 +361,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsNotRelevantCommentOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsFailureMechanismNotRelevantCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
             var comment = new Comment();
@@ -485,6 +489,206 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailurePathCommentButNotOfDeletedAssessmentSection_ReturnFalse()
+        {
+            // Setup
+            var viewDataComment = mocks.Stub<IFailurePath>();
+            viewDataComment.Stub(s => s.InputComments).Return(new Comment());
+
+            var deletedFailurePath = mocks.Stub<IFailurePath>();
+            deletedFailurePath.Stub(fm => fm.InputComments).Return(new Comment());
+            deletedFailurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            deletedFailurePath.Stub(fm => fm.NotRelevantComments).Return(new Comment());
+
+            var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
+            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>
+            {
+                deletedFailurePath
+            });
+            deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = viewDataComment.InputComments
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, deletedAssessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailurePathInputCommentOfDeletedAssessmentSection_ReturnTrue()
+        {
+            // Setup
+            var comment = new Comment();
+
+            var failurePath = mocks.Stub<IFailurePath>();
+            failurePath.Stub(fm => fm.InputComments).Return(comment);
+            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.NotRelevantComments).Return(new Comment());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>
+            {
+                failurePath
+            });
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = comment
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailurePathOutputCommentOfDeletedAssessmentSection_ReturnTrue()
+        {
+            // Setup
+            var comment = new Comment();
+
+            var failurePath = mocks.Stub<IFailurePath>();
+            failurePath.Stub(fm => fm.InputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.OutputComments).Return(comment);
+            failurePath.Stub(fm => fm.NotRelevantComments).Return(new Comment());
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>
+            {
+                failurePath
+            });
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = comment
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsFailurePathNotRelevantCommentOfDeletedAssessmentSection_ReturnTrue()
+        {
+            // Setup
+            var comment = new Comment();
+
+            var failurePath = mocks.Stub<IFailurePath>();
+            failurePath.Stub(fm => fm.InputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.NotRelevantComments).Return(comment);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<IFailurePath>
+            {
+                failurePath
+            });
+            assessmentSection.Stub(s => s.Comments).Return(new Comment());
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = comment
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsICommentOfDeletedFailurePathContext_ReturnTrue()
+        {
+            // Setup
+            var affectedComment = new Comment();
+            var failurePath = mocks.Stub<IFailureMechanism>();
+            failurePath.Stub(fm => fm.InputComments).Return(affectedComment);
+            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.NotRelevantComments).Return(new Comment());
+            var failurePathContext = mocks.Stub<IFailurePathContext<IFailurePath>>();
+
+            failurePathContext.Expect(c => c.WrappedData).Return(failurePath);
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = affectedComment
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failurePathContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewDataIsCommentButNotOfDeletedFailurePathContext_ReturnFalse()
+        {
+            // Setup
+            var unaffectedComment = new Comment();
+
+            var failurePath = mocks.Stub<IFailureMechanism>();
+            failurePath.Stub(fm => fm.InputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.NotRelevantComments).Return(new Comment());
+            var failurePathContext = mocks.Stub<IFailurePathContext<IFailurePath>>();
+
+            failurePathContext.Expect(c => c.WrappedData).Return(failurePath);
+            mocks.ReplayAll();
+
+            using (var view = new CommentView
+            {
+                Data = unaffectedComment
+            })
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
