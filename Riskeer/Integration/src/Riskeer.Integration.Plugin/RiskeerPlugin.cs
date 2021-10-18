@@ -987,12 +987,8 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
-
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailurePathContext>(
-                SpecificFailurePathEnabledChildNodeObjects,
-                SpecificFailurePathDisabledChildNodeObjects,
-                SpecificFailurePathEnabledContextMenuStrip,
-                SpecificFailurePathDisabledContextMenuStrip);
+            
+            yield return CreateSpecificFailurePathTreeNodeInfo();
 
             yield return new TreeNodeInfo<SpecificFailurePathsContext>
             {
@@ -2058,7 +2054,6 @@ namespace Riskeer.Integration.Plugin
         #endregion
 
         #region SpecificFailurePaths TreeNodeInfo
-
         private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
         {
             return nodeData.WrappedData
@@ -2072,6 +2067,37 @@ namespace Riskeer.Integration.Plugin
 
         #region SpecificFailurePath TreeNodeInfo
 
+        private TreeNodeInfo CreateSpecificFailurePathTreeNodeInfo()
+        {
+            TreeNodeInfo<SpecificFailurePathContext> treeNodeInfo = 
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailurePathContext>(
+                    SpecificFailurePathEnabledChildNodeObjects,
+                    SpecificFailurePathDisabledChildNodeObjects,
+                    SpecificFailurePathEnabledContextMenuStrip,
+                    SpecificFailurePathDisabledContextMenuStrip);
+            treeNodeInfo.CanRename = (context, o) => true;
+            treeNodeInfo.OnNodeRenamed = SpecificFailurePathContextOnNodeRenamed;
+            treeNodeInfo.CanRemove = (context, o) => true;
+            treeNodeInfo.OnNodeRemoved = SpecificFailurePathContextOnNodeRemoved;
+
+            return treeNodeInfo;
+        }
+        
+        private static void SpecificFailurePathContextOnNodeRenamed(SpecificFailurePathContext nodeData, string newName)
+        {
+            nodeData.WrappedData.Name = newName;
+            nodeData.WrappedData.NotifyObservers();
+        }
+        
+        private static void SpecificFailurePathContextOnNodeRemoved(SpecificFailurePathContext nodeData, object parentNodeData)
+        {
+            var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
+            ObservableList<IFailurePath> failurePaths = specificFailurePathsContext.WrappedData;
+
+            failurePaths.Remove(nodeData.WrappedData);
+            failurePaths.NotifyObservers();
+        }
+        
         private static object[] SpecificFailurePathDisabledChildNodeObjects(SpecificFailurePathContext nodeData)
         {
             return new object[]
@@ -2146,6 +2172,8 @@ namespace Riskeer.Integration.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
+
+
 
         #endregion
 

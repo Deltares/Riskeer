@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -73,10 +74,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNotNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNotNull(info.CanRename);
+            Assert.IsNotNull(info.OnNodeRenamed);
+            Assert.IsNotNull(info.CanRemove);
+            Assert.IsNotNull(info.OnNodeRemoved);
             Assert.IsNull(info.CanCheck);
             Assert.IsNull(info.CheckedState);
             Assert.IsNull(info.OnNodeChecked);
@@ -132,6 +133,81 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), textColor);
         }
+        
+        [Test]
+        public void CanRename_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool canRename = info.CanRename(null, null);
+
+            // Assert
+            Assert.IsTrue(canRename);
+        }
+        
+        [Test]
+        public void OnNodeRenamed_ChangesNameOfFailurePathAndNotifiesObservers()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failurePath = new SpecificFailurePath();
+            failurePath.Attach(observer);
+            
+            var context = new SpecificFailurePathContext(failurePath, assessmentSection);
+
+            const string newName = "Updated FailurePath name";
+            
+            // Call
+            info.OnNodeRenamed(context, newName);
+
+            // Assert
+            Assert.AreEqual(newName, failurePath.Name);
+        }
+        
+        [Test]
+        public void CanRemove_Always_ReturnTrue()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            bool canRename = info.CanRemove(null, null);
+
+            // Assert
+            Assert.IsTrue(canRename);
+        }
+        
+        [Test]
+        public void OnNodeRemoved_WithContexts_RemovesFailurePathFromCollectionAndNotifiesObservers()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failurePath = new SpecificFailurePath();
+            var context = new SpecificFailurePathContext(failurePath, assessmentSection);
+
+            var failurePaths = new ObservableList<IFailurePath>
+            {
+                failurePath
+            };
+            failurePaths.Attach(observer);
+            var parentContext = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            
+            // Call
+            info.OnNodeRemoved(context, parentContext);
+
+            // Assert
+            CollectionAssert.IsEmpty(failurePaths);
+        }
 
         [Test]
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
@@ -141,10 +217,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var specificFailurePath = new SpecificFailurePath();
-            var failureMechanismContext = new SpecificFailurePathContext(specificFailurePath, assessmentSection);
+            var context = new SpecificFailurePathContext(specificFailurePath, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+            object[] children = info.ChildNodeObjects(context).ToArray();
 
             // Assert
             Assert.AreEqual(2, children.Length);
