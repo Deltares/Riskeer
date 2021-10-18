@@ -115,5 +115,77 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var view = new WaveImpactAsphaltCoverFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, otherAssessmentSection);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var view = new WaveImpactAsphaltCoverFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSection);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var otherWaveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var view = new WaveImpactAsphaltCoverFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, otherWaveImpactAsphaltCoverFailureMechanism);
+
+            // Assert
+            Assert.IsFalse(closeForData);
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var view = new WaveImpactAsphaltCoverFailurePathView(failureMechanism, assessmentSection);
+
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
+        }
     }
 }

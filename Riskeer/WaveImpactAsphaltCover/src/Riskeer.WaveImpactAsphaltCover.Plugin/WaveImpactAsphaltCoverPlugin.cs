@@ -100,7 +100,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                CreateInstance = context => new WaveImpactAsphaltCoverFailurePathView(context.WrappedData, context.Parent)
+                CreateInstance = context => new WaveImpactAsphaltCoverFailurePathView(context.WrappedData, context.Parent),
+                CloseForData = CloseFailurePathViewForData
             };
 
             yield return new ViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
@@ -267,6 +268,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         }
 
         #region ViewInfos
+
+        private static bool CloseFailurePathViewForData(WaveImpactAsphaltCoverFailurePathView view, object dataToCloseFor)
+        {
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+        }
 
         private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
         {
