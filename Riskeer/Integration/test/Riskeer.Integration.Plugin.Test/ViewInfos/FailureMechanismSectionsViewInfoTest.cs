@@ -77,14 +77,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            var failurePath = new TestFailurePath();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failurePath, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(failureMechanismSectionsContext);
 
             // Assert
-            Assert.AreSame(failureMechanism.Sections, viewData);
+            Assert.AreSame(failurePath.Sections, viewData);
             mocks.VerifyAll();
         }
 
@@ -99,21 +99,21 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailureMechanismTester
+        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailurePathTester
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
                 return info.CloseForData(view, o);
             }
 
-            protected override IView GetView(IFailureMechanism failureMechanism)
+            protected override IView GetView(IFailurePath failurePath)
             {
-                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+                return new FailureMechanismSectionsView(failurePath.Sections, failurePath);
             }
 
-            protected override IFailureMechanism GetFailureMechanism()
+            protected override IFailurePath GetFailurePath()
             {
-                return new TestFailureMechanism();
+                return new TestFailurePath();
             }
         }
     }
