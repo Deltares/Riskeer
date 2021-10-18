@@ -30,6 +30,7 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -39,36 +40,36 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class FailureMechanismSectionsPropertiesTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new FailureMechanismSectionsProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("failurePath", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
             string sourcePath = TestHelper.GetScratchPadPath();
             IEnumerable<FailureMechanismSection> sections = new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             };
 
-            failureMechanism.SetSections(sections, sourcePath);
-
+            var failurePath = new SpecificFailurePath();
+            failurePath.SetSections(sections, sourcePath);
+            
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
+            using (var properties = new FailureMechanismSectionsProperties(failurePath))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailurePath>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
-                Assert.AreSame(failureMechanism, properties.Data);
+                Assert.AreSame(failurePath, properties.Data);
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
@@ -96,11 +97,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
+            using (var properties = new FailureMechanismSectionsProperties(failurePath))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -126,10 +127,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenFailurePathUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
