@@ -115,7 +115,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
-        
+
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
@@ -127,13 +127,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var view = new GrassCoverErosionOutwardsFailurePathView(failureMechanism, assessmentSection);
-            
+
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
 
             // Assert
             Assert.IsFalse(closeForData);
-            
+
             mocks.VerifyAll();
         }
 
@@ -145,7 +145,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var view = new GrassCoverErosionOutwardsFailurePathView(failureMechanism, assessmentSection);
-            
+
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -162,13 +162,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var otherGrassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var view = new GrassCoverErosionOutwardsFailurePathView(failureMechanism, assessmentSection);
-            
+
             // Call
             bool closeForData = info.CloseForData(view, otherGrassCoverErosionOutwardsFailureMechanism);
 
             // Assert
             Assert.IsFalse(closeForData);
-            
         }
 
         [Test]
@@ -179,13 +178,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var view = new GrassCoverErosionOutwardsFailurePathView(failureMechanism, assessmentSection);
-            
+
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);
 
             // Assert
             Assert.IsTrue(closeForData);
-            
         }
     }
 }
