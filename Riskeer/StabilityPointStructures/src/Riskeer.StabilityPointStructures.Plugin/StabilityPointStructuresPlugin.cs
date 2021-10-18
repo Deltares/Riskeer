@@ -299,7 +299,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object dataToCloseFor)
         {
-            StabilityPointStructuresFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as StabilityPointStructuresFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
