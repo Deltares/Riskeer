@@ -2146,6 +2146,10 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddRenameItem()
+                          .AddSeparator()
+                          .AddDeleteItem()
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
@@ -2165,6 +2169,10 @@ namespace Riskeer.Integration.Plugin
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
             return builder.AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddRenameItem()
+                          .AddSeparator()
+                          .AddDeleteItem()
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
