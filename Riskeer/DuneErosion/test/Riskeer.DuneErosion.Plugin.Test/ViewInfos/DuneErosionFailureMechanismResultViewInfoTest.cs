@@ -177,6 +177,38 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new DuneErosionFailureMechanism());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+        
+        [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
