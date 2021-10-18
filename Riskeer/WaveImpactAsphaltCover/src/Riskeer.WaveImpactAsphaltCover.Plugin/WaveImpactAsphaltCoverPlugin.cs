@@ -281,7 +281,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
         {
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
