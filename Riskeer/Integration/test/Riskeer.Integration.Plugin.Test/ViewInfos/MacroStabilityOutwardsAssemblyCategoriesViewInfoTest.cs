@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 var view = (MacroStabilityOutwardsAssemblyCategoriesView) info.CreateInstance(failureMechanismAssemblyCategoriesContext);
 
                 // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(failureMechanism, view.FailurePath);
             }
         }
 

@@ -30,13 +30,13 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CloseForFailureMechanismViewTest
+    public class CloseForFailurePathViewTest
     {
         [Test]
         public void Constructor_FailurePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestCloseForFailureMechanismView(null);
+            TestDelegate call = () => new TestCloseForFailurePathView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            var view = new TestCloseForFailureMechanismView(failurePath);
+            var view = new TestCloseForFailurePathView(failurePath);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -64,9 +64,9 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private class TestCloseForFailureMechanismView : CloseForFailureMechanismView
+        private class TestCloseForFailurePathView : CloseForFailurePathView
         {
-            public TestCloseForFailureMechanismView(IFailurePath failurePath) : base(failurePath) {}
+            public TestCloseForFailurePathView(IFailurePath failurePath) : base(failurePath) {}
         }
     }
 }

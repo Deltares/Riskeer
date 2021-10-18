@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.Views
     /// View for a <see cref="MacroStabilityOutwardsFailureMechanism"/> to show
     /// its assembly categories.
     /// </summary>
-    public partial class MacroStabilityOutwardsAssemblyCategoriesView : CloseForFailureMechanismView
+    public partial class MacroStabilityOutwardsAssemblyCategoriesView : CloseForFailurePathView
     {
         private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc;
         private readonly Observer failureMechanismObserver;

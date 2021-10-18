@@ -117,9 +117,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                          Enumerable.Empty<FailureMechanismSectionAssemblyCategory>))
             {
                 // Assert
-                Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
+                Assert.IsInstanceOf<CloseForFailurePathView>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(failureMechanism, view.FailurePath);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 TableLayoutPanel tableLayoutPanel = ControlTestHelper.GetControls<TableLayoutPanel>(view, "tableLayoutPanel").Single();

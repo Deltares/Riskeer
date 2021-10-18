@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.Views
     /// View for an <see cref="IFailureMechanism"/> to show 
     /// its assembly categories.
     /// </summary>
-    public partial class FailureMechanismAssemblyCategoriesView : CloseForFailureMechanismView
+    public partial class FailureMechanismAssemblyCategoriesView : CloseForFailurePathView
     {
         private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoriesFunc;
         private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc;

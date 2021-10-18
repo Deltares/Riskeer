@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// View for a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public partial class FailureMechanismSectionsView : CloseForFailureMechanismView
+    public partial class FailureMechanismSectionsView : CloseForFailurePathView
     {
         protected readonly IEnumerable<FailureMechanismSection> Sections;
 

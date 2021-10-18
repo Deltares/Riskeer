@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failurePath))
             {
                 // Assert
-                Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
+                Assert.IsInstanceOf<CloseForFailurePathView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failurePath, view.FailurePath);
                 Assert.AreEqual(1, view.Controls.Count);
