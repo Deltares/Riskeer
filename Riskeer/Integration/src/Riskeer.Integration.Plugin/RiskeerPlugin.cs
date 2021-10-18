@@ -867,6 +867,23 @@ namespace Riskeer.Integration.Plugin
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>(
                 new WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
+
+            yield return new UpdateInfo<SpecificFailurePathSectionsContext>
+            {
+                CreateFileImporter = (context, filePath) =>
+                    new FailureMechanismSectionsImporter(context.WrappedData,
+                                                         context.AssessmentSection.ReferenceLine,
+                                                         filePath,
+                                                         new FailureMechanismSectionReplaceStrategy(context.WrappedData),
+                                                         new UpdateMessageProvider()),
+                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
+                Category = RiskeerCommonFormsResources.Riskeer_Category,
+                Image = RiskeerCommonFormsResources.SectionsIcon,
+                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
+                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
+                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null
+            };
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
@@ -987,7 +1004,7 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
-            
+
             yield return CreateSpecificFailurePathTreeNodeInfo();
 
             yield return new TreeNodeInfo<SpecificFailurePathsContext>
@@ -2054,6 +2071,7 @@ namespace Riskeer.Integration.Plugin
         #endregion
 
         #region SpecificFailurePaths TreeNodeInfo
+
         private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
         {
             return nodeData.WrappedData
@@ -2069,7 +2087,7 @@ namespace Riskeer.Integration.Plugin
 
         private TreeNodeInfo CreateSpecificFailurePathTreeNodeInfo()
         {
-            TreeNodeInfo<SpecificFailurePathContext> treeNodeInfo = 
+            TreeNodeInfo<SpecificFailurePathContext> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailurePathContext>(
                     SpecificFailurePathEnabledChildNodeObjects,
                     SpecificFailurePathDisabledChildNodeObjects,
@@ -2082,13 +2100,13 @@ namespace Riskeer.Integration.Plugin
 
             return treeNodeInfo;
         }
-        
+
         private static void SpecificFailurePathContextOnNodeRenamed(SpecificFailurePathContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;
             nodeData.WrappedData.NotifyObservers();
         }
-        
+
         private static void SpecificFailurePathContextOnNodeRemoved(SpecificFailurePathContext nodeData, object parentNodeData)
         {
             var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
@@ -2097,7 +2115,7 @@ namespace Riskeer.Integration.Plugin
             failurePaths.Remove(nodeData.WrappedData);
             failurePaths.NotifyObservers();
         }
-        
+
         private static object[] SpecificFailurePathDisabledChildNodeObjects(SpecificFailurePathContext nodeData)
         {
             return new object[]
@@ -2180,8 +2198,6 @@ namespace Riskeer.Integration.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
-
-
 
         #endregion
 
