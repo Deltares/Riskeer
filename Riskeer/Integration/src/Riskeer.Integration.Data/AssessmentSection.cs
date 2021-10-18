@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Data
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            SpecificFailurePaths = new ObservableList<SpecificFailurePath>();
+            SpecificFailurePaths = new ObservableList<IFailurePath>();
             WaterLevelCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
             WaveHeightCalculationsForUserDefinedTargetProbabilities = new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
@@ -504,7 +504,7 @@ namespace Riskeer.Integration.Data
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
         
-        public ObservableList<SpecificFailurePath> SpecificFailurePaths { get; }
+        public ObservableList<IFailurePath> SpecificFailurePaths { get; }
 
         public string Id { get; set; }
 

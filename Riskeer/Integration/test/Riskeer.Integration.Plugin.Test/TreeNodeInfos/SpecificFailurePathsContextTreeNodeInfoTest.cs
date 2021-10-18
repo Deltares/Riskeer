@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<IFailurePath>();
             var failureMechanismContext = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Call
@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
         }
-        
+
         [Test]
         public void ChildNodeObjects_WithoutFailurePaths_ReturnChildDataNodes()
         {
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<IFailurePath>();
             var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Call
@@ -128,16 +128,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             CollectionAssert.IsEmpty(children);
         }
-        
+
         [Test]
         public void ChildNodeObjects_WithFailurePaths_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var failurePaths = new ObservableList<IFailurePath>
             {
                 failurePath
             };

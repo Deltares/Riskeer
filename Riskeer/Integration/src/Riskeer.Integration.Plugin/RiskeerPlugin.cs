@@ -48,6 +48,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probability;
@@ -2041,6 +2042,7 @@ namespace Riskeer.Integration.Plugin
         private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
         {
             return nodeData.WrappedData
+                           .Cast<SpecificFailurePath>()
                            .Select(sfp => new SpecificFailurePathContext(sfp, nodeData.AssessmentSection))
                            .Cast<object>()
                            .ToArray();

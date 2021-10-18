@@ -30,9 +30,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all specific failure paths.
     /// </summary>
-    public class SpecificFailurePathsContext : ObservableWrappedObjectContextBase<ObservableList<SpecificFailurePath>>
+    public class SpecificFailurePathsContext : ObservableWrappedObjectContextBase<ObservableList<IFailurePath>>
     {
-        public SpecificFailurePathsContext(ObservableList<SpecificFailurePath> failurePaths, IAssessmentSection assessmentSection)
+        public SpecificFailurePathsContext(ObservableList<IFailurePath> failurePaths, IAssessmentSection assessmentSection)
             : base(failurePaths)
         {
             if (assessmentSection == null)
