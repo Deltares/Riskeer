@@ -301,7 +301,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object dataToCloseFor)
         {
-            ClosingStructuresFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as ClosingStructuresFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
