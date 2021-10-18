@@ -170,7 +170,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
-            // Setup
             using (var view = new MacroStabilityInwardsScenariosView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism()))
             {
                 // Call

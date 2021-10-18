@@ -590,6 +590,15 @@ namespace Riskeer.Piping.Plugin
 
         #region ViewInfos
 
+        private static bool ClosePipingFailurePathViewForData(PipingFailurePathView view, object dataToCloseFor)
+        {
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var pipingFailureMechanism = dataToCloseFor as PipingFailureMechanism;
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
+        }
+
         private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as PipingFailureMechanism;
@@ -607,15 +616,6 @@ namespace Riskeer.Piping.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
-        }
-
-        private static bool ClosePipingFailurePathViewForData(PipingFailurePathView view, object dataToCloseFor)
-        {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var pipingFailureMechanism = dataToCloseFor as PipingFailureMechanism;
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)

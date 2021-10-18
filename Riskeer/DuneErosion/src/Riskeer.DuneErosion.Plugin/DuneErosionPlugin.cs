@@ -333,7 +333,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object dataToCloseFor)
         {
-            DuneErosionFailureMechanism failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
+            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
