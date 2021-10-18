@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 
@@ -37,14 +38,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
     public class FailureMechanismSectionReplaceStrategyTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new FailureMechanismSectionReplaceStrategy(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            Assert.AreEqual("failurePath", paramName);
         }
 
         [Test]
@@ -52,11 +53,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+            var importer = new FailureMechanismSectionReplaceStrategy(failurePath);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionUpdateStrategy>(importer);
@@ -68,11 +69,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionReplaceStrategy(failureMechanism).UpdateSectionsWithImportedData(null, "");
+            TestDelegate call = () => new FailureMechanismSectionReplaceStrategy(failurePath).UpdateSectionsWithImportedData(null, "");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -85,10 +86,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failurePath);
 
             // Call
             TestDelegate call = () => failureMechanismSectionReplaceStrategy.UpdateSectionsWithImportedData(
@@ -104,8 +105,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void UpdateSectionsWithImportedData_WithValidData_SetsSectionsToFailureMechanism()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+            var failurePath = new SpecificFailurePath();
+            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failurePath);
             string sourcePath = TestHelper.GetScratchPadPath();
             FailureMechanismSection[] sections =
             {
@@ -116,8 +117,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
             failureMechanismSectionReplaceStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
 
             // Assert
-            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
+            Assert.AreEqual(sourcePath, failurePath.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(sections.Single(), failurePath.Sections.Single());
         }
 
         [Test]
@@ -126,7 +127,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failurePath = new SpecificFailurePath();
             FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(0.0, 0.0),
@@ -138,7 +139,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 new Point2D(15.0, 15.0)
             });
 
-            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failurePath);
 
             FailureMechanismSection[] sections =
             {
@@ -162,7 +163,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             const string oldSourcePath = "old/path";
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
             failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()

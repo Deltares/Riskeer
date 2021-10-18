@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.IO.FileImporters
 {
@@ -32,22 +33,22 @@ namespace Riskeer.Common.IO.FileImporters
     /// </summary>
     public class FailureMechanismSectionReplaceStrategy : IFailureMechanismSectionUpdateStrategy
     {
-        private readonly IFailureMechanism failureMechanism;
+        private readonly IFailurePath failurePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to set the sections to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <param name="failurePath">The <see cref="IFailurePath"/> to set the sections to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismSectionReplaceStrategy(IFailureMechanism failureMechanism)
+        public FailureMechanismSectionReplaceStrategy(IFailurePath failurePath)
         {
-            if (failureMechanism == null)
+            if (failurePath == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(failurePath));
             }
 
-            this.failureMechanism = failureMechanism;
+            this.failurePath = failurePath;
         }
 
         public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
@@ -65,7 +66,7 @@ namespace Riskeer.Common.IO.FileImporters
 
             try
             {
-                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+                failurePath.SetSections(importedFailureMechanismSections, sourcePath);
             }
             catch (ArgumentException e)
             {
