@@ -23,6 +23,7 @@ using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
@@ -74,8 +75,8 @@ namespace Riskeer.Common.Plugin.Test
 
             private class TestFailureMechanismSectionsView : FailureMechanismSectionsView
             {
-                public TestFailureMechanismSectionsView(IFailureMechanism failureMechanism)
-                    : base(failureMechanism.Sections, failureMechanism) {}
+                public TestFailureMechanismSectionsView(IFailurePath failurePath)
+                    : base(failurePath.Sections, failurePath) {}
             }
 
             protected override IFailureMechanism GetFailureMechanism()
