@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Properties;
 
-namespace Riskeer.Common.Data.FailurePath
+namespace Riskeer.Integration.Data.FailurePath
 {
     /// <summary>
     /// This class is the implementation for a specific failure path.

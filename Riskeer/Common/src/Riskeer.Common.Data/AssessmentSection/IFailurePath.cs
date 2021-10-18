@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Common.Data.FailurePath
+namespace Riskeer.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Defines a failure path.

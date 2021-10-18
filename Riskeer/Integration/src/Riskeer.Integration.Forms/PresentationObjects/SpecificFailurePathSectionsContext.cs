@@ -19,11 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.Data.FailurePath;
 
-namespace Riskeer.Common.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for <see cref="SpecificFailurePath.Sections"/>.

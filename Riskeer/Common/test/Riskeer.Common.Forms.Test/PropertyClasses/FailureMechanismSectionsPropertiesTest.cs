@@ -29,8 +29,8 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             };
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new TestFailurePath();
             failurePath.SetSections(sections, sourcePath);
             
             // Call
@@ -130,7 +130,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailurePathUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new TestFailurePath();
 
             using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {

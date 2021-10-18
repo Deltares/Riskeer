@@ -26,9 +26,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 
@@ -105,7 +105,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void UpdateSectionsWithImportedData_WithValidData_SetsSectionsToFailureMechanism()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new TestFailurePath();
             var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failurePath);
             string sourcePath = TestHelper.GetScratchPadPath();
             FailureMechanismSection[] sections =
@@ -127,7 +127,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new TestFailurePath();
             FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(0.0, 0.0),
@@ -163,7 +163,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             const string oldSourcePath = "old/path";
             string sourcePath = TestHelper.GetScratchPadPath();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new TestFailurePath();
             failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()

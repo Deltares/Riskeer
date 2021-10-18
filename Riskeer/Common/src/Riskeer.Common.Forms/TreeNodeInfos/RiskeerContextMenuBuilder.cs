@@ -26,10 +26,10 @@ using System.Windows.Forms;
 using Core.Gui.ContextMenu;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 

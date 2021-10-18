@@ -19,19 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.Data.FailurePath;
+using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SpecificFailurePathsContextTest
+    public class SpecificFailurePathSectionsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,30 +39,16 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<IFailurePath>();
+            var failurePath = new SpecificFailurePath();
 
             // Call
-            var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<SpecificFailurePath>>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionsContext>(context);
+            Assert.AreSame(failurePath, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(failurePaths, context.WrappedData);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failurePaths = new ObservableList<IFailurePath>();
-
-            // Call
-            TestDelegate test = () => new SpecificFailurePathsContext(failurePaths, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

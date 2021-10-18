@@ -21,9 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.IO.FileImporters
 {

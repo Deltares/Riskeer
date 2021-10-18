@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views

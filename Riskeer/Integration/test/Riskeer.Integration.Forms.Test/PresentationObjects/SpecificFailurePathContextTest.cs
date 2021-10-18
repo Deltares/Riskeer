@@ -19,16 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.Data.FailurePath;
+using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SpecificFailurePathSectionsContextTest
+    public class SpecificFailurePathContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,13 +44,28 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var failurePath = new SpecificFailurePath();
 
             // Call
-            var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
+            var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionsContext>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<SpecificFailurePath>>(context);
+            Assert.IsInstanceOf<IFailurePathContext<SpecificFailurePath>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failurePath, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failurePath = new SpecificFailurePath();
+
+            // Call
+            TestDelegate test = () => new SpecificFailurePathContext(failurePath, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("parent", exception.ParamName);
         }
     }
 }

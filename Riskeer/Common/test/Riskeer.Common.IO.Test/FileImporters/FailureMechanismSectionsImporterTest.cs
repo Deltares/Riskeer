@@ -31,7 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.ReferenceLines;
@@ -702,11 +702,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
-            var specificFailurePath = new SpecificFailurePath();
-            var importer = new FailureMechanismSectionsImporter(specificFailurePath, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
+            var failurePath = new TestFailurePath();
+            var importer = new FailureMechanismSectionsImporter(failurePath, importReferenceLine, sectionsFilePath, updateStrategy, messageProvider);
 
             importer.Import();
-            specificFailurePath.Attach(observable);
+            failurePath.Attach(observable);
 
             // Call
             importer.DoPostImport();

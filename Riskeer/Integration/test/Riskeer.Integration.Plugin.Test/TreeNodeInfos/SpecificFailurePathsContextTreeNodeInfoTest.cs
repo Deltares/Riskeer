@@ -27,8 +27,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.Data.FailurePath;
+using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -134,9 +134,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
+            var failurePath = new SpecificFailurePath();
             var failurePaths = new ObservableList<IFailurePath>
             {
                 failurePath

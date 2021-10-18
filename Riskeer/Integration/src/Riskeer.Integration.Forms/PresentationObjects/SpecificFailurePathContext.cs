@@ -20,32 +20,34 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Integration.Data.FailurePath;
 
-namespace Riskeer.Common.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all specific failure paths.
+    /// This class is a presentation object for a <see cref="SpecificFailurePath"/> instance.
     /// </summary>
-    public class SpecificFailurePathsContext : ObservableWrappedObjectContextBase<ObservableList<IFailurePath>>
+    public class SpecificFailurePathContext : ObservableWrappedObjectContextBase<SpecificFailurePath>, IFailurePathContext<SpecificFailurePath>
     {
-        public SpecificFailurePathsContext(ObservableList<IFailurePath> failurePaths, IAssessmentSection assessmentSection)
-            : base(failurePaths)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
+        /// </summary>
+        /// <param name="wrappedFailurePath">The failure failure path.</param>
+        /// <param name="parent">The parent of <paramref name="wrappedFailurePath"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public SpecificFailurePathContext(SpecificFailurePath wrappedFailurePath, IAssessmentSection parent) : base(wrappedFailurePath)
         {
-            if (assessmentSection == null)
+            if (parent == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(parent));
             }
 
-            AssessmentSection = assessmentSection;
+            Parent = parent;
         }
 
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/> that the context belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+        public IAssessmentSection Parent { get; }
     }
 }

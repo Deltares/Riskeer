@@ -28,8 +28,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -163,28 +163,28 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsUpdated_ThenDataGridViewUpdated()
         {
             // Given
-            var failureMechanism = new SpecificFailurePath();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            var failurePath = new TestFailurePath();
+            FailureMechanismTestHelper.SetSections(failurePath, new[]
             {
                 CreateFailureMechanismSection("a")
             });
 
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failurePath.Sections, failurePath))
             {
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
                 // Precondition
-                AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
+                AssertSectionsDataGridViewControl(failurePath.Sections.ToArray(), sectionsDataGridViewControl);
 
                 // When
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                FailureMechanismTestHelper.SetSections(failurePath, new[]
                 {
                     FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
                 });
-                failureMechanism.NotifyObservers();
+                failurePath.NotifyObservers();
 
                 // Then
-                AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
+                AssertSectionsDataGridViewControl(failurePath.Sections.ToArray(), sectionsDataGridViewControl);
             }
         }
 
@@ -192,7 +192,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsNotUpdated_ThenDataGridViewNotUpdated()
         {
             // Given
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new TestFailurePath();
             FailureMechanismTestHelper.SetSections(failurePath, new[]
             {
                 CreateFailureMechanismSection("a")

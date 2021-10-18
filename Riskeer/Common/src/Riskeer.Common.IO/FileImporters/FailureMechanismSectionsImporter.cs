@@ -27,7 +27,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Properties;
 
