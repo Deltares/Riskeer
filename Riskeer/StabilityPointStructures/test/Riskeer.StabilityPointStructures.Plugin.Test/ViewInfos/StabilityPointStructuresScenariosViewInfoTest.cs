@@ -157,6 +157,35 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
+        {
+            using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnTrue()
+        {
+            // Setup
+            var correspondingFailureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            using (var view = new StabilityPointStructuresScenariosView(correspondingFailureMechanism.CalculationsGroup, correspondingFailureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, correspondingFailureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
         public void CloseForData_AssessmentSectionRemovedWithoutStabilityPointStructuresFailureMechanism_ReturnFalse()
         {
             // Setup
