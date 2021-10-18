@@ -122,7 +122,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailurePathView(context.WrappedData, context.Parent),
-                CloseForData = CloseFailurePathViewForData 
+                CloseForData = CloseFailurePathViewForData
             };
 
             yield return new ViewInfo<
@@ -282,10 +282,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-        
+
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object dataToCloseFor)
         {
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = null;
+            var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
 
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {

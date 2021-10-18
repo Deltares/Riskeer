@@ -178,6 +178,38 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }        
+        
+        [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
