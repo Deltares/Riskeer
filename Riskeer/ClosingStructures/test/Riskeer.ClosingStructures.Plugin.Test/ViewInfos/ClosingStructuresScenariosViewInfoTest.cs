@@ -99,6 +99,35 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
+        {
+            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new ClosingStructuresFailureMechanism());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnTrue()
+        {
+            // Setup
+            var correspondingFailureMechanism = new ClosingStructuresFailureMechanism();
+
+            using (var view = new ClosingStructuresScenariosView(correspondingFailureMechanism.CalculationsGroup, correspondingFailureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, correspondingFailureMechanism);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+        }
+
+        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnFalse()
         {
             // Setup
