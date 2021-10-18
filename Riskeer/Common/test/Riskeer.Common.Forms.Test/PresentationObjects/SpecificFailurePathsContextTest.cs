@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -30,7 +31,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class FailurePathContextTest
+    public class SpecificFailurePathsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -40,16 +41,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePaths = new ObservableList<SpecificFailurePath>();
 
             // Call
-            var context = new SpecificFailurePathContext(failurePath, assessmentSection);
+            var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<SpecificFailurePath>>(context);
-            Assert.IsInstanceOf<IFailurePathContext<SpecificFailurePath>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
-            Assert.AreSame(failurePath, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<SpecificFailurePath>>>(context);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(failurePaths, context.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -57,14 +57,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePaths = new ObservableList<SpecificFailurePath>();
 
             // Call
-            TestDelegate test = () => new SpecificFailurePathContext(failurePath, null);
+            TestDelegate test = () => new SpecificFailurePathsContext(failurePaths, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("parent", exception.ParamName);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }
