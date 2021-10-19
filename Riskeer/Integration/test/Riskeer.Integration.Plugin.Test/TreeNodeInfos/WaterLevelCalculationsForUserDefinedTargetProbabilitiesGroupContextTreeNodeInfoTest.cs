@@ -970,7 +970,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 info.OnDrop(droppedData, parentData, parentData, 1, null);
 
                 // Assert
-                CollectionAssert.AreEquivalent(new[]
+                CollectionAssert.AreEqual(new[]
                 {
                     calculationsForTargetProbability1,
                     calculationsForTargetProbability3,
