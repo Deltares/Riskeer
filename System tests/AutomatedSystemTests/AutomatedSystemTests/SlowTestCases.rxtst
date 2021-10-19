@@ -2,6 +2,34 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<setup
+			id="0deb5e1a-3235-4bdc-8b2f-55544aff149c"
+			name="setup">
+			</setup>
+			<testcase
+			id="1137644d-8deb-42ed-bdcd-a848d6be0197"
+			name="PlaceHolderTestCase">
+			</testcase>
+			<testmodule
+			id="31312cc4-3c3a-4c0a-9ba2-115cdf6129bb"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<testcase
 			id="9ba180c1-dae9-430d-9429-ffc99b49d7de"
 			name="SlowTestCases"
@@ -17,6 +45,20 @@
 					</param>
 				</parameters>
 			</testcase>
+			<testmodule
+			id="bbdf5314-67fe-445f-8f2e-394cc64fabe2"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="9ba180c1-dae9-430d-9429-ffc99b49d7de"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -36,6 +78,10 @@
 			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<teardown
+			id="fcbb514e-acb6-487a-899a-c83c1ebbb598"
+			name="teardown">
+			</teardown>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -44,6 +90,26 @@
 				<testcase
 				id="9ba180c1-dae9-430d-9429-ffc99b49d7de"
 				name="SlowTestCases">
+					<testcase
+					id="1137644d-8deb-42ed-bdcd-a848d6be0197"
+					name="PlaceHolderTestCase">
+						<setup
+						id="0deb5e1a-3235-4bdc-8b2f-55544aff149c"
+						name="setup">
+							<testmodule
+							id="31312cc4-3c3a-4c0a-9ba2-115cdf6129bb"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<teardown
+						id="fcbb514e-acb6-487a-899a-c83c1ebbb598"
+						name="teardown">
+							<testmodule
+							id="bbdf5314-67fe-445f-8f2e-394cc64fabe2"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 				</testcase>
 			</testsuite>
 		</childhierarchy>
@@ -7161,6 +7227,9 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="1137644d-8deb-42ed-bdcd-a848d6be0197">
+			</testcontainer>
 			<testcontainer
 			id="9ba180c1-dae9-430d-9429-ffc99b49d7de">
 			</testcontainer>
