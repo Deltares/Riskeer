@@ -145,6 +145,16 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c"
+			name="SetStateCalculations">
+				<parameters>
+					<param
+					name="StateCalculations"
+					value="Sterkte-">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="1be1b29d-4d03-49dc-9f3c-ff58d6fffd44"
 			name="ValidateDataInResultsViewLoopSections">
 			</smartfoldernode>
@@ -578,6 +588,80 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="4985d3b2-b533-496e-9e5b-7279e0d7712b"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="beginningFileNameToSave"
+					datasourceid="e96afb0e-9683-4a98-93d5-c3463bfd76a4"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="e96afb0e-9683-4a98-93d5-c3463bfd76a4"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="underscoreCharacter"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="extensionProjectFiles"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="4a791cfa-e2ff-49d7-b0b3-35026275e270"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -597,10 +681,116 @@
 			ref="d800f93d-b1a8-4b54-9c91-375105501d0a"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="4e82d25d-9a29-43aa-8f75-835dd802873e"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="beginningFileNameToSave"
+					datasourceid="b309fa09-fa57-4d3b-9c62-45622c4c1e5c"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="b309fa09-fa57-4d3b-9c62-45622c4c1e5c"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="underscoreCharacter"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="extensionProjectFiles"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="4fa2b28e-aba1-4aca-b739-50798004ed71"
 			name="SetBackToOriginalValue">
 			</smartfoldernode>
+			<testmodule
+			id="4fd01aa6-b00e-46b6-8031-77c51f844348"
+			name="NewProjectUsingKeyboard"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectID"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="171a542e-eb85-404b-a2fe-920346f601f6"
+					variablename="trajectID">
+					</var>
+					<var
+					dataname="normType"
+					datasourceid="8d46d70c-c986-4909-9aba-61db9be45220"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="lowerLimitValue"
+					datasourceid="8d46d70c-c986-4909-9aba-61db9be45220"
+					variableid="3624ac3a-3bbc-43cf-8c5b-c6a96b97116f"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="8d46d70c-c986-4909-9aba-61db9be45220"
+					variableid="5cbfe7da-3ce3-4a31-baa8-dcc95a2c80d7"
+					variablename="signallingValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="50cf8e9f-b56f-40b1-8079-bf13405193e8"
 			name="ValidateGeneratedCalculations">
@@ -914,6 +1104,16 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
+			name="SetStateHBC">
+				<parameters>
+					<param
+					name="StateHBC"
+					value="Hydraulische">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="77362e1c-e91c-490a-a2fa-6ad4e89abde8"
 			name="ImportStructures">
 				<conditiongroup
@@ -1031,6 +1231,10 @@
 					name="illPointMustBechecked"
 					value="false">
 					</param>
+					<param
+					name="pathToHBCItemInPE"
+					value="">
+					</param>
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
@@ -1096,6 +1300,80 @@
 			id="8922fc61-fba0-4f35-bc46-3b2255f97023"
 			name="LoopSetParametersSelectedCalculationInPropertiesPanel">
 			</smartfoldernode>
+			<testmodule
+			id="8a7eb7b9-675d-4b6b-a2fd-256ba0289e5d"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToHBCPreviousItemInPE"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="8d46d70c-c986-4909-9aba-61db9be45220"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathToHBCItemInPE"
+					datasourceid="7ffe4128-a68c-4b59-90ee-fdb9262eadda"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script17_a_LoopCalculationsInCalculationView"
 			errorbehavior="ContinueNextIteration"
@@ -1124,6 +1402,18 @@
 			minrange="2"
 			name="LoopFMs">
 				<parameters>
+					<param
+					name="lowerLimitValue"
+					value="">
+					</param>
+					<param
+					name="signallingValue"
+					value="">
+					</param>
+					<param
+					name="normType"
+					value="Signal">
+					</param>
 					<param
 					name="indexRowSection12_2_02500"
 					value="2">
@@ -1237,6 +1527,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="924916ac-85d6-45b8-b818-a4385940fe2b"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateCalculations"
+					datasourceid="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="9555675d-6762-4fee-aa0c-f4e151258fad"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1290,20 +1594,6 @@
 			<smartfoldernode
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49"
 			name="AddTraject">
-				<parameters>
-					<param
-					name="normType"
-					value="Signal">
-					</param>
-					<param
-					name="signallingValue"
-					value="">
-					</param>
-					<param
-					name="lowerLimitValue"
-					value="">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="a0ba5a3c-6bba-4099-a550-c2aa3955d0c4"
@@ -1366,45 +1656,11 @@
 				<databinding>
 					<var
 					dataname="pathToHBCItemInPE"
-					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					datasourceid="7ffe4128-a68c-4b59-90ee-fdb9262eadda"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="a99c21dd-fccd-43fe-906f-a1d5786ab268"
-			name="AddNewTrajectUsingContextMenu"
-			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="lowerLimitValue"
-					datasourceid="9fd7570f-bade-4ac5-8477-91abca7dfe49"
-					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
-					variablename="lowLimitValue">
-					</var>
-					<var
-					dataname="signallingValue"
-					datasourceid="9fd7570f-bade-4ac5-8477-91abca7dfe49"
-					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="normType"
-					datasourceid="9fd7570f-bade-4ac5-8477-91abca7dfe49"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="trajectToAdd"
-					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="acd8f11f-6a15-4223-9284-1a038c1c87b7"
@@ -1453,8 +1709,12 @@
 			name="SaveProject_b)">
 				<parameters>
 					<param
+					name="beginningFileNameToSave"
+					value="script17b">
+					</param>
+					<param
 					name="fileNameToSave"
-					value="script17b.risk">
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1469,6 +1729,20 @@
 					datasourceid="50cf8e9f-b56f-40b1-8079-bf13405193e8"
 					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
 					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="b405c892-9e11-4c96-9343-c54d3f9ec673"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateHBC"
+					datasourceid="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1560,21 +1834,6 @@
 			id="bdb252fc-5e75-4be9-8047-7e04b441d93a"
 			name="ChangeInPropertiesPanel">
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="c07136ba-a20e-49df-b7cf-aac609dda79e"
-			name="GenerateSomeScenarios"
-			ref="8513f955-1cc5-4468-875c-d51ce8a545ba"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="listIndecesItemsToGenerateCalculations"
-					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
-					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
-					variablename="indexRow">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="c143ffe5-06d8-49e7-8857-22494d925bdb"
 			name="AddSingleCalculation"
@@ -1777,8 +2036,12 @@
 			name="SaveProject_a)">
 				<parameters>
 					<param
+					name="beginningFileNameToSave"
+					value="script17a">
+					</param>
+					<param
 					name="fileNameToSave"
-					value="script17a.risk">
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1880,6 +2143,18 @@
 					<param
 					name="categoryBoundariesTraject"
 					value="">
+					</param>
+					<param
+					name="dummyString"
+					value="">
+					</param>
+					<param
+					name="extensionProjectFiles"
+					value=".risk">
+					</param>
+					<param
+					name="underscoreCharacter"
+					value="_">
 					</param>
 				</parameters>
 			</testcase>
@@ -1996,16 +2271,16 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fileNameToSave"
-					datasourceid="e96afb0e-9683-4a98-93d5-c3463bfd76a4"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
-					</var>
-					<var
 					dataname="scriptOutputFolder"
 					datasourceid="f0863890-96dc-43bc-b908-6af2669f44ba"
 					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
 					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="fileNameToSave"
+					datasourceid="e96afb0e-9683-4a98-93d5-c3463bfd76a4"
+					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
+					variablename="fileName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2082,12 +2357,20 @@
 								id="9fd7570f-bade-4ac5-8477-91abca7dfe49"
 								name="AddTraject">
 									<testmodule
-									id="a99c21dd-fccd-43fe-906f-a1d5786ab268"
-									name="AddNewTrajectUsingContextMenu">
+									id="4fd01aa6-b00e-46b6-8031-77c51f844348"
+									name="NewProjectUsingKeyboard">
 									</testmodule>
 									<testmodule
 									id="8e11984a-356b-4731-bf3a-641bef0de1a7"
 									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
+								name="SetStateHBC">
+									<testmodule
+									id="b405c892-9e11-4c96-9343-c54d3f9ec673"
+									name="SelectState">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -2108,6 +2391,10 @@
 									<smartfoldernode
 									id="7ffe4128-a68c-4b59-90ee-fdb9262eadda"
 									name="RunCalculationsRequiredHBCs">
+										<testmodule
+										id="8a7eb7b9-675d-4b6b-a2fd-256ba0289e5d"
+										name="ConcatenateStrings">
+										</testmodule>
 										<testmodule
 										id="a86d1a3a-c15b-44a3-92d7-fa9cec1e3838"
 										name="SelectGenericItemInProjectExplorer">
@@ -2133,6 +2420,14 @@
 										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c"
+								name="SetStateCalculations">
+									<testmodule
+									id="924916ac-85d6-45b8-b818-a4385940fe2b"
+									name="SelectState">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="845a0f1b-0238-48b0-9af2-c881f2f42ca8"
@@ -2227,10 +2522,6 @@
 										<testmodule
 										id="42d6df2a-1320-4fa5-a0ec-b229524003d5"
 										name="GenerateSomeCalculationsScenarios">
-										</testmodule>
-										<testmodule
-										id="c07136ba-a20e-49df-b7cf-aac609dda79e"
-										name="GenerateSomeScenarios">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -2491,6 +2782,10 @@
 							id="e96afb0e-9683-4a98-93d5-c3463bfd76a4"
 							name="SaveProject_a)">
 								<testmodule
+								id="4985d3b2-b533-496e-9e5b-7279e0d7712b"
+								name="ConcatenateStrings">
+								</testmodule>
+								<testmodule
 								id="fbb1905d-1bc2-4c25-b50c-0a1a8c97cf43"
 								name="SaveAs">
 								</testmodule>
@@ -2631,6 +2926,10 @@
 							id="b309fa09-fa57-4d3b-9c62-45622c4c1e5c"
 							name="SaveProject_b)">
 								<testmodule
+								id="4e82d25d-9a29-43aa-8f75-835dd802873e"
+								name="ConcatenateStrings">
+								</testmodule>
+								<testmodule
 								id="7153f2f7-2460-419b-aeae-f983eb2287d6"
 								name="SaveAs">
 								</testmodule>
@@ -2660,13 +2959,13 @@
 					labelFM
 				</column>
 				<column>
-					trajectToAdd
+					trajectID
 				</column>
 				<column>
 					pathToHBCInPE
 				</column>
 				<column>
-					pathToHBCItemInPE
+					pathToHBCPreviousItemInPE
 				</column>
 				<column>
 					pathToSectionsInPE
@@ -2737,13 +3036,13 @@
 						labelFM
 					</th>
 					<th>
-						trajectToAdd
+						trajectID
 					</th>
 					<th>
 						pathToHBCInPE
 					</th>
 					<th>
-						pathToHBCItemInPE
+						pathToHBCPreviousItemInPE
 					</th>
 					<th>
 						pathToSectionsInPE
@@ -2817,7 +3116,7 @@
 						Traject 12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						Traject 12-2&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						Traject 12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
 						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
@@ -2882,10 +3181,10 @@
 						12-2
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Hydraulische belastingen
+						Traject 12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						Traject 12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
 						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
@@ -2951,7 +3250,7 @@
 						41-1&gt;Hydraulische belastingen
 					</td>
 					<td>
-						41-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						41-1&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
 						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Vakindeling
@@ -3019,7 +3318,7 @@
 						36-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						36-2&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						36-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
 						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Vakindeling
@@ -3087,7 +3386,7 @@
 						34-1&gt;Hydraulische belastingen
 					</td>
 					<td>
-						34-1&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						34-1&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
 						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
@@ -3155,7 +3454,7 @@
 						44-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						44-2&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						44-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Vakindeling
@@ -5240,6 +5539,9 @@
 			id="1987343c-9fd7-4fe7-88e0-45cbd939390d">
 			</testcontainer>
 			<testcontainer
+			id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c">
+			</testcontainer>
+			<testcontainer
 			id="1be1b29d-4d03-49dc-9f3c-ff58d6fffd44">
 			</testcontainer>
 			<testcontainer
@@ -5306,6 +5608,9 @@
 			id="72c98fc0-a773-456b-8cd9-dcffcd7c7929">
 			</testcontainer>
 			<testcontainer
+			id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f">
+			</testcontainer>
+			<testcontainer
 			id="77362e1c-e91c-490a-a2fa-6ad4e89abde8">
 			</testcontainer>
 			<testcontainer
@@ -5340,9 +5645,6 @@
 			</testcontainer>
 			<testcontainer
 			id="9645d6ca-5cbd-4dca-b1c1-da81be3ff7e3">
-			</testcontainer>
-			<testcontainer
-			id="9b312e6a-119e-4785-afd9-f99fb449b3aa">
 			</testcontainer>
 			<testcontainer
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49">

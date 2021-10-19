@@ -161,6 +161,9 @@
     <Compile Include="UserCodeCollections\SystemLibrary.cs">
       <id>d021c6e3-3225-4423-9a31-5d5605444e00</id>
     </Compile>
+    <Compile Include="UserCodeCollections\TreeItemHelpers.cs">
+      <id>afe1cf19-2183-4309-89af-5d4e51978cff</id>
+    </Compile>
     <Compile Include="UserCodeCollections\Utils.cs">
       <id>571af684-5135-4bc5-93ac-b66f3f0fd03c</id>
     </Compile>

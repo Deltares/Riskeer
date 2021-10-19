@@ -39,11 +39,10 @@ namespace AutomatedSystemTests.Modules.Selection
         	Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
+            
             var stepsPathItem = pathItem.Split('>').ToList();
-        	
-        	IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
-        	var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
-        	var nameStepChild = NameOfTreeItem(stepChild);
+            IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
+            var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
 
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step

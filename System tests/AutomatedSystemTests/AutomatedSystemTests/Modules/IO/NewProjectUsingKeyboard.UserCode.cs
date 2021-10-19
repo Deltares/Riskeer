@@ -59,8 +59,8 @@ namespace AutomatedSystemTests.Modules.IO
                 Rows.Where(rw=>rw.GetAttributeValue<string>("AccessibleValue").ToString().StartsWith(trajectID)).First();
             rowToSelect.Focus();
             rowToSelect.Select();
-            signallingValue = rowToSelect.Cells[2].Text.ToNoGroupSeparator();
-            lowLimitValue = rowToSelect.Cells[3].Text.ToNoGroupSeparator();
+            signallingValue = rowToSelect.Cells[2].Text; //.ToNoGroupSeparator();
+            lowLimitValue = rowToSelect.Cells[3].Text; //.ToNoGroupSeparator();
         }
 
     }

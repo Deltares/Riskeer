@@ -79,6 +79,8 @@ namespace AutomatedSystemTests.Modules.Calculation
         	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
         	// start up variable stepChild
         	TreeItem stepChild = children[0].As<TreeItem>();
+        	
+        	
         	for (int i=0; i < stepsPathItem.Count; i++) {
         			// Find the item corresponding to the step
         			var step = stepsPathItem[i];

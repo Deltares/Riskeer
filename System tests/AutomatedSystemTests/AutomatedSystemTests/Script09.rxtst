@@ -1393,8 +1393,8 @@
 			datasource="script09_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="4f65efe8-6ec0-4ee4-b3b7-6f5a4375189d"
-			maxrange="1"
-			minrange="1"
+			maxrange="3"
+			minrange="3"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -3601,7 +3601,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="dummyString"
+					dataname="scriptOutputFolder"
 					datasourceid="732a327d-8aa2-44fc-acf7-d93408aeaf7a"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -3858,7 +3858,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="scriptOutputFolder"
+					dataname="dummyString"
 					datasourceid="732a327d-8aa2-44fc-acf7-d93408aeaf7a"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
@@ -5370,7 +5370,7 @@
 						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
+						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen
 					</td>
 					<td>
 						voorland_6-6.shp
@@ -5675,7 +5675,7 @@
 						GEBU
 					</td>
 					<td>
-						Traject 6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;WZ_1_6-6_dk_00001&gt;Invoer
+						Traject 6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;WZ_1_6-6_dk_00001&gt;Invoer
 					</td>
 				</tr>
 			</table>
