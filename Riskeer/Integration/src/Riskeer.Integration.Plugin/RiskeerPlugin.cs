@@ -2098,12 +2098,25 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateAddSpecificFailurePathItem(SpecificFailurePathsContext nodeData)
+        private static StrictContextMenuItem CreateAddSpecificFailurePathItem(SpecificFailurePathsContext nodeData)
         {
-            return new StrictContextMenuItem("Faalpad toevoegen",
-                                             "Voeg faalpad toe",
+            return new StrictContextMenuItem(Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath,
+                                             Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip,
                                              RiskeerCommonFormsResources.FailureMechanismIcon,
                                              (sender, args) => AddSpecificFailurePath(nodeData));
+        }
+
+        private static void AddSpecificFailurePath(SpecificFailurePathsContext nodeData)
+        {
+            ObservableList<IFailurePath> failurePaths = nodeData.WrappedData;
+            var newFailurePath = new SpecificFailurePath
+            {
+                Name = NamingHelper.GetUniqueName(failurePaths, 
+                                                  RiskeerDataResources.SpecificFailurePath_Name_DefaultName,
+                                                  fp => fp.Name)
+            };
+            failurePaths.Add(newFailurePath);
+            failurePaths.NotifyObservers();
         }
 
         #endregion

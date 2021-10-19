@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -452,6 +452,24 @@ namespace Riskeer.Integration.Plugin.Properties {
         public static string RiskeerPlugin_BackgroundDataContext_Text {
             get {
                 return ResourceManager.GetString("RiskeerPlugin_BackgroundDataContext_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalpad toevoegen.
+        /// </summary>
+        public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg faalpad toe.
+        /// </summary>
+        public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip", resourceCulture);
             }
         }
         

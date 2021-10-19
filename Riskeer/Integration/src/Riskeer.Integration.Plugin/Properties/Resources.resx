@@ -316,4 +316,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="SpecificFailurePathsCategoryTreeFolder_DisplayName" xml:space="preserve">
         <value>Specifieke faalpaden</value>
     </data>
+    <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath" xml:space="preserve">
+        <value>Faalpad toevoegen</value>
+    </data>
+    <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip" xml:space="preserve">
+        <value>Voeg faalpad toe</value>
+    </data>
 </root>

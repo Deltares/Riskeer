@@ -186,6 +186,85 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_ClickOnAddSpecificFailurePathItem_SpecificFailurePathAddedAndNotifyObservers()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var failurePaths = new ObservableList<IFailurePath>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            context.Attach(observer);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            using (var treeView = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                {
+                    // Call
+                    menu.Items[contextMenuCreateFailurePathIndex].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(1, failurePaths.Count);
+                    IFailurePath addedItem = failurePaths.Single();
+                    Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
+                    Assert.AreEqual("Nieuw faalpad", addedItem.Name);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenSpecificFailurePathsContainsItems_WhenAddSpecificFailurePath_ThenItemAddedAndNotifyObservers()
+        {
+            // Given
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var failurePaths = new ObservableList<IFailurePath>
+            {
+                new SpecificFailurePath
+                {
+                    Name = "Nieuw faalpad"
+                }
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            context.Attach(observer);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            using (var treeView = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                {
+                    // When
+                    menu.Items[contextMenuCreateFailurePathIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(2, failurePaths.Count);
+                    IFailurePath addedItem = failurePaths.Last();
+                    Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
+                    Assert.AreEqual("Nieuw faalpad (1)", addedItem.Name);
+                }
+            }
+        }
+
+        [Test]
         public void ChildNodeObjects_WithoutFailurePaths_ReturnChildDataNodes()
         {
             // Setup
