@@ -68,6 +68,7 @@ using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
+using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TypeConverters;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -1011,7 +1012,8 @@ namespace Riskeer.Integration.Plugin
             {
                 Text = context => Resources.SpecificFailurePathsCategoryTreeFolder_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = SpecificFailurePathsChildNodeObjects
+                ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
+                ContextMenuStrip = SpecificFailurePathsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
@@ -2079,6 +2081,29 @@ namespace Riskeer.Integration.Plugin
                            .Select(sfp => new SpecificFailurePathContext(sfp, nodeData.AssessmentSection))
                            .Cast<object>()
                            .ToArray();
+        }
+
+        private ContextMenuStrip SpecificFailurePathsContextMenuStrip(SpecificFailurePathsContext nodeData,
+                                                                      object parentData,
+                                                                      TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            return builder.AddCustomItem(CreateAddSpecificFailurePathItem(nodeData))
+                          .AddSeparator()
+                          .AddRemoveAllChildrenItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .Build();
+        }
+
+        private StrictContextMenuItem CreateAddSpecificFailurePathItem(SpecificFailurePathsContext nodeData)
+        {
+            return new StrictContextMenuItem("Faalpad toevoegen",
+                                             "Voeg faalpad toe",
+                                             RiskeerCommonFormsResources.FailureMechanismIcon,
+                                             (sender, args) => AddSpecificFailurePath(nodeData));
         }
 
         #endregion

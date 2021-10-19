@@ -21,12 +21,17 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
+using Core.Gui;
+using Core.Gui.ContextMenu;
+using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -36,6 +41,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class SpecificFailurePathsContextTreeNodeInfoTest
     {
+        private const int contextMenuCreateFailurePathIndex = 0;
+
         private MockRepository mocks;
         private TreeNodeInfo info;
         private RiskeerPlugin plugin;
@@ -65,7 +72,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
-            Assert.IsNull(info.ContextMenuStrip);
+            Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
             Assert.IsNotNull(info.ChildNodeObjects);
@@ -110,6 +117,72 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_ReturnsExpectedItem()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var failurePaths = new ObservableList<IFailurePath>();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                using (mocks.Ordered())
+                {
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                info.ContextMenuStrip(context, assessmentSection, treeView);
+
+                // Assert
+                // Assert expectancies are called in TearDown()
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            var failurePaths = new ObservableList<IFailurePath>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            using (var treeView = new TreeViewControl())
+            {
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
+                {
+                    // Assert
+                    Assert.AreEqual(6, menu.Items.Count);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCreateFailurePathIndex,
+                                                                  "Faalpad toevoegen",
+                                                                  "Voeg faalpad toe",
+                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                }
+            }
         }
 
         [Test]
