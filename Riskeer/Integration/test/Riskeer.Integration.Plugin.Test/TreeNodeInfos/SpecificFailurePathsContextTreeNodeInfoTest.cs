@@ -84,9 +84,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.IsNull(info.CheckedState);
             Assert.IsNull(info.OnNodeChecked);
             Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            Assert.IsNotNull(info.CanDrop);
+            Assert.IsNotNull(info.CanInsert);
+            Assert.IsNotNull(info.OnDrop);
         }
 
         [Test]
@@ -262,6 +262,156 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual("Nieuw faalpad (1)", addedItem.Name);
                 }
             }
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataOfUnsupportedDataType_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failurePaths = new ObservableList<IFailurePath>();
+            var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+
+            // Call
+            bool canInsert = info.CanInsert(new object(), targetData);
+
+            // Assert
+            Assert.IsFalse(canInsert);
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataNotPartOfContext_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failurePaths = new ObservableList<IFailurePath>();
+            var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+
+            var draggedData = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
+
+            // Call
+            bool canInsert = info.CanInsert(draggedData, targetData);
+
+            // Assert
+            Assert.IsFalse(canInsert);
+        }
+
+        [Test]
+        public void CanInsert_DraggedDataPartOfContext_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failurePath = new SpecificFailurePath();
+            var failurePaths = new ObservableList<IFailurePath>
+            {
+                failurePath
+            };
+
+            var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            var draggedData = new SpecificFailurePathContext(failurePath, assessmentSection);
+
+            // Call
+            bool canInsert = info.CanInsert(draggedData, targetData);
+
+            // Assert
+            Assert.IsTrue(canInsert);
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataOfUnsupportedDataType_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failurePaths = new ObservableList<IFailurePath>();
+            var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+
+            // Call
+            bool canDrop = info.CanDrop(new object(), targetData);
+
+            // Assert
+            Assert.IsFalse(canDrop);
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataNotPartOfContext_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failurePaths = new ObservableList<IFailurePath>();
+            var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+
+            var draggedData = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
+
+            // Call
+            bool canDrop = info.CanDrop(draggedData, targetData);
+
+            // Assert
+            Assert.IsFalse(canDrop);
+        }
+
+        [Test]
+        public void CanDrop_DraggedDataPartOfContext_ReturnsFalse()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failurePath = new SpecificFailurePath();
+            var failurePaths = new ObservableList<IFailurePath>
+            {
+                failurePath
+            };
+
+            var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            var draggedData = new SpecificFailurePathContext(failurePath, assessmentSection);
+
+            // Call
+            bool canDrop = info.CanDrop(draggedData, targetData);
+
+            // Assert
+            Assert.IsTrue(canDrop);
+        }
+        
+        [Test]
+        public void OnDrop_DataDroppedToDifferentIndex_DroppedDataCorrectlyMovedAndObserversNotified()
+        {
+            // Setup
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var unmovedFailurePath = new SpecificFailurePath();
+            var movedFailurePath = new SpecificFailurePath();
+            var failurePaths = new ObservableList<IFailurePath>
+            {
+                unmovedFailurePath,
+                movedFailurePath
+            };
+            failurePaths.Attach(observer);
+
+            var parentData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            var draggedData = new SpecificFailurePathContext(movedFailurePath, assessmentSection);
+
+            // Call
+            info.OnDrop(draggedData, parentData, parentData, 0, null);
+
+            // Assert
+            CollectionAssert.AreEqual(new[]
+            {
+                movedFailurePath,
+                unmovedFailurePath
+            }, failurePaths);
         }
 
         [Test]

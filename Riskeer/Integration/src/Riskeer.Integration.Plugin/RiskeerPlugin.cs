@@ -1013,7 +1013,10 @@ namespace Riskeer.Integration.Plugin
                 Text = context => Resources.SpecificFailurePathsCategoryTreeFolder_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
-                ContextMenuStrip = SpecificFailurePathsContextMenuStrip
+                ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
+                CanInsert = SpecificFailurePathsContext_CanDropOrInsert,
+                CanDrop = SpecificFailurePathsContext_CanDropOrInsert,
+                OnDrop = SpecificFailurePathsContext_OnDrop
             };
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
@@ -2119,6 +2122,25 @@ namespace Riskeer.Integration.Plugin
             failurePaths.NotifyObservers();
         }
 
+        private static bool SpecificFailurePathsContext_CanDropOrInsert(object draggedData, object targetData)
+        {
+            var failurePathsContext = (SpecificFailurePathsContext) targetData;
+
+            return draggedData is SpecificFailurePathContext failurePathContext
+                   && failurePathsContext.WrappedData.Contains(failurePathContext.WrappedData);
+        }
+        
+        private static void SpecificFailurePathsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        {
+            var failurePathsContext = (SpecificFailurePathsContext) newParentData;
+            var failurePathContext = (SpecificFailurePathContext) droppedData;
+
+            failurePathsContext.WrappedData.Remove(failurePathContext.WrappedData);
+            failurePathsContext.WrappedData.Insert(position, failurePathContext.WrappedData);
+
+            failurePathsContext.WrappedData.NotifyObservers();
+        }
+        
         #endregion
 
         #region SpecificFailurePath TreeNodeInfo
@@ -2135,10 +2157,11 @@ namespace Riskeer.Integration.Plugin
             treeNodeInfo.OnNodeRenamed = SpecificFailurePathContextOnNodeRenamed;
             treeNodeInfo.CanRemove = (context, o) => true;
             treeNodeInfo.OnNodeRemoved = SpecificFailurePathContextOnNodeRemoved;
+            treeNodeInfo.CanDrag = (context, o) => true;
 
             return treeNodeInfo;
         }
-
+        
         private static void SpecificFailurePathContextOnNodeRenamed(SpecificFailurePathContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;
