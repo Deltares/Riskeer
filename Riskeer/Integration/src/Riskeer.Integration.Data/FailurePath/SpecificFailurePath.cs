@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Properties;
+using Riskeer.Integration.Data.Properties;
 
 namespace Riskeer.Integration.Data.FailurePath
 {
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Data.FailurePath
         /// </summary>
         public SpecificFailurePath()
         {
-            Name = Resources.SpecificFailureMechanism_Name_DefaultName;
+            Name = Resources.SpecificFailurePath_Name_DefaultName;
 
             sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;

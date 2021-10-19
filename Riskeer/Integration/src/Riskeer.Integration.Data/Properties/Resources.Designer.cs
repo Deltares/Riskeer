@@ -209,6 +209,15 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuw faalpad.
+        /// </summary>
+        public static string SpecificFailurePath_Name_DefaultName {
+            get {
+                return ResourceManager.GetString("SpecificFailurePath_Name_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to STKWl.
         /// </summary>
         public static string StrengthStabilityLengthwiseConstructionFailureMechanism_Code {

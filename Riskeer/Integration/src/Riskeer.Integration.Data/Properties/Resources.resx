@@ -177,4 +177,7 @@
   <data name="AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_equal_to_old_FailureMechanism" xml:space="preserve">
     <value>De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.</value>
   </data>
+  <data name="SpecificFailurePath_Name_DefaultName" xml:space="preserve">
+    <value>Nieuw faalpad</value>
+  </data>
 </root>

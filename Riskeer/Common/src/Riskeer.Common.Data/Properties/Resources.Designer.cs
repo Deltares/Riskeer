@@ -800,15 +800,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifiek faalpad.
-        /// </summary>
-        public static string SpecificFailureMechanism_Name_DefaultName {
-            get {
-                return ResourceManager.GetString("SpecificFailureMechanism_Name_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string StandardDeviation_Should_be_greater_or_equal_zero {
