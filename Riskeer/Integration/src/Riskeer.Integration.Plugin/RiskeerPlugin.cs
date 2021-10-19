@@ -2162,7 +2162,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForFailurePathContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2175,9 +2175,9 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(SpecificFailurePathContext failureMechanismContext)
+        private void RemoveAllViewsForFailurePathContext(SpecificFailurePathContext failurePathContext)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(failurePathContext);
         }
 
         private ContextMenuStrip SpecificFailurePathDisabledContextMenuStrip(SpecificFailurePathContext nodeData,
@@ -2186,7 +2186,7 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForFailurePathContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2217,7 +2217,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2226,9 +2226,9 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(IFailurePathContext<IFailureMechanism> failurePathContext)
+        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailureMechanism> failureMechanismContext)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failurePathContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData,
@@ -2237,7 +2237,7 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
