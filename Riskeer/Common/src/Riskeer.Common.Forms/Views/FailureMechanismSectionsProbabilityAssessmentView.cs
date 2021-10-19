@@ -43,14 +43,14 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismSectionsProbabilityAssessmentView"/>.
         /// </summary>
         /// <param name="sections">The sections to be displayed in the view.</param>
-        /// <param name="failurePath">The failure mechanism the view belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
         /// <param name="probabilityAssessmentInput">The probability assessment input belonging to the
         /// failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
-                                                                 IFailureMechanism failurePath,
+                                                                 IFailureMechanism failureMechanism,
                                                                  ProbabilityAssessmentInput probabilityAssessmentInput)
-            : base(sections, failurePath)
+            : base(sections, failureMechanism)
         {
             if (probabilityAssessmentInput == null)
             {
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Views
 
             failureMechanismObserver = new Observer(HandleProbabilityAssessmentInputChange)
             {
-                Observable = failurePath
+                Observable = failureMechanism
             };
         }
 

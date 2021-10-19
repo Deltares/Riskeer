@@ -43,9 +43,9 @@ namespace Riskeer.Common.Plugin.TestUtil
             assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
             mocks.ReplayAll();
 
-            IFailurePath failureMechanism = GetFailurePath();
+            IFailurePath failurePath = GetFailurePath();
 
-            using (IView view = GetView(failureMechanism))
+            using (IView view = GetView(failurePath))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailurePath_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -185,9 +185,9 @@ namespace Riskeer.Common.Plugin.TestUtil
         protected abstract IView GetView(IFailurePath failurePath);
 
         /// <summary>
-        /// Gets a failure mechanism for testing purposes.
+        /// Gets a failure path for testing purposes.
         /// </summary>
-        /// <returns>An <see cref="IFailureMechanism"/>.</returns>
+        /// <returns>An <see cref="IFailurePath"/>.</returns>
         protected abstract IFailurePath GetFailurePath();
 
         private class TestFailurePathContext : IFailurePathContext<IFailurePath>

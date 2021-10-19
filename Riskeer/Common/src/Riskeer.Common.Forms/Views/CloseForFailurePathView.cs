@@ -23,12 +23,11 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// Base view which closes for an <see cref="IFailureMechanism"/> instance.
+    /// Base view which closes for an <see cref="IFailurePath"/> instance.
     /// </summary>
     public abstract class CloseForFailurePathView : UserControl, IView
     {

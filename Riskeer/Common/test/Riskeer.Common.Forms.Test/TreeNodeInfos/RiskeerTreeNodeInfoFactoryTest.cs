@@ -994,7 +994,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathmIsRelevant_ReturnResultFromConstructorMethod()
+        public void ContextMenuStrip_FailurePathIsRelevant_ReturnResultFromConstructorMethod()
         {
             // Setup
             using (var treeView = new TreeViewControl())

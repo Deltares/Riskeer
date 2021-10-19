@@ -1447,7 +1447,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
@@ -1470,7 +1470,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
 
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null, context => null);
@@ -1497,7 +1497,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1521,7 +1521,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1550,7 +1550,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, fmContext => counter++, context => null);
 
             // Call
@@ -1578,7 +1578,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
@@ -1603,7 +1603,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null, fm => null);
@@ -1630,7 +1630,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1657,7 +1657,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             const string errorMessage = "Additional check failed.";
 
@@ -1689,7 +1689,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             {
                 calculation
             });
-            var failureMechanismContext = new TestFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(
                 failureMechanismContext,
@@ -2092,9 +2092,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #region Nested types
 
-        private class TestFailurePathContext : FailureMechanismContext<IFailureMechanism>
+        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
         {
-            public TestFailurePathContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
                 base(wrappedFailureMechanism, parent) {}
         }
 

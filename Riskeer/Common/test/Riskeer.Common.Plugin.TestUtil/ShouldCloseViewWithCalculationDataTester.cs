@@ -108,12 +108,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView(failurePathContext.WrappedData.Calculations.First()))
+            using (IView view = GetView(failureMechanismContext.WrappedData.Calculations.First()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failurePathContext.WrappedData);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -124,12 +124,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failurePathContext.WrappedData);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext.WrappedData);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -140,12 +140,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
-            using (IView view = GetView(failurePathContext.WrappedData.Calculations.First()))
+            using (IView view = GetView(failureMechanismContext.WrappedData.Calculations.First()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failurePathContext);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -156,12 +156,12 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            IFailurePathContext<IFailureMechanism> failurePathContext = GetFailureMechanismContextWithCalculation();
+            IFailurePathContext<IFailureMechanism> failureMechanismContext = GetFailureMechanismContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failurePathContext);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

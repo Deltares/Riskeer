@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.TestUtil
 {
@@ -40,7 +39,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// </summary>
         public TestFailurePath()
         {
-            Name = Resources.SpecificFailureMechanism_Name_DefaultName;
+            Name = "Faalpad";
 
             sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;
