@@ -465,7 +465,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg faalpad toe.
+        ///   Looks up a localized string similar to Voeg een nieuw faalpad toe aan deze map..
         /// </summary>
         public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip {
             get {

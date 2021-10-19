@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(6, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCreateFailurePathIndex,
                                                                   "Faalpad toevoegen",
-                                                                  "Voeg faalpad toe",
+                                                                  "Voeg een nieuw faalpad toe aan deze map.",
                                                                   RiskeerCommonFormsResources.FailureMechanismIcon);
                 }
             }

@@ -320,6 +320,6 @@ Weet u zeker dat u wilt doorgaan?</value>
         <value>Faalpad toevoegen</value>
     </data>
     <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip" xml:space="preserve">
-        <value>Voeg faalpad toe</value>
+        <value>Voeg een nieuw faalpad toe aan deze map.</value>
     </data>
 </root>
