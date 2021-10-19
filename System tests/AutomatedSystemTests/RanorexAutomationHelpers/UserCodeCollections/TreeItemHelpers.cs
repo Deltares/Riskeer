@@ -28,7 +28,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
     [UserCodeCollection]
     public static class TreeItemHelpers
     {
-        public static void TraverseTreeItem(string pathItem, RepoItemInfo rootNodeInfo, Action<TreeItem> actionsOnFinalChild)
+        public static TreeItem FindNodeInTree(string pathItem, RepoItemInfo rootNodeInfo, Action<TreeItem> actionsOnFinalChild)
         {
             Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
@@ -50,7 +50,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                         Report.Info("Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
                         stepChild = childrenWithStepInName.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
                     } else {
-                        Report.Error("Error", "No occurrences of '" + step + "' found.");
+                        throw new Ranorex.RanorexException("Error", "No occurrences of '" + step + "' found.");
                     }
                 if (i != stepsPathItem.Count - 1)
                     {
@@ -59,11 +59,9 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                     } else {
                         // child is last one in path
                         actionsOnFinalChild(stepChild);
-                        stepChild.Focus();
-                        stepChild.ClickWithoutBoundsCheck(new Location(-0.02, 0.5));
                     }
                 }
-            return;
+            return stepChild;
         }
         
         private static string NameOfTreeItem(object treeItemInfo)

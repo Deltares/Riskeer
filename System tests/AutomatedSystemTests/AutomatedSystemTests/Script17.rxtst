@@ -866,16 +866,16 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="structureCalculations"
-					datasourceid="50cf8e9f-b56f-40b1-8079-bf13405193e8"
-					variableid="7b7c74c0-9847-4740-b48b-2ca96ae3f3df"
-					variablename="structureNode">
-					</var>
-					<var
 					dataname="pathToCalculationsInPE"
 					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="08426158-665a-4b60-bf86-6b1f45d00494"
 					variablename="pathToNodeInProjectExplorer">
+					</var>
+					<var
+					dataname="structureCalculations"
+					datasourceid="50cf8e9f-b56f-40b1-8079-bf13405193e8"
+					variableid="7b7c74c0-9847-4740-b48b-2ca96ae3f3df"
+					variablename="structureNode">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1878,6 +1878,10 @@
 			id="cc4a6605-c680-45cf-b496-ff1d3ef259e2"
 			name="TakeScreenshotProjectExplorer">
 			</smartfoldernode>
+			<smartfoldernode
+			id="cd35a3bb-e4e6-47eb-a552-97ce9a3e691a"
+			name="CloseTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="cfeace72-1e95-423a-bacb-b27a20e682dd"
 			name="SelectGenericItemInProjectExplorer"
@@ -2360,10 +2364,6 @@
 									id="4fd01aa6-b00e-46b6-8031-77c51f844348"
 									name="NewProjectUsingKeyboard">
 									</testmodule>
-									<testmodule
-									id="8e11984a-356b-4731-bf3a-641bef0de1a7"
-									name="CloseViewCentralPanelWithFocus">
-									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
@@ -2592,6 +2592,14 @@
 										name="ValidateStringsAreEqual">
 										</testmodule>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="cd35a3bb-e4e6-47eb-a552-97ce9a3e691a"
+								name="CloseTrajectView">
+									<testmodule
+									id="8e11984a-356b-4731-bf3a-641bef0de1a7"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="c88ea21d-67ab-4e3e-88ba-67cdf06e30f0"
@@ -3113,34 +3121,34 @@
 						12-2
 					</td>
 					<td>
-						Traject 12-2&gt;Hydraulische belastingen
+						12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						Traject 12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
+						12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
+						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
+						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Stochastische ondergrondmodellen
-					</td>
-					<td>
-					</td>
-					<td>
+						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Stochastische ondergrondmodellen
 					</td>
 					<td>
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+						12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -3181,33 +3189,33 @@
 						12-2
 					</td>
 					<td>
-						Traject 12-2&gt;Hydraulische belastingen
+						12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
-						Traject 12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
+						12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
-					</td>
-					<td>
-					</td>
-					<td>
-					</td>
-					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
 					<td>
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Dijkprofielen
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Scenario's
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -5533,25 +5541,10 @@
 			id="0ff38502-998e-4270-b2c3-4e2ae08be8a0">
 			</testcontainer>
 			<testcontainer
-			id="14834fd2-79d9-4254-a146-883864b02cfe">
-			</testcontainer>
-			<testcontainer
 			id="1987343c-9fd7-4fe7-88e0-45cbd939390d">
 			</testcontainer>
 			<testcontainer
 			id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c">
-			</testcontainer>
-			<testcontainer
-			id="1be1b29d-4d03-49dc-9f3c-ff58d6fffd44">
-			</testcontainer>
-			<testcontainer
-			id="1c3a1372-3a8c-416d-bfed-95b1fb6a9ae0">
-			</testcontainer>
-			<testcontainer
-			id="1c75df49-5c64-4837-9005-47afa99cfa24">
-			</testcontainer>
-			<testcontainer
-			id="2ebb5876-223a-4ae8-8e64-b42aef840022">
 			</testcontainer>
 			<testcontainer
 			id="2f10f449-a013-4efc-ab20-99842f02f692">
@@ -5587,19 +5580,10 @@
 			id="6a6e0a8e-b132-42c2-b615-fb08e641137b">
 			</testcontainer>
 			<testcontainer
-			id="6b1218dd-1e70-43c3-ba63-e0b8e7d91152">
-			</testcontainer>
-			<testcontainer
-			id="6b8a22a9-4998-4606-8238-e566adb233e1">
-			</testcontainer>
-			<testcontainer
 			id="6c650f12-0845-4974-a64c-eefecbf4e436">
 			</testcontainer>
 			<testcontainer
 			id="6eed2533-4695-4438-8f77-1fa8a8464de3">
-			</testcontainer>
-			<testcontainer
-			id="7121171b-18ae-48f6-9220-0e02623c1fbd">
 			</testcontainer>
 			<testcontainer
 			id="7156da21-70a3-4cbd-8df8-d5d65b76a4b4">
@@ -5623,9 +5607,6 @@
 			id="845a0f1b-0238-48b0-9af2-c881f2f42ca8">
 			</testcontainer>
 			<testcontainer
-			id="84d5a5a2-8cf6-4fd5-a5e2-77aaf7547e49">
-			</testcontainer>
-			<testcontainer
 			id="864c4e83-d9b0-4363-8436-5a2f6497aeeb">
 			</testcontainer>
 			<testcontainer
@@ -5638,28 +5619,16 @@
 			id="8d46d70c-c986-4909-9aba-61db9be45220">
 			</testcontainer>
 			<testcontainer
-			id="8e5b0822-11bf-4b45-acb2-86f38b330e43">
-			</testcontainer>
-			<testcontainer
-			id="8ee9bbeb-c36c-4b26-b46e-e6f445965a48">
-			</testcontainer>
-			<testcontainer
 			id="9645d6ca-5cbd-4dca-b1c1-da81be3ff7e3">
+			</testcontainer>
+			<testcontainer
+			id="9b312e6a-119e-4785-afd9-f99fb449b3aa">
 			</testcontainer>
 			<testcontainer
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49">
 			</testcontainer>
 			<testcontainer
 			id="a0ba5a3c-6bba-4099-a550-c2aa3955d0c4">
-			</testcontainer>
-			<testcontainer
-			id="a560f7e3-2f09-4aa4-a961-64a558e6cc31">
-			</testcontainer>
-			<testcontainer
-			id="acd8f11f-6a15-4223-9284-1a038c1c87b7">
-			</testcontainer>
-			<testcontainer
-			id="b309fa09-fa57-4d3b-9c62-45622c4c1e5c">
 			</testcontainer>
 			<testcontainer
 			id="b9c93e9f-855a-4859-8928-2bf1e678b15c">
@@ -5674,10 +5643,10 @@
 			id="c88ea21d-67ab-4e3e-88ba-67cdf06e30f0">
 			</testcontainer>
 			<testcontainer
-			id="c904bb15-1f69-4aae-8179-1a2c3b9339a0">
+			id="cc4a6605-c680-45cf-b496-ff1d3ef259e2">
 			</testcontainer>
 			<testcontainer
-			id="cc4a6605-c680-45cf-b496-ff1d3ef259e2">
+			id="cd35a3bb-e4e6-47eb-a552-97ce9a3e691a">
 			</testcontainer>
 			<testcontainer
 			id="d04c0aa8-0c1d-4a26-b91a-8cbaedd42d86">
@@ -5686,16 +5655,7 @@
 			id="d30b352a-b935-4395-8791-be5767a7af0f">
 			</testcontainer>
 			<testcontainer
-			id="d6439a16-2732-42ec-a27c-49fae1b44c06">
-			</testcontainer>
-			<testcontainer
 			id="d84c0e66-f047-4d50-99b3-47d4747714de">
-			</testcontainer>
-			<testcontainer
-			id="e4124c09-01bd-4d6a-af80-0d3ef37748c5">
-			</testcontainer>
-			<testcontainer
-			id="e5277473-8072-4fa7-8c16-6051dd1ed148">
 			</testcontainer>
 			<testcontainer
 			id="e571b465-9c86-41c1-b10e-750d94bd5b66">

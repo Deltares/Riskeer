@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -40,35 +41,11 @@ namespace AutomatedSystemTests.Modules.Selection
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
-            var stepsPathItem = pathItem.Split('>').ToList();
-            IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
-            var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
-
-        	for (int i=0; i < stepsPathItem.Count; i++) {
-        			// Find the item corresponding to the step
-        			var step = stepsPathItem[i];
-        			var childrenWithStepInName = children.Where(ch => ch.ToString().Contains(step));
-        			int amountChildrenWithStepInName = childrenWithStepInName.Count();
-        			if (amountChildrenWithStepInName==1)
-        				{
-        			    stepChild = childrenWithStepInName.FirstOrDefault().As<TreeItem>();
-        			} else if (amountChildrenWithStepInName>1){
-        				Report.Info("Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
-        				stepChild = childrenWithStepInName.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
-        			} else {
-        			    Report.Error("Error", "No occurrences of '" + step + "' found.");
-        			}
-        			if (i != stepsPathItem.Count - 1)
-        				{
-        				// Update the children
-        				children = stepChild.Children;
-        				} else {
-        			    // child is last one in path
-        			    stepChild.Focus();
-        			    stepChild.ClickWithoutBoundsCheck(new Location(-0.02, 0.5));
-        			    }
-        			}
-        	return;
+            Action<TreeItem> actions = (it=> (it as Adapter).Focus());
+            actions += (it=>it.ClickWithoutBoundsCheck(new Location(-0.02, 0.5)));
+            
+            TreeItemHelpers.FindNodeInTree(pathItem, rootNodeInfo, actions);
+            return;
         }
         
         private string NameOfTreeItem(object treeItemInfo)

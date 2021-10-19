@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -69,7 +70,8 @@ namespace AutomatedSystemTests.Modules.Calculation
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             
             RepoItemInfo rootNodeProject = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo;
-            TreeItem nodeTreeItem = GetNodeInProjectExplorerGivenPath(pathToNodeInProjectExplorer, rootNodeProject);
+            //TreeItem nodeTreeItem = GetNodeInProjectExplorerGivenPath(pathToNodeInProjectExplorer, rootNodeProject);
+            TreeItem nodeTreeItem = TreeItemHelpers.FindNodeInTree(pathToNodeInProjectExplorer, rootNodeProject, (ti)=>{});
             structureNode = GetStructureTreeItem(nodeTreeItem);
         }
         
