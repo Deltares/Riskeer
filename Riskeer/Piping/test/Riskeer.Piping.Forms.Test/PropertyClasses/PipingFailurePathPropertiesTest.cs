@@ -59,9 +59,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -69,9 +67,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
+            var random = new Random(21);
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = random.NextBoolean()
             };
 
             // Call
@@ -83,7 +82,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(isRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
 
             PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
@@ -152,7 +151,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                             true);
 
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
@@ -232,9 +231,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                             true);
-            
+
             mocks.VerifyAll();
         }
 
@@ -326,7 +325,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-            
+
             mocks.VerifyAll();
         }
     }

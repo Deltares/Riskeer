@@ -353,7 +353,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "I&s relevant",
-                                                              "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                              "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                               checkboxIcon);
             }
 

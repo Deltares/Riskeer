@@ -40,7 +40,7 @@ namespace Riskeer.Common.Plugin.TestUtil
     /// Test fixture for verifying the IsRelevant behaviour of a TreeNodeInfo.
     /// </summary>
     /// <typeparam name="TPlugin">The type of plugin to create the tests for.</typeparam>
-    /// <typeparam name="TFailurePath">The type of <see cref="FailurePath"/> to create the tests for.</typeparam>
+    /// <typeparam name="TFailurePath">The type of <see cref="IFailurePath"/> to create the tests for.</typeparam>
     /// <typeparam name="TFailurePathContext">The type of <see cref="IFailurePathContext{T}"/> to create the tests for.</typeparam>
     [TestFixture]
     public abstract class FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<TPlugin, TFailurePath, TFailurePathContext>
@@ -174,7 +174,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                       "I&s relevant",
-                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
                     }
                 }
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
                                                                       "I&s relevant",
-                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
                     }
                 }

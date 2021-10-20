@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -71,9 +72,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ExpectedValues(bool isRelevant)
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(39);
@@ -81,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = random.NextBoolean()
             };
 
             var mocks = new MockRepository();
@@ -164,7 +163,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                             true);
             mocks.VerifyAll();
         }
@@ -216,7 +215,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                             true);
             mocks.VerifyAll();
         }

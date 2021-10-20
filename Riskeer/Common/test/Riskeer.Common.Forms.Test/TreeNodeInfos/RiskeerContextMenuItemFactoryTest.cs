@@ -460,7 +460,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("I&s relevant", toolStripItem.Text);
-            Assert.AreEqual("Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Geeft aan of dit faalpad wordt opgenomen in de assemblage.", toolStripItem.ToolTipText);
             Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);

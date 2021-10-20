@@ -118,7 +118,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                             true);
 
             PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
@@ -183,7 +183,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage of niet.",
+                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
                                                                             true);
         }
 
