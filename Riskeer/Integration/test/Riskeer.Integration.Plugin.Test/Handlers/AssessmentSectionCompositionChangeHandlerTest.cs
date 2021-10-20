@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             // Setup
             var mocks = new MockRepository();
-            var viewCommands = mocks.Stub<IViewCommands>();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.IsRelevant)))
                         .Repeat.Times(expectedNumberOfCalls);
             mocks.ReplayAll();
