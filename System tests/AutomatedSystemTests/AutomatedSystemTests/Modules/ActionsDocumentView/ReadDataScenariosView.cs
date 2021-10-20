@@ -100,7 +100,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 
                 currentCell = row.Cells[indexContribution];
                 currentCell.Select();
-                calcInfo.Contribution = Double.Parse(GetAV(currentCell).ToInvariantCulture());
+                calcInfo.Contribution = Double.Parse(GetAV(currentCell));
                 
                 currentCell = row.Cells[indexName];
                 currentCell.Select();

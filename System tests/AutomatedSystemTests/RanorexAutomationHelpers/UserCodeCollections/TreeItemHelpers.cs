@@ -50,7 +50,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                         Report.Info("Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
                         stepChild = childrenWithStepInName.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
                     } else {
-                        throw new Ranorex.RanorexException("Error", "No occurrences of '" + step + "' found.");
+                        throw new Ranorex.RanorexException("No occurrences of '" + step + "' found.");
                     }
                 if (i != stepsPathItem.Count - 1)
                     {

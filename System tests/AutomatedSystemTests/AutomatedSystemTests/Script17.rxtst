@@ -2,6 +2,16 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<smartfoldernode
+			id="01914755-74e5-4730-b5ee-3e28a289ffe6"
+			name="SelectStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="StateToSelect"
+					value="Faalpaden">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<setup
 			id="03a43533-6dda-4b10-84b8-06b15d5ef284"
 			name="setup">
@@ -145,19 +155,23 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c"
-			name="SetStateCalculations">
-				<parameters>
-					<param
-					name="StateCalculations"
-					value="Sterkte-">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			id="1be1b29d-4d03-49dc-9f3c-ff58d6fffd44"
 			name="ValidateDataInResultsViewLoopSections">
 			</smartfoldernode>
+			<testmodule
+			id="1bea42c1-a37c-46c7-bb60-21d5fa2d5062"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateToSelect"
+					datasourceid="1ff34405-1dab-414f-8332-d7c8cfaac1e0"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="1c3a1372-3a8c-416d-bfed-95b1fb6a9ae0"
 			name="ModifyContribution">
@@ -208,10 +222,40 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="1ff34405-1dab-414f-8332-d7c8cfaac1e0"
+			name="SelectStateStrengthCalculations">
+				<parameters>
+					<param
+					name="StateToSelect"
+					value="Sterkte">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<teardown
 			id="21609781-85bd-40d3-a07d-8295044c97a4"
 			name="teardown">
 			</teardown>
+			<testmodule
+			id="28331de0-1780-4f7c-8035-0771c68f0811"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateToSelect"
+					datasourceid="40f0e7da-8e25-416a-bb72-2172bbbe94d2"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="2a16ca1d-a897-4ab4-a33e-884726b1de02"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="2a893bc4-f0b5-4b28-82bf-750e184b0c32"
 			name="SelectItemFromDynamicDropDownMenuInPropertiesPanelRow"
@@ -455,6 +499,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="3d0aabac-3039-4122-8b76-aefa60dcaf63"
+			name="OpenTrajectView">
+			</smartfoldernode>
 			<testmodule
 			id="3f6b2ca8-8a0b-46d7-b828-05890354b451"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -464,6 +512,16 @@
 			<smartfoldernode
 			id="3fd632c9-adec-4bdc-9845-6ae59a53be7b"
 			name="OpenCalculationsView">
+			</smartfoldernode>
+			<smartfoldernode
+			id="40f0e7da-8e25-416a-bb72-2172bbbe94d2"
+			name="SelectStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="StateToSelect"
+					value="Faalpaden">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="40f3bca3-9b0b-4e26-80ce-46abb0d677d4"
@@ -1395,11 +1453,12 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script17_a_FormCalculationsAndScenarios"
 			errorbehavior="ContinueNextIteration"
 			id="8d46d70c-c986-4909-9aba-61db9be45220"
-			maxrange="2"
-			minrange="2"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -1523,20 +1582,6 @@
 					datasourceid="1c3a1372-3a8c-416d-bfed-95b1fb6a9ae0"
 					variableid="61018541-00b3-43aa-8932-ccff5ec68f08"
 					variablename="expectedContribution">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="924916ac-85d6-45b8-b818-a4385940fe2b"
-			name="SelectState"
-			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="StateCalculations"
-					datasourceid="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1920,11 +1965,11 @@
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
 			type="Recording">
 				<description>
-					<![CDATA[Move selection to item close below last calculation sothat all calculation are visible in screenshot of project explorer.]]>
+					<![CDATA[Move selection to item below last calculation so that all calculation are visible in screenshot of project explorer.]]>
 				</description>
 				<databinding>
 					<var
-					dataname="pathToResultsInPE"
+					dataname="pathToShowAllNodesInFM"
 					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
@@ -1935,10 +1980,20 @@
 			id="d30b352a-b935-4395-8791-be5767a7af0f"
 			name="AddExtraCalculation">
 			</smartfoldernode>
-			<smartfoldernode
-			id="d6439a16-2732-42ec-a27c-49fae1b44c06"
-			name="SelectSectionWithGeneratedCaculations">
-			</smartfoldernode>
+			<testmodule
+			id="d45f51bc-e08e-443e-b6a3-8af29dcaf790"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateToSelect"
+					datasourceid="01914755-74e5-4730-b5ee-3e28a289ffe6"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="d70792a6-3a58-4b30-a98e-81b3bfa64d39"
 			name="SelectGenericItemInProjectExplorer"
@@ -2023,6 +2078,23 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="d97ecaac-ffe9-4520-9d3f-67cf4ab54593"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<description>
+					<![CDATA[Open view at traject level to create screenshot]]>
+				</description>
+				<databinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="e4124c09-01bd-4d6a-af80-0d3ef37748c5"
 			name="ValidateNewValue">
@@ -2034,6 +2106,10 @@
 			<smartfoldernode
 			id="e571b465-9c86-41c1-b10e-750d94bd5b66"
 			name="CloseCalculationsView">
+			</smartfoldernode>
+			<smartfoldernode
+			id="e8540e33-2668-41e0-b298-4945265af223"
+			name="Import">
 			</smartfoldernode>
 			<smartfoldernode
 			id="e96afb0e-9683-4a98-93d5-c3463bfd76a4"
@@ -2075,20 +2151,6 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
-			id="ed48d821-e67f-4890-b547-6def9efe4b62"
-			name="SelectGenericSectionInListCalculationsView"
-			ref="815c10de-7eb0-4306-b5f0-403e140be625"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="indexSection"
-					datasourceid="678f5fae-ec64-4031-b8d3-355418ae2c6e"
-					variableid="b1c29580-7a2f-407e-b875-ee536111ae7b"
-					variablename="indexSection">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="edffbb1d-37be-4e4b-9969-ce85e92dfa11"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
 			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
@@ -2113,6 +2175,12 @@
 					variablename="typeParameter">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="ee07d08d-7263-461a-80dc-37bcafcf792b"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="ef1f310c-e7fb-49f1-ba0a-b375971cd55e"
@@ -2159,6 +2227,10 @@
 					<param
 					name="underscoreCharacter"
 					value="_">
+					</param>
+					<param
+					name="pathSeparatorCharacter"
+					value=">">
 					</param>
 				</parameters>
 			</testcase>
@@ -2364,6 +2436,10 @@
 									id="4fd01aa6-b00e-46b6-8031-77c51f844348"
 									name="NewProjectUsingKeyboard">
 									</testmodule>
+									<testmodule
+									id="ee07d08d-7263-461a-80dc-37bcafcf792b"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
@@ -2422,31 +2498,43 @@
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
-								id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c"
-								name="SetStateCalculations">
-									<testmodule
-									id="924916ac-85d6-45b8-b818-a4385940fe2b"
-									name="SelectState">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
 								id="845a0f1b-0238-48b0-9af2-c881f2f42ca8"
 								name="InputFM">
 									<smartfoldernode
 									id="d04c0aa8-0c1d-4a26-b91a-8cbaedd42d86"
 									name="ImportSectionsDivisions(Vakindeling)">
-										<testmodule
-										id="98372e8d-11ca-4614-a770-82eb39226ae4"
-										name="SelectGenericItemInProjectExplorer">
-										</testmodule>
-										<testmodule
-										id="543182ed-703d-4d63-a353-7d05513c855b"
-										name="ImportSections">
-										</testmodule>
+										<smartfoldernode
+										id="01914755-74e5-4730-b5ee-3e28a289ffe6"
+										name="SelectStateFailurePathsAssembly">
+											<testmodule
+											id="d45f51bc-e08e-443e-b6a3-8af29dcaf790"
+											name="SelectState">
+											</testmodule>
+										</smartfoldernode>
+										<smartfoldernode
+										id="e8540e33-2668-41e0-b298-4945265af223"
+										name="Import">
+											<testmodule
+											id="98372e8d-11ca-4614-a770-82eb39226ae4"
+											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="543182ed-703d-4d63-a353-7d05513c855b"
+											name="ImportSections">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
 									id="f7d45b39-9d70-40c6-8be0-1b81c6c6c413"
 									name="ImportSchematizations">
+										<smartfoldernode
+										id="1ff34405-1dab-414f-8332-d7c8cfaac1e0"
+										name="SelectStateStrengthCalculations">
+											<testmodule
+											id="1bea42c1-a37c-46c7-bb60-21d5fa2d5062"
+											name="SelectState">
+											</testmodule>
+										</smartfoldernode>
 										<smartfoldernode
 										id="2f10f449-a013-4efc-ab20-99842f02f692"
 										name="ImportSurfaceLines">
@@ -2565,6 +2653,18 @@
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
+									id="3d0aabac-3039-4122-8b76-aefa60dcaf63"
+									name="OpenTrajectView">
+										<testmodule
+										id="d97ecaac-ffe9-4520-9d3f-67cf4ab54593"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="2a16ca1d-a897-4ab4-a33e-884726b1de02"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="cc4a6605-c680-45cf-b496-ff1d3ef259e2"
 									name="TakeScreenshotProjectExplorer">
 										<testmodule
@@ -2623,14 +2723,6 @@
 									<smartfoldernode
 									id="34dc811d-14ee-4799-a19b-9e0d1871ffd0"
 									name="ConfigurationCalculationsLoopSections">
-										<smartfoldernode
-										id="d6439a16-2732-42ec-a27c-49fae1b44c06"
-										name="SelectSectionWithGeneratedCaculations">
-											<testmodule
-											id="ed48d821-e67f-4890-b547-6def9efe4b62"
-											name="SelectGenericSectionInListCalculationsView">
-											</testmodule>
-										</smartfoldernode>
 										<smartfoldernode
 										id="32f58135-5939-4c24-bff0-83d8569efeb1"
 										name="FinishConfigurationCalculations">
@@ -2802,6 +2894,14 @@
 							id="2ebb5876-223a-4ae8-8e64-b42aef840022"
 							name="b)ContributionOfCalculationsToAssessmentResultsSection">
 								<smartfoldernode
+								id="40f0e7da-8e25-416a-bb72-2172bbbe94d2"
+								name="SelectStateFailurePathsAssembly">
+									<testmodule
+									id="28331de0-1780-4f7c-8035-0771c68f0811"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="acd8f11f-6a15-4223-9284-1a038c1c87b7"
 								name="ScenariosView">
 									<smartfoldernode
@@ -2970,10 +3070,16 @@
 					trajectID
 				</column>
 				<column>
+					fullNameFM
+				</column>
+				<column>
 					pathToHBCInPE
 				</column>
 				<column>
 					pathToHBCPreviousItemInPE
+				</column>
+				<column>
+					pathToFM
 				</column>
 				<column>
 					pathToSectionsInPE
@@ -3001,6 +3107,9 @@
 				</column>
 				<column>
 					pathToResultsInPE
+				</column>
+				<column>
+					pathToShowAllNodesInFM
 				</column>
 				<column>
 					pathToHBCFile
@@ -3047,10 +3156,16 @@
 						trajectID
 					</th>
 					<th>
+						fullNameFM
+					</th>
+					<th>
 						pathToHBCInPE
 					</th>
 					<th>
 						pathToHBCPreviousItemInPE
+					</th>
+					<th>
+						pathToFM
 					</th>
 					<th>
 						pathToSectionsInPE
@@ -3078,6 +3193,9 @@
 					</th>
 					<th>
 						pathToResultsInPE
+					</th>
+					<th>
+						pathToShowAllNodesInFM
 					</th>
 					<th>
 						pathToHBCFile
@@ -3121,13 +3239,19 @@
 						12-2
 					</td>
 					<td>
+						Dijken en dammen - Piping
+					</td>
+					<td>
 						12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
 						12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
+						12-2&gt;Dijken en dammen - Piping
+					</td>
+					<td>
+						12-2&gt;Generieke faalpaden&gt;Dijken en dammen - Piping&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
@@ -3145,10 +3269,13 @@
 						12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
+						12-2&gt;Generieke faalpaden&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+						12-2&gt;Generieke faalpaden&gt;Dijken en dammen - Piping&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -3189,13 +3316,19 @@
 						12-2
 					</td>
 					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
 						12-2&gt;Hydraulische belastingen
 					</td>
 					<td>
 						12-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
+						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						12-2&gt;Generieke faalpaden&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3212,10 +3345,13 @@
 						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Scenario's
+						12-2&gt;Generieke faalpaden&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						12-2&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
+						12-2&gt;Generieke faalpaden&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						12-2&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\WBI2017_IJsselmeer_12-2_v02.sqlite
@@ -3255,13 +3391,19 @@
 						41-1
 					</td>
 					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
 						41-1&gt;Hydraulische belastingen
 					</td>
 					<td>
 						41-1&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Vakindeling
+						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						41-1&gt;Generieke faalpaden&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Profielschematisaties
@@ -3279,10 +3421,13 @@
 						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
 					</td>
 					<td>
-						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Oordeel&gt;Scenario's
+						41-1&gt;Generieke faalpaden&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Oordeel&gt;Resultaat
+						41-1&gt;Generieke faalpaden&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						41-1&gt;Kunstwerken - Hoogte kunstwerk
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Bovenrijn_41-1_v04\WBI2017_Bovenrijn_41-1_v04.sqlite
@@ -3323,13 +3468,19 @@
 						36-2
 					</td>
 					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
 						36-2&gt;Hydraulische belastingen
 					</td>
 					<td>
 						36-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Vakindeling
+						36-2&gt;Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						36-2&gt;Generieke faalpaden&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3347,10 +3498,13 @@
 						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Scenario's
+						36-2&gt;Generieke faalpaden&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Resultaat
+						36-2&gt;Generieke faalpaden&gt;Kunstwerken - Hoogte kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						36-2&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Bovenmaas_36-2_v03\WBI2017_Bovenmaas_36-2_v03.sqlite
@@ -3391,13 +3545,19 @@
 						34-1
 					</td>
 					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
 						34-1&gt;Hydraulische belastingen
 					</td>
 					<td>
 						34-1&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
+						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						34-1&gt;Generieke faalpaden&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3415,10 +3575,13 @@
 						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Scenario's
+						34-1&gt;Generieke faalpaden&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
+						34-1&gt;Generieke faalpaden&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						34-1&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Benedenrijn_34-1_v04\WBI2017_Benedenrijn_34-1_v04.sqlite
@@ -3459,13 +3622,19 @@
 						44-2
 					</td>
 					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
 						44-2&gt;Hydraulische belastingen
 					</td>
 					<td>
 						44-2&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;
 					</td>
 					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Vakindeling
+						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						44-2&gt;Generieke faalpaden&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Vakindeling
 					</td>
 					<td>
 					</td>
@@ -3483,10 +3652,13 @@
 						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Scenario's
+						44-2&gt;Generieke faalpaden&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Scenario's
 					</td>
 					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Resultaat
+						44-2&gt;Generieke faalpaden&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Oordeel&gt;Resultaat
+					</td>
+					<td>
+						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Markermeer_13-9_13a-1_44-2_v02\WBI2017_Markermeer_13-9_13a-1_44-2_v02.sqlite
@@ -3708,7 +3880,7 @@
 						profiel002
 					</td>
 					<td>
-						0
+						1
 					</td>
 					<td>
 						5
@@ -3737,7 +3909,7 @@
 						profiel003
 					</td>
 					<td>
-						0
+						2
 					</td>
 					<td>
 						5
@@ -3766,7 +3938,7 @@
 						profiel004
 					</td>
 					<td>
-						0
+						3
 					</td>
 					<td>
 						5
@@ -3795,7 +3967,7 @@
 						profiel005
 					</td>
 					<td>
-						0
+						4
 					</td>
 					<td>
 						5
@@ -4085,7 +4257,7 @@
 						'Gemaal van Sasse'
 					</td>
 					<td>
-						0
+						1
 					</td>
 					<td>
 						22-23
@@ -4143,7 +4315,7 @@
 						'Gemaal Schuddebeurs'
 					</td>
 					<td>
-						0
+						1
 					</td>
 					<td>
 						26-27
@@ -4172,7 +4344,7 @@
 						'Gemaal Hollandsch Diep'
 					</td>
 					<td>
-						0
+						2
 					</td>
 					<td>
 						28
@@ -4230,7 +4402,7 @@
 						Kunstwerk2
 					</td>
 					<td>
-						0
+						1
 					</td>
 					<td>
 						31-32
@@ -4259,7 +4431,7 @@
 						Kunstwerk3
 					</td>
 					<td>
-						0
+						2
 					</td>
 					<td>
 						33-35
@@ -4288,7 +4460,7 @@
 						Kunstwerk4
 					</td>
 					<td>
-						0
+						3
 					</td>
 					<td>
 						36-38
@@ -5535,16 +5707,34 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="01914755-74e5-4730-b5ee-3e28a289ffe6">
+			</testcontainer>
+			<testcontainer
 			id="0ac0224b-bea2-4d2b-878c-c38922c18da9">
 			</testcontainer>
 			<testcontainer
 			id="0ff38502-998e-4270-b2c3-4e2ae08be8a0">
 			</testcontainer>
 			<testcontainer
+			id="14834fd2-79d9-4254-a146-883864b02cfe">
+			</testcontainer>
+			<testcontainer
 			id="1987343c-9fd7-4fe7-88e0-45cbd939390d">
 			</testcontainer>
 			<testcontainer
-			id="1b76d37a-d7c0-4c4c-8dbd-0990a0a0b28c">
+			id="1be1b29d-4d03-49dc-9f3c-ff58d6fffd44">
+			</testcontainer>
+			<testcontainer
+			id="1c3a1372-3a8c-416d-bfed-95b1fb6a9ae0">
+			</testcontainer>
+			<testcontainer
+			id="1c75df49-5c64-4837-9005-47afa99cfa24">
+			</testcontainer>
+			<testcontainer
+			id="1ff34405-1dab-414f-8332-d7c8cfaac1e0">
+			</testcontainer>
+			<testcontainer
+			id="2ebb5876-223a-4ae8-8e64-b42aef840022">
 			</testcontainer>
 			<testcontainer
 			id="2f10f449-a013-4efc-ab20-99842f02f692">
@@ -5565,7 +5755,13 @@
 			id="398f9338-4d73-4232-9acf-e82fe64fd284">
 			</testcontainer>
 			<testcontainer
+			id="3d0aabac-3039-4122-8b76-aefa60dcaf63">
+			</testcontainer>
+			<testcontainer
 			id="3fd632c9-adec-4bdc-9845-6ae59a53be7b">
+			</testcontainer>
+			<testcontainer
+			id="40f0e7da-8e25-416a-bb72-2172bbbe94d2">
 			</testcontainer>
 			<testcontainer
 			id="4fa2b28e-aba1-4aca-b739-50798004ed71">
@@ -5580,10 +5776,19 @@
 			id="6a6e0a8e-b132-42c2-b615-fb08e641137b">
 			</testcontainer>
 			<testcontainer
+			id="6b1218dd-1e70-43c3-ba63-e0b8e7d91152">
+			</testcontainer>
+			<testcontainer
+			id="6b8a22a9-4998-4606-8238-e566adb233e1">
+			</testcontainer>
+			<testcontainer
 			id="6c650f12-0845-4974-a64c-eefecbf4e436">
 			</testcontainer>
 			<testcontainer
 			id="6eed2533-4695-4438-8f77-1fa8a8464de3">
+			</testcontainer>
+			<testcontainer
+			id="7121171b-18ae-48f6-9220-0e02623c1fbd">
 			</testcontainer>
 			<testcontainer
 			id="7156da21-70a3-4cbd-8df8-d5d65b76a4b4">
@@ -5607,6 +5812,9 @@
 			id="845a0f1b-0238-48b0-9af2-c881f2f42ca8">
 			</testcontainer>
 			<testcontainer
+			id="84d5a5a2-8cf6-4fd5-a5e2-77aaf7547e49">
+			</testcontainer>
+			<testcontainer
 			id="864c4e83-d9b0-4363-8436-5a2f6497aeeb">
 			</testcontainer>
 			<testcontainer
@@ -5617,6 +5825,12 @@
 			</testcontainer>
 			<testcontainer
 			id="8d46d70c-c986-4909-9aba-61db9be45220">
+			</testcontainer>
+			<testcontainer
+			id="8e5b0822-11bf-4b45-acb2-86f38b330e43">
+			</testcontainer>
+			<testcontainer
+			id="8ee9bbeb-c36c-4b26-b46e-e6f445965a48">
 			</testcontainer>
 			<testcontainer
 			id="9645d6ca-5cbd-4dca-b1c1-da81be3ff7e3">
@@ -5631,6 +5845,15 @@
 			id="a0ba5a3c-6bba-4099-a550-c2aa3955d0c4">
 			</testcontainer>
 			<testcontainer
+			id="a560f7e3-2f09-4aa4-a961-64a558e6cc31">
+			</testcontainer>
+			<testcontainer
+			id="acd8f11f-6a15-4223-9284-1a038c1c87b7">
+			</testcontainer>
+			<testcontainer
+			id="b309fa09-fa57-4d3b-9c62-45622c4c1e5c">
+			</testcontainer>
+			<testcontainer
 			id="b9c93e9f-855a-4859-8928-2bf1e678b15c">
 			</testcontainer>
 			<testcontainer
@@ -5641,6 +5864,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c88ea21d-67ab-4e3e-88ba-67cdf06e30f0">
+			</testcontainer>
+			<testcontainer
+			id="c904bb15-1f69-4aae-8179-1a2c3b9339a0">
 			</testcontainer>
 			<testcontainer
 			id="cc4a6605-c680-45cf-b496-ff1d3ef259e2">
@@ -5658,7 +5884,16 @@
 			id="d84c0e66-f047-4d50-99b3-47d4747714de">
 			</testcontainer>
 			<testcontainer
+			id="e4124c09-01bd-4d6a-af80-0d3ef37748c5">
+			</testcontainer>
+			<testcontainer
+			id="e5277473-8072-4fa7-8c16-6051dd1ed148">
+			</testcontainer>
+			<testcontainer
 			id="e571b465-9c86-41c1-b10e-750d94bd5b66">
+			</testcontainer>
+			<testcontainer
+			id="e8540e33-2668-41e0-b298-4945265af223">
 			</testcontainer>
 			<testcontainer
 			id="e96afb0e-9683-4a98-93d5-c3463bfd76a4">
