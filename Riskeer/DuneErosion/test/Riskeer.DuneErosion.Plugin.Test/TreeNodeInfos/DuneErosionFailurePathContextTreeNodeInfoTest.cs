@@ -116,7 +116,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_WithFailureMechanismRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismRelevant_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();

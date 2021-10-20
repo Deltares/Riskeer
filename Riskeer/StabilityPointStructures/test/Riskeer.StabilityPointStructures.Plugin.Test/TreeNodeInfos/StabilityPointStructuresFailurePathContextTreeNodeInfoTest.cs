@@ -25,7 +25,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
-using Core.Gui.Forms.Main;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -223,7 +222,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
@@ -265,7 +263,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
