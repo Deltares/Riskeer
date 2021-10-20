@@ -58,10 +58,10 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             var failurePath = new SpecificFailurePath();
 
             // Call 
-            TestDelegate call = () => failurePath.SetSections(null, string.Empty);
+            void Call() => failurePath.SetSections(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sections", exception.ParamName);
         }
 
@@ -72,10 +72,10 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             var failurePath = new SpecificFailurePath();
 
             // Call 
-            TestDelegate call = () => failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+            void Call() => failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourcePath", exception.ParamName);
         }
 
@@ -137,7 +137,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             });
 
             // Call
-            TestDelegate call = () => failurePath.SetSections(new[]
+            void Call() => failurePath.SetSections(new[]
             {
                 section1,
                 section2
@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             });
 
             // Call
-            TestDelegate call = () => failurePath.SetSections(new[]
+            void Call() => failurePath.SetSections(new[]
             {
                 section1,
                 section2
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
