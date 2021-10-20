@@ -37,6 +37,9 @@ namespace Riskeer.Common.Forms.Test.Views
     [TestFixture]
     public class HydraulicBoundaryLocationsMapLayerTest
     {
+        private const string waterLevelDisplayNameFormat = "h - {0}";
+        private const string waveHeightDisplayNameFormat = "Hs - {0}";
+
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -424,7 +427,124 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-                Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)), mapLayer.MapData.SelectedMetaDataAttribute);
+                Assert.AreEqual(string.Format(displayName, ProbabilityFormattingHelper.Format(calculationsForTargetProbability.TargetProbability)),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetTargetProbabilityItemShiftActions))]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedWaterLevelTargetProbabilityIndexUpdatedAndCollectionNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
+            Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> shiftItemAction,
+            string selectedTargetProbabilityFormat, string expectedSelectedTargetProbabilityFormat)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            const double targetProbability = 0.001;
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Clear();
+            assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            });
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                string targetProbabilityString = ProbabilityFormattingHelper.Format(targetProbability);
+                string selectedProbabilityString = string.Format(selectedTargetProbabilityFormat, targetProbabilityString);
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(waterLevelDisplayNameFormat, selectedProbabilityString);
+                mapLayer.MapData.NotifyObservers();
+
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+                // When
+                
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelCalculationsForUserDefinedTargetProbabilities =
+                    assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+                shiftItemAction(waterLevelCalculationsForUserDefinedTargetProbabilities);
+                waterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                
+                string expectedSelectedProbabilityString = string.Format(expectedSelectedTargetProbabilityFormat, targetProbabilityString);
+                Assert.AreEqual(string.Format(waterLevelDisplayNameFormat, expectedSelectedProbabilityString),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        [TestCaseSource(nameof(GetTargetProbabilityItemShiftActions))]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedWaveHeightTargetProbabilityIndexUpdatedAndCollectionNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
+            Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>> shiftItemAction,
+            string selectedTargetProbabilityFormat, string expectedSelectedTargetProbabilityFormat)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            const double targetProbability = 0.001;
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
+            assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.AddRange(new[]
+            {
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability),
+                new HydraulicBoundaryLocationCalculationsForTargetProbability(targetProbability)
+            });
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                string targetProbabilityString = ProbabilityFormattingHelper.Format(targetProbability);
+                string selectedProbabilityString = string.Format(selectedTargetProbabilityFormat, targetProbabilityString);
+                mapLayer.MapData.SelectedMetaDataAttribute = string.Format(waveHeightDisplayNameFormat, selectedProbabilityString);
+                mapLayer.MapData.NotifyObservers();
+
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+                // When
+                
+                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightCalculationsForUserDefinedTargetProbabilities =
+                    assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+                shiftItemAction(waveHeightCalculationsForUserDefinedTargetProbabilities);
+                waveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+                
+                string expectedSelectedProbabilityString = string.Format(expectedSelectedTargetProbabilityFormat, targetProbabilityString);
+                Assert.AreEqual(string.Format(waveHeightDisplayNameFormat, expectedSelectedProbabilityString),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
             }
 
             mocks.VerifyAll();
@@ -456,10 +576,33 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities),
-                                          "h - {0}");
+                                          waterLevelDisplayNameFormat);
             yield return new TestCaseData(new Func<IAssessmentSection, ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(
                                               assessmentSection => assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities),
-                                          "Hs - {0}");
+                                          waveHeightDisplayNameFormat);
+        }
+
+        private static IEnumerable<TestCaseData> GetTargetProbabilityItemShiftActions()
+        {
+            yield return new TestCaseData(
+                    new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
+                    {
+                        HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.First();
+                        col.Remove(itemToMove);
+                        col.Add(itemToMove);
+                    }),
+                    "{0}", "{0} (2)")
+                .SetName("MoveItemDown");
+
+            yield return new TestCaseData(
+                    new Action<ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>>(col =>
+                    {
+                        HydraulicBoundaryLocationCalculationsForTargetProbability itemToMove = col.Last();
+                        col.Remove(itemToMove);
+                        col.Insert(0, itemToMove);
+                    }),
+                    "{0} (2)", "{0}")
+                .SetName("MoveItemUp");
         }
     }
 }

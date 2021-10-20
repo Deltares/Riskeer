@@ -216,9 +216,10 @@ namespace Riskeer.Common.Forms.Views
                 }
             }
 
+            string currentSelectedMetaDataAttribute = MapData.SelectedMetaDataAttribute;
             foreach (KeyValuePair<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, string> metaDataItem in currentMetaDataItems)
             {
-                if (MapData.SelectedMetaDataAttribute == metaDataItem.Value)
+                if (currentSelectedMetaDataAttribute == metaDataItem.Value)
                 {
                     if (!newMetaDataItems.ContainsKey(metaDataItem.Key))
                     {
@@ -226,7 +227,7 @@ namespace Riskeer.Common.Forms.Views
                     }
                     else
                     {
-                        if (currentMetaDataItems[metaDataItem.Key] != newMetaDataItems[metaDataItem.Key])
+                        if (currentSelectedMetaDataAttribute != newMetaDataItems[metaDataItem.Key])
                         {
                             MapData.SelectedMetaDataAttribute = newMetaDataItems[metaDataItem.Key];
                         }
