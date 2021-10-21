@@ -246,6 +246,10 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData, context.Parent)
             };
+            yield return new PropertyInfo<SpecificFailurePathContext, SpecificFailurePathProperties>
+            {
+                CreateInstance = context => new SpecificFailurePathProperties(context.WrappedData)
+            };
             yield return new PropertyInfo<MacroStabilityOutwardsFailurePathContext, MacroStabilityOutwardsFailurePathProperties>
             {
                 CreateInstance = context => new MacroStabilityOutwardsFailurePathProperties(context.WrappedData, context.Parent)

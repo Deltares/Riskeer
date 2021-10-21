@@ -1569,7 +1569,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt opgenomen in de assemblage..
+        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt meegenomen in de assemblage..
         /// </summary>
         public static string FailureMechanism_IsRelevant_Description {
             get {
@@ -2100,6 +2100,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismSections_StartPoints_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSections_StartPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van het faalpad..
+        /// </summary>
+        public static string FailurePath_Name_Description {
+            get {
+                return ResourceManager.GetString("FailurePath_Name_Description", resourceCulture);
             }
         }
         

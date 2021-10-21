@@ -315,7 +315,7 @@ handmatig</value>
     <value>I&amp;s relevant</value>
   </data>
   <data name="FailureMechanism_IsRelevant_Description" xml:space="preserve">
-    <value>Geeft aan of dit faalpad wordt opgenomen in de assemblage.</value>
+    <value>Geeft aan of dit faalpad wordt meegenomen in de assemblage.</value>
   </data>
   <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze map met berekeningen.</value>
@@ -1579,5 +1579,8 @@ scenario
   </data>
   <data name="MetaData_WaveHeight_TargetProbability_0" xml:space="preserve">
     <value>Hs - {0}</value>
+  </data>
+  <data name="FailurePath_Name_Description" xml:space="preserve">
+    <value>Naam van het faalpad.</value>
   </data>
 </root>
