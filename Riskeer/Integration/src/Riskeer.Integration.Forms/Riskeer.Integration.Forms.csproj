@@ -52,6 +52,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\SpecificFailurePathView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\AssessmentSectionReferenceLineView.cs">
       <SubType>UserControl</SubType>
     </Compile>
