@@ -37,6 +37,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
     [TestFixture]
     public class DuneErosionLocationsMapLayerTest
     {
+        private const string waterLevelDisplayNameFormat = "Rekenwaarde h - {0}";
+        private const string waveHeightDisplayNameFormat = "Rekenwaarde Hs - {0}";
+        private const string wavePeriodDisplayNameFormat = "Rekenwaarde Tp - {0}";
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -288,7 +292,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetDisplayNameFormats))]
+        [TestCaseSource(nameof(GetDisplayNameFormatTestCases))]
         public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdatedSelectedMetaDataAttributeResetToDefault(string displayName)
         {
             // Given
@@ -329,7 +333,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetDisplayNameFormats))]
+        [TestCaseSource(nameof(GetDisplayNameFormatTestCases))]
         public void GivenMapLayerWithDuneLocations_WhenNotSelectedTargetProbabilityRemovedAndNotified_ThenMapDataUpdated(string displayName)
         {
             // Given
@@ -374,7 +378,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetDisplayNameFormats))]
+        [TestCaseSource(nameof(GetDisplayNameFormatTestCases))]
         public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityChangedAndNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(string displayName)
         {
             // Given
@@ -415,6 +419,60 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetTargetProbabilityItemShiftActionTestCases))]
+        public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityIndexChangedAndCollectionNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
+            Action<ObservableList<DuneLocationCalculationsForTargetProbability>> shiftItemAction,
+            string selectedMetaDataAttributeFormat, string expectedSelectedMetadataAttributeFormat)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            const double targetProbability = 0.1;
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                DuneLocationCalculationsForUserDefinedTargetProbabilities =
+                {
+                    new DuneLocationCalculationsForTargetProbability(targetProbability),
+                    new DuneLocationCalculationsForTargetProbability(targetProbability),
+                    new DuneLocationCalculationsForTargetProbability(targetProbability)
+                }
+            };
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation("test1")
+            });
+
+            using (var mapLayer = new DuneErosionLocationsMapLayer(failureMechanism))
+            {
+                string targetProbabilityString = ProbabilityFormattingHelper.Format(targetProbability);
+                string selectedProbabilityAttribute = string.Format(selectedMetaDataAttributeFormat, targetProbabilityString);
+                mapLayer.MapData.SelectedMetaDataAttribute = selectedProbabilityAttribute;
+                mapLayer.MapData.NotifyObservers();
+
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+
+                // When
+                ObservableList<DuneLocationCalculationsForTargetProbability> duneLocationCalculationsForUserDefinedTargetProbabilities =
+                    failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities;
+                shiftItemAction(duneLocationCalculationsForUserDefinedTargetProbabilities);
+                duneLocationCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
+
+                // Then
+                AssertDuneLocationsMapData(failureMechanism, mapLayer.MapData);
+                Assert.AreEqual(string.Format(expectedSelectedMetadataAttributeFormat, targetProbabilityString),
+                                mapLayer.MapData.SelectedMetaDataAttribute);
+            }
+
+            mocks.VerifyAll();
+        }
+
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,
                                                        MapData mapData)
         {
@@ -425,11 +483,42 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, duneLocationsMapData.Features);
         }
 
-        private static IEnumerable<TestCaseData> GetDisplayNameFormats()
+        private static IEnumerable<TestCaseData> GetDisplayNameFormatTestCases()
         {
-            yield return new TestCaseData("Rekenwaarde h - {0}");
-            yield return new TestCaseData("Rekenwaarde Hs - {0}");
-            yield return new TestCaseData("Rekenwaarde Tp - {0}");
+            return GetOutputDisplayNameFormats().Select(displayNameFormat => new TestCaseData(displayNameFormat));
+        }
+
+        private static IEnumerable<TestCaseData> GetTargetProbabilityItemShiftActionTestCases()
+        {
+            foreach (string displayNameFormat in GetOutputDisplayNameFormats())
+            {
+                yield return new TestCaseData(
+                        new Action<ObservableList<DuneLocationCalculationsForTargetProbability>>(col =>
+                        {
+                            DuneLocationCalculationsForTargetProbability itemToMove = col.First();
+                            col.Remove(itemToMove);
+                            col.Add(itemToMove);
+                        }),
+                        $"{displayNameFormat}", $"{displayNameFormat} (2)")
+                    .SetName(string.Format(displayNameFormat, "MoveItemDown"));
+
+                yield return new TestCaseData(
+                        new Action<ObservableList<DuneLocationCalculationsForTargetProbability>>(col =>
+                        {
+                            DuneLocationCalculationsForTargetProbability itemToMove = col.Last();
+                            col.Remove(itemToMove);
+                            col.Insert(0, itemToMove);
+                        }),
+                        $"{displayNameFormat} (2)", $"{displayNameFormat}")
+                    .SetName(string.Format(displayNameFormat, "MoveItemDown"));
+            }
+        }
+
+        private static IEnumerable<string> GetOutputDisplayNameFormats()
+        {
+            yield return waterLevelDisplayNameFormat;
+            yield return waveHeightDisplayNameFormat;
+            yield return wavePeriodDisplayNameFormat;
         }
     }
 }
