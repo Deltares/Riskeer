@@ -475,7 +475,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
                 // When
-                
                 ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waterLevelCalculationsForUserDefinedTargetProbabilities =
                     assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
                 shiftItemAction(waterLevelCalculationsForUserDefinedTargetProbabilities);
@@ -533,7 +532,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
 
                 // When
-                
                 ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> waveHeightCalculationsForUserDefinedTargetProbabilities =
                     assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
                 shiftItemAction(waveHeightCalculationsForUserDefinedTargetProbabilities);
