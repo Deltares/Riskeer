@@ -36,10 +36,10 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_FailurePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestCloseForFailurePathView(null);
+            void Call() => new TestCloseForFailurePathView(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failurePath", exception.ParamName);
         }
 

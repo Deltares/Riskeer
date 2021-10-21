@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     public class SpecificFailurePathContext : ObservableWrappedObjectContextBase<SpecificFailurePath>, IFailurePathContext<SpecificFailurePath>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
+        /// Initializes a new instance of the <see cref="SpecificFailurePathContext"/> class.
         /// </summary>
         /// <param name="wrappedFailurePath">The failure failure path.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailurePath"/>.</param>

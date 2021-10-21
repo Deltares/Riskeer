@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.FailurePath;
@@ -31,7 +32,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     public class SpecificFailurePathSectionsContext : FailureMechanismSectionsContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanismSectionsContext"/> class.
+        /// Initializes a new instance of the <see cref="SpecificFailurePathSectionsContext"/> class.
         /// </summary>
         /// <param name="wrappedData">The <see cref="SpecificFailurePath"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>

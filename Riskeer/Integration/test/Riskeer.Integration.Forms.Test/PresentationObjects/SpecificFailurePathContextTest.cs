@@ -61,10 +61,10 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var failurePath = new SpecificFailurePath();
 
             // Call
-            TestDelegate test = () => new SpecificFailurePathContext(failurePath, null);
+            void Call() => new SpecificFailurePathContext(failurePath, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parent", exception.ParamName);
         }
     }
