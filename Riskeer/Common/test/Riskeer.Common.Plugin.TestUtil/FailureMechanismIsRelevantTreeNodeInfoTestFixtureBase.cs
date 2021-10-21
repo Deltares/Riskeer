@@ -174,7 +174,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                       "I&s relevant",
-                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
+                                                                      "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
                     }
                 }
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         // Assert
                         TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
                                                                       "I&s relevant",
-                                                                      "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
+                                                                      "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
                     }
                 }

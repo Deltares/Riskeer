@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
             mocks.VerifyAll();
         }
@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
             mocks.VerifyAll();
         }

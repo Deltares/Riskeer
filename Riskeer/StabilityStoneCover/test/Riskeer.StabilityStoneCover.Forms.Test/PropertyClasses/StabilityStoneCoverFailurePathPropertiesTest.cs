@@ -118,7 +118,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
@@ -171,7 +171,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
-                                                                            "Geeft aan of dit faalpad wordt opgenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
         }
 
