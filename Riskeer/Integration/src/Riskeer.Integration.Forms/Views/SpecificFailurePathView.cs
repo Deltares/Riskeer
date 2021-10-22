@@ -38,11 +38,12 @@ namespace Riskeer.Integration.Forms.Views
     public partial class SpecificFailurePathView : CloseForFailurePathView, IMapView
     {
         private readonly SpecificFailurePath failurePath;
+        private readonly IAssessmentSection assessmentSection;
 
         private MapDataCollection failurePathMapDataCollection;
 
         private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
-        
+
         private MapLineData referenceLineMapData;
 
         private MapLineData sectionsMapData;
@@ -66,17 +67,11 @@ namespace Riskeer.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-
             InitializeComponent();
 
             this.failurePath = failurePath;
-            AssessmentSection = assessmentSection;
+            this.assessmentSection = assessmentSection;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IAssessmentSection"/>.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
 
         public IMapControl Map => riskeerMapControl.MapControl;
 
@@ -87,7 +82,7 @@ namespace Riskeer.Integration.Forms.Views
             CreateMapData();
             SetAllMapDataFeatures();
 
-            riskeerMapControl.SetAllData(failurePathMapDataCollection, AssessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(failurePathMapDataCollection, assessmentSection.BackgroundData);
 
             base.OnLoad(e);
         }
@@ -114,12 +109,12 @@ namespace Riskeer.Integration.Forms.Views
         {
             assessmentSectionObserver = new Observer(UpdateReferenceLineMapData)
             {
-                Observable = AssessmentSection
+                Observable = assessmentSection
             };
 
             referenceLineObserver = new Observer(UpdateReferenceLineMapData)
             {
-                Observable = AssessmentSection.ReferenceLine
+                Observable = assessmentSection.ReferenceLine
             };
 
             failurePathObserver = new Observer(UpdateFailurePathMapData)
@@ -140,8 +135,8 @@ namespace Riskeer.Integration.Forms.Views
         private void CreateMapData()
         {
             failurePathMapDataCollection = new MapDataCollection(failurePath.Name);
-            hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(AssessmentSection);
-            
+            hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
+
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
 
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
@@ -153,7 +148,7 @@ namespace Riskeer.Integration.Forms.Views
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
 
             failurePathMapDataCollection.Add(referenceLineMapData);
-            failurePathMapDataCollection.Add(sectionsMapData);
+            failurePathMapDataCollection.Add(sectionsMapDataCollection);
             failurePathMapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
         }
 
@@ -167,9 +162,9 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetReferenceLineMapData()
         {
-            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
-                                                                                                      AssessmentSection.Id,
-                                                                                                      AssessmentSection.Name);
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(assessmentSection.ReferenceLine,
+                                                                                                      assessmentSection.Id,
+                                                                                                      assessmentSection.Name);
         }
 
         #endregion
