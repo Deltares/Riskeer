@@ -551,19 +551,19 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             mapData.Remove(dataToMove);
             mapData.Add(dataToMove);
 
-            List<MapData> mapDataList = mapData.Collection.ToList();
+            IEnumerable<MapData> mapDataCollection = mapData.Collection;
 
             // Precondition
-            var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var referenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-            var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            var hydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
 
-            var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
+            var foreshoreProfilesData = (MapLineData) mapDataCollection.ElementAt(updatedForeshoreProfilesLayerIndex);
             Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
 
-            var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+            var calculationsData = (MapLineData) mapDataCollection.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", calculationsData.Name);
 
             var points = new List<Point2D>
@@ -579,16 +579,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             assessmentSection.NotifyObservers();
 
             // Assert
-            var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var actualReferenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-            var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            var actualHydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
 
-            var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
+            var actualForeshoreProfilesData = (MapLineData) mapDataCollection.ElementAt(updatedForeshoreProfilesLayerIndex);
             Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
 
-            var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+            var actualCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 

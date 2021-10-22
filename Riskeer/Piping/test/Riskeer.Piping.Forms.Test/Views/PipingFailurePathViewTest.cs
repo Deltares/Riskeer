@@ -716,31 +716,31 @@ namespace Riskeer.Piping.Forms.Test.Views
             mapData.Remove(dataToMove);
             mapData.Add(dataToMove);
 
-            List<MapData> mapDataList = mapData.Collection.ToList();
+            IEnumerable<MapData> mapDataCollection = mapData.Collection;
 
             // Precondition
-            var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var referenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-            var surfaceLineData = (MapLineData) mapDataList[updatedSurfaceLineLayerIndex];
+            var surfaceLineData = (MapLineData) mapDataCollection.ElementAt(updatedSurfaceLineLayerIndex);
             Assert.AreEqual("Profielschematisaties", surfaceLineData.Name);
 
-            var sectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
+            var sectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionCollectionIndex);
             Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-            var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            var assemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
             Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
-            var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            var hydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
 
-            var stochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
+            var stochasticSoilModelsData = (MapLineData) mapDataCollection.ElementAt(updatedStochasticSoilModelsLayerIndex);
             Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsData.Name);
 
-            var probabilisticCalculationsData = (MapLineData) mapDataList[updatedProbabilisticCalculationsIndex];
+            var probabilisticCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedProbabilisticCalculationsIndex);
             Assert.AreEqual("Probabilistische berekeningen", probabilisticCalculationsData.Name);
 
-            var semiProbabilisticCalculationsData = (MapLineData) mapDataList[updatedSemiProbabilisticCalculationsIndex];
+            var semiProbabilisticCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedSemiProbabilisticCalculationsIndex);
             Assert.AreEqual("Semi-probabilistische berekeningen", semiProbabilisticCalculationsData.Name);
 
             var points = new List<Point2D>
@@ -756,28 +756,28 @@ namespace Riskeer.Piping.Forms.Test.Views
             assessmentSection.NotifyObservers();
 
             // Assert
-            var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var actualReferenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-            var actualSurfaceLineData = (MapLineData) mapDataList[updatedSurfaceLineLayerIndex];
+            var actualSurfaceLineData = (MapLineData) mapDataCollection.ElementAt(updatedSurfaceLineLayerIndex);
             Assert.AreEqual("Profielschematisaties", actualSurfaceLineData.Name);
 
-            var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
+            var actualSectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionCollectionIndex);
             Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-            var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            var actualAssemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
             Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
-            var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            var actualHydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
 
-            var actualStochasticSoilModelsData = (MapLineData) mapDataList[updatedStochasticSoilModelsLayerIndex];
+            var actualStochasticSoilModelsData = (MapLineData) mapDataCollection.ElementAt(updatedStochasticSoilModelsLayerIndex);
             Assert.AreEqual("Stochastische ondergrondmodellen", actualStochasticSoilModelsData.Name);
 
-            var actualSemiProbabilisticCalculationsData = (MapLineData) mapDataList[updatedSemiProbabilisticCalculationsIndex];
+            var actualSemiProbabilisticCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedSemiProbabilisticCalculationsIndex);
             Assert.AreEqual("Semi-probabilistische berekeningen", actualSemiProbabilisticCalculationsData.Name);
 
-            var actualProbabilisticCalculationsData = (MapLineData) mapDataList[updatedProbabilisticCalculationsIndex];
+            var actualProbabilisticCalculationsData = (MapLineData) mapDataCollection.ElementAt(updatedProbabilisticCalculationsIndex);
             Assert.AreEqual("Probabilistische berekeningen", actualProbabilisticCalculationsData.Name);
         }
 
