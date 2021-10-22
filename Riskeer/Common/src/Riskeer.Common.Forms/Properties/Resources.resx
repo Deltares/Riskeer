@@ -1580,7 +1580,4 @@ scenario
   <data name="MetaData_WaveHeight_TargetProbability_0" xml:space="preserve">
     <value>Hs - {0}</value>
   </data>
-  <data name="FailurePath_Name_Description" xml:space="preserve">
-    <value>Naam van het faalpad.</value>
-  </data>
 </root>

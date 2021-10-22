@@ -23,6 +23,7 @@ using System;
 using Core.Common.Util.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Integration.Data.FailurePath;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
@@ -49,7 +50,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Name_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailurePath_Name_Description))]
         public string Name
         {
             get

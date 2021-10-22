@@ -2104,15 +2104,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van het faalpad..
-        /// </summary>
-        public static string FailurePath_Name_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to I&amp;s relevant.
         /// </summary>
         public static string FailurePathContextMenuStrip_Is_relevant {

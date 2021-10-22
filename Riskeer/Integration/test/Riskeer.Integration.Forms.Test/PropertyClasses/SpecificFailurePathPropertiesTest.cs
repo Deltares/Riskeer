@@ -111,7 +111,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
-            // Setup
             var random = new Random(21);
             var failurePath = new SpecificFailurePath
             {

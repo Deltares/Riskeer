@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -498,6 +498,15 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string FailureMechanismSectionAssemblyCategories_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyCategories_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van het faalpad..
+        /// </summary>
+        public static string FailurePath_Name_Description {
+            get {
+                return ResourceManager.GetString("FailurePath_Name_Description", resourceCulture);
             }
         }
         
