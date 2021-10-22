@@ -270,7 +270,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenViewWithMapLayersOutOfOrder_WhenDataUpdated_ThenMapDataLayersOrderNotUpdated()
+        public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Given
             const int updatedReferenceLineLayerIndex = referenceLineIndex + hydraulicBoundaryLocationsIndex;
@@ -283,18 +283,20 @@ namespace Riskeer.Integration.Forms.Test.Views
             SpecificFailurePathView view = CreateView(failurePath, assessmentSection);
 
             MapDataCollection mapData = view.Map.Data;
-            MapData dataToMove = mapData.Collection.ElementAt(referenceLineIndex);
+            IEnumerable<MapData> mapDataCollection = mapData.Collection;
+            
+            MapData dataToMove = mapDataCollection.ElementAt(referenceLineIndex);
             mapData.Remove(dataToMove);
             mapData.Add(dataToMove);
 
             // Precondition
-            MapData referenceLineData = mapData.Collection.ElementAt(updatedReferenceLineLayerIndex);
+            MapData referenceLineData = mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-            MapData sectionsData = mapData.Collection.ElementAt(updatedSectionsCollectionLayerIndex);
+            MapData sectionsData = mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-            MapData hydraulicBoundaryLocationsData = mapData.Collection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
+            MapData hydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsData.Name);
 
             // When
@@ -309,13 +311,13 @@ namespace Riskeer.Integration.Forms.Test.Views
             assessmentSection.NotifyObservers();
 
             // Then
-            MapData actualReferenceLineData = mapData.Collection.ElementAt(updatedReferenceLineLayerIndex);
+            MapData actualReferenceLineData = mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-            MapData actualSectionsData = mapData.Collection.ElementAt(updatedSectionsCollectionLayerIndex);
+            MapData actualSectionsData = mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-            MapData actualHydraulicBoundaryLocationsData = mapData.Collection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
+            MapData actualHydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicBoundaryLocationsData.Name);
         }
 
