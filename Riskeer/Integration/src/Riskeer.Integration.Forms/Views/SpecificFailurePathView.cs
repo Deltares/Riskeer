@@ -20,47 +20,57 @@
 // All rights reserved.
 
 using System;
-using System.Windows.Forms;
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Integration.Forms.Properties;
+using Riskeer.Common.Forms.Views;
+using Riskeer.Integration.Data.FailurePath;
 
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// View for <see cref="IFailurePath"/>.
+    /// View for <see cref="SpecificFailurePath"/>.
     /// </summary>
-    public partial class SpecificFailurePathView : UserControl, IMapView
+    public partial class SpecificFailurePathView : CloseForFailurePathView, IMapView
     {
-        private readonly MapLineData referenceLineMapData;
+        private readonly SpecificFailurePath failurePath;
+
+        private MapDataCollection failurePathMapDataCollection;
+
+        private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
+        
+        private MapLineData referenceLineMapData;
+
+        private MapLineData sectionsMapData;
+        private MapPointData sectionsStartPointMapData;
+        private MapPointData sectionsEndPointMapData;
 
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
+        private Observer failurePathObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailurePathView"/>.
         /// </summary>
+        /// <param name="failurePath">The <see cref="SpecificFailurePath"/> to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// is <c>null</c>.</exception>
-        public SpecificFailurePathView(IAssessmentSection assessmentSection)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public SpecificFailurePathView(SpecificFailurePath failurePath, IAssessmentSection assessmentSection) : base(failurePath)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+
             InitializeComponent();
 
+            this.failurePath = failurePath;
             AssessmentSection = assessmentSection;
-
-            MapDataCollection = new MapDataCollection(Resources.AssessmentSectionMap_DisplayName);
-            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
-
-            MapDataCollection.Add(referenceLineMapData);
         }
 
         /// <summary>
@@ -68,22 +78,16 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         public IAssessmentSection AssessmentSection { get; }
 
-        public object Data { get; set; }
-
         public IMapControl Map => riskeerMapControl.MapControl;
-
-        /// <summary>
-        /// Gets the <see cref="MapDataCollection"/>.
-        /// </summary>
-        protected MapDataCollection MapDataCollection { get; }
 
         protected override void OnLoad(EventArgs e)
         {
             CreateObservers();
 
+            CreateMapData();
             SetAllMapDataFeatures();
 
-            riskeerMapControl.SetAllData(MapDataCollection, AssessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(failurePathMapDataCollection, AssessmentSection.BackgroundData);
 
             base.OnLoad(e);
         }
@@ -92,6 +96,8 @@ namespace Riskeer.Integration.Forms.Views
         {
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
+            failurePathObserver.Dispose();
+            hydraulicBoundaryLocationsMapLayer.Dispose();
 
             if (disposing)
             {
@@ -115,6 +121,11 @@ namespace Riskeer.Integration.Forms.Views
             {
                 Observable = AssessmentSection.ReferenceLine
             };
+
+            failurePathObserver = new Observer(UpdateFailurePathMapData)
+            {
+                Observable = failurePath
+            };
         }
 
         /// <summary>
@@ -123,6 +134,27 @@ namespace Riskeer.Integration.Forms.Views
         protected virtual void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
+            SetSectionsMapData();
+        }
+
+        private void CreateMapData()
+        {
+            failurePathMapDataCollection = new MapDataCollection(failurePath.Name);
+            hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(AssessmentSection);
+            
+            referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
+
+            MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
+            sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
+            sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
+            sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
+            sectionsMapDataCollection.Add(sectionsMapData);
+            sectionsMapDataCollection.Add(sectionsStartPointMapData);
+            sectionsMapDataCollection.Add(sectionsEndPointMapData);
+
+            failurePathMapDataCollection.Add(referenceLineMapData);
+            failurePathMapDataCollection.Add(sectionsMapData);
+            failurePathMapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
         }
 
         #region ReferenceLine MapData
@@ -135,7 +167,37 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetReferenceLineMapData()
         {
-            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine, AssessmentSection.Id, AssessmentSection.Name);
+            referenceLineMapData.Features = RiskeerMapDataFeaturesFactory.CreateReferenceLineFeatures(AssessmentSection.ReferenceLine,
+                                                                                                      AssessmentSection.Id,
+                                                                                                      AssessmentSection.Name);
+        }
+
+        #endregion
+
+        #region FailurePath MapData
+
+        private void UpdateFailurePathMapData()
+        {
+            UpdateFailurePathMapDataCollectionData();
+
+            SetSectionsMapData();
+            sectionsMapData.NotifyObservers();
+            sectionsStartPointMapData.NotifyObservers();
+            sectionsEndPointMapData.NotifyObservers();
+        }
+
+        private void UpdateFailurePathMapDataCollectionData()
+        {
+            failurePathMapDataCollection.Name = failurePath.Name;
+            failurePathMapDataCollection.NotifyObservers();
+        }
+
+        private void SetSectionsMapData()
+        {
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failurePath.Sections;
+            sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
+            sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
+            sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
         }
 
         #endregion
