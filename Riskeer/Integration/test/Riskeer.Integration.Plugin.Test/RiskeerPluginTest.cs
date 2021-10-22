@@ -406,7 +406,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(33, viewInfos.Length);
+                Assert.AreEqual(34, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -600,6 +600,11 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(WaterPressureAsphaltCoverFailurePathContext),
                     typeof(WaterPressureAsphaltCoverFailureMechanism),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>));
+                
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(SpecificFailurePathContext),
+                    typeof(SpecificFailurePathView));
             }
         }
 
@@ -1188,7 +1193,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         #endregion
 
-        #region WaveHeightCalculationsView
+        #region WaveHeightCalculations for target probabilities
 
         [Test]
         [Apartment(ApartmentState.STA)]
