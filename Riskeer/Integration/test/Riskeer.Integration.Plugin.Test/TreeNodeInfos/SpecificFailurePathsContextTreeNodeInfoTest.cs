@@ -207,7 +207,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Call
