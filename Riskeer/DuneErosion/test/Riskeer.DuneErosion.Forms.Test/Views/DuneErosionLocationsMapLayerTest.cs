@@ -421,7 +421,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
         [Test]
         [TestCaseSource(nameof(GetTargetProbabilityItemShiftActionTestCases))]
-        public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityIndexChangedAndCollectionNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
+        public void GivenMapLayerWithDuneLocations_WhenSelectedTargetProbabilityIndexUpdatedAndCollectionNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
             Action<ObservableList<DuneLocationCalculationsForTargetProbability>> shiftItemAction,
             string selectedMetaDataAttributeFormat, string expectedSelectedMetadataAttributeFormat)
         {
@@ -510,7 +510,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                             col.Insert(0, itemToMove);
                         }),
                         $"{displayNameFormat} (2)", $"{displayNameFormat}")
-                    .SetName(string.Format(displayNameFormat, "MoveItemDown"));
+                    .SetName(string.Format(displayNameFormat, "MoveItemUp"));
             }
         }
 
