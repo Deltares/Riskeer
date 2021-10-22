@@ -1438,6 +1438,14 @@ namespace Riskeer.Integration.Plugin
                     };
                 }
             }
+            else if (e.View is SpecificFailurePathView specificFailurePathView)
+            {
+                IFailurePath failurePath = specificFailurePathView.FailurePath;
+                observers = new[]
+                {
+                    CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
+                };
+            }
 
             if (observers == null)
             {
