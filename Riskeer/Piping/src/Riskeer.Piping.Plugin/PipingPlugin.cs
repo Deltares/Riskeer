@@ -254,6 +254,7 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = ClosePipingFailurePathViewForData
             };

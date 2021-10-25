@@ -92,6 +92,30 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
         }
+        
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+
+            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool result = info.AdditionalDataCheck(context);
+
+            // Assert
+            Assert.AreEqual(isRelevant, result);
+            mocks.VerifyAll();
+        }        
 
         [Test]
         [Apartment(ApartmentState.STA)]
