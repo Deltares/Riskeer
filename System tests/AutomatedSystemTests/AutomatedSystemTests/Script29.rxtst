@@ -430,43 +430,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="1fb0960e-b8fd-4aa9-9a51-bcdbe1bd2781"
-			name="DeleteAllSearchFilteredFiles"
-			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
-			type="UserCode">
-				<description>
-					<![CDATA[Delete all previous *.risk files in currentVersion]]>
-				</description>
-				<databinding>
-					<var
-					dataname="extensionRiskeerProjects"
-					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
-					variablename="folderToDeleteFiles">
-					</var>
-					<var
-					dataname="extensionRiskeerProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
-					variablename="searchFilter">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="2101deac-e9fd-42ba-b500-b8d1a460c1a1"
 			name="MakePanelOnLeftVisible"
 			ref="080c578e-b4cb-4bb4-945d-26465067449d"
@@ -1782,43 +1745,6 @@
 			id="85c80477-b489-48ce-858b-44638a9a14a5"
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
-			<testmodule
-			id="8775fa07-db17-4b61-8fcf-bdc2fc82e711"
-			name="MigrateAllFilesInFolderUsingCommandLineTool"
-			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
-			type="UserCode">
-				<description>
-					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
-				</description>
-				<databinding>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-					<var
-					dataname="folderProjectPreviousRelease"
-					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="folderPreviousReleaseProjects"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
-					variablename="sourceFolder">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
-					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
-					variablename="targetFolder">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="89c8a724-81b0-4626-b916-2a267f27e65a"
 			name="BuildPathFailurePath">
@@ -3284,14 +3210,6 @@
 							id="a33a0afd-21e6-4f15-9203-784ac7c1ad4d"
 							name="OpenProject">
 								<testmodule
-								id="1fb0960e-b8fd-4aa9-9a51-bcdbe1bd2781"
-								name="DeleteAllSearchFilteredFiles">
-								</testmodule>
-								<testmodule
-								id="8775fa07-db17-4b61-8fcf-bdc2fc82e711"
-								name="MigrateAllFilesInFolderUsingCommandLineTool">
-								</testmodule>
-								<testmodule
 								id="42b856f8-5560-4454-b777-c33c04dd3775"
 								name="OpenProject">
 								</testmodule>
@@ -4170,7 +4088,7 @@
 						1
 					</td>
 					<td>
-						brt_2011_gn1
+						*&gt;brt_2011_gn1
 					</td>
 				</tr>
 				<tr>
@@ -4184,7 +4102,7 @@
 						2
 					</td>
 					<td>
-						gem_2011_gn1
+						*&gt;gem_2011_gn1
 					</td>
 				</tr>
 			</table>

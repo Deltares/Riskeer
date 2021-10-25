@@ -72,12 +72,12 @@ namespace AutomatedSystemTests.Modules.IO
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
+            string pathMigrationProgram = GetPathMigrationProgram();
             foreach (var sourceFilePath in Directory.GetFiles(sourceFolder, "*.risk"))
                 {
                 Report.Info("Migrating project file: " + sourceFilePath);
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
-                string pathMigrationProgram = GetPathMigrationProgram();
                 string commandToRun = "/C " + pathMigrationProgram + " \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
                 RunCommand(commandToRun);
                 Delay.Duration(new Duration(300));
