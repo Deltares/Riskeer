@@ -102,6 +102,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new StabilityPointStructuresFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
