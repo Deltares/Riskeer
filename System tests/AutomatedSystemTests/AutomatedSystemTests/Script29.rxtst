@@ -97,6 +97,28 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="05753ec9-a56b-4945-a9a0-8f1c33a495bf"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="05ef89cd-ada2-4f40-a763-9e0cfd1c9e35"
 			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
 			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
@@ -560,16 +582,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="275ddd5c-d3fd-4933-bc2e-8ad22542a21f"
-			name="SetStateFailurePathsAssembly">
-				<parameters>
-					<param
-					name="nameStateFA"
-					value="Faalpaden">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<setup
 			id="27d64edb-f8cd-42b5-bc3a-a0fe87e1ec3e"
 			name="setup">
@@ -1002,28 +1014,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="41ee3d76-97e7-4882-a9a6-e238c8da6ae8"
-			name="SelectState"
-			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="275ddd5c-d3fd-4933-bc2e-8ad22542a21f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="42b856f8-5560-4454-b777-c33c04dd3775"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -1320,12 +1310,6 @@
 					variablename="pathToItem">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="621dedf9-9e96-48d5-bfa2-ff2b866deee9"
-			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
-			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
-			type="Recording">
 			</testmodule>
 			<testmodule
 			id="64552acc-0b8b-4c2e-9a89-2e223d883401"
@@ -1835,32 +1819,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="8897d59e-972a-4910-8d00-bdfe2725de56"
-			name="ValidateWhetherFolderGivenPathContainsNode"
-			ref="d902c15b-f5aa-4db3-a0a1-e4af2b09c2ca"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToRootFolder"
-					datasourceid="ad657d77-3a36-4994-929f-4320b7dd154f"
-					variableid="78cde0a3-4042-453e-a0dd-656345445114"
-					variablename="pathToFolder">
-					</var>
-					<var
-					dataname="layerName"
-					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
-					variableid="a99747df-1774-42b3-9164-2861023d359c"
-					variablename="nameOfNode">
-					</var>
-					<var
-					dataname="isLayerExpected"
-					datasourceid="ad657d77-3a36-4994-929f-4320b7dd154f"
-					variableid="6549233a-4e6c-4e40-96d1-5453ee5f08ec"
-					variablename="nodeIsExpectedToBeContained">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="89c8a724-81b0-4626-b916-2a267f27e65a"
 			name="BuildPathFailurePath">
@@ -1907,6 +1865,12 @@
 			id="8eb958f9-6fc6-405e-9e8b-76376d2af446"
 			name="ValidateDataLayers">
 			</smartfoldernode>
+			<testmodule
+			id="8ee361b2-dbc0-40e1-9be5-baa48369ea4a"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="914ebc4a-86ba-4753-9dbd-4f61fffd5f65"
 			name="ReportScreenShotOfApplication">
@@ -1926,6 +1890,16 @@
 					<param
 					name="typeValueTransparency"
 					value="Double">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="92d15ab5-01db-4817-81c6-28cfb61a0057"
+			name="SetStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="nameStateFA"
+					value="Faalpaden">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2063,7 +2037,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="layerName"
+					dataname="pathToLayer"
 					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
 					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
 					variablename="pathToItem">
@@ -2446,7 +2420,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="layerName"
+					dataname="pathToLayer"
 					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
 					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
 					variablename="pathToItem">
@@ -2927,16 +2901,6 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			id="cb1d084a-b744-4a11-a8a8-a21ca3fdd7cb"
-			name="OpenMapTraject">
-				<parameters>
-					<param
-					name="pathTraject"
-					value="Traject">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			id="cb57fdda-ae7e-4d54-ad43-3efafd430d98"
 			name="CloseOpenTabView">
 				<parameters>
@@ -3136,20 +3100,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="e9d5df8c-677e-4254-9339-2d2a13648729"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="pathTraject"
-					datasourceid="cb1d084a-b744-4a11-a8a8-a21ca3fdd7cb"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="ed5b6e4a-db7c-4f4f-b2ea-cf6208bb2256"
@@ -3814,26 +3764,6 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="275ddd5c-d3fd-4933-bc2e-8ad22542a21f"
-								name="SetStateFailurePathsAssembly">
-									<testmodule
-									id="41ee3d76-97e7-4882-a9a6-e238c8da6ae8"
-									name="SelectState">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="cb1d084a-b744-4a11-a8a8-a21ca3fdd7cb"
-								name="OpenMapTraject">
-									<testmodule
-									id="e9d5df8c-677e-4254-9339-2d2a13648729"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="621dedf9-9e96-48d5-bfa2-ff2b866deee9"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
 								id="a567a181-7393-443c-9396-c15f458fad26"
 								name="SetStateTraject">
 									<testmodule
@@ -4049,6 +3979,18 @@
 								id="b4eeec3a-ba67-4615-86b5-1fbe79120de8"
 								name="OpenProject">
 								</testmodule>
+								<testmodule
+								id="8ee361b2-dbc0-40e1-9be5-baa48369ea4a"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="92d15ab5-01db-4817-81c6-28cfb61a0057"
+							name="SetStateFailurePathsAssembly">
+								<testmodule
+								id="05753ec9-a56b-4945-a9a0-8f1c33a495bf"
+								name="SelectState">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="b9a31d77-70d9-4350-b971-fe7f81576009"
@@ -4112,10 +4054,6 @@
 								<smartfoldernode
 								id="ad657d77-3a36-4994-929f-4320b7dd154f"
 								name="LoopValidateThatEachLayerExists">
-									<testmodule
-									id="8897d59e-972a-4910-8d00-bdfe2725de56"
-									name="ValidateWhetherFolderGivenPathContainsNode">
-									</testmodule>
 									<testmodule
 									id="9961950f-e129-4a05-ad8b-8b970781634c"
 									name="SelectGenericItemInMapLayersPanel">
@@ -5404,7 +5342,7 @@
 						STPH
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_STPH.risk
 					</td>
 					<td>
 						3,4,6-16
@@ -5418,7 +5356,7 @@
 						STBI
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_STBI.risk
 					</td>
 					<td>
 						5-16
@@ -5432,7 +5370,7 @@
 						GEKB
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_GEKB.risk
 					</td>
 					<td>
 						17-28
@@ -5446,7 +5384,7 @@
 						BSKW
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_BSKW.risk
 					</td>
 					<td>
 						29-40
@@ -5460,7 +5398,7 @@
 						HTKW
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_HTKW.risk
 					</td>
 					<td>
 						29-40
@@ -5474,7 +5412,7 @@
 						STKWp
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_STKWp.risk
 					</td>
 					<td>
 						29-40
@@ -5488,7 +5426,7 @@
 						ZST
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_ZST.risk
 					</td>
 					<td>
 						41-51
@@ -5502,7 +5440,7 @@
 						AGK
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_AGK.risk
 					</td>
 					<td>
 						41-51
@@ -5516,7 +5454,7 @@
 						GEBU
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_GEBU.risk
 					</td>
 					<td>
 						41-51
@@ -5530,7 +5468,7 @@
 						DA
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_DA.risk
 					</td>
 					<td>
 						52-60
@@ -5760,7 +5698,7 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					layerName
+					pathToLayer
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5768,22 +5706,22 @@
 			<table>
 				<tr>
 					<th>
-						layerName
+						pathToLayer
 					</th>
 				</tr>
 				<tr>
 					<td>
-						Gecombineerd vakoordeel
+						Assemblagekaart&gt;Gecombineerd vakoordeel
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Hydraulische belastingen
+						Assemblagekaart&gt;Hydraulische belastingen
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Referentielijn
+						Assemblagekaart&gt;Referentielijn
 					</td>
 				</tr>
 			</table>
@@ -5794,6 +5732,15 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0084d137-ffe9-4b58-b512-15c2386f2074">
+			</testcontainer>
+			<testcontainer
+			id="02d150ff-31cf-4e8b-aec9-c162d285639f">
+			</testcontainer>
+			<testcontainer
+			id="0701a612-4ab3-42e2-9e1c-4fd15a807b31">
+			</testcontainer>
+			<testcontainer
 			id="0bda162f-c614-4263-8b75-c7d17bc4e183">
 			</testcontainer>
 			<testcontainer
@@ -5803,7 +5750,13 @@
 			id="163b7a77-514f-489b-9118-785def2e9b04">
 			</testcontainer>
 			<testcontainer
+			id="19271aef-36fe-45c2-89e7-be8267cec39a">
+			</testcontainer>
+			<testcontainer
 			id="19ed3775-279e-4955-97b2-3dc0b5408c33">
+			</testcontainer>
+			<testcontainer
+			id="1d1ced99-ad3d-4618-9af3-0fd5e23d056d">
 			</testcontainer>
 			<testcontainer
 			id="1ed4be99-bbb5-4edf-9e3b-319638778f38">
@@ -5813,6 +5766,9 @@
 			</testcontainer>
 			<testcontainer
 			id="21114deb-06e3-49f6-85ff-11b20b73d8e5">
+			</testcontainer>
+			<testcontainer
+			id="252235e7-b6aa-4a02-8ba7-9f872f950fde">
 			</testcontainer>
 			<testcontainer
 			id="25fb6726-aff5-4893-9352-69aed1ef02ae">
@@ -5827,6 +5783,9 @@
 			id="32ce3729-3337-403a-ac0f-d62f21b0571e">
 			</testcontainer>
 			<testcontainer
+			id="32fc369d-135a-4b95-b2e8-841991381f18">
+			</testcontainer>
+			<testcontainer
 			id="36f21baa-1ec0-4e46-bf57-d6447505058c">
 			</testcontainer>
 			<testcontainer
@@ -5839,7 +5798,16 @@
 			id="3d83574c-6f48-4cb7-9396-3f339e4f315e">
 			</testcontainer>
 			<testcontainer
+			id="3e078d47-3849-4ddd-b836-1ed56ec3d071">
+			</testcontainer>
+			<testcontainer
+			id="3eec8671-18d8-4f27-8f6d-678132e31cf2">
+			</testcontainer>
+			<testcontainer
 			id="42f2813b-868d-470e-81d1-8e1113675fa8">
+			</testcontainer>
+			<testcontainer
+			id="451c2b85-8ed2-4788-ad44-81c3482d2750">
 			</testcontainer>
 			<testcontainer
 			id="4637683c-f00b-463c-8974-9a5e50ff51f3">
@@ -5848,16 +5816,43 @@
 			id="466a48f5-2b85-43f9-aab3-e553462708e1">
 			</testcontainer>
 			<testcontainer
+			id="4925f1da-052b-4ad3-b278-c6cd149f8b04">
+			</testcontainer>
+			<testcontainer
 			id="4b0fbf91-3b9d-4dea-87e3-648e04cdd0c2">
 			</testcontainer>
 			<testcontainer
+			id="4cc1f225-8367-4218-8b76-5d810850c330">
+			</testcontainer>
+			<testcontainer
+			id="4d9c591a-21eb-4d26-be1e-378fdc973a04">
+			</testcontainer>
+			<testcontainer
+			id="4ff25e24-7ea0-4ad6-a747-ca3059c61702">
+			</testcontainer>
+			<testcontainer
 			id="506ed3ae-17e2-4037-8796-853ac705f212">
+			</testcontainer>
+			<testcontainer
+			id="560162ef-9d65-44b7-b51d-acf777b0c22c">
 			</testcontainer>
 			<testcontainer
 			id="57e80fba-591e-4e6b-a476-3f1c9ec28df1">
 			</testcontainer>
 			<testcontainer
 			id="58a75531-4638-4d2f-8e1e-3aa91409a14c">
+			</testcontainer>
+			<testcontainer
+			id="5aaa6333-c5ef-43a2-b860-83682a4b67e1">
+			</testcontainer>
+			<testcontainer
+			id="64f55c0a-44d9-4bd6-9ef5-33544121d1a4">
+			</testcontainer>
+			<testcontainer
+			id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f">
+			</testcontainer>
+			<testcontainer
+			id="7083de07-9974-49fc-9bad-009f51dce836">
 			</testcontainer>
 			<testcontainer
 			id="70940fe9-2f5b-4e74-8265-7559f879dc0b">
@@ -5869,6 +5864,9 @@
 			id="7a92df26-5b69-488b-9ab3-023b5e42ded5">
 			</testcontainer>
 			<testcontainer
+			id="7e0d0072-e454-4920-b5b1-7a8e10843e8a">
+			</testcontainer>
+			<testcontainer
 			id="8293e81d-5f90-489a-9f7b-704464594049">
 			</testcontainer>
 			<testcontainer
@@ -5878,13 +5876,34 @@
 			id="85c80477-b489-48ce-858b-44638a9a14a5">
 			</testcontainer>
 			<testcontainer
+			id="89c8a724-81b0-4626-b916-2a267f27e65a">
+			</testcontainer>
+			<testcontainer
 			id="8b361696-e604-4d89-a528-117f93fc4f44">
 			</testcontainer>
 			<testcontainer
 			id="8eb958f9-6fc6-405e-9e8b-76376d2af446">
 			</testcontainer>
 			<testcontainer
+			id="914ebc4a-86ba-4753-9dbd-4f61fffd5f65">
+			</testcontainer>
+			<testcontainer
+			id="9171da9b-1de8-4b61-b7da-29a24db1ff96">
+			</testcontainer>
+			<testcontainer
+			id="92d15ab5-01db-4817-81c6-28cfb61a0057">
+			</testcontainer>
+			<testcontainer
 			id="941c4264-1064-4e33-a6ba-7c1361067e6f">
+			</testcontainer>
+			<testcontainer
+			id="9493147b-c5ae-424c-b2de-61a04c62d489">
+			</testcontainer>
+			<testcontainer
+			id="99047da2-00be-4f2c-84c6-b46629a89d74">
+			</testcontainer>
+			<testcontainer
+			id="99625e50-0baf-4907-828e-9d9b6960fb63">
 			</testcontainer>
 			<testcontainer
 			id="9a7092d2-c1f7-42cd-b5e7-5ff93b2754cf">
@@ -5893,13 +5912,34 @@
 			id="9ae34808-5c6b-4bd7-9efc-24ec29b57a0f">
 			</testcontainer>
 			<testcontainer
+			id="a33a0afd-21e6-4f15-9203-784ac7c1ad4d">
+			</testcontainer>
+			<testcontainer
 			id="a567a181-7393-443c-9396-c15f458fad26">
+			</testcontainer>
+			<testcontainer
+			id="a93a5504-8b16-42ed-9294-c98da9a502b8">
+			</testcontainer>
+			<testcontainer
+			id="ad3c4808-83fc-46ad-9c0a-ff827d2d0316">
+			</testcontainer>
+			<testcontainer
+			id="ad657d77-3a36-4994-929f-4320b7dd154f">
 			</testcontainer>
 			<testcontainer
 			id="af08cb25-9520-4cc9-abee-83741f042d70">
 			</testcontainer>
 			<testcontainer
+			id="b45e2710-93d8-4072-b10d-28e223065ec1">
+			</testcontainer>
+			<testcontainer
+			id="b57da49d-8bf1-489f-9bfe-6c02d309f5bc">
+			</testcontainer>
+			<testcontainer
 			id="b90b39de-38fa-48d1-abff-73f3566786e6">
+			</testcontainer>
+			<testcontainer
+			id="b9a31d77-70d9-4350-b971-fe7f81576009">
 			</testcontainer>
 			<testcontainer
 			id="ba7b4907-67cb-4506-a186-77c5f469d810">
@@ -5911,7 +5951,34 @@
 			id="bfff5cfe-6e13-4b37-8a00-e8983f2e7ed8">
 			</testcontainer>
 			<testcontainer
+			id="c2ac86eb-3bd4-4a91-9e30-0182337e7e79">
+			</testcontainer>
+			<testcontainer
+			id="c2b64168-a445-4bdc-b501-f028ade31878">
+			</testcontainer>
+			<testcontainer
+			id="c3ad124f-5078-4d4b-8298-04fcbe6ca878">
+			</testcontainer>
+			<testcontainer
 			id="c3b03886-e367-454c-8b04-028f23d6817e">
+			</testcontainer>
+			<testcontainer
+			id="c744394e-a51d-45c5-b365-1fc604a16075">
+			</testcontainer>
+			<testcontainer
+			id="c8302e1e-598f-4c1c-ac5b-fec4b4de6040">
+			</testcontainer>
+			<testcontainer
+			id="cb57fdda-ae7e-4d54-ad43-3efafd430d98">
+			</testcontainer>
+			<testcontainer
+			id="cef9e291-5697-40a2-ad0d-c7210cc493ee">
+			</testcontainer>
+			<testcontainer
+			id="d23a1706-85ff-4770-9821-e8f6d1c99afb">
+			</testcontainer>
+			<testcontainer
+			id="d4ec9182-90fa-4b36-90e6-5e1313005b33">
 			</testcontainer>
 			<testcontainer
 			id="d7dbd40f-7166-43b7-b620-e4ed702d60a7">
@@ -5935,7 +6002,16 @@
 			id="e61f8951-abe6-4ee6-ae2e-e497703b6b7e">
 			</testcontainer>
 			<testcontainer
+			id="ef5c10ce-1552-4002-b0a0-883ff7f4aefb">
+			</testcontainer>
+			<testcontainer
 			id="f487e3f7-e57a-41ee-8c87-83f80b8a3ce2">
+			</testcontainer>
+			<testcontainer
+			id="f93ecdf4-52a3-42b7-a204-75bdfcd382c1">
+			</testcontainer>
+			<testcontainer
+			id="fd5f57de-985f-4620-8da9-2488385bc4e9">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

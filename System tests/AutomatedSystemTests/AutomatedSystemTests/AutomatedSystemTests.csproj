@@ -2085,9 +2085,6 @@
       <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
       <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
     </Compile>
-    <Compile Include="Modules\Validation\MapLayersPanel\ValidateWhetherFolderGivenPathContainsNode.cs">
-      <id>a76058a8-e278-448b-b98a-a83de005e0a5</id>
-    </Compile>
     <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.cs">
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
