@@ -284,17 +284,17 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             string[] stringSeparators = new string[] { "\r\n" };
             string[] lines1 = fileContent1.Split(stringSeparators, StringSplitOptions.None);
             string[] lines2 = fileContent2.Split(stringSeparators, StringSplitOptions.None);
-            Report.Info("Number of lines in file 1: " + lines1.Length);
-            Report.Info("Number of lines in file 2: " + lines2.Length);
             if (lines1.Length!=lines2.Length) {
                 Report.Error("Files have different length. They will be compared line by line until the length of the smallest one.");
+                Report.Info("Number of lines in file 1: " + lines1.Length);
+                Report.Info("Number of lines in file 2: " + lines2.Length);
             }
             var minLength = Math.Min(lines1.Length, lines2.Length);
             bool differencesHaveBeenFound = false;
             string differencesThatHaveBeenFound = "";
             for (int i = 0; i < minLength; i++) {
                 if (lines1[i]!=lines2[i]) {
-                    differencesThatHaveBeenFound += lines1[i] + "\r\n" + lines2[i] + "\r\n \r\n";
+                    differencesThatHaveBeenFound += "File 1: " + lines1[i] + "\r\n" + "File 2: " + lines2[i] + "\r\n \r\n";
                     differencesHaveBeenFound = true;
                 }
             }
