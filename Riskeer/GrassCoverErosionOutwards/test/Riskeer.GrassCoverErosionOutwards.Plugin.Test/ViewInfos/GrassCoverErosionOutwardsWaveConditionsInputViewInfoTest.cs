@@ -32,11 +32,8 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
@@ -48,7 +45,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsInputViewInfoTest : ShouldCloseViewWithCalculationDataTester
+    public class GrassCoverErosionOutwardsWaveConditionsInputViewInfoTest
     {
         private const int lowerBoundaryRevetmentChartDataIndex = 1;
         private const int upperBoundaryRevetmentChartDataIndex = 2;
@@ -157,67 +154,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             }
         }
 
-        #region ShouldCloseViewWithCalculationDataTester
-
-        protected override bool ShouldCloseMethod(IView view, object o)
-        {
-            return info.CloseForData(view, o);
-        }
-
-        protected override IView GetView(ICalculation data)
-        {
-            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data,
-                                               () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                               new GrassCoverErosionOutwardsWaveConditionsInputViewStyle());
-        }
-
-        protected override ICalculation GetCalculation()
-        {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculation();
-        }
-
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-        {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
-                new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                new CalculationGroup(),
-                new GrassCoverErosionOutwardsFailureMechanism(),
-                new AssessmentSectionStub());
-        }
-
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-        {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
-                new CalculationGroup
-                {
-                    Children =
-                    {
-                        new GrassCoverErosionOutwardsWaveConditionsCalculation()
-                    }
-                },
-                null,
-                new GrassCoverErosionOutwardsFailureMechanism(),
-                new AssessmentSectionStub());
-        }
-
-        protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-        {
-            return new GrassCoverErosionOutwardsHydraulicLoadsContext(
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    WaveConditionsCalculationGroup =
-                    {
-                        Children =
-                        {
-                            new GrassCoverErosionOutwardsWaveConditionsCalculation()
-                        }
-                    }
-                }, new AssessmentSectionStub());
-        }
-
-        #endregion
-
-                #region CloseForData
+        #region CloseForData
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
@@ -617,6 +554,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
                 mocks.VerifyAll();
             }
+        }
+        
+        private static IView GetView(ICalculation data)
+        {
+            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data,
+                                               () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                                               new GrassCoverErosionOutwardsWaveConditionsInputViewStyle());
         }
 
         #endregion
