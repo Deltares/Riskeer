@@ -384,6 +384,24 @@ BRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRSUUALRRRQAUUlLQAUUUUAFFFFABRRSUALRRSUgFooo
 oASiiigYUUUUwCiiigD/2Q==
 			</helperscreenshot>
 		</mouseitem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="d9fa6a59-f7e6-48f5-9b4b-8a3e024e7705"
+		waitaction="Exists"
+		waittimeout="30000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="ce9d9227-f12e-488e-9ca2-80d899fed485"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
+				</path>
+			</info>
+		</WaitForRecordItem>
 		<explicitdelayitem
 		duration="300ms"
 		enabled="True"
@@ -412,7 +430,7 @@ oASiiigYUUUUwCiiigD/2Q==
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="300ms"
+		duration="1500ms"
 		enabled="True"
 		optional="False">
 			<comment>
