@@ -593,6 +593,15 @@ namespace Riskeer.Integration.Plugin
                     context.AssessmentSection)
             };
 
+            yield return new ViewInfo<SpecificFailurePathContext, SpecificFailurePathView>
+            {
+                GetViewName = (view, context) => context.WrappedData.Name,
+                CreateInstance = context => new SpecificFailurePathView(context.WrappedData, context.Parent),
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView
+            };
+
             yield return new ViewInfo<Comment, CommentView>
             {
                 GetViewName = (view, comment) => Resources.Comment_DisplayName,
@@ -1429,6 +1438,14 @@ namespace Riskeer.Integration.Plugin
                     };
                 }
             }
+            else if (e.View is SpecificFailurePathView specificFailurePathView)
+            {
+                IFailurePath failurePath = specificFailurePathView.FailurePath;
+                observers = new[]
+                {
+                    CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
+                };
+            }
 
             if (observers == null)
             {
@@ -2118,7 +2135,7 @@ namespace Riskeer.Integration.Plugin
             ObservableList<IFailurePath> failurePaths = nodeData.WrappedData;
             var newFailurePath = new SpecificFailurePath
             {
-                Name = NamingHelper.GetUniqueName(failurePaths, 
+                Name = NamingHelper.GetUniqueName(failurePaths,
                                                   RiskeerDataResources.SpecificFailurePath_Name_DefaultName,
                                                   fp => fp.Name)
             };
@@ -2133,7 +2150,7 @@ namespace Riskeer.Integration.Plugin
             return draggedData is SpecificFailurePathContext failurePathContext
                    && failurePathsContext.WrappedData.Contains(failurePathContext.WrappedData);
         }
-        
+
         private static void SpecificFailurePathsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
             var failurePathsContext = (SpecificFailurePathsContext) newParentData;
@@ -2144,7 +2161,7 @@ namespace Riskeer.Integration.Plugin
 
             failurePathsContext.WrappedData.NotifyObservers();
         }
-        
+
         #endregion
 
         #region SpecificFailurePath TreeNodeInfo
@@ -2165,7 +2182,7 @@ namespace Riskeer.Integration.Plugin
 
             return treeNodeInfo;
         }
-        
+
         private static void SpecificFailurePathContextOnNodeRenamed(SpecificFailurePathContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;

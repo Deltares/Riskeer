@@ -454,19 +454,19 @@ namespace Riskeer.Integration.Forms.Test.Views
                 mapData.Remove(dataToMove);
                 mapData.Add(dataToMove);
 
-                List<MapData> mapDataList = mapData.Collection.ToList();
+                IEnumerable<MapData> mapDataCollection = mapData.Collection;
 
                 // Precondition
-                var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+                var referenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
                 Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-                var sectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
+                var sectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionCollectionIndex);
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+                var assemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
                 Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
-                var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+                var hydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
                 Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
 
                 var points = new List<Point2D>
@@ -482,16 +482,16 @@ namespace Riskeer.Integration.Forms.Test.Views
                 assessmentSection.NotifyObservers();
 
                 // Assert
-                var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+                var actualReferenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
                 Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-                var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionCollectionIndex];
+                var actualSectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionCollectionIndex);
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-                var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+                var actualAssemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
                 Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
-                var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+                var actualHydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
                 Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
             }
         }

@@ -53,6 +53,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects;
@@ -260,7 +261,7 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(IFailurePathContext<IFailureMechanism>),
                     typeof(StandAloneFailurePathProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(SpecificFailurePathContext),
@@ -406,7 +407,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(33, viewInfos.Length);
+                Assert.AreEqual(34, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -600,6 +601,11 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(WaterPressureAsphaltCoverFailurePathContext),
                     typeof(WaterPressureAsphaltCoverFailureMechanism),
                     typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult>));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(SpecificFailurePathContext),
+                    typeof(SpecificFailurePathView));
             }
         }
 
@@ -773,6 +779,60 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Assert
                 Assert.Throws<InvalidOperationException>(Call);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenPluginWithGuiSetAndOpenedSpecificFailurePathView_WhenChangingCorrespondingSpecificFailurePathAndObserversNotified_ThenViewTitleUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            mocks.ReplayAll();
+
+            using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), new GuiCoreSettings()))
+            {
+                SetPlugins(gui);
+                gui.Run();
+
+                var failurePath = new SpecificFailurePath();
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                {
+                    SpecificFailurePaths =
+                    {
+                        failurePath
+                    }
+                };
+
+                var project = new RiskeerProject
+                {
+                    AssessmentSections =
+                    {
+                        assessmentSection
+                    }
+                };
+
+                gui.SetProject(project, null);
+
+                gui.DocumentViewController.CloseAllViews();
+                gui.DocumentViewController.OpenViewForData(new SpecificFailurePathContext(failurePath, assessmentSection));
+
+                IView view = gui.ViewHost.DocumentViews.First();
+
+                // Precondition
+                Assert.IsInstanceOf<SpecificFailurePathView>(view);
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failurePath.Name));
+
+                // When
+                const string newName = "Awesome faalpad";
+                failurePath.Name = newName;
+                failurePath.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, newName));
+                mocks.VerifyAll();
             }
         }
 
@@ -1188,7 +1248,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         #endregion
 
-        #region WaveHeightCalculationsView
+        #region WaveHeightCalculations for target probabilities
 
         [Test]
         [Apartment(ApartmentState.STA)]

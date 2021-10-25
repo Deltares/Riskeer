@@ -391,19 +391,19 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mapData.Remove(dataToMove);
             mapData.Add(dataToMove);
 
-            List<MapData> mapDataList = mapData.Collection.ToList();
+            IEnumerable<MapData> mapDataCollection = mapData.Collection;
 
             // Precondition
-            var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var referenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-            var sectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionLayerIndex];
+            var sectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-            var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            var assemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
             Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
-            var duneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
+            var duneLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedDuneLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", duneLocationsData.Name);
 
             var points = new List<Point2D>
@@ -419,16 +419,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.NotifyObservers();
 
             // Assert
-            var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var actualReferenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-            var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionLayerIndex];
+            var actualSectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-            var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            var actualAssemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
             Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
-            var actualDuneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
+            var actualDuneLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedDuneLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualDuneLocationsData.Name);
         }
 

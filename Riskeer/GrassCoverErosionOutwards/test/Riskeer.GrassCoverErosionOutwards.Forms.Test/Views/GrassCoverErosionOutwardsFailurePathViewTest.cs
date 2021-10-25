@@ -637,25 +637,25 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             mapData.Remove(dataToMove);
             mapData.Add(dataToMove);
 
-            List<MapData> mapDataList = mapData.Collection.ToList();
+            IEnumerable<MapData> mapDataList = mapData.Collection;
 
             // Precondition
-            var referenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var referenceLineData = (MapLineData) mapDataList.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-            var sectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionLayerIndex];
+            var sectionsData = (MapDataCollection) mapDataList.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-            var assemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            var assemblyResultsData = (MapDataCollection) mapDataList.ElementAt(updatedAssemblyResultsCollectionIndex);
             Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
 
-            var hydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            var hydraulicLocationsData = (MapPointData) mapDataList.ElementAt(updatedHydraulicLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
 
-            var foreshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
+            var foreshoreProfilesData = (MapLineData) mapDataList.ElementAt(updatedForeshoreProfilesLayerIndex);
             Assert.AreEqual("Voorlandprofielen", foreshoreProfilesData.Name);
 
-            var calculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+            var calculationsData = (MapLineData) mapDataList.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", calculationsData.Name);
 
             var points = new List<Point2D>
@@ -671,22 +671,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             assessmentSection.NotifyObservers();
 
             // Assert
-            var actualReferenceLineData = (MapLineData) mapDataList[updatedReferenceLineLayerIndex];
+            var actualReferenceLineData = (MapLineData) mapDataList.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-            var actualSectionsData = (MapDataCollection) mapDataList[updatedSectionsCollectionLayerIndex];
+            var actualSectionsData = (MapDataCollection) mapDataList.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-            var actualAssemblyResultsData = (MapDataCollection) mapDataList[updatedAssemblyResultsCollectionIndex];
+            var actualAssemblyResultsData = (MapDataCollection) mapDataList.ElementAt(updatedAssemblyResultsCollectionIndex);
             Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
 
-            var actualHydraulicLocationsData = (MapPointData) mapDataList[updatedHydraulicLocationsLayerIndex];
+            var actualHydraulicLocationsData = (MapPointData) mapDataList.ElementAt(updatedHydraulicLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
 
-            var actualForeshoreProfilesData = (MapLineData) mapDataList[updatedForeshoreProfilesLayerIndex];
+            var actualForeshoreProfilesData = (MapLineData) mapDataList.ElementAt(updatedForeshoreProfilesLayerIndex);
             Assert.AreEqual("Voorlandprofielen", actualForeshoreProfilesData.Name);
 
-            var actualCalculationsData = (MapLineData) mapDataList[updatedCalculationsIndex];
+            var actualCalculationsData = (MapLineData) mapDataList.ElementAt(updatedCalculationsIndex);
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
