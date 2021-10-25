@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -212,6 +213,410 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                         }
                     }
                 }, new AssessmentSectionStub());
+        }
+
+        #endregion
+
+        #region CloseForData
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationContext = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                             new CalculationGroup(),
+                                                                                             new StabilityStoneCoverFailureMechanism(),
+                                                                                             assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationToRemove = new StabilityStoneCoverWaveConditionsCalculation();
+
+            var calculationContext = new StabilityStoneCoverWaveConditionsCalculationContext(calculationToRemove,
+                                                                                             new CalculationGroup(),
+                                                                                             new StabilityStoneCoverFailureMechanism(),
+                                                                                             assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var calculationGroupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                                       null,
+                                                                                                       new StabilityStoneCoverFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var calculationGroupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                                       null,
+                                                                                                       new StabilityStoneCoverFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingWithRemovedParentCalculationGroupContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
+            nestedGroup.Children.Add(calculation);
+            calculationGroup.Children.Add(nestedGroup);
+
+            var calculationGroupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                                       null,
+                                                                                                       new StabilityStoneCoverFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingWithRemovedParentCalculationGroupContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
+            nestedGroup.Children.Add(calculation);
+            calculationGroup.Children.Add(nestedGroup);
+
+            var calculationGroupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                                       null,
+                                                                                                       new StabilityStoneCoverFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  new CalculationGroup(),
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
+                                                                                  new CalculationGroup(),
+                                                                                  new StabilityStoneCoverFailureMechanism(),
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
+                                                                                  calculationGroup,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
+                                                                                  calculationGroup,
+                                                                                  new StabilityStoneCoverFailureMechanism(),
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(new StabilityStoneCoverWaveConditionsCalculation()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(new StabilityStoneCoverWaveConditionsCalculation()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
         }
 
         #endregion
