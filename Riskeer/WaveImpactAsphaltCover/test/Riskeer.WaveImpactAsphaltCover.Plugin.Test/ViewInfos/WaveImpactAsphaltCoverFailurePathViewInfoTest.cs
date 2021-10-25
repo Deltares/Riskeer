@@ -93,6 +93,30 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                IsRelevant = isRelevant
+            };
+
+            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool result = info.AdditionalDataCheck(context);
+
+            // Assert
+            Assert.AreEqual(isRelevant, result);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailurePathView()
         {
