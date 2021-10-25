@@ -783,7 +783,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==
 		optional="False"
 		searchpropertyid="7607f713-ef5c-44ba-b806-a2e9e0114f53"
 		waitaction="NotExists"
-		waittimeout="5000ms">
+		waittimeout="30000ms">
 			<comment>
 			</comment>
 			<bindings>
