@@ -1380,71 +1380,15 @@ namespace Riskeer.Integration.Plugin
             IEnumerable<IObserver> observers = null;
             if (e.View is DesignWaterLevelCalculationsView designWaterLevelCalculationsView)
             {
-                IAssessmentSection assessmentSection = designWaterLevelCalculationsView.AssessmentSection;
-
-                object viewData = designWaterLevelCalculationsView.Data;
-                if (ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                    || ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForLowerLimitNorm))
-                {
-                    IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForUserDefinedTargetProbability =
-                        ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                            ? assessmentSection.WaterLevelCalculationsForSignalingNorm
-                            : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
-
-                    Func<string> getTitleFunc = () => GetWaterLevelCalculationsForNormTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
-
-                    observers = new[]
-                    {
-                        CreateViewTitleObserver(designWaterLevelCalculationsView, assessmentSection.FailureMechanismContribution, getTitleFunc)
-                    };
-                }
-                else
-                {
-                    IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
-                        assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
-                    HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability =
-                        userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
-
-                    if (calculationsForUserDefinedTargetProbability != null)
-                    {
-                        Func<string> getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
-
-                        observers = new[]
-                        {
-                            CreateViewTitleObserver(designWaterLevelCalculationsView, assessmentSection.FailureMechanismContribution, getTitleFunc),
-                            CreateViewTitleObserver(designWaterLevelCalculationsView, (IObservable) userDefinedTargetProbabilities, getTitleFunc),
-                            CreateViewTitleObserver(designWaterLevelCalculationsView, userDefinedTargetProbabilities, getTitleFunc)
-                        };
-                    }
-                }
+                observers = CreateObservers(designWaterLevelCalculationsView);
             }
             else if (e.View is WaveHeightCalculationsView waveHeightCalculationsView)
             {
-                IAssessmentSection assessmentSection = waveHeightCalculationsView.AssessmentSection;
-                ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
-                    assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
-
-                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability =
-                    userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
-
-                if (calculationsForUserDefinedTargetProbability != null)
-                {
-                    Func<string> getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability,
-                                                                                                                         userDefinedTargetProbabilities);
-                    observers = new[]
-                    {
-                        CreateViewTitleObserver(waveHeightCalculationsView, (IObservable) userDefinedTargetProbabilities, getTitleFunc),
-                        CreateViewTitleObserver(waveHeightCalculationsView, userDefinedTargetProbabilities, getTitleFunc)
-                    };
-                }
+                observers = CreateObservers(waveHeightCalculationsView);
             }
             else if (e.View is SpecificFailurePathView specificFailurePathView)
             {
-                IFailurePath failurePath = specificFailurePathView.FailurePath;
-                observers = new[]
-                {
-                    CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
-                };
+                observers = CreateObservers(specificFailurePathView);
             }
 
             if (observers == null)
@@ -1453,6 +1397,81 @@ namespace Riskeer.Integration.Plugin
             }
 
             observersForViewTitles[e.View] = observers;
+        }
+
+        private IEnumerable<IObserver> CreateObservers(DesignWaterLevelCalculationsView designWaterLevelCalculationsView)
+        {
+            IAssessmentSection assessmentSection = designWaterLevelCalculationsView.AssessmentSection;
+
+            object viewData = designWaterLevelCalculationsView.Data;
+            if (ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                || ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForLowerLimitNorm))
+            {
+                IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForUserDefinedTargetProbability =
+                    ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
+                        ? assessmentSection.WaterLevelCalculationsForSignalingNorm
+                        : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+
+                Func<string> getTitleFunc = () => GetWaterLevelCalculationsForNormTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
+
+                return new[]
+                {
+                    CreateViewTitleObserver(designWaterLevelCalculationsView, assessmentSection.FailureMechanismContribution, getTitleFunc)
+                };
+            }
+            else
+            {
+                IObservableEnumerable<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
+                    assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities;
+                HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability =
+                    userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, designWaterLevelCalculationsView.Data));
+
+                if (calculationsForUserDefinedTargetProbability != null)
+                {
+                    Func<string> getTitleFunc = () => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
+
+                    return new[]
+                    {
+                        CreateViewTitleObserver(designWaterLevelCalculationsView, assessmentSection.FailureMechanismContribution, getTitleFunc),
+                        CreateViewTitleObserver(designWaterLevelCalculationsView, (IObservable) userDefinedTargetProbabilities, getTitleFunc),
+                        CreateViewTitleObserver(designWaterLevelCalculationsView, userDefinedTargetProbabilities, getTitleFunc)
+                    };
+                }
+            }
+
+            return null;
+        }
+
+        private IEnumerable<IObserver> CreateObservers(WaveHeightCalculationsView waveHeightCalculationsView)
+        {
+            IAssessmentSection assessmentSection = waveHeightCalculationsView.AssessmentSection;
+            ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> userDefinedTargetProbabilities =
+                assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities;
+
+            HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForUserDefinedTargetProbability =
+                userDefinedTargetProbabilities.SingleOrDefault(calculations => ReferenceEquals(calculations.HydraulicBoundaryLocationCalculations, waveHeightCalculationsView.Data));
+
+            if (calculationsForUserDefinedTargetProbability != null)
+            {
+                Func<string> getTitleFunc = () => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability,
+                                                                                                                     userDefinedTargetProbabilities);
+                return new[]
+                {
+                    CreateViewTitleObserver(waveHeightCalculationsView, (IObservable) userDefinedTargetProbabilities, getTitleFunc),
+                    CreateViewTitleObserver(waveHeightCalculationsView, userDefinedTargetProbabilities, getTitleFunc)
+                };
+            }
+
+            return null;
+        }
+
+        private IEnumerable<IObserver> CreateObservers(SpecificFailurePathView specificFailurePathView)
+        {
+            IFailurePath failurePath = specificFailurePathView.FailurePath;
+            return new[]
+            {
+                CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
+            };
         }
 
         private static void OnViewClosed(object sender, ViewChangeEventArgs e)
