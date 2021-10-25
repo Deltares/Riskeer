@@ -4103,7 +4103,7 @@
 			name="OpenProject">
 				<conditiongroup
 				comparison="AND"
-				enabled="True">
+				enabled="False">
 					<condition
 					comparison="IsEqual">
 						<leftvalue>
@@ -6103,10 +6103,10 @@
 					nameOriginalCalculation
 				</column>
 				<column>
-					rowsOfItemsToCompare
+					fileNameOfProject
 				</column>
 				<column>
-					fileNameOfProject
+					rowsOfItemsToCompare
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -6123,10 +6123,10 @@
 						nameOriginalCalculation
 					</th>
 					<th>
-						rowsOfItemsToCompare
+						fileNameOfProject
 					</th>
 					<th>
-						fileNameOfProject
+						rowsOfItemsToCompare
 					</th>
 				</tr>
 				<tr>
@@ -6134,16 +6134,16 @@
 						STPH
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500
+						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500
 					</td>
 					<td>
 						12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
-						1-2
+						script20cd_STPH.risk
 					</td>
 					<td>
-						script20cd.risk
+						1-2
 					</td>
 				</tr>
 				<tr>
@@ -6151,16 +6151,16 @@
 						GEKB
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
 						profiel001
 					</td>
 					<td>
-						3-6
+						script20cd_GEKB.risk
 					</td>
 					<td>
-						script20cd.risk
+						3-6
 					</td>
 				</tr>
 				<tr>
@@ -6168,16 +6168,16 @@
 						STBI
 					</td>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123
 					</td>
 					<td>
 						Vak_41-123 Vak_41-123_Segment_41009_1D2
 					</td>
 					<td>
-						13-14
+						script20cd_STBI.risk
 					</td>
 					<td>
-						script20cd.risk
+						13-14
 					</td>
 				</tr>
 				<tr>
@@ -6185,16 +6185,16 @@
 						HTKW
 					</td>
 					<td>
-						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						'Keersluis Cuijk'
 					</td>
 					<td>
-						9-10
+						script20cd_HTKW.risk
 					</td>
 					<td>
-						script20cd.risk
+						9-10
 					</td>
 				</tr>
 				<tr>
@@ -6202,16 +6202,16 @@
 						BSKW
 					</td>
 					<td>
-						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						'Amersluis'
 					</td>
 					<td>
-						8
+						script20cd_BSKW.risk
 					</td>
 					<td>
-						script20cd.risk
+						8
 					</td>
 				</tr>
 				<tr>
@@ -6219,16 +6219,16 @@
 						STKWp
 					</td>
 					<td>
-						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
 						Kunstwerk1
 					</td>
 					<td>
-						11-12
+						script20cd_STKWp.risk
 					</td>
 					<td>
-						script20cd.risk
+						11-12
 					</td>
 				</tr>
 				<tr>
@@ -6236,16 +6236,16 @@
 						ZST
 					</td>
 					<td>
-						28-1 (ZST)&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;blokken en zuilen
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;blokken en zuilen
 					</td>
 					<td>
 						dam0voorland0
 					</td>
 					<td>
-						15-16
+						script15abc_ZST.risk
 					</td>
 					<td>
-						script15abc.risk
+						15-16
 					</td>
 				</tr>
 				<tr>
@@ -6253,16 +6253,16 @@
 						AGK
 					</td>
 					<td>
-						8-3 (AGK)&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
 					</td>
 					<td>
 						dam1voorland1
 					</td>
 					<td>
-						17-18
+						script15abc_AGK.risk
 					</td>
 					<td>
-						script15abc.risk
+						17-18
 					</td>
 				</tr>
 				<tr>
@@ -6270,16 +6270,16 @@
 						GEBU
 					</td>
 					<td>
-						6-6 (GEBU)&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;golfoploop en golfklap
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;golfoploop en golfklap
 					</td>
 					<td>
 						dam0voorland1
 					</td>
 					<td>
-						19-20
+						script15abc_GEBU.risk
 					</td>
 					<td>
-						script15abc.risk
+						19-20
 					</td>
 				</tr>
 			</table>
@@ -6835,9 +6835,6 @@
 			</testcontainer>
 			<testcontainer
 			id="b760b111-c7e1-46bd-8c65-3883bd80fa20">
-			</testcontainer>
-			<testcontainer
-			id="be913cd7-9fcd-4f43-aeea-57d14f0f00a7">
 			</testcontainer>
 			<testcontainer
 			id="c2971347-6fbc-4b7d-a5f5-87c81bdf89cc">

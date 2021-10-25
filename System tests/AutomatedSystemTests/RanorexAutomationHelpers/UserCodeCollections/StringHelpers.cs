@@ -77,14 +77,21 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         [UserCodeMethod]
         public static string ToInvariantCultureGroupSeparator(this string originalString)
         {
-            return originalString.ReplaceNumberSeparator(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, 
+            return originalString.ReplaceNumberSeparator(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator,
                                                          CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator);
         }
         
         [UserCodeMethod]
         public static string ToNoGroupSeparator(this string originalString)
         {
-            return originalString.ReplaceNumberSeparator(CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator, "");
+            string stringToRemove = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator;
+            bool mustBeRun = Regex.IsMatch(originalString, @"(\d+)\" + stringToRemove + @"(\d+)");
+            while (mustBeRun)
+            {
+                originalString = Regex.Replace(originalString, @"(\d+)\" + stringToRemove + @"(\d+)", "$1$2");
+                mustBeRun = Regex.IsMatch(originalString, @"(\d+)\" + stringToRemove + @"(\d+)");
+            }
+            return originalString;
         }
         
         private static string ToNewCulture(this string originalString, CultureInfo currentCulture, CultureInfo newCulture)

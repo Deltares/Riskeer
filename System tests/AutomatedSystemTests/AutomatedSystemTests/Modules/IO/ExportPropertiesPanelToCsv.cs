@@ -77,7 +77,7 @@ namespace AutomatedSystemTests.Modules.IO
                 myExport.AddRow();
                 myExport["indexRow"] = index.ToString();
                 myExport["AccessibleName"] = row.Element.GetAttributeValueText("AccessibleName");
-                myExport["AccessibleValue"] = row.Element.GetAttributeValueText("AccessibleValue").ToInvariantCulture();
+                myExport["AccessibleValue"] = row.Element.GetAttributeValueText("AccessibleValue").ToNoGroupSeparator().ToInvariantCultureDecimalSeparator();
                 index++;
             }
             myExport.ExportToFile(fileName);
