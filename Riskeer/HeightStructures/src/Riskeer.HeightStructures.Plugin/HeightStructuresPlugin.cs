@@ -169,6 +169,7 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
+                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new HeightStructuresFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
