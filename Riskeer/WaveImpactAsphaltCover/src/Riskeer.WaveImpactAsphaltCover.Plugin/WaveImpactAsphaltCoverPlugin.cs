@@ -42,7 +42,6 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
-using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Revetment.Data;
@@ -124,7 +123,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
+                CloseForData = CloseInputViewForData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
                     () => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(context.WrappedData, context.AssessmentSection),
@@ -298,6 +297,42 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
+        private static bool CloseInputViewForData(WaveConditionsInputView view, object dataToCloseFor)
+        {
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = null;
+
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<WaveImpactAsphaltCoverFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations = null;
+
+            if (failureMechanism != null)
+            {
+                calculations = failureMechanism.WaveConditionsCalculationGroup.GetCalculations()
+                                               .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+            }
+
+            if (dataToCloseFor is WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext calculationGroupContext)
+            {
+                calculations = calculationGroupContext.WrappedData.GetCalculations()
+                                                      .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+            }
+
+            if (dataToCloseFor is WaveImpactAsphaltCoverWaveConditionsCalculationContext calculationContext)
+            {
+                calculations = new[]
+                {
+                    calculationContext.WrappedData
+                };
+            }
+
+            return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
+        }
+        
 
         #endregion
 

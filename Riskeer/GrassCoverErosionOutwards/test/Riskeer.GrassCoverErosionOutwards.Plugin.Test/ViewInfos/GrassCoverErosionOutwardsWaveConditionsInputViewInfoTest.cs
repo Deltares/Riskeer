@@ -28,6 +28,7 @@ using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -215,5 +216,410 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         #endregion
+
+                #region CloseForData
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationContext = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                             new CalculationGroup(),
+                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                             assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationToRemove = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+
+            var calculationContext = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculationToRemove,
+                                                                                             new CalculationGroup(),
+                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                             assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var calculationGroupContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                                       null,
+                                                                                                       new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var calculationGroupContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                                       null,
+                                                                                                       new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingWithRemovedParentCalculationGroupContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
+            nestedGroup.Children.Add(calculation);
+            calculationGroup.Children.Add(nestedGroup);
+
+            var calculationGroupContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup,
+                                                                                                       null,
+                                                                                                       new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingWithRemovedParentCalculationGroupContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            var nestedGroup = new CalculationGroup();
+            nestedGroup.Children.Add(calculation);
+            calculationGroup.Children.Add(nestedGroup);
+
+            var calculationGroupContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                                                                                                       null,
+                                                                                                       new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                       assessmentSection);
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, calculationGroupContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  new CalculationGroup(),
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                                                                                  new CalculationGroup(),
+                                                                                  new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
+                                                                                  calculationGroup,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                                                                                  calculationGroup,
+                                                                                  new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                  assessmentSection);
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, context);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(new GrassCoverErosionOutwardsWaveConditionsCalculation()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(calculation))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationGroup);
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+
+            mocks.ReplayAll();
+
+            using (var view = GetView(new GrassCoverErosionOutwardsWaveConditionsCalculation()))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
+        
     }
 }
