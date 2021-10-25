@@ -92,10 +92,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ContainerMultipleViews.HeaderOpenViews.textHeaderPanel' at Center.", repo.RiskeerMainWindow.ContainerMultipleViews.HeaderOpenViews.textHeaderPanelInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.ContainerMultipleViews.HeaderOpenViews.textHeaderPanel.Click(System.Windows.Forms.MouseButtons.Right);
             
-            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NieuweVerticaleTabgroep' at Center.", repo.ContextMenu.NieuweVerticaleTabgroepInfo, new RecordItemIndex(1));
-            //repo.ContextMenu.NieuweVerticaleTabgroep.Click();
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NewVerticalTabGroup' at 50;10.", repo.ContextMenu.NewVerticalTabGroupInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.NewVerticalTabGroup' at 50;10.", repo.ContextMenu.NewVerticalTabGroupInfo, new RecordItemIndex(1));
             repo.ContextMenu.NewVerticalTabGroup.Click("50;10");
             
         }

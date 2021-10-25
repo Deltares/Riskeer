@@ -89,8 +89,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.CloseButtonGenericContainerMap' at Center.", repo.RiskeerMainWindow.CloseButtonGenericContainerMapInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.CloseButtonGenericContainerMap.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.GenericContainerMapViewTitle.CloseButtonGenericContainerMap' at Center.", repo.RiskeerMainWindow.GenericContainerMapViewTitle.CloseButtonGenericContainerMapInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.GenericContainerMapViewTitle.CloseButtonGenericContainerMap.Click();
             Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
