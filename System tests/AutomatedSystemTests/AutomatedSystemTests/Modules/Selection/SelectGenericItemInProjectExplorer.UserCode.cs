@@ -36,21 +36,11 @@ namespace AutomatedSystemTests.Modules.Selection
         }
 
         public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
-        	{
-        	Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            
+            {
             Action<TreeItem> actions = (it=> (it as Adapter).Focus());
             actions += (it=>it.ClickWithoutBoundsCheck(new Location(-0.02, 0.5)));
-            
             TreeItemHelpers.FindNodeInTree(pathItem, rootNodeInfo, actions);
             return;
-        }
-        
-        private string NameOfTreeItem(object treeItemInfo)
-        {
-        	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
-        }
+            }
     }
 }

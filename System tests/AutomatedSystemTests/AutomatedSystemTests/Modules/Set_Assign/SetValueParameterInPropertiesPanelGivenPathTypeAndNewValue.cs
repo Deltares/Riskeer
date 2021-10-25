@@ -80,7 +80,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         			             stepRow.Select();
         			             stepRow.PressKeys("{Right}");
         			             }
-        			     } 
+        			     }
         			     else
         			     {
         			    // Select the final item

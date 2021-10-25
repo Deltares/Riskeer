@@ -734,10 +734,9 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.RibbonFolder _ribbon;
             AutomatedSystemTestsRepositoryFolders.ContainerMultipleViewsFolder _containermultipleviews;
             AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder _documentviewcontainer;
+            AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder _genericcontainermapviewtitle;
             AutomatedSystemTestsRepositoryFolders.BackstageButtonsFolder _backstagebuttons;
             AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder _ribbonbuttons;
-            RepoItemInfo _genericcontainermapInfo;
-            RepoItemInfo _closebuttongenericcontainermapInfo;
             RepoItemInfo _textlabelpanelonleftInfo;
 
             /// <summary>
@@ -750,10 +749,9 @@ namespace AutomatedSystemTests
                 _ribbon = new AutomatedSystemTestsRepositoryFolders.RibbonFolder(this);
                 _containermultipleviews = new AutomatedSystemTestsRepositoryFolders.ContainerMultipleViewsFolder(this);
                 _documentviewcontainer = new AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder(this);
+                _genericcontainermapviewtitle = new AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder(this);
                 _backstagebuttons = new AutomatedSystemTestsRepositoryFolders.BackstageButtonsFolder(this);
                 _ribbonbuttons = new AutomatedSystemTestsRepositoryFolders.RibbonButtonsFolder(this);
-                _genericcontainermapInfo = new RepoItemInfo(this, "GenericContainerMap", "*/container/container/tabpagelist[$indexContainerMap]", 30000, null, "c3fa3e58-ebae-43e2-88e2-41bd6c9116ad");
-                _closebuttongenericcontainermapInfo = new RepoItemInfo(this, "CloseButtonGenericContainerMap", "*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']", 30000, null, "ce11034c-12e0-4686-8388-75ac745d1755");
                 _textlabelpanelonleftInfo = new RepoItemInfo(this, "TextLabelPanelOnLeft", "container/container/tabpagelist/container[@automationid='HeaderPanel']/tabpage/text[@text=$nameOfPanel]", 30000, null, "e1c99c99-37e6-45b7-8ef7-3177828972c0");
             }
 
@@ -778,54 +776,6 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The GenericContainerMap item.
-            /// </summary>
-            [RepositoryItem("c3fa3e58-ebae-43e2-88e2-41bd6c9116ad")]
-            public virtual Ranorex.TabPageList GenericContainerMap
-            {
-                get
-                {
-                    return _genericcontainermapInfo.CreateAdapter<Ranorex.TabPageList>(true);
-                }
-            }
-
-            /// <summary>
-            /// The GenericContainerMap item info.
-            /// </summary>
-            [RepositoryItemInfo("c3fa3e58-ebae-43e2-88e2-41bd6c9116ad")]
-            public virtual RepoItemInfo GenericContainerMapInfo
-            {
-                get
-                {
-                    return _genericcontainermapInfo;
-                }
-            }
-
-            /// <summary>
-            /// The CloseButtonGenericContainerMap item.
-            /// </summary>
-            [RepositoryItem("ce11034c-12e0-4686-8388-75ac745d1755")]
-            public virtual Ranorex.Button CloseButtonGenericContainerMap
-            {
-                get
-                {
-                    return _closebuttongenericcontainermapInfo.CreateAdapter<Ranorex.Button>(true);
-                }
-            }
-
-            /// <summary>
-            /// The CloseButtonGenericContainerMap item info.
-            /// </summary>
-            [RepositoryItemInfo("ce11034c-12e0-4686-8388-75ac745d1755")]
-            public virtual RepoItemInfo CloseButtonGenericContainerMapInfo
-            {
-                get
-                {
-                    return _closebuttongenericcontainermapInfo;
                 }
             }
 
@@ -887,6 +837,15 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder DocumentViewContainer
             {
                 get { return _documentviewcontainer; }
+            }
+
+            /// <summary>
+            /// The GenericContainerMapViewTitle folder.
+            /// </summary>
+            [RepositoryFolder("c3fa3e58-ebae-43e2-88e2-41bd6c9116ad")]
+            public virtual AutomatedSystemTestsRepositoryFolders.GenericContainerMapViewTitleFolder GenericContainerMapViewTitle
+            {
+                get { return _genericcontainermapviewtitle; }
             }
 
             /// <summary>
@@ -7773,6 +7732,72 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _calculateforselectedbuttonInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The GenericContainerMapViewTitleFolder folder.
+        /// </summary>
+        [RepositoryFolder("c3fa3e58-ebae-43e2-88e2-41bd6c9116ad")]
+        public partial class GenericContainerMapViewTitleFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _closebuttongenericcontainermapInfo;
+
+            /// <summary>
+            /// Creates a new GenericContainerMapViewTitle  folder.
+            /// </summary>
+            public GenericContainerMapViewTitleFolder(RepoGenBaseFolder parentFolder) :
+                    base("GenericContainerMapViewTitle", "container/container/container/container/tabpagelist[$indexContainerMap]", parentFolder, 30000, null, false, "c3fa3e58-ebae-43e2-88e2-41bd6c9116ad", "")
+            {
+                _closebuttongenericcontainermapInfo = new RepoItemInfo(this, "CloseButtonGenericContainerMap", "button/tabpage/button", 30000, null, "ce11034c-12e0-4686-8388-75ac745d1755");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("c3fa3e58-ebae-43e2-88e2-41bd6c9116ad")]
+            public virtual Ranorex.TabPageList Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.TabPageList>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("c3fa3e58-ebae-43e2-88e2-41bd6c9116ad")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CloseButtonGenericContainerMap item.
+            /// </summary>
+            [RepositoryItem("ce11034c-12e0-4686-8388-75ac745d1755")]
+            public virtual Ranorex.Button CloseButtonGenericContainerMap
+            {
+                get
+                {
+                    return _closebuttongenericcontainermapInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CloseButtonGenericContainerMap item info.
+            /// </summary>
+            [RepositoryItemInfo("ce11034c-12e0-4686-8388-75ac745d1755")]
+            public virtual RepoItemInfo CloseButtonGenericContainerMapInfo
+            {
+                get
+                {
+                    return _closebuttongenericcontainermapInfo;
                 }
             }
         }

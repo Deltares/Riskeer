@@ -41,17 +41,22 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             for (int i=0; i < stepsPathItem.Count; i++) {
                 // Find the item corresponding to the step
                 var step = stepsPathItem[i];
-                var childrenWithStepInName = children.Where(ch => ch.ToString().Contains(step));
-                int amountChildrenWithStepInName = childrenWithStepInName.Count();
-                if (amountChildrenWithStepInName==1)
-                    {
-                        stepChild = childrenWithStepInName.FirstOrDefault().As<TreeItem>();
-                    } else if (amountChildrenWithStepInName>1){
-                        Report.Info("Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
-                        stepChild = childrenWithStepInName.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
-                    } else {
-                        throw new Ranorex.RanorexException("No occurrences of '" + step + "' found.");
-                    }
+                if (step=="*" && children.Count==1) {
+                    Report.Info("Information", "Using wildcard '*'. One single child found.");
+                    stepChild = children.Single().As<TreeItem>();
+                } else {
+                    var childrenWithStepInName = children.Where(ch => ch.ToString().Contains(step));
+                    int amountChildrenWithStepInName = childrenWithStepInName.Count();
+                    if (amountChildrenWithStepInName==1)
+                        {
+                            stepChild = childrenWithStepInName.FirstOrDefault().As<TreeItem>();
+                        } else if (amountChildrenWithStepInName>1){
+                            Report.Info("Information", "Multiple occurrences of '" + step + "' found: choosing first item with this exact name.");
+                            stepChild = childrenWithStepInName.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
+                        } else {
+                            throw new Ranorex.RanorexException("No occurrences of '" + step + "' found.");
+                        }
+                }
                 if (i != stepsPathItem.Count - 1)
                     {
                         // Update the children

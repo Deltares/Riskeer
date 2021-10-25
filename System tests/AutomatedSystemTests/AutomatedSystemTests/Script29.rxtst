@@ -97,6 +97,28 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="05753ec9-a56b-4945-a9a0-8f1c33a495bf"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="05ef89cd-ada2-4f40-a763-9e0cfd1c9e35"
 			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
 			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
@@ -127,6 +149,28 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="08d044ab-1579-41cc-94c6-ac0294515847"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateTR"
+					datasourceid="451c2b85-8ed2-4788-ad44-81c3482d2750"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="0aeeb249-886d-4346-aad5-593e19dee32b"
 			name="GetValueParameterCurrentlyVisibleInPropertiesPanel"
 			ref="ff7d8015-0aa1-402e-bd87-ce4d514d5e39"
@@ -153,8 +197,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="layerName"
-					datasourceid="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
+					dataname="fullPathToItem"
+					datasourceid="1eea3857-450a-4e67-8058-354a84844e09"
 					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
 					variablename="pathToItem">
 					</var>
@@ -256,6 +300,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="1367530e-7cbb-4823-a7d2-313f6e20329b"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="147ebd79-2dff-4b34-9db2-27fb22b7476f"
 			name="MakeCurrentLayerVisible">
@@ -296,6 +346,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="1626ce58-36b1-472f-a1eb-0957153ffc21"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="script29b_LoopHideAllLayers"
 			id="163b7a77-514f-489b-9118-785def2e9b04"
@@ -311,6 +367,16 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="19ed3775-279e-4955-97b2-3dc0b5408c33"
+			name="SetStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="nameStateFA"
+					value="Faalpaden">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="1c635852-88e3-4172-8186-df37d7181be7"
 			name="SelectGenericItemInProjectExplorer"
@@ -318,8 +384,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToFMItemInProjectExplorer"
-					datasourceid="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
+					dataname="fullPathToFPItem"
+					datasourceid="57e80fba-591e-4e6b-a476-3f1c9ec28df1"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
@@ -340,6 +406,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			id="1ed4be99-bbb5-4edf-9e3b-319638778f38"
+			name="BuildPathToItem">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="script29b_LayersInMapViewForTrajectAndFailureMechanisms"
 			errorbehavior="ContinueNextIteration"
 			id="1eea3857-450a-4e67-8058-354a84844e09"
@@ -353,8 +423,49 @@
 					name="isLayerExpected"
 					value="true">
 					</param>
+					<param
+					name="fullPathToItem"
+					value="">
+					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="1fb0960e-b8fd-4aa9-9a51-bcdbe1bd2781"
+			name="DeleteAllSearchFilteredFiles"
+			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
+			type="UserCode">
+				<description>
+					<![CDATA[Delete all previous *.risk files in currentVersion]]>
+				</description>
+				<databinding>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="3c5ffbb5-af24-45ac-9e77-199557e248f9"
+					variablename="folderToDeleteFiles">
+					</var>
+					<var
+					dataname="extensionRiskeerProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="21292db3-75da-487e-9c9b-bb2ad030ab77"
+					variablename="searchFilter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="2101deac-e9fd-42ba-b500-b8d1a460c1a1"
 			name="MakePanelOnLeftVisible"
@@ -390,6 +501,10 @@
 					value="">
 					</param>
 					<param
+					name="dummyString"
+					value="">
+					</param>
+					<param
 					name="folderProjectPreviousRelease"
 					value="X:\script29\previousRelease">
 					</param>
@@ -400,6 +515,22 @@
 					<param
 					name="extensionRiskeerProjects"
 					value="*.risk">
+					</param>
+					<param
+					name="substringTraject"
+					value="Traject">
+					</param>
+					<param
+					name="pathSeparatorCharacter"
+					value=">">
+					</param>
+					<param
+					name="SubstringGenericFailurePaths"
+					value="Generieke faalpaden">
+					</param>
+					<param
+					name="wildcardCharacter"
+					value="*">
 					</param>
 				</parameters>
 			</testcase>
@@ -552,12 +683,6 @@
 			<smartfoldernode
 			id="32fc369d-135a-4b95-b2e8-841991381f18"
 			name="OpenMapTraject">
-				<parameters>
-					<param
-					name="pathToRootNode"
-					value="Traject">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="33280b1c-3593-4e63-a296-c060987c188c"
@@ -574,6 +699,98 @@
 			<smartfoldernode
 			id="36f21baa-1ec0-4e46-bf57-d6447505058c"
 			name="b)SectionAndFMRelatedDataLayers">
+			</smartfoldernode>
+			<testmodule
+			id="373abcac-5e57-44cd-b01d-73bc9b55052e"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="1eea3857-450a-4e67-8058-354a84844e09"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathSeparatorCharacter"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="endPathMapLayer"
+					datasourceid="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="wildcardCharacter"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToFPItem"
+					datasourceid="57e80fba-591e-4e6b-a476-3f1c9ec28df1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="3789e403-9ec5-4959-8ef7-03c7af296b21"
+			name="SetStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="nameStateFA"
+					value="Faalpaden">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="386976f1-372d-4cfb-9172-7e123497e7a2"
@@ -644,6 +861,80 @@
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="3be31eb9-cc1d-4ac6-8655-49137749e05d"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathSeparatorCharacter"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="SubstringGenericFailurePaths"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathSeparatorCharacter"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="pathToItemWithMap"
+					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="fullPath"
+					datasourceid="d23a1706-85ff-4770-9821-e8f6d1c99afb"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="3c1cc45e-085b-46bf-ab30-d8caba95c22c"
@@ -757,6 +1048,16 @@
 					<param
 					name="typeParameter"
 					value="Text">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="451c2b85-8ed2-4788-ad44-81c3482d2750"
+			name="SetStateTraject">
+				<parameters>
+					<param
+					name="nameStateTR"
+					value="Traject">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -947,7 +1248,13 @@
 			</testmodule>
 			<smartfoldernode
 			id="57e80fba-591e-4e6b-a476-3f1c9ec28df1"
-			name="OpenViewForFM">
+			name="OpenViewForFP">
+				<parameters>
+					<param
+					name="fullPathToFPItem"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="58a75531-4638-4d2f-8e1e-3aa91409a14c"
@@ -1043,13 +1350,23 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToItemWithMap"
-					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
+					dataname="fullPath"
+					datasourceid="d23a1706-85ff-4770-9821-e8f6d1c99afb"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
+			name="SetStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="nameStateFA"
+					value="Faalpaden">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="6adb8fa7-c885-4cd5-b3bf-5f8414d859c6"
 			name="MoveViewTabToNewVerticalGroup"
@@ -1234,13 +1551,17 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToRootNode"
-					datasourceid="32fc369d-135a-4b95-b2e8-841991381f18"
+					dataname="substringTraject"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="79abff31-455d-4c92-b0b6-b9df8bc99aa9"
+			name="BuildPathToFP">
+			</smartfoldernode>
 			<testmodule
 			id="7a7b8023-c82f-4113-b8c0-ba8670a90063"
 			name="DeleteAllSearchFilteredFiles"
@@ -1336,8 +1657,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="layerName"
-					datasourceid="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
+					dataname="fullPathToItem"
+					datasourceid="1eea3857-450a-4e67-8058-354a84844e09"
 					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
 					variablename="pathToItem">
 					</var>
@@ -1396,8 +1717,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToBackgroundItemInProjectExplorer"
-					datasourceid="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
+					dataname="pathToBackgroundItemInProjectExplorerStateTraject"
+					datasourceid="9a7092d2-c1f7-42cd-b5e7-5ff93b2754cf"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
@@ -1462,31 +1783,46 @@
 			name="ReportScreenShotOfApplication">
 			</smartfoldernode>
 			<testmodule
-			id="8897d59e-972a-4910-8d00-bdfe2725de56"
-			name="ValidateWhetherFolderGivenPathContainsNode"
-			ref="d902c15b-f5aa-4db3-a0a1-e4af2b09c2ca"
+			id="8775fa07-db17-4b61-8fcf-bdc2fc82e711"
+			name="MigrateAllFilesInFolderUsingCommandLineTool"
+			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
 			type="UserCode">
+				<description>
+					<![CDATA[migrate *.risk from previousRelease to currentRelease folder]]>
+				</description>
 				<databinding>
 					<var
-					dataname="pathToRootFolder"
-					datasourceid="ad657d77-3a36-4994-929f-4320b7dd154f"
-					variableid="78cde0a3-4042-453e-a0dd-656345445114"
-					variablename="pathToFolder">
+					dataname="scriptOutputFolder"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
 					</var>
 					<var
-					dataname="layerName"
-					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
-					variableid="a99747df-1774-42b3-9164-2861023d359c"
-					variablename="nameOfNode">
-					</var>
-					<var
-					dataname="isLayerExpected"
-					datasourceid="ad657d77-3a36-4994-929f-4320b7dd154f"
-					variableid="6549233a-4e6c-4e40-96d1-5453ee5f08ec"
-					variablename="nodeIsExpectedToBeContained">
+					dataname="folderProjectPreviousRelease"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="folderPreviousReleaseProjects"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="37a1147a-04d5-40e7-aea9-e65cdff17e35"
+					variablename="sourceFolder">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="51bff513-6ec0-4273-9ee3-8d912bb40499"
+					variableid="f3b3e712-db1c-4e56-8986-c0607c00391a"
+					variablename="targetFolder">
+					</var>
+				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="89c8a724-81b0-4626-b916-2a267f27e65a"
+			name="BuildPathFailurePath">
+			</smartfoldernode>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -1529,6 +1865,12 @@
 			id="8eb958f9-6fc6-405e-9e8b-76376d2af446"
 			name="ValidateDataLayers">
 			</smartfoldernode>
+			<testmodule
+			id="8ee361b2-dbc0-40e1-9be5-baa48369ea4a"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="914ebc4a-86ba-4753-9dbd-4f61fffd5f65"
 			name="ReportScreenShotOfApplication">
@@ -1548,6 +1890,16 @@
 					<param
 					name="typeValueTransparency"
 					value="Double">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="92d15ab5-01db-4817-81c6-28cfb61a0057"
+			name="SetStateFailurePathsAssembly">
+				<parameters>
+					<param
+					name="nameStateFA"
+					value="Faalpaden">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1685,7 +2037,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="layerName"
+					dataname="pathToLayer"
 					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
 					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
 					variablename="pathToItem">
@@ -1716,6 +2068,10 @@
 					<param
 					name="newProjectMustOpened"
 					value="">
+					</param>
+					<param
+					name="pathToBackgroundItemInProjectExplorerStateTraject"
+					value="Traject>Achtergrondkaart">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1946,6 +2302,38 @@
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="a567a181-7393-443c-9396-c15f458fad26"
+			name="SetStateTraject">
+				<parameters>
+					<param
+					name="nameStateFA"
+					value="Traject">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="a7a1ebd5-c3d2-4b74-8613-82b450d167c4"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="a7ac2e20-3b99-4b19-b40e-b243cd793b2d"
 			name="ExpandAllRowItemsInPropertiesPanel"
@@ -2032,7 +2420,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="layerName"
+					dataname="pathToLayer"
 					datasourceid="4dad2bbe-964a-4374-8a4f-48cc788dd1df"
 					variableid="3019b503-c300-443e-bf11-2f4c281b0783"
 					variablename="pathToItem">
@@ -2047,6 +2435,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="af08cb25-9520-4cc9-abee-83741f042d70"
+			name="OpenView">
+			</smartfoldernode>
 			<testmodule
 			id="af39243d-08d2-4471-b944-ba1a707b4d62"
 			name="OpenProject"
@@ -2078,6 +2470,80 @@
 					datasourceid="3c6434b8-490e-433d-bfa3-1bce94643159"
 					variableid="3ba5677d-0f8b-401a-bdbe-3f131194f585"
 					variablename="backgroundFileNameToAdd">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="b3b3c1ab-c633-4205-bb18-1ce1cb4f409e"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathSeparatorCharacter"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="SubstringGenericFailurePaths"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathSeparatorCharacter"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="fullNameFP"
+					datasourceid="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="21114deb-06e3-49f6-85ff-11b20b73d8e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="fullPathToFPItem"
+					datasourceid="57e80fba-591e-4e6b-a476-3f1c9ec28df1"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2164,6 +2630,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b9aeec01-127e-4d53-8c06-b9da0c22e34e"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="a567a181-7393-443c-9396-c15f458fad26"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script29b_LoopHideAllLayers"
 			id="ba7b4907-67cb-4506-a186-77c5f469d810"
@@ -2311,6 +2799,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="c43e3934-4ed6-47e4-b5b6-22c3d22f8ec2"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="c49932a9-e115-4c0a-9d58-439eadfa7886"
 			name="ZoomToExtentCurrentView"
 			ref="d2eff017-7298-4fed-9265-129a15ac24ff"
@@ -2429,6 +2923,12 @@
 			<smartfoldernode
 			id="d23a1706-85ff-4770-9821-e8f6d1c99afb"
 			name="OpenMapFM">
+				<parameters>
+					<param
+					name="fullPath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="d3096324-404b-4c24-a13a-2caf4712fdcd"
@@ -2580,6 +3080,28 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="e9602b84-a632-4951-959e-0913e3e40972"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="3789e403-9ec5-4959-8ef7-03c7af296b21"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="ed5b6e4a-db7c-4f4f-b2ea-cf6208bb2256"
 			name="MakePanelOnLeftVisible"
 			ref="080c578e-b4cb-4bb4-945d-26465067449d"
@@ -2697,6 +3219,28 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="fd9810a9-5a92-4a03-a363-cdd0a496815e"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="19ed3775-279e-4955-97b2-3dc0b5408c33"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateCalculations"
+					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="fe5937d2-4f4b-4f48-96ca-c5579492e67c"
 			name="CreateScreenShotEntireApplication"
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
@@ -2740,8 +3284,20 @@
 							id="a33a0afd-21e6-4f15-9203-784ac7c1ad4d"
 							name="OpenProject">
 								<testmodule
+								id="1fb0960e-b8fd-4aa9-9a51-bcdbe1bd2781"
+								name="DeleteAllSearchFilteredFiles">
+								</testmodule>
+								<testmodule
+								id="8775fa07-db17-4b61-8fcf-bdc2fc82e711"
+								name="MigrateAllFilesInFolderUsingCommandLineTool">
+								</testmodule>
+								<testmodule
 								id="42b856f8-5560-4454-b777-c33c04dd3775"
 								name="OpenProject">
+								</testmodule>
+								<testmodule
+								id="c43e3934-4ed6-47e4-b5b6-22c3d22f8ec2"
+								name="CloseViewCentralPanelWithFocus">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -2750,6 +3306,14 @@
 								<testmodule
 								id="6b23fe09-f2d1-4da0-8903-7ddc3f84e2ea"
 								name="SetRandomRowWithinRangeSmartFolder">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
+							name="SetStateFailurePathsAssembly">
+								<testmodule
+								id="a7a1ebd5-c3d2-4b74-8613-82b450d167c4"
+								name="SelectState">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -2770,6 +3334,14 @@
 								<smartfoldernode
 								id="d23a1706-85ff-4770-9821-e8f6d1c99afb"
 								name="OpenMapFM">
+									<smartfoldernode
+									id="89c8a724-81b0-4626-b916-2a267f27e65a"
+									name="BuildPathFailurePath">
+										<testmodule
+										id="3be31eb9-cc1d-4ac6-8655-49137749e05d"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
 									<testmodule
 									id="651c2495-e87d-4fb4-b0c3-ccfa5657a0b7"
 									name="SelectGenericItemInProjectExplorer">
@@ -2797,6 +3369,14 @@
 									<testmodule
 									id="5ad1510e-6e25-422b-bbb8-efd4dfb10b1f"
 									name="CreateScreenShotEntireApplication">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="451c2b85-8ed2-4788-ad44-81c3482d2750"
+								name="SetStateTraject">
+									<testmodule
+									id="08d044ab-1579-41cc-94c6-ac0294515847"
+									name="SelectState">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -2994,6 +3574,10 @@
 									id="af39243d-08d2-4471-b944-ba1a707b4d62"
 									name="OpenProject">
 									</testmodule>
+									<testmodule
+									id="1367530e-7cbb-4823-a7d2-313f6e20329b"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="e2969bb2-ed0c-4556-9555-65c1a32af143"
@@ -3001,6 +3585,14 @@
 									<testmodule
 									id="2c53608a-befe-4889-b250-e8adbdaecdcc"
 									name="MakePanelOnLeftVisible">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="19ed3775-279e-4955-97b2-3dc0b5408c33"
+								name="SetStateFailurePathsAssembly">
+									<testmodule
+									id="fd9810a9-5a92-4a03-a363-cdd0a496815e"
+									name="SelectState">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -3166,6 +3758,18 @@
 									id="38ca41b0-9aae-45fc-a0b7-5171fbe1d0e1"
 									name="OpenProject">
 									</testmodule>
+									<testmodule
+									id="1626ce58-36b1-472f-a1eb-0957153ffc21"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="a567a181-7393-443c-9396-c15f458fad26"
+								name="SetStateTraject">
+									<testmodule
+									id="b9aeec01-127e-4d53-8c06-b9da0c22e34e"
+									name="SelectState">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="d7dbd40f-7166-43b7-b620-e4ed702d60a7"
@@ -3180,16 +3784,36 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
+								id="3789e403-9ec5-4959-8ef7-03c7af296b21"
+								name="SetStateFailurePathsAssembly">
+									<testmodule
+									id="e9602b84-a632-4951-959e-0913e3e40972"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="57e80fba-591e-4e6b-a476-3f1c9ec28df1"
-								name="OpenViewForFM">
-									<testmodule
-									id="1c635852-88e3-4172-8186-df37d7181be7"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="d3230581-8666-4e17-a506-5c341b8c9ad7"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
+								name="OpenViewForFP">
+									<smartfoldernode
+									id="79abff31-455d-4c92-b0b6-b9df8bc99aa9"
+									name="BuildPathToFP">
+										<testmodule
+										id="b3b3c1ab-c633-4205-bb18-1ce1cb4f409e"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="af08cb25-9520-4cc9-abee-83741f042d70"
+									name="OpenView">
+										<testmodule
+										id="1c635852-88e3-4172-8186-df37d7181be7"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="d3230581-8666-4e17-a506-5c341b8c9ad7"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="32ce3729-3337-403a-ac0f-d62f21b0571e"
@@ -3245,6 +3869,14 @@
 									<smartfoldernode
 									id="1eea3857-450a-4e67-8058-354a84844e09"
 									name="LoopValidateThatEachDataLayerInFMViewMapExists">
+										<smartfoldernode
+										id="1ed4be99-bbb5-4edf-9e3b-319638778f38"
+										name="BuildPathToItem">
+											<testmodule
+											id="373abcac-5e57-44cd-b01d-73bc9b55052e"
+											name="ConcatenateStrings">
+											</testmodule>
+										</smartfoldernode>
 										<testmodule
 										id="7c9437fb-6fde-4a92-9e81-669ee8d62719"
 										name="SelectGenericItemInMapLayersPanel">
@@ -3347,6 +3979,18 @@
 								id="b4eeec3a-ba67-4615-86b5-1fbe79120de8"
 								name="OpenProject">
 								</testmodule>
+								<testmodule
+								id="8ee361b2-dbc0-40e1-9be5-baa48369ea4a"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="92d15ab5-01db-4817-81c6-28cfb61a0057"
+							name="SetStateFailurePathsAssembly">
+								<testmodule
+								id="05753ec9-a56b-4945-a9a0-8f1c33a495bf"
+								name="SelectState">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="b9a31d77-70d9-4350-b971-fe7f81576009"
@@ -3410,10 +4054,6 @@
 								<smartfoldernode
 								id="ad657d77-3a36-4994-929f-4320b7dd154f"
 								name="LoopValidateThatEachLayerExists">
-									<testmodule
-									id="8897d59e-972a-4910-8d00-bdfe2725de56"
-									name="ValidateWhetherFolderGivenPathContainsNode">
-									</testmodule>
 									<testmodule
 									id="9961950f-e129-4a05-ad8b-8b970781634c"
 									name="SelectGenericItemInMapLayersPanel">
@@ -3578,7 +4218,7 @@
 						STPH
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Piping
+						Dijken en dammen - Piping
 					</td>
 				</tr>
 				<tr>
@@ -3586,7 +4226,7 @@
 						GEKB
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
 					</td>
 				</tr>
 				<tr>
@@ -3594,7 +4234,7 @@
 						STBI
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+						Dijken en dammen - Macrostabiliteit binnenwaarts
 					</td>
 				</tr>
 				<tr>
@@ -3602,7 +4242,7 @@
 						STBU
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
+						Dijken en dammen - Macrostabiliteit buitenwaarts
 					</td>
 				</tr>
 				<tr>
@@ -3610,7 +4250,7 @@
 						STMI
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Microstabiliteit
+						Dijken en dammen - Microstabiliteit
 					</td>
 				</tr>
 				<tr>
@@ -3618,7 +4258,7 @@
 						ZST
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Stabiliteit steenzetting
+						Dijken en dammen - Stabiliteit steenzetting
 					</td>
 				</tr>
 				<tr>
@@ -3626,7 +4266,7 @@
 						AGK
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding
+						Dijken en dammen - Golfklappen op asfaltbekleding
 					</td>
 				</tr>
 				<tr>
@@ -3634,7 +4274,7 @@
 						AWO
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
+						Dijken en dammen - Wateroverdruk bij asfaltbekleding
 					</td>
 				</tr>
 				<tr>
@@ -3642,7 +4282,7 @@
 						GEBU
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud
+						Dijken en dammen - Grasbekleding erosie buitentalud
 					</td>
 				</tr>
 				<tr>
@@ -3650,7 +4290,7 @@
 						GABU
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
+						Dijken en dammen - Grasbekleding afschuiven buitentalud
 					</td>
 				</tr>
 				<tr>
@@ -3658,7 +4298,7 @@
 						GABI
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
+						Dijken en dammen - Grasbekleding afschuiven binnentalud
 					</td>
 				</tr>
 				<tr>
@@ -3666,7 +4306,7 @@
 						HTKW
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Hoogte kunstwerk
+						Kunstwerken - Hoogte kunstwerk
 					</td>
 				</tr>
 				<tr>
@@ -3674,7 +4314,7 @@
 						BSKW
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
 					</td>
 				</tr>
 				<tr>
@@ -3682,7 +4322,7 @@
 						PKW
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Piping bij kunstwerk
+						Kunstwerken - Piping bij kunstwerk
 					</td>
 				</tr>
 				<tr>
@@ -3690,7 +4330,7 @@
 						STKWp
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
 					</td>
 				</tr>
 				<tr>
@@ -3698,7 +4338,7 @@
 						STKWl
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
+						Kunstwerken - Sterkte en stabiliteit langsconstructies
 					</td>
 				</tr>
 				<tr>
@@ -3706,7 +4346,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;Duinwaterkering - Duinafslag
+						Duinwaterkering - Duinafslag
 					</td>
 				</tr>
 				<tr>
@@ -3714,7 +4354,7 @@
 						INN
 					</td>
 					<td>
-						Traject&gt;Technische innovaties - Technische innovaties
+						Technische innovaties - Technische innovaties
 					</td>
 				</tr>
 			</table>
@@ -4162,7 +4802,7 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					layerName
+					endPathMapLayer
 				</column>
 				<column>
 					labelFMTraject
@@ -4173,7 +4813,7 @@
 			<table>
 				<tr>
 					<th>
-						layerName
+						endPathMapLayer
 					</th>
 					<th>
 						labelFMTraject
@@ -4668,7 +5308,7 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					labelFM
+					labelFP
 				</column>
 				<column>
 					pathProjectRequired
@@ -4677,10 +5317,7 @@
 					rangeLayersToValidate
 				</column>
 				<column>
-					pathToFMItemInProjectExplorer
-				</column>
-				<column>
-					pathToBackgroundItemInProjectExplorer
+					fullNameFP
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -4688,7 +5325,7 @@
 			<table>
 				<tr>
 					<th>
-						labelFM
+						labelFP
 					</th>
 					<th>
 						pathProjectRequired
@@ -4697,10 +5334,7 @@
 						rangeLayersToValidate
 					</th>
 					<th>
-						pathToFMItemInProjectExplorer
-					</th>
-					<th>
-						pathToBackgroundItemInProjectExplorer
+						fullNameFP
 					</th>
 				</tr>
 				<tr>
@@ -4708,16 +5342,13 @@
 						STPH
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_STPH.risk
 					</td>
 					<td>
 						3,4,6-16
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping
-					</td>
-					<td>
-						Traject 12-2&gt;Achtergrondkaart
+						Dijken en dammen - Piping
 					</td>
 				</tr>
 				<tr>
@@ -4725,16 +5356,13 @@
 						STBI
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_STBI.risk
 					</td>
 					<td>
 						5-16
 					</td>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-					<td>
-						Traject 41-1&gt;Achtergrondkaart
+						Dijken en dammen - Macrostabiliteit binnenwaarts
 					</td>
 				</tr>
 				<tr>
@@ -4742,16 +5370,13 @@
 						GEKB
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_GEKB.risk
 					</td>
 					<td>
 						17-28
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud
-					</td>
-					<td>
-						Traject 12-2 (1)&gt;Achtergrondkaart
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
 					</td>
 				</tr>
 				<tr>
@@ -4759,16 +5384,13 @@
 						BSKW
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_BSKW.risk
 					</td>
 					<td>
 						29-40
 					</td>
 					<td>
-						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-					<td>
-						Traject 34-1&gt;Achtergrondkaart
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
 					</td>
 				</tr>
 				<tr>
@@ -4776,16 +5398,13 @@
 						HTKW
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_HTKW.risk
 					</td>
 					<td>
 						29-40
 					</td>
 					<td>
-						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk
-					</td>
-					<td>
-						Traject 36-2&gt;Achtergrondkaart
+						Kunstwerken - Hoogte kunstwerk
 					</td>
 				</tr>
 				<tr>
@@ -4793,16 +5412,13 @@
 						STKWp
 					</td>
 					<td>
-						script20cd.risk
+						script20cd_STKWp.risk
 					</td>
 					<td>
 						29-40
 					</td>
 					<td>
-						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-					<td>
-						Traject 44-2&gt;Achtergrondkaart
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
 					</td>
 				</tr>
 				<tr>
@@ -4810,16 +5426,13 @@
 						ZST
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_ZST.risk
 					</td>
 					<td>
 						41-51
 					</td>
 					<td>
-						Traject 28-1 (ZST)&gt;Dijken en dammen - Stabiliteit steenzetting
-					</td>
-					<td>
-						Traject 28-1 (ZST)&gt;Achtergrondkaart
+						Dijken en dammen - Stabiliteit steenzetting
 					</td>
 				</tr>
 				<tr>
@@ -4827,16 +5440,13 @@
 						AGK
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_AGK.risk
 					</td>
 					<td>
 						41-51
 					</td>
 					<td>
-						Traject 8-3 (AGK)&gt;Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-					<td>
-						Traject 8-3 (AGK)&gt;Achtergrondkaart
+						Dijken en dammen - Golfklappen op asfaltbekleding
 					</td>
 				</tr>
 				<tr>
@@ -4844,16 +5454,13 @@
 						GEBU
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_GEBU.risk
 					</td>
 					<td>
 						41-51
 					</td>
 					<td>
-						Traject 6-6 (GEBU)&gt;Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-					<td>
-						Traject 6-6 (GEBU)&gt;Achtergrondkaart
+						Dijken en dammen - Grasbekleding erosie buitentalud
 					</td>
 				</tr>
 				<tr>
@@ -4861,16 +5468,13 @@
 						DA
 					</td>
 					<td>
-						script15abc.risk
+						script15abc_DA.risk
 					</td>
 					<td>
 						52-60
 					</td>
 					<td>
-						Traject 14-9&gt;Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						Traject 14-9&gt;Achtergrondkaart
+						Duinwaterkering - Duinafslag
 					</td>
 				</tr>
 				<tr>
@@ -4884,10 +5488,7 @@
 						52-60
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Dijken en dammen - Macrostabiliteit buitenwaarts
 					</td>
 				</tr>
 				<tr>
@@ -4901,10 +5502,7 @@
 						52-60
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Microstabiliteit
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Dijken en dammen - Microstabiliteit
 					</td>
 				</tr>
 				<tr>
@@ -4918,10 +5516,7 @@
 						52-54,56-60
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Wateroverdruk bij asfaltbekleding
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Dijken en dammen - Wateroverdruk bij asfaltbekleding
 					</td>
 				</tr>
 				<tr>
@@ -4935,10 +5530,7 @@
 						52-60
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding afschuiven buitentalud
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Dijken en dammen - Grasbekleding afschuiven buitentalud
 					</td>
 				</tr>
 				<tr>
@@ -4952,10 +5544,7 @@
 						52-60
 					</td>
 					<td>
-						Traject 50-1&gt;Dijken en dammen - Grasbekleding afschuiven binnentalud
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Dijken en dammen - Grasbekleding afschuiven binnentalud
 					</td>
 				</tr>
 				<tr>
@@ -4969,10 +5558,7 @@
 						52-60
 					</td>
 					<td>
-						Traject 50-1&gt;Kunstwerken - Piping bij kunstwerk
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Kunstwerken - Piping bij kunstwerk
 					</td>
 				</tr>
 				<tr>
@@ -4986,10 +5572,7 @@
 						52-54,56-60
 					</td>
 					<td>
-						Traject 50-1&gt;Kunstwerken - Sterkte en stabiliteit langsconstructies
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Kunstwerken - Sterkte en stabiliteit langsconstructies
 					</td>
 				</tr>
 				<tr>
@@ -5003,10 +5586,7 @@
 						52-54,56-60
 					</td>
 					<td>
-						Traject 50-1&gt;Technische innovaties - Technische innovaties
-					</td>
-					<td>
-						Traject 50-1&gt;Achtergrondkaart
+						Technische innovaties - Technische innovaties
 					</td>
 				</tr>
 			</table>
@@ -5081,7 +5661,7 @@
 						Polygons
 					</td>
 					<td>
-						gem_2011_gn1
+						Trajectkaart&gt;gem_2011_gn1
 					</td>
 					<td>
 						1-7
@@ -5092,7 +5672,7 @@
 						Lines
 					</td>
 					<td>
-						Referentielijn
+						Trajectkaart&gt;Referentielijn
 					</td>
 					<td>
 						8-14
@@ -5103,7 +5683,7 @@
 						Points
 					</td>
 					<td>
-						Hydraulische belastingen
+						Trajectkaart&gt;Hydraulische belastingen
 					</td>
 					<td>
 						15-23
@@ -5118,7 +5698,7 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					layerName
+					pathToLayer
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5126,22 +5706,22 @@
 			<table>
 				<tr>
 					<th>
-						layerName
+						pathToLayer
 					</th>
 				</tr>
 				<tr>
 					<td>
-						Gecombineerd vakoordeel
+						Assemblagekaart&gt;Gecombineerd vakoordeel
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Hydraulische belastingen
+						Assemblagekaart&gt;Hydraulische belastingen
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Referentielijn
+						Assemblagekaart&gt;Referentielijn
 					</td>
 				</tr>
 			</table>
@@ -5173,7 +5753,13 @@
 			id="19271aef-36fe-45c2-89e7-be8267cec39a">
 			</testcontainer>
 			<testcontainer
+			id="19ed3775-279e-4955-97b2-3dc0b5408c33">
+			</testcontainer>
+			<testcontainer
 			id="1d1ced99-ad3d-4618-9af3-0fd5e23d056d">
+			</testcontainer>
+			<testcontainer
+			id="1ed4be99-bbb5-4edf-9e3b-319638778f38">
 			</testcontainer>
 			<testcontainer
 			id="1eea3857-450a-4e67-8058-354a84844e09">
@@ -5203,6 +5789,9 @@
 			id="36f21baa-1ec0-4e46-bf57-d6447505058c">
 			</testcontainer>
 			<testcontainer
+			id="3789e403-9ec5-4959-8ef7-03c7af296b21">
+			</testcontainer>
+			<testcontainer
 			id="39eed5ed-c905-406e-aa86-d518e9e6ec26">
 			</testcontainer>
 			<testcontainer
@@ -5216,6 +5805,9 @@
 			</testcontainer>
 			<testcontainer
 			id="42f2813b-868d-470e-81d1-8e1113675fa8">
+			</testcontainer>
+			<testcontainer
+			id="451c2b85-8ed2-4788-ad44-81c3482d2750">
 			</testcontainer>
 			<testcontainer
 			id="4637683c-f00b-463c-8974-9a5e50ff51f3">
@@ -5257,10 +5849,16 @@
 			id="64f55c0a-44d9-4bd6-9ef5-33544121d1a4">
 			</testcontainer>
 			<testcontainer
+			id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f">
+			</testcontainer>
+			<testcontainer
 			id="7083de07-9974-49fc-9bad-009f51dce836">
 			</testcontainer>
 			<testcontainer
 			id="70940fe9-2f5b-4e74-8265-7559f879dc0b">
+			</testcontainer>
+			<testcontainer
+			id="79abff31-455d-4c92-b0b6-b9df8bc99aa9">
 			</testcontainer>
 			<testcontainer
 			id="7a92df26-5b69-488b-9ab3-023b5e42ded5">
@@ -5278,6 +5876,9 @@
 			id="85c80477-b489-48ce-858b-44638a9a14a5">
 			</testcontainer>
 			<testcontainer
+			id="89c8a724-81b0-4626-b916-2a267f27e65a">
+			</testcontainer>
+			<testcontainer
 			id="8b361696-e604-4d89-a528-117f93fc4f44">
 			</testcontainer>
 			<testcontainer
@@ -5288,6 +5889,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9171da9b-1de8-4b61-b7da-29a24db1ff96">
+			</testcontainer>
+			<testcontainer
+			id="92d15ab5-01db-4817-81c6-28cfb61a0057">
 			</testcontainer>
 			<testcontainer
 			id="941c4264-1064-4e33-a6ba-7c1361067e6f">
@@ -5311,6 +5915,9 @@
 			id="a33a0afd-21e6-4f15-9203-784ac7c1ad4d">
 			</testcontainer>
 			<testcontainer
+			id="a567a181-7393-443c-9396-c15f458fad26">
+			</testcontainer>
+			<testcontainer
 			id="a93a5504-8b16-42ed-9294-c98da9a502b8">
 			</testcontainer>
 			<testcontainer
@@ -5318,6 +5925,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ad657d77-3a36-4994-929f-4320b7dd154f">
+			</testcontainer>
+			<testcontainer
+			id="af08cb25-9520-4cc9-abee-83741f042d70">
 			</testcontainer>
 			<testcontainer
 			id="b45e2710-93d8-4072-b10d-28e223065ec1">

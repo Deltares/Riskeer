@@ -102,8 +102,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Move item 'RiskeerMainWindow.GenericContainerMap' at Center.", repo.RiskeerMainWindow.GenericContainerMapInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.GenericContainerMap.MoveTo();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Move item 'RiskeerMainWindow.GenericContainerMapViewTitle' at Center.", repo.RiskeerMainWindow.GenericContainerMapViewTitle.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.GenericContainerMapViewTitle.Self.MoveTo();
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse scroll Vertical by number of units from variable $deltaWheelMouseVertical.", new RecordItemIndex(1));
             Mouse.ScrollWheel(Int32.Parse(deltaWheelMouseVertical));

@@ -1954,24 +1954,28 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
 			</folder>
-			<item
-			addcaps="container,control,nativewindow"
+			<folder
 			capname="tabpagelist"
+			comment="container with name of map view, not generic container with map"
 			id="c3fa3e58-ebae-43e2-88e2-41bd6c9116ad"
-			name="GenericContainerMap"
-			refimgid="4fb8aa03-a345-43ce-8877-7037da92a8cc"
-			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]
-			</item>
-			<item
-			addcaps="container,control,nativewindow"
-			capname="button"
-			id="ce11034c-12e0-4686-8388-75ac745d1755"
-			name="CloseButtonGenericContainerMap"
-			refimgid="4fb8aa03-a345-43ce-8877-7037da92a8cc"
-			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/*/container/container/tabpagelist[$indexContainerMap]//button[@name='DocumentCloseButton']
-			</item>
+			isrooted="True"
+			name="GenericContainerMapViewTitle"
+			refimgid="0fa5762c-d2bc-4921-9d71-fc6bb221469d"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="container,control,nativewindow"
+				capname="button"
+				id="ce11034c-12e0-4686-8388-75ac745d1755"
+				name="CloseButtonGenericContainerMap"
+				refimgid="4fb8aa03-a345-43ce-8877-7037da92a8cc"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/container/container/container/container/tabpagelist[$indexContainerMap]/button/tabpage/button
+				</item>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']/container/container/container/container/tabpagelist[$indexContainerMap]
+				</basepath>
+			</folder>
 			<item
 			addcaps="tabpage,wpfelement,wpfgroupelement"
 			capname="text"
