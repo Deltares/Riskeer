@@ -157,6 +157,7 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="05dad472-4f50-4b5f-948e-3e0b4a2f8403"
 			name="ConvertPropertiesPanelToString"
 			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
@@ -310,6 +311,26 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="0f8b33c9-7efc-47b2-be44-6abaebb27a95"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="10600f4c-381f-4670-bc54-6e00ce0b982c"
 			name="ModifiedCalculations">
@@ -445,52 +466,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="174661f7-c324-4f36-bc56-468b75099aa7"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="nameOfCalculation"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="17a8db5d-9bbe-43c9-891f-11f4899cec83"
 			name="StandAloneCalculation">
@@ -551,52 +526,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="1d1f0426-d3bc-4bf0-bc35-71eb0f2be0a8"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="1dfc808e-eae9-4e66-9a1c-75ca600c97c8"
 			name="ConcatenateStrings"
@@ -931,6 +860,7 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="2e9ba9d7-6af2-42b1-a4fe-98acc2612741"
 			name="ConvertPropertiesPanelToString"
 			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
@@ -1027,6 +957,80 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="313e7d90-1e24-45e6-baf7-2911988fd596"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="nameNewFolder"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="nameOfCalculation"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="suffixInput"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="31c975b8-4936-4e00-b03e-09f370176225"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1044,12 +1048,22 @@
 			id="325026f4-df45-404a-96d2-65e979104b97"
 			name="ValidateStringsForBothStructuresAreEqual">
 			</smartfoldernode>
+			<smartfoldernode
+			id="34504a86-0496-451f-a1e8-3afc86f688ef"
+			name="ReadInputOriginalCaculations">
+			</smartfoldernode>
 			<testmodule
-			id="340eb16e-626e-46bd-95f1-02aa652ffe3b"
+			id="34a18c40-3aec-4cdc-85bb-39b10489582d"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
 					<var
 					dataname="suffixNewStepInPathPE"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
@@ -1057,43 +1071,61 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="intermediatePathCalculation"
+					dataname="nameOfCalculation"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="suffixInput"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="pathCalculation"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="34504a86-0496-451f-a1e8-3afc86f688ef"
-			name="ReadInputOriginalCaculations">
-			</smartfoldernode>
 			<testmodule
 			id="3560e6c7-97f5-4251-b330-0fa9816f403d"
 			name="ValidateAllCalculationsInSelectedFolder"
@@ -1129,52 +1161,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="363dedf0-39d6-471e-b4c1-90a73ab10d42"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameNewFolder"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="37cb93c8-a462-46f6-825d-8003d8158c40"
 			name="CalculateStructureProjectExplorerNode"
 			ref="a3e08090-a06f-4108-b55c-de95e3e51cc4"
@@ -1194,102 +1180,10 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="38242e93-d53e-46f6-b483-056479cdecf6"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="396268ba-c58d-4982-a1a8-82ff74dd8d4d"
 			name="ValidateStringsForBothStructuresAreEqual">
 			</smartfoldernode>
-			<testmodule
-			id="399f7cd1-6eab-4067-b0ee-97b5ef51f3d2"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixInput"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="pathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="3dc629e9-24de-4d58-8118-7125ab91845c"
 			name="SelectGenericItemInProjectExplorer"
@@ -1341,102 +1235,70 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="418f8bd7-685f-48de-9930-53e7529222c0"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			id="3fda2ee5-48dc-46b2-8600-6d757bec5917"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
 					</var>
 					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
 					dataname="fullPathToItem"
 					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="4243a9cb-f011-460e-bead-7e8ee8196e6a"
+			name="ValidatePlainTextFilesAreEqual"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="437c784f-d17c-4a68-a6ad-112b8ffaa6a6"
 			name="ValidateAllCalculationsInSelectedFolder"
 			ref="4e9bdd58-dcf1-424d-a224-1d30c86d102b"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="43c45077-bcc3-4e1d-bd05-41bb64993613"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="nameOfCalculation"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="44c5f24c-4f2a-4f31-897d-006757896303"
@@ -1545,52 +1407,6 @@
 			name="ImportCalculationsFromReferenceXMLConfigurationFile">
 			</smartfoldernode>
 			<testmodule
-			id="4dfa03cf-7a74-4af6-89df-54d6397fda57"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixInput"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="pathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="50be77b8-a3db-4e62-afa2-9faf9d60efeb"
 			name="ValidateStringsAreEqual"
 			ref="aeaa38ed-2c8f-4c2c-9dbc-888f329cf081"
@@ -1609,52 +1425,6 @@
 					variablename="string2ToCompare">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="510e3585-2c6e-431d-9878-89dbe3c1800c"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="52662259-7b4d-46e5-8fcc-c3f824eeca62"
@@ -1678,6 +1448,26 @@
 			id="532261b8-f644-4d4a-a54f-b4a15c5a4c75"
 			name="ImportCalculationsFromInvalidXMLConfigurationFile">
 			</smartfoldernode>
+			<testmodule
+			id="53d3a38a-488f-40bf-8ea2-02d11917a811"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
+			</testmodule>
 			<teardown
 			id="5482230a-aa5f-427b-8cc8-4704c1b46870"
 			name="teardown">
@@ -1815,142 +1605,10 @@
 			name="DuplicateFolderContainingCopiedAndMovedCalculation">
 			</smartfoldernode>
 			<testmodule
-			id="5c16889b-c520-4a8b-a99a-109aee9c8678"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="5d866c19-f526-4ebe-9958-898aaeaaa90a"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameNewFolder"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="60c14ec1-3ebe-43dc-9ac9-7afc85dca1cf"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="suffixInput"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
+			id="5d63810d-c2ce-4cab-a314-dbc4976cf5a3"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
@@ -2130,26 +1788,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="6abc4f2a-8d27-4a95-8cc0-dbf228c1c2d1"
-			name="CalculateIfProjectMustBeOpened"
-			ref="0992afa2-5082-4c3f-b072-0a9a6be5977c"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="projectNeedsToBeOpened"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="f5d6fdf5-43e2-42d5-a343-d130722b19cb"
-					variablename="projectMustBeOpened">
-					</var>
-					<var
-					dataname="fileNameOfProject"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="72fcd65e-4903-4569-8c21-047c0d41f306"
-					variablename="fileNameOfProjectThatShouldBeOpen">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="6e1b16e9-3bf0-4523-9103-2d863094e1e2"
 			name="CreateScreenshotMessagesPanel"
 			ref="061e4f7d-17ae-44b5-8bfe-3d8ea937802d"
@@ -2167,52 +1805,6 @@
 			id="6f50cd2a-f5cc-4287-9290-b4d886a2591d"
 			name="ValidateThatStructureCalculationsIsTheSame">
 			</smartfoldernode>
-			<testmodule
-			id="6f7a9262-b8f1-49a4-8852-1d9f4630a743"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="70188e7e-a2df-4fa9-992f-0feaaa5c021d"
 			name="ConvertPropertiesPanelToString"
@@ -2235,49 +1827,95 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="71368129-2d40-497b-9085-185e0aaacce2"
+			name="ExportToCSV">
+			</smartfoldernode>
 			<testmodule
-			id="717aba13-dc79-4add-b6d5-f4de5361ae00"
+			id="721ad379-38fd-4da7-8d59-a85158b54412"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
+					dataname="suffixItem"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2307,102 +1945,10 @@
 			id="776028c2-86bf-4bae-af29-ab7524a8c24e"
 			name="ValidateImportedModifiedCalculations">
 			</smartfoldernode>
-			<testmodule
-			id="77819609-46a2-4a74-88fa-1989cc4d9239"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameNewFolder"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="77b30075-fb9b-4927-95d8-5c4273951577"
 			name="StandaloneCalculation">
 			</smartfoldernode>
-			<testmodule
-			id="7a70fec7-cdd1-48d9-b5da-f475cb83a915"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="suffixInput"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="7bb4d524-db01-467e-8a39-44d39421597d"
 			name="ProjectType2NeedsToBeSaved">
@@ -2434,52 +1980,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<testmodule
-			id="7c8fcab6-a906-4fb7-b211-697c7443cbc1"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="7cd6197f-0bcd-40ae-b5a6-dd02c589ba33"
 			name="DuplicateCalculationAgain">
@@ -2579,62 +2079,18 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="8239fc73-445b-41b0-a3f4-10af9d0be214"
-			name="b)ExportingAndImportingCalculation">
-			</smartfoldernode>
 			<testmodule
-			id="837b233e-22bd-4d84-9e39-c2c6b2d512c4"
+			id="82382ec4-9749-4f41-a4a5-12e59040f697"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="nameOfCalculation"
+					dataname="pathToCalculationsFolder"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="84175dca-5c2a-45c2-b8ba-0774f3fca315"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
 					<var
 					dataname="suffixNewStepInPathPE"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
@@ -2642,39 +2098,65 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="intermediatePathCalculation"
+					dataname="nameNewFolder"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="nameOfCalculation"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="suffixInput"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="pathCalculation"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="8239fc73-445b-41b0-a3f4-10af9d0be214"
+			name="b)ExportingAndImportingCalculation">
+			</smartfoldernode>
 			<smartfoldernode
 			id="8609648a-d20e-46a2-b6a9-5ff288b9e167"
 			name="OriginalCalculations">
@@ -2818,6 +2300,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="8c5263e2-24f1-4143-9632-5e0c0e65b0d6"
 			name="ValidateStringsPropertiesPanelAreEqual"
 			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
@@ -2878,52 +2361,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="8f13f0c2-f2c9-4be5-b8a4-a8e1bc44ced4"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="nameOfCalculation"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="904dbf74-a62d-45a5-88b0-1b9555c351b9"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -2936,52 +2373,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="91730efa-5eb8-4432-a20c-5efcf3aa8bac"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="9376a69e-42eb-4a6d-8b7d-7eb844fe063a"
@@ -3031,52 +2422,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="95a40338-5774-4a69-b4fc-52772845eff8"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="suffixInput"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
+			enabled="False"
 			id="96829b86-e6f3-46a8-896a-039ee96cb6bc"
 			name="ValidateStringsPropertiesPanelAreEqual"
 			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
@@ -3199,6 +2545,154 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="a1698953-2f50-4036-b0c6-e5e4e74b9b21"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="nameOfCalculation"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="suffixInput"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="a1f40273-50ee-47dd-9996-6a772d128b6b"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="nameOfCalculation"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="suffixInput"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="a27102d6-ee8d-4af7-985d-ed8f487520fa"
 			name="ReadInputImportedModifiedCaculations">
@@ -3236,6 +2730,26 @@
 					variablename="expectedMessage">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="a3849823-b824-403e-9b6f-8d1f3a7527a4"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="a3f25df5-2b85-4c84-9c40-9737c84719f2"
@@ -3286,12 +2800,6 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="pathToCopiedCalculationInsideDuplicatedFolder"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
 					dataname="dummyString"
 					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
@@ -3338,6 +2846,12 @@
 					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
+					</var>
+					<var
+					dataname="pathToCopiedCalculationInsideDuplicatedFolder"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3395,6 +2909,56 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="aac90b26-7184-4289-a147-ec4e86afded4"
+			name="InsertPreffixInLastStepOfPath"
+			ref="59c93bda-2f66-419c-8c73-506536ac6587"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToNewFolder"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="49ba6196-e160-44ef-82e0-97affcff7e03"
+					variablename="originalPathItem">
+					</var>
+					<var
+					dataname="intermediatePath"
+					datasourceid="2e157592-a834-4171-ac24-bd99591c0786"
+					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
+					variablename="finalPathItem">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixToInsert">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="preffixCopyOfCalculation"
+					datasourceid="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixCopyCalculation">
+					</var>
+					<var
+					dataname="preffixCopy"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
+					variablename="preffixToInsert">
+					</var>
+					<var
+					dataname="pathDuplicatedFolderContainingCopiedCalculation"
+					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
+					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
+					variablename="finalPathItem">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			id="aba10684-1384-4446-83a2-9e87e2734f46"
+			name="ExportToCSV">
+			</smartfoldernode>
 			<smartfoldernode
 			id="acfac345-c8f0-4061-9c82-4ebe43826c50"
 			name="ImportCalculationsFromModifiedXMLConfigurationFile">
@@ -3431,52 +2995,10 @@
 			id="b1217f91-ed1a-4e65-a57a-3f853884ce57"
 			name="a)DuplicationOfCalculations">
 			</smartfoldernode>
-			<testmodule
-			id="b1cd9680-3125-4f4b-af2a-d4668a58f0c5"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="nameOfCalculation"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
+			<smartfoldernode
+			id="b14ee891-742f-4cea-9dd5-2b7c62b2d8a7"
+			name="ExportToCSV">
+			</smartfoldernode>
 			<smartfoldernode
 			id="b281f94c-58e9-4238-a6de-da07c186aa7f"
 			name="DuplicateCalculation">
@@ -3540,52 +3062,6 @@
 			id="b52653fe-ef2e-40f0-93d4-b0131df6c708"
 			name="BuildPathToStandaloneCalculation">
 			</smartfoldernode>
-			<testmodule
-			id="b59aacd7-b9d0-4d7a-98b1-d09550534607"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="b6722f50-25ab-42cc-9643-43866fdb7fc5"
 			name="ImportConfigurationCalculationsFromXMLFile"
@@ -3673,11 +3149,17 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="bb0d424b-7cdc-430b-9d79-59d694a39bc1"
+			id="bbfe78f4-3839-4690-8696-3ae3a2107d4c"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
 					<var
 					dataname="suffixNewStepInPathPE"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
@@ -3685,38 +3167,80 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="intermediate2PathCalculation"
+					dataname="nameNewFolder"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
 					</var>
 					<var
-					dataname="intermediatePathCalculation"
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="nameOfCalculation"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="suffixInput"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="pathCalculation"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
 				</databinding>
-				<missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="bc1cf028-f900-458e-b543-a83b1d174076"
+			name="ValidatePlainTextFilesAreEqual"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
 					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
 					</var>
 					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
 					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="bc98c773-10ca-4e32-87bf-ed018c6929f0"
@@ -3744,10 +3268,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="be913cd7-9fcd-4f43-aeea-57d14f0f00a7"
-			name="CalculateIfDifferentProjectNeedsToBeOpened">
-			</smartfoldernode>
 			<testmodule
 			id="c0e66152-4fed-4245-a32c-4b684f7f1198"
 			name="AddCalculationFolder"
@@ -3755,6 +3275,7 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="c137fa93-4838-4af9-ac32-d4c0badceca6"
 			name="ConvertPropertiesPanelToString"
 			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
@@ -3834,52 +3355,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="c1ed0aec-8429-47b2-9c6e-f5d9ea504d42"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="c2971347-6fbc-4b7d-a5f5-87c81bdf89cc"
 			name="CalculateStructureImportedReferenceFolderCalculations">
@@ -3907,47 +3382,6 @@
 					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 					variableid="56347b29-0010-4e17-9350-df3326ef24fd"
 					variablename="fileNameToSave">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="c2f455e9-4cd0-4554-9e5a-5b4e8d10cae2"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="2e157592-a834-4171-ac24-bd99591c0786"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="intermediatePath"
-					datasourceid="2e157592-a834-4171-ac24-bd99591c0786"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="preffixCopy"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediatePath"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="preffixCopy"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -4000,47 +3434,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="c3ff124f-8d6a-4594-b55a-1e2ee134b9ce"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePath"
-					datasourceid="2e157592-a834-4171-ac24-bd99591c0786"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-					<var
-					dataname="pathToDuplicatedFolderContainingCopiedCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="separatorStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="characterNewStepInPath"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="pathDuplicatedFolderContainingCopiedCalculation"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="c42fcb27-3b0c-4dbb-9949-5eb10f39ee9c"
 			name="ShowRanorexProgressDialog"
 			ref="4f56aacd-0736-4e8a-aa31-e44c09836a74"
@@ -4082,6 +3475,94 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="c76607d5-3287-4feb-8471-9c7109beb9f0"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixItem"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="c7c18410-bef2-4017-829e-7312bd78512a"
 			name="ValidateImportedInvalidCalculations">
@@ -4096,47 +3577,6 @@
 			id="c7fa09bf-8be6-4e9a-bbb8-76e15c08e222"
 			name="InvalidCalculations">
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="c838a2e8-4cf4-41d2-9e43-653583fda378"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePath2"
-					datasourceid="2e157592-a834-4171-ac24-bd99591c0786"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToCopiedCalculationInsideDuplicatedFolder"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="intermediatePath"
-					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathCalculationInsideDuplicatedFolder"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="c9ca6e5f-bc2b-4bc5-81aa-897ad9f0dd26"
 			name="WaitForXMiliseconds"
@@ -4183,9 +3623,51 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="cb784729-7a20-4892-92b9-e23e377b24f2"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="cbb22f2e-d419-405b-9930-13a74dba428c"
 			name="SaveConfigurationXMLFileForAllCalculations">
+			</smartfoldernode>
+			<smartfoldernode
+			id="cc424860-240c-45fb-bf96-a4acb7107b6e"
+			name="SelectStrengthCalculationsState">
+				<parameters>
+					<param
+					name="StateToSelect"
+					value="Sterkte">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="cda853fb-793e-4b76-994f-01d23f63bcf2"
@@ -4226,27 +3708,6 @@
 			<smartfoldernode
 			id="d477609e-4d28-4c0e-9277-c3fe6ff69385"
 			name="OpenProject">
-				<conditiongroup
-				comparison="AND"
-				enabled="False">
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="Parameter"
-								dataname="projectNeedsToBeOpened"
-								id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="true">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="d4a8da3a-9cbe-41b0-9db3-906470ade599"
@@ -4359,53 +3820,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="d64c7fde-271c-4c0a-b2d9-eddad1b6a98e"
-			name="InsertPreffixInLastStepOfPath"
-			ref="59c93bda-2f66-419c-8c73-506536ac6587"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="pathToNewFolder"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="49ba6196-e160-44ef-82e0-97affcff7e03"
-					variablename="originalPathItem">
-					</var>
-					<var
-					dataname="preffixCopy"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixToInsert">
-					</var>
-					<var
-					dataname="pathToDuplicatedFolderContainingCopiedCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
-					variablename="finalPathItem">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="preffixCopyOfCalculation"
-					datasourceid="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixCopyCalculation">
-					</var>
-					<var
-					dataname="preffixCopy"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="2fc04d49-bfb1-41ea-99e2-6181637f22cb"
-					variablename="preffixToInsert">
-					</var>
-					<var
-					dataname="pathDuplicatedFolderContainingCopiedCalculation"
-					datasourceid="3e08cb9e-37b5-42e4-946c-18582901871d"
-					variableid="eb85040d-f099-45ee-8f59-9e8180d4b6cf"
-					variablename="finalPathItem">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="d8ac58af-53d2-4a2a-b5f7-c6a822b0caf1"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -4418,6 +3832,46 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="d9e571ea-c6c1-4012-8395-d2de8235b3e0"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="da54220b-2f11-4803-951f-18362d2da43d"
@@ -4526,52 +3980,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="e53ee017-7665-4694-88cf-a4595a6ff161"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="nameOfCalculation"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediate2PathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="e756f027-f3fa-4075-8fa8-312c270cbdde"
 			name="ExpandAllRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
@@ -4630,6 +4038,32 @@
 			maxrange="1"
 			minrange="1"
 			name="LoopItemsToValidateInCalculation">
+				<parameters>
+					<param
+					name="replacementChar"
+					value="_">
+					</param>
+					<param
+					name="separatorInCSVFile"
+					value=";">
+					</param>
+					<param
+					name="pathCSVFileOriginalCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileCopiedCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileCopiedCalculationInCopiedFolder"
+					value="">
+					</param>
+					<param
+					name="fileExtensionCSV"
+					value=".csv">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7"
@@ -4662,52 +4096,6 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
-			<testmodule
-			id="eb5b231b-1ec1-4b24-863f-ba2c3e606965"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixInput"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="pathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="ecfcb078-48bc-4aa4-82f6-eb8541119731"
 			name="ValidateImportedReferenceCalculations">
@@ -4728,11 +4116,12 @@
 			name="ValidateCopiesOfCalculation">
 			</smartfoldernode>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script27aCalculationsToCopyAndValidate"
 			errorbehavior="ContinueNextIteration"
 			id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-			maxrange="8"
-			minrange="0"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -4800,32 +4189,32 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="preffixCopy"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					dataname="intermediatePath"
+					datasourceid="2e157592-a834-4171-ac24-bd99591c0786"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathToNewFolder"
+					dataname="separatorStepInPath"
 					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
 					<var
-					dataname="separatorStepInPath"
+					dataname="nameOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="preffixCopy"
 					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="preffixCopy"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
-					variablename="string4">
-					</var>
-					<var
-					dataname="nameOriginalCalculation"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
@@ -5008,50 +4397,18 @@
 			name="ValidateThatStructureCalculationsIsTheSame">
 			</smartfoldernode>
 			<testmodule
-			id="fad5cdca-8f40-4c55-9f51-bbc49dd44643"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
+			id="fe822eb1-7e81-4560-9fb9-e1279d1568c4"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="suffixNewStepInPathPE"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="intermediatePathCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
+					dataname="StateToSelect"
+					datasourceid="cc424860-240c-45fb-bf96-a4acb7107b6e"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
 					</var>
 				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToOriginalCalculation"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="itemPathInCalculation"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="fullPathToItem"
-					datasourceid="05c7d841-1f62-40cb-bf4e-e182b491b47d"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="ff073895-6a94-444e-8434-eb9e684bc5e7"
@@ -5075,6 +4432,94 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="ffaa1d23-9c2f-453d-a3e4-7959515338a5"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixItem"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 		</flatlistofchildren>
 		<childhierarchy>
 			<testsuite
@@ -5113,19 +4558,23 @@
 							id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
 							name="LoopFMs">
 								<smartfoldernode
-								id="be913cd7-9fcd-4f43-aeea-57d14f0f00a7"
-								name="CalculateIfDifferentProjectNeedsToBeOpened">
-									<testmodule
-									id="6abc4f2a-8d27-4a95-8cc0-dbf228c1c2d1"
-									name="CalculateIfProjectMustBeOpened">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
 								id="d477609e-4d28-4c0e-9277-c3fe6ff69385"
 								name="OpenProject">
 									<testmodule
 									id="361b1922-9cdb-41f3-a9e3-43021343f623"
 									name="OpenProject">
+									</testmodule>
+									<testmodule
+									id="5d63810d-c2ce-4cab-a314-dbc4976cf5a3"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="cc424860-240c-45fb-bf96-a4acb7107b6e"
+								name="SelectStrengthCalculationsState">
+									<testmodule
+									id="fe822eb1-7e81-4560-9fb9-e1279d1568c4"
+									name="SelectState">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -5204,23 +4653,11 @@
 								id="2e157592-a834-4171-ac24-bd99591c0786"
 								name="CalculatePathToCopyOfCalculationInsideDuplicatedFolder">
 									<testmodule
-									id="f19fe824-35ac-43aa-82d0-cdb06e91b189"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="d64c7fde-271c-4c0a-b2d9-eddad1b6a98e"
+									id="aac90b26-7184-4289-a147-ec4e86afded4"
 									name="InsertPreffixInLastStepOfPath">
 									</testmodule>
 									<testmodule
-									id="c3ff124f-8d6a-4594-b55a-1e2ee134b9ce"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="c2f455e9-4cd0-4554-9e5a-5b4e8d10cae2"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="c838a2e8-4cf4-41d2-9e43-653583fda378"
+									id="f19fe824-35ac-43aa-82d0-cdb06e91b189"
 									name="ConcatenateStrings">
 									</testmodule>
 								</smartfoldernode>
@@ -5277,6 +4714,22 @@
 											id="05dad472-4f50-4b5f-948e-3e0b4a2f8403"
 											name="ConvertPropertiesPanelToString">
 											</testmodule>
+											<smartfoldernode
+											id="b14ee891-742f-4cea-9dd5-2b7c62b2d8a7"
+											name="ExportToCSV">
+												<testmodule
+												id="cb784729-7a20-4892-92b9-e23e377b24f2"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="721ad379-38fd-4da7-8d59-a85158b54412"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="a3849823-b824-403e-9b6f-8d1f3a7527a4"
+												name="ExportPropertiesPanelToCsv">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 										<smartfoldernode
 										id="61016cf4-9c81-4776-a0e9-6ab4d079cb20"
@@ -5301,6 +4754,22 @@
 											id="c137fa93-4838-4af9-ac32-d4c0badceca6"
 											name="ConvertPropertiesPanelToString">
 											</testmodule>
+											<smartfoldernode
+											id="71368129-2d40-497b-9085-185e0aaacce2"
+											name="ExportToCSV">
+												<testmodule
+												id="d9e571ea-c6c1-4012-8395-d2de8235b3e0"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="c76607d5-3287-4feb-8471-9c7109beb9f0"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="0f8b33c9-7efc-47b2-be44-6abaebb27a95"
+												name="ExportPropertiesPanelToCsv">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 										<smartfoldernode
 										id="773bd48d-6095-4b0e-a359-453ebbab9cd0"
@@ -5325,6 +4794,22 @@
 											id="2e9ba9d7-6af2-42b1-a4fe-98acc2612741"
 											name="ConvertPropertiesPanelToString">
 											</testmodule>
+											<smartfoldernode
+											id="aba10684-1384-4446-83a2-9e87e2734f46"
+											name="ExportToCSV">
+												<testmodule
+												id="3fda2ee5-48dc-46b2-8600-6d757bec5917"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="ffaa1d23-9c2f-453d-a3e4-7959515338a5"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="53d3a38a-488f-40bf-8ea2-02d11917a811"
+												name="ExportPropertiesPanelToCsv">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 										<testmodule
 										id="19dc357f-944f-40eb-8b04-e008a7a96151"
@@ -5337,6 +4822,10 @@
 											id="96829b86-e6f3-46a8-896a-039ee96cb6bc"
 											name="ValidateStringsPropertiesPanelAreEqual">
 											</testmodule>
+											<testmodule
+											id="bc1cf028-f900-458e-b543-a83b1d174076"
+											name="ValidatePlainTextFilesAreEqual">
+											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
 										id="44c5f24c-4f2a-4f31-897d-006757896303"
@@ -5344,6 +4833,10 @@
 											<testmodule
 											id="8c5263e2-24f1-4143-9632-5e0c0e65b0d6"
 											name="ValidateStringsPropertiesPanelAreEqual">
+											</testmodule>
+											<testmodule
+											id="4243a9cb-f011-460e-bead-7e8ee8196e6a"
+											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
 										</smartfoldernode>
 									</smartfoldernode>
@@ -5429,19 +4922,7 @@
 											id="b52653fe-ef2e-40f0-93d4-b0131df6c708"
 											name="BuildPathToStandaloneCalculation">
 												<testmodule
-												id="91730efa-5eb8-4432-a20c-5efcf3aa8bac"
-												name="ConcatenateStrings">
-												</testmodule>
-												<testmodule
-												id="e53ee017-7665-4694-88cf-a4595a6ff161"
-												name="ConcatenateStrings">
-												</testmodule>
-												<testmodule
-												id="1d1f0426-d3bc-4bf0-bc35-71eb0f2be0a8"
-												name="ConcatenateStrings">
-												</testmodule>
-												<testmodule
-												id="399f7cd1-6eab-4067-b0ee-97b5ef51f3d2"
+												id="a1f40273-50ee-47dd-9996-6a772d128b6b"
 												name="ConcatenateStrings">
 												</testmodule>
 											</smartfoldernode>
@@ -5474,27 +4955,7 @@
 										id="8d68d9fb-5e98-4297-a06b-b1228bf3593b"
 										name="CalculationInsideFolder">
 											<testmodule
-											id="c1ed0aec-8429-47b2-9c6e-f5d9ea504d42"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="77819609-46a2-4a74-88fa-1989cc4d9239"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="bb0d424b-7cdc-430b-9d79-59d694a39bc1"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="174661f7-c324-4f36-bc56-468b75099aa7"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="38242e93-d53e-46f6-b483-056479cdecf6"
-											name="ConcatenateStrings">
-											</testmodule>
-											<testmodule
-											id="7a70fec7-cdd1-48d9-b5da-f475cb83a915"
+											id="bbfe78f4-3839-4690-8696-3ae3a2107d4c"
 											name="ConcatenateStrings">
 											</testmodule>
 											<testmodule
@@ -5636,19 +5097,7 @@
 												id="064ed4b4-7572-4f45-b638-4bd97dda4fbf"
 												name="SingleCalculation">
 													<testmodule
-													id="717aba13-dc79-4add-b6d5-f4de5361ae00"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="b1cd9680-3125-4f4b-af2a-d4668a58f0c5"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="b59aacd7-b9d0-4d7a-98b1-d09550534607"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="eb5b231b-1ec1-4b24-863f-ba2c3e606965"
+													id="34a18c40-3aec-4cdc-85bb-39b10489582d"
 													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
@@ -5672,27 +5121,7 @@
 												id="00f72754-ea57-4dfb-8707-06f8f8813718"
 												name="CalculationInsideFolder">
 													<testmodule
-													id="6f7a9262-b8f1-49a4-8852-1d9f4630a743"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="5d866c19-f526-4ebe-9958-898aaeaaa90a"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="7c8fcab6-a906-4fb7-b211-697c7443cbc1"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="8f13f0c2-f2c9-4be5-b8a4-a8e1bc44ced4"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="84175dca-5c2a-45c2-b8ba-0774f3fca315"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="60c14ec1-3ebe-43dc-9ac9-7afc85dca1cf"
+													id="82382ec4-9749-4f41-a4a5-12e59040f697"
 													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
@@ -5832,19 +5261,7 @@
 												id="88a8f33c-27b2-442e-b5e0-8f5a40fd3d53"
 												name="StandAloneCalculation">
 													<testmodule
-													id="5c16889b-c520-4a8b-a99a-109aee9c8678"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="837b233e-22bd-4d84-9e39-c2c6b2d512c4"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="510e3585-2c6e-431d-9878-89dbe3c1800c"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="4dfa03cf-7a74-4af6-89df-54d6397fda57"
+													id="a1698953-2f50-4036-b0c6-e5e4e74b9b21"
 													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
@@ -5868,27 +5285,7 @@
 												id="2afb400f-4ec3-48bb-a1fd-27eac9da685c"
 												name="CalculationInsideFolder">
 													<testmodule
-													id="fad5cdca-8f40-4c55-9f51-bbc49dd44643"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="363dedf0-39d6-471e-b4c1-90a73ab10d42"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="418f8bd7-685f-48de-9930-53e7529222c0"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="43c45077-bcc3-4e1d-bd05-41bb64993613"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="340eb16e-626e-46bd-95f1-02aa652ffe3b"
-													name="ConcatenateStrings">
-													</testmodule>
-													<testmodule
-													id="95a40338-5774-4a69-b4fc-52772845eff8"
+													id="313e7d90-1e24-45e6-baf7-2911988fd596"
 													name="ConcatenateStrings">
 													</testmodule>
 													<testmodule
@@ -6965,79 +6362,22 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="00f72754-ea57-4dfb-8707-06f8f8813718">
-			</testcontainer>
-			<testcontainer
-			id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9">
-			</testcontainer>
-			<testcontainer
-			id="04baa644-6d26-467e-9f22-9d171d1509a7">
-			</testcontainer>
-			<testcontainer
 			id="05c7d841-1f62-40cb-bf4e-e182b491b47d">
-			</testcontainer>
-			<testcontainer
-			id="064ed4b4-7572-4f45-b638-4bd97dda4fbf">
-			</testcontainer>
-			<testcontainer
-			id="0ce82841-6e95-4d39-8370-5245a81f355f">
-			</testcontainer>
-			<testcontainer
-			id="10600f4c-381f-4670-bc54-6e00ce0b982c">
-			</testcontainer>
-			<testcontainer
-			id="1244dfc9-050d-4cb1-a125-34bffe468269">
-			</testcontainer>
-			<testcontainer
-			id="17a8db5d-9bbe-43c9-891f-11f4899cec83">
-			</testcontainer>
-			<testcontainer
-			id="19f55a7b-f2f7-4ed1-b403-5311b7ff9e8a">
-			</testcontainer>
-			<testcontainer
-			id="1c12e37c-302c-4d6d-b981-b9c3be2c72b2">
 			</testcontainer>
 			<testcontainer
 			id="1c32c0c3-f3e0-4562-b8e1-d25e627c6a61">
 			</testcontainer>
 			<testcontainer
-			id="20fcebbe-c873-49b0-8895-c695ff74aa4d">
-			</testcontainer>
-			<testcontainer
-			id="2afb400f-4ec3-48bb-a1fd-27eac9da685c">
-			</testcontainer>
-			<testcontainer
 			id="2e157592-a834-4171-ac24-bd99591c0786">
-			</testcontainer>
-			<testcontainer
-			id="325026f4-df45-404a-96d2-65e979104b97">
-			</testcontainer>
-			<testcontainer
-			id="34504a86-0496-451f-a1e8-3afc86f688ef">
-			</testcontainer>
-			<testcontainer
-			id="396268ba-c58d-4982-a1a8-82ff74dd8d4d">
 			</testcontainer>
 			<testcontainer
 			id="44c5f24c-4f2a-4f31-897d-006757896303">
 			</testcontainer>
 			<testcontainer
-			id="49f405fc-f0c7-4084-a2b7-96c04ee386da">
-			</testcontainer>
-			<testcontainer
 			id="4c1a58d9-4eca-4d91-82b8-46a081c3f5e3">
 			</testcontainer>
 			<testcontainer
-			id="4c907162-660f-424b-90e4-7ba8eeea9a86">
-			</testcontainer>
-			<testcontainer
-			id="52662259-7b4d-46e5-8fcc-c3f824eeca62">
-			</testcontainer>
-			<testcontainer
 			id="527b9c41-bf8a-406b-89c6-b7fd74ab0f47">
-			</testcontainer>
-			<testcontainer
-			id="532261b8-f644-4d4a-a54f-b4a15c5a4c75">
 			</testcontainer>
 			<testcontainer
 			id="5a447dac-43ba-486d-a727-899f8cfa1363">
@@ -7052,148 +6392,46 @@
 			id="67f96106-b81a-4d2e-bd8f-52daca8f7e7f">
 			</testcontainer>
 			<testcontainer
-			id="6f50cd2a-f5cc-4287-9290-b4d886a2591d">
-			</testcontainer>
-			<testcontainer
-			id="74136d6b-dd8e-4275-a4fb-0c0ed630f11b">
-			</testcontainer>
-			<testcontainer
-			id="741b7aee-7846-456c-a87d-dcd50616d3c3">
-			</testcontainer>
-			<testcontainer
-			id="768bcc76-ffdf-4ff1-86d2-a4675864f30f">
+			id="71368129-2d40-497b-9085-185e0aaacce2">
 			</testcontainer>
 			<testcontainer
 			id="773bd48d-6095-4b0e-a359-453ebbab9cd0">
 			</testcontainer>
 			<testcontainer
-			id="776028c2-86bf-4bae-af29-ab7524a8c24e">
-			</testcontainer>
-			<testcontainer
-			id="77b30075-fb9b-4927-95d8-5c4273951577">
-			</testcontainer>
-			<testcontainer
-			id="7bb4d524-db01-467e-8a39-44d39421597d">
-			</testcontainer>
-			<testcontainer
 			id="7cd6197f-0bcd-40ae-b5a6-dd02c589ba33">
-			</testcontainer>
-			<testcontainer
-			id="8239fc73-445b-41b0-a3f4-10af9d0be214">
-			</testcontainer>
-			<testcontainer
-			id="8609648a-d20e-46a2-b6a9-5ff288b9e167">
-			</testcontainer>
-			<testcontainer
-			id="88a8f33c-27b2-442e-b5e0-8f5a40fd3d53">
 			</testcontainer>
 			<testcontainer
 			id="8a267ba5-2ffb-41e2-a8d1-87b1d18eff2c">
 			</testcontainer>
 			<testcontainer
-			id="8d68d9fb-5e98-4297-a06b-b1228bf3593b">
-			</testcontainer>
-			<testcontainer
-			id="8e73ba45-2fc5-4130-ac32-bedae9c47510">
-			</testcontainer>
-			<testcontainer
-			id="9502ee8f-da92-451a-98b4-52c4b50f7a62">
-			</testcontainer>
-			<testcontainer
-			id="9d33a326-23a9-4c11-98fe-8387b3a83b5c">
-			</testcontainer>
-			<testcontainer
-			id="a27102d6-ee8d-4af7-985d-ed8f487520fa">
-			</testcontainer>
-			<testcontainer
-			id="a3f25df5-2b85-4c84-9c40-9737c84719f2">
-			</testcontainer>
-			<testcontainer
 			id="a65f1d88-193b-4a09-9701-a3902031fce0">
 			</testcontainer>
 			<testcontainer
-			id="acfac345-c8f0-4061-9c82-4ebe43826c50">
+			id="aba10684-1384-4446-83a2-9e87e2734f46">
 			</testcontainer>
 			<testcontainer
 			id="ad90cfdd-9c61-42f6-bcaa-1b8a0e693404">
 			</testcontainer>
 			<testcontainer
-			id="add90a1d-cea5-4fa7-8ecf-07985e6a7fff">
+			id="b1217f91-ed1a-4e65-a57a-3f853884ce57">
 			</testcontainer>
 			<testcontainer
-			id="b1217f91-ed1a-4e65-a57a-3f853884ce57">
+			id="b14ee891-742f-4cea-9dd5-2b7c62b2d8a7">
 			</testcontainer>
 			<testcontainer
 			id="b281f94c-58e9-4238-a6de-da07c186aa7f">
 			</testcontainer>
 			<testcontainer
-			id="b52653fe-ef2e-40f0-93d4-b0131df6c708">
-			</testcontainer>
-			<testcontainer
-			id="b760b111-c7e1-46bd-8c65-3883bd80fa20">
-			</testcontainer>
-			<testcontainer
-			id="c2971347-6fbc-4b7d-a5f5-87c81bdf89cc">
-			</testcontainer>
-			<testcontainer
-			id="c29d4b31-33af-4354-b1ba-70dced626942">
-			</testcontainer>
-			<testcontainer
-			id="c365c99f-26a4-45ed-b307-e1b457212d15">
-			</testcontainer>
-			<testcontainer
-			id="c3d47425-4c67-497b-be97-6dc074657541">
-			</testcontainer>
-			<testcontainer
-			id="c7c18410-bef2-4017-829e-7312bd78512a">
-			</testcontainer>
-			<testcontainer
-			id="c7fa09bf-8be6-4e9a-bbb8-76e15c08e222">
-			</testcontainer>
-			<testcontainer
-			id="ca01ff9b-a3a6-4875-ae3a-2f97970259c5">
-			</testcontainer>
-			<testcontainer
-			id="cbb22f2e-d419-405b-9930-13a74dba428c">
-			</testcontainer>
-			<testcontainer
-			id="cda853fb-793e-4b76-994f-01d23f63bcf2">
-			</testcontainer>
-			<testcontainer
-			id="d477609e-4d28-4c0e-9277-c3fe6ff69385">
-			</testcontainer>
-			<testcontainer
-			id="e2f83475-bff2-4d51-b24a-cf065fd3e6f2">
-			</testcontainer>
-			<testcontainer
-			id="e3761896-4fec-4051-8c75-0128f4d83572">
-			</testcontainer>
-			<testcontainer
-			id="e849d429-496b-401b-a721-656cfa1c10d9">
+			id="cc424860-240c-45fb-bf96-a4acb7107b6e">
 			</testcontainer>
 			<testcontainer
 			id="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f">
-			</testcontainer>
-			<testcontainer
-			id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7">
-			</testcontainer>
-			<testcontainer
-			id="ecfcb078-48bc-4aa4-82f6-eb8541119731">
-			</testcontainer>
-			<testcontainer
-			id="ee814368-75df-4ba1-ad20-90dbecc14201">
 			</testcontainer>
 			<testcontainer
 			id="f11c9940-ed36-493b-a9eb-39b8e0eca1ad">
 			</testcontainer>
 			<testcontainer
 			id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2">
-			</testcontainer>
-			<testcontainer
-			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21">
-			</testcontainer>
-			<testcontainer
-			id="ff073895-6a94-444e-8434-eb9e684bc5e7">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

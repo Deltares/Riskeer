@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -33,62 +34,17 @@ namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
         {
             // Your recording specific initialization code goes here.
         }
-
-        
-        public Ranorex.TreeItem GetTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
-        	{
-        	var stepsPathItem = pathItem.Split('>').ToList();
-        	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
-        	// start up variable stepChild
-        	var stepChild = children[0].As<TreeItem>();
-        	var nameStepChild = NameOfTreeItem(stepChild);
-        	for (int i=0; i < stepsPathItem.Count; i++) {
-        			// Find the item corresponding to the step
-        			var step = stepsPathItem[i];
-        			if (children.Count(ch => ch.ToString().Contains(step))==1)
-        				{
-        				Report.Log(ReportLevel.Info, "Information", "Only one occurrence of '" + step + "' found: choosing item containing the string in its name.");
-        				stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
-        			} else	{
-        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing item with this exact name.");
-        				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
-        			}
-        			//
-        			if (i != stepsPathItem.Count - 1)
-        				{
-        				// Update the children
-        				children = stepChild.Children;
-        				// Expand if intermediate node is collased
-        			    var stateIntermediateChild = stepChild.Element.GetAttributeValueText("AccessibleState");
-        			    if (stateIntermediateChild.Contains("Collapsed")) {
-        			        stepChild.Focus();
-        			        stepChild.Expand();
-        			         }
-        				} else {
-        				// child is last one in path
-        				stepChild.Focus();
-        				stepChild.Select();
-        				//stepChild.Click(Location.CenterLeft);
-        			     }
-        			}
-        	return stepChild;
-        }
-
-        private string NameOfTreeItem(object treeItemInfo)
-        {
-        	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
-        }
-
         public void DragAndDropProjectExplorerItemOntoAnotherOne(string pathItemToMove, string pathItemDestination, RepoItemInfo rootNodeInfo)
         {
-            TreeItem treeitemToMove = GetTreeItemInProjectExplorerGivenPath(pathItemToMove, rootNodeInfo);
-            TreeItem treeItemDestination = GetTreeItemInProjectExplorerGivenPath(pathItemDestination, rootNodeInfo);
+            TreeItem treeitemToMove = TreeItemHelpers.FindNodeInTree(pathItemToMove, rootNodeInfo, (ti)=>{});
+            TreeItem treeItemDestination = TreeItemHelpers.FindNodeInTree(pathItemDestination, rootNodeInfo, (ti)=>{});
 
+            Delay.Duration(Duration.FromMilliseconds(1000));
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Down item 'treeitemToMove' at Center.");
             treeitemToMove.MoveTo();
             Mouse.ButtonDown(System.Windows.Forms.MouseButtons.Left);
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Up item 'treeItemDestination' at Center.");
-            treeItemDestination.MoveTo();
+            treeItemDestination.MoveTo(Duration.FromMilliseconds(1000));
             Mouse.ButtonUp(System.Windows.Forms.MouseButtons.Left);
         }
 

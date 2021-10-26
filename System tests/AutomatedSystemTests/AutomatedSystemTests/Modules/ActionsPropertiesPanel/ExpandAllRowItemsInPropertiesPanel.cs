@@ -60,12 +60,28 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             var rowsList = propertiesPanelAdapter.As<Table>().Rows.ToList();
-            if (rowsList.Count>0) {
-                Ranorex.Row currentRow = rowsList[0];
-                currentRow.Focus();
-                currentRow.Select();
-                currentRow.PressKeys("{Right " + durationPressRightKey + "}");
+            var rowsMustBeExpanded = rowsList.FindAll(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+            bool expNeeded = rowsMustBeExpanded.Count>0;
+            while (expNeeded) {
+                foreach (var rw in rowsMustBeExpanded) {
+                    rw.Focus();
+                    rw.Select();
+                    rw.PressKeys("{Right}");
+                }
+                rowsList = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self.As<Table>().Rows.Except(rowsList).ToList();
+                rowsMustBeExpanded = rowsList.FindAll(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+                expNeeded = rowsMustBeExpanded.Count>0;
             }
+            
+            //foreach (var row in rowsList) {
+            //    row.Element.SetAttributeValue("AccessibleState", row.Element.GetAttributeValue("AccessibleState").ToString().Replace("Collapsed", "Expanded"));
+            //}
+            //if (rowsList.Count>0) {
+            //    Ranorex.Row currentRow = rowsList[0];
+            //    currentRow.Focus();
+            //    currentRow.Select();
+            //    currentRow.PressKeys("{Right " + durationPressRightKey + "}");
+            //}
             
         }
     }
