@@ -32,11 +32,8 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.Views;
@@ -48,7 +45,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsInputViewInfoTest : ShouldCloseViewWithCalculationDataTester
+    public class WaveImpactAsphaltCoverWaveConditionsInputViewInfoTest
     {
         private const int lowerBoundaryRevetmentChartDataIndex = 1;
         private const int upperBoundaryRevetmentChartDataIndex = 2;
@@ -156,68 +153,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 Assert.IsEmpty(designWaterLevelChartData.Points);
             }
         }
-
-        #region ShouldCloseViewWithCalculationDataTester
-
-        protected override bool ShouldCloseMethod(IView view, object o)
-        {
-            return info.CloseForData(view, o);
-        }
-
-        protected override IView GetView(ICalculation data)
-        {
-            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data,
-                                               () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
-                                               new WaveImpactAsphaltCoverWaveConditionsInputViewStyle());
-        }
-
-        protected override ICalculation GetCalculation()
-        {
-            return new WaveImpactAsphaltCoverWaveConditionsCalculation();
-        }
-
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
-        {
-            return new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
-                new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                new CalculationGroup(),
-                new WaveImpactAsphaltCoverFailureMechanism(),
-                new AssessmentSectionStub());
-        }
-
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
-        {
-            return new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(
-                new CalculationGroup
-                {
-                    Children =
-                    {
-                        new WaveImpactAsphaltCoverWaveConditionsCalculation()
-                    }
-                },
-                null,
-                new WaveImpactAsphaltCoverFailureMechanism(),
-                new AssessmentSectionStub());
-        }
-
-        protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
-        {
-            return new WaveImpactAsphaltCoverHydraulicLoadsContext(
-                new WaveImpactAsphaltCoverFailureMechanism
-                {
-                    WaveConditionsCalculationGroup =
-                    {
-                        Children =
-                        {
-                            new WaveImpactAsphaltCoverWaveConditionsCalculation()
-                        }
-                    }
-                }, new AssessmentSectionStub());
-        }
-
-        #endregion
-        
-                #region CloseForData
+    
+        #region CloseForData
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
@@ -617,6 +554,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
                 mocks.VerifyAll();
             }
+        }
+        
+        private static IView GetView(ICalculation data)
+        {
+            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data,
+                                               () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
+                                               new WaveImpactAsphaltCoverWaveConditionsInputViewStyle());
         }
 
         #endregion
