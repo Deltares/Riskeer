@@ -6,35 +6,12 @@
 			id="00f72754-ea57-4dfb-8707-06f8f8813718"
 			name="CalculationInsideFolder">
 			</smartfoldernode>
-			<testmodule
-			id="01a87f2f-2d6e-4c70-b6b9-7eb318f3d1b9"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedInputImportedModifiedSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script27bExportAndImportConfigurations"
 			errorbehavior="ContinueNextIteration"
 			id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-			maxrange="8"
-			minrange="6"
+			maxrange="2"
+			minrange="2"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -112,6 +89,54 @@
 					<param
 					name="maximumNumberOfRowsToValidateInPropertiesPanel"
 					value="500">
+					</param>
+					<param
+					name="fileExtensionCSV"
+					value=".csv">
+					</param>
+					<param
+					name="pathCSVFileOriginalSingleCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileOriginalFolderCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileImportedReferenceSingleCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileImportedReferenceFolderCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileImportedModifiedSingleCalculation"
+					value="">
+					</param>
+					<param
+					name="pathCSVFileImportedModifiedFolderCalculation"
+					value="">
+					</param>
+					<param
+					name="separatorInCSVFile"
+					value=";">
+					</param>
+					<param
+					name="replacementChar"
+					value="_">
+					</param>
+					<param
+					name="suffixOriginal"
+					value="_original">
+					</param>
+					<param
+					name="suffixReference"
+					value="_reference">
+					</param>
+					<param
+					name="suffixModified"
+					value="_modified">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -198,6 +223,64 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="07e9c8fa-da31-405c-9047-11e3d0dafeac"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="0acd555b-e8b4-4eb8-a7d2-654ccd300094"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -216,28 +299,6 @@
 					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="0b98fd27-c399-46a8-bbb5-927e7a335266"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedInputImportedModifiedFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -386,6 +447,164 @@
 					variablename="structureNode">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="13db0bbd-0b86-4aad-8744-d9e99206e192"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="1404061f-62f1-4af2-9f2a-ef9d6f1f2425"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="suffixReference"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="14bb9daf-d795-4b04-ad29-8cba05c5123b"
@@ -620,28 +839,6 @@
 			name="CalculationInsideFolder">
 			</smartfoldernode>
 			<testmodule
-			id="235c57d0-3142-4df1-8381-72774321dd17"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedInputImportedReferenceSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="235d150d-716f-4d8d-b87c-0516756fe42a"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -789,8 +986,8 @@
 					variablename="scriptOutputPath">
 					</var>
 					<var
-					dataname="fileNameToOpen"
-					datasourceid="8e73ba45-2fc5-4130-ac32-bedae9c47510"
+					dataname="projectFileToOpen"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
 					</var>
@@ -807,12 +1004,6 @@
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
-					</var>
-					<var
-					dataname="stringifiedInputOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
-					variablename="scriptOutputPath">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1014,6 +1205,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="31c9b1a5-c764-46bf-ae67-f742f1101937"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="325026f4-df45-404a-96d2-65e979104b97"
 			name="ValidateStringsForBothStructuresAreEqual">
@@ -1154,6 +1351,10 @@
 			id="396268ba-c58d-4982-a1a8-82ff74dd8d4d"
 			name="ValidateStringsForBothStructuresAreEqual">
 			</smartfoldernode>
+			<smartfoldernode
+			id="3db906e9-d5b6-4d5f-b917-3364b018712c"
+			name="SelectStateWithCalculations">
+			</smartfoldernode>
 			<testmodule
 			id="3dc629e9-24de-4d58-8118-7125ab91845c"
 			name="SelectGenericItemInProjectExplorer"
@@ -1179,6 +1380,40 @@
 					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3e2f8fa6-2419-423e-9cc7-b498edb152f5"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1377,6 +1612,64 @@
 			name="ImportCalculationsFromReferenceXMLConfigurationFile">
 			</smartfoldernode>
 			<testmodule
+			id="4cdb7729-aedb-4d21-8dae-5a018b67bfbd"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="50be77b8-a3db-4e62-afa2-9faf9d60efeb"
 			name="ValidateStringsAreEqual"
 			ref="aeaa38ed-2c8f-4c2c-9dbc-888f329cf081"
@@ -1524,6 +1817,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="56c178d9-9b14-4f13-937f-e601b69ce0ac"
+			name="ExportPropertiesPanelToCSVFile">
+			</smartfoldernode>
 			<testcase
 			id="5a447dac-43ba-486d-a727-899f8cfa1363"
 			name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
@@ -1603,52 +1900,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="64eb8ac5-135b-4798-8271-2fff32ad3fb6"
-			name="ValidateStringsPropertiesPanelAreEqual"
-			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="maximumNumberOfRowsToValidateInPropertiesPanel"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-					<var
-					dataname="stringifiedInputOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedInputImportedReferenceFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
-					variablename="string2PropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
-					variablename="string2PropertiesPanel">
-					</var>
-					<var
-					dataname="maxRowsToValidate"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="663385f4-37f7-4c0a-a0f4-de593eb2a54e"
@@ -1775,28 +2026,6 @@
 			id="6f50cd2a-f5cc-4287-9290-b4d886a2591d"
 			name="ValidateThatStructureCalculationsIsTheSame">
 			</smartfoldernode>
-			<testmodule
-			id="70188e7e-a2df-4fa9-992f-0feaaa5c021d"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedInputOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="71368129-2d40-497b-9085-185e0aaacce2"
 			name="ExportToCSV">
@@ -1919,6 +2148,26 @@
 			id="77b30075-fb9b-4927-95d8-5c4273951577"
 			name="StandaloneCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="7b9de3ff-25c6-458d-91fe-f2ef2933fcd1"
+			name="ValidatePlainTextFilesAreNotEqual"
+			ref="3dce05d3-19c6-41db-80de-b19fe30c3824"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathCSVFileImportedReferenceSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b74b7217-45e6-4e66-a708-eabee78946ea"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="33ea839d-57e2-4e7f-b638-02738f70f01a"
+					variablename="filePath2">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="7bb4d524-db01-467e-8a39-44d39421597d"
 			name="ProjectType2NeedsToBeSaved">
@@ -2007,6 +2256,64 @@
 					datasourceid="78337b07-06ac-4efb-b70c-3605a183e682"
 					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
 					variablename="scriptOutputPath">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="8054c751-598c-4a94-8454-a8d2eb77cfa8"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2127,6 +2434,106 @@
 			id="8239fc73-445b-41b0-a3f4-10af9d0be214"
 			name="b)ExportingAndImportingCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="855265ca-bfdc-430d-9122-197fea3606a3"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="suffixModified"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="8609648a-d20e-46a2-b6a9-5ff288b9e167"
 			name="OriginalCalculations">
@@ -2187,28 +2594,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="88863547-baad-4785-92b3-a82634874ee3"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedInputImportedReferenceFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="88a8f33c-27b2-442e-b5e0-8f5a40fd3d53"
 			name="StandAloneCalculation">
@@ -2256,6 +2641,64 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="8b7c279e-a5bf-45c8-a58a-329208f09fa0"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="8b807e25-aad2-40c4-b612-33246a227a4a"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -2269,33 +2712,10 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			enabled="False"
-			id="8c5263e2-24f1-4143-9632-5e0c0e65b0d6"
-			name="ValidateStringsPropertiesPanelAreEqual"
-			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
-					variablename="string2PropertiesPanel">
-					</var>
-					<var
-					dataname="maxRowsToValidate"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-				</databinding>
-			</testmodule>
+			<smartfoldernode
+			id="8ca4e59a-f124-4e0a-8f02-74378efd945d"
+			name="ExportPropertiesPanelToCSVFile">
+			</smartfoldernode>
 			<testmodule
 			id="8d4a5e1f-738d-474b-b70e-c979ea812cc6"
 			name="EmptySelectedFolder"
@@ -2309,12 +2729,6 @@
 			<smartfoldernode
 			id="8e73ba45-2fc5-4130-ac32-bedae9c47510"
 			name="OpenProject">
-				<parameters>
-					<param
-					name="fileNameToOpen"
-					value="input27_B.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="8ee0de44-2864-4703-9cfa-6b0e4a2cc86c"
@@ -2345,6 +2759,206 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="9057cf64-ad9d-4203-aef7-f4461a7505a2"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="suffixOriginal"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="92361155-729f-43bd-9970-041f48d37a30"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="suffixReference"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="9376a69e-42eb-4a6d-8b7d-7eb844fe063a"
 			name="ImportConfigurationCalculationsFromXMLFile"
 			ref="65d26ded-850f-4a04-a479-9d3870513676"
@@ -2363,6 +2977,28 @@
 					variablename="fileNameToImport">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="94b0ae1b-6bd3-4a43-9bcb-317675d8ffa6"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -2392,33 +3028,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="96829b86-e6f3-46a8-896a-039ee96cb6bc"
-			name="ValidateStringsPropertiesPanelAreEqual"
-			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedPropertiesPanelCopyCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
-					variablename="string2PropertiesPanel">
-					</var>
-					<var
-					dataname="maxRowsToValidate"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="96841e19-07cf-4a15-ab00-a2c08280aa04"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -2437,28 +3046,6 @@
 					datasourceid="c365c99f-26a4-45ed-b307-e1b457212d15"
 					variableid="94623a49-2f71-47ad-afa6-ea0884186048"
 					variablename="milisecondsToWait">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="97228c95-9c93-421e-98c0-65f2d255eb98"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedInputOriginalSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2492,6 +3079,10 @@
 					value="Please, check messages when importing valid calculation configuration.">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
+			name="ExportPropertiesPanelToCSVFile">
 			</smartfoldernode>
 			<testmodule
 			id="9da79212-896b-4f8f-b529-415e80344026"
@@ -2962,6 +3553,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="aee53440-3821-4544-be21-c5bc37ba9a75"
+			name="ExportPropertiesPanelToCSVFile">
+			</smartfoldernode>
+			<smartfoldernode
 			id="b1217f91-ed1a-4e65-a57a-3f853884ce57"
 			name="a)DuplicationOfCalculations">
 			</smartfoldernode>
@@ -3008,6 +3603,40 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="b3c4b42b-a13c-48ad-a12a-a9234b58c2e6"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
@@ -3118,6 +3747,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="bab32384-004a-4f2d-b2b4-d476443c3c6b"
+			name="ExportPropertiesPanelToCSVFile">
+			</smartfoldernode>
 			<testmodule
 			id="bbfe78f4-3839-4690-8696-3ae3a2107d4c"
 			name="ConcatenateStrings"
@@ -3213,82 +3846,44 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="bc98c773-10ca-4e32-87bf-ed018c6929f0"
-			name="ValidateStringsPropertiesPanelAreNotEqual"
-			ref="070f7c1d-5e44-4f97-b699-43136d3eb165"
-			type="UserCode">
+			id="c0c89acb-03f3-4a75-b6f7-ef86b98b4382"
+			name="ValidatePlainTextFilesAreEqual"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
 				<databinding>
 					<var
-					dataname="maximumNumberOfRowsToValidateInPropertiesPanel"
+					dataname="pathCSVFileOriginalSingleCalculation"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c38cab0a-bb41-499f-9bd1-ff8267861b86"
-					variablename="maximumNumberOfRowsToValidate">
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
 					</var>
 					<var
-					dataname="stringifiedInputOriginalSingleCalculation"
+					dataname="pathCSVFileImportedReferenceSingleCalculation"
 					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="f045d1da-ec05-4010-abc8-12f45a6c5454"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedInputImportedModifiedSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="8815906b-7b8d-4d77-997d-fdd21318d340"
-					variablename="string2PropertiesPanel">
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c0e66152-4fed-4245-a32c-4b684f7f1198"
 			name="AddCalculationFolder"
 			ref="c09a9669-9b00-4ab5-9134-5658e1a585ac"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="c19e2664-6f98-424d-ad87-5be885e0f000"
-			name="ValidateStringsPropertiesPanelAreEqual"
-			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="maximumNumberOfRowsToValidateInPropertiesPanel"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-					<var
-					dataname="stringifiedInputOriginalSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedInputImportedReferenceSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
-					variablename="string2PropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="cefe2b90-ac9e-4ca5-aae0-f6c8ba242211"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="a1d17877-47dc-4985-8c24-12313fb3bca5"
-					variablename="string2PropertiesPanel">
-					</var>
-					<var
-					dataname="maxRowsToValidate"
-					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
-					variableid="232d6741-c204-4ddb-9432-b4a4f1a7038f"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c1a5e2d1-fafc-4a30-b489-c6b30f025f2b"
@@ -3362,6 +3957,40 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="c3ad9ee4-7ae9-4a12-8c04-808c2bd543f6"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="c3d47425-4c67-497b-be97-6dc074657541"
 			name="CompareSavedCalculationConfigurationFileWithReferenceFile">
@@ -3533,6 +4162,106 @@
 			name="InvalidCalculations">
 			</smartfoldernode>
 			<testmodule
+			id="c94f657d-54f6-47c6-be6e-14f3c76c1f48"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="suffixModified"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="c9ca6e5f-bc2b-4bc5-81aa-897ad9f0dd26"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -3622,6 +4351,64 @@
 			id="cda853fb-793e-4b76-994f-01d23f63bcf2"
 			name="ValidateThatStructureCalculationsIsNotTheSame">
 			</smartfoldernode>
+			<testmodule
+			id="cfcf8f97-1684-491b-b88a-08c382f5a8df"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="suffixNewStepInPathPE"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToItem"
+					datasourceid="773bd48d-6095-4b0e-a359-453ebbab9cd0"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorStepInPath"
+					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="replacementChar"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="d02045c1-c585-4e6d-a87e-8ca36dedca10"
 			name="SelectGenericItemInProjectExplorer"
@@ -3782,6 +4569,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="d9542de6-681c-48d6-b055-e746a02aa86f"
+			name="ExportPropertiesPanelToCSVFile">
+			</smartfoldernode>
 			<testmodule
 			id="d9e571ea-c6c1-4012-8395-d2de8235b3e0"
 			name="ReplaceSubstring"
@@ -3898,6 +4689,74 @@
 			ref="be163e36-1d54-4e23-8859-2e6b0da85302"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="e02bff02-e412-43a8-a79a-72982d9a50fd"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="e0d70b4e-5ae8-48aa-8093-38021e3b1e14"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="e2f83475-bff2-4d51-b24a-cf065fd3e6f2"
 			name="ValidateAllParametersInInputAreEqual">
@@ -3906,6 +4765,40 @@
 			id="e3761896-4fec-4051-8c75-0128f4d83572"
 			name="CalculateStructureImportedReferenceFolderCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="e4f8d1f0-2b32-4fc2-9c49-8f4c1acd19c6"
+			name="ValidatePlainTextFilesAreEqual"
+			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathCSVFileOriginalFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedReferenceFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileOriginalCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculation"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="e52ff0d6-fa66-439f-a832-7d2178e2a08e"
 			name="SelectGenericItemInProjectExplorer"
@@ -4205,6 +5098,140 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="f38ea6e0-c053-4c24-8f80-7bf8b0c54378"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="pathCSVFileOriginalSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="suffixOriginal"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToOriginalCalculation"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f4161aa8-edea-4a04-aaa6-2b8ab6d220e6"
+			name="ExportPropertiesPanelToCsv"
+			ref="0024b22f-d58b-4ef0-a67d-463153071618"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedSingleCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorInCSVFile"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="f7fee35d-e8be-4b5a-9d47-9e65da5d5460"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -4293,6 +5320,26 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="f7ffb608-a677-40b7-b391-d987fbd6c167"
+			name="ValidatePlainTextFilesAreNotEqual"
+			ref="3dce05d3-19c6-41db-80de-b19fe30c3824"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathCSVFileImportedReferenceFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="b74b7217-45e6-4e66-a708-eabee78946ea"
+					variablename="filePath1">
+					</var>
+					<var
+					dataname="pathCSVFileImportedModifiedFolderCalculation"
+					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					variableid="33ea839d-57e2-4e7f-b638-02738f70f01a"
+					variablename="filePath2">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="f828e8ba-49a8-4f16-83e8-229c1ea8cd74"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -4313,32 +5360,6 @@
 					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="fa33bfbb-5890-46c0-aeee-e4b45381fe7c"
-			name="ValidateStringsPropertiesPanelAreNotEqual"
-			ref="070f7c1d-5e44-4f97-b699-43136d3eb165"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="maximumNumberOfRowsToValidateInPropertiesPanel"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="c38cab0a-bb41-499f-9bd1-ff8267861b86"
-					variablename="maximumNumberOfRowsToValidate">
-					</var>
-					<var
-					dataname="stringifiedInputOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="f045d1da-ec05-4010-abc8-12f45a6c5454"
-					variablename="string1PropertiesPanel">
-					</var>
-					<var
-					dataname="stringifiedInputImportedModifiedFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-					variableid="8815906b-7b8d-4d77-997d-fdd21318d340"
-					variablename="string2PropertiesPanel">
-					</var>
-				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21"
@@ -4755,10 +5776,6 @@
 										id="a65f1d88-193b-4a09-9701-a3902031fce0"
 										name="ValidateParametersAreEqualInCopyCalculation">
 											<testmodule
-											id="96829b86-e6f3-46a8-896a-039ee96cb6bc"
-											name="ValidateStringsPropertiesPanelAreEqual">
-											</testmodule>
-											<testmodule
 											id="bc1cf028-f900-458e-b543-a83b1d174076"
 											name="ValidatePlainTextFilesAreEqual">
 											</testmodule>
@@ -4766,10 +5783,6 @@
 										<smartfoldernode
 										id="44c5f24c-4f2a-4f31-897d-006757896303"
 										name="ValidateAllParametersAreEqualInCopyCalculationInDuplicatedFolder">
-											<testmodule
-											id="8c5263e2-24f1-4143-9632-5e0c0e65b0d6"
-											name="ValidateStringsPropertiesPanelAreEqual">
-											</testmodule>
 											<testmodule
 											id="4243a9cb-f011-460e-bead-7e8ee8196e6a"
 											name="ValidatePlainTextFilesAreEqual">
@@ -4803,19 +5816,31 @@
 						id="8239fc73-445b-41b0-a3f4-10af9d0be214"
 						name="b)ExportingAndImportingCalculation">
 							<smartfoldernode
-							id="8e73ba45-2fc5-4130-ac32-bedae9c47510"
-							name="OpenProject">
-								<testmodule
-								id="2d07563e-2525-41da-afb6-ad78cd31adf9"
-								name="OpenProject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
 							id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
 							name="LoopFMs">
 								<smartfoldernode
+								id="8e73ba45-2fc5-4130-ac32-bedae9c47510"
+								name="OpenProject">
+									<testmodule
+									id="2d07563e-2525-41da-afb6-ad78cd31adf9"
+									name="OpenProject">
+									</testmodule>
+									<testmodule
+									id="31c9b1a5-c764-46bf-ae67-f742f1101937"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="8609648a-d20e-46a2-b6a9-5ff288b9e167"
 								name="OriginalCalculations">
+									<smartfoldernode
+									id="3db906e9-d5b6-4d5f-b917-3364b018712c"
+									name="SelectStateWithCalculations">
+										<testmodule
+										id="94b0ae1b-6bd3-4a43-9bcb-317675d8ffa6"
+										name="SelectState">
+										</testmodule>
+									</smartfoldernode>
 									<smartfoldernode
 									id="cbb22f2e-d419-405b-9930-13a74dba428c"
 									name="SaveConfigurationXMLFileForAllCalculations">
@@ -4879,13 +5904,25 @@
 											name="WaitForXMiliseconds">
 											</testmodule>
 											<testmodule
-											id="97228c95-9c93-421e-98c0-65f2d255eb98"
-											name="ConvertPropertiesPanelToString">
-											</testmodule>
-											<testmodule
 											id="c42fcb27-3b0c-4dbb-9949-5eb10f39ee9c"
 											name="ShowRanorexProgressDialog">
 											</testmodule>
+											<smartfoldernode
+											id="56c178d9-9b14-4f13-937f-e601b69ce0ac"
+											name="ExportPropertiesPanelToCSVFile">
+												<testmodule
+												id="8b7c279e-a5bf-45c8-a58a-329208f09fa0"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="f38ea6e0-c053-4c24-8f80-7bf8b0c54378"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="c3ad9ee4-7ae9-4a12-8c04-808c2bd543f6"
+												name="ExportPropertiesPanelToCsv">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 										<smartfoldernode
 										id="8d68d9fb-5e98-4297-a06b-b1228bf3593b"
@@ -4906,10 +5943,22 @@
 											id="2a6c917a-8f2e-44fd-a12e-c94452dc2fdd"
 											name="WaitForXMiliseconds">
 											</testmodule>
-											<testmodule
-											id="70188e7e-a2df-4fa9-992f-0feaaa5c021d"
-											name="ConvertPropertiesPanelToString">
-											</testmodule>
+											<smartfoldernode
+											id="d9542de6-681c-48d6-b055-e746a02aa86f"
+											name="ExportPropertiesPanelToCSVFile">
+												<testmodule
+												id="07e9c8fa-da31-405c-9047-11e3d0dafeac"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="9057cf64-ad9d-4203-aef7-f4461a7505a2"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
+												id="3e2f8fa6-2419-423e-9cc7-b498edb152f5"
+												name="ExportPropertiesPanelToCsv">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
@@ -5048,10 +6097,22 @@
 													id="7f143857-7f9e-4130-ae9e-955684679e42"
 													name="WaitForXMiliseconds">
 													</testmodule>
-													<testmodule
-													id="235c57d0-3142-4df1-8381-72774321dd17"
-													name="ConvertPropertiesPanelToString">
-													</testmodule>
+													<smartfoldernode
+													id="bab32384-004a-4f2d-b2b4-d476443c3c6b"
+													name="ExportPropertiesPanelToCSVFile">
+														<testmodule
+														id="8054c751-598c-4a94-8454-a8d2eb77cfa8"
+														name="ReplaceSubstring">
+														</testmodule>
+														<testmodule
+														id="1404061f-62f1-4af2-9f2a-ef9d6f1f2425"
+														name="ConcatenateStrings">
+														</testmodule>
+														<testmodule
+														id="e0d70b4e-5ae8-48aa-8093-38021e3b1e14"
+														name="ExportPropertiesPanelToCsv">
+														</testmodule>
+													</smartfoldernode>
 												</smartfoldernode>
 												<smartfoldernode
 												id="00f72754-ea57-4dfb-8707-06f8f8813718"
@@ -5072,10 +6133,22 @@
 													id="0e49aced-4a9c-40ec-a563-6f3a2edf6dc7"
 													name="WaitForXMiliseconds">
 													</testmodule>
-													<testmodule
-													id="88863547-baad-4785-92b3-a82634874ee3"
-													name="ConvertPropertiesPanelToString">
-													</testmodule>
+													<smartfoldernode
+													id="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
+													name="ExportPropertiesPanelToCSVFile">
+														<testmodule
+														id="13db0bbd-0b86-4aad-8744-d9e99206e192"
+														name="ReplaceSubstring">
+														</testmodule>
+														<testmodule
+														id="92361155-729f-43bd-9970-041f48d37a30"
+														name="ConcatenateStrings">
+														</testmodule>
+														<testmodule
+														id="b3c4b42b-a13c-48ad-a12a-a9234b58c2e6"
+														name="ExportPropertiesPanelToCsv">
+														</testmodule>
+													</smartfoldernode>
 												</smartfoldernode>
 											</smartfoldernode>
 											<smartfoldernode
@@ -5085,16 +6158,16 @@
 												id="17a8db5d-9bbe-43c9-891f-11f4899cec83"
 												name="StandAloneCalculation">
 													<testmodule
-													id="c19e2664-6f98-424d-ad87-5be885e0f000"
-													name="ValidateStringsPropertiesPanelAreEqual">
+													id="c0c89acb-03f3-4a75-b6f7-ef86b98b4382"
+													name="ValidatePlainTextFilesAreEqual">
 													</testmodule>
 												</smartfoldernode>
 												<smartfoldernode
 												id="20fcebbe-c873-49b0-8895-c695ff74aa4d"
 												name="CalculationInsideFolder">
 													<testmodule
-													id="64eb8ac5-135b-4798-8271-2fff32ad3fb6"
-													name="ValidateStringsPropertiesPanelAreEqual">
+													id="e4f8d1f0-2b32-4fc2-9c49-8f4c1acd19c6"
+													name="ValidatePlainTextFilesAreEqual">
 													</testmodule>
 												</smartfoldernode>
 											</smartfoldernode>
@@ -5212,10 +6285,22 @@
 													id="699798f0-7220-4fc3-8367-51f67c22fcb6"
 													name="WaitForXMiliseconds">
 													</testmodule>
-													<testmodule
-													id="01a87f2f-2d6e-4c70-b6b9-7eb318f3d1b9"
-													name="ConvertPropertiesPanelToString">
-													</testmodule>
+													<smartfoldernode
+													id="8ca4e59a-f124-4e0a-8f02-74378efd945d"
+													name="ExportPropertiesPanelToCSVFile">
+														<testmodule
+														id="4cdb7729-aedb-4d21-8dae-5a018b67bfbd"
+														name="ReplaceSubstring">
+														</testmodule>
+														<testmodule
+														id="c94f657d-54f6-47c6-be6e-14f3c76c1f48"
+														name="ConcatenateStrings">
+														</testmodule>
+														<testmodule
+														id="f4161aa8-edea-4a04-aaa6-2b8ab6d220e6"
+														name="ExportPropertiesPanelToCsv">
+														</testmodule>
+													</smartfoldernode>
 												</smartfoldernode>
 												<smartfoldernode
 												id="2afb400f-4ec3-48bb-a1fd-27eac9da685c"
@@ -5236,10 +6321,22 @@
 													id="ba2e4bee-9108-4577-b35e-e4a0e8d40165"
 													name="WaitForXMiliseconds">
 													</testmodule>
-													<testmodule
-													id="0b98fd27-c399-46a8-bbb5-927e7a335266"
-													name="ConvertPropertiesPanelToString">
-													</testmodule>
+													<smartfoldernode
+													id="aee53440-3821-4544-be21-c5bc37ba9a75"
+													name="ExportPropertiesPanelToCSVFile">
+														<testmodule
+														id="cfcf8f97-1684-491b-b88a-08c382f5a8df"
+														name="ReplaceSubstring">
+														</testmodule>
+														<testmodule
+														id="855265ca-bfdc-430d-9122-197fea3606a3"
+														name="ConcatenateStrings">
+														</testmodule>
+														<testmodule
+														id="e02bff02-e412-43a8-a79a-72982d9a50fd"
+														name="ExportPropertiesPanelToCsv">
+														</testmodule>
+													</smartfoldernode>
 												</smartfoldernode>
 											</smartfoldernode>
 											<smartfoldernode
@@ -5249,16 +6346,16 @@
 												id="04baa644-6d26-467e-9f22-9d171d1509a7"
 												name="StandAloneCalculation">
 													<testmodule
-													id="bc98c773-10ca-4e32-87bf-ed018c6929f0"
-													name="ValidateStringsPropertiesPanelAreNotEqual">
+													id="7b9de3ff-25c6-458d-91fe-f2ef2933fcd1"
+													name="ValidatePlainTextFilesAreNotEqual">
 													</testmodule>
 												</smartfoldernode>
 												<smartfoldernode
 												id="9502ee8f-da92-451a-98b4-52c4b50f7a62"
 												name="CalculationInsideFolder">
 													<testmodule
-													id="fa33bfbb-5890-46c0-aeee-e4b45381fe7c"
-													name="ValidateStringsPropertiesPanelAreNotEqual">
+													id="f7ffb608-a677-40b7-b391-d987fbd6c167"
+													name="ValidatePlainTextFilesAreNotEqual">
 													</testmodule>
 												</smartfoldernode>
 											</smartfoldernode>
@@ -6006,6 +7103,12 @@
 					labelFM
 				</column>
 				<column>
+					stateWithCalculations
+				</column>
+				<column>
+					projectFileToOpen
+				</column>
+				<column>
 					pathToCalculationsFolder
 				</column>
 				<column>
@@ -6038,6 +7141,12 @@
 						labelFM
 					</th>
 					<th>
+						stateWithCalculations
+					</th>
+					<th>
+						projectFileToOpen
+					</th>
+					<th>
 						pathToCalculationsFolder
 					</th>
 					<th>
@@ -6067,7 +7176,13 @@
 						STPH
 					</td>
 					<td>
-						Traject 12-2 STPH&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Sterkte
+					</td>
+					<td>
+						input27_B_STPH.risk
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
 					</td>
 					<td>
 						berekening
@@ -6096,7 +7211,13 @@
 						STBI
 					</td>
 					<td>
-						Traject 41-1 STBI&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Sterkte
+					</td>
+					<td>
+						input27_B_STBI.risk
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
 					</td>
 					<td>
 						berekening
@@ -6125,7 +7246,13 @@
 						GEKB
 					</td>
 					<td>
-						Traject 12-2 GEKB&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						Sterkte
+					</td>
+					<td>
+						input27_B_GEKB.risk
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
 						berekening
@@ -6154,7 +7281,13 @@
 						BSKW
 					</td>
 					<td>
-						Traject 34-1 BSKW&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Sterkte
+					</td>
+					<td>
+						input27_B_BSKW.risk
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						berekening
@@ -6183,7 +7316,13 @@
 						HTKW
 					</td>
 					<td>
-						Traject 36-2 HTKW&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Sterkte
+					</td>
+					<td>
+						input27_B_HTKW.risk
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
 						berekening
@@ -6212,7 +7351,13 @@
 						STKWp
 					</td>
 					<td>
-						Traject 44-2 STKWp&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Sterkte
+					</td>
+					<td>
+						input27_B_STKWp.risk
+					</td>
+					<td>
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
 						berekening
@@ -6241,7 +7386,13 @@
 						ZST
 					</td>
 					<td>
-						28-1 ZST&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen
+						Hydraulische
+					</td>
+					<td>
+						input27_B_ZST.risk
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen
 					</td>
 					<td>
 						dam0voorland0
@@ -6270,7 +7421,13 @@
 						AGK
 					</td>
 					<td>
-						8-3 AGK&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
+						Hydraulische
+					</td>
+					<td>
+						input27_B_AGK.risk
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
 					</td>
 					<td>
 						dam1voorland1
@@ -6299,7 +7456,13 @@
 						GEBU
 					</td>
 					<td>
-						6-6 GEBU&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
+						Hydraulische
+					</td>
+					<td>
+						input27_B_GEBU.risk
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen
 					</td>
 					<td>
 						dam0voorland1
@@ -6331,16 +7494,85 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="00f72754-ea57-4dfb-8707-06f8f8813718">
+			</testcontainer>
+			<testcontainer
+			id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9">
+			</testcontainer>
+			<testcontainer
+			id="04baa644-6d26-467e-9f22-9d171d1509a7">
+			</testcontainer>
+			<testcontainer
+			id="05c7d841-1f62-40cb-bf4e-e182b491b47d">
+			</testcontainer>
+			<testcontainer
+			id="064ed4b4-7572-4f45-b638-4bd97dda4fbf">
+			</testcontainer>
+			<testcontainer
+			id="0ce82841-6e95-4d39-8370-5245a81f355f">
+			</testcontainer>
+			<testcontainer
+			id="10600f4c-381f-4670-bc54-6e00ce0b982c">
+			</testcontainer>
+			<testcontainer
+			id="1244dfc9-050d-4cb1-a125-34bffe468269">
+			</testcontainer>
+			<testcontainer
+			id="17a8db5d-9bbe-43c9-891f-11f4899cec83">
+			</testcontainer>
+			<testcontainer
+			id="19f55a7b-f2f7-4ed1-b403-5311b7ff9e8a">
+			</testcontainer>
+			<testcontainer
+			id="1c12e37c-302c-4d6d-b981-b9c3be2c72b2">
+			</testcontainer>
+			<testcontainer
 			id="1c32c0c3-f3e0-4562-b8e1-d25e627c6a61">
+			</testcontainer>
+			<testcontainer
+			id="20fcebbe-c873-49b0-8895-c695ff74aa4d">
+			</testcontainer>
+			<testcontainer
+			id="2afb400f-4ec3-48bb-a1fd-27eac9da685c">
 			</testcontainer>
 			<testcontainer
 			id="2e157592-a834-4171-ac24-bd99591c0786">
 			</testcontainer>
 			<testcontainer
+			id="325026f4-df45-404a-96d2-65e979104b97">
+			</testcontainer>
+			<testcontainer
+			id="34504a86-0496-451f-a1e8-3afc86f688ef">
+			</testcontainer>
+			<testcontainer
+			id="396268ba-c58d-4982-a1a8-82ff74dd8d4d">
+			</testcontainer>
+			<testcontainer
+			id="3db906e9-d5b6-4d5f-b917-3364b018712c">
+			</testcontainer>
+			<testcontainer
+			id="44c5f24c-4f2a-4f31-897d-006757896303">
+			</testcontainer>
+			<testcontainer
+			id="49f405fc-f0c7-4084-a2b7-96c04ee386da">
+			</testcontainer>
+			<testcontainer
 			id="4c1a58d9-4eca-4d91-82b8-46a081c3f5e3">
 			</testcontainer>
 			<testcontainer
+			id="4c907162-660f-424b-90e4-7ba8eeea9a86">
+			</testcontainer>
+			<testcontainer
+			id="52662259-7b4d-46e5-8fcc-c3f824eeca62">
+			</testcontainer>
+			<testcontainer
 			id="527b9c41-bf8a-406b-89c6-b7fd74ab0f47">
+			</testcontainer>
+			<testcontainer
+			id="532261b8-f644-4d4a-a54f-b4a15c5a4c75">
+			</testcontainer>
+			<testcontainer
+			id="56c178d9-9b14-4f13-937f-e601b69ce0ac">
 			</testcontainer>
 			<testcontainer
 			id="5a447dac-43ba-486d-a727-899f8cfa1363">
@@ -6349,28 +7581,181 @@
 			id="5a94067b-ec57-4288-95bb-bd4f259bb9fa">
 			</testcontainer>
 			<testcontainer
+			id="61016cf4-9c81-4776-a0e9-6ab4d079cb20">
+			</testcontainer>
+			<testcontainer
 			id="67f96106-b81a-4d2e-bd8f-52daca8f7e7f">
+			</testcontainer>
+			<testcontainer
+			id="6f50cd2a-f5cc-4287-9290-b4d886a2591d">
+			</testcontainer>
+			<testcontainer
+			id="71368129-2d40-497b-9085-185e0aaacce2">
+			</testcontainer>
+			<testcontainer
+			id="74136d6b-dd8e-4275-a4fb-0c0ed630f11b">
+			</testcontainer>
+			<testcontainer
+			id="741b7aee-7846-456c-a87d-dcd50616d3c3">
+			</testcontainer>
+			<testcontainer
+			id="768bcc76-ffdf-4ff1-86d2-a4675864f30f">
+			</testcontainer>
+			<testcontainer
+			id="773bd48d-6095-4b0e-a359-453ebbab9cd0">
+			</testcontainer>
+			<testcontainer
+			id="776028c2-86bf-4bae-af29-ab7524a8c24e">
+			</testcontainer>
+			<testcontainer
+			id="77b30075-fb9b-4927-95d8-5c4273951577">
+			</testcontainer>
+			<testcontainer
+			id="7bb4d524-db01-467e-8a39-44d39421597d">
 			</testcontainer>
 			<testcontainer
 			id="7cd6197f-0bcd-40ae-b5a6-dd02c589ba33">
 			</testcontainer>
 			<testcontainer
+			id="8239fc73-445b-41b0-a3f4-10af9d0be214">
+			</testcontainer>
+			<testcontainer
+			id="8609648a-d20e-46a2-b6a9-5ff288b9e167">
+			</testcontainer>
+			<testcontainer
+			id="88a8f33c-27b2-442e-b5e0-8f5a40fd3d53">
+			</testcontainer>
+			<testcontainer
 			id="8a267ba5-2ffb-41e2-a8d1-87b1d18eff2c">
+			</testcontainer>
+			<testcontainer
+			id="8ca4e59a-f124-4e0a-8f02-74378efd945d">
+			</testcontainer>
+			<testcontainer
+			id="8d68d9fb-5e98-4297-a06b-b1228bf3593b">
+			</testcontainer>
+			<testcontainer
+			id="8e73ba45-2fc5-4130-ac32-bedae9c47510">
+			</testcontainer>
+			<testcontainer
+			id="9502ee8f-da92-451a-98b4-52c4b50f7a62">
+			</testcontainer>
+			<testcontainer
+			id="9d33a326-23a9-4c11-98fe-8387b3a83b5c">
+			</testcontainer>
+			<testcontainer
+			id="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850">
+			</testcontainer>
+			<testcontainer
+			id="a27102d6-ee8d-4af7-985d-ed8f487520fa">
+			</testcontainer>
+			<testcontainer
+			id="a3f25df5-2b85-4c84-9c40-9737c84719f2">
+			</testcontainer>
+			<testcontainer
+			id="a65f1d88-193b-4a09-9701-a3902031fce0">
+			</testcontainer>
+			<testcontainer
+			id="aba10684-1384-4446-83a2-9e87e2734f46">
+			</testcontainer>
+			<testcontainer
+			id="acfac345-c8f0-4061-9c82-4ebe43826c50">
+			</testcontainer>
+			<testcontainer
+			id="ad90cfdd-9c61-42f6-bcaa-1b8a0e693404">
+			</testcontainer>
+			<testcontainer
+			id="add90a1d-cea5-4fa7-8ecf-07985e6a7fff">
+			</testcontainer>
+			<testcontainer
+			id="aee53440-3821-4544-be21-c5bc37ba9a75">
 			</testcontainer>
 			<testcontainer
 			id="b1217f91-ed1a-4e65-a57a-3f853884ce57">
 			</testcontainer>
 			<testcontainer
+			id="b14ee891-742f-4cea-9dd5-2b7c62b2d8a7">
+			</testcontainer>
+			<testcontainer
 			id="b281f94c-58e9-4238-a6de-da07c186aa7f">
+			</testcontainer>
+			<testcontainer
+			id="b52653fe-ef2e-40f0-93d4-b0131df6c708">
+			</testcontainer>
+			<testcontainer
+			id="b760b111-c7e1-46bd-8c65-3883bd80fa20">
+			</testcontainer>
+			<testcontainer
+			id="bab32384-004a-4f2d-b2b4-d476443c3c6b">
+			</testcontainer>
+			<testcontainer
+			id="c2971347-6fbc-4b7d-a5f5-87c81bdf89cc">
+			</testcontainer>
+			<testcontainer
+			id="c29d4b31-33af-4354-b1ba-70dced626942">
+			</testcontainer>
+			<testcontainer
+			id="c365c99f-26a4-45ed-b307-e1b457212d15">
+			</testcontainer>
+			<testcontainer
+			id="c3d47425-4c67-497b-be97-6dc074657541">
+			</testcontainer>
+			<testcontainer
+			id="c7c18410-bef2-4017-829e-7312bd78512a">
+			</testcontainer>
+			<testcontainer
+			id="c7fa09bf-8be6-4e9a-bbb8-76e15c08e222">
+			</testcontainer>
+			<testcontainer
+			id="ca01ff9b-a3a6-4875-ae3a-2f97970259c5">
+			</testcontainer>
+			<testcontainer
+			id="cbb22f2e-d419-405b-9930-13a74dba428c">
 			</testcontainer>
 			<testcontainer
 			id="cc424860-240c-45fb-bf96-a4acb7107b6e">
 			</testcontainer>
 			<testcontainer
+			id="cda853fb-793e-4b76-994f-01d23f63bcf2">
+			</testcontainer>
+			<testcontainer
 			id="d477609e-4d28-4c0e-9277-c3fe6ff69385">
 			</testcontainer>
 			<testcontainer
+			id="d9542de6-681c-48d6-b055-e746a02aa86f">
+			</testcontainer>
+			<testcontainer
+			id="e2f83475-bff2-4d51-b24a-cf065fd3e6f2">
+			</testcontainer>
+			<testcontainer
+			id="e3761896-4fec-4051-8c75-0128f4d83572">
+			</testcontainer>
+			<testcontainer
+			id="e849d429-496b-401b-a721-656cfa1c10d9">
+			</testcontainer>
+			<testcontainer
+			id="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f">
+			</testcontainer>
+			<testcontainer
+			id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7">
+			</testcontainer>
+			<testcontainer
+			id="ecfcb078-48bc-4aa4-82f6-eb8541119731">
+			</testcontainer>
+			<testcontainer
+			id="ee814368-75df-4ba1-ad20-90dbecc14201">
+			</testcontainer>
+			<testcontainer
+			id="f11c9940-ed36-493b-a9eb-39b8e0eca1ad">
+			</testcontainer>
+			<testcontainer
 			id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2">
+			</testcontainer>
+			<testcontainer
+			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21">
+			</testcontainer>
+			<testcontainer
+			id="ff073895-6a94-444e-8434-eb9e684bc5e7">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

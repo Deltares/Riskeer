@@ -225,7 +225,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         }
 
         /// <summary>
-        /// Compares content of two text files.
+        /// Validates if the contents of two text files are identical.
         /// </summary>
         /// <param name="filePath1">The relative or absolute path of the first file</param>
         /// <param name="filePath2">The relative or absolute path of the second file</param>
@@ -234,74 +234,114 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
         [UserCodeMethod]
         public static void ValidateFilesTextEqual(string filePath1, string filePath2, bool normalizeLineEndings)
         {
-            try
-            {
-                filePath1 = GetPathForFile(filePath1);
-                filePath2 = GetPathForFile(filePath2);
 
-                if (!FilesExist(filePath1, filePath2))
-                {
-                    return;
-                }
-
-                var fileContent1 = File.ReadAllText(filePath1);
-                if (normalizeLineEndings)
-                {
-                    fileContent1 = Regex.Replace(fileContent1, newLineRegexPattern, "\r\n");
-                }
-
-                var fileContent2 = File.ReadAllText(filePath2);
-                if (normalizeLineEndings)
-                {
-                    fileContent2 = Regex.Replace(fileContent2, newLineRegexPattern, "\r\n");
-                }
-
-                if (fileContent1 != fileContent2)
+            if (!EvaluateEqualityFilesText(filePath1, filePath2, normalizeLineEndings))
                 {
                     Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
-                    ValidateFileContentLineByLine(fileContent1, fileContent2);
+                    ShowDifferencesTextFilesLineByLine(filePath1, filePath2, normalizeLineEndings);
                     return;
                 }
 
                 Report.Success("Files '" + filePath1 + "' and '" + filePath2 + "' are equal.");
+        }
+
+        [UserCodeMethod]
+        public static void ValidateFilesTextNotEqual(string filePath1, string filePath2)
+        {
+            ValidateFilesTextNotEqual(filePath1, filePath2, true);
+        }
+        
+        /// <summary>
+        /// Validates if the contents of two text files are not identical.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        /// <param name="normalizeLineEndings">If true, line endings will be normalized before comparison.
+        /// Original files will not be changed.</param>
+        [UserCodeMethod]
+        public static void ValidateFilesTextNotEqual(string filePath1, string filePath2, bool normalizeLineEndings)
+        {
+
+            if (EvaluateEqualityFilesText(filePath1, filePath2, normalizeLineEndings))
+                {
+                    Report.Failure("Files '" + filePath1 + "' and '" + filePath2 + "' are equal but were not expected to.");
+                    return;
+                }
+                Report.Success("Files '" + filePath1 + "' and '" + filePath2 + "' are not equal.");
+                ShowDifferencesTextFilesLineByLine(filePath1, filePath2, normalizeLineEndings);
+        }
+        
+
+        /// <summary>
+        /// Makes a bulk comparison of the content of two text files. Returns true if they are equal and false if they are not.
+        /// </summary>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        /// /// <param name="normalizeLineEndings">If true, line endings will be normalized before comparison.
+        /// Original files will not be changed.</param>
+        private static bool EvaluateEqualityFilesText(string filePath1, string filePath2, bool normalizeLineEndings)
+        {
+            string content1 = FileContent(filePath1, normalizeLineEndings);
+            string content2 = FileContent(filePath2, normalizeLineEndings);
+            return content1==content2;
+        }
+
+        private static string FileContent(string filePath, bool normalizeLineEndings)
+        {
+            try
+            {
+                filePath = GetPathForFile(filePath);
+
+                if (!FilesExist(filePath))
+                {
+                    return "";
+                }
+
+                var fileContent = File.ReadAllText(filePath);
+                if (normalizeLineEndings)
+                {
+                    fileContent = Regex.Replace(fileContent, newLineRegexPattern, "\r\n");
+                }
+
+                return fileContent;
             }
             catch (Exception ex)
             {
                 Utils.ReportException(ex, libraryName);
+                return "";
             }
         }
 
         
         /// <summary>
-        /// Checks line by line if strings are identical.
+        /// Shows the differences (in length and line by line) between two files.
         /// Line separator is "\r\n"
         /// </summary>
-        /// <param name="fileContent1">The string with the content of file 1 using \r\n as line separator.</param>
-        /// <param name="fileContent2">The string with the content of file 2 using \r\n as line separator.</param>
+        /// <param name="filePath1">The relative or absolute path of the first file</param>
+        /// <param name="filePath2">The relative or absolute path of the second file</param>
+        /// /// <param name="normalizeLineEndings">If true, line endings will be normalized before comparison.
+        /// Original files will not be changed.</param>
         [UserCodeMethod]
-        public static void ValidateFileContentLineByLine(string fileContent1, string fileContent2)
+        public static void ShowDifferencesTextFilesLineByLine(string filePath1, string filePath2, bool normalizeLineEndings)
         {
+            string fileContent1 = FileContent(filePath1, normalizeLineEndings);
+            string fileContent2 = FileContent(filePath2, normalizeLineEndings);
             string[] stringSeparators = new string[] { "\r\n" };
             string[] lines1 = fileContent1.Split(stringSeparators, StringSplitOptions.None);
             string[] lines2 = fileContent2.Split(stringSeparators, StringSplitOptions.None);
             if (lines1.Length!=lines2.Length) {
-                Report.Error("Files have different length. They will be compared line by line until the length of the smallest one.");
+                Report.Info("Files have different length. They will be compared line by line until the length of the smallest one.");
                 Report.Info("Number of lines in file 1: " + lines1.Length);
                 Report.Info("Number of lines in file 2: " + lines2.Length);
             }
             var minLength = Math.Min(lines1.Length, lines2.Length);
-            bool differencesHaveBeenFound = false;
-            string differencesThatHaveBeenFound = "";
+            string foundDifferences = "";
             for (int i = 0; i < minLength; i++) {
                 if (lines1[i]!=lines2[i]) {
-                    differencesThatHaveBeenFound += "File 1: " + lines1[i] + "\r\n" + "File 2: " + lines2[i] + "\r\n \r\n";
-                    differencesHaveBeenFound = true;
+                    foundDifferences += "File 1: " + lines1[i] + "\r\n" + "File 2: " + lines2[i] + "\r\n \r\n";
                 }
             }
-            if (differencesHaveBeenFound) {
-                Report.Error("The differences below have been found between both files.");
-                Report.Info(differencesThatHaveBeenFound);
-            }
+            return;
         }
 
         

@@ -73,14 +73,6 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
                 rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
                 expNeeded = rowsMustBeExpanded.Any();
             }
-            
-           // if (rowsList.Count>0) {
-           //     Ranorex.Row currentRow = rowsList[0];
-           //     currentRow.Focus();
-           //     currentRow.Select();
-           //     currentRow.PressKeys("{Right " + durationPressRightKey + "}");
-           // }
-            
         }
     }
 }

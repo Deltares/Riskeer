@@ -2085,6 +2085,18 @@
       <id>25ad7d07-7d0d-43cb-91b3-fbfbc7e067dc</id>
       <BoundTo>d5e22682-2f59-4887-bb64-191eb642537c</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\IO\ValidatePlainTextFilesAreNotEqual.cs">
+      <BoundTo>170e66db-858e-487d-b27b-e52217daf572</BoundTo>
+      <DependentUpon>ValidatePlainTextFilesAreNotEqual.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>6cffe3a1-fcf4-45b1-ab90-b655359b7e0d</id>
+    </Compile>
+    <Compile Include="Modules\Validation\IO\ValidatePlainTextFilesAreNotEqual.UserCode.cs">
+      <BoundTo>170e66db-858e-487d-b27b-e52217daf572</BoundTo>
+      <DependentUpon>ValidatePlainTextFilesAreNotEqual.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e08f972b-390a-4e80-ba15-94d4a4d0b391</id>
+    </Compile>
     <Compile Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.cs">
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -3352,6 +3364,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d5e22682-2f59-4887-bb64-191eb642537c</id>
       <recordtableid>d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8</recordtableid>
+    </None>
+    <None Include="Modules\Validation\IO\ValidatePlainTextFilesAreNotEqual.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>170e66db-858e-487d-b27b-e52217daf572</id>
+      <recordtableid>3dce05d3-19c6-41db-80de-b19fe30c3824</recordtableid>
     </None>
     <None Include="Modules\Validation\MessagesPanel\ValidateErrorIcon.rxrec">
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>

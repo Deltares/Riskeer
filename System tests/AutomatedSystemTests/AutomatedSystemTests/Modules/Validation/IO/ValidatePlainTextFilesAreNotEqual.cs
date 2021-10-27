@@ -20,38 +20,64 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsContextMenu
+namespace AutomatedSystemTests.Modules.Validation.IO
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateAllCalculationsInSelectedFolder recording.
+    ///The ValidatePlainTextFilesAreNotEqual recording.
     /// </summary>
-    [TestModule("4e9bdd58-dcf1-424d-a224-1d30c86d102b", ModuleType.Recording, 1)]
-    public partial class ValidateAllCalculationsInSelectedFolder : ITestModule
+    [TestModule("3dce05d3-19c6-41db-80de-b19fe30c3824", ModuleType.Recording, 1)]
+    public partial class ValidatePlainTextFilesAreNotEqual : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static ValidateAllCalculationsInSelectedFolder instance = new ValidateAllCalculationsInSelectedFolder();
+        static ValidatePlainTextFilesAreNotEqual instance = new ValidatePlainTextFilesAreNotEqual();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateAllCalculationsInSelectedFolder()
+        public ValidatePlainTextFilesAreNotEqual()
         {
+            filePath1 = "";
+            filePath2 = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateAllCalculationsInSelectedFolder Instance
+        public static ValidatePlainTextFilesAreNotEqual Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _filePath1;
+
+        /// <summary>
+        /// Gets or sets the value of variable filePath1.
+        /// </summary>
+        [TestVariable("b74b7217-45e6-4e66-a708-eabee78946ea")]
+        public string filePath1
+        {
+            get { return _filePath1; }
+            set { _filePath1 = value; }
+        }
+
+        string _filePath2;
+
+        /// <summary>
+        /// Gets or sets the value of variable filePath2.
+        /// </summary>
+        [TestVariable("33ea839d-57e2-4e7f-b638-02738f70f01a")]
+        public string filePath2
+        {
+            get { return _filePath2; }
+            set { _filePath2 = value; }
+        }
 
 #endregion
 
@@ -73,17 +99,14 @@ namespace AutomatedSystemTests.Modules.ActionsContextMenu
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Apps}'.", new RecordItemIndex(0));
-            Keyboard.Press("{Apps}");
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesValideren' at Center.", repo.ContextMenu.AllesValiderenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.AllesValideren.Click();
+            Ranorex.AutomationHelpers.UserCodeCollections.FileLibrary.ValidateFilesTextNotEqual(filePath1, filePath2);
+            Delay.Milliseconds(0);
             
         }
 
