@@ -42,6 +42,7 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -145,7 +146,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                CloseForData = CloseInputViewForData,
+                CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(
                     context.Calculation,
                     () => WaveConditionsInputHelper.GetHydraulicBoundaryLocationCalculation(context.WrappedData, context.AssessmentSection),
@@ -302,42 +303,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool CloseInputViewForData(WaveConditionsInputView view, object dataToCloseFor)
-        {
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = null;
-
-            if (dataToCloseFor is IAssessmentSection assessmentSection)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                    .FirstOrDefault();
-            }
-
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations = null;
-
-            if (failureMechanism != null)
-            {
-                calculations = failureMechanism.WaveConditionsCalculationGroup.GetCalculations()
-                                               .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-            }
-
-            if (dataToCloseFor is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext calculationGroupContext)
-            {
-                calculations = calculationGroupContext.WrappedData.GetCalculations()
-                                                      .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
-            }
-
-            if (dataToCloseFor is GrassCoverErosionOutwardsWaveConditionsCalculationContext calculationContext)
-            {
-                calculations = new[]
-                {
-                    calculationContext.WrappedData
-                };
-            }
-
-            return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
-        }
-        
         #endregion
 
         #region TreeNodeInfos

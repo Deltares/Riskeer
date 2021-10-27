@@ -133,7 +133,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                 Assert.IsFalse(closeForData);
             }
         }
-        
+
         [Test]
         public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
@@ -240,7 +240,10 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <remarks>A default implementation is added for creating a <see cref="TestFailureMechanismContext"/>.</remarks>
         protected virtual IFailureMechanism GetFailureMechanismWithCalculation()
         {
-            return new TestFailureMechanism();
+            return new TestFailureMechanism(new[]
+            {
+                new TestCalculation()
+            });
         }
 
         private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, TestFailureMechanism>
