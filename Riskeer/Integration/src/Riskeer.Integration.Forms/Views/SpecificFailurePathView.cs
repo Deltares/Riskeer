@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
@@ -189,7 +190,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetSectionsMapData()
         {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = failurePath.Sections;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failurePath.Sections.ToArray();
             sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);

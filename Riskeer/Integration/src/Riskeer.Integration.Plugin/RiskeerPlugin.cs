@@ -1391,7 +1391,7 @@ namespace Riskeer.Integration.Plugin
                 observers = CreateObservers(specificFailurePathView);
             }
 
-            if (observers == null)
+            if (!observers.Any())
             {
                 return;
             }
@@ -1439,7 +1439,7 @@ namespace Riskeer.Integration.Plugin
                 }
             }
 
-            return null;
+            return Enumerable.Empty<IObserver>();
         }
 
         private IEnumerable<IObserver> CreateObservers(WaveHeightCalculationsView waveHeightCalculationsView)
@@ -1462,7 +1462,7 @@ namespace Riskeer.Integration.Plugin
                 };
             }
 
-            return null;
+            return Enumerable.Empty<IObserver>();
         }
 
         private IEnumerable<IObserver> CreateObservers(SpecificFailurePathView specificFailurePathView)

@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
+using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -90,6 +91,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<CloseForFailurePathView>(view);
+            Assert.IsInstanceOf<IMapView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failurePath, view.FailurePath);
 
@@ -284,7 +286,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             MapDataCollection mapData = view.Map.Data;
             IEnumerable<MapData> mapDataCollection = mapData.Collection;
-            
+
             MapData dataToMove = mapDataCollection.ElementAt(referenceLineIndex);
             mapData.Remove(dataToMove);
             mapData.Add(dataToMove);
@@ -355,9 +357,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
 
-            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
-            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsMapData.Features);
+            CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
+            CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
         }
 
         /// <summary>
