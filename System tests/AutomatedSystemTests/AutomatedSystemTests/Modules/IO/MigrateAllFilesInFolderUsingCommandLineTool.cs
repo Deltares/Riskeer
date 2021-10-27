@@ -73,15 +73,19 @@ namespace AutomatedSystemTests.Modules.IO
             Delay.SpeedFactor = 0.0;
             
             string pathMigrationProgram = GetPathMigrationProgram();
-            foreach (var sourceFilePath in Directory.GetFiles(sourceFolder, "*.risk"))
+            var allFilesToMigrate = Directory.GetFiles(sourceFolder, "*.risk");
+            int numberFilesToMigrate = allFilesToMigrate.Length;
+            int i = 1;
+            foreach (var sourceFilePath in allFilesToMigrate)
                 {
-                Report.Info("Migrating project file: " + sourceFilePath);
+                Report.Info("Migrating project file (" + i.ToString() + "/" + numberFilesToMigrate.ToString() + "): " + sourceFilePath);
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetFolder, fileName);
                 string commandToRun = "/C " + pathMigrationProgram + " \"" + @sourceFilePath + "\" \"" + @destinationFilePath + "\" >migration.log";
                 RunCommand(commandToRun);
                 Delay.Duration(new Duration(300));
                 ValidateMigratedFilesExists(destinationFilePath);
+                i++;
                 }
         }
         

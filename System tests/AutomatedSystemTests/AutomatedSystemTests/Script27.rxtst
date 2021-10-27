@@ -3616,13 +3616,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="cc424860-240c-45fb-bf96-a4acb7107b6e"
-			name="SelectStrengthCalculationsState">
-				<parameters>
-					<param
-					name="StateToSelect"
-					value="Sterkte">
-					</param>
-				</parameters>
+			name="SelectStateWithCalculations">
 			</smartfoldernode>
 			<smartfoldernode
 			id="cda853fb-793e-4b76-994f-01d23f63bcf2"
@@ -4357,8 +4351,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="StateToSelect"
-					datasourceid="cc424860-240c-45fb-bf96-a4acb7107b6e"
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
 					variableid="dd230550-3763-4882-aad6-2c842903d448"
 					variablename="StateToSelect">
 					</var>
@@ -4525,7 +4519,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="cc424860-240c-45fb-bf96-a4acb7107b6e"
-								name="SelectStrengthCalculationsState">
+								name="SelectStateWithCalculations">
 									<testmodule
 									id="fe822eb1-7e81-4560-9fb9-e1279d1568c4"
 									name="SelectState">
@@ -5732,6 +5726,9 @@
 					labelFM
 				</column>
 				<column>
+					StateWithCalculations
+				</column>
+				<column>
 					pathToCalculationsFolder
 				</column>
 				<column>
@@ -5752,6 +5749,9 @@
 						labelFM
 					</th>
 					<th>
+						StateWithCalculations
+					</th>
+					<th>
 						pathToCalculationsFolder
 					</th>
 					<th>
@@ -5767,6 +5767,9 @@
 				<tr>
 					<td>
 						STPH
+					</td>
+					<td>
+						Sterkte
 					</td>
 					<td>
 						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500
@@ -5786,6 +5789,9 @@
 						GEKB
 					</td>
 					<td>
+						Sterkte
+					</td>
+					<td>
 						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
@@ -5801,6 +5807,9 @@
 				<tr>
 					<td>
 						STBI
+					</td>
+					<td>
+						Sterkte
 					</td>
 					<td>
 						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123
@@ -5820,6 +5829,9 @@
 						HTKW
 					</td>
 					<td>
+						Sterkte
+					</td>
+					<td>
 						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
@@ -5835,6 +5847,9 @@
 				<tr>
 					<td>
 						BSKW
+					</td>
+					<td>
+						Sterkte
 					</td>
 					<td>
 						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
@@ -5854,6 +5869,9 @@
 						STKWp
 					</td>
 					<td>
+						Sterkte
+					</td>
+					<td>
 						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
@@ -5869,6 +5887,9 @@
 				<tr>
 					<td>
 						ZST
+					</td>
+					<td>
+						Hydraulische
 					</td>
 					<td>
 						Traject&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen&gt;blokken en zuilen
@@ -5888,6 +5909,9 @@
 						AGK
 					</td>
 					<td>
+						Hydraulische
+					</td>
+					<td>
 						Traject&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
 					</td>
 					<td>
@@ -5905,7 +5929,10 @@
 						GEBU
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen&gt;golfoploop en golfklap
+						Hydraulische
+					</td>
+					<td>
+						Traject&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;golfoploop en golfklap
 					</td>
 					<td>
 						dam0voorland1
@@ -6304,16 +6331,10 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="05c7d841-1f62-40cb-bf4e-e182b491b47d">
-			</testcontainer>
-			<testcontainer
 			id="1c32c0c3-f3e0-4562-b8e1-d25e627c6a61">
 			</testcontainer>
 			<testcontainer
 			id="2e157592-a834-4171-ac24-bd99591c0786">
-			</testcontainer>
-			<testcontainer
-			id="44c5f24c-4f2a-4f31-897d-006757896303">
 			</testcontainer>
 			<testcontainer
 			id="4c1a58d9-4eca-4d91-82b8-46a081c3f5e3">
@@ -6328,22 +6349,7 @@
 			id="5a94067b-ec57-4288-95bb-bd4f259bb9fa">
 			</testcontainer>
 			<testcontainer
-			id="61016cf4-9c81-4776-a0e9-6ab4d079cb20">
-			</testcontainer>
-			<testcontainer
 			id="67f96106-b81a-4d2e-bd8f-52daca8f7e7f">
-			</testcontainer>
-			<testcontainer
-			id="71368129-2d40-497b-9085-185e0aaacce2">
-			</testcontainer>
-			<testcontainer
-			id="768bcc76-ffdf-4ff1-86d2-a4675864f30f">
-			</testcontainer>
-			<testcontainer
-			id="773bd48d-6095-4b0e-a359-453ebbab9cd0">
-			</testcontainer>
-			<testcontainer
-			id="7bb4d524-db01-467e-8a39-44d39421597d">
 			</testcontainer>
 			<testcontainer
 			id="7cd6197f-0bcd-40ae-b5a6-dd02c589ba33">
@@ -6352,19 +6358,7 @@
 			id="8a267ba5-2ffb-41e2-a8d1-87b1d18eff2c">
 			</testcontainer>
 			<testcontainer
-			id="a65f1d88-193b-4a09-9701-a3902031fce0">
-			</testcontainer>
-			<testcontainer
-			id="aba10684-1384-4446-83a2-9e87e2734f46">
-			</testcontainer>
-			<testcontainer
-			id="ad90cfdd-9c61-42f6-bcaa-1b8a0e693404">
-			</testcontainer>
-			<testcontainer
 			id="b1217f91-ed1a-4e65-a57a-3f853884ce57">
-			</testcontainer>
-			<testcontainer
-			id="b14ee891-742f-4cea-9dd5-2b7c62b2d8a7">
 			</testcontainer>
 			<testcontainer
 			id="b281f94c-58e9-4238-a6de-da07c186aa7f">
@@ -6374,15 +6368,6 @@
 			</testcontainer>
 			<testcontainer
 			id="d477609e-4d28-4c0e-9277-c3fe6ff69385">
-			</testcontainer>
-			<testcontainer
-			id="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f">
-			</testcontainer>
-			<testcontainer
-			id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7">
-			</testcontainer>
-			<testcontainer
-			id="f11c9940-ed36-493b-a9eb-39b8e0eca1ad">
 			</testcontainer>
 			<testcontainer
 			id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2">
