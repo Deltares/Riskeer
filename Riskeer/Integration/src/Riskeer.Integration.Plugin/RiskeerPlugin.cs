@@ -1377,7 +1377,7 @@ namespace Riskeer.Integration.Plugin
 
         private void OnViewOpened(object sender, ViewChangeEventArgs e)
         {
-            IEnumerable<IObserver> observers = null;
+            IEnumerable<IObserver> observers = Enumerable.Empty<IObserver>();
             if (e.View is DesignWaterLevelCalculationsView designWaterLevelCalculationsView)
             {
                 observers = CreateObservers(designWaterLevelCalculationsView);
