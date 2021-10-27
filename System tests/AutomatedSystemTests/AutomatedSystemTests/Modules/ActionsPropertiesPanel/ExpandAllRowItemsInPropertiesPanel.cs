@@ -59,29 +59,27 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
-            var rowsList = propertiesPanelAdapter.As<Table>().Rows.ToList();
-            var rowsMustBeExpanded = rowsList.FindAll(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-            bool expNeeded = rowsMustBeExpanded.Count>0;
+            IEnumerable<Row> rowsList = propertiesPanelAdapter.As<Table>().Rows;
+
+            var rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+            bool expNeeded = rowsMustBeExpanded.Any();
             while (expNeeded) {
                 foreach (var rw in rowsMustBeExpanded) {
                     rw.Focus();
                     rw.Select();
                     rw.PressKeys("{Right}");
                 }
-                rowsList = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self.As<Table>().Rows.Except(rowsList).ToList();
-                rowsMustBeExpanded = rowsList.FindAll(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-                expNeeded = rowsMustBeExpanded.Count>0;
+                rowsList = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self.As<Table>().Rows.Except(rowsList);
+                rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+                expNeeded = rowsMustBeExpanded.Any();
             }
             
-            //foreach (var row in rowsList) {
-            //    row.Element.SetAttributeValue("AccessibleState", row.Element.GetAttributeValue("AccessibleState").ToString().Replace("Collapsed", "Expanded"));
-            //}
-            //if (rowsList.Count>0) {
-            //    Ranorex.Row currentRow = rowsList[0];
-            //    currentRow.Focus();
-            //    currentRow.Select();
-            //    currentRow.PressKeys("{Right " + durationPressRightKey + "}");
-            //}
+           // if (rowsList.Count>0) {
+           //     Ranorex.Row currentRow = rowsList[0];
+           //     currentRow.Focus();
+           //     currentRow.Select();
+           //     currentRow.PressKeys("{Right " + durationPressRightKey + "}");
+           // }
             
         }
     }

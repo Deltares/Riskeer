@@ -156,21 +156,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="05dad472-4f50-4b5f-948e-3e0b4a2f8403"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedPropertiesPanelOriginalCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="064ed4b4-7572-4f45-b638-4bd97dda4fbf"
 			name="SingleCalculation">
@@ -859,21 +844,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			enabled="False"
-			id="2e9ba9d7-6af2-42b1-a4fe-98acc2612741"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedPropertiesPanelCopyInOtherFolderCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="30c45b4b-1a80-476d-8139-3dcaf63695a0"
 			name="ConcatenateStrings"
@@ -1838,8 +1808,8 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="dummyString"
-					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
@@ -1886,8 +1856,8 @@
 					variablename="string10">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalCalculation"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
@@ -1898,7 +1868,7 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="fileExtensionCSV"
+					dataname="pathCSVFileOriginalCalculation"
 					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
@@ -3275,21 +3245,6 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
-			enabled="False"
-			id="c137fa93-4838-4af9-ac32-d4c0badceca6"
-			name="ConvertPropertiesPanelToString"
-			ref="3732fdc4-e20c-44e8-981c-20e1d75c4fc1"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="stringifiedPropertiesPanelCopyCalculationInput"
-					datasourceid="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-					variableid="1a56d401-7ad8-4220-bea4-fe5914a1314c"
-					variablename="stringifiedPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="c19e2664-6f98-424d-ad87-5be885e0f000"
 			name="ValidateStringsPropertiesPanelAreEqual"
 			ref="21892c37-b86b-406b-9adc-194ca2990fa0"
@@ -3482,8 +3437,8 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="dummyString"
-					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
@@ -3536,13 +3491,13 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileCopiedCalculation"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="fileExtensionCSV"
+					dataname="pathCSVFileCopiedCalculation"
 					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
@@ -4116,7 +4071,6 @@
 			name="ValidateCopiesOfCalculation">
 			</smartfoldernode>
 			<smartfoldernode
-			datarangeactive="True"
 			datasource="script27aCalculationsToCopyAndValidate"
 			errorbehavior="ContinueNextIteration"
 			id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
@@ -4439,8 +4393,8 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="dummyString"
-					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
+					dataname="fileExtensionCSV"
+					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
@@ -4493,13 +4447,13 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
-					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
+					dataname="scriptOutputFolder"
+					datasourceid="5a447dac-43ba-486d-a727-899f8cfa1363"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="fileExtensionCSV"
+					dataname="pathCSVFileCopiedCalculationInCopiedFolder"
 					datasourceid="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
@@ -4710,10 +4664,6 @@
 											id="c9ca6e5f-bc2b-4bc5-81aa-897ad9f0dd26"
 											name="WaitForXMiliseconds">
 											</testmodule>
-											<testmodule
-											id="05dad472-4f50-4b5f-948e-3e0b4a2f8403"
-											name="ConvertPropertiesPanelToString">
-											</testmodule>
 											<smartfoldernode
 											id="b14ee891-742f-4cea-9dd5-2b7c62b2d8a7"
 											name="ExportToCSV">
@@ -4750,10 +4700,6 @@
 											id="0acd555b-e8b4-4eb8-a7d2-654ccd300094"
 											name="WaitForXMiliseconds">
 											</testmodule>
-											<testmodule
-											id="c137fa93-4838-4af9-ac32-d4c0badceca6"
-											name="ConvertPropertiesPanelToString">
-											</testmodule>
 											<smartfoldernode
 											id="71368129-2d40-497b-9085-185e0aaacce2"
 											name="ExportToCSV">
@@ -4789,10 +4735,6 @@
 											<testmodule
 											id="6abbf642-2b5a-4dc7-9ade-c61e30e31a5b"
 											name="WaitForXMiliseconds">
-											</testmodule>
-											<testmodule
-											id="2e9ba9d7-6af2-42b1-a4fe-98acc2612741"
-											name="ConvertPropertiesPanelToString">
 											</testmodule>
 											<smartfoldernode
 											id="aba10684-1384-4446-83a2-9e87e2734f46"
@@ -6395,7 +6337,13 @@
 			id="71368129-2d40-497b-9085-185e0aaacce2">
 			</testcontainer>
 			<testcontainer
+			id="768bcc76-ffdf-4ff1-86d2-a4675864f30f">
+			</testcontainer>
+			<testcontainer
 			id="773bd48d-6095-4b0e-a359-453ebbab9cd0">
+			</testcontainer>
+			<testcontainer
+			id="7bb4d524-db01-467e-8a39-44d39421597d">
 			</testcontainer>
 			<testcontainer
 			id="7cd6197f-0bcd-40ae-b5a6-dd02c589ba33">
@@ -6425,7 +6373,13 @@
 			id="cc424860-240c-45fb-bf96-a4acb7107b6e">
 			</testcontainer>
 			<testcontainer
+			id="d477609e-4d28-4c0e-9277-c3fe6ff69385">
+			</testcontainer>
+			<testcontainer
 			id="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f">
+			</testcontainer>
+			<testcontainer
+			id="ea68d6c4-16a6-4c1b-b457-1c2e48132fa7">
 			</testcontainer>
 			<testcontainer
 			id="f11c9940-ed36-493b-a9eb-39b8e0eca1ad">
