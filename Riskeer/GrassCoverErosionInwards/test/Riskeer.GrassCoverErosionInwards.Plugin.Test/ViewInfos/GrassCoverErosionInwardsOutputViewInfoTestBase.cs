@@ -153,20 +153,18 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+        protected override IFailureMechanism GetFailureMechanismWithCalculation()
         {
-            return new GrassCoverErosionInwardsCalculationsContext(
-                new GrassCoverErosionInwardsFailureMechanism
+            return new GrassCoverErosionInwardsFailureMechanism
+            {
+                CalculationsGroup =
                 {
-                    CalculationsGroup =
+                    Children =
                     {
-                        Children =
-                        {
-                            new GrassCoverErosionInwardsCalculation()
-                        }
+                        new GrassCoverErosionInwardsCalculation()
                     }
-                },
-                new AssessmentSectionStub());
+                }
+            };
         }
     }
 }

@@ -169,19 +169,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            protected override IFailureMechanism GetFailureMechanismWithCalculation()
             {
-                return new MacroStabilityInwardsCalculationsContext(
-                    new MacroStabilityInwardsFailureMechanism
+                return new MacroStabilityInwardsFailureMechanism
+                {
+                    CalculationsGroup =
                     {
-                        CalculationsGroup =
+                        Children =
                         {
-                            Children =
-                            {
-                                new MacroStabilityInwardsCalculationScenario()
-                            }
+                            new MacroStabilityInwardsCalculationScenario()
                         }
-                    }, new AssessmentSectionStub());
+                    }
+                };
             }
         }
     }

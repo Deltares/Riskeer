@@ -213,19 +213,18 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            protected override IFailureMechanism GetFailureMechanismWithCalculation()
             {
-                return new PipingCalculationsContext(
-                    new PipingFailureMechanism
+                return new PipingFailureMechanism
+                {
+                    CalculationsGroup =
                     {
-                        CalculationsGroup =
+                        Children =
                         {
-                            Children =
-                            {
-                                new ProbabilisticPipingCalculationScenario()
-                            }
+                            new ProbabilisticPipingCalculationScenario()
                         }
-                    }, new AssessmentSectionStub());
+                    }
+                };
             }
         }
     }

@@ -167,20 +167,18 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            protected override IFailureMechanism GetFailureMechanismWithCalculation()
             {
-                return new HeightStructuresCalculationsContext(
-                    new HeightStructuresFailureMechanism
+                return new HeightStructuresFailureMechanism
+                {
+                    CalculationsGroup =
                     {
-                        CalculationsGroup =
+                        Children =
                         {
-                            Children =
-                            {
-                                new StructuresCalculation<HeightStructuresInput>()
-                            }
+                            new StructuresCalculation<HeightStructuresInput>()
                         }
-                    },
-                    new AssessmentSection(AssessmentSectionComposition.Dike));
+                    }
+                };
             }
         }
 
@@ -216,9 +214,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            protected override IFailureMechanism GetFailureMechanismWithCalculation()
             {
-                return new ClosingStructuresCalculationsContext(
+                return
                     new ClosingStructuresFailureMechanism
                     {
                         CalculationsGroup =
@@ -228,8 +226,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                 new StructuresCalculation<ClosingStructuresInput>()
                             }
                         }
-                    },
-                    new AssessmentSection(AssessmentSectionComposition.Dike));
+                    };
             }
         }
 
@@ -265,20 +262,18 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override IFailurePathContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
+            protected override IFailureMechanism GetFailureMechanismWithCalculation()
             {
-                return new StabilityPointStructuresCalculationsContext(
-                    new StabilityPointStructuresFailureMechanism
+                return new StabilityPointStructuresFailureMechanism
+                {
+                    CalculationsGroup =
                     {
-                        CalculationsGroup =
+                        Children =
                         {
-                            Children =
-                            {
-                                new StructuresCalculation<StabilityPointStructuresInput>()
-                            }
+                            new StructuresCalculation<StabilityPointStructuresInput>()
                         }
-                    },
-                    new AssessmentSection(AssessmentSectionComposition.Dike));
+                    }
+                };
             }
         }
     }
