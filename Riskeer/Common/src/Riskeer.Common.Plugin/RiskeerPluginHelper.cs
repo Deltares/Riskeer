@@ -52,7 +52,7 @@ namespace Riskeer.Common.Plugin
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
-            IEnumerable<ICalculation> calculations;
+            IEnumerable<ICalculation> calculations = Enumerable.Empty<ICalculation>();
 
             var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
@@ -127,13 +127,6 @@ namespace Riskeer.Common.Plugin
         private static IEnumerable<ICalculation> GetCalculationsFromFailureMechanisms(object o)
         {
             var failureMechanism = o as IFailureMechanism;
-
-            var context = o as IFailurePathContext<IFailureMechanism>;
-            if (context != null)
-            {
-                failureMechanism = context.WrappedData;
-            }
-
             if (failureMechanism != null)
             {
                 return failureMechanism.Calculations;
