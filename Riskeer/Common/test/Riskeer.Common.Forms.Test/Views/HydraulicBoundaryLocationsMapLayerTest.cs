@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
@@ -98,6 +100,42 @@ namespace Riskeer.Common.Forms.Test.Views
                     new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
                 });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
+                // Then
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenFailureMechanismContributionUpdatedAndNotified_ThenMapDataUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
+            });
+
+            using (var mapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection))
+            {
+                mapLayer.MapData.Attach(observer);
+
+                // Precondition
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
+
+                // When
+                var random = new Random(21);
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                contribution.LowerLimitNorm = random.NextDouble(0.000001, 0.1);
+                contribution.SignalingNorm = contribution.LowerLimitNorm - 0.000001;
+                contribution.NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
@@ -482,7 +520,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-                
+
                 string expectedSelectedProbabilityString = string.Format(expectedSelectedTargetProbabilityFormat, targetProbabilityString);
                 Assert.AreEqual(string.Format(waterLevelDisplayNameFormat, expectedSelectedProbabilityString),
                                 mapLayer.MapData.SelectedMetaDataAttribute);
@@ -490,7 +528,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCaseSource(nameof(GetTargetProbabilityItemShiftActions))]
         public void GivenMapLayerWithHydraulicBoundaryLocationsData_WhenSelectedWaveHeightTargetProbabilityIndexUpdatedAndCollectionNotified_ThenMapDataAndSelectedMetaDataAttributeUpdated(
@@ -539,7 +577,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapLayer.MapData);
-                
+
                 string expectedSelectedProbabilityString = string.Format(expectedSelectedTargetProbabilityFormat, targetProbabilityString);
                 Assert.AreEqual(string.Format(waveHeightDisplayNameFormat, expectedSelectedProbabilityString),
                                 mapLayer.MapData.SelectedMetaDataAttribute);
