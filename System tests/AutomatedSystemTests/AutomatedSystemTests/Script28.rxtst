@@ -727,15 +727,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="58a2ed94-1cc8-4d33-85e2-1f6e36c3a0ca"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="timeToExpandPropertiesPanel"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1427,15 +1427,15 @@
 			</testmodule>
 			<testmodule
 			id="8fba8992-08ca-4d80-8938-f1de4cb13133"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="timeToExpandPropertiesPanel"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="93d26bb6-56db-400b-b0b9-712ab1c4172f"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2882,7 +2882,7 @@
 										name="MakeAllParametersInPropertiesPanelVisible">
 											<testmodule
 											id="8fba8992-08ca-4d80-8938-f1de4cb13133"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="d4e1ef72-d903-4b9a-a7f3-0543d9762f8c"
@@ -3026,7 +3026,7 @@
 										name="MakeAllParametersInPropertiesPanelVisible">
 											<testmodule
 											id="58a2ed94-1cc8-4d33-85e2-1f6e36c3a0ca"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="c3d675a5-fce0-4694-9adb-1722e683624d"
@@ -3726,6 +3726,9 @@
 					indexRowHBCItem
 				</column>
 				<column>
+					numberOfPassesToExpandRows
+				</column>
+				<column>
 					timeToExpandPropertiesPanel
 				</column>
 				<column>
@@ -3749,6 +3752,9 @@
 						indexRowHBCItem
 					</th>
 					<th>
+						numberOfPassesToExpandRows
+					</th>
+					<th>
 						timeToExpandPropertiesPanel
 					</th>
 					<th>
@@ -3769,6 +3775,9 @@
 						0
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						4000
 					</td>
 					<td>
@@ -3787,6 +3796,9 @@
 					</td>
 					<td>
 						45
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						4000
@@ -3809,6 +3821,9 @@
 						0
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						5000
 					</td>
 					<td>
@@ -3827,6 +3842,9 @@
 					</td>
 					<td>
 						1
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						5000
@@ -3848,6 +3866,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -3865,6 +3886,9 @@
 						10
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -3886,6 +3910,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -3903,6 +3930,9 @@
 						12
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -3924,6 +3954,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -3941,6 +3974,9 @@
 						14
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -3962,6 +3998,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -3979,6 +4018,9 @@
 						16
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4000,6 +4042,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4017,6 +4062,9 @@
 						18
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4038,6 +4086,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4055,6 +4106,9 @@
 						20
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4076,6 +4130,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4093,6 +4150,9 @@
 						22
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4114,6 +4174,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4131,6 +4194,9 @@
 						24
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4152,6 +4218,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4169,6 +4238,9 @@
 						26
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4190,6 +4262,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4207,6 +4282,9 @@
 						28
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4228,6 +4306,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4245,6 +4326,9 @@
 						30
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4266,6 +4350,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4283,6 +4370,9 @@
 						32
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4304,6 +4394,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4321,6 +4414,9 @@
 						34
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4342,6 +4438,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4359,6 +4458,9 @@
 						36
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4380,6 +4482,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4397,6 +4502,9 @@
 						38
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4418,6 +4526,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4435,6 +4546,9 @@
 						40
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						100
@@ -4456,6 +4570,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4473,6 +4590,9 @@
 						74
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						10000
@@ -4494,6 +4614,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4511,6 +4634,9 @@
 						76
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						10000
@@ -4532,6 +4658,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4549,6 +4678,9 @@
 						78
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						12000
@@ -4570,6 +4702,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4587,6 +4722,9 @@
 						80
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						10000
@@ -4608,6 +4746,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4625,6 +4766,9 @@
 						90
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						300
@@ -4646,6 +4790,9 @@
 					<td>
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						300
 					</td>
 					<td>
@@ -4663,6 +4810,9 @@
 						92
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						14000

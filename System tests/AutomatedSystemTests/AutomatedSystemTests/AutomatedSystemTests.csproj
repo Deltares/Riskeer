@@ -606,7 +606,7 @@
       <UserCode>true</UserCode>
       <id>3ffb81e6-7244-4c09-8e0b-3de2aa64a020</id>
     </Compile>
-    <Compile Include="Modules\ActionsPropertiesPanel\ExpandAllRowItemsInPropertiesPanel.cs">
+    <Compile Include="Modules\ActionsPropertiesPanel\ExpandRowItemsInPropertiesPanel.cs">
       <id>9a4c4116-ea50-4483-9928-f57623ba3542</id>
     </Compile>
     <Compile Include="Modules\ActionsPropertiesPanel\ExpandAlphasGroup.cs">

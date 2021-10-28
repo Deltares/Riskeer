@@ -24,22 +24,22 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
     /// Description of ExpandAllRowItemsInPropertiesPanel.
     /// </summary>
     [TestModule("DE336D4D-6903-4666-935E-4619A8A89C40", ModuleType.UserCode, 1)]
-    public class ExpandAllRowItemsInPropertiesPanel : ITestModule
+    public class ExpandRowItemsInPropertiesPanel : ITestModule
     {
         
         
-        string _durationPressRightKey = "";
+        string _numberOfIterationsExpand = "";
         [TestVariable("dad1141d-7f02-4a3a-a011-eb32c0ca7b1e")]
-        public string durationPressRightKey
+        public string numberOfIterationsExpand
         {
-            get { return _durationPressRightKey; }
-            set { _durationPressRightKey = value; }
+            get { return _numberOfIterationsExpand; }
+            set { _numberOfIterationsExpand = value; }
         }
         
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ExpandAllRowItemsInPropertiesPanel()
+        public ExpandRowItemsInPropertiesPanel()
         {
             // Do not delete - a parameterless constructor is required!
         }
@@ -59,20 +59,34 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
-            IEnumerable<Row> rowsList = propertiesPanelAdapter.As<Table>().Rows;
-
-            var rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-            bool expNeeded = rowsMustBeExpanded.Any();
-            while (expNeeded) {
+            IEnumerable<Row> rowsList;
+            IEnumerable<Row> rowsMustBeExpanded;
+            
+            for (int i = 0; i < Int32.Parse(numberOfIterationsExpand); i++) {
+                rowsList = propertiesPanelAdapter.As<Table>().Rows;
+                rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
                 foreach (var rw in rowsMustBeExpanded) {
                     rw.Focus();
                     rw.Select();
                     rw.PressKeys("{Right}");
                 }
-                rowsList = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self.As<Table>().Rows.Except(rowsList);
-                rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-                expNeeded = rowsMustBeExpanded.Any();
             }
+
+
+            //IEnumerable<Row> rowsList = propertiesPanelAdapter.As<Table>().Rows;
+            //
+            //IEnumerable<Row> rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+            //bool expNeeded = rowsMustBeExpanded.Any();
+            //while (expNeeded) {
+            //    foreach (var rw in rowsMustBeExpanded) {
+            //        rw.Focus();
+            //        rw.Select();
+            //        rw.PressKeys("{Right}");
+            //    }
+            //    rowsList = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self.As<Table>().Rows.Except(rowsList);
+            //    rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
+            //    expNeeded = rowsMustBeExpanded.Any();
+            //}
         }
     }
 }

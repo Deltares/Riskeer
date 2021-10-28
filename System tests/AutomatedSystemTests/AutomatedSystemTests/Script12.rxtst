@@ -1284,8 +1284,8 @@
 					value="300">
 					</param>
 					<param
-					name="durationRightKey"
-					value="1000">
+					name="numberOfPassesExpandingRows"
+					value="3">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1435,8 +1435,8 @@
 			name="LoopStructures">
 				<parameters>
 					<param
-					name="durationRightKey"
-					value="1000">
+					name="numberOfPassesExpandingRows"
+					value="3">
 					</param>
 					<param
 					name="waitTime"
@@ -1763,15 +1763,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="9259fae3-4cd4-4b30-9e90-b8099d5a245d"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationRightKey"
+					dataname="numberOfPassesExpandingRows"
 					datasourceid="7187131b-01cb-4c31-a3f2-45b8b30c5d9a"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2262,15 +2262,15 @@
 			</testmodule>
 			<testmodule
 			id="a95ff1de-eeb0-46a9-b92a-4cd92e484d60"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationRightKey"
+					dataname="numberOfPassesExpandingRows"
 					datasourceid="5695d592-1bac-4df0-bfdd-dac18545ee6d"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2384,15 +2384,15 @@
 			</testmodule>
 			<testmodule
 			id="aead3b41-fb2f-406d-8f19-2f3736face72"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationRightKey"
+					dataname="numberOfPassesExpandingRows"
 					datasourceid="e0a1cfdf-f728-4497-ace8-7228e120d2a6"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3034,8 +3034,8 @@
 					value="300">
 					</param>
 					<param
-					name="durationRightKey"
-					value="1000">
+					name="numberOfPassesExpandingRows"
+					value="3">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3493,7 +3493,7 @@
 										name="MakeAllItemsInPropertiesPanelVisible">
 											<testmodule
 											id="9259fae3-4cd4-4b30-9e90-b8099d5a245d"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="f7db5cde-b8e9-42e6-bbc8-66a9a38a296d"
@@ -3593,7 +3593,7 @@
 										name="MakeAllItemsInPropertiesPanelVisible">
 											<testmodule
 											id="aead3b41-fb2f-406d-8f19-2f3736face72"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="a0db8819-944a-4179-825e-72aac951432f"
@@ -3703,7 +3703,7 @@
 												name="MakeAllItemsInPropertiesPanelVisible">
 													<testmodule
 													id="a95ff1de-eeb0-46a9-b92a-4cd92e484d60"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="1755559d-9bdd-4bb5-8c4f-f65b9ca72612"

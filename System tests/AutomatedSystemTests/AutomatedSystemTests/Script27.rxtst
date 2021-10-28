@@ -337,15 +337,15 @@
 			</testmodule>
 			<testmodule
 			id="0f0e9c5f-2bcf-401e-8d89-d2ceb16157b3"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1009,15 +1009,15 @@
 			</testmodule>
 			<testmodule
 			id="2dc4961e-a3f1-4df9-a7e4-6080f387009b"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParametersInItem"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1525,15 +1525,15 @@
 			</testmodule>
 			<testmodule
 			id="46cde0a8-37a5-4d08-8eda-9f2545c1f781"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParametersInItem"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2574,15 +2574,15 @@
 			</testmodule>
 			<testmodule
 			id="86fbb7c8-7325-4686-ab96-b8a140f5c45a"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2732,15 +2732,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="8ee0de44-2864-4703-9cfa-6b0e4a2cc86c"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParametersInItem"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3007,15 +3007,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="95888978-c64d-46e4-8ef3-f152c054a799"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3086,15 +3086,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="9da79212-896b-4f8f-b529-415e80344026"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3570,15 +3570,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="b2c29131-eabd-4c8e-b3eb-88a29b8dc324"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -4823,15 +4823,15 @@
 			</testmodule>
 			<testmodule
 			id="e756f027-f3fa-4075-8fa8-312c270cbdde"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -5673,7 +5673,7 @@
 											</testmodule>
 											<testmodule
 											id="2dc4961e-a3f1-4df9-a7e4-6080f387009b"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="c9ca6e5f-bc2b-4bc5-81aa-897ad9f0dd26"
@@ -5709,7 +5709,7 @@
 											</testmodule>
 											<testmodule
 											id="46cde0a8-37a5-4d08-8eda-9f2545c1f781"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="0acd555b-e8b4-4eb8-a7d2-654ccd300094"
@@ -5745,7 +5745,7 @@
 											</testmodule>
 											<testmodule
 											id="8ee0de44-2864-4703-9cfa-6b0e4a2cc86c"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="6abbf642-2b5a-4dc7-9ade-c61e30e31a5b"
@@ -5897,7 +5897,7 @@
 											</testmodule>
 											<testmodule
 											id="95888978-c64d-46e4-8ef3-f152c054a799"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="a6ba6027-ec7b-4e05-b332-58c6e41aeb76"
@@ -5937,7 +5937,7 @@
 											</testmodule>
 											<testmodule
 											id="9da79212-896b-4f8f-b529-415e80344026"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="2a6c917a-8f2e-44fd-a12e-c94452dc2fdd"
@@ -6091,7 +6091,7 @@
 													</testmodule>
 													<testmodule
 													id="e756f027-f3fa-4075-8fa8-312c270cbdde"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="7f143857-7f9e-4130-ae9e-955684679e42"
@@ -6127,7 +6127,7 @@
 													</testmodule>
 													<testmodule
 													id="b2c29131-eabd-4c8e-b3eb-88a29b8dc324"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="0e49aced-4a9c-40ec-a563-6f3a2edf6dc7"
@@ -6279,7 +6279,7 @@
 													</testmodule>
 													<testmodule
 													id="0f0e9c5f-2bcf-401e-8d89-d2ceb16157b3"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="699798f0-7220-4fc3-8367-51f67c22fcb6"
@@ -6315,7 +6315,7 @@
 													</testmodule>
 													<testmodule
 													id="86fbb7c8-7325-4686-ab96-b8a140f5c45a"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="ba2e4bee-9108-4577-b35e-e4a0e8d40165"
@@ -6467,6 +6467,9 @@
 				<column>
 					maxRowsToValidate
 				</column>
+				<column>
+					numberOfPassesToExpandRows
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -6487,6 +6490,9 @@
 					<th>
 						maxRowsToValidate
 					</th>
+					<th>
+						numberOfPassesToExpandRows
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -6502,6 +6508,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6519,6 +6528,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6534,6 +6546,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6551,6 +6566,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6566,6 +6584,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6583,6 +6604,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6598,6 +6622,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6616,6 +6643,9 @@
 					<td>
 						950
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6631,6 +6661,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6648,6 +6681,9 @@
 					</td>
 					<td>
 						950
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6664,6 +6700,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6682,6 +6721,9 @@
 					<td>
 						800
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6697,6 +6739,9 @@
 						500
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6714,6 +6759,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6730,6 +6778,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6745,6 +6796,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6762,6 +6816,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6777,6 +6834,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6794,6 +6854,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6809,6 +6872,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 			</table>
@@ -7115,6 +7181,9 @@
 					nameOfCalculation
 				</column>
 				<column>
+					numberOfPassesToExpandRows
+				</column>
+				<column>
 					durationToExpandAllParameters
 				</column>
 				<column>
@@ -7153,6 +7222,9 @@
 						nameOfCalculation
 					</th>
 					<th>
+						numberOfPassesToExpandRows
+					</th>
+					<th>
 						durationToExpandAllParameters
 					</th>
 					<th>
@@ -7186,6 +7258,9 @@
 					</td>
 					<td>
 						berekening
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
@@ -7223,6 +7298,9 @@
 						berekening
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						500
 					</td>
 					<td>
@@ -7256,6 +7334,9 @@
 					</td>
 					<td>
 						berekening
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						50
@@ -7293,6 +7374,9 @@
 						berekening
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						150
 					</td>
 					<td>
@@ -7326,6 +7410,9 @@
 					</td>
 					<td>
 						berekening
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
@@ -7363,6 +7450,9 @@
 						berekening
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						150
 					</td>
 					<td>
@@ -7396,6 +7486,9 @@
 					</td>
 					<td>
 						dam0voorland0
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
@@ -7433,6 +7526,9 @@
 						dam1voorland1
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						150
 					</td>
 					<td>
@@ -7466,6 +7562,9 @@
 					</td>
 					<td>
 						dam0voorland1
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
