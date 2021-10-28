@@ -52,8 +52,6 @@ namespace Riskeer.Common.Plugin
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
-            IEnumerable<ICalculation> calculations = Enumerable.Empty<ICalculation>();
-
             var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
             {
