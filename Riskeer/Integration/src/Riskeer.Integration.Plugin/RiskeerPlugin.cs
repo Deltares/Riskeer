@@ -1023,7 +1023,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<GenericFailurePathsContext>
             {
-                Text = context => Resources.GenericFailurePathsCategoryTreeFolder_DisplayName,
+                Text = context => Resources.GenericFailurePaths_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = GenericFailurePathChildNodeObjects,
                 ContextMenuStrip = GenericFailurePathsContextMenuStrip,
@@ -1032,7 +1032,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<SpecificFailurePathsContext>
             {
-                Text = context => Resources.SpecificFailurePathsCategoryTreeFolder_DisplayName,
+                Text = context => Resources.SpecificFailurePaths_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
                 ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
