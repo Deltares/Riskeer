@@ -1029,7 +1029,8 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
                 CanInsert = SpecificFailurePathsContext_CanDropOrInsert,
                 CanDrop = SpecificFailurePathsContext_CanDropOrInsert,
-                OnDrop = SpecificFailurePathsContext_OnDrop
+                OnDrop = SpecificFailurePathsContext_OnDrop,
+                ExpandOnCreate = context => true
             };
 
             yield return new TreeNodeInfo<FailureMechanismSectionsContext>
@@ -1252,6 +1253,7 @@ namespace Riskeer.Integration.Plugin
                 Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
+                ExpandOnCreate = context => true,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddExportItem()
                                                                                  .AddSeparator()
