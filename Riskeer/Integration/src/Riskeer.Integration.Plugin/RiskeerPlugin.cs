@@ -1021,6 +1021,15 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateSpecificFailurePathTreeNodeInfo();
 
+            yield return new TreeNodeInfo<GenericFailurePathsContext>
+            {
+                Text = context => Resources.GenericFailurePathsCategoryTreeFolder_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
+                ChildNodeObjects = GenericFailurePathChildNodeObjects,
+                ContextMenuStrip = GenericFailurePathsContextMenuStrip,
+                ExpandOnCreate = context => true
+            };
+
             yield return new TreeNodeInfo<SpecificFailurePathsContext>
             {
                 Text = context => Resources.SpecificFailurePathsCategoryTreeFolder_DisplayName,
@@ -2069,14 +2078,34 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new CategoryTreeFolder(Resources.GenericFailurePathsCategoryTreeFolder_DisplayName, GetGenericFailurePaths(assessmentSection)),
+                new GenericFailurePathsContext(assessmentSection),
                 new SpecificFailurePathsContext(assessmentSection.SpecificFailurePaths, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetGenericFailurePaths(AssessmentSection assessmentSection)
+        private ContextMenuStrip FailurePathsStateRootContextMenuStrip(FailurePathsStateRootContext nodeData,
+                                                                       object parentData, TreeViewControl treeViewControl)
         {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
+                      .AddRenameItem()
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .AddSeparator()
+                      .AddPropertiesItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region GenericFailurePaths TreeNodeInfo
+
+        private static object[] GenericFailurePathChildNodeObjects(GenericFailurePathsContext nodeData)
+        {
+            AssessmentSection assessmentSection = nodeData.WrappedData;
             return new object[]
             {
                 new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
@@ -2100,18 +2129,12 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathsStateRootContextMenuStrip(FailurePathsStateRootContext nodeData,
-                                                                       object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GenericFailurePathsContextMenuStrip(GenericFailurePathsContext nodeData,
+                                                                     object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
-                      .AddOpenItem()
-                      .AddSeparator()
-                      .AddRenameItem()
-                      .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
                       .Build();
         }
 
