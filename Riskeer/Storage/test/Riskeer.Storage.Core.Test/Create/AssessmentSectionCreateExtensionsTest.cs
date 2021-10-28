@@ -30,6 +30,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Serializers;
@@ -96,6 +97,10 @@ namespace Riskeer.Storage.Core.Test.Create
                     Transparency = (RoundedDouble) transparency,
                     IsVisible = isVisible,
                     Configuration = new WmtsBackgroundDataConfiguration(false, null, null, null)
+                },
+                SpecificFailurePaths =
+                {
+                    new SpecificFailurePath()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -131,6 +136,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StrengthAndStabilityParallelConstruction));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
+            Assert.IsNotNull(entity.SpecificFailurePathEntities.SingleOrDefault());
             Assert.AreEqual(order, entity.Order);
 
             Assert.IsNull(entity.ReferenceLinePointXml);

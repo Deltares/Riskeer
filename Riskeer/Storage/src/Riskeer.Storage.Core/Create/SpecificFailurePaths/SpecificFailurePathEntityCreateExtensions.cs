@@ -19,11 +19,87 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Integration.Data.FailurePath;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
 {
-    public class SpecificFailurePathEntityCreateExtensions
+    /// <summary>
+    /// Extension methods for <see cref="SpecificFailurePath"/> related to creating
+    /// a <see cref="SpecificFailurePathEntity"/>.
+    /// </summary>
+    internal static class SpecificFailurePathEntityCreateExtensions
     {
-        
+        /// <summary>
+        /// Creates a <see cref="SpecificFailurePathEntity"/> based on the information of the <see cref="SpecificFailurePath"/>.
+        /// </summary>
+        /// <param name="specificFailurePath">The structure to create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">The index at which <paramref name="specificFailurePath"/> resides within its parent.</param>
+        /// <returns>A new <see cref="SpecificFailurePathEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static SpecificFailurePathEntity Create(this IFailurePath specificFailurePath, PersistenceRegistry registry, int order)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            if (registry.Contains(specificFailurePath))
+            {
+                return registry.Get(specificFailurePath);
+            }
+
+            var entity = new SpecificFailurePathEntity
+            {
+                Name = specificFailurePath.Name.DeepClone(),
+                Order = order,
+                IsRelevant = Convert.ToByte(specificFailurePath.IsRelevant),
+                InputComments = specificFailurePath.InputComments.Body.DeepClone(),
+                OutputComments = specificFailurePath.OutputComments.Body.DeepClone(),
+                NotRelevantComments = specificFailurePath.NotRelevantComments.Body.DeepClone(),
+                FailureMechanismSectionCollectionSourcePath = specificFailurePath.FailureMechanismSectionSourcePath.DeepClone()
+            };
+
+            specificFailurePath.AddEntitiesForFailureMechanismSections(registry, entity);
+
+            registry.Register(entity, specificFailurePath);
+
+            return entity;
+        }
+
+        /// <summary>
+        /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase"/>.
+        /// </summary>
+        /// <param name="specificFailurePath">The failure mechanism to create a database failure mechanism section entities for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to which to add the created entities.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="registry"/> is <c>null</c></item>
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// </list>
+        /// </exception>
+        internal static void AddEntitiesForFailureMechanismSections(this IFailurePath specificFailurePath, PersistenceRegistry registry, SpecificFailurePathEntity entity)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            foreach (FailureMechanismSection failureMechanismSection in specificFailurePath.Sections)
+            {
+                entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(registry));
+            }
+        }
     }
 }
