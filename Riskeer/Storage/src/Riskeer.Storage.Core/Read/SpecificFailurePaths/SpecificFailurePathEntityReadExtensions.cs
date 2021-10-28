@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
 
@@ -36,12 +39,10 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
         /// <see cref="SpecificFailurePath"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to create <see cref="SpecificFailurePath"/> for.</param>
-        /// <param name="failurePath">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="SpecificFailurePath"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static SpecificFailurePath Read(this SpecificFailurePathEntity entity,
-                                                 SpecificFailurePath failurePath,
                                                  ReadConversionCollector collector)
         {
             if (collector == null)
@@ -49,22 +50,48 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            // if (collector.Contains(entity))
-            // {
-            //     return collector.Get(entity);
-            // }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
-            //failurePath.Name = entity.Name;
-            failurePath.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            failurePath.InputComments.Body = entity.InputComments;
-            failurePath.OutputComments.Body = entity.OutputComments;
-            failurePath.NotRelevantComments.Body = entity.NotRelevantComments;    
+            var specificFailurePath = new SpecificFailurePath
+            {
+                Name = entity.Name,
+                IsRelevant = Convert.ToBoolean(entity.IsRelevant),
+                InputComments =
+                {
+                    Body = entity.InputComments
+                },
+                OutputComments =
+                {
+                    Body = entity.OutputComments
+                },
+                NotRelevantComments =
+                {
+                    Body = entity.NotRelevantComments
+                }
+            };
 
-            //entity.ReadFailureMechanismSections(failureMechanism, collector);
-            
-            //collector.Read(entity, failurePath);
+            entity.ReadFailureMechanismSections(specificFailurePath, collector);
 
-            return failurePath;
+            collector.Read(entity, specificFailurePath);
+
+            return specificFailurePath;
+        }
+
+        private static void ReadFailureMechanismSections(this SpecificFailurePathEntity entity,
+                                                         IFailurePath specificFailurePath,
+                                                         ReadConversionCollector collector)
+        {
+            FailureMechanismSection[] readFailureMechanismSections = entity.FailureMechanismSectionEntities
+                                                                           .Select(failureMechanismSectionEntity =>
+                                                                                       failureMechanismSectionEntity.Read(collector))
+                                                                           .ToArray();
+            if (readFailureMechanismSections.Any())
+            {
+                specificFailurePath.SetSections(readFailureMechanismSections, entity.FailureMechanismSectionCollectionSourcePath);
+            }
         }
     }
 }

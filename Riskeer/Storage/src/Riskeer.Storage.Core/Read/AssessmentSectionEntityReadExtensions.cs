@@ -28,6 +28,7 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.SpecificFailurePaths;
 using Riskeer.Storage.Core.Serializers;
 
 namespace Riskeer.Storage.Core.Read
@@ -93,6 +94,8 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityPointStructuresFailureMechanism(assessmentSection, collector);
 
+            entity.ReadSpecificFailurePaths(assessmentSection, collector);
+
             return assessmentSection;
         }
 
@@ -146,7 +149,6 @@ namespace Riskeer.Storage.Core.Read
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.AddRange(waterLevelHydraulicLocationCalculationForTargetProbabilityCollectionEntities.Select(e => e.Read(collector))
                                                                                                                                                                            .ToArray());
-            
             IEnumerable<HydraulicLocationCalculationForTargetProbabilityCollectionEntity> waveHeightHydraulicLocationCalculationForTargetProbabilityCollectionEntities =
                 entity.HydraulicLocationCalculationForTargetProbabilityCollectionEntities
                       .Where(e => e.HydraulicBoundaryLocationCalculationType == (short) HydraulicBoundaryLocationCalculationType.WaveHeight)
@@ -275,6 +277,17 @@ namespace Riskeer.Storage.Core.Read
         private static FailureMechanismEntity GetFailureMechanismEntityOfType(AssessmentSectionEntity entity, FailureMechanismType type)
         {
             return entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) type);
+        }
+
+        private static void ReadSpecificFailurePaths(this AssessmentSectionEntity entity,
+                                                     IAssessmentSection assessmentSection,
+                                                     ReadConversionCollector collector)
+        {
+            IEnumerable<SpecificFailurePathEntity> specificFailurePathEntities =
+                entity.SpecificFailurePathEntities
+                      .OrderBy(e => e.Order);
+
+            assessmentSection.SpecificFailurePaths.AddRange(specificFailurePathEntities.Select(e => e.Read(collector)).ToArray());
         }
     }
 }

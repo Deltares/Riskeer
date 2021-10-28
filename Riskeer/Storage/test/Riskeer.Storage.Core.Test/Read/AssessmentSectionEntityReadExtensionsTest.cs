@@ -1008,6 +1008,45 @@ namespace Riskeer.Storage.Core.Test.Read
                                         section.TechnicalInnovation);
         }
 
+        [Test]
+        public void Read_WithSpecificFailurePathProperties_ReturnsNewAssessmentSectionWithPropertiesInSpecificFailurePath()
+        {
+            // Setup
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            const string name = "Specific failure path name";
+            const string inputComments = "Some input text";
+            const string outputComments = "Some output text";
+            const string notRelevantComments = "Some not relevant text";
+
+            var specificFailurePathEntity = new SpecificFailurePathEntity
+            {
+                Name = name,
+                IsRelevant = Convert.ToByte(isRelevant),
+                InputComments = inputComments,
+                OutputComments = outputComments,
+                NotRelevantComments = notRelevantComments
+            };
+
+            entity.SpecificFailurePathEntities.Add(specificFailurePathEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            AssessmentSection section = entity.Read(collector);
+
+            // Assert
+            IFailurePath specificFailurePath = section.SpecificFailurePaths.Single();
+            Assert.AreEqual(name, specificFailurePath.Name);
+            Assert.AreEqual(isRelevant, specificFailurePath.IsRelevant);
+            Assert.AreEqual(inputComments, specificFailurePath.InputComments.Body);
+            Assert.AreEqual(outputComments, specificFailurePath.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments, specificFailurePath.NotRelevantComments.Body);
+            Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
+        }
+
         private static void AssertHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity expectedEntity,
                                                                        HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
                                                                        HydraulicBoundaryLocationCalculation actualCalculation)
