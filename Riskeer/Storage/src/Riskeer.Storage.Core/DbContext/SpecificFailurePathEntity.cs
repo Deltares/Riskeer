@@ -48,6 +48,7 @@ namespace Riskeer.Storage.Core.DbContext
         public string InputComments { get; set; }
         public string OutputComments { get; set; }
         public string NotRelevantComments { get; set; }
+        public int Order { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 

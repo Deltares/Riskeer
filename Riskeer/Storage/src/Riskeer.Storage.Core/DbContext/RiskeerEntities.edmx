@@ -1218,6 +1218,7 @@
           <Property Name="InputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SpecificFailurePathFailureMechanismSectionEntity">
           <Key>
@@ -6285,6 +6286,7 @@
           <Property Name="InputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="OutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotRelevantComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0" FromRole="SpecificFailurePathEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" FromRole="SpecificFailurePathEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -9642,6 +9644,7 @@
           <EntitySetMapping Name="SpecificFailurePathEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.SpecificFailurePathEntity">
               <MappingFragment StoreEntitySet="SpecificFailurePathEntity">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="NotRelevantComments" ColumnName="NotRelevantComments" />
                 <ScalarProperty Name="OutputComments" ColumnName="OutputComments" />
                 <ScalarProperty Name="InputComments" ColumnName="InputComments" />
