@@ -108,6 +108,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<SemiProbabilisticPipingCalculationEntity> SemiProbabilisticPipingCalculationEntities { get; set; }
         public virtual DbSet<SemiProbabilisticPipingCalculationOutputEntity> SemiProbabilisticPipingCalculationOutputEntities { get; set; }
+        public virtual DbSet<SpecificFailurePathEntity> SpecificFailurePathEntities { get; set; }
         public virtual DbSet<StabilityPointStructureEntity> StabilityPointStructureEntities { get; set; }
         public virtual DbSet<StabilityPointStructuresCalculationEntity> StabilityPointStructuresCalculationEntities { get; set; }
         public virtual DbSet<StabilityPointStructuresFailureMechanismMetaEntity> StabilityPointStructuresFailureMechanismMetaEntities { get; set; }

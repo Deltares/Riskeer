@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -277,12 +277,19 @@
           <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
+        <EntityType Name="FailureMechanismFailureMechanismSectionEntity">
+          <Key>
+            <PropertyRef Name="FailureMechanismEntityId" />
+            <PropertyRef Name="FailureMechanismSectionEntityId" />
+          </Key>
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="FailureMechanismSectionEntity">
           <Key>
             <PropertyRef Name="FailureMechanismSectionEntityId" />
           </Key>
           <Property Name="FailureMechanismSectionEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="FailureMechanismSectionPointXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
@@ -1200,6 +1207,26 @@
           <Property Name="SellmeijerCriticalFall" Type="real" />
           <Property Name="SellmeijerReducedFall" Type="real" />
         </EntityType>
+        <EntityType Name="SpecificFailurePathEntity">
+          <Key>
+            <PropertyRef Name="SpecificFailurePathEntityId" />
+          </Key>
+          <Property Name="SpecificFailurePathEntityId" Type="integer" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="FailureMechanismSectionCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="InputComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="SpecificFailurePathFailureMechanismSectionEntity">
+          <Key>
+            <PropertyRef Name="SpecificFailurePathEntityId" />
+            <PropertyRef Name="FailureMechanismSectionEntityId" />
+          </Key>
+          <Property Name="SpecificFailurePathEntityId" Type="integer" Nullable="false" />
+          <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
+        </EntityType>
         <EntityType Name="StabilityPointStructureEntity">
           <Key>
             <PropertyRef Name="StabilityPointStructureEntityId" />
@@ -1915,14 +1942,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FailureMechanismSectionEntity_0_0">
+        <Association Name="FK_FailureMechanismFailureMechanismSectionEntity_0_0">
+          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
+          <End Role="FailureMechanismFailureMechanismSectionEntity" Type="Self.FailureMechanismFailureMechanismSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Principal>
+            <Dependent Role="FailureMechanismFailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FailureMechanismFailureMechanismSectionEntity_1_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
-          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="*" />
+          <End Role="FailureMechanismFailureMechanismSectionEntity" Type="Self.FailureMechanismFailureMechanismSectionEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FailureMechanismEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
-            <Dependent Role="FailureMechanismSectionEntity">
+            <Dependent Role="FailureMechanismFailureMechanismSectionEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3019,6 +3058,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SpecificFailurePathEntity_0_0">
+          <End Role="AssessmentSectionEntity" Type="Self.AssessmentSectionEntity" Multiplicity="1" />
+          <End Role="SpecificFailurePathEntity" Type="Self.SpecificFailurePathEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="SpecificFailurePathEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecificFailurePathFailureMechanismSectionEntity_0_0">
+          <End Role="SpecificFailurePathEntity" Type="Self.SpecificFailurePathEntity" Multiplicity="1" />
+          <End Role="SpecificFailurePathFailureMechanismSectionEntity" Type="Self.SpecificFailurePathFailureMechanismSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpecificFailurePathEntity">
+              <PropertyRef Name="SpecificFailurePathEntityId" />
+            </Principal>
+            <Dependent Role="SpecificFailurePathFailureMechanismSectionEntity">
+              <PropertyRef Name="SpecificFailurePathEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecificFailurePathFailureMechanismSectionEntity_1_0">
+          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
+          <End Role="SpecificFailurePathFailureMechanismSectionEntity" Type="Self.SpecificFailurePathFailureMechanismSectionEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Principal>
+            <Dependent Role="SpecificFailurePathFailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StabilityPointStructureEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="StabilityPointStructureEntity" Type="Self.StabilityPointStructureEntity" Multiplicity="*" />
@@ -3433,6 +3508,7 @@
           <EntitySet Name="DuneLocationCalculationOutputEntity" EntityType="Self.DuneLocationCalculationOutputEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationEntity" EntityType="Self.DuneLocationEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
+          <EntitySet Name="FailureMechanismFailureMechanismSectionEntity" EntityType="Self.FailureMechanismFailureMechanismSectionEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
           <EntitySet Name="FaultTreeIllustrationPointEntity" EntityType="Self.FaultTreeIllustrationPointEntity" store:Type="Tables" />
           <EntitySet Name="FaultTreeIllustrationPointStochastEntity" EntityType="Self.FaultTreeIllustrationPointStochastEntity" store:Type="Tables" />
@@ -3496,6 +3572,8 @@
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="SemiProbabilisticPipingCalculationEntity" EntityType="Self.SemiProbabilisticPipingCalculationEntity" store:Type="Tables" />
           <EntitySet Name="SemiProbabilisticPipingCalculationOutputEntity" EntityType="Self.SemiProbabilisticPipingCalculationOutputEntity" store:Type="Tables" />
+          <EntitySet Name="SpecificFailurePathEntity" EntityType="Self.SpecificFailurePathEntity" store:Type="Tables" />
+          <EntitySet Name="SpecificFailurePathFailureMechanismSectionEntity" EntityType="Self.SpecificFailurePathFailureMechanismSectionEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructureEntity" EntityType="Self.StabilityPointStructureEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresCalculationEntity" EntityType="Self.StabilityPointStructuresCalculationEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntity" EntityType="Self.StabilityPointStructuresFailureMechanismMetaEntity" store:Type="Tables" />
@@ -3620,9 +3698,13 @@
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_FailureMechanismSectionEntity_0_0" Association="Self.FK_FailureMechanismSectionEntity_0_0">
-            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+          <AssociationSet Name="FK_FailureMechanismFailureMechanismSectionEntity_0_0" Association="Self.FK_FailureMechanismFailureMechanismSectionEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
+            <End Role="FailureMechanismFailureMechanismSectionEntity" EntitySet="FailureMechanismFailureMechanismSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FailureMechanismFailureMechanismSectionEntity_1_0" Association="Self.FK_FailureMechanismFailureMechanismSectionEntity_1_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="FailureMechanismFailureMechanismSectionEntity" EntitySet="FailureMechanismFailureMechanismSectionEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_FaultTreeIllustrationPointEntity_0_0" Association="Self.FK_FaultTreeIllustrationPointEntity_0_0">
             <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntity" />
@@ -3988,6 +4070,18 @@
             <End Role="SemiProbabilisticPipingCalculationEntity" EntitySet="SemiProbabilisticPipingCalculationEntity" />
             <End Role="SemiProbabilisticPipingCalculationOutputEntity" EntitySet="SemiProbabilisticPipingCalculationOutputEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_SpecificFailurePathEntity_0_0" Association="Self.FK_SpecificFailurePathEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
+            <End Role="SpecificFailurePathEntity" EntitySet="SpecificFailurePathEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecificFailurePathFailureMechanismSectionEntity_0_0" Association="Self.FK_SpecificFailurePathFailureMechanismSectionEntity_0_0">
+            <End Role="SpecificFailurePathEntity" EntitySet="SpecificFailurePathEntity" />
+            <End Role="SpecificFailurePathFailureMechanismSectionEntity" EntitySet="SpecificFailurePathFailureMechanismSectionEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecificFailurePathFailureMechanismSectionEntity_1_0" Association="Self.FK_SpecificFailurePathFailureMechanismSectionEntity_1_0">
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
+            <End Role="SpecificFailurePathFailureMechanismSectionEntity" EntitySet="SpecificFailurePathFailureMechanismSectionEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructureEntity_0_0" Association="Self.FK_StabilityPointStructureEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="StabilityPointStructureEntity" EntitySet="StabilityPointStructureEntity" />
@@ -4199,6 +4293,7 @@
           <EntitySet Name="ProjectEntities" EntityType="RiskeerEntitiesModel.ProjectEntity" />
           <EntitySet Name="SemiProbabilisticPipingCalculationEntities" EntityType="RiskeerEntitiesModel.SemiProbabilisticPipingCalculationEntity" />
           <EntitySet Name="SemiProbabilisticPipingCalculationOutputEntities" EntityType="RiskeerEntitiesModel.SemiProbabilisticPipingCalculationOutputEntity" />
+          <EntitySet Name="SpecificFailurePathEntities" EntityType="RiskeerEntitiesModel.SpecificFailurePathEntity" />
           <EntitySet Name="StabilityPointStructureEntities" EntityType="RiskeerEntitiesModel.StabilityPointStructureEntity" />
           <EntitySet Name="StabilityPointStructuresCalculationEntities" EntityType="RiskeerEntitiesModel.StabilityPointStructuresCalculationEntity" />
           <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntities" EntityType="RiskeerEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" />
@@ -4254,6 +4349,10 @@
           <AssociationSet Name="FK_HydraulicLocationEntity_0_0" Association="RiskeerEntitiesModel.FK_HydraulicLocationEntity_0_0">
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecificFailurePathEntity_0_0" Association="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0">
+            <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
+            <End Role="SpecificFailurePathEntity" EntitySet="SpecificFailurePathEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_BackgroundDataMetaEntity_0_0" Association="RiskeerEntitiesModel.FK_BackgroundDataMetaEntity_0_0">
             <End Role="BackgroundDataEntity" EntitySet="BackgroundDataEntities" />
@@ -4374,10 +4473,6 @@
           <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FailureMechanismSectionEntity_0_0" Association="RiskeerEntitiesModel.FK_FailureMechanismSectionEntity_0_0">
-            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
-            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_ForeshoreProfileEntity_0_0" Association="RiskeerEntitiesModel.FK_ForeshoreProfileEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -4767,6 +4862,10 @@
             <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" />
             <End Role="WaveImpactAsphaltCoverWaveConditionsOutputEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsOutputEntities" />
           </AssociationSet>
+          <AssociationSet Name="FailureMechanismFailureMechanismSectionEntity" Association="RiskeerEntitiesModel.FailureMechanismFailureMechanismSectionEntity">
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+          </AssociationSet>
           <AssociationSet Name="FaultTreeIllustrationPointStochastEntity" Association="RiskeerEntitiesModel.FaultTreeIllustrationPointStochastEntity">
             <End Role="StochastEntity" EntitySet="StochastEntities" />
             <End Role="FaultTreeIllustrationPointEntity" EntitySet="FaultTreeIllustrationPointEntities" />
@@ -4795,6 +4894,10 @@
             <End Role="MacroStabilityInwardsSoilProfileTwoDEntity" EntitySet="MacroStabilityInwardsSoilProfileTwoDEntities" />
             <End Role="MacroStabilityInwardsSoilLayerTwoDEntity" EntitySet="MacroStabilityInwardsSoilLayerTwoDEntities" />
           </AssociationSet>
+          <AssociationSet Name="SpecificFailurePathFailureMechanismSectionEntity" Association="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity">
+            <End Role="SpecificFailurePathEntity" EntitySet="SpecificFailurePathEntities" />
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AssessmentSectionEntity">
           <Key>
@@ -4821,6 +4924,7 @@
           <NavigationProperty Name="HydraulicBoundaryDatabaseEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicBoundaryDatabaseEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicBoundaryDatabaseEntity" />
           <NavigationProperty Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationCalculationForTargetProbabilityCollectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationCalculationForTargetProbabilityCollectionEntity" />
           <NavigationProperty Name="HydraulicLocationEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="SpecificFailurePathEntities" Relationship="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="SpecificFailurePathEntity" />
         </EntityType>
         <EntityType Name="BackgroundDataEntity">
           <Key>
@@ -5122,7 +5226,6 @@
           <NavigationProperty Name="DikeProfileEntities" Relationship="RiskeerEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
           <NavigationProperty Name="DuneLocationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DuneLocationEntity" />
-          <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="ForeshoreProfileEntities" Relationship="RiskeerEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
@@ -5138,18 +5241,17 @@
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RiskeerEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
           <NavigationProperty Name="SurfaceLineEntities" Relationship="RiskeerEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="WaveImpactAsphaltCoverFailureMechanismMetaEntity" />
+          <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.FailureMechanismFailureMechanismSectionEntity" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismSectionEntity">
           <Key>
             <PropertyRef Name="FailureMechanismSectionEntityId" />
           </Key>
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="FailureMechanismSectionPointXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ClosingStructuresSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="ClosingStructuresSectionResultEntity" />
           <NavigationProperty Name="DuneErosionSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_DuneErosionSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="DuneErosionSectionResultEntity" />
-          <NavigationProperty Name="FailureMechanismEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverErosionInwardsSectionResultEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverErosionOutwardsSectionResultEntity" />
           <NavigationProperty Name="GrassCoverSlipOffInwardsSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverSlipOffInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="GrassCoverSlipOffInwardsSectionResultEntity" />
@@ -5166,6 +5268,8 @@
           <NavigationProperty Name="TechnicalInnovationSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_TechnicalInnovationSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="TechnicalInnovationSectionResultEntity" />
           <NavigationProperty Name="WaterPressureAsphaltCoverSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_WaterPressureAsphaltCoverSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="WaterPressureAsphaltCoverSectionResultEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_WaveImpactAsphaltCoverSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="WaveImpactAsphaltCoverSectionResultEntity" />
+          <NavigationProperty Name="FailureMechanismEntities" Relationship="RiskeerEntitiesModel.FailureMechanismFailureMechanismSectionEntity" FromRole="FailureMechanismSectionEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="SpecificFailurePathEntities" Relationship="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" FromRole="FailureMechanismSectionEntity" ToRole="SpecificFailurePathEntity" />
         </EntityType>
         <EntityType Name="FaultTreeIllustrationPointEntity">
           <Key>
@@ -6170,6 +6274,20 @@
           <Property Name="SellmeijerReducedFall" Type="Double" />
           <NavigationProperty Name="SemiProbabilisticPipingCalculationEntity" Relationship="RiskeerEntitiesModel.FK_SemiProbabilisticPipingCalculationOutputEntity_0_0" FromRole="SemiProbabilisticPipingCalculationOutputEntity" ToRole="SemiProbabilisticPipingCalculationEntity" />
         </EntityType>
+        <EntityType Name="SpecificFailurePathEntity">
+          <Key>
+            <PropertyRef Name="SpecificFailurePathEntityId" />
+          </Key>
+          <Property Name="SpecificFailurePathEntityId" Type="Int64" Nullable="false" />
+          <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="FailureMechanismSectionCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="InputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="OutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="NotRelevantComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0" FromRole="SpecificFailurePathEntity" ToRole="AssessmentSectionEntity" />
+          <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" FromRole="SpecificFailurePathEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
         <EntityType Name="StabilityPointStructureEntity">
           <Key>
             <PropertyRef Name="StabilityPointStructureEntityId" />
@@ -6732,6 +6850,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SpecificFailurePathEntity_0_0">
+          <End Type="RiskeerEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="1" />
+          <End Type="RiskeerEntitiesModel.SpecificFailurePathEntity" Role="SpecificFailurePathEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentSectionEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Principal>
+            <Dependent Role="SpecificFailurePathEntity">
+              <PropertyRef Name="AssessmentSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_BackgroundDataMetaEntity_0_0">
           <End Type="RiskeerEntitiesModel.BackgroundDataEntity" Role="BackgroundDataEntity" Multiplicity="1" />
           <End Type="RiskeerEntitiesModel.BackgroundDataMetaEntity" Role="BackgroundDataMetaEntity" Multiplicity="*" />
@@ -7088,18 +7218,6 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="DuneLocationEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FailureMechanismSectionEntity_0_0">
-          <End Type="RiskeerEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
-          <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FailureMechanismEntity">
-              <PropertyRef Name="FailureMechanismEntityId" />
-            </Principal>
-            <Dependent Role="FailureMechanismSectionEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8268,6 +8386,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FailureMechanismFailureMechanismSectionEntity">
+          <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="*" />
+        </Association>
         <Association Name="FaultTreeIllustrationPointStochastEntity">
           <End Type="RiskeerEntitiesModel.StochastEntity" Role="StochastEntity" Multiplicity="*" />
           <End Type="RiskeerEntitiesModel.FaultTreeIllustrationPointEntity" Role="FaultTreeIllustrationPointEntity" Multiplicity="*" />
@@ -8295,6 +8417,10 @@
         <Association Name="MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity">
           <End Type="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Role="MacroStabilityInwardsSoilProfileTwoDEntity" Multiplicity="*" />
           <End Type="RiskeerEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Role="MacroStabilityInwardsSoilLayerTwoDEntity" Multiplicity="*" />
+        </Association>
+        <Association Name="SpecificFailurePathFailureMechanismSectionEntity">
+          <End Type="RiskeerEntitiesModel.SpecificFailurePathEntity" Role="SpecificFailurePathEntity" Multiplicity="*" />
+          <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -8596,7 +8722,6 @@
               <MappingFragment StoreEntitySet="FailureMechanismSectionEntity">
                 <ScalarProperty Name="FailureMechanismSectionPointXml" ColumnName="FailureMechanismSectionPointXml" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -9514,6 +9639,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SpecificFailurePathEntities">
+            <EntityTypeMapping TypeName="RiskeerEntitiesModel.SpecificFailurePathEntity">
+              <MappingFragment StoreEntitySet="SpecificFailurePathEntity">
+                <ScalarProperty Name="NotRelevantComments" ColumnName="NotRelevantComments" />
+                <ScalarProperty Name="OutputComments" ColumnName="OutputComments" />
+                <ScalarProperty Name="InputComments" ColumnName="InputComments" />
+                <ScalarProperty Name="FailureMechanismSectionCollectionSourcePath" ColumnName="FailureMechanismSectionCollectionSourcePath" />
+                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
+                <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
+                <ScalarProperty Name="SpecificFailurePathEntityId" ColumnName="SpecificFailurePathEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="StabilityPointStructureEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.StabilityPointStructureEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructureEntity">
@@ -9953,6 +10091,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="FailureMechanismFailureMechanismSectionEntity" TypeName="RiskeerEntitiesModel.FailureMechanismFailureMechanismSectionEntity" StoreEntitySet="FailureMechanismFailureMechanismSectionEntity">
+            <EndProperty Name="FailureMechanismEntity">
+              <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+            </EndProperty>
+            <EndProperty Name="FailureMechanismSectionEntity">
+              <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="FaultTreeIllustrationPointStochastEntity" TypeName="RiskeerEntitiesModel.FaultTreeIllustrationPointStochastEntity" StoreEntitySet="FaultTreeIllustrationPointStochastEntity">
             <EndProperty Name="FaultTreeIllustrationPointEntity">
               <ScalarProperty Name="FaultTreeIllustrationPointEntityId" ColumnName="FaultTreeIllustrationPointEntityId" />
@@ -10007,6 +10153,14 @@
             </EndProperty>
             <EndProperty Name="MacroStabilityInwardsSoilProfileTwoDEntity">
               <ScalarProperty Name="MacroStabilityInwardsSoilProfileTwoDEntityId" ColumnName="MacroStabilityInwardsSoilProfileTwoDEntityId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SpecificFailurePathFailureMechanismSectionEntity" TypeName="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" StoreEntitySet="SpecificFailurePathFailureMechanismSectionEntity">
+            <EndProperty Name="FailureMechanismSectionEntity">
+              <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+            </EndProperty>
+            <EndProperty Name="SpecificFailurePathEntity">
+              <ScalarProperty Name="SpecificFailurePathEntityId" ColumnName="SpecificFailurePathEntityId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
