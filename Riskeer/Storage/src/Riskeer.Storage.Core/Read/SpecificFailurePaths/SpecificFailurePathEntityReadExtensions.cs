@@ -49,10 +49,10 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            if (collector.Contains(entity))
-            {
-                return collector.Get(entity);
-            }
+            // if (collector.Contains(entity))
+            // {
+            //     return collector.Get(entity);
+            // }
 
             //failurePath.Name = entity.Name;
             failurePath.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
