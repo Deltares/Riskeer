@@ -10,8 +10,8 @@
 			datasource="script27bExportAndImportConfigurations"
 			errorbehavior="ContinueNextIteration"
 			id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-			maxrange="2"
-			minrange="2"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -247,8 +247,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="d9542de6-681c-48d6-b055-e746a02aa86f"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -482,8 +482,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -570,8 +570,8 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="bab32384-004a-4f2d-b2b4-d476443c3c6b"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -1660,8 +1660,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="8ca4e59a-f124-4e0a-8f02-74378efd945d"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -1844,6 +1844,12 @@
 			<smartfoldernode
 			id="56c178d9-9b14-4f13-937f-e601b69ce0ac"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testcase
 			id="5a447dac-43ba-486d-a727-899f8cfa1363"
@@ -2308,8 +2314,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="bab32384-004a-4f2d-b2b4-d476443c3c6b"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -2513,8 +2519,8 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="aee53440-3821-4544-be21-c5bc37ba9a75"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -2689,8 +2695,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="56c178d9-9b14-4f13-937f-e601b69ce0ac"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -2739,6 +2745,12 @@
 			<smartfoldernode
 			id="8ca4e59a-f124-4e0a-8f02-74378efd945d"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="8d4a5e1f-738d-474b-b70e-c979ea812cc6"
@@ -2840,8 +2852,8 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="d9542de6-681c-48d6-b055-e746a02aa86f"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -2946,8 +2958,8 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -3110,6 +3122,12 @@
 			<smartfoldernode
 			id="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="9da79212-896b-4f8f-b529-415e80344026"
@@ -3582,7 +3600,22 @@
 			<smartfoldernode
 			id="aee53440-3821-4544-be21-c5bc37ba9a75"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b00298e1-4059-4428-98d8-06ac2c808286"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<smartfoldernode
 			id="b1217f91-ed1a-4e65-a57a-3f853884ce57"
 			name="a)DuplicationOfCalculations">
@@ -3689,6 +3722,15 @@
 			name="BuildPathToStandaloneCalculation">
 			</smartfoldernode>
 			<testmodule
+			id="b5efa1f0-bca4-4b83-bdff-2570794b8e19"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
+			<testmodule
 			id="b6722f50-25ab-42cc-9643-43866fdb7fc5"
 			name="ImportConfigurationCalculationsFromXMLFile"
 			ref="65d26ded-850f-4a04-a479-9d3870513676"
@@ -3777,6 +3819,12 @@
 			<smartfoldernode
 			id="bab32384-004a-4f2d-b2b4-d476443c3c6b"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="bbfe78f4-3839-4690-8696-3ae3a2107d4c"
@@ -3871,6 +3919,15 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="bf673446-67f5-4588-bc63-d6cd245a2b7f"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
 			</testmodule>
 			<testmodule
 			id="c0c89acb-03f3-4a75-b6f7-ef86b98b4382"
@@ -4249,8 +4306,8 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="8ca4e59a-f124-4e0a-8f02-74378efd945d"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -4379,6 +4436,15 @@
 			name="ValidateThatStructureCalculationsIsNotTheSame">
 			</smartfoldernode>
 			<testmodule
+			id="cebb5f08-8c16-4511-9234-5e5894006f56"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
+			<testmodule
 			id="cfcf8f97-1684-491b-b88a-08c382f5a8df"
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
@@ -4403,8 +4469,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="aee53440-3821-4544-be21-c5bc37ba9a75"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -4599,6 +4665,12 @@
 			<smartfoldernode
 			id="d9542de6-681c-48d6-b055-e746a02aa86f"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="d9e571ea-c6c1-4012-8395-d2de8235b3e0"
@@ -5195,8 +5267,8 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="56c178d9-9b14-4f13-937f-e601b69ce0ac"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -5402,6 +5474,15 @@
 			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21"
 			name="ValidateThatStructureCalculationsIsTheSame">
 			</smartfoldernode>
+			<testmodule
+			id="fad0437b-8c72-43e9-a25f-960d7a29b4dc"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<testmodule
 			id="fc479fe8-9932-4126-b169-4593b9e8390c"
 			name="CollapseRowItemsInPropertiesPanel"
@@ -5889,16 +5970,16 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
+								id="3db906e9-d5b6-4d5f-b917-3364b018712c"
+								name="SelectStateWithCalculations">
+									<testmodule
+									id="94b0ae1b-6bd3-4a43-9bcb-317675d8ffa6"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="8609648a-d20e-46a2-b6a9-5ff288b9e167"
 								name="OriginalCalculations">
-									<smartfoldernode
-									id="3db906e9-d5b6-4d5f-b917-3364b018712c"
-									name="SelectStateWithCalculations">
-										<testmodule
-										id="94b0ae1b-6bd3-4a43-9bcb-317675d8ffa6"
-										name="SelectState">
-										</testmodule>
-									</smartfoldernode>
 									<smartfoldernode
 									id="cbb22f2e-d419-405b-9930-13a74dba428c"
 									name="SaveConfigurationXMLFileForAllCalculations">
@@ -5996,6 +6077,10 @@
 											<testmodule
 											id="f828e8ba-49a8-4f16-83e8-229c1ea8cd74"
 											name="SelectGenericItemInProjectExplorer">
+											</testmodule>
+											<testmodule
+											id="cebb5f08-8c16-4511-9234-5e5894006f56"
+											name="CollapseRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="9da79212-896b-4f8f-b529-415e80344026"
@@ -6152,6 +6237,10 @@
 													name="SelectGenericItemInProjectExplorer">
 													</testmodule>
 													<testmodule
+													id="b00298e1-4059-4428-98d8-06ac2c808286"
+													name="CollapseRowItemsInPropertiesPanel">
+													</testmodule>
+													<testmodule
 													id="e756f027-f3fa-4075-8fa8-312c270cbdde"
 													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
@@ -6186,6 +6275,10 @@
 													<testmodule
 													id="c5a46d77-1a3c-4fca-9393-0740fb18327a"
 													name="SelectGenericItemInProjectExplorer">
+													</testmodule>
+													<testmodule
+													id="bf673446-67f5-4588-bc63-d6cd245a2b7f"
+													name="CollapseRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="b2c29131-eabd-4c8e-b3eb-88a29b8dc324"
@@ -6340,6 +6433,10 @@
 													name="SelectGenericItemInProjectExplorer">
 													</testmodule>
 													<testmodule
+													id="b5efa1f0-bca4-4b83-bdff-2570794b8e19"
+													name="CollapseRowItemsInPropertiesPanel">
+													</testmodule>
+													<testmodule
 													id="0f0e9c5f-2bcf-401e-8d89-d2ceb16157b3"
 													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
@@ -6374,6 +6471,10 @@
 													<testmodule
 													id="3f16f439-9473-41e1-8fd4-f98928d82a39"
 													name="SelectGenericItemInProjectExplorer">
+													</testmodule>
+													<testmodule
+													id="fad0437b-8c72-43e9-a25f-960d7a29b4dc"
+													name="CollapseRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="86fbb7c8-7325-4686-ab96-b8a140f5c45a"
