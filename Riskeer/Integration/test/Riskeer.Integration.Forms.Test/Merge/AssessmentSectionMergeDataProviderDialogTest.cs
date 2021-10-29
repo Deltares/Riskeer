@@ -117,7 +117,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.AreEqual(2, tableLayoutPanelForLabels.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanelForLabels.RowCount);
                 var failureMechanismSelectionLabel = (Label) tableLayoutPanelForLabels.GetControlFromPosition(0, 0);
-                Assert.AreEqual("Selecteer toetssporen:", failureMechanismSelectionLabel.Text);
+                Assert.AreEqual("Selecteer faalpaden:", failureMechanismSelectionLabel.Text);
                 Assert.IsInstanceOf<PictureBox>(tableLayoutPanelForLabels.GetControlFromPosition(1, 0));
 
                 Assert.IsInstanceOf<DataGridViewControl>(tableLayoutPanel.GetControlFromPosition(0, 3));
