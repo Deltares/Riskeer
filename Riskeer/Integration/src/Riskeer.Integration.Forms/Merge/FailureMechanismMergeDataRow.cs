@@ -29,75 +29,26 @@ namespace Riskeer.Integration.Forms.Merge
     /// Row representing the information of a <see cref="IFailureMechanism"/> to be
     /// used for merging.
     /// </summary>
-    internal class FailureMechanismMergeDataRow
+    internal class FailureMechanismMergeDataRow : FailurePathMergeDataRow
     {
+        private readonly IFailureMechanism failureMechanism;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismMergeDataRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The wrapped <see cref="IFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism)
+        public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism) : base(failureMechanism)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            FailureMechanism = failureMechanism;
+            this.failureMechanism = failureMechanism;
         }
 
-        /// <summary>
-        /// Gets the wrapped failure mechanism of the row.
-        /// </summary>
-        public IFailureMechanism FailureMechanism { get; }
-
-        /// <summary>
-        /// Gets and sets whether the failure mechanism is selected to be merged.
-        /// </summary>
-        public bool IsSelected { get; set; }
-
-        /// <summary>
-        /// Gets the name of the failure mechanism.
-        /// </summary>
-        public string Name
+        public override int NumberOfCalculations
         {
             get
             {
-                return FailureMechanism.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets indicator whether the failure mechanism is marked relevant.
-        /// </summary>
-        public bool IsRelevant
-        {
-            get
-            {
-                return FailureMechanism.IsRelevant;
-            }
-        }
-
-        /// <summary>
-        /// Gets indicator whether the failure mechanism has sections.
-        /// </summary>
-        public bool HasSections
-        {
-            get
-            {
-                return FailureMechanism.Sections.Any();
-            }
-        }
-
-        /// <summary>
-        /// Gets the amount of calculations that are contained by the failure mechanism.
-        /// </summary>
-        public int NumberOfCalculations
-        {
-            get
-            {
-                return FailureMechanism.Calculations.Count();
+                return failureMechanism.Calculations.Count();
             }
         }
     }

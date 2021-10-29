@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Forms.Merge
         private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
             where TFailureMechanism : IFailureMechanism
         {
-            return failureMechanismMergeDataRows.Any(row => row.FailureMechanism is TFailureMechanism && row.IsSelected);
+            return failureMechanismMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
         }
 
         #region Event Handling
