@@ -341,6 +341,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
                     foundDifferences += "File 1: " + lines1[i] + "\r\n" + "File 2: " + lines2[i] + "\r\n \r\n";
                 }
             }
+            Report.Info("Differences found:\r\n" + foundDifferences);
             return;
         }
 

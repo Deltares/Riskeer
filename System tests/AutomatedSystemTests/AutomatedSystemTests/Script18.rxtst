@@ -6,8 +6,8 @@
 			datasource="script18CalculationsToModify"
 			errorbehavior="ContinueNextIteration"
 			id="051e47ba-665d-452f-a446-2519f998010d"
-			maxrange="4"
-			minrange="4"
+			maxrange="2"
+			minrange="2"
 			name="LoopCalculationsToModify">
 				<parameters>
 					<param
@@ -30,6 +30,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="1dfb8885-b0df-4b9e-b903-dd97489fa2a3"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="2ce9d459-9569-4e64-92a2-f5e4337c7904"
 			name="SaveProject">
@@ -49,6 +55,28 @@
 			name="setup">
 			</setup>
 			<testmodule
+			id="5b2821a6-869c-4209-9584-f4ec58a2abe5"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameStateWithCalculations"
+					datasourceid="de0beddb-9560-411b-96af-6520defb9990"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5d928c6a-1cee-4ec4-a5f4-dd1428d62f55"
 			name="SaveAs"
 			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
@@ -61,8 +89,8 @@
 					variablename="scriptOutputPath">
 					</var>
 					<var
-					dataname="fileNameToSave"
-					datasourceid="2ce9d459-9569-4e64-92a2-f5e4337c7904"
+					dataname="fileToSave"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
 					</var>
@@ -232,8 +260,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fielNameToOpen"
-					datasourceid="ac46696e-02c7-477f-b922-a2e5b1422738"
+					dataname="fileToOpen"
+					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
 					</var>
@@ -350,12 +378,6 @@
 			errorbehavior="ContinueParent"
 			id="ac46696e-02c7-477f-b922-a2e5b1422738"
 			name="OpenProject">
-				<parameters>
-					<param
-					name="fielNameToOpen"
-					value="script17b.risk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="b5fffd37-e64e-45c1-ae7f-4de9127e13e3"
@@ -405,6 +427,54 @@
 					datasourceid="98954b81-b124-437f-a61b-ce1b9a4d8b67"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="d1f455d9-5741-41e6-983e-8e71f91f7a54"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
 					</var>
 				</databinding>
 			</testmodule>
@@ -460,8 +530,22 @@
 					name="migrationSourceFolder"
 					value="X:\script18\previousRelease">
 					</param>
+					<param
+					name="dummyString"
+					value="">
+					</param>
 				</parameters>
 			</testcase>
+			<smartfoldernode
+			id="de0beddb-9560-411b-96af-6520defb9990"
+			name="SelectStateWithCalculations">
+				<parameters>
+					<param
+					name="nameStateWithCalculations"
+					value="Sterkte">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<teardown
 			id="df8e9f58-28dc-485c-81ac-40fb84343ce3"
 			name="teardown">
@@ -594,16 +678,28 @@
 							</testmodule>
 						</setup>
 						<smartfoldernode
-						id="ac46696e-02c7-477f-b922-a2e5b1422738"
-						name="OpenProject">
-							<testmodule
-							id="73d4a5d1-9e96-4a40-aa3e-40a2d1c7ccc6"
-							name="OpenProject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
 						id="051e47ba-665d-452f-a446-2519f998010d"
 						name="LoopCalculationsToModify">
+							<smartfoldernode
+							id="ac46696e-02c7-477f-b922-a2e5b1422738"
+							name="OpenProject">
+								<testmodule
+								id="73d4a5d1-9e96-4a40-aa3e-40a2d1c7ccc6"
+								name="OpenProject">
+								</testmodule>
+								<testmodule
+								id="1dfb8885-b0df-4b9e-b903-dd97489fa2a3"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="de0beddb-9560-411b-96af-6520defb9990"
+							name="SelectStateWithCalculations">
+								<testmodule
+								id="5b2821a6-869c-4209-9584-f4ec58a2abe5"
+								name="SelectState">
+								</testmodule>
+							</smartfoldernode>
 							<smartfoldernode
 							id="f74440b5-100e-4202-8e7f-4c4ef2a4e1ac"
 							name="DeleteCalculationsOuput">
@@ -684,14 +780,14 @@
 								name="ValidatePlainTextFilesAreEqual">
 								</testmodule>
 							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="2ce9d459-9569-4e64-92a2-f5e4337c7904"
-						name="SaveProject">
-							<testmodule
-							id="5d928c6a-1cee-4ec4-a5f4-dd1428d62f55"
-							name="SaveAs">
-							</testmodule>
+							<smartfoldernode
+							id="2ce9d459-9569-4e64-92a2-f5e4337c7904"
+							name="SaveProject">
+								<testmodule
+								id="5d928c6a-1cee-4ec4-a5f4-dd1428d62f55"
+								name="SaveAs">
+								</testmodule>
+							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
 						id="df8e9f58-28dc-485c-81ac-40fb84343ce3"
@@ -720,6 +816,12 @@
 					pathToAllCalculationsFolder
 				</column>
 				<column>
+					fileToOpen
+				</column>
+				<column>
+					fileToSave
+				</column>
+				<column>
 					rangeParametersTochangeInInnerLoop
 				</column>
 				<column>
@@ -740,6 +842,12 @@
 						pathToAllCalculationsFolder
 					</th>
 					<th>
+						fileToOpen
+					</th>
+					<th>
+						fileToSave
+					</th>
+					<th>
 						rangeParametersTochangeInInnerLoop
 					</th>
 					<th>
@@ -751,10 +859,16 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
+						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
+					</td>
+					<td>
+						script17b_STPH.risk
+					</td>
+					<td>
+						script18_STPH1.risk
 					</td>
 					<td>
 						1-10
@@ -768,10 +882,16 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
+						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
+					</td>
+					<td>
+						script18_STPH1.risk
+					</td>
+					<td>
+						script18_STPH2.risk
 					</td>
 					<td>
 						11-12
@@ -785,13 +905,19 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
 					</td>
 					<td>
-						Traject 12-2 (1)&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
 					</td>
 					<td>
-						70-81
+						script17b_GEKB.risk
+					</td>
+					<td>
+						script18_GEKB.risk
+					</td>
+					<td>
+						70-85
 					</td>
 					<td>
 						output\script18\createdConfigurationGEKB.xml
@@ -802,10 +928,16 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
 					</td>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+					</td>
+					<td>
+						script17b_STBI.risk
+					</td>
+					<td>
+						script18_STBI1.risk
 					</td>
 					<td>
 						13-65
@@ -819,10 +951,16 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
 					</td>
 					<td>
-						Traject 41-1&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+					</td>
+					<td>
+						script18_STBI1.risk
+					</td>
+					<td>
+						script18_STBI2.risk
 					</td>
 					<td>
 						66-69
@@ -836,13 +974,19 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
 					</td>
 					<td>
-						Traject 36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						117-139
+						script17b_HTKW.risk
+					</td>
+					<td>
+						script18_HTKW.risk
+					</td>
+					<td>
+						121-143
 					</td>
 					<td>
 						output\script18\createdConfigurationHTKW.xml
@@ -853,13 +997,19 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
 					</td>
 					<td>
-						Traject 34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
 					</td>
 					<td>
-						82-116
+						script17b_BSKW.risk
+					</td>
+					<td>
+						script18_BSKW.risk
+					</td>
+					<td>
+						86-120
 					</td>
 					<td>
 						output\script18\createdConfigurationBSKW.xml
@@ -870,13 +1020,19 @@
 				</tr>
 				<tr>
 					<td>
-						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
 					</td>
 					<td>
-						Traject 44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
 					</td>
 					<td>
-						140-191
+						script17b_STKWp.risk
+					</td>
+					<td>
+						script18_STKWp.risk
+					</td>
+					<td>
+						144-195
 					</td>
 					<td>
 						output\script18\createdConfigurationSTKWp.xml
@@ -889,7 +1045,7 @@
 		</DataSource>
 		<DataSource
 		id="19801d59-c7e1-4127-8b92-0b6f8606dba2"
-		lastknownrowcount="191"
+		lastknownrowcount="195"
 		name="script18ParametersToModifyInCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -2130,13 +2286,45 @@
 						Text
 					</td>
 					<td>
-						HBN bij norm
+						True
 					</td>
 					<td>
 						5
 					</td>
 					<td>
-						DropDown
+						ATTENTION: update with Karolina's feedback
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Doelkans [1/jaar]
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/1234
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HBN&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						5
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -2147,13 +2335,45 @@
 						Text
 					</td>
 					<td>
-						Overslagdebiet bij norm
+						True
 					</td>
 					<td>
 						5
 					</td>
 					<td>
-						DropDown
+						ATTENTION: update with Karolina's feedback
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Doelkans [1/jaar]
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						1/4321
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Overslagdebiet&gt;Illustratiepunten inlezen
+					</td>
+					<td>
+						Text
+					</td>
+					<td>
+						True
+					</td>
+					<td>
+						5
+					</td>
+					<td>
 					</td>
 				</tr>
 				<tr>
@@ -4072,6 +4292,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d1f455d9-5741-41e6-983e-8e71f91f7a54">
+			</testcontainer>
+			<testcontainer
+			id="de0beddb-9560-411b-96af-6520defb9990">
 			</testcontainer>
 			<testcontainer
 			id="e25a2209-34ea-4e26-ba62-e163ef33b4b7">
