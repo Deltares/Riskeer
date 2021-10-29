@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gegevens van toetsspoor &apos;{0}&apos; zijn vervangen..
+        ///   Looks up a localized string similar to Gegevens van het generieke faalpad &apos;{0}&apos; zijn vervangen..
         /// </summary>
         public static string AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced {
             get {
