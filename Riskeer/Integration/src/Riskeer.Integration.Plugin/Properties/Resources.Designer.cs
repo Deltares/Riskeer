@@ -218,6 +218,15 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalpad &apos;{0}&apos; en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden..
+        /// </summary>
+        public static string AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen trajecten gevonden die samengevoegd kunnen worden..
         /// </summary>
         public static string AssessmentSectionMerger_No_matching_AssessmentSections {

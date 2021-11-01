@@ -37,6 +37,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.MacroStabilityInwards.Data;
@@ -68,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // Call
             void Call() => handler.PerformMerge(null, new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                                                                     CreateDefaultConstructionProperties()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -97,30 +98,31 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties
+            {
+                MergePiping = true,
+                MergeGrassCoverErosionInwards = true,
+                MergeMacroStabilityInwards = true,
+                MergeMacroStabilityOutwards = true,
+                MergeMicrostability = true,
+                MergeStabilityStoneCover = true,
+                MergeWaveImpactAsphaltCover = true,
+                MergeWaterPressureAsphaltCover = true,
+                MergeGrassCoverErosionOutwards = true,
+                MergeGrassCoverSlipOffOutwards = true,
+                MergeGrassCoverSlipOffInwards = true,
+                MergeHeightStructures = true,
+                MergeClosingStructures = true,
+                MergePipingStructure = true,
+                MergeStabilityPointStructures = true,
+                MergeStrengthStabilityLengthwiseConstruction = true,
+                MergeDuneErosion = true,
+                MergeTechnicalInnovation = true,
+                MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+            });
+
             // Call
-            handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties
-                                     {
-                                         MergePiping = true,
-                                         MergeGrassCoverErosionInwards = true,
-                                         MergeMacroStabilityInwards = true,
-                                         MergeMacroStabilityOutwards = true,
-                                         MergeMicrostability = true,
-                                         MergeStabilityStoneCover = true,
-                                         MergeWaveImpactAsphaltCover = true,
-                                         MergeWaterPressureAsphaltCover = true,
-                                         MergeGrassCoverErosionOutwards = true,
-                                         MergeGrassCoverSlipOffOutwards = true,
-                                         MergeGrassCoverSlipOffInwards = true,
-                                         MergeHeightStructures = true,
-                                         MergeClosingStructures = true,
-                                         MergePipingStructure = true,
-                                         MergeStabilityPointStructures = true,
-                                         MergeStrengthStabilityLengthwiseConstruction = true,
-                                         MergeDuneErosion = true,
-                                         MergeTechnicalInnovation = true
-                                     }));
+            handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
             Assert.AreSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -151,11 +153,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties());
+
             // Call
-            handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+            handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
             Assert.AreNotSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
@@ -187,32 +188,32 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            Action call = () => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
-                                                         sourceAssessmentSection,
-                                                         new AssessmentSectionMergeData.ConstructionProperties
-                                                         {
-                                                             MergePiping = true,
-                                                             MergeGrassCoverErosionInwards = true,
-                                                             MergeMacroStabilityInwards = true,
-                                                             MergeMacroStabilityOutwards = true,
-                                                             MergeMicrostability = true,
-                                                             MergeStabilityStoneCover = true,
-                                                             MergeWaveImpactAsphaltCover = true,
-                                                             MergeWaterPressureAsphaltCover = true,
-                                                             MergeGrassCoverErosionOutwards = true,
-                                                             MergeGrassCoverSlipOffOutwards = true,
-                                                             MergeGrassCoverSlipOffInwards = true,
-                                                             MergeHeightStructures = true,
-                                                             MergeClosingStructures = true,
-                                                             MergePipingStructure = true,
-                                                             MergeStabilityPointStructures = true,
-                                                             MergeStrengthStabilityLengthwiseConstruction = true,
-                                                             MergeDuneErosion = true,
-                                                             MergeTechnicalInnovation = true
-                                                         }));
+            void Call() => handler.PerformMerge(targetAssessmentSection,
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties
+                                                {
+                                                    MergePiping = true,
+                                                    MergeGrassCoverErosionInwards = true,
+                                                    MergeMacroStabilityInwards = true,
+                                                    MergeMacroStabilityOutwards = true,
+                                                    MergeMicrostability = true,
+                                                    MergeStabilityStoneCover = true,
+                                                    MergeWaveImpactAsphaltCover = true,
+                                                    MergeWaterPressureAsphaltCover = true,
+                                                    MergeGrassCoverErosionOutwards = true,
+                                                    MergeGrassCoverSlipOffOutwards = true,
+                                                    MergeGrassCoverSlipOffInwards = true,
+                                                    MergeHeightStructures = true,
+                                                    MergeClosingStructures = true,
+                                                    MergePipingStructure = true,
+                                                    MergeStabilityPointStructures = true,
+                                                    MergeStrengthStabilityLengthwiseConstruction = true,
+                                                    MergeDuneErosion = true,
+                                                    MergeTechnicalInnovation = true,
+                                                    MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                }));
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(19, msgs.Length);
@@ -234,6 +235,154 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[16]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Duinwaterkering - Duinafslag' zijn vervangen.", msgs[17]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[18]);
+            });
+        }
+
+        [Test]
+        public void PerformMerge_WithFailurePathsToMerge_FailurePathsSame()
+        {
+            // Setup
+            var handler = new AssessmentSectionMergeHandler();
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                SpecificFailurePaths =
+                {
+                    new SpecificFailurePath()
+                }
+            };
+            IFailurePath[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
+
+            var failurePathsToMerge = new[]
+            {
+                new SpecificFailurePath(),
+                new SpecificFailurePath()
+            };
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
+
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
+                                                           new AssessmentSectionMergeData.ConstructionProperties
+                                                           {
+                                                               MergeFailurePaths = failurePathsToMerge
+                                                           });
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, mergeData);
+
+            // Assert
+            IEnumerable<IFailurePath> expectedFailurePaths = originalFailurePaths.Concat(failurePathsToMerge);
+            CollectionAssert.AreEqual(expectedFailurePaths, targetAssessmentSection.SpecificFailurePaths);
+        }
+
+        [Test]
+        public void PerformMerge_WithNoFailurePathsToMerge_FailurePathsNotSame()
+        {
+            // Setup
+            var handler = new AssessmentSectionMergeHandler();
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                SpecificFailurePaths =
+                {
+                    new SpecificFailurePath()
+                }
+            };
+            IFailurePath[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
+
+            var failurePathsToMerge = new[]
+            {
+                new SpecificFailurePath(),
+                new SpecificFailurePath()
+            };
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
+
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
+                                                           new AssessmentSectionMergeData.ConstructionProperties
+                                                           {
+                                                               MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                           });
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, mergeData);
+
+            // Assert
+            CollectionAssert.AreEqual(originalFailurePaths, targetAssessmentSection.SpecificFailurePaths);
+        }
+
+        [Test]
+        public void PerformMerge_WithFailurePathsToMergeNotInSourceAssessmentSection_ThrowsArgumentException()
+        {
+            // Setup
+            var handler = new AssessmentSectionMergeHandler();
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var failurePathsToMerge = new[]
+            {
+                new SpecificFailurePath(),
+                new SpecificFailurePath()
+            };
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
+                                                           new AssessmentSectionMergeData.ConstructionProperties
+                                                           {
+                                                               MergeFailurePaths = failurePathsToMerge
+                                                           });
+
+            // Call
+            void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
+
+            // Assert
+            const string expectedMessage = "MergeFailurePaths must contain items of the assessment section in mergeData.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void PerformMerge_WithFailurePathsToMerge_LogsMessages()
+        {
+            // Setup
+            var handler = new AssessmentSectionMergeHandler();
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                SpecificFailurePaths =
+                {
+                    new SpecificFailurePath()
+                }
+            };
+
+            var failurePathsToMerge = new[]
+            {
+                new SpecificFailurePath
+                {
+                    Name = "Path 1"
+                },
+                new SpecificFailurePath
+                {
+                    Name = "Path 2"
+                }
+            };
+            var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
+
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
+                                                           new AssessmentSectionMergeData.ConstructionProperties
+                                                           {
+                                                               MergeFailurePaths = failurePathsToMerge
+                                                           });
+
+            // Call
+            void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
+
+            // Assert
+            TestHelper.AssertLogMessages(Call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                int nrOfFailurePaths = failurePathsToMerge.Length;
+                Assert.AreEqual(nrOfFailurePaths + 1, msgs.Length);
+                for (int i = 0; i < nrOfFailurePaths; i++)
+                {
+                    string failurePathName = failurePathsToMerge[i].Name;
+                    Assert.AreEqual($"Faalpad '{failurePathName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden.", msgs[i + 1]);
+                }
             });
         }
 
@@ -334,7 +483,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeGrassCoverErosionOutwards = true,
                                          MergeHeightStructures = true,
                                          MergeClosingStructures = true,
-                                         MergeStabilityPointStructures = true
+                                         MergeStabilityPointStructures = true,
+                                         MergeFailurePaths = Enumerable.Empty<IFailurePath>()
                                      }));
 
             // Then
@@ -391,6 +541,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             return assessmentSection;
         }
 
+        private static AssessmentSectionMergeData.ConstructionProperties CreateDefaultConstructionProperties()
+        {
+            return new AssessmentSectionMergeData.ConstructionProperties
+            {
+                MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+            };
+        }
+
         #region HydraulicBoundaryLocationCalculations
 
         [Test]
@@ -423,9 +581,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -466,9 +622,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -509,9 +663,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -549,9 +701,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -591,9 +741,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -633,9 +781,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             // When
             handler.PerformMerge(targetAssessmentSection,
-                                 new AssessmentSectionMergeData(
-                                     sourceAssessmentSection,
-                                     new AssessmentSectionMergeData.ConstructionProperties()));
+                                 new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
@@ -676,9 +822,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler();
 
             // Call
-            void Call() => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
-                                                    sourceAssessmentSection,
-                                                    new AssessmentSectionMergeData.ConstructionProperties()));
+            void Call() => handler.PerformMerge(targetAssessmentSection,
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
@@ -715,9 +860,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler();
 
             // Call
-            void Call() => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
-                                                    sourceAssessmentSection,
-                                                    new AssessmentSectionMergeData.ConstructionProperties()));
+            void Call() => handler.PerformMerge(targetAssessmentSection,
+                                                new AssessmentSectionMergeData(sourceAssessmentSection, CreateDefaultConstructionProperties()));
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
@@ -764,7 +908,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeGrassCoverErosionOutwards = false,
                                          MergeHeightStructures = false,
                                          MergeClosingStructures = false,
-                                         MergeStabilityPointStructures = false
+                                         MergeStabilityPointStructures = false,
+                                         MergeFailurePaths = Enumerable.Empty<IFailurePath>()
                                      }));
 
             // Then
@@ -809,7 +954,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             SetOutput(sourceAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.ElementAt(0).HydraulicBoundaryLocationCalculations, true);
             SetOutput(sourceAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.ElementAt(0).HydraulicBoundaryLocationCalculations, true);
-            
+
             targetAssessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Attach(observer);
             targetAssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Attach(observer);
 
@@ -826,7 +971,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeGrassCoverErosionOutwards = false,
                                          MergeHeightStructures = false,
                                          MergeClosingStructures = false,
-                                         MergeStabilityPointStructures = false
+                                         MergeStabilityPointStructures = false,
+                                         MergeFailurePaths = Enumerable.Empty<IFailurePath>()
                                      }));
 
             // Then

@@ -322,4 +322,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip" xml:space="preserve">
         <value>Voeg een nieuw faalpad toe aan deze map.</value>
     </data>
+    <data name="AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added" xml:space="preserve">
+        <value>Faalpad '{0}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden.</value>
+    </data>
 </root>

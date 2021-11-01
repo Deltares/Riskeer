@@ -65,6 +65,8 @@ namespace Riskeer.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(mergeData));
             }
 
+            ValidateMergeData(mergeData);
+
             var changedObjects = new List<IObservable>
             {
                 targetAssessmentSection
@@ -73,8 +75,24 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection));
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
+            MergeSpecificFailurePaths(targetAssessmentSection, mergeData.MergeFailurePaths);
 
             AfterMerge(changedObjects);
+        }
+
+        /// <summary>
+        /// Validates the <see cref="AssessmentSectionMergeData"/>.
+        /// </summary>
+        /// <param name="mergeData">The <see cref="AssessmentSectionMergeData"/> to validate.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="mergeData"/> is invalid.</exception>
+        private static void ValidateMergeData(AssessmentSectionMergeData mergeData)
+        {
+            AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
+            if (!mergeData.MergeFailurePaths.All(fp => sourceAssessmentSection.SpecificFailurePaths.Contains(fp)))
+            {
+                throw new ArgumentException($"{nameof(AssessmentSectionMergeData.MergeFailurePaths)} must contain items of " +
+                                            $"the assessment section in {nameof(mergeData)}.");
+            }
         }
 
         private static void AfterMerge(IEnumerable<IObservable> changedObjects)
@@ -373,6 +391,24 @@ namespace Riskeer.Integration.Plugin.Merge
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IEnumerable<HydraulicBoundaryLocation> locations)
         {
             return locations.Single(l => l.Name == location.Name && l.Id == location.Id && l.Location.Equals(location.Location));
+        }
+
+        #endregion
+
+        #region FailurePaths
+
+        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<IFailurePath> mergeFailurePaths)
+        {
+            if (mergeFailurePaths.Any())
+            {
+                targetAssessmentSection.SpecificFailurePaths.AddRange(mergeFailurePaths);
+                mergeFailurePaths.ForEachElementDo(LogMergeMessage);
+            }
+        }
+
+        private static void LogMergeMessage(IFailurePath failurePath)
+        {
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added, failurePath.Name);
         }
 
         #endregion
