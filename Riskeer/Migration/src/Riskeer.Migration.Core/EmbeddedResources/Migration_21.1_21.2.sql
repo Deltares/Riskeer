@@ -60,7 +60,27 @@ FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
-INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
+
+INSERT INTO FailureMechanismFailureMechanismSectionEntity (
+    [FailureMechanismEntityId],
+    [FailureMechanismSectionEntityId]
+)
+SELECT
+    [FailureMechanismEntityId],
+    [FailureMechanismSectionEntityId]
+FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
+
+INSERT INTO FailureMechanismSectionEntity (
+    [FailureMechanismSectionEntityId],
+    [Name],
+    [FailureMechanismSectionPointXml]
+)
+SELECT
+    [FailureMechanismSectionEntityId],
+    [Name],
+    [FailureMechanismSectionPointXml]
+FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
+
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
 INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
 INSERT INTO FaultTreeSubmechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeSubmechanismIllustrationPointEntity;

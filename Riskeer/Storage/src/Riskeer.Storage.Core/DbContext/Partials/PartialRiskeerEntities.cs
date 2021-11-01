@@ -60,7 +60,8 @@ namespace Riskeer.Storage.Core.DbContext
                                                                          .Load();
             DuneLocationCalculationEntities.Load();
             DuneLocationCalculationOutputEntities.Load();
-            FailureMechanismEntities.Load();
+            FailureMechanismEntities.Include(e => e.FailureMechanismSectionEntities)
+                                    .Load();
             FailureMechanismSectionEntities.Load();
             ForeshoreProfileEntities.Load();
             GrassCoverErosionInwardsCalculationEntities.Load();
@@ -134,6 +135,8 @@ namespace Riskeer.Storage.Core.DbContext
             WaveImpactAsphaltCoverSectionResultEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsOutputEntities.Load();
+            
+            SpecificFailurePathEntities.Load();
 
             LoadIllustrationPointsIntoContext();
         }
