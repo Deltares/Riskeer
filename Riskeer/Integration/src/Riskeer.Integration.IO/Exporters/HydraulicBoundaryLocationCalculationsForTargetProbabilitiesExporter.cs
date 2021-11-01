@@ -28,6 +28,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.IO.Helpers;
 using Riskeer.Integration.IO.Helpers;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
@@ -91,7 +92,7 @@ namespace Riskeer.Integration.IO.Exporters
                     return false;
                 }
 
-                HydraulicBoundaryLocationCalculationsExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
+                ZipFileExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
 
                 return true;
             }

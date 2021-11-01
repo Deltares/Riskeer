@@ -23,16 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Properties;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
-using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.Integration.IO.Helpers
 {
@@ -74,34 +71,6 @@ namespace Riskeer.Integration.IO.Helpers
             var exportedCalculationFileNames = new List<string>();
             return calculationsForTargetProbabilities.All(calculations => ExportCalculationsForTargetProbability(
                                                               calculations, calculationsType, exportedCalculationFileNames, folderPath));
-        }
-
-        /// <summary>
-        /// Creates a zip file on the <paramref name="destinationFilePath"/> from the files that are at <paramref name="sourceFolderPath"/>.
-        /// </summary>
-        /// <param name="sourceFolderPath">The folder path to create a zip file from.</param>
-        /// <param name="destinationFilePath">The destination path to create a zip file to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFolderPath"/>
-        /// or <paramref name="destinationFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileWriteException">Thrown when the zip file could not be successfully written.</exception>
-        public static void CreateZipFileFromExportedFiles(string sourceFolderPath, string destinationFilePath)
-        {
-            IOUtils.ValidateFolderPath(sourceFolderPath);
-            IOUtils.ValidateFilePath(destinationFilePath);
-
-            try
-            {
-                if (File.Exists(destinationFilePath))
-                {
-                    File.Delete(destinationFilePath);
-                }
-
-                ZipFile.CreateFromDirectory(sourceFolderPath, destinationFilePath);
-            }
-            catch (Exception e)
-            {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilResources.Error_General_output_error_0, destinationFilePath), e);
-            }
         }
 
         private static bool ExportCalculationsForTargetProbability(
