@@ -133,7 +133,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism()
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 IsRelevant = false
             };
@@ -228,7 +228,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]

@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             double lowerLimitNorm, double signalingNorm, string expectedProbabilityText)
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub()
+            var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
@@ -391,7 +391,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
             }
         }
-        
+
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilities()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
@@ -399,7 +399,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
                 .SetName("LowerLimitNorm");
         }
-        
+
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases()
         {
             const double lowerLimitNorm = 0.1;

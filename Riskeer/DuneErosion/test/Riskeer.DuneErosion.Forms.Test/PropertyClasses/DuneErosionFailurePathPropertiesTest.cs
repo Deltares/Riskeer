@@ -130,7 +130,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism()
+            var failureMechanism = new DuneErosionFailureMechanism
             {
                 IsRelevant = false
             };
