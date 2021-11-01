@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
@@ -34,10 +36,10 @@ namespace Riskeer.Integration.Data.Test.Merge
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(null, new AssessmentSectionMergeData.ConstructionProperties());
+            void Call() => new AssessmentSectionMergeData(null, new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -45,10 +47,10 @@ namespace Riskeer.Integration.Data.Test.Merge
         public void Constructor_PropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+            void Call() => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("properties", exception.ParamName);
         }
 
@@ -59,7 +61,11 @@ namespace Riskeer.Integration.Data.Test.Merge
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var mergeData = new AssessmentSectionMergeData(assessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
+            var mergeData = new AssessmentSectionMergeData(assessmentSection, 
+                                                           new AssessmentSectionMergeData.ConstructionProperties
+                                                           {
+                                                               MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                           });
 
             // Assert
             Assert.AreSame(assessmentSection, mergeData.AssessmentSection);
@@ -90,6 +96,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
+            IEnumerable<IFailurePath> failurePaths = Enumerable.Empty<IFailurePath>();
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties
             {
                 MergePiping = random.NextBoolean(),
@@ -109,7 +116,8 @@ namespace Riskeer.Integration.Data.Test.Merge
                 MergeStabilityPointStructures = random.NextBoolean(),
                 MergeStrengthStabilityLengthwiseConstruction = random.NextBoolean(),
                 MergeDuneErosion = random.NextBoolean(),
-                MergeTechnicalInnovation = random.NextBoolean()
+                MergeTechnicalInnovation = random.NextBoolean(),
+                MergeFailurePaths = failurePaths
             };
 
             // Call            
@@ -135,6 +143,19 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.AreEqual(constructionProperties.MergeStrengthStabilityLengthwiseConstruction, mergeData.MergeStrengthStabilityLengthwiseConstruction);
             Assert.AreEqual(constructionProperties.MergeDuneErosion, mergeData.MergeDuneErosion);
             Assert.AreEqual(constructionProperties.MergeTechnicalInnovation, mergeData.MergeTechnicalInnovation);
+            Assert.AreSame(constructionProperties.MergeFailurePaths, mergeData.MergeFailurePaths);
+        }
+
+        [Test]
+        public void Constructor_MergeFailurePathsNull_ThrowsArgumentException()
+        {
+            // Call
+            void Call() => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                          new AssessmentSectionMergeData.ConstructionProperties());
+
+            // Assert
+            const string expectedMessage = "MergeFailurePaths must be set";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
     }
 }

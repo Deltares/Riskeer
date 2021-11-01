@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -101,7 +102,8 @@ namespace Riskeer.Integration.Forms.Merge
                     MergeStabilityPointStructures = FailureMechanismIsSelectedToMerge<StabilityPointStructuresFailureMechanism>(),
                     MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
                     MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
-                    MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>()
+                    MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>(),
+                    MergeFailurePaths = Enumerable.Empty<IFailurePath>()
                 };
 
                 return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,

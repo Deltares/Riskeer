@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Data.Merge
 {
@@ -35,6 +37,7 @@ namespace Riskeer.Integration.Data.Merge
         /// <param name="properties">The container of the properties for the
         /// <see cref="AssessmentSectionMergeData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.MergeFailurePaths"/> is <c>null</c>.</exception>
         public AssessmentSectionMergeData(AssessmentSection assessmentSection,
                                           ConstructionProperties properties)
         {
@@ -46,6 +49,11 @@ namespace Riskeer.Integration.Data.Merge
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
+            }
+
+            if (properties.MergeFailurePaths == null)
+            {
+                throw new ArgumentException("MergeFailurePaths must be set");
             }
 
             AssessmentSection = assessmentSection;
@@ -68,6 +76,7 @@ namespace Riskeer.Integration.Data.Merge
             MergeStrengthStabilityLengthwiseConstruction = properties.MergeStrengthStabilityLengthwiseConstruction;
             MergeDuneErosion = properties.MergeDuneErosion;
             MergeTechnicalInnovation = properties.MergeTechnicalInnovation;
+            MergeFailurePaths = properties.MergeFailurePaths;
         }
 
         /// <summary>
@@ -166,6 +175,11 @@ namespace Riskeer.Integration.Data.Merge
         public bool MergeTechnicalInnovation { get; }
 
         /// <summary>
+        /// Gets the collection of failure paths that should be merged.
+        /// </summary>
+        public IEnumerable<IFailurePath> MergeFailurePaths { get; }
+
+        /// <summary>
         /// Container for properties for constructing an <see cref="AssessmentSectionMergeData"/>.
         /// </summary>
         public class ConstructionProperties
@@ -259,6 +273,11 @@ namespace Riskeer.Integration.Data.Merge
             /// Gets or sets the indicator whether technical innovation should be merged.
             /// </summary>
             public bool MergeTechnicalInnovation { internal get; set; }
+
+            /// <summary>
+            /// Gets or sets the collection of failure paths that should be merged.
+            /// </summary>
+            public IEnumerable<IFailurePath> MergeFailurePaths { internal get; set; }
         }
     }
 }
