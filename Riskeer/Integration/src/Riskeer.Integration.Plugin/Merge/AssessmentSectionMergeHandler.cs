@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection));
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
-            MergeSpecificFailurePaths(targetAssessmentSection, mergeData.MergeFailurePaths);
+            MergeSpecificFailurePaths(targetAssessmentSection, mergeData.MergeSpecificFailurePaths);
 
             AfterMerge(changedObjects);
         }
@@ -88,9 +88,9 @@ namespace Riskeer.Integration.Plugin.Merge
         private static void ValidateMergeData(AssessmentSectionMergeData mergeData)
         {
             AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
-            if (!mergeData.MergeFailurePaths.All(fp => sourceAssessmentSection.SpecificFailurePaths.Contains(fp)))
+            if (!mergeData.MergeSpecificFailurePaths.All(fp => sourceAssessmentSection.SpecificFailurePaths.Contains(fp)))
             {
-                throw new ArgumentException($"{nameof(AssessmentSectionMergeData.MergeFailurePaths)} must contain items of " +
+                throw new ArgumentException($"{nameof(AssessmentSectionMergeData.MergeSpecificFailurePaths)} must contain items of " +
                                             $"the assessment section in {nameof(mergeData)}.");
             }
         }

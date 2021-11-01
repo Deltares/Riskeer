@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             var mergeData = new AssessmentSectionMergeData(assessmentSection, 
                                                            new AssessmentSectionMergeData.ConstructionProperties
                                                            {
-                                                               MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                               MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
                                                            });
 
             // Assert
@@ -117,7 +117,7 @@ namespace Riskeer.Integration.Data.Test.Merge
                 MergeStrengthStabilityLengthwiseConstruction = random.NextBoolean(),
                 MergeDuneErosion = random.NextBoolean(),
                 MergeTechnicalInnovation = random.NextBoolean(),
-                MergeFailurePaths = failurePaths
+                MergeSpecificFailurePaths = failurePaths
             };
 
             // Call            
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.AreEqual(constructionProperties.MergeStrengthStabilityLengthwiseConstruction, mergeData.MergeStrengthStabilityLengthwiseConstruction);
             Assert.AreEqual(constructionProperties.MergeDuneErosion, mergeData.MergeDuneErosion);
             Assert.AreEqual(constructionProperties.MergeTechnicalInnovation, mergeData.MergeTechnicalInnovation);
-            Assert.AreSame(constructionProperties.MergeFailurePaths, mergeData.MergeFailurePaths);
+            Assert.AreSame(constructionProperties.MergeSpecificFailurePaths, mergeData.MergeSpecificFailurePaths);
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace Riskeer.Integration.Data.Test.Merge
                                                           new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
-            const string expectedMessage = "MergeFailurePaths must be set";
+            const string expectedMessage = "MergeSpecificFailurePaths must be set";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
     }

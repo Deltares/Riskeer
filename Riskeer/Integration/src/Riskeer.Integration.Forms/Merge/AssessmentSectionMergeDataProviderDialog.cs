@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Forms.Merge
                     MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
                     MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
                     MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>(),
-                    MergeFailurePaths = GetSelectedFailurePathsToMerge()
+                    MergeSpecificFailurePaths = GetSelectedSpecificFailurePathsToMerge()
                 };
 
                 return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Forms.Merge
             return failurePathMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
         }
 
-        private IEnumerable<IFailurePath> GetSelectedFailurePathsToMerge()
+        private IEnumerable<IFailurePath> GetSelectedSpecificFailurePathsToMerge()
         {
             return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailureMechanism))
                                            .Select(row => row.FailurePath);

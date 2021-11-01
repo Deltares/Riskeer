@@ -346,7 +346,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsFalse(result.MergeDuneErosion);
                 Assert.IsFalse(result.MergeTechnicalInnovation);
-                CollectionAssert.IsEmpty(result.MergeFailurePaths);
+                CollectionAssert.IsEmpty(result.MergeSpecificFailurePaths);
             }
         }
 
@@ -410,7 +410,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsTrue(result.MergeDuneErosion);
                 Assert.IsTrue(result.MergeTechnicalInnovation);
-                CollectionAssert.AreEqual(selectedAssessmentSection.SpecificFailurePaths, result.MergeFailurePaths);
+                CollectionAssert.AreEqual(selectedAssessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
             }
         }
 

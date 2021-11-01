@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 MergeStrengthStabilityLengthwiseConstruction = true,
                 MergeDuneErosion = true,
                 MergeTechnicalInnovation = true,
-                MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
             });
 
             // Call
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                                     MergeStrengthStabilityLengthwiseConstruction = true,
                                                     MergeDuneErosion = true,
                                                     MergeTechnicalInnovation = true,
-                                                    MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                    MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
                                                 }));
 
             // Assert
@@ -263,7 +263,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
                                                            new AssessmentSectionMergeData.ConstructionProperties
                                                            {
-                                                               MergeFailurePaths = failurePathsToMerge
+                                                               MergeSpecificFailurePaths = failurePathsToMerge
                                                            });
 
             // Call
@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
                                                            new AssessmentSectionMergeData.ConstructionProperties
                                                            {
-                                                               MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                               MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
                                                            });
 
             // Call
@@ -325,14 +325,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
                                                            new AssessmentSectionMergeData.ConstructionProperties
                                                            {
-                                                               MergeFailurePaths = failurePathsToMerge
+                                                               MergeSpecificFailurePaths = failurePathsToMerge
                                                            });
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
-            const string expectedMessage = "MergeFailurePaths must contain items of the assessment section in mergeData.";
+            const string expectedMessage = "MergeSpecificFailurePaths must contain items of the assessment section in mergeData.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
@@ -366,7 +366,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
                                                            new AssessmentSectionMergeData.ConstructionProperties
                                                            {
-                                                               MergeFailurePaths = failurePathsToMerge
+                                                               MergeSpecificFailurePaths = failurePathsToMerge
                                                            });
 
             // Call
@@ -484,7 +484,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeHeightStructures = true,
                                          MergeClosingStructures = true,
                                          MergeStabilityPointStructures = true,
-                                         MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                         MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
                                      }));
 
             // Then
@@ -545,7 +545,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             return new AssessmentSectionMergeData.ConstructionProperties
             {
-                MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
             };
         }
 
@@ -909,7 +909,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeHeightStructures = false,
                                          MergeClosingStructures = false,
                                          MergeStabilityPointStructures = false,
-                                         MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                         MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
                                      }));
 
             // Then
@@ -972,7 +972,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeHeightStructures = false,
                                          MergeClosingStructures = false,
                                          MergeStabilityPointStructures = false,
-                                         MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                                         MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
                                      }));
 
             // Then
