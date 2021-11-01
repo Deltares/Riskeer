@@ -38,6 +38,7 @@ using Riskeer.Storage.Core.Create.MacroStabilityOutwards;
 using Riskeer.Storage.Core.Create.Microstability;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.Create.PipingStructure;
+using Riskeer.Storage.Core.Create.SpecificFailurePaths;
 using Riskeer.Storage.Core.Create.StabilityPointStructures;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
 using Riskeer.Storage.Core.Create.StrengthStabilityLengthwise;
@@ -108,7 +109,18 @@ namespace Riskeer.Storage.Core.Create
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(registry));
             entity.FailureMechanismEntities.Add(section.StabilityPointStructures.Create(registry));
 
+            AddSpecificFailurePathEntities(section, entity, registry);
+
             return entity;
+        }
+
+        private static void AddSpecificFailurePathEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        {
+            for (int i = 0; i < section.SpecificFailurePaths.Count; i++)
+            {
+                entity.SpecificFailurePathEntities.Add(
+                    section.SpecificFailurePaths[i].Create(registry, i));
+            }
         }
 
         private static void AddEntityForReferenceLine(AssessmentSection section, AssessmentSectionEntity entity)

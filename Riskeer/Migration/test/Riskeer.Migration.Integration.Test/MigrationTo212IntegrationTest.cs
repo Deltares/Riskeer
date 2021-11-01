@@ -77,10 +77,44 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
+                    
+                    AssertFailureMechanismSectionEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertFailureMechanismSectionEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismSectionMapping =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismSectionEntity " +
+                ") " +
+                "FROM FailureMechanismFailureMechanismSectionEntity NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismSectionEntity OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId];" +
+                "DETACH SOURCEPROJECT;";
+            
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionMapping);
+            
+            string validateFailureMechanismSectionEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismSectionEntity " +
+                ") " +
+                "FROM FailureMechanismSectionEntity NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismSectionEntity OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[Name] = OLD.[Name] " +
+                "AND NEW.[FailureMechanismSectionPointXml] = OLD.[FailureMechanismSectionPointXml];" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionEntity);
         }
 
         private static void AssertAssessmentSection(MigratedDatabaseReader reader, string sourceFilePath)

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -84,9 +85,9 @@ namespace Riskeer.Storage.Core.Create
 
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicLocations =
             CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
-        
-        private readonly Dictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability> 
-            hydraulicLocationCalculationsForTargetProbabilities = 
+
+        private readonly Dictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability>
+            hydraulicLocationCalculationsForTargetProbabilities =
                 CreateDictionary<HydraulicLocationCalculationForTargetProbabilityCollectionEntity, HydraulicBoundaryLocationCalculationsForTargetProbability>();
 
         private readonly Dictionary<DuneLocationEntity, DuneLocation> duneLocations =
@@ -100,6 +101,9 @@ namespace Riskeer.Storage.Core.Create
 
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
             CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
+
+        private readonly Dictionary<SpecificFailurePathEntity, IFailurePath> failurePaths =
+            CreateDictionary<SpecificFailurePathEntity, IFailurePath>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -202,7 +206,7 @@ namespace Riskeer.Storage.Core.Create
         {
             Register(hydraulicLocationCalculationsForTargetProbabilities, entity, model);
         }
-        
+
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
@@ -359,6 +363,18 @@ namespace Riskeer.Storage.Core.Create
             Register(stabilityPointStructures, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="IFailurePath"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
+        internal void Register(SpecificFailurePathEntity entity, IFailurePath model)
+        {
+            Register(failurePaths, entity, model);
+        }
+
         #endregion
 
         #region Contains Methods
@@ -472,7 +488,7 @@ namespace Riskeer.Storage.Core.Create
         {
             return ContainsValue(hydraulicLocations, model);
         }
-        
+
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
@@ -559,6 +575,17 @@ namespace Riskeer.Storage.Core.Create
         internal bool Contains(StabilityPointStructure model)
         {
             return ContainsValue(stabilityPointStructures, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="IFailurePath"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(IFailurePath model)
+        {
+            return ContainsValue(failurePaths, model);
         }
 
         #endregion
@@ -751,7 +778,7 @@ namespace Riskeer.Storage.Core.Create
         {
             return Get(hydraulicLocations, model);
         }
-        
+
         /// <summary>
         /// Obtains the <see cref="HydraulicLocationCalculationForTargetProbabilityCollectionEntity"/> which was registered for the
         /// given <paramref name="model"/>.
@@ -866,6 +893,22 @@ namespace Riskeer.Storage.Core.Create
         internal StabilityPointStructureEntity Get(StabilityPointStructure model)
         {
             return Get(stabilityPointStructures, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="SpecificFailurePathEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="IFailurePath"/> for which a read operation has been registered.</param>
+        /// <returns>The constructed <see cref="SpecificFailurePathEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(IFailurePath)"/> to find out whether a
+        /// create operation has been registered for <paramref name="model"/>.</remarks>
+        internal SpecificFailurePathEntity Get(IFailurePath model)
+        {
+            return Get(failurePaths, model);
         }
 
         #endregion

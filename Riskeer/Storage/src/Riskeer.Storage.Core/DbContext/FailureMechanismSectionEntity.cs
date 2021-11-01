@@ -56,10 +56,11 @@ namespace Riskeer.Storage.Core.DbContext
             TechnicalInnovationSectionResultEntities = new HashSet<TechnicalInnovationSectionResultEntity>();
             WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
             WaveImpactAsphaltCoverSectionResultEntities = new HashSet<WaveImpactAsphaltCoverSectionResultEntity>();
+            FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
+            SpecificFailurePathEntities = new HashSet<SpecificFailurePathEntity>();
         }
 
         public long FailureMechanismSectionEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
         public string FailureMechanismSectionPointXml { get; set; }
 
@@ -68,8 +69,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
-
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
@@ -118,5 +117,11 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SpecificFailurePathEntity> SpecificFailurePathEntities { get; set; }
     }
 }

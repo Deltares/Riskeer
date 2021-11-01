@@ -43,7 +43,6 @@ namespace Riskeer.Storage.Core.DbContext
             DikeProfileEntities = new HashSet<DikeProfileEntity>();
             DuneErosionFailureMechanismMetaEntities = new HashSet<DuneErosionFailureMechanismMetaEntity>();
             DuneLocationEntities = new HashSet<DuneLocationEntity>();
-            FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
             ForeshoreProfileEntities = new HashSet<ForeshoreProfileEntity>();
             GrassCoverErosionInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
             GrassCoverErosionOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
@@ -59,6 +58,7 @@ namespace Riskeer.Storage.Core.DbContext
             StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
             SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
             WaveImpactAsphaltCoverFailureMechanismMetaEntities = new HashSet<WaveImpactAsphaltCoverFailureMechanismMetaEntity>();
+            FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
         }
 
         public long FailureMechanismEntityId { get; set; }
@@ -88,9 +88,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneLocationEntity> DuneLocationEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForeshoreProfileEntity> ForeshoreProfileEntities { get; set; }
@@ -136,5 +133,8 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverFailureMechanismMetaEntity> WaveImpactAsphaltCoverFailureMechanismMetaEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
     }
 }
