@@ -232,7 +232,7 @@
     <value>0</value>
   </data>
   <data name="failureMechanismSelectLabel.Text" xml:space="preserve">
-    <value>Selecteer faalpaden:</value>
+    <value>Selecteer toetssporen:</value>
   </data>
   <data name="failureMechanismSelectLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
