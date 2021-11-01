@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Merge
     /// </summary>
     public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IAssessmentSectionMergeDataProvider
     {
-        private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
+        private FailurePathMergeDataRow[] failurePathMergeDataRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMergeDataProviderDialog"/>.
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Forms.Merge
                     MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
                     MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
                     MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>(),
-                    MergeFailurePaths = Enumerable.Empty<IFailurePath>()
+                    MergeFailurePaths = GetSelectedFailurePathsToMerge()
                 };
 
                 return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
@@ -150,7 +150,13 @@ namespace Riskeer.Integration.Forms.Merge
         private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
             where TFailureMechanism : IFailureMechanism
         {
-            return failureMechanismMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
+            return failurePathMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
+        }
+
+        private IEnumerable<IFailurePath> GetSelectedFailurePathsToMerge()
+        {
+            return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailureMechanism))
+                                           .Select(row => row.FailurePath);
         }
 
         #region Event Handling
@@ -178,7 +184,7 @@ namespace Riskeer.Integration.Forms.Merge
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
-            failureMechanismMergeDataRows = new[]
+            var dataRows = new List<FailurePathMergeDataRow>
             {
                 new FailureMechanismMergeDataRow(assessmentSection.Piping),
                 new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
@@ -199,8 +205,10 @@ namespace Riskeer.Integration.Forms.Merge
                 new FailureMechanismMergeDataRow(assessmentSection.DuneErosion),
                 new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
             };
+            dataRows.AddRange(assessmentSection.SpecificFailurePaths.Select(fp => new FailurePathMergeDataRow(fp)).ToArray());
 
-            dataGridViewControl.SetDataSource(failureMechanismMergeDataRows);
+            failurePathMergeDataRows = dataRows.ToArray();
+            dataGridViewControl.SetDataSource(failurePathMergeDataRows);
         }
 
         #endregion

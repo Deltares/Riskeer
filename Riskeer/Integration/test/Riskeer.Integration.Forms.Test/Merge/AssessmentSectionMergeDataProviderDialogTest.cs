@@ -23,6 +23,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
@@ -34,6 +35,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.TestUtil;
@@ -45,7 +47,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
     public class AssessmentSectionMergeDataProviderDialogTest : NUnitFormTest
     {
         private const int isSelectedIndex = 0;
-        private const int failureMechanismNameIndex = 1;
+        private const int failurePathNameIndex = 1;
         private const int isRelevantIndex = 2;
         private const int hasSectionsIndex = 3;
         private const int numberOfCalculationsIndex = 4;
@@ -125,19 +127,19 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.AreEqual(0, dataGridView.RowCount);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isSelectedIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[failureMechanismNameIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[failurePathNameIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isRelevantIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[hasSectionsIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[numberOfCalculationsIndex]);
 
                 Assert.AreEqual("Selecteer", dataGridView.Columns[isSelectedIndex].HeaderText);
-                Assert.AreEqual("Toetsspoor", dataGridView.Columns[failureMechanismNameIndex].HeaderText);
+                Assert.AreEqual("Toetsspoor", dataGridView.Columns[failurePathNameIndex].HeaderText);
                 Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
                 Assert.AreEqual("Heeft vakindeling", dataGridView.Columns[hasSectionsIndex].HeaderText);
                 Assert.AreEqual("Aantal berekeningen", dataGridView.Columns[numberOfCalculationsIndex].HeaderText);
 
                 Assert.IsFalse(dataGridView.Columns[isSelectedIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[failureMechanismNameIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[failurePathNameIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[isRelevantIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[hasSectionsIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[numberOfCalculationsIndex].ReadOnly);
@@ -238,7 +240,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             var random = new Random(21);
             AssessmentSection[] assessmentSections =
             {
-                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(),
+                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(),
                 new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             };
 
@@ -257,7 +259,12 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
+
+                int expectedNrOfRows = expectedDefaultSelectedAssessmentSection.GetFailureMechanisms().Count() +
+                                       expectedDefaultSelectedAssessmentSection.SpecificFailurePaths.Count;
+                Assert.AreEqual(expectedNrOfRows, rows.Count);
                 AssertFailureMechanismRows(expectedDefaultSelectedAssessmentSection, rows);
+                AssertFailurePathRows(expectedDefaultSelectedAssessmentSection, rows);
             }
         }
 
@@ -280,7 +287,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 // When
                 AssessmentSectionMergeData result = dialog.GetMergeData(new[]
                 {
-                    TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
+                    TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths()
                 });
 
                 // Then
@@ -293,7 +300,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             // Given
             var random = new Random(21);
-            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -339,6 +346,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsFalse(result.MergeDuneErosion);
                 Assert.IsFalse(result.MergeTechnicalInnovation);
+                CollectionAssert.IsEmpty(result.MergeFailurePaths);
             }
         }
 
@@ -347,7 +355,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             // Given
             var random = new Random(21);
-            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -402,6 +410,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsTrue(result.MergeDuneErosion);
                 Assert.IsTrue(result.MergeTechnicalInnovation);
+                CollectionAssert.AreEqual(selectedAssessmentSection.SpecificFailurePaths, result.MergeFailurePaths);
             }
         }
 
@@ -412,8 +421,14 @@ namespace Riskeer.Integration.Forms.Test.Merge
             var random = new Random(21);
             AssessmentSection[] assessmentSections =
             {
-                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(),
+                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(),
                 new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+                {
+                    SpecificFailurePaths =
+                    {
+                        new SpecificFailurePath()
+                    }
+                }
             };
 
             DialogBoxHandler = (formName, wnd) =>
@@ -440,12 +455,12 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
                 // Then
                 AssertFailureMechanismRows(itemToBeSelected, dataGridView.Rows);
+                AssertFailurePathRows(itemToBeSelected, dataGridView.Rows);
             }
         }
 
         private static void AssertFailureMechanismRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
         {
-            Assert.AreEqual(expectedAssessmentSection.GetFailureMechanisms().Count(), rows.Count);
             AssertDataGridViewRow(expectedAssessmentSection.Piping, rows[0].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.GrassCoverErosionInwards, rows[1].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.MacroStabilityInwards, rows[2].Cells);
@@ -466,14 +481,34 @@ namespace Riskeer.Integration.Forms.Test.Merge
             AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[17].Cells);
         }
 
+        private static void AssertFailurePathRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
+        {
+            int offset = expectedAssessmentSection.GetFailureMechanisms().Count();
+            ObservableList<IFailurePath> failurePaths = expectedAssessmentSection.SpecificFailurePaths;
+            for (int i = 0; i < failurePaths.Count; i++)
+            {
+                AssertDataGridViewRow(failurePaths[i], rows[i + offset].Cells);
+            }
+        }
+
         private static void AssertDataGridViewRow(IFailureMechanism expectedFailureMechanism,
                                                   DataGridViewCellCollection cells)
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
-            Assert.AreEqual(expectedFailureMechanism.Name, cells[failureMechanismNameIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Name, cells[failurePathNameIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.IsRelevant, cells[isRelevantIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Calculations.Count(), cells[numberOfCalculationsIndex].Value);
+        }
+
+        private static void AssertDataGridViewRow(IFailurePath expectedFailurePath,
+                                                  DataGridViewCellCollection cells)
+        {
+            Assert.AreEqual(false, cells[isSelectedIndex].Value);
+            Assert.AreEqual(expectedFailurePath.Name, cells[failurePathNameIndex].Value);
+            Assert.AreEqual(expectedFailurePath.IsRelevant, cells[isRelevantIndex].Value);
+            Assert.AreEqual(expectedFailurePath.Sections.Any(), cells[hasSectionsIndex].Value);
+            Assert.AreEqual(0, cells[numberOfCalculationsIndex].Value);
         }
 
         private static Icon BitmapToIcon(Bitmap icon)

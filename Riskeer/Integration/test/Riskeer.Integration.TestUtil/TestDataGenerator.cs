@@ -40,6 +40,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Service;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil;
@@ -128,6 +129,40 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.TechnicalInnovation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 
+            return assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets a fully configured <see cref="AssessmentSection"/> with
+        /// <list type="bullet">
+        /// <item>a desired <see cref="AssessmentSectionComposition"/>,</item>
+        /// <item>all possible configurations for the parent and nested calculations of the failure mechanisms,</item>
+        /// <item>and configured failure paths</item>
+        /// </list>
+        /// </summary>
+        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
+        /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(
+            AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
+        {
+            var failurePaths = new List<IFailurePath>
+            {
+                new SpecificFailurePath
+                {
+                    Name = "Path 1"
+                },
+                new SpecificFailurePath
+                {
+                    Name = "Path 2"
+                }
+            };
+            for (int i = 0; i < failurePaths.Count; i++)
+            {
+                AddFailureMechanismSections(failurePaths[i], i);
+            }
+            
+            AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
+            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
             return assessmentSection;
         }
 
@@ -1058,7 +1093,7 @@ namespace Riskeer.Integration.TestUtil
             }, pathToSections);
         }
 
-        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)
+        private static void AddFailureMechanismSections(IFailurePath failureMechanism, int numberOfSections)
         {
             var startPoint = new Point2D(-1, -1);
             var endPoint = new Point2D(15, 15);
