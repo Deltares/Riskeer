@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePath = "Filepath";
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, new AssessmentSectionMergeData.ConstructionProperties());
+            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, CreateDefaultConstructionProperties());
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
@@ -338,7 +338,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Given
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, new AssessmentSectionMergeData.ConstructionProperties());
+            var mergeData = new AssessmentSectionMergeData(assessmentSectionToMerge, CreateDefaultConstructionProperties());
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
@@ -378,6 +378,14 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Samenvoegen van trajectinformatie is mislukt.", messages.ElementAt(2).Item1);
             });
             mocks.VerifyAll();
+        }
+        
+        private static AssessmentSectionMergeData.ConstructionProperties CreateDefaultConstructionProperties()
+        {
+            return new AssessmentSectionMergeData.ConstructionProperties
+            {
+                MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
+            };
         }
     }
 }
