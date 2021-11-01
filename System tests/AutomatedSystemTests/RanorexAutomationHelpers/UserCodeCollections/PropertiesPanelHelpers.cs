@@ -49,6 +49,8 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 var step = stepsPathItem[i];
                 var completeList = argumentAdapter.As<Table>().Rows.ToList();
                 var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
+                var kk = searchList.Where(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
+                var kk2 = searchList.Select(rw => rw.GetAttributeValue<string>("AccessibleName"));
                 var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
                 stepRow = searchList[indexStepRow];
                 stepRow.Focus();

@@ -362,6 +362,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script20b_LoopValidateCombinedResults"
+			errorbehavior="ContinueNextIteration"
 			id="33c7c4a3-839d-4ff8-9147-8d79066f182b"
 			name="ValidateCombinedResult">
 				<parameters>
