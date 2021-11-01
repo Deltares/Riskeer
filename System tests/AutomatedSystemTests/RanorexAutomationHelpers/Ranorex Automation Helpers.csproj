@@ -164,6 +164,9 @@
     <Compile Include="UserCodeCollections\TreeItemHelpers.cs">
       <id>afe1cf19-2183-4309-89af-5d4e51978cff</id>
     </Compile>
+    <Compile Include="UserCodeCollections\PropertiesPanelHelpers.cs">
+      <id>fb68c730-3ebf-4e22-8803-3b13d32eb2f8</id>
+    </Compile>
     <Compile Include="UserCodeCollections\Utils.cs">
       <id>571af684-5135-4bc5-93ac-b66f3f0fd03c</id>
     </Compile>

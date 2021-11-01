@@ -18,6 +18,7 @@ using WinForms = System.Windows.Forms;
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Testing;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 namespace AutomatedSystemTests.Modules.Calculation
 {
@@ -62,54 +63,11 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
-            Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToElementInPropertiesPanel);
-            
+
+            Ranorex.Row row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToElementInPropertiesPanel, propertiesPanelAdapter);
             valueOfElement = row.Element.GetAttributeValueText("AccessibleValue");
         }
-        
-                public Ranorex.Row GetRowInPropertiesPanelGivenPath(Adapter argumentAdapter, string pathItem)
-        	{
-        	int minimumIndex = 0;
-        	var stepsPathItem = pathItem.Split('>').ToList();
-        	Ranorex.Row stepRow = argumentAdapter.As<Table>().Rows.ToList()[1];
-        	for (int i=0; i < stepsPathItem.Count; i++) {
-        			// Find the item corresponding to the step
-        			var step = stepsPathItem[i];
-        			var completeList = argumentAdapter.As<Table>().Rows.ToList();
-        			var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
-        			var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
-        			stepRow = searchList[indexStepRow];
-
-        			// if step is intermediate
-        			if (i != stepsPathItem.Count - 1)
-        				{
-        			         var stateStepRow = stepRow.Element.GetAttributeValueText("AccessibleState");
-        			         // if intermediate step is collapsed
-        			         if (stateStepRow.Contains("Collapsed")) {
-        			             // Select and expand the intermediate item
-        			             Report.Log(ReportLevel.Info, "was collapsed");
-        			             stepRow.Focus();
-        			             stepRow.Select();
-        			             stepRow.PressKeys("{Right}");
-        			             }
-        			     } 
-        			     else
-        			     {
-        			    // Select the final item
-        			    stepRow.Focus();
-        			    stepRow.Select();
-        			     }
-        			// Update the minimum index administration (only search forward)
-        			minimumIndex += 1 + indexStepRow;
-        			}
-        	return stepRow;
-        	}
-
     }
 }

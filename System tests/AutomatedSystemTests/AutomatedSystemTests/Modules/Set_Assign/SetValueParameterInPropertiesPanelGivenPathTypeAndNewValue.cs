@@ -19,6 +19,7 @@ using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 namespace AutomatedSystemTests.Modules.Set_Assign
 {
@@ -55,73 +56,8 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         	set { _newValueForParameter = value; }
         }
         
-        public Ranorex.Row GetRowInPropertiesPanelGivenPath(Adapter argumentAdapter, string pathItem)
-        	{
-        	int minimumIndex = 0;
-        	var stepsPathItem = pathItem.Split('>').ToList();
-        	Ranorex.Row stepRow = argumentAdapter.As<Table>().Rows.ToList()[1];
-        	for (int i=0; i < stepsPathItem.Count; i++) {
-        			// Find the item corresponding to the step
-        			var step = stepsPathItem[i];
-        			var completeList = argumentAdapter.As<Table>().Rows.ToList();
-        			var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
-        			var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
-        			stepRow = searchList[indexStepRow];
 
-        			// if step is intermediate
-        			if (i != stepsPathItem.Count - 1)
-        				{
-        			         var stateStepRow = stepRow.Element.GetAttributeValueText("AccessibleState");
-        			         // if intermediate step is collapsed
-        			         if (stateStepRow.Contains("Collapsed")) {
-        			             // Select and expand the intermediate item
-        			             Report.Log(ReportLevel.Info, "was collapsed");
-        			             stepRow.Focus();
-        			             stepRow.Select();
-        			             stepRow.PressKeys("{Right}");
-        			             }
-        			     }
-        			     else
-        			     {
-        			    // Select the final item
-        			    stepRow.Focus();
-        			    stepRow.Select();
-        			     }
-        			// Update the minimum index administration (only search forward)
-        			minimumIndex += 1 + indexStepRow;
-        			}
-        	return stepRow;
-        	}
-        
-        
-        public void SetDoubleParameterInPropertiesPanel(Ranorex.Row row, string newValue)
-        {
-        	//Convert string number from fixed culture of tables in Ranorex to double
-        	// and then back to string using current culture
-        	System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
-        	fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
-        	fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
-        	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-        	newValue = Double.Parse(newValue, fixedDataSourceCulture).ToString(currentCulture);
-        	// Assign converted value
-        	row.Element.SetAttributeValue("AccessibleValue", newValue);
-        }
-        
-        public void SetTextParameterInPropertiesPanel(Ranorex.Row row, string newValue)
-        {
-        	row.Element.SetAttributeValue("AccessibleValue", newValue);
-        }
-        
-        public void SetDynamicDropDownParameterInPropertiesPanel(Ranorex.Row row, string newValueForParameter, RepoItemInfo listItemInfo)
-        {
-            row.Click();
-            row.Click(".98;.5");
-            listItemInfo.FindAdapter<ListItem>().Focus();
-            listItemInfo.FindAdapter<ListItem>().Click();
-        }
-
-        
-    	/// <summary>
+        /// <summary>
         /// Constructs a new instance.
         /// </summary>
         public SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue()
@@ -137,30 +73,11 @@ namespace AutomatedSystemTests.Modules.Set_Assign
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            
-            
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
-            Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToElementInPropertiesPanel);
-            
-            switch (typeParameter) {
-            	case "Text":
-            		SetTextParameterInPropertiesPanel(row, newValueForParameter);
-            		break;
-            	case "Double":
-            		SetDoubleParameterInPropertiesPanel(row, newValueForParameter);
-            		break;
-            	case "DropDown":
-            		//RepoItemInfo listItemInfo = new RepoItemInfo(myRepository.DropDownMenuInRowPropertiesPanel.List, "genericItemInDropDownList", "listitem[@accessiblename~" + newValueForParameter + "]", 30000, null);
-            		//SetDynamicDropDownParameterInPropertiesPanel(row, newValueForParameter, listItemInfo);
-            		break;
-            	default:
-            		Report.Log(ReportLevel.Error, "Type of parameter " + typeParameter + " not implemented!");
-            		break;
-            }
+
+            Ranorex.Row row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToElementInPropertiesPanel, propertiesPanelAdapter);
+            row.SetValue(newValueForParameter, typeParameter);
         }
     }
 }
