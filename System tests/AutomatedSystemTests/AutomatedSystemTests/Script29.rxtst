@@ -326,15 +326,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="155c296c-d9bd-4355-b138-e54a1d24e2de"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationPressRightKeyToExpandAll"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="f487e3f7-e57a-41ee-8c87-83f80b8a3ce2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1158,8 +1158,8 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 				<parameters>
 					<param
-					name="durationPressRightKeyToExpandAll"
-					value="1000">
+					name="numberOfPassesToExpandRows"
+					value="3">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2262,15 +2262,15 @@
 			</testmodule>
 			<testmodule
 			id="a7ac2e20-3b99-4b19-b40e-b243cd793b2d"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationPressRightKeyToExpandAll"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="4ff25e24-7ea0-4ad6-a747-ca3059c61702"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3076,8 +3076,8 @@
 			name="MakeAllItemsInPropertiesPanelVisible">
 				<parameters>
 					<param
-					name="durationPressRightKeyToExpandAll"
-					value="1000">
+					name="numberOfPassesToExpandRows"
+					value="2">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3824,7 +3824,7 @@
 										name="MakeAllItemsInPropertiesPanelVisible">
 											<testmodule
 											id="155c296c-d9bd-4355-b138-e54a1d24e2de"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 										</smartfoldernode>
 										<smartfoldernode
@@ -4001,7 +4001,7 @@
 									name="MakeAllItemsInPropertiesPanelVisible">
 										<testmodule
 										id="a7ac2e20-3b99-4b19-b40e-b243cd793b2d"
-										name="ExpandAllRowItemsInPropertiesPanel">
+										name="ExpandRowItemsInPropertiesPanel">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode

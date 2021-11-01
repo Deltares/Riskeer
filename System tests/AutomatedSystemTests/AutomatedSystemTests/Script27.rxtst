@@ -10,8 +10,8 @@
 			datasource="script27bExportAndImportConfigurations"
 			errorbehavior="ContinueNextIteration"
 			id="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
-			maxrange="2"
-			minrange="2"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -247,8 +247,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="d9542de6-681c-48d6-b055-e746a02aa86f"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -337,15 +337,15 @@
 			</testmodule>
 			<testmodule
 			id="0f0e9c5f-2bcf-401e-8d89-d2ceb16157b3"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -356,6 +356,15 @@
 					variablename="durationPressRightKey">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="0f392ad9-a690-4775-9c3b-266f465ef525"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all rows to get a consistent initial state...]]>
+				</description>
 			</testmodule>
 			<testmodule
 			id="0f8b33c9-7efc-47b2-be44-6abaebb27a95"
@@ -473,8 +482,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -561,8 +570,8 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="bab32384-004a-4f2d-b2b4-d476443c3c6b"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -1009,15 +1018,18 @@
 			</testmodule>
 			<testmodule
 			id="2dc4961e-a3f1-4df9-a7e4-6080f387009b"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
+				<description>
+					<![CDATA[...and then expand to certain level]]>
+				</description>
 				<databinding>
 					<var
-					dataname="durationToExpandAllParametersInItem"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1215,6 +1227,15 @@
 			id="325026f4-df45-404a-96d2-65e979104b97"
 			name="ValidateStringsForBothStructuresAreEqual">
 			</smartfoldernode>
+			<testmodule
+			id="32efbd8f-ba02-47f9-9d59-68136b2554ac"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all rows to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<smartfoldernode
 			id="34504a86-0496-451f-a1e8-3afc86f688ef"
 			name="ReadInputOriginalCaculations">
@@ -1525,15 +1546,18 @@
 			</testmodule>
 			<testmodule
 			id="46cde0a8-37a5-4d08-8eda-9f2545c1f781"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
+				<description>
+					<![CDATA[...and then expand to certain level]]>
+				</description>
 				<databinding>
 					<var
-					dataname="durationToExpandAllParametersInItem"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1636,8 +1660,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="8ca4e59a-f124-4e0a-8f02-74378efd945d"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -1820,6 +1844,12 @@
 			<smartfoldernode
 			id="56c178d9-9b14-4f13-937f-e601b69ce0ac"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testcase
 			id="5a447dac-43ba-486d-a727-899f8cfa1363"
@@ -2284,8 +2314,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="bab32384-004a-4f2d-b2b4-d476443c3c6b"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -2489,8 +2519,8 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="aee53440-3821-4544-be21-c5bc37ba9a75"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -2574,15 +2604,15 @@
 			</testmodule>
 			<testmodule
 			id="86fbb7c8-7325-4686-ab96-b8a140f5c45a"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -2665,8 +2695,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="56c178d9-9b14-4f13-937f-e601b69ce0ac"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -2715,6 +2745,12 @@
 			<smartfoldernode
 			id="8ca4e59a-f124-4e0a-8f02-74378efd945d"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="8d4a5e1f-738d-474b-b70e-c979ea812cc6"
@@ -2732,15 +2768,18 @@
 			</smartfoldernode>
 			<testmodule
 			id="8ee0de44-2864-4703-9cfa-6b0e4a2cc86c"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
+				<description>
+					<![CDATA[...and then expand to certain level]]>
+				</description>
 				<databinding>
 					<var
-					dataname="durationToExpandAllParametersInItem"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="7d0ad035-5052-4901-bc91-913ef3498490"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2813,8 +2852,8 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="d9542de6-681c-48d6-b055-e746a02aa86f"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -2919,8 +2958,8 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileImportedReferenceFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -3007,15 +3046,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="95888978-c64d-46e4-8ef3-f152c054a799"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3083,18 +3122,24 @@
 			<smartfoldernode
 			id="9d525ed0-ed83-42c4-be3c-b8b7a8d1b850"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="9da79212-896b-4f8f-b529-415e80344026"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3555,7 +3600,22 @@
 			<smartfoldernode
 			id="aee53440-3821-4544-be21-c5bc37ba9a75"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="b00298e1-4059-4428-98d8-06ac2c808286"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<smartfoldernode
 			id="b1217f91-ed1a-4e65-a57a-3f853884ce57"
 			name="a)DuplicationOfCalculations">
@@ -3570,15 +3630,15 @@
 			</smartfoldernode>
 			<testmodule
 			id="b2c29131-eabd-4c8e-b3eb-88a29b8dc324"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3661,6 +3721,15 @@
 			id="b52653fe-ef2e-40f0-93d4-b0131df6c708"
 			name="BuildPathToStandaloneCalculation">
 			</smartfoldernode>
+			<testmodule
+			id="b5efa1f0-bca4-4b83-bdff-2570794b8e19"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<testmodule
 			id="b6722f50-25ab-42cc-9643-43866fdb7fc5"
 			name="ImportConfigurationCalculationsFromXMLFile"
@@ -3750,6 +3819,12 @@
 			<smartfoldernode
 			id="bab32384-004a-4f2d-b2b4-d476443c3c6b"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="bbfe78f4-3839-4690-8696-3ae3a2107d4c"
@@ -3844,6 +3919,15 @@
 					variablename="filePath2">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="bf673446-67f5-4588-bc63-d6cd245a2b7f"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
 			</testmodule>
 			<testmodule
 			id="c0c89acb-03f3-4a75-b6f7-ef86b98b4382"
@@ -4222,8 +4306,8 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="8ca4e59a-f124-4e0a-8f02-74378efd945d"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -4352,6 +4436,15 @@
 			name="ValidateThatStructureCalculationsIsNotTheSame">
 			</smartfoldernode>
 			<testmodule
+			id="cebb5f08-8c16-4511-9234-5e5894006f56"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
+			<testmodule
 			id="cfcf8f97-1684-491b-b88a-08c382f5a8df"
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
@@ -4376,8 +4469,8 @@
 					variablename="substringToReplaceWith">
 					</var>
 					<var
-					dataname="pathCSVFileImportedModifiedFolderCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="aee53440-3821-4544-be21-c5bc37ba9a75"
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
@@ -4572,6 +4665,12 @@
 			<smartfoldernode
 			id="d9542de6-681c-48d6-b055-e746a02aa86f"
 			name="ExportPropertiesPanelToCSVFile">
+				<parameters>
+					<param
+					name="intermediatePath"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="d9e571ea-c6c1-4012-8395-d2de8235b3e0"
@@ -4823,15 +4922,15 @@
 			</testmodule>
 			<testmodule
 			id="e756f027-f3fa-4075-8fa8-312c270cbdde"
-			name="ExpandAllRowItemsInPropertiesPanel"
+			name="ExpandRowItemsInPropertiesPanel"
 			ref="de336d4d-6903-4666-935e-4619a8a89c40"
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="durationToExpandAllParameters"
+					dataname="numberOfPassesToExpandRows"
 					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
 					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="durationPressRightKey">
+					variablename="numberOfIterationsExpand">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -4874,6 +4973,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script27a_ItemsToValidateInCalculation"
 			errorbehavior="ContinueNextIteration"
 			id="e8b8b889-44c1-49f1-908c-d2d2ce4e0e8f"
@@ -4961,7 +5061,7 @@
 			datasource="script27aCalculationsToCopyAndValidate"
 			errorbehavior="ContinueNextIteration"
 			id="f1451316-9dcb-4bab-a3f4-64cc7dc145b2"
-			maxrange="1"
+			maxrange="5"
 			minrange="1"
 			name="LoopFMs">
 				<parameters>
@@ -5023,6 +5123,15 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="f1556393-e831-4650-9afb-d0a0a54af2d0"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all rows to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<testmodule
 			id="f19fe824-35ac-43aa-82d0-cdb06e91b189"
 			name="ConcatenateStrings"
@@ -5158,8 +5267,8 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="pathCSVFileOriginalSingleCalculation"
-					datasourceid="01df1138-d8e0-42a5-b2f8-57cde58dd5c9"
+					dataname="intermediatePath"
+					datasourceid="56c178d9-9b14-4f13-937f-e601b69ce0ac"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -5365,6 +5474,24 @@
 			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21"
 			name="ValidateThatStructureCalculationsIsTheSame">
 			</smartfoldernode>
+			<testmodule
+			id="fad0437b-8c72-43e9-a25f-960d7a29b4dc"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
+			<testmodule
+			id="fc479fe8-9932-4126-b169-4593b9e8390c"
+			name="CollapseRowItemsInPropertiesPanel"
+			ref="9faaab93-1756-4755-9753-200e0bf3e602"
+			type="UserCode">
+				<description>
+					<![CDATA[First collapse all to get a consistent initial state...]]>
+				</description>
+			</testmodule>
 			<testmodule
 			id="fe822eb1-7e81-4560-9fb9-e1279d1568c4"
 			name="SelectState"
@@ -5672,8 +5799,12 @@
 											name="SelectGenericItemInProjectExplorer">
 											</testmodule>
 											<testmodule
+											id="32efbd8f-ba02-47f9-9d59-68136b2554ac"
+											name="CollapseRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
 											id="2dc4961e-a3f1-4df9-a7e4-6080f387009b"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="c9ca6e5f-bc2b-4bc5-81aa-897ad9f0dd26"
@@ -5708,8 +5839,12 @@
 											name="SelectGenericItemInProjectExplorer">
 											</testmodule>
 											<testmodule
+											id="0f392ad9-a690-4775-9c3b-266f465ef525"
+											name="CollapseRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
 											id="46cde0a8-37a5-4d08-8eda-9f2545c1f781"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="0acd555b-e8b4-4eb8-a7d2-654ccd300094"
@@ -5744,8 +5879,12 @@
 											name="SelectGenericItemInProjectExplorer">
 											</testmodule>
 											<testmodule
+											id="f1556393-e831-4650-9afb-d0a0a54af2d0"
+											name="CollapseRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
 											id="8ee0de44-2864-4703-9cfa-6b0e4a2cc86c"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="6abbf642-2b5a-4dc7-9ade-c61e30e31a5b"
@@ -5831,16 +5970,16 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
+								id="3db906e9-d5b6-4d5f-b917-3364b018712c"
+								name="SelectStateWithCalculations">
+									<testmodule
+									id="94b0ae1b-6bd3-4a43-9bcb-317675d8ffa6"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="8609648a-d20e-46a2-b6a9-5ff288b9e167"
 								name="OriginalCalculations">
-									<smartfoldernode
-									id="3db906e9-d5b6-4d5f-b917-3364b018712c"
-									name="SelectStateWithCalculations">
-										<testmodule
-										id="94b0ae1b-6bd3-4a43-9bcb-317675d8ffa6"
-										name="SelectState">
-										</testmodule>
-									</smartfoldernode>
 									<smartfoldernode
 									id="cbb22f2e-d419-405b-9930-13a74dba428c"
 									name="SaveConfigurationXMLFileForAllCalculations">
@@ -5896,8 +6035,12 @@
 											name="HideRanorexProgressDialog">
 											</testmodule>
 											<testmodule
+											id="fc479fe8-9932-4126-b169-4593b9e8390c"
+											name="CollapseRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
 											id="95888978-c64d-46e4-8ef3-f152c054a799"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="a6ba6027-ec7b-4e05-b332-58c6e41aeb76"
@@ -5936,8 +6079,12 @@
 											name="SelectGenericItemInProjectExplorer">
 											</testmodule>
 											<testmodule
+											id="cebb5f08-8c16-4511-9234-5e5894006f56"
+											name="CollapseRowItemsInPropertiesPanel">
+											</testmodule>
+											<testmodule
 											id="9da79212-896b-4f8f-b529-415e80344026"
-											name="ExpandAllRowItemsInPropertiesPanel">
+											name="ExpandRowItemsInPropertiesPanel">
 											</testmodule>
 											<testmodule
 											id="2a6c917a-8f2e-44fd-a12e-c94452dc2fdd"
@@ -6090,8 +6237,12 @@
 													name="SelectGenericItemInProjectExplorer">
 													</testmodule>
 													<testmodule
+													id="b00298e1-4059-4428-98d8-06ac2c808286"
+													name="CollapseRowItemsInPropertiesPanel">
+													</testmodule>
+													<testmodule
 													id="e756f027-f3fa-4075-8fa8-312c270cbdde"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="7f143857-7f9e-4130-ae9e-955684679e42"
@@ -6126,8 +6277,12 @@
 													name="SelectGenericItemInProjectExplorer">
 													</testmodule>
 													<testmodule
+													id="bf673446-67f5-4588-bc63-d6cd245a2b7f"
+													name="CollapseRowItemsInPropertiesPanel">
+													</testmodule>
+													<testmodule
 													id="b2c29131-eabd-4c8e-b3eb-88a29b8dc324"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="0e49aced-4a9c-40ec-a563-6f3a2edf6dc7"
@@ -6278,8 +6433,12 @@
 													name="SelectGenericItemInProjectExplorer">
 													</testmodule>
 													<testmodule
+													id="b5efa1f0-bca4-4b83-bdff-2570794b8e19"
+													name="CollapseRowItemsInPropertiesPanel">
+													</testmodule>
+													<testmodule
 													id="0f0e9c5f-2bcf-401e-8d89-d2ceb16157b3"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="699798f0-7220-4fc3-8367-51f67c22fcb6"
@@ -6314,8 +6473,12 @@
 													name="SelectGenericItemInProjectExplorer">
 													</testmodule>
 													<testmodule
+													id="fad0437b-8c72-43e9-a25f-960d7a29b4dc"
+													name="CollapseRowItemsInPropertiesPanel">
+													</testmodule>
+													<testmodule
 													id="86fbb7c8-7325-4686-ab96-b8a140f5c45a"
-													name="ExpandAllRowItemsInPropertiesPanel">
+													name="ExpandRowItemsInPropertiesPanel">
 													</testmodule>
 													<testmodule
 													id="ba2e4bee-9108-4577-b35e-e4a0e8d40165"
@@ -6467,6 +6630,9 @@
 				<column>
 					maxRowsToValidate
 				</column>
+				<column>
+					numberOfPassesToExpandRows
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -6487,6 +6653,9 @@
 					<th>
 						maxRowsToValidate
 					</th>
+					<th>
+						numberOfPassesToExpandRows
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -6502,6 +6671,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6519,6 +6691,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6534,6 +6709,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6551,6 +6729,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						4
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6566,6 +6747,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6583,6 +6767,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6598,6 +6785,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6616,6 +6806,9 @@
 					<td>
 						950
 					</td>
+					<td>
+						4
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6631,6 +6824,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6648,6 +6844,9 @@
 					</td>
 					<td>
 						950
+					</td>
+					<td>
+						4
 					</td>
 				</tr>
 				<tr>
@@ -6664,6 +6863,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6682,6 +6884,9 @@
 					<td>
 						800
 					</td>
+					<td>
+						4
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6694,9 +6899,12 @@
 						500
 					</td>
 					<td>
-						500
+						1000
 					</td>
 					<td>
+					</td>
+					<td>
+						4
 					</td>
 				</tr>
 				<tr>
@@ -6714,6 +6922,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6730,6 +6941,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6745,6 +6959,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6762,6 +6979,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6777,6 +6997,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 				<tr>
@@ -6794,6 +7017,9 @@
 					</td>
 					<td>
 					</td>
+					<td>
+						3
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -6809,6 +7035,9 @@
 						100
 					</td>
 					<td>
+					</td>
+					<td>
+						3
 					</td>
 				</tr>
 			</table>
@@ -7115,6 +7344,9 @@
 					nameOfCalculation
 				</column>
 				<column>
+					numberOfPassesToExpandRows
+				</column>
+				<column>
 					durationToExpandAllParameters
 				</column>
 				<column>
@@ -7153,6 +7385,9 @@
 						nameOfCalculation
 					</th>
 					<th>
+						numberOfPassesToExpandRows
+					</th>
+					<th>
 						durationToExpandAllParameters
 					</th>
 					<th>
@@ -7186,6 +7421,9 @@
 					</td>
 					<td>
 						berekening
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
@@ -7223,6 +7461,9 @@
 						berekening
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						500
 					</td>
 					<td>
@@ -7256,6 +7497,9 @@
 					</td>
 					<td>
 						berekening
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						50
@@ -7293,6 +7537,9 @@
 						berekening
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						150
 					</td>
 					<td>
@@ -7326,6 +7573,9 @@
 					</td>
 					<td>
 						berekening
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
@@ -7363,6 +7613,9 @@
 						berekening
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						150
 					</td>
 					<td>
@@ -7396,6 +7649,9 @@
 					</td>
 					<td>
 						dam0voorland0
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150
@@ -7433,6 +7689,9 @@
 						dam1voorland1
 					</td>
 					<td>
+						3
+					</td>
+					<td>
 						150
 					</td>
 					<td>
@@ -7466,6 +7725,9 @@
 					</td>
 					<td>
 						dam0voorland1
+					</td>
+					<td>
+						3
 					</td>
 					<td>
 						150

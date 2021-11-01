@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Image);
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNotNull(info.ExpandOnCreate);
                 Assert.IsNotNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
@@ -98,6 +98,22 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
+            }
+        }
+
+        [Test]
+        public void ExpandOnCreate_Always_ReturnsTrue()
+        {
+            // Setup
+            using (var plugin = new RiskeerPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                bool expandOnCreate = info.ExpandOnCreate(null);
+
+                // Assert
+                Assert.IsTrue(expandOnCreate);
             }
         }
 

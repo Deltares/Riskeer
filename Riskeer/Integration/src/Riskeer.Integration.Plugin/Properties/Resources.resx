@@ -263,7 +263,7 @@ berekeningen</value>
     <value>Hydraulische
 belastingen</value>
   </data>
-    <data name="GenericFailurePathsCategoryTreeFolder_DisplayName" xml:space="preserve">
+    <data name="GenericFailurePaths_DisplayName" xml:space="preserve">
         <value>Generieke faalpaden</value>
     </data>
     <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection"
@@ -313,7 +313,7 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
-    <data name="SpecificFailurePathsCategoryTreeFolder_DisplayName" xml:space="preserve">
+    <data name="SpecificFailurePaths_DisplayName" xml:space="preserve">
         <value>Specifieke faalpaden</value>
     </data>
     <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath" xml:space="preserve">

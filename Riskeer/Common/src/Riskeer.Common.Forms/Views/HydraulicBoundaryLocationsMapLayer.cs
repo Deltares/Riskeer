@@ -41,6 +41,8 @@ namespace Riskeer.Common.Forms.Views
     {
         private readonly IAssessmentSection assessmentSection;
 
+        private Observer failureMechanismContributionObserver;
+
         private Observer hydraulicBoundaryLocationsObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
@@ -93,6 +95,7 @@ namespace Riskeer.Common.Forms.Views
         {
             if (disposing)
             {
+                failureMechanismContributionObserver.Dispose();
                 hydraulicBoundaryLocationsObserver.Dispose();
                 waterLevelCalculationsForSignalingNormObserver.Dispose();
                 waterLevelCalculationsForLowerLimitNormObserver.Dispose();
@@ -108,6 +111,11 @@ namespace Riskeer.Common.Forms.Views
 
         private void CreateObservers()
         {
+            failureMechanismContributionObserver = new Observer(UpdateFeatures)
+            {
+                Observable = assessmentSection.FailureMechanismContribution
+            };
+
             hydraulicBoundaryLocationsObserver = new Observer(UpdateFeatures)
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations

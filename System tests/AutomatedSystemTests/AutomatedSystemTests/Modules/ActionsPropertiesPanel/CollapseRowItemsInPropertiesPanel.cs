@@ -1,45 +1,36 @@
 ﻿/*
  * Created by Ranorex
  * User: rodriqu_dd
- * Date: 02/11/2020
- * Time: 17:24
+ * Date: 29/10/2021
+ * Time: 08:22
  * 
  * To change this template use Tools > Options > Coding > Edit standard headers.
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
+using System.Linq;
 using WinForms = System.Windows.Forms;
+
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Testing;
 
-namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
+namespace AutomatedSystemTests.Modules.ActionsPropertiesPanel
 {
     /// <summary>
-    /// Description of ExpandAllRowItemsInPropertiesPanel.
+    /// Description of CollapseRowItemsInPropertiesPanel.
     /// </summary>
-    [TestModule("DE336D4D-6903-4666-935E-4619A8A89C40", ModuleType.UserCode, 1)]
-    public class ExpandAllRowItemsInPropertiesPanel : ITestModule
+    [TestModule("9FAAAB93-1756-4755-9753-200E0BF3E602", ModuleType.UserCode, 1)]
+    public class CollapseRowItemsInPropertiesPanel : ITestModule
     {
-        
-        
-        string _durationPressRightKey = "";
-        [TestVariable("dad1141d-7f02-4a3a-a011-eb32c0ca7b1e")]
-        public string durationPressRightKey
-        {
-            get { return _durationPressRightKey; }
-            set { _durationPressRightKey = value; }
-        }
-        
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ExpandAllRowItemsInPropertiesPanel()
+        public CollapseRowItemsInPropertiesPanel()
         {
             // Do not delete - a parameterless constructor is required!
         }
@@ -60,19 +51,13 @@ namespace AutomatedSystemTests.Modules.ActionsVisibilityItemsPropertiesPanel
             Adapter propertiesPanelAdapter = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self;
             
             IEnumerable<Row> rowsList = propertiesPanelAdapter.As<Table>().Rows;
-
-            var rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-            bool expNeeded = rowsMustBeExpanded.Any();
-            while (expNeeded) {
-                foreach (var rw in rowsMustBeExpanded) {
-                    rw.Focus();
-                    rw.Select();
-                    rw.PressKeys("{Right}");
+            IEnumerable<Row> rowsMustBeCollapsed = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Expanded"));
+            
+            foreach (var rw in rowsMustBeCollapsed.Reverse()) {
+                rw.Focus();
+                rw.Select();
+                rw.PressKeys("{Left}");
                 }
-                rowsList = myRepository.RiskeerMainWindow.ContainerMultipleViews.PropertiesPanelContainer.Table.Self.As<Table>().Rows.Except(rowsList);
-                rowsMustBeExpanded = rowsList.Where(rw=>rw.Element.GetAttributeValueText("AccessibleState").ToString().Contains("Collapsed"));
-                expNeeded = rowsMustBeExpanded.Any();
-            }
         }
     }
 }

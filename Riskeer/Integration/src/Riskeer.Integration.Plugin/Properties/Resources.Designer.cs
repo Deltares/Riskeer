@@ -367,9 +367,9 @@ namespace Riskeer.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Generieke faalpaden.
         /// </summary>
-        public static string GenericFailurePathsCategoryTreeFolder_DisplayName {
+        public static string GenericFailurePaths_DisplayName {
             get {
-                return ResourceManager.GetString("GenericFailurePathsCategoryTreeFolder_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GenericFailurePaths_DisplayName", resourceCulture);
             }
         }
         
@@ -561,9 +561,9 @@ namespace Riskeer.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Specifieke faalpaden.
         /// </summary>
-        public static string SpecificFailurePathsCategoryTreeFolder_DisplayName {
+        public static string SpecificFailurePaths_DisplayName {
             get {
-                return ResourceManager.GetString("SpecificFailurePathsCategoryTreeFolder_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SpecificFailurePaths_DisplayName", resourceCulture);
             }
         }
         

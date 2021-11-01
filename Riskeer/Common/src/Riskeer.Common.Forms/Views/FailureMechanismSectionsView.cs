@@ -55,11 +55,6 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(sections));
             }
 
-            if (failurePath == null)
-            {
-                throw new ArgumentNullException(nameof(failurePath));
-            }
-
             InitializeComponent();
 
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Name),
