@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
+using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Forms.Properties;
@@ -33,6 +35,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class SpecificFailurePathProperties : ObjectProperties<SpecificFailurePath>
     {
+        private const int namePropertyIndex = 1;
+        private const int isRelevantPropertyIndex = 2;
+        private const int nPropertyIndex = 3;
+
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailurePathProperties"/>.
         /// </summary>
@@ -48,6 +54,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             Data = data;
         }
 
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailurePath_Name_Description))]
@@ -63,7 +70,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 data.NotifyObservers();
             }
         }
-        
+
+        [PropertyOrder(isRelevantPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_IsRelevant_Description))]
@@ -73,6 +81,40 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             {
                 return data.IsRelevant;
             }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.Input.N;
+            }
+            set
+            {
+                data.Input.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            if (!data.IsRelevant && ShouldHidePropertyWhenFailurePathIrrelevant(propertyName))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ShouldHidePropertyWhenFailurePathIrrelevant(string propertyName)
+        {
+            return nameof(N).Equals(propertyName);
         }
     }
 }
