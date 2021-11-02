@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.SpecificFailurePaths;
+using Riskeer.Storage.Core.Serializers;
 
 namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
 {
@@ -74,13 +77,19 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             // Setup
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
+            const string filePath = "failureMechanismSections/File/Path";
             var entity = new SpecificFailurePathEntity
             {
                 Name = "Specific failure path name",
                 IsRelevant = Convert.ToByte(isRelevant),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
-                NotRelevantComments = "Some not relevant text"
+                NotRelevantComments = "Some not relevant text",
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    CreateSimpleFailureMechanismSectionEntity()
+                }
             };
 
             var collector = new ReadConversionCollector();
@@ -94,7 +103,8 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             Assert.AreEqual(entity.InputComments, specificFailurePath.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, specificFailurePath.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, specificFailurePath.NotRelevantComments.Body);
-            Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
+            Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -113,6 +123,21 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
 
             // Assert
             Assert.AreSame(registeredSpecificFailurePath, readSpecificFailurePath);
+        }
+
+        private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
+        {
+            var dummyPoints = new[]
+            {
+                new Point2D(0, 0)
+            };
+            string dummyPointXml = new Point2DCollectionXmlSerializer().ToXml(dummyPoints);
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                Name = "section",
+                FailureMechanismSectionPointXml = dummyPointXml
+            };
+            return failureMechanismSectionEntity;
         }
     }
 }
