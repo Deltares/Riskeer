@@ -119,6 +119,7 @@ namespace Core.Gui.Forms.Map
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => GuiResources.folder,
+                ExpandOnCreate = context => true,
                 ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (context, parentData) => context.ParentMapData != null,
                 CanCheck = context => true,
