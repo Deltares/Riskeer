@@ -1210,7 +1210,7 @@
           <Key>
             <PropertyRef Name="SpecificFailurePathEntityId" />
           </Key>
-          <Property Name="SpecificFailurePathEntityId" Type="integer" Nullable="false" />
+          <Property Name="SpecificFailurePathEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Order" Type="int" Nullable="false" />
@@ -6279,7 +6279,7 @@
           <Key>
             <PropertyRef Name="SpecificFailurePathEntityId" />
           </Key>
-          <Property Name="SpecificFailurePathEntityId" Type="Int64" Nullable="false" />
+          <Property Name="SpecificFailurePathEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
