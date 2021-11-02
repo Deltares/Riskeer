@@ -49,11 +49,6 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            if (registry.Contains(specificFailurePath))
-            {
-                return registry.Get(specificFailurePath);
-            }
-
             var entity = new SpecificFailurePathEntity
             {
                 Name = specificFailurePath.Name.DeepClone(),
@@ -65,11 +60,7 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 NotRelevantComments = specificFailurePath.NotRelevantComments.Body.DeepClone(),
                 FailureMechanismSectionCollectionSourcePath = specificFailurePath.FailureMechanismSectionSourcePath.DeepClone()
             };
-
             specificFailurePath.AddEntitiesForFailureMechanismSections(registry, entity);
-
-            registry.Register(entity, specificFailurePath);
-
             return entity;
         }
 

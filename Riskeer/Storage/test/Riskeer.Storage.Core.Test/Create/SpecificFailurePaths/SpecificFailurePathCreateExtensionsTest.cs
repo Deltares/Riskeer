@@ -48,23 +48,6 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
         }
 
         [Test]
-        public void Create_RegistryAlreadyContainsCreatedObject_ReturnsRegisteredObject()
-        {
-            // Setup
-            var specificFailurePath = new SpecificFailurePath();
-            var specificFailurePathEntity = new SpecificFailurePathEntity();
-            var registry = new PersistenceRegistry();
-
-            registry.Register(specificFailurePathEntity, specificFailurePath);
-
-            // Call
-            SpecificFailurePathEntity returnedObject = specificFailurePath.Create(registry, 0);
-
-            // Assert
-            Assert.AreSame(returnedObject, specificFailurePathEntity);
-        }
-
-        [Test]
         public void Create_WithRegistryAndPropertiesSet_ReturnsExpectedEntity()
         {
             // Setup
