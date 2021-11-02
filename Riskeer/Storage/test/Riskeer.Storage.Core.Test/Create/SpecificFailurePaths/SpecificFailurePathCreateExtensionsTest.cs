@@ -34,6 +34,60 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
     public class SpecificFailurePathCreateExtensionsTest
     {
         [Test]
+        public void Create_RegistryIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var specificFailurePath = new SpecificFailurePath();
+
+            // Call
+            void Call() => specificFailurePath.Create(null, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+        
+        [Test]
+        public void Create_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            const string originalInput = "Some input text";
+            const string originalOutput = "Some output text";
+            const string originalNotRelevantText = "Really not relevant";
+            const string specificFailurePathSectionsSourcePath = "File\\Path";
+            var specificFailurePath = new SpecificFailurePath
+            {
+                InputComments =
+                {
+                    Body = originalInput
+                },
+                OutputComments =
+                {
+                    Body = originalOutput
+                },
+                NotRelevantComments =
+                {
+                    Body = originalNotRelevantText
+                }
+            };
+            specificFailurePath.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, specificFailurePathSectionsSourcePath);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, 0);
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.InputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
+        }
+        
+        [Test]
         public void AddEntitiesForFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
@@ -91,46 +145,6 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
 
             // Assert
             Assert.AreEqual(1, specificFailurePathEntity.FailureMechanismSectionEntities.Count);
-        }
-
-        [Test]
-        public void Create_StringPropertiesDoNotShareReference()
-        {
-            // Setup
-            const string originalInput = "Some input text";
-            const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
-            const string specificFailurePathSectionsSourcePath = "File\\Path";
-            var specificFailurePath = new SpecificFailurePath
-            {
-                InputComments =
-                {
-                    Body = originalInput
-                },
-                OutputComments =
-                {
-                    Body = originalOutput
-                },
-                NotRelevantComments =
-                {
-                    Body = originalNotRelevantText
-                }
-            };
-            specificFailurePath.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, specificFailurePathSectionsSourcePath);
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, 0);
-
-            // Assert
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotRelevantComments.Body, entity.NotRelevantComments);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
     }
 }
