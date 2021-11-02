@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -50,7 +50,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), persistenceFactory, "ValidFolderPath", "extension", c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(),
+                                                                             persistenceFactory, "ValidFolderPath", "extension",
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -66,7 +68,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(null, new GeneralMacroStabilityInwardsInput(), persistenceFactory, string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(null, new GeneralMacroStabilityInwardsInput(), persistenceFactory, 
+                                                                             string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,7 +86,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), null, persistenceFactory, string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), null, persistenceFactory,
+                                                                             string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -95,7 +99,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_PersistenceFactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), null, string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(),
+                                                                             null, string.Empty, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -111,7 +116,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), persistenceFactory, string.Empty, string.Empty, null);
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(),
+                                                                             persistenceFactory, string.Empty, string.Empty, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -158,7 +164,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     ThrowException = true
                 };
 
-                var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(), persistenceFactory, folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                                 persistenceFactory, folderPath, fileExtension,
+                                                                                 c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 try
                 {
@@ -193,7 +201,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculationGroup.Children.Add(calculation1);
             calculationGroup.Children.Add(calculation2);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -228,7 +238,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculationGroup.Children.Add(calculation1);
             calculationGroup.Children.Add(calculation2);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -283,7 +295,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootCalculationGroup.Children.Add(calculation2);
             rootCalculationGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -334,7 +348,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootCalculationGroup.Children.Add(calculation2);
             rootCalculationGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -392,7 +408,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculationGroup.Children.Add(calculation3);
             calculationGroup.Children.Add(calculation4);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -453,7 +471,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup2);
             rootGroup.Children.Add(nestedGroup3);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -494,7 +514,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             };
             rootGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -536,7 +558,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             nestedGroup1.Children.Add(nestedGroup2);
             rootGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -577,7 +601,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             nestedGroup1.Children.Add(calculation1);
             rootGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -629,7 +655,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             nestedGroup1.Children.Add(nestedGroup2);
             rootGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -682,7 +710,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             nestedGroup1.Children.Add(nestedGroup2);
             rootGroup.Children.Add(nestedGroup1);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
             {
@@ -739,7 +769,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup1);
             rootGroup.Children.Add(nestedGroup2);
 
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(), new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
             Directory.CreateDirectory(Path.Combine(folderPath, nestedGroup2.Name));
             string lockedCalculationFilePath = Path.Combine(folderPath, nestedGroup2.Name, $"{calculation3.Name}.{fileExtension}");
 
