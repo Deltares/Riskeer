@@ -758,11 +758,11 @@ namespace Riskeer.Integration.Plugin
             yield return new ExportInfo<HydraulicBoundaryDatabaseContext>
             {
                 Name = context => RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Extension = Resources.Zip_file_filter_Extension,
+                Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsExporter(context.AssessmentSection, filePath),
                 IsEnabled = context => context.WrappedData.IsLinked(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
-                                                                                                           Resources.Zip_file_filter_Description))
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
             };
 
             yield return new ExportInfo<AssemblyResultsContext>
@@ -796,7 +796,7 @@ namespace Riskeer.Integration.Plugin
             yield return new ExportInfo<WaterLevelCalculationsForNormTargetProbabilitiesGroupContext>
             {
                 Name = context => RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName,
-                Extension = Resources.Zip_file_filter_Extension,
+                Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                     new[]
                     {
@@ -808,8 +808,8 @@ namespace Riskeer.Integration.Plugin
                             context.AssessmentSection.FailureMechanismContribution.SignalingNorm)
                     }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
                 IsEnabled = context => true,
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
-                                                                                                           Resources.Zip_file_filter_Description))
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityGroupExportInfo
@@ -1316,12 +1316,12 @@ namespace Riskeer.Integration.Plugin
             return new ExportInfo<T>
             {
                 Name = context => displayName,
-                Extension = Resources.Zip_file_filter_Extension,
+                Extension = RiskeerCommonIOResources.Zip_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new HydraulicBoundaryLocationCalculationsForTargetProbabilitiesExporter(
                     locationCalculationsForTargetProbabilitiesFunc(context), calculationsType, filePath),
                 IsEnabled = context => locationCalculationsForTargetProbabilitiesFunc(context).Any(),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.Zip_file_filter_Extension,
-                                                                                                           Resources.Zip_file_filter_Description))
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
             };
         }
 

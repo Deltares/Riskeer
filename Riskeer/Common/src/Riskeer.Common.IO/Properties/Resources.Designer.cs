@@ -2733,5 +2733,23 @@ namespace Riskeer.Common.IO.Properties {
                 return ResourceManager.GetString("XmlGeometrySchema", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to zip archief.
+        /// </summary>
+        public static string Zip_file_filter_Description {
+            get {
+                return ResourceManager.GetString("Zip_file_filter_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to zip.
+        /// </summary>
+        public static string Zip_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("Zip_file_filter_Extension", resourceCulture);
+            }
+        }
     }
 }

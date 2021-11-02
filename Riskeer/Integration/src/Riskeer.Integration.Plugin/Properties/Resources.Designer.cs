@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -573,24 +573,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         public static string SpecificFailurePaths_DisplayName {
             get {
                 return ResourceManager.GetString("SpecificFailurePaths_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to zip archief.
-        /// </summary>
-        public static string Zip_file_filter_Description {
-            get {
-                return ResourceManager.GetString("Zip_file_filter_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to zip.
-        /// </summary>
-        public static string Zip_file_filter_Extension {
-            get {
-                return ResourceManager.GetString("Zip_file_filter_Extension", resourceCulture);
             }
         }
     }

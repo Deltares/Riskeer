@@ -894,4 +894,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="CalculationConfigurationImporter_TrySetScenarioParameters_ScenarioContribution_Invalid" xml:space="preserve">
     <value>De bijdrage van een berekening moet een getal tussen 0 en 100 zijn.</value>
   </data>
+  <data name="Zip_file_filter_Extension" xml:space="preserve">
+        <value>zip</value>
+    </data>
+  <data name="Zip_file_filter_Description" xml:space="preserve">
+        <value>zip archief</value>
+    </data>
 </root>
