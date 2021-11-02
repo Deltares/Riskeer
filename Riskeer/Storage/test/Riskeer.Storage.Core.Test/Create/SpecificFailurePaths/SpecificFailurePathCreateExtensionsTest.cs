@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             var specificFailurePath = new SpecificFailurePath();
             var specificFailurePathEntity = new SpecificFailurePathEntity();
             var registry = new PersistenceRegistry();
-            
+
             registry.Register(specificFailurePathEntity, specificFailurePath);
 
             // Call
@@ -62,6 +62,29 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
 
             // Assert
             Assert.AreSame(returnedObject, specificFailurePathEntity);
+        }
+
+        [Test]
+        public void Create_WithRegistryAndPropertiesSet_ReturnsExpectedEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var specificFailurePath = new SpecificFailurePath
+            {
+                Input =
+                {
+                    N = random.NextRoundedDouble(1.0, 20.0)
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, 0);
+
+            // Assert
+            SpecificFailurePathInput expectedInput = specificFailurePath.Input;
+            Assert.AreEqual(expectedInput.N, entity.N, expectedInput.N.GetAccuracy());
         }
 
         [Test]

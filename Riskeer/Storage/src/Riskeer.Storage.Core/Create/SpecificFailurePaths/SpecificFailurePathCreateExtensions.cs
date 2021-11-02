@@ -32,7 +32,7 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
     /// Extension methods for <see cref="SpecificFailurePath"/> related to creating
     /// a <see cref="SpecificFailurePathEntity"/>.
     /// </summary>
-    internal static class SpecificFailurePathEntityCreateExtensions
+    internal static class SpecificFailurePathCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="SpecificFailurePathEntity"/> based on the information of the <see cref="SpecificFailurePath"/>.
@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
         /// <param name="order">The index at which <paramref name="specificFailurePath"/> resides within its parent.</param>
         /// <returns>A new <see cref="SpecificFailurePathEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static SpecificFailurePathEntity Create(this IFailurePath specificFailurePath, PersistenceRegistry registry, int order)
+        internal static SpecificFailurePathEntity Create(this SpecificFailurePath specificFailurePath, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -58,6 +58,7 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
             {
                 Name = specificFailurePath.Name.DeepClone(),
                 Order = order,
+                N = specificFailurePath.Input.N,
                 IsRelevant = Convert.ToByte(specificFailurePath.IsRelevant),
                 InputComments = specificFailurePath.InputComments.Body.DeepClone(),
                 OutputComments = specificFailurePath.OutputComments.Body.DeepClone(),
