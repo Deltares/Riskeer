@@ -63,6 +63,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using MacroStabilityInwardsFormsResources = Riskeer.MacroStabilityInwards.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin
@@ -188,11 +189,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 Name = context => Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
                 Extension = Resources.Stix_file_filter_extension,
-                CreateFileExporter = (context, folderPath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, context.FailureMechanism.GeneralInput,
-                                                                                                                new PersistenceFactory(), folderPath, Resources.Stix_file_filter_extension,
-                                                                                                                calculation => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
+                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, context.FailureMechanism.GeneralInput,
+                                                                                                              new PersistenceFactory(), filePath, Resources.Stix_file_filter_extension,
+                                                                                                              calculation => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
                 IsEnabled = context => context.WrappedData.HasOutput(),
-                GetExportPath = () => ExportHelper.GetFolderPath(GetInquiryHelper())
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
+                                                                                                           RiskeerCommonIOResources.Zip_file_filter_Description))
             };
         }
 

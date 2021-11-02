@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -126,11 +126,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("C:\\Not:Valid")]
-        public void Constructor_InvalidFolderPath_ThrowsArgumentException(string folderPath)
+        [TestCaseSource(typeof(InvalidPathHelper), nameof(InvalidPathHelper.InvalidPaths))]
+        public void Constructor_InvalidFilePath_ThrowsArgumentException(string filePath)
         {
             // Setup
             var mocks = new MockRepository();
@@ -138,7 +135,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), persistenceFactory, folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), new GeneralMacroStabilityInwardsInput(), persistenceFactory,
+                                                                             filePath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
