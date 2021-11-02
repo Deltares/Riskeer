@@ -735,6 +735,9 @@
       <id>b50b2586-092d-4587-8b1d-f86f562a6a14</id>
       <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\ConvertProbabilityToCurrentCulture.cs">
+      <id>d85a287f-9b8d-464e-9122-352f331f9242</id>
+    </Compile>
     <Compile Include="Modules\Calculation\DetermineFMSubstring.cs">
       <id>c807de12-f3ea-4ea4-95e9-8fd69f98fb19</id>
     </Compile>
@@ -858,7 +861,7 @@
       <id>81e68b73-6531-4b38-8463-576c3f9bbe8a</id>
       <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
     </Compile>
-    <Compile Include="Modules\Calculation\nthStepFromPath.cs">
+    <Compile Include="Modules\Calculation\GetStepFromPath.cs">
       <id>79a86b5b-ef43-4bb2-b3a4-5f07007049e5</id>
     </Compile>
     <Compile Include="Modules\Calculation\PrependString.cs">

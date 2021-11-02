@@ -24,7 +24,7 @@ namespace AutomatedSystemTests.Modules.Calculation
     /// Description of nthStepFromPath.
     /// </summary>
     [TestModule("D0D76556-8EB7-4EC6-A100-DEB33DE45819", ModuleType.UserCode, 1)]
-    public class nthStepFromPath : ITestModule
+    public class GetStepFromPath : ITestModule
     {
         
         string _fullPath = "";
@@ -55,7 +55,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public nthStepFromPath()
+        public GetStepFromPath()
         {
             // Do not delete - a parameterless constructor is required!
         }

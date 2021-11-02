@@ -53,6 +53,10 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             return originalString.ToNewCulture(CultureInfo.InvariantCulture, CultureInfo.CurrentCulture);
         }
         
+        /// <summary>
+        /// The method <c>ToCurrentCultureDecimalSeparator</c> transforms the format of decimal separator for all numbers
+        /// in the string from InvariantCulture to CurrentCulture.
+        /// </summary>
         [UserCodeMethod]
         public static string ToCurrentCultureDecimalSeparator(this string originalString)
         {
@@ -60,6 +64,10 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                                                          CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         }
         
+        /// <summary>
+        /// The method <c>ToCurrentCultureGroupSeparator</c> transforms the format of group separator for all numbers
+        /// in the string from InvariantCulture to CurrentCulture.
+        /// </summary>
         [UserCodeMethod]
         public static string ToCurrentCultureGroupSeparator(this string originalString)
         {
@@ -67,6 +75,10 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                                                          CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator);
         }
         
+        /// <summary>
+        /// The method <c>ToInvariantCultureDecimalSeparator</c> transforms the format of decimal separator for all numbers
+        /// in the string from CurrentCulture to InvariantCulture.
+        /// </summary>
         [UserCodeMethod]
         public static string ToInvariantCultureDecimalSeparator(this string originalString)
         {
@@ -74,6 +86,10 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                                                          CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
         }
         
+        /// <summary>
+        /// The method <c>ToCurrentCultureGroupSeparator</c> transforms the format of group separator for all numbers
+        /// in the string from CurrentCulture to InvariantCulture.
+        /// </summary>
         [UserCodeMethod]
         public static string ToInvariantCultureGroupSeparator(this string originalString)
         {
@@ -81,6 +97,10 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                                                          CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator);
         }
         
+        /// <summary>
+        /// The method <c>ToNoGroupSeparator</c> removes the group separator for all numbers
+        /// in the string from CurrentCulture.
+        /// </summary>
         [UserCodeMethod]
         public static string ToNoGroupSeparator(this string originalString)
         {

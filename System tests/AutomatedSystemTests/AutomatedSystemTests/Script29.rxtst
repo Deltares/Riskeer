@@ -2067,7 +2067,7 @@
 			</testmodule>
 			<testmodule
 			id="9df4d37f-59c2-4455-9e85-a2f7db27ee78"
-			name="nthStepFromPath"
+			name="GetStepFromPath"
 			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
 			type="UserCode">
 				<databinding>
@@ -3274,7 +3274,7 @@
 								name="ShowMapsSideBySide">
 									<testmodule
 									id="9df4d37f-59c2-4455-9e85-a2f7db27ee78"
-									name="nthStepFromPath">
+									name="GetStepFromPath">
 									</testmodule>
 									<testmodule
 									id="6adb8fa7-c885-4cd5-b3bf-5f8414d859c6"
