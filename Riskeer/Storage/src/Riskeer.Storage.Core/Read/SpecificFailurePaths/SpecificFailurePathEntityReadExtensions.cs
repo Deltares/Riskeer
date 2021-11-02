@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.FailurePath;
@@ -74,6 +75,7 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
             };
 
             entity.ReadFailureMechanismSections(specificFailurePath, collector);
+            entity.ReadSpecificFailurePathInput(specificFailurePath);
 
             collector.Read(entity, specificFailurePath);
 
@@ -92,6 +94,12 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
             {
                 specificFailurePath.SetSections(readFailureMechanismSections, entity.FailureMechanismSectionCollectionSourcePath);
             }
+        }
+
+        private static void ReadSpecificFailurePathInput(this SpecificFailurePathEntity entity,
+                                                         SpecificFailurePath failurePath)
+        {
+            failurePath.Input.N = (RoundedDouble) entity.N;
         }
     }
 }

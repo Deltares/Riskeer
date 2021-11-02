@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
@@ -53,9 +54,11 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
         public void Read_EntityNotReadBefore_RegisterEntity()
         {
             // Setup
+            var random = new Random(21);
             var entity = new SpecificFailurePathEntity
             {
-                Name = "name"
+                Name = "name",
+                N = random.NextDouble(1.0, 20.0)
             };
 
             var collector = new ReadConversionCollector();
@@ -81,6 +84,7 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             var entity = new SpecificFailurePathEntity
             {
                 Name = "Specific failure path name",
+                N = random.NextDouble(1.0, 20.0),
                 IsRelevant = Convert.ToByte(isRelevant),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
@@ -99,6 +103,7 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
 
             // Assert
             Assert.AreEqual(entity.Name, specificFailurePath.Name);
+            Assert.AreEqual(entity.N, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
             Assert.AreEqual(Convert.ToBoolean(entity.IsRelevant), specificFailurePath.IsRelevant);
             Assert.AreEqual(entity.InputComments, specificFailurePath.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, specificFailurePath.OutputComments.Body);
