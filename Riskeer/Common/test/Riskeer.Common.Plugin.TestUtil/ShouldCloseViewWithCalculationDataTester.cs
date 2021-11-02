@@ -237,7 +237,6 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// Gets a failure mechanism for testing purposes.
         /// </summary>
         /// <returns>A failure mechanism object.</returns>
-        /// <remarks>A default implementation is added for creating a <see cref="TestFailureMechanismContext"/>.</remarks>
         protected virtual IFailureMechanism GetFailureMechanismWithCalculation()
         {
             return new TestFailureMechanism(new[]
