@@ -806,9 +806,12 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datarangeactive="True"
 			datasource="script20cd_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="5a075d98-6c06-40c3-92f0-ea19c1d12341"
+			maxrange="1"
+			minrange="1"
 			name="LoopFMs">
 				<parameters>
 					<param
