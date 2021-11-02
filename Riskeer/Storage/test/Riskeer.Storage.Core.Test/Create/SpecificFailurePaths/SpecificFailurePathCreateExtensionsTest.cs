@@ -46,7 +46,24 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
-        
+
+        [Test]
+        public void Create_RegistryAlreadyContainsCreatedObject_ReturnsRegisteredObject()
+        {
+            // Setup
+            var specificFailurePath = new SpecificFailurePath();
+            var specificFailurePathEntity = new SpecificFailurePathEntity();
+            var registry = new PersistenceRegistry();
+            
+            registry.Register(specificFailurePathEntity, specificFailurePath);
+
+            // Call
+            SpecificFailurePathEntity returnedObject = specificFailurePath.Create(registry, 0);
+
+            // Assert
+            Assert.AreSame(returnedObject, specificFailurePathEntity);
+        }
+
         [Test]
         public void Create_StringPropertiesDoNotShareReference()
         {
@@ -86,7 +103,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotRelevantComments.Body, entity.NotRelevantComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
-        
+
         [Test]
         public void AddEntitiesForFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
         {
