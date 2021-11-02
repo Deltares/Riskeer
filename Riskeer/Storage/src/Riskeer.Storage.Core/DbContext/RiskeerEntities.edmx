@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -1219,6 +1219,7 @@
           <Property Name="InputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="N" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="SpecificFailurePathFailureMechanismSectionEntity">
           <Key>
@@ -6287,6 +6288,7 @@
           <Property Name="InputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="OutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotRelevantComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="N" Type="Double" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0" FromRole="SpecificFailurePathEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" FromRole="SpecificFailurePathEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -9643,6 +9645,7 @@
           <EntitySetMapping Name="SpecificFailurePathEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.SpecificFailurePathEntity">
               <MappingFragment StoreEntitySet="SpecificFailurePathEntity">
+                <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="NotRelevantComments" ColumnName="NotRelevantComments" />
                 <ScalarProperty Name="OutputComments" ColumnName="OutputComments" />
                 <ScalarProperty Name="InputComments" ColumnName="InputComments" />
