@@ -100,6 +100,29 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.ForEachElementDo(co => co.NotifyObservers());
         }
 
+        private static void LogMergeMessage(IFailureMechanism failureMechanism)
+        {
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
+        }
+
+        private static void LogMergeMessage(IFailurePath failurePath)
+        {
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added, failurePath.Name);
+        }
+
+        #region FailurePaths
+
+        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<IFailurePath> mergeFailurePaths)
+        {
+            if (mergeFailurePaths.Any())
+            {
+                targetAssessmentSection.SpecificFailurePaths.AddRange(mergeFailurePaths);
+                mergeFailurePaths.ForEachElementDo(LogMergeMessage);
+            }
+        }
+
+        #endregion
+
         #region HydraulicBoundaryLocationCalculations
 
         private static IEnumerable<IObservable> MergeHydraulicBoundaryLocationCalculations(IAssessmentSection targetAssessmentSection,
@@ -367,11 +390,6 @@ namespace Riskeer.Integration.Plugin.Merge
             }
         }
 
-        private static void LogMergeMessage(IFailureMechanism failureMechanism)
-        {
-            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
-        }
-
         private static void UpdateCalculationHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(
             TFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> locations)
             where TFailureMechanism : IFailureMechanism
@@ -391,24 +409,6 @@ namespace Riskeer.Integration.Plugin.Merge
         private static HydraulicBoundaryLocation GetHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IEnumerable<HydraulicBoundaryLocation> locations)
         {
             return locations.Single(l => l.Name == location.Name && l.Id == location.Id && l.Location.Equals(location.Location));
-        }
-
-        #endregion
-
-        #region FailurePaths
-
-        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<IFailurePath> mergeFailurePaths)
-        {
-            if (mergeFailurePaths.Any())
-            {
-                targetAssessmentSection.SpecificFailurePaths.AddRange(mergeFailurePaths);
-                mergeFailurePaths.ForEachElementDo(LogMergeMessage);
-            }
-        }
-
-        private static void LogMergeMessage(IFailurePath failurePath)
-        {
-            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added, failurePath.Name);
         }
 
         #endregion
