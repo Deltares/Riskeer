@@ -175,13 +175,11 @@ JOIN [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity ON ase.Hydraul
 INSERT INTO HydraulicLocationCalculationEntity(
     [HydraulicLocationCalculationEntityId],
     [HydraulicLocationEntityId],
-    [HydraulicLocationCalculationCollectionEntityId],
     [ShouldIllustrationPointsBeCalculated]
 ) 
 SELECT
     [HydraulicLocationCalculationEntityId],
     [HydraulicLocationEntityId],
-    [HydraulicLocationCalculationCollectionEntityId],
     [ShouldIllustrationPointsBeCalculated]
 FROM [SOURCEPROJECT].AssessmentSectionEntity ase
 JOIN [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity ON ase.HydraulicLocationCalculationCollectionEntity2Id = HydraulicLocationCalculationCollectionEntityId
