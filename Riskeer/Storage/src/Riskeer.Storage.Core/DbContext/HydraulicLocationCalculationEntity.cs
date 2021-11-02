@@ -45,7 +45,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         public long HydraulicLocationCalculationEntityId { get; set; }
         public long HydraulicLocationEntityId { get; set; }
-        public long HydraulicLocationCalculationCollectionEntityId { get; set; }
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
 
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }

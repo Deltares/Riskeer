@@ -688,7 +688,6 @@
           </Key>
           <Property Name="HydraulicLocationCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationCollectionEntityId" Type="integer" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="HydraulicLocationCalculationForTargetProbabilityCollectionEntity">
@@ -5694,7 +5693,6 @@
           </Key>
           <Property Name="HydraulicLocationCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
-          <Property Name="HydraulicLocationCalculationCollectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationCalculationEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="HydraulicLocationOutputEntities" Relationship="RiskeerEntitiesModel.FK_HydraulicLocationOutputEntity_0_0" FromRole="HydraulicLocationCalculationEntity" ToRole="HydraulicLocationOutputEntity" />
@@ -9106,7 +9104,6 @@
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.HydraulicLocationCalculationEntity">
               <MappingFragment StoreEntitySet="HydraulicLocationCalculationEntity">
                 <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
-                <ScalarProperty Name="HydraulicLocationCalculationCollectionEntityId" ColumnName="HydraulicLocationCalculationCollectionEntityId" />
                 <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
                 <ScalarProperty Name="HydraulicLocationCalculationEntityId" ColumnName="HydraulicLocationCalculationEntityId" />
               </MappingFragment>
