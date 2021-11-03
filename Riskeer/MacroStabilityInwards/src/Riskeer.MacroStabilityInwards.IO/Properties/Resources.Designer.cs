@@ -367,6 +367,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het exporteren van &apos;{0}&apos;..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationGroupExporter_ExportCalculation_Unexpected_error_during_export_CalculationName_0 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationGroupExporter_ExportCalculation_Unexpected_error_" +
+                        "during_export_CalculationName_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De laag bevat een ongeldige geometrie..
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring {
