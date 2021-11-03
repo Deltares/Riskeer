@@ -52,8 +52,10 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
         {
             // Setup
             var random = new Random(21);
+            int order = random.Next();
             var specificFailurePath = new SpecificFailurePath
             {
+                IsRelevant = random.NextBoolean(),
                 Input =
                 {
                     N = random.NextRoundedDouble(1.0, 20.0)
@@ -63,11 +65,18 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, 0);
+            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, order);
 
             // Assert
             SpecificFailurePathInput expectedInput = specificFailurePath.Input;
             Assert.AreEqual(expectedInput.N, entity.N, expectedInput.N.GetAccuracy());
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+
+            Assert.AreEqual(Convert.ToByte(specificFailurePath.IsRelevant), entity.IsRelevant);
+
+            Assert.IsNull(entity.InputComments);
+            Assert.IsNull(entity.OutputComments);
+            Assert.IsNull(entity.NotRelevantComments);
         }
 
         [Test]
