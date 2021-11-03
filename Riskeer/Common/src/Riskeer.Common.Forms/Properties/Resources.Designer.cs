@@ -2104,11 +2104,11 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I&amp;s relevant.
+        ///   Looks up a localized string similar to I&amp;n assemblage.
         /// </summary>
-        public static string FailurePathContextMenuStrip_Is_relevant {
+        public static string FailurePathContextMenuStrip_In_assembly {
             get {
-                return ResourceManager.GetString("FailurePathContextMenuStrip_Is_relevant", resourceCulture);
+                return ResourceManager.GetString("FailurePathContextMenuStrip_In_assembly", resourceCulture);
             }
         }
         

@@ -318,7 +318,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddToggleRelevancyOfFailurePathItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
+        public void AddToggleInAssemblyOfFailurePathItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
         {
             // Setup
             var mocks = new MockRepository();
@@ -345,14 +345,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleRelevancyOfFailurePathItem(failurePathContext, null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleInAssemblyOfFailurePathItem(failurePathContext, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
                 Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                              "I&s relevant",
+                                                              "I&n assemblage",
                                                               "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                               checkboxIcon);
             }

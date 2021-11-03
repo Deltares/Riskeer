@@ -311,8 +311,8 @@ handmatig</value>
   <data name="Checkbox_ticked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Checkbox_ticked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FailurePathContextMenuStrip_Is_relevant" xml:space="preserve">
-    <value>I&amp;s relevant</value>
+  <data name="FailurePathContextMenuStrip_In_assembly" xml:space="preserve">
+    <value>I&amp;n assemblage</value>
   </data>
   <data name="FailurePath_InAssembly_Description" xml:space="preserve">
     <value>Geeft aan of dit faalpad wordt meegenomen in de assemblage.</value>

@@ -445,23 +445,23 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateToggleRelevancyOfFailurePathItem_IsRelevant_CreateDecoratedItem(bool isRelevant)
+        public void CreateToggleInAssemblyOfFailurePathItem_InAssembly_CreateDecoratedItem(bool inAssembly)
         {
             // Setup
             var mocks = new MockRepository();
             var failurePath = mocks.StrictMock<IFailurePath>();
-            failurePath.Expect(fp => fp.IsRelevant).Return(isRelevant);
+            failurePath.Expect(fp => fp.IsRelevant).Return(inAssembly);
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailurePath>>();
             failurePathContext.Expect(fpc => fpc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailurePathItem(failurePathContext, null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, null);
 
             // Assert
-            Assert.AreEqual("I&s relevant", toolStripItem.Text);
+            Assert.AreEqual("I&n assemblage", toolStripItem.Text);
             Assert.AreEqual("Geeft aan of dit faalpad wordt meegenomen in de assemblage.", toolStripItem.ToolTipText);
-            Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
+            Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -470,13 +470,13 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateToggleRelevancyOfFailurePathItem_PerformClickOnRelevanceItem_RelevanceChangedAndObserversNotified(bool isRelevant)
+        public void CreateToggleInAssemblyOfFailurePathItem_PerformClickOnInAssemblyItem_RelevanceChangedAndObserversNotified(bool inAssembly)
         {
             // Setup
             var mocks = new MockRepository();
             var failurePath = mocks.StrictMock<IFailurePath>();
-            failurePath.Expect(fp => fp.IsRelevant).Return(isRelevant);
-            failurePath.Expect(fp => fp.IsRelevant).SetPropertyWithArgument(!isRelevant);
+            failurePath.Expect(fp => fp.IsRelevant).Return(inAssembly);
+            failurePath.Expect(fp => fp.IsRelevant).SetPropertyWithArgument(!inAssembly);
             failurePath.Expect(fp => fp.NotifyObservers());
 
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailurePath>>();
@@ -484,7 +484,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var actionCounter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailurePathItem(failurePathContext, context => actionCounter++);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();

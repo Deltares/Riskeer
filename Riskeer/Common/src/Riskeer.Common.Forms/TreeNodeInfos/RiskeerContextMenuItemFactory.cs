@@ -387,13 +387,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing the relevance of a failure path.
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of whether the failure path is part of
+        /// the assembly or not.
         /// </summary>
         /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>
         /// <param name="failurePathContext">The failure path context belonging to the failure path.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateToggleRelevancyOfFailurePathItem<TFailurePathContext>(
+        public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
             TFailurePathContext failurePathContext,
             Action<TFailurePathContext> onChangeAction)
             where TFailurePathContext : IFailurePathContext<IFailurePath>
@@ -401,7 +402,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             bool isRelevant = failurePathContext.WrappedData.IsRelevant;
             Bitmap checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
-                Resources.FailurePathContextMenuStrip_Is_relevant,
+                Resources.FailurePathContextMenuStrip_In_assembly,
                 Resources.FailurePath_InAssembly_Description,
                 checkboxImage,
                 (sender, args) =>

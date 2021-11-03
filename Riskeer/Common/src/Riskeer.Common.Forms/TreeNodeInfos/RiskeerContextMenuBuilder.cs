@@ -258,18 +258,18 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure path is relevant.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure path is part of the assembly.
         /// </summary>
         /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>
         /// <param name="failurePathContext">The failure path context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddToggleRelevancyOfFailurePathItem<TFailurePathContext>(
+        public RiskeerContextMenuBuilder AddToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
             TFailurePathContext failurePathContext,
             Action<TFailurePathContext> onChangeAction)
             where TFailurePathContext : IFailurePathContext<IFailurePath>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleRelevancyOfFailurePathItem(failurePathContext, onChangeAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, onChangeAction));
             return this;
         }
 

@@ -496,7 +496,7 @@ namespace Riskeer.HeightStructures.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailurePathItem(context, RemoveAllViewsForItem)
+                          .AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -511,7 +511,7 @@ namespace Riskeer.HeightStructures.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailurePathItem(context, RemoveAllViewsForItem)
+            return builder.AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

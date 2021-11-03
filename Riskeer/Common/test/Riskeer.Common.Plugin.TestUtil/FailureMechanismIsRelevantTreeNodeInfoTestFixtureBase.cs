@@ -48,8 +48,8 @@ namespace Riskeer.Common.Plugin.TestUtil
         where TFailurePath : IFailurePath, new()
         where TFailurePathContext : IFailurePathContext<TFailurePath>
     {
-        private readonly int contextMenuRelevancyIndexWhenNotRelevant;
-        private readonly int contextMenuRelevancyIndexWhenRelevant;
+        private readonly int contextMenuRelevancyIndexWhenNotInAssembly;
+        private readonly int contextMenuRelevancyIndexWhenInAssembly;
 
         [Test]
         public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
+                        contextMenu.Items[contextMenuRelevancyIndexWhenInAssembly].PerformClick();
 
                         // Assert
                         Assert.IsFalse(failureMechanism.IsRelevant);
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
+                        contextMenu.Items[contextMenuRelevancyIndexWhenNotInAssembly].PerformClick();
 
                         // Assert
                         Assert.IsTrue(failureMechanism.IsRelevant);
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        public void ContextMenuStrip_FailureMechanismInAssembly_AddCustomItems()
         {
             // Setup
             var mocks = new MockRepository();
@@ -172,8 +172,8 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                      "I&s relevant",
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenInAssembly,
+                                                                      "I&n assemblage",
                                                                       "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
                     }
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_AddCustomItems()
+        public void ContextMenuStrip_FailureMechanismNotInAssembly_AddCustomItems()
         {
             // Setup
             var mocks = new MockRepository();
@@ -217,8 +217,8 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
-                                                                      "I&s relevant",
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotInAssembly,
+                                                                      "I&n assemblage",
                                                                       "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
                     }
@@ -231,15 +231,15 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase{TPlugin,TFailureMechanism,TFailureMechanismContext}"/>.
         /// </summary>
-        /// <param name="contextMenuRelevancyIndexWhenRelevant">The index of the IsRelevant context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuRelevancyIndexWhenInAssembly">The index of the IsRelevant context menu item when the <typeparamref name="TFailurePath"/>
         /// is relevant.</param>
-        /// <param name="contextMenuRelevancyIndexWhenNotRelevant">The index of the IsRelevant context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuRelevancyIndexWhenNotInAssembly">The index of the IsRelevant context menu item when the <typeparamref name="TFailurePath"/>
         /// is not relevant.</param>
-        protected FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase(int contextMenuRelevancyIndexWhenRelevant,
-                                                                        int contextMenuRelevancyIndexWhenNotRelevant)
+        protected FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase(int contextMenuRelevancyIndexWhenInAssembly,
+                                                                        int contextMenuRelevancyIndexWhenNotInAssembly)
         {
-            this.contextMenuRelevancyIndexWhenRelevant = contextMenuRelevancyIndexWhenRelevant;
-            this.contextMenuRelevancyIndexWhenNotRelevant = contextMenuRelevancyIndexWhenNotRelevant;
+            this.contextMenuRelevancyIndexWhenInAssembly = contextMenuRelevancyIndexWhenInAssembly;
+            this.contextMenuRelevancyIndexWhenNotInAssembly = contextMenuRelevancyIndexWhenNotInAssembly;
         }
 
         protected abstract TFailurePathContext CreateFailureMechanismContext(TFailurePath failureMechanism, IAssessmentSection assessmentSection);

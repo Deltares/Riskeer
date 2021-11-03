@@ -642,7 +642,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailurePathItem(context, RemoveAllViewsForItem)
+                          .AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -657,7 +657,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailurePathItem(context, RemoveAllViewsForItem)
+            return builder.AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
