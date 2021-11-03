@@ -32,6 +32,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
@@ -1020,10 +1021,12 @@ namespace Riskeer.Storage.Core.Test.Read
             const string outputComments = "Some output text";
             const string notRelevantComments = "Some not relevant text";
 
+            RoundedDouble n = random.NextRoundedDouble(1, 20);
             var specificFailurePathEntity = new SpecificFailurePathEntity
             {
                 Name = name,
                 IsRelevant = Convert.ToByte(isRelevant),
+                N = n,
                 InputComments = inputComments,
                 OutputComments = outputComments,
                 NotRelevantComments = notRelevantComments
@@ -1038,12 +1041,14 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            IFailurePath specificFailurePath = section.SpecificFailurePaths.Single();
+            var specificFailurePath = section.SpecificFailurePaths.Single() as SpecificFailurePath;
+            Assert.IsNotNull(specificFailurePath);
             Assert.AreEqual(name, specificFailurePath.Name);
             Assert.AreEqual(isRelevant, specificFailurePath.IsRelevant);
             Assert.AreEqual(inputComments, specificFailurePath.InputComments.Body);
             Assert.AreEqual(outputComments, specificFailurePath.OutputComments.Body);
             Assert.AreEqual(notRelevantComments, specificFailurePath.NotRelevantComments.Body);
+            Assert.AreEqual(n, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
             Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
         }
 

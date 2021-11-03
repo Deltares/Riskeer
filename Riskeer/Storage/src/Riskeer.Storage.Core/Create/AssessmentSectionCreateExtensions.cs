@@ -26,6 +26,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.Create.ClosingStructures;
 using Riskeer.Storage.Core.Create.DuneErosion;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
@@ -116,10 +117,11 @@ namespace Riskeer.Storage.Core.Create
 
         private static void AddSpecificFailurePathEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            for (int i = 0; i < section.SpecificFailurePaths.Count; i++)
+            IEnumerable<SpecificFailurePath> specificFailurePaths = section.SpecificFailurePaths.Cast<SpecificFailurePath>();
+            var i = 0;
+            foreach (SpecificFailurePath failurePath in specificFailurePaths)
             {
-                entity.SpecificFailurePathEntities.Add(
-                    section.SpecificFailurePaths[i].Create(registry, i));
+                entity.SpecificFailurePathEntities.Add(failurePath.Create(registry, i++));
             }
         }
 

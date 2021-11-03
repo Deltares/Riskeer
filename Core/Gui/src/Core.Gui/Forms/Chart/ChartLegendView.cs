@@ -116,6 +116,7 @@ namespace Core.Gui.Forms.Chart
             {
                 Text = collection => collection.Name,
                 Image = collection => GuiResources.folder,
+                ExpandOnCreate = collection => true,
                 ChildNodeObjects = GetCollectionChildNodeObjects,
                 CanDrag = (collection, parentData) => true,
                 CanDrop = ChartDataCollectionCanDropAndInsert,

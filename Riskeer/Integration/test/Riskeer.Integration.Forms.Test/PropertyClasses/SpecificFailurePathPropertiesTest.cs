@@ -22,11 +22,13 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -37,7 +39,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int isRelevantPropertyIndex = 1;
-        
+        private const int nPropertyIndex = 2;
+
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
@@ -66,16 +69,58 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<SpecificFailurePath>>(properties);
             Assert.AreEqual(failurePath.Name, properties.Name);
             Assert.AreEqual(failurePath.IsRelevant, properties.IsRelevant);
+            
+            SpecificFailurePathInput input = failurePath.Input;
+            Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
+            Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var random = new Random(21);
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = random.NextBoolean()
+                IsRelevant = true
+            };
+
+            // Call
+            var properties = new SpecificFailurePathProperties(failurePath);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
+
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "Naam van het faalpad.");
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+                                                                            generalCategory,
+                                                                            "Is relevant",
+                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            true);
+            
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+        }        
+        
+        [Test]
+        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var failurePath = new SpecificFailurePath
+            {
+                IsRelevant = false
             };
 
             // Call
@@ -107,7 +152,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 1;
+            const int numberOfChangedProperties = 2;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
@@ -124,10 +169,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Call
             const string newName = "Some new cool pretty name";
+            RoundedDouble newN = random.NextRoundedDouble(1.0, 20.0);
             properties.Name = newName;
+            properties.N = newN;
 
             // Assert
             Assert.AreEqual(newName, failurePath.Name);
+
+            SpecificFailurePathInput input = failurePath.Input;
+            Assert.AreEqual(newN, input.N, input.N.GetAccuracy());
 
             mocks.VerifyAll();
         }

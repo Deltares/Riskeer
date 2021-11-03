@@ -45,6 +45,7 @@ namespace Riskeer.Integration.Data.FailurePath
 
             sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;
+            Input = new SpecificFailurePathInput();
             InputComments = new Comment();
             OutputComments = new Comment();
             NotRelevantComments = new Comment();
@@ -75,6 +76,11 @@ namespace Riskeer.Integration.Data.FailurePath
         public Comment NotRelevantComments { get; }
 
         public bool IsRelevant { get; set; }
+        
+        /// <summary>
+        /// Gets the input that applies to the specific failure path.
+        /// </summary>
+        public SpecificFailurePathInput Input { get;  }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

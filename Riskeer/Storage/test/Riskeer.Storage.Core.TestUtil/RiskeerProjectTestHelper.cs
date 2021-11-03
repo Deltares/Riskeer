@@ -47,6 +47,7 @@ using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.MacroStabilityInwards.Data;
@@ -207,6 +208,11 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(assessmentSection.DuneErosion.SectionResults);
             SetSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
+
+            IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
+                                                                      .ToArray();
+            SetSpecificFailurePaths(failurePaths);
+            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
 
             var fullTestProject = new RiskeerProject
             {
@@ -2324,6 +2330,28 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
                 sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            }
+        }
+
+        #endregion
+
+        #region Specific FailurePath
+
+        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailurePath> specificFailurePaths)
+        {
+            var i = 0;
+            foreach (SpecificFailurePath failurePath in specificFailurePaths)
+            {
+                var random = new Random(i);
+                failurePath.Input.N = random.NextRoundedDouble(1, 20);
+
+                failurePath.Name = $"Path {i}";
+                failurePath.IsRelevant = random.NextBoolean();
+                failurePath.InputComments.Body = $"Input comment path: {i}";
+                failurePath.OutputComments.Body = $"Output comment path: {i}";
+                failurePath.NotRelevantComments.Body = $"NotRelevant comment path: {i}";
+
+                i++;
             }
         }
 

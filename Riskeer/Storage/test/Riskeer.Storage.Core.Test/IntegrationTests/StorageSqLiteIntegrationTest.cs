@@ -49,6 +49,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.MacroStabilityInwards.Data;
@@ -338,6 +339,10 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.StabilityPointStructures.SectionResults,
                     actualAssessmentSection.StabilityPointStructures.SectionResults);
+
+                AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
+                                         actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
+                                         AssertSpecificFailurePath);
             }
         }
 
@@ -735,6 +740,25 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 assertAction(expectedReferenceValue, getActualReference());
             }
         }
+
+        #region SpecificFailurePaths
+
+        private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
+        {
+            Assert.AreEqual(expected.Input.N, actual.Input.N);
+
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.IsRelevant, actual.IsRelevant);
+
+            AssertComments(expected.InputComments, actual.InputComments);
+            AssertComments(expected.OutputComments, actual.OutputComments);
+            AssertComments(expected.NotRelevantComments, actual.NotRelevantComments);
+
+            Assert.AreEqual(expected.FailureMechanismSectionSourcePath, actual.FailureMechanismSectionSourcePath);
+            AssertFailureMechanismSections(expected.Sections, actual.Sections);
+        }
+
+        #endregion
 
         #region StabilityPointStructures FailureMechanism
 

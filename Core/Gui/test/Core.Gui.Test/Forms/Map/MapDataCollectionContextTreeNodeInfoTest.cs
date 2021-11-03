@@ -66,7 +66,7 @@ namespace Core.Gui.Test.Forms.Map
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNotNull(info.ExpandOnCreate);
             Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
@@ -102,6 +102,16 @@ namespace Core.Gui.Test.Forms.Map
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.folder, image);
+        }
+
+        [Test]
+        public void ExpandOnCreate_Always_ReturnsTrue()
+        {
+            // Call
+            bool expandOnCreate = info.ExpandOnCreate(null);
+
+            // Assert
+            Assert.IsTrue(expandOnCreate);
         }
 
         [Test]
