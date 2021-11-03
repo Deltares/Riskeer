@@ -913,7 +913,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>..\Resources\update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FailureMechanism_IsRelevant_DisplayName" xml:space="preserve">
-    <value>Is relevant</value>
+    <value>In assemblage</value>
   </data>
   <data name="DataTypeDisplayName_xml_file_filter_Extension" xml:space="preserve">
     <value>xml</value>

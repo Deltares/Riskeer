@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int codePropertyIndex = 1;
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
+        private const int inAssemblyPropertyIndex = 4;
         private const int nPropertyIndex = 5;
 
         [Test]
@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism
@@ -128,10 +128,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
-                                                                            "Is relevant",
+                                                                            "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
 
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism
@@ -181,10 +181,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
-                                                                            "Is relevant",
+                                                                            "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
         }
@@ -242,12 +242,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = inAssembly
             };
             var properties = new PipingStructureFailurePathProperties(failureMechanism);
 
@@ -257,8 +257,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

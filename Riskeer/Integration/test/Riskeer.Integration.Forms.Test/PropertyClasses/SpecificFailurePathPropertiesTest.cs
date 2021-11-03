@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     public class SpecificFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
-        private const int isRelevantPropertyIndex = 1;
+        private const int inAssemblyPropertyIndex = 1;
         private const int nPropertyIndex = 2;
 
         [Test]
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantTrue_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failurePath = new SpecificFailurePath
@@ -100,10 +100,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Naam",
                                                                             "Naam van het faalpad.");
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
-                                                                            "Is relevant",
+                                                                            "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
 
@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failurePath = new SpecificFailurePath
@@ -138,10 +138,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Naam",
                                                                             "Naam van het faalpad.");
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
-                                                                            "Is relevant",
+                                                                            "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
         }

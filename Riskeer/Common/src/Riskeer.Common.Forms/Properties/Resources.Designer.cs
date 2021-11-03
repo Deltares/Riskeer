@@ -1578,7 +1578,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is relevant.
+        ///   Looks up a localized string similar to In assemblage.
         /// </summary>
         public static string FailureMechanism_IsRelevant_DisplayName {
             get {
