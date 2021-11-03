@@ -26,7 +26,7 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure a collection of generic failure paths.
+    /// Presentation object for a collection of generic failure paths.
     /// </summary>
     public class GenericFailurePathsContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {

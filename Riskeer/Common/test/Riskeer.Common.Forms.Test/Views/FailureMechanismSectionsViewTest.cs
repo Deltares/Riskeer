@@ -64,14 +64,14 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failurePath = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismSectionsView(null, failureMechanism);
+            void Call() => new FailureMechanismSectionsView(null, failurePath);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("sections", paramName);
 
             mocks.VerifyAll();
@@ -204,7 +204,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var invalidated = false;
 
-                sectionsDataGridView.Invalidated += (s, e) => { invalidated = true; };
+                sectionsDataGridView.Invalidated += (s, e) =>
+                {
+                    invalidated = true;
+                };
 
                 // When
                 failurePath.NotifyObservers();
