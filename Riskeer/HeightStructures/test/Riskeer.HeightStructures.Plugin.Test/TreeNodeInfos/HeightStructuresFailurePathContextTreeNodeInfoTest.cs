@@ -276,10 +276,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class HeightStructuresFailurePathContextIsRelevantTreeNodeInfoTest :
-            FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<HeightStructuresPlugin, HeightStructuresFailureMechanism, HeightStructuresFailurePathContext>
+        public class HeightStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<HeightStructuresPlugin, HeightStructuresFailureMechanism, HeightStructuresFailurePathContext>
         {
-            public HeightStructuresFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public HeightStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override HeightStructuresFailurePathContext CreateFailureMechanismContext(HeightStructuresFailureMechanism failureMechanism,
                                                                                                 IAssessmentSection assessmentSection)

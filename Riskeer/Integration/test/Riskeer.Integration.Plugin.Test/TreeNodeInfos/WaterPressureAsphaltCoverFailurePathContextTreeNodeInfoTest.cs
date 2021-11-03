@@ -276,10 +276,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class WaterPressureAsphaltCoverFailurePathContextIsRelevantTreeNodeInfoTest
-            : FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<RiskeerPlugin, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailurePathContext>
+        public class WaterPressureAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailurePathContext>
         {
-            public WaterPressureAsphaltCoverFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public WaterPressureAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override WaterPressureAsphaltCoverFailurePathContext CreateFailureMechanismContext(WaterPressureAsphaltCoverFailureMechanism failureMechanism,
                                                                                                          IAssessmentSection assessmentSection)

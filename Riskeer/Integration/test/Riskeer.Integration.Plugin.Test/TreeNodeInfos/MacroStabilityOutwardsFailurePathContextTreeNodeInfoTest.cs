@@ -295,10 +295,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class MacroStabilityOutwardsFailurePathContextIsRelevantTreeNodeInfoTest
-            : FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<RiskeerPlugin, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailurePathContext>
+        public class MacroStabilityOutwardsFailurePathContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailurePathContext>
         {
-            public MacroStabilityOutwardsFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public MacroStabilityOutwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override MacroStabilityOutwardsFailurePathContext CreateFailureMechanismContext(MacroStabilityOutwardsFailureMechanism failureMechanism,
                                                                                                       IAssessmentSection assessmentSection)

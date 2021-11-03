@@ -276,10 +276,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class ClosingStructuresFailurePathContextIsRelevantTreeNodeInfoTest :
-            FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailurePathContext>
+        public class ClosingStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailurePathContext>
         {
-            public ClosingStructuresFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public ClosingStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override ClosingStructuresFailurePathContext CreateFailureMechanismContext(ClosingStructuresFailureMechanism failureMechanism,
                                                                                                  IAssessmentSection assessmentSection)

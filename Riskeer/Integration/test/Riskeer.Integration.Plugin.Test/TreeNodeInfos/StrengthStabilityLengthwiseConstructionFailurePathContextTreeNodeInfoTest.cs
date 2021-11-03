@@ -237,10 +237,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class StrengthStabilityLenghtWiseConstructionFailurePathContextIsRelevantTreeNodeInfoTest
-            : FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<RiskeerPlugin, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailurePathContext>
+        public class StrengthStabilityLenghtWiseConstructionFailurePathContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailurePathContext>
         {
-            public StrengthStabilityLenghtWiseConstructionFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public StrengthStabilityLenghtWiseConstructionFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override StrengthStabilityLengthwiseConstructionFailurePathContext CreateFailureMechanismContext(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
                                                                                                                        IAssessmentSection assessmentSection)

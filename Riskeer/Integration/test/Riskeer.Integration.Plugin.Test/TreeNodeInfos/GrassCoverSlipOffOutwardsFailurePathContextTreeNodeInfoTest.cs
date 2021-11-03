@@ -276,10 +276,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class GrassCoverSlipOffOutwardsFailurePathContextIsRelevantTreeNodeInfoTest
-            : FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<RiskeerPlugin, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailurePathContext>
+        public class GrassCoverSlipOffOutwardsFailurePathContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailurePathContext>
         {
-            public GrassCoverSlipOffOutwardsFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public GrassCoverSlipOffOutwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override GrassCoverSlipOffOutwardsFailurePathContext CreateFailureMechanismContext(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
                                                                                                          IAssessmentSection assessmentSection)

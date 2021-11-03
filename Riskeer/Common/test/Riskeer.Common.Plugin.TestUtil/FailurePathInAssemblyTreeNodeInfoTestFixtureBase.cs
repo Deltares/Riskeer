@@ -37,13 +37,13 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Plugin.TestUtil
 {
     /// <summary>
-    /// Test fixture for verifying the IsRelevant behaviour of a TreeNodeInfo.
+    /// Test fixture for verifying the InAssembly behaviour of a TreeNodeInfo.
     /// </summary>
     /// <typeparam name="TPlugin">The type of plugin to create the tests for.</typeparam>
     /// <typeparam name="TFailurePath">The type of <see cref="IFailurePath"/> to create the tests for.</typeparam>
     /// <typeparam name="TFailurePathContext">The type of <see cref="IFailurePathContext{T}"/> to create the tests for.</typeparam>
     [TestFixture]
-    public abstract class FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<TPlugin, TFailurePath, TFailurePathContext>
+    public abstract class FailurePathInAssemblyTreeNodeInfoTestFixtureBase<TPlugin, TFailurePath, TFailurePathContext>
         where TPlugin : PluginBase, new()
         where TFailurePath : IFailurePath, new()
         where TFailurePathContext : IFailurePathContext<TFailurePath>
@@ -229,13 +229,13 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase{TPlugin,TFailureMechanism,TFailureMechanismContext}"/>.
+        /// Creates a new instance of <see cref="FailurePathInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailurePath,TFailurePathContext}"/>.
         /// </summary>
-        /// <param name="contextMenuRelevancyIndexWhenInAssembly">The index of the IsRelevant context menu item when the <typeparamref name="TFailurePath"/>
-        /// is relevant.</param>
-        /// <param name="contextMenuRelevancyIndexWhenNotInAssembly">The index of the IsRelevant context menu item when the <typeparamref name="TFailurePath"/>
-        /// is not relevant.</param>
-        protected FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase(int contextMenuRelevancyIndexWhenInAssembly,
+        /// <param name="contextMenuRelevancyIndexWhenInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// is in the assembly.</param>
+        /// <param name="contextMenuRelevancyIndexWhenNotInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// is not in the assembly.</param>
+        protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuRelevancyIndexWhenInAssembly,
                                                                         int contextMenuRelevancyIndexWhenNotInAssembly)
         {
             this.contextMenuRelevancyIndexWhenInAssembly = contextMenuRelevancyIndexWhenInAssembly;

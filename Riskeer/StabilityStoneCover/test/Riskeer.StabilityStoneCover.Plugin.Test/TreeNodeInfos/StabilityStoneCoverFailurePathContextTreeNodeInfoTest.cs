@@ -271,10 +271,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class StabilityStoneCoverFailurePathContextIsRelevantTreeNodeInfoTest :
-            FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<StabilityStoneCoverPlugin, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailurePathContext>
+        public class StabilityStoneCoverFailurePathContextInAssemblyTreeNodeInfoTest :
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityStoneCoverPlugin, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailurePathContext>
         {
-            public StabilityStoneCoverFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public StabilityStoneCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override StabilityStoneCoverFailurePathContext CreateFailureMechanismContext(StabilityStoneCoverFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection)

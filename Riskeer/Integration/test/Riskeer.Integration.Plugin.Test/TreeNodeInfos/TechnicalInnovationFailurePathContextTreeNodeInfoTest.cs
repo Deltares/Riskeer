@@ -276,10 +276,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class TechnicalInnovationFailurePathContextIsRelevantTreeNodeInfoTest
-            : FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<RiskeerPlugin, TechnicalInnovationFailureMechanism, TechnicalInnovationFailurePathContext>
+        public class TechnicalInnovationFailurePathContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, TechnicalInnovationFailureMechanism, TechnicalInnovationFailurePathContext>
         {
-            public TechnicalInnovationFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public TechnicalInnovationFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override TechnicalInnovationFailurePathContext CreateFailureMechanismContext(TechnicalInnovationFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection)

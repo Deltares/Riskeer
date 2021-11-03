@@ -297,10 +297,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class DuneErosionFailurePathContextIsRelevantTreeNodeInfoTest :
-            FailureMechanismIsRelevantTreeNodeInfoTestFixtureBase<DuneErosionPlugin, DuneErosionFailureMechanism, DuneErosionFailurePathContext>
+        public class DuneErosionFailurePathContextInAssemblyTreeNodeInfoTest :
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<DuneErosionPlugin, DuneErosionFailureMechanism, DuneErosionFailurePathContext>
         {
-            public DuneErosionFailurePathContextIsRelevantTreeNodeInfoTest() : base(2, 0) {}
+            public DuneErosionFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override DuneErosionFailurePathContext CreateFailureMechanismContext(DuneErosionFailureMechanism failureMechanism,
                                                                                            IAssessmentSection assessmentSection)
