@@ -326,7 +326,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    string expectedMessage = $"De berekening bevat een lamelbreedte van {calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture)} meter. D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter. Er wordt daarom een lamelbreedte van 1 meter geëxporteerd.";
+                    string expectedMessage = $"'Nieuwe berekening': De berekening bevat een lamelbreedte van {calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture)} meter. D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter. Er wordt daarom een lamelbreedte van 1 meter geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
@@ -358,7 +358,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd.";
+                    const string expectedMessage = "'Nieuwe berekening': De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
@@ -394,7 +394,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
+                    const string expectedMessage = "'Nieuwe berekening': De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
@@ -439,7 +439,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
+                    const string expectedMessage = "'Nieuwe berekening': De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }

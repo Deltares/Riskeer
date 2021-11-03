@@ -144,20 +144,25 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             if (Math.Abs(calculation.InputParameters.MaximumSliceWidth - 1) > 1e-3)
             {
-                log.WarnFormat(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one_but_calculation_has_MaximumSliceWidth_0,
-                               calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture));
+                LogWarning(string.Format(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one_but_calculation_has_MaximumSliceWidth_0,
+                                         calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture)));
             }
 
             MacroStabilityInwardsSoilLayer2D[] layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers).ToArray();
             if (layers.Count(l => l.Data.IsAquifer) > 1)
             {
-                log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported);
+                LogWarning(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported);
             }
 
             if (!PersistableStateHelper.HasValidStatePoints(calculation.InputParameters.SoilProfileUnderSurfaceLine))
             {
-                log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_stress_points_not_supported_no_stress_points_exported);
+                LogWarning(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_stress_points_not_supported_no_stress_points_exported);
             }
+        }
+
+        private void LogWarning(string message)
+        {
+            log.Warn($"'{calculation.Name}': {message}");
         }
 
         private void MoveTempFileToFinal(string tempFilePath)

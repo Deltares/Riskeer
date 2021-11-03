@@ -25,16 +25,20 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using Components.Persistence.Stability;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
@@ -338,7 +342,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            calculation1.InputParameters.StochasticSoilProfile.SoilProfile.Layers.ForEachElementDo(layer => layer.Data.IsAquifer = true);
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+            calculation2.InputParameters.StochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1)),
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 2))
+            });
             MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation3");
             MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation4");
 
@@ -373,14 +383,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     // Assert
                     TestHelper.AssertLogMessagesAreGenerated(Call, new[]
                     {
-                        $"Exporteren van '{calculation1.Name}' is gestart.",
-                        $"Gegevens van '{calculation1.Name}' zijn geëxporteerd.",
-                        $"Exporteren van '{calculation2.Name}' is gestart.",
-                        $"Gegevens van '{calculation2.Name}' zijn geëxporteerd.",
-                        $"Exporteren van '{calculation3.Name}' is gestart.",
-                        $"Gegevens van '{calculation3.Name}' zijn geëxporteerd.",
-                        $"Exporteren van '{calculation4.Name}' is gestart.",
-                        $"Gegevens van '{calculation4.Name}' zijn geëxporteerd."
+                        $"'{calculation1.Name}': De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd.",
+                        $"'{calculation2.Name}': De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd."
                     });
                     Assert.IsTrue(exportResult);
                     AssertFilesExistInZip(new[]
@@ -798,33 +802,23 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
                                                                              new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
-            Directory.CreateDirectory(Path.Combine(folderPath, nestedGroup2.Name));
-            string lockedCalculationFilePath = Path.Combine(folderPath, nestedGroup2.Name, $"{calculation3.Name}.{fileExtension}");
 
             try
             {
-                using (var fileDisposeHelper = new FileDisposeHelper(lockedCalculationFilePath))
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
-                    fileDisposeHelper.LockFiles();
+                    var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                    factory.LastCreatedWaternetDailyCalculator.ThrowExceptionOnCalculate = true;
 
                     // Call
                     var exportResult = false;
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{lockedCalculationFilePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+                    var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand 'bla'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                     Assert.IsFalse(exportResult);
-                    AssertFilesExistInZip(new[]
-                    {
-                        $"{nestedGroup1.Name}/{calculation1.Name}.{fileExtension}",
-                        $"{nestedGroup1.Name}/{calculation2.Name}.{fileExtension}"
-                    }, filePath);
-                    AssertFilesDoNotExistInZip(new[]
-                    {
-                        $"{nestedGroup2.Name}/{calculation4.Name}.{fileExtension}"
-                    }, filePath);
+                    Assert.IsFalse(File.Exists(filePath));
                 }
             }
             finally

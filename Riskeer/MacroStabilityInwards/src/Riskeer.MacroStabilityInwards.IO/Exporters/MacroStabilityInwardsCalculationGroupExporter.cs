@@ -204,8 +204,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string currentFolderPath, IDictionary<MacroStabilityInwardsCalculation, string> exportedCalculations)
         {
-            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
-
             string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, ((ICalculationBase) calculation).Name, c => c.Value);
             string calculationFilePath = GetCalculationFilePath(currentFolderPath, uniqueName);
 
@@ -219,7 +217,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 return false;
             }
 
-            log.InfoFormat("Gegevens van \'{0}\' zijn geëxporteerd.", calculation.Name);
             exportedCalculations.Add(calculation, uniqueName);
             itemExported = true;
             return true;
