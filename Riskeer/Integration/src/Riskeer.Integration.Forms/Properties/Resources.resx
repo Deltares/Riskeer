@@ -298,9 +298,6 @@
   <data name="FailureMechanismMergeDataRow_IsSelected_DisplayName" xml:space="preserve">
     <value>Selecteer</value>
   </data>
-  <data name="FailureMechanism_IsRelevant_DisplayName" xml:space="preserve">
-    <value>Is relevant</value>
-  </data>
   <data name="AssessmentSectionMergeDataProviderDialog_InfoToolTip" xml:space="preserve">
     <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>

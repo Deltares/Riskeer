@@ -410,15 +410,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is relevant.
-        /// </summary>
-        public static string FailureMechanism_IsRelevant_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_IsRelevant_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetsspoor.
         /// </summary>
         public static string FailureMechanism_Name_DisplayName {

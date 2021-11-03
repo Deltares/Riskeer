@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
     {
         private const int isSelectedIndex = 0;
         private const int failurePathNameIndex = 1;
-        private const int isRelevantIndex = 2;
+        private const int inAssemblyIndex = 2;
         private const int hasSectionsIndex = 3;
         private const int numberOfCalculationsIndex = 4;
         private const int columnCount = 5;
@@ -128,19 +128,19 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.AreEqual(0, dataGridView.RowCount);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isSelectedIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[failurePathNameIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isRelevantIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[inAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[hasSectionsIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[numberOfCalculationsIndex]);
 
                 Assert.AreEqual("Selecteer", dataGridView.Columns[isSelectedIndex].HeaderText);
                 Assert.AreEqual("Toetsspoor", dataGridView.Columns[failurePathNameIndex].HeaderText);
-                Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
+                Assert.AreEqual("In assemblage", dataGridView.Columns[inAssemblyIndex].HeaderText);
                 Assert.AreEqual("Heeft vakindeling", dataGridView.Columns[hasSectionsIndex].HeaderText);
                 Assert.AreEqual("Aantal berekeningen", dataGridView.Columns[numberOfCalculationsIndex].HeaderText);
 
                 Assert.IsFalse(dataGridView.Columns[isSelectedIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[failurePathNameIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[isRelevantIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[inAssemblyIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[hasSectionsIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[numberOfCalculationsIndex].ReadOnly);
 
@@ -496,7 +496,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Name, cells[failurePathNameIndex].Value);
-            Assert.AreEqual(expectedFailureMechanism.IsRelevant, cells[isRelevantIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.IsRelevant, cells[inAssemblyIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Calculations.Count(), cells[numberOfCalculationsIndex].Value);
         }
@@ -506,7 +506,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
             Assert.AreEqual(expectedFailurePath.Name, cells[failurePathNameIndex].Value);
-            Assert.AreEqual(expectedFailurePath.IsRelevant, cells[isRelevantIndex].Value);
+            Assert.AreEqual(expectedFailurePath.IsRelevant, cells[inAssemblyIndex].Value);
             Assert.AreEqual(expectedFailurePath.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(0, cells[numberOfCalculationsIndex].Value);
         }
