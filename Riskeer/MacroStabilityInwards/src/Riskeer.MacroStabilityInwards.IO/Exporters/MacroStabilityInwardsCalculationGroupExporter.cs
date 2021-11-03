@@ -212,7 +212,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             bool exportSucceeded = exporter.Export();
             if (!exportSucceeded)
             {
-                log.ErrorFormat("{0} {1}", string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van \'{0}\'.", calculation.Name),
+                log.ErrorFormat("{0} {1}", string.Format("Er is een onverwachte fout opgetreden tijdens het exporteren van \'{0}\'.", calculation.Name),
                                 Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
                 return false;
             }
