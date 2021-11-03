@@ -26,9 +26,11 @@ using System.Linq;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.IO.Helpers;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
@@ -109,7 +111,29 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         public bool Export()
         {
-            return ExportCalculationItemsRecursively(calculationGroup, folderPath);
+            try
+            {
+                if (!ExportCalculationItemsRecursively(calculationGroup, tempFolderPath))
+                {
+                    return false;
+                }
+
+                ZipFileExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
+
+                return true;
+            }
+            catch (CriticalFileWriteException e)
+            {
+                log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
+                return false;
+            }
+            finally
+            {
+                if (Directory.Exists(tempFolderPath))
+                {
+                    Directory.Delete(tempFolderPath, true);
+                }
+            }
         }
 
         private bool ExportCalculationItemsRecursively(CalculationGroup groupToExport, string currentFolderPath)
@@ -178,18 +202,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
 
             string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, ((ICalculationBase) calculation).Name, c => c.Value);
-            string filePath = GetCalculationFilePath(currentFolderPath, uniqueName);
+            string calculationFilePath = GetCalculationFilePath(currentFolderPath, uniqueName);
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, generalInput, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, generalInput, persistenceFactory, calculationFilePath, () => getNormativeAssessmentLevelFunc(calculation));
 
             bool exportSucceeded = exporter.Export();
             if (!exportSucceeded)
             {
-                log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
+                log.ErrorFormat("{0} {1}", string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van \'{0}\'.", calculation.Name),
+                                Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
                 return false;
             }
 
-            log.InfoFormat(CoreGuiResources.GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1, calculation.Name, filePath);
+            log.InfoFormat("Gegevens van \'{0}\' zijn geëxporteerd.", calculation.Name);
             exportedCalculations.Add(calculation, uniqueName);
             return true;
         }

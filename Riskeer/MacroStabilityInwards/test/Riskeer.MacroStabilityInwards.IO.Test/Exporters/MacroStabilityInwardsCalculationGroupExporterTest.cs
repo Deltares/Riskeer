@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using Components.Persistence.Stability;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -149,6 +152,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationExporterReturnsFalse_ReturnsFalse)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation = CreateCalculation("calculation");
 
@@ -163,7 +167,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 };
 
                 var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                                 persistenceFactory, folderPath, fileExtension,
+                                                                                 persistenceFactory, filePath, fileExtension,
                                                                                  c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 try
@@ -173,8 +177,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    string filePath = Path.Combine(folderPath, $"{calculation.Name}.stix");
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+                    var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van '{calculation.Name}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                     Assert.IsFalse(exportResult);
                 }
@@ -191,6 +194,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithOnlyCalculations_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -200,7 +204,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculationGroup.Children.Add(calculation2);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -212,8 +216,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
+                    AssertFilesExistInZip(new[]
+                    {
+                        $"{calculation1.Name}.{fileExtension}",
+                        $"{calculation2.Name}.{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -228,6 +235,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationsWithoutOutput_LogWarningsAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2", false);
@@ -237,7 +245,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculationGroup.Children.Add(calculation2);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -255,8 +263,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                         new Tuple<string, LogLevelConstant>($"Berekening '{calculation2.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
                     });
                     Assert.IsTrue(exportResult);
-                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}")));
-                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}")));
+                    Assert.IsFalse(File.Exists(filePath));
                 }
             }
             finally
@@ -271,6 +278,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithNestedGroupsAndCalculations_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -294,7 +302,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootCalculationGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -306,10 +314,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation3.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation4.Name}.{fileExtension}"));
+                    AssertFilesExistInZip(new[]
+                    {
+                        $"{calculation1.Name}.{fileExtension}",
+                        $"{calculation2.Name}.{fileExtension}",
+                        $"{nestedGroup1.Name}/{calculation3.Name}.{fileExtension}",
+                        $"{nestedGroup1.Name}/{nestedGroup2.Name}/{calculation4.Name}.{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -324,6 +335,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithNestedGroupsAndCalculations_LogsMessages)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -347,7 +359,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootCalculationGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -359,27 +371,25 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    string calculation1FilePath = Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}");
-                    string calculation2FilePath = Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}");
-                    string calculation3FilePath = Path.Combine(folderPath, nestedGroup1.Name, $"{calculation3.Name}.{fileExtension}");
-                    string calculation4FilePath = Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation4.Name}.{fileExtension}");
-
                     TestHelper.AssertLogMessagesAreGenerated(Call, new[]
                     {
                         $"Exporteren van '{calculation1.Name}' is gestart.",
-                        $"Gegevens van '{calculation1.Name}' zijn geëxporteerd naar bestand '{calculation1FilePath}'.",
+                        $"Gegevens van '{calculation1.Name}' zijn geëxporteerd.",
                         $"Exporteren van '{calculation2.Name}' is gestart.",
-                        $"Gegevens van '{calculation2.Name}' zijn geëxporteerd naar bestand '{calculation2FilePath}'.",
+                        $"Gegevens van '{calculation2.Name}' zijn geëxporteerd.",
                         $"Exporteren van '{calculation3.Name}' is gestart.",
-                        $"Gegevens van '{calculation3.Name}' zijn geëxporteerd naar bestand '{calculation3FilePath}'.",
+                        $"Gegevens van '{calculation3.Name}' zijn geëxporteerd.",
                         $"Exporteren van '{calculation4.Name}' is gestart.",
-                        $"Gegevens van '{calculation4.Name}' zijn geëxporteerd naar bestand '{calculation4FilePath}'."
+                        $"Gegevens van '{calculation4.Name}' zijn geëxporteerd."
                     });
                     Assert.IsTrue(exportResult);
-                    AssertCalculationExists(calculation1FilePath);
-                    AssertCalculationExists(calculation2FilePath);
-                    AssertCalculationExists(calculation3FilePath);
-                    AssertCalculationExists(calculation4FilePath);
+                    AssertFilesExistInZip(new[]
+                    {
+                        $"{calculation1.Name}.{fileExtension}",
+                        $"{calculation2.Name}.{fileExtension}",
+                        $"{nestedGroup1.Name}/{calculation3.Name}.{fileExtension}",
+                        $"{nestedGroup1.Name}/{nestedGroup2.Name}/{calculation4.Name}.{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -394,6 +404,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithCalculationsWithSameName_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -407,7 +418,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             calculationGroup.Children.Add(calculation4);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -419,10 +430,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation3.Name} (1).{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation4.Name} (2).{fileExtension}"));
+                    
+                    AssertFilesExistInZip(new[]
+                    {
+                        $"{calculation1.Name}.{fileExtension}",
+                        $"{calculation2.Name}.{fileExtension}",
+                        $"{calculation3.Name} (1).{fileExtension}",
+                        $"{calculation4.Name} (2).{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -437,6 +452,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupsWithSameName_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -470,7 +486,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup3);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -482,11 +498,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation3.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation4.Name} (1).{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup3.Name} (2)", $"{calculation5.Name}.{fileExtension}"));
+
+                    AssertFilesExistInZip(new[] 
+                    {
+                        $"{nestedGroup1.Name}/{calculation1.Name}.{fileExtension}",
+                        $"{nestedGroup1.Name}/{calculation2.Name}.{fileExtension}",
+                        $"{nestedGroup2.Name} (1)/{calculation3.Name}.{fileExtension}",
+                        $"{nestedGroup2.Name} (1)/{calculation4.Name} (1).{fileExtension}",
+                        $"{nestedGroup3.Name} (2)/{calculation5.Name}.{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -501,6 +521,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupsWithSameName_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             var rootGroup = new CalculationGroup
             {
@@ -513,7 +534,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -525,7 +546,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                    Assert.IsFalse(File.Exists(filePath));
                 }
             }
             finally
@@ -540,6 +561,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithEmptyCalculationGroups_FolderNotExportedAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             var rootGroup = new CalculationGroup
             {
@@ -557,7 +579,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -569,8 +591,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name)));
-                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                    Assert.IsFalse(File.Exists(filePath));
                 }
             }
             finally
@@ -585,6 +606,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndMessageLoggedAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
 
@@ -600,7 +622,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -617,7 +639,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                         new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
                     });
                     Assert.IsTrue(exportResult);
-                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                    Assert.IsFalse(File.Exists(filePath));
                 }
             }
             finally
@@ -632,6 +654,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndMessageLoggedAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2", false);
@@ -654,7 +677,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -687,6 +710,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithGroupsWithCalculationsWithAndWithoutOutput_FolderNotExportedAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -709,7 +733,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup1);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             try
@@ -726,8 +750,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                         new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
                     });
                     Assert.IsTrue(exportResult);
-                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation1.Name}.{fileExtension}")));
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation2.Name}.{fileExtension}"));
+                    
+                    AssertFilesExistInZip(new[]
+                    {
+                        $"{nestedGroup1.Name}/{nestedGroup2.Name}/{calculation2.Name}.{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -742,6 +769,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_ErrorDuringSingleCalculationExport_LogsErrorAndReturnsFalse)}");
             Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "export.zip");
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
@@ -768,7 +796,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             rootGroup.Children.Add(nestedGroup2);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                             new PersistenceFactory(), folderPath, fileExtension,
+                                                                             new PersistenceFactory(), filePath, fileExtension,
                                                                              c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
             Directory.CreateDirectory(Path.Combine(folderPath, nestedGroup2.Name));
             string lockedCalculationFilePath = Path.Combine(folderPath, nestedGroup2.Name, $"{calculation3.Name}.{fileExtension}");
@@ -788,9 +816,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{lockedCalculationFilePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                     Assert.IsFalse(exportResult);
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
-                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
-                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, nestedGroup2.Name, $"{calculation4.Name}.{fileExtension}")));
+                    AssertFilesExistInZip(new[]
+                    {
+                        $"{nestedGroup1.Name}/{calculation1.Name}.{fileExtension}",
+                        $"{nestedGroup1.Name}/{calculation2.Name}.{fileExtension}"
+                    }, filePath);
+                    AssertFilesDoNotExistInZip(new[]
+                    {
+                        $"{nestedGroup2.Name}/{calculation4.Name}.{fileExtension}"
+                    }, filePath);
                 }
             }
             finally
@@ -799,10 +833,20 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
         }
 
-        private static void AssertCalculationExists(string calculationPath)
+        private static void AssertFilesExistInZip(IEnumerable<string> expectedFiles, string filePath)
         {
-            Assert.IsTrue(File.Exists(calculationPath));
-            Assert.IsFalse(File.Exists($"{calculationPath}.temp"));
+            using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
+            {
+                CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+            }
+        }
+
+        private static void AssertFilesDoNotExistInZip(IEnumerable<string> expectedFiles, string filePath)
+        {
+            using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
+            {
+                CollectionAssert.IsNotSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+            }
         }
 
         private static MacroStabilityInwardsCalculationScenario CreateCalculation(string calculationName, bool setOutput = true)
