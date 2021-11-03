@@ -367,6 +367,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Er zijn geen D-GEO Suite Stability Projecten geëxporteerd..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationGroupExporter_Export_Exception_0_no_stability_projects_exported {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationGroupExporter_Export_Exception_0_no_stability_pro" +
+                        "jects_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het exporteren van &apos;{0}&apos;..
         /// </summary>
         public static string MacroStabilityInwardsCalculationGroupExporter_ExportCalculation_Unexpected_error_during_export_CalculationName_0 {

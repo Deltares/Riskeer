@@ -812,6 +812,47 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
         }
 
+        [Test]
+        public void Export_CreatingZipFileThrowsCriticalFileWriteException_LogErrorAndReturnFalse()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CreatingZipFileThrowsCriticalFileWriteException_LogErrorAndReturnFalse)}");
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "test.zip");
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
+                                                                             new PersistenceFactory(), filePath, fileExtension,
+                                                                             c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                using (var helper = new FileDisposeHelper(filePath))
+                {
+                    helper.LockFiles();
+
+                    // Call
+                    var isExported = true;
+                    void Call() => isExported = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                                             "Er zijn geen D-GEO Suite Stability Projecten geëxporteerd.";
+                    TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
+                    Assert.IsFalse(isExported);
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
         private static void AssertFilesExistInZip(IEnumerable<string> expectedFiles, string filePath)
         {
             using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))

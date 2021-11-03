@@ -129,7 +129,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
             catch (CriticalFileWriteException e)
             {
-                log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
+                log.ErrorFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Exception_0_no_stability_projects_exported,
+                                e.Message);
                 return false;
             }
             finally
