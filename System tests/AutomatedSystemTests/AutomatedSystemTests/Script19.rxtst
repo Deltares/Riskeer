@@ -3,7 +3,7 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<smartfoldernode
-			datasource="script19_LoopDuplicateToObtainRequiredCalculations"
+			datasource="script19a_LoopDuplicateCalculations"
 			id="0178fc33-d7e0-41a1-b5b5-c043182679b1"
 			name="DuplicateToObtainRequiredCalculations">
 			</smartfoldernode>
@@ -12,27 +12,26 @@
 			name="ValidateProperties">
 			</smartfoldernode>
 			<testmodule
-			id="05acc8ee-02be-43ea-95f9-e07cf8ffc8fb"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ Invoer]]>
-				</description>
+			id="0a0498ed-9d9d-4ee4-8577-bfa5abfe2d05"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
 				<databinding>
 					<var
-					dataname="pathToInputItemCalculation"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="stringInput"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
+					dataname="stateWithCalculations"
+					datasourceid="82d272ca-2451-4b3b-9301-57f1f78753a7"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="0b62c428-3f5a-4f95-a66a-1118e7066da9"
@@ -271,7 +270,7 @@
 				<parameters>
 					<param
 					name="projectToOpen"
-					value="script17b.risk">
+					value="script17b_GEKB.risk">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -295,33 +294,10 @@
 				<parameters>
 					<param
 					name="pathCalculationToDuplicate"
-					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005">
+					value="Traject>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005">
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="269284d0-ee3a-492b-8c19-1c7108319f3a"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ calculationName]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToInputItemCalculation"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="newNameDuplicatedCalculation"
-					datasourceid="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="27224362-5693-4e35-8b5b-2ee9d1c1f093"
 			name="CreateScreenshotMessagesPanel"
@@ -358,7 +334,7 @@
 					</param>
 					<param
 					name="pathToCalculationSubFolder"
-					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>script19">
+					value="">
 					</param>
 					<param
 					name="extensionRiskeerProjects"
@@ -367,6 +343,18 @@
 					<param
 					name="pathToPreviousVersionFile"
 					value="X:\script19\previousVersion">
+					</param>
+					<param
+					name="dummyString"
+					value="">
+					</param>
+					<param
+					name="pathToCalculationsFolder"
+					value="Traject>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen">
+					</param>
+					<param
+					name="suffixNewStepPath"
+					value=">">
 					</param>
 				</parameters>
 			</testcase>
@@ -511,10 +499,6 @@
 			name="a)CalculateHBNAndOvertoppingRate">
 				<parameters>
 					<param
-					name="pathToCalculationsFolder"
-					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen">
-					</param>
-					<param
 					name="newNameFolder"
 					value="script19">
 					</param>
@@ -638,8 +622,12 @@
 			name="MoveFirstDuplicatedCalculationInsideCreatedFolder">
 				<parameters>
 					<param
-					name="originalPathDuplicatedCalculation"
-					value="Traject 12-2 (1)>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005_F1_D1_Norm">
+					name="nameDuplicatedCalculation"
+					value="profiel005_F1_D1_Norm">
+					</param>
+					<param
+					name="pathDuplicatedCalculation"
+					value="">
 					</param>
 				</parameters>
 				<conditiongroup
@@ -652,13 +640,13 @@
 								<databinding
 								bindingtype="DataConnector"
 								dataname="newNameDuplicatedCalculation"
-								id="703c488a-95ee-4e92-b37f-dd3dfecb10c4">
+								id="ce1a1efa-836a-49b3-a1e4-55c011a0f359">
 								</databinding>
 							</datavaluesource>
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="profiel005_F1_D1_Norm">
+							value="profiel005_F1_D1_HBN1_OD1_(1_3000)">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -1089,6 +1077,80 @@
 			id="661f8c1c-47d4-435a-8615-81cc82e598fc"
 			name="GenerateCSVPropertiesPanel">
 			</smartfoldernode>
+			<testmodule
+			id="665aba4b-65b8-4835-99c1-db33e62fdd10"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="suffixNewStepPath"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="nameDuplicatedCalculation"
+					datasourceid="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="pathDuplicatedCalculation"
+					datasourceid="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="6af1887d-8ba9-489c-ac6b-ac5dc1e79193"
 			name="StartAndRunAllCalculationsUntilFinished">
@@ -1123,29 +1185,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="6e00f70c-af01-4fd6-9dfc-c782fdd8fbb3"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ >]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToInputItemCalculation"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="charSeparatorPath"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="6f4ce2a0-a59a-4993-899c-0c823b6373bc"
 			name="SelectGenericItemInProjectExplorer"
@@ -1194,18 +1233,12 @@
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
 				<description>
-					<![CDATA[path Calculations + >]]>
+					<![CDATA[path Calculations + > + subfolderName + > + calculationName + > + Invoer]]>
 				</description>
 				<databinding>
 					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="charSeparatorPath"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
+					dataname="suffixNewStepPath"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -1215,7 +1248,69 @@
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
 					</var>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="newNameFolder"
+					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="suffixNewStepPath"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="newNameDuplicatedCalculation"
+					datasourceid="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="charSeparatorPath"
+					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="stringInput"
+					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToCalculationsFolder"
+					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="7290c500-28bc-403a-b669-764962819606"
@@ -1242,16 +1337,6 @@
 			<smartfoldernode
 			id="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
 			name="CreateAndRenameCalculationFolder">
-				<parameters>
-					<param
-					name="suffixNewStepPath"
-					value=">">
-					</param>
-					<param
-					name="intermediateString"
-					value="">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="7f06a5ce-4883-4174-aacd-9aaf7f5f4f3b"
@@ -1267,6 +1352,16 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="82d272ca-2451-4b3b-9301-57f1f78753a7"
+			name="SelectStateWithCalculations">
+				<parameters>
+					<param
+					name="stateWithCalculations"
+					value="Sterkte">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="854f0cbe-a437-44b5-a981-3d8557a92c22"
 			name="DragAndDropItemOntoAnotherItem"
@@ -1274,7 +1369,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="originalPathDuplicatedCalculation"
+					dataname="pathDuplicatedCalculation"
 					datasourceid="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e"
 					variableid="0b446edc-7bfd-4e53-b683-8c3dd2b46bb3"
 					variablename="pathItemToMove">
@@ -1308,22 +1403,70 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="suffixNewStepPath"
-					datasourceid="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
+					dataname="pathToCalculationSubFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+					<var
+					dataname="newNameFolder"
+					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
 					</var>
 					<var
 					dataname="pathToCalculationsFolder"
-					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
 					<var
-					dataname="intermediateString"
-					datasourceid="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
+					dataname="suffixNewStepPath"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1334,14 +1477,14 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="suffixItem"
-					datasourceid="4ef855ab-ceba-4abf-aa57-21e83b6c883d"
+					dataname="suffixNewStepPath"
+					datasourceid="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
 					<var
 					dataname="pathToCalculationsFolder"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
 					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
 					variablename="string1">
 					</var>
@@ -1389,54 +1532,8 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="8f309e16-ba1b-4584-ba9f-3f440a7de09f"
-			name="ConcatenateStrings"
-			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="intermediateString"
-					datasourceid="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="newNameFolder"
-					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="pathToCalculationSubFolder"
-					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="suffixItem"
-					datasourceid="4ef855ab-ceba-4abf-aa57-21e83b6c883d"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
-					dataname="pathToCalculationsFolder"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
-					variablename="string1">
-					</var>
-					<var
-					dataname="pathToCalculationSubFolder"
-					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
-					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
-					variablename="concatenatedString">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
-			datasource="script19a_LoopConfigureCalculations"
+			datasource="script19a_LoopDuplicateCalculations"
 			errorbehavior="ContinueNextIteration"
 			id="8f650b63-340a-48c0-82f2-75b82cb6006d"
 			name="ConfigureCalculations">
@@ -1550,7 +1647,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script19a_LoopConfigureCalculations"
+			datasource="script19a_LoopDuplicateCalculations"
 			errorbehavior="ContinueNextIteration"
 			id="9f37b25b-4be2-4547-9248-1aff54b324a4"
 			name="ValidateNoResults">
@@ -1829,29 +1926,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="b348041e-f34f-4bf7-90c5-80a105e7cfe3"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ subfolderName]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToInputItemCalculation"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="newNameFolder"
-					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="b3896091-f44c-4a85-a3a0-6b1f1b1f5dee"
 			name="OpenView">
@@ -2080,29 +2154,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="cf26e460-9014-4b54-89ed-9282c7af052e"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<description>
-					<![CDATA[+ >]]>
-				</description>
-				<databinding>
-					<var
-					dataname="pathToInputItemCalculation"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="charSeparatorPath"
-					datasourceid="8f650b63-340a-48c0-82f2-75b82cb6006d"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="d2cb5150-c1d9-4d62-a63c-bf5c3005033e"
 			name="NewProjectUsingKeyboard"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
@@ -2162,7 +2213,7 @@
 				<databinding>
 					<var
 					dataname="pathToCalculationsFolder"
-					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
@@ -2170,7 +2221,7 @@
 				<missingdatabinding>
 					<var
 					dataname="pathToCalculationsFolder"
-					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					datasourceid="34998c77-babd-4726-88f5-60730c70f3e1"
 					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
 					variablename="pathToItemInProjectExplorer">
 					</var>
@@ -2181,18 +2232,10 @@
 			name="RenameCurrentlySelectedItem"
 			ref="30f153a9-9c98-400c-a020-34c10ac7af64"
 			type="Recording">
-				<databinding>
+				<missingdatabinding>
 					<var
 					dataname="newNameDuplicatedCalculation"
 					datasourceid="703c488a-95ee-4e92-b37f-dd3dfecb10c4"
-					variableid="1cd2936d-1a59-46ff-b9e0-89eedd021915"
-					variablename="newNameItem">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="newNameFolder"
-					datasourceid="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
 					variableid="1cd2936d-1a59-46ff-b9e0-89eedd021915"
 					variablename="newNameItem">
 					</var>
@@ -2673,6 +2716,14 @@
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
+							id="82d272ca-2451-4b3b-9301-57f1f78753a7"
+							name="SelectStateWithCalculations">
+								<testmodule
+								id="0a0498ed-9d9d-4ee4-8577-bfa5abfe2d05"
+								name="SelectState">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
 							id="3385f130-0fee-42a2-9454-ff7b5bac4fa2"
 							name="CreateFolderWithCalculationsForAllCombinations">
 								<smartfoldernode
@@ -2690,18 +2741,14 @@
 									id="f080e2c0-9026-4848-913c-fe37115663d1"
 									name="RenameCurrentlySelectedItem">
 									</testmodule>
-									<testmodule
-									id="8902445c-95c8-40df-819c-e52b62b84d0d"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="8f309e16-ba1b-4584-ba9f-3f440a7de09f"
-									name="ConcatenateStrings">
-									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="23d6db6a-32e1-4339-b999-9f0438fcbbbc"
 								name="SelectCalculationToUseAsTemplate">
+									<testmodule
+									id="8902445c-95c8-40df-819c-e52b62b84d0d"
+									name="ConcatenateStrings">
+									</testmodule>
 									<testmodule
 									id="0cda63ae-3ff2-444d-9877-fc1c511ea3ba"
 									name="SelectGenericItemInProjectExplorer">
@@ -2730,6 +2777,10 @@
 									id="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e"
 									name="MoveFirstDuplicatedCalculationInsideCreatedFolder">
 										<testmodule
+										id="665aba4b-65b8-4835-99c1-db33e62fdd10"
+										name="ConcatenateStrings">
+										</testmodule>
+										<testmodule
 										id="854f0cbe-a437-44b5-a981-3d8557a92c22"
 										name="DragAndDropItemOntoAnotherItem">
 										</testmodule>
@@ -2752,36 +2803,16 @@
 							id="8f650b63-340a-48c0-82f2-75b82cb6006d"
 							name="ConfigureCalculations">
 								<smartfoldernode
-								id="7290c500-28bc-403a-b669-764962819606"
-								name="BuildPathInputCalculation">
-									<testmodule
-									id="72817f44-143d-4329-bec8-7ea85b9299dd"
-									name="ConcatenateStrings">
-									</testmodule>
-									<testmodule
-									id="b348041e-f34f-4bf7-90c5-80a105e7cfe3"
-									name="AppendString">
-									</testmodule>
-									<testmodule
-									id="6e00f70c-af01-4fd6-9dfc-c782fdd8fbb3"
-									name="AppendString">
-									</testmodule>
-									<testmodule
-									id="269284d0-ee3a-492b-8c19-1c7108319f3a"
-									name="AppendString">
-									</testmodule>
-									<testmodule
-									id="cf26e460-9014-4b54-89ed-9282c7af052e"
-									name="AppendString">
-									</testmodule>
-									<testmodule
-									id="05acc8ee-02be-43ea-95f9-e07cf8ffc8fb"
-									name="AppendString">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
 								id="d977c668-1e43-46f3-828c-5c2b61e15632"
 								name="SelectCalculationInputItem">
+									<smartfoldernode
+									id="7290c500-28bc-403a-b669-764962819606"
+									name="BuildPathInputCalculation">
+										<testmodule
+										id="72817f44-143d-4329-bec8-7ea85b9299dd"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
 									<testmodule
 									id="a30ce0b2-3bac-492a-af1b-9c49ba41ea87"
 									name="SelectGenericItemInProjectExplorer">
@@ -3268,69 +3299,9 @@
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
-		id="703c488a-95ee-4e92-b37f-dd3dfecb10c4"
-		lastknownrowcount="8"
-		name="script19_LoopDuplicateToObtainRequiredCalculations"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					newNameDuplicatedCalculation
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						newNameDuplicatedCalculation
-					</th>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D1_Norm
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D1_Requirement
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D0_Norm
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F1_D0_Requirement
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D1_Norm
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D1_Requirement
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D0_Norm
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D0_Requirement
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
 		id="ce1a1efa-836a-49b3-a1e4-55c011a0f359"
-		lastknownrowcount="8"
-		name="script19a_LoopConfigureCalculations"
+		lastknownrowcount="7"
+		name="script19a_LoopDuplicateCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
@@ -3353,7 +3324,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_Norm
+						profiel005_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 					<td>
 						1-6
@@ -3361,7 +3332,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D1_Requirement
+						profiel005_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 					<td>
 						7-12
@@ -3369,7 +3340,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D0_Norm
+						profiel005_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 					<td>
 						13-18
@@ -3377,7 +3348,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F1_D0_Requirement
+						profiel005_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 					<td>
 						19-24
@@ -3385,7 +3356,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D1_Norm
+						profiel005_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 					<td>
 						25-30
@@ -3393,7 +3364,7 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D1_Requirement
+						profiel005_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 					<td>
 						31-36
@@ -3401,18 +3372,10 @@
 				</tr>
 				<tr>
 					<td>
-						profiel005_F0_D0_Norm
+						profiel005_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 					<td>
 						37-42
-					</td>
-				</tr>
-				<tr>
-					<td>
-						profiel005_F0_D0_Requirement
-					</td>
-					<td>
-						43-48
 					</td>
 				</tr>
 			</table>
@@ -5287,28 +5250,10 @@
 			id="0178fc33-d7e0-41a1-b5b5-c043182679b1">
 			</testcontainer>
 			<testcontainer
-			id="020d4299-60a8-4034-99a7-5e5b08ce6183">
-			</testcontainer>
-			<testcontainer
-			id="0b933e4b-f584-48cf-b983-9f874431308d">
-			</testcontainer>
-			<testcontainer
-			id="0ba0de91-c116-4eab-9d63-d1ae303887d1">
-			</testcontainer>
-			<testcontainer
 			id="109e9a35-8699-4f46-8028-2723005d13d6">
 			</testcontainer>
 			<testcontainer
 			id="11963e5a-b9fe-4c52-9cd0-4094351efbbd">
-			</testcontainer>
-			<testcontainer
-			id="1fdb9ee9-e7d0-4d6b-8986-bd162e0196fd">
-			</testcontainer>
-			<testcontainer
-			id="214e3716-3dc2-44a9-ab51-c8b22336d0a8">
-			</testcontainer>
-			<testcontainer
-			id="2166531a-31f1-49ff-bd33-df3b646eb47e">
 			</testcontainer>
 			<testcontainer
 			id="23d6db6a-32e1-4339-b999-9f0438fcbbbc">
@@ -5323,22 +5268,10 @@
 			id="34998c77-babd-4726-88f5-60730c70f3e1">
 			</testcontainer>
 			<testcontainer
-			id="39b55eec-791a-467e-bbf3-5b9b7973a9db">
-			</testcontainer>
-			<testcontainer
-			id="3ae45633-b733-4c3c-bafc-fb84198aa141">
-			</testcontainer>
-			<testcontainer
 			id="3bffc904-a4b9-4a33-8e8b-d6ded5546298">
 			</testcontainer>
 			<testcontainer
 			id="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e">
-			</testcontainer>
-			<testcontainer
-			id="44851c49-581b-48e8-b035-7fa79c45d06e">
-			</testcontainer>
-			<testcontainer
-			id="4a2a295f-2052-435d-abfb-dd67700e7f1b">
 			</testcontainer>
 			<testcontainer
 			id="527a6f99-c5c5-4a08-ac6e-e8f25bc60876">
@@ -5347,34 +5280,13 @@
 			id="536cac87-74ea-4cc4-a063-af2ad929631b">
 			</testcontainer>
 			<testcontainer
-			id="5399f1b8-8a5e-40cd-9395-bf5b9883b579">
-			</testcontainer>
-			<testcontainer
 			id="5955020e-4151-44f3-8b39-10b545c4d570">
 			</testcontainer>
 			<testcontainer
 			id="5ed91935-fe54-4a5e-971d-c8228143986d">
 			</testcontainer>
 			<testcontainer
-			id="6332daa3-1fbb-4196-b325-97a7beb5f02e">
-			</testcontainer>
-			<testcontainer
-			id="661f8c1c-47d4-435a-8615-81cc82e598fc">
-			</testcontainer>
-			<testcontainer
-			id="6af1887d-8ba9-489c-ac6b-ac5dc1e79193">
-			</testcontainer>
-			<testcontainer
-			id="6c9b67c6-8389-417c-aa87-0a450b28fccc">
-			</testcontainer>
-			<testcontainer
-			id="71537011-e6cf-4f48-8df5-d5b41621a9c1">
-			</testcontainer>
-			<testcontainer
 			id="7290c500-28bc-403a-b669-764962819606">
-			</testcontainer>
-			<testcontainer
-			id="74106648-296a-4aee-87c3-c1ea91ff3ba4">
 			</testcontainer>
 			<testcontainer
 			id="7a70f1b0-adc5-4a5b-82c6-d057bad6589b">
@@ -5383,25 +5295,10 @@
 			id="7f06a5ce-4883-4174-aacd-9aaf7f5f4f3b">
 			</testcontainer>
 			<testcontainer
-			id="7fa960df-4455-4189-9cab-90f15ebd086d">
-			</testcontainer>
-			<testcontainer
-			id="89ba7ba7-cd8c-4080-8026-596a43c8d861">
-			</testcontainer>
-			<testcontainer
-			id="8a276902-8eee-4723-a5d1-0eec7bcfdad2">
+			id="82d272ca-2451-4b3b-9301-57f1f78753a7">
 			</testcontainer>
 			<testcontainer
 			id="8f650b63-340a-48c0-82f2-75b82cb6006d">
-			</testcontainer>
-			<testcontainer
-			id="907d2508-fed3-43c7-b47c-332f145b3d13">
-			</testcontainer>
-			<testcontainer
-			id="9838ef28-5606-463e-8b75-c5b121e58fea">
-			</testcontainer>
-			<testcontainer
-			id="9a1788c9-7017-4509-b3a4-93a0180c5acd">
 			</testcontainer>
 			<testcontainer
 			id="9d2ad675-9710-46f4-b1ea-5afc2b52a285">
@@ -5410,43 +5307,10 @@
 			id="9f37b25b-4be2-4547-9248-1aff54b324a4">
 			</testcontainer>
 			<testcontainer
-			id="a06e1b0e-b3f2-4114-9cb3-e8e1b9a1ddbe">
-			</testcontainer>
-			<testcontainer
-			id="a815cdce-633d-4f3b-bd6e-e1d4b04137a9">
-			</testcontainer>
-			<testcontainer
-			id="b10c7dc2-7f85-4259-9d79-66ef255fee91">
-			</testcontainer>
-			<testcontainer
-			id="b3896091-f44c-4a85-a3a0-6b1f1b1f5dee">
-			</testcontainer>
-			<testcontainer
-			id="b9f18c13-1e80-4c57-8c17-d159a8ed2aea">
-			</testcontainer>
-			<testcontainer
-			id="bb3921eb-bd06-41a1-93fb-7c6b378d03bc">
-			</testcontainer>
-			<testcontainer
-			id="bea194ea-0e52-47f7-b6b8-fef4de395cf6">
-			</testcontainer>
-			<testcontainer
-			id="bf9ec1a6-20c0-4d16-beee-c033d30e5f59">
-			</testcontainer>
-			<testcontainer
 			id="c0cf10ad-71cc-4e61-8ad9-9c9d37b6a1d4">
 			</testcontainer>
 			<testcontainer
-			id="c12ed5c0-bf8e-4712-a795-0505d9921c35">
-			</testcontainer>
-			<testcontainer
 			id="c1b81dad-8883-4bab-a906-d63daad67e4f">
-			</testcontainer>
-			<testcontainer
-			id="c3cf3c88-5a54-4c49-8e27-f0b709c783dd">
-			</testcontainer>
-			<testcontainer
-			id="c5a3af78-c1bc-453a-af65-578916ef29f3">
 			</testcontainer>
 			<testcontainer
 			id="c9a56520-5b31-4b85-9acb-f0af71e72a77">
@@ -5458,31 +5322,10 @@
 			id="d977c668-1e43-46f3-828c-5c2b61e15632">
 			</testcontainer>
 			<testcontainer
-			id="e030dc58-57ed-49ac-9a52-164f21d56f05">
-			</testcontainer>
-			<testcontainer
 			id="e207c420-10a1-476f-90f6-fbd964a4cb32">
 			</testcontainer>
 			<testcontainer
-			id="e43c6ecc-046c-457d-a7aa-943013b41225">
-			</testcontainer>
-			<testcontainer
-			id="e544dc86-3088-4108-8f60-8cd7e42c91e5">
-			</testcontainer>
-			<testcontainer
-			id="e777413d-4a96-4bba-a786-266ce48fc3ef">
-			</testcontainer>
-			<testcontainer
-			id="f041fc09-f2af-4357-bdeb-9e28000050ce">
-			</testcontainer>
-			<testcontainer
-			id="f86e70df-2ca0-4358-8f3c-2bb76bd4115a">
-			</testcontainer>
-			<testcontainer
 			id="f972a0f8-e830-41dc-a051-cf55b771cd14">
-			</testcontainer>
-			<testcontainer
-			id="fd03b4d9-879f-4345-abd7-4c45ed0bb7f8">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
