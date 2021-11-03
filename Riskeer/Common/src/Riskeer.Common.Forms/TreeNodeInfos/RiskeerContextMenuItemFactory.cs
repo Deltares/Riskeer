@@ -402,7 +402,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Bitmap checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
                 Resources.FailurePathContextMenuStrip_Is_relevant,
-                Resources.FailureMechanism_IsRelevant_Description,
+                Resources.FailurePath_InAssembly_Description,
                 checkboxImage,
                 (sender, args) =>
                 {

@@ -1569,24 +1569,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt meegenomen in de assemblage..
-        /// </summary>
-        public static string FailureMechanism_IsRelevant_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanism_IsRelevant_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In assemblage.
-        /// </summary>
-        public static string FailureMechanism_IsRelevant_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanism_IsRelevant_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De parameter &apos;N&apos; die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling..
         /// </summary>
         public static string FailureMechanism_N_Description {
@@ -2100,6 +2082,24 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismSections_StartPoints_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSections_StartPoints_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt meegenomen in de assemblage..
+        /// </summary>
+        public static string FailurePath_InAssembly_Description {
+            get {
+                return ResourceManager.GetString("FailurePath_InAssembly_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In assemblage.
+        /// </summary>
+        public static string FailurePath_InAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailurePath_InAssembly_DisplayName", resourceCulture);
             }
         }
         

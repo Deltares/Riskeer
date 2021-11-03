@@ -314,7 +314,7 @@ handmatig</value>
   <data name="FailurePathContextMenuStrip_Is_relevant" xml:space="preserve">
     <value>I&amp;s relevant</value>
   </data>
-  <data name="FailureMechanism_IsRelevant_Description" xml:space="preserve">
+  <data name="FailurePath_InAssembly_Description" xml:space="preserve">
     <value>Geeft aan of dit faalpad wordt meegenomen in de assemblage.</value>
   </data>
   <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
@@ -912,7 +912,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="UpdateItemIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FailureMechanism_IsRelevant_DisplayName" xml:space="preserve">
+  <data name="FailurePath_InAssembly_DisplayName" xml:space="preserve">
     <value>In assemblage</value>
   </data>
   <data name="DataTypeDisplayName_xml_file_filter_Extension" xml:space="preserve">
