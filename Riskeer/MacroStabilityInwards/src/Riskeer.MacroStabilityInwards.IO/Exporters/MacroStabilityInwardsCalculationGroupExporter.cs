@@ -54,6 +54,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         private readonly string fileExtension;
         private readonly Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc;
 
+        private bool itemExported;
+
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationGroupExporter"/>.
         /// </summary>
@@ -118,7 +120,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                     return false;
                 }
 
-                ZipFileExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
+                if (itemExported)
+                {
+                    ZipFileExportHelper.CreateZipFileFromExportedFiles(tempFolderPath, filePath);
+                }
 
                 return true;
             }
@@ -216,6 +221,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
             log.InfoFormat("Gegevens van \'{0}\' zijn geëxporteerd.", calculation.Name);
             exportedCalculations.Add(calculation, uniqueName);
+            itemExported = true;
             return true;
         }
 
