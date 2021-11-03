@@ -277,7 +277,6 @@
 			name="CloseView">
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="2c0a0f74-1b0e-4681-8f8a-de3bea4dd5e3"
 			name="DeleteAllSearchFilteredFiles"
 			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
@@ -807,11 +806,12 @@
 			</testmodule>
 			<smartfoldernode
 			datarangeactive="True"
+			datarangeset="1,3-6"
 			datasource="script20cd_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="5a075d98-6c06-40c3-92f0-ea19c1d12341"
-			maxrange="1"
-			minrange="1"
+			maxrange="5"
+			minrange="0"
 			name="LoopFMs">
 				<parameters>
 					<param
@@ -1373,7 +1373,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="a6b013e9-dadf-43b5-8bd3-3a3c5edef9ce"
 			name="MigrateAllFilesInFolderUsingCommandLineTool"
 			ref="d8e46690-d19a-45ce-9514-4e8329f75c83"
@@ -4668,13 +4667,34 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="00cfa3f1-278d-4fbb-9d2c-ef7b604a599e">
+			</testcontainer>
+			<testcontainer
+			id="062424d2-a386-454a-baab-4e0878e24ee0">
+			</testcontainer>
+			<testcontainer
+			id="0b8e1ddc-6b10-4d89-a5e9-19f1324458d1">
+			</testcontainer>
+			<testcontainer
+			id="12f522a3-ac39-4cce-824b-9e10160dc9f6">
+			</testcontainer>
+			<testcontainer
+			id="13575c9d-672a-4b3b-a60a-6214cb3fd394">
+			</testcontainer>
+			<testcontainer
 			id="1af1d0f8-0ca1-4d8c-b292-ccc5fc65bb80">
 			</testcontainer>
 			<testcontainer
 			id="1b5c58b1-2287-40a3-b6df-1480df811f96">
 			</testcontainer>
 			<testcontainer
+			id="1b67937b-d4a9-4a3e-97ea-1976c3df8b0b">
+			</testcontainer>
+			<testcontainer
 			id="1f975891-ee5a-412c-b99e-469feb9dd3c1">
+			</testcontainer>
+			<testcontainer
+			id="2a4df95f-eb2f-4433-87b1-894d9e0c4bd5">
 			</testcontainer>
 			<testcontainer
 			id="2b68be10-6dd6-4ad3-a178-863d9e2df1db">
@@ -4683,7 +4703,19 @@
 			id="2fc008ea-b0a3-4264-b074-d3051786566c">
 			</testcontainer>
 			<testcontainer
+			id="33c7c4a3-839d-4ff8-9147-8d79066f182b">
+			</testcontainer>
+			<testcontainer
+			id="35779e6a-7791-4da6-842a-809b3aa806ff">
+			</testcontainer>
+			<testcontainer
+			id="3a1f7672-16cf-405a-8bc6-e0e982f9c1ff">
+			</testcontainer>
+			<testcontainer
 			id="3e3f95c0-2fc8-4d06-9bce-ab09bb08e2e8">
+			</testcontainer>
+			<testcontainer
+			id="4369cb7f-b6d3-4757-a40f-8a68494a29da">
 			</testcontainer>
 			<testcontainer
 			id="46e387c3-7126-4720-8f44-3a502c19421e">
@@ -4695,13 +4727,31 @@
 			id="4c6c6a01-b1b1-4e90-af7d-f7b026dcc54d">
 			</testcontainer>
 			<testcontainer
+			id="4ee7c58d-5a6e-45e2-8d59-0c562cd6df3e">
+			</testcontainer>
+			<testcontainer
 			id="4fcfcaa4-c8e4-4aaa-b7a3-968f84c0623b">
+			</testcontainer>
+			<testcontainer
+			id="5144974f-e298-42d6-8f6f-df7a5bde1af6">
 			</testcontainer>
 			<testcontainer
 			id="537d6f5f-767e-421d-aa6c-c4f45901650e">
 			</testcontainer>
 			<testcontainer
+			id="554a176c-4fac-4683-a23a-7bc9d17c822f">
+			</testcontainer>
+			<testcontainer
 			id="5a075d98-6c06-40c3-92f0-ea19c1d12341">
+			</testcontainer>
+			<testcontainer
+			id="5b4afb55-551b-4f98-bb46-1fbe71394910">
+			</testcontainer>
+			<testcontainer
+			id="5cbfcfee-38ac-496f-8228-1e80f31f9a23">
+			</testcontainer>
+			<testcontainer
+			id="6fc8cd71-a48b-4ef6-9fa4-68d0b22c5fb7">
 			</testcontainer>
 			<testcontainer
 			id="75a2b843-165d-4ced-b05d-102046a52425">
@@ -4716,7 +4766,16 @@
 			id="839b4977-416d-4826-8288-6efed77d9908">
 			</testcontainer>
 			<testcontainer
+			id="84387c30-63eb-4c57-b547-fe3f4621b91f">
+			</testcontainer>
+			<testcontainer
 			id="84429fcf-aa66-4f6e-b6e3-ac47271d4da9">
+			</testcontainer>
+			<testcontainer
+			id="85d947f1-d6dc-4113-b652-d87ae9744e56">
+			</testcontainer>
+			<testcontainer
+			id="8904eaf4-9433-4ebc-8995-c15033ef792f">
 			</testcontainer>
 			<testcontainer
 			id="95a4306e-a202-4906-931a-9d6ab9d6cf8a">
@@ -4725,10 +4784,16 @@
 			id="a56c419d-039e-475f-8962-03a37d20b67e">
 			</testcontainer>
 			<testcontainer
+			id="ad3e7565-f812-4b14-a548-e8f63a209e9e">
+			</testcontainer>
+			<testcontainer
 			id="b0dba1c6-064d-45be-b5a8-2434bf5e73b5">
 			</testcontainer>
 			<testcontainer
 			id="c0b17cb8-c61f-49e5-8b12-6f6eae29746e">
+			</testcontainer>
+			<testcontainer
+			id="c30d1bf2-325d-450a-819d-0b54bca0000c">
 			</testcontainer>
 			<testcontainer
 			id="c835fc79-a8c7-4be0-a332-ee02be16f5a6">
@@ -4746,6 +4811,15 @@
 			id="dcfc3149-c494-44ec-aba3-40e69c207b04">
 			</testcontainer>
 			<testcontainer
+			id="dd149ad8-de7f-4a69-9961-d883b638baef">
+			</testcontainer>
+			<testcontainer
+			id="dd4ae6e1-205b-4b66-89ca-1d023f2195cb">
+			</testcontainer>
+			<testcontainer
+			id="e190283e-f20d-4bf2-b26a-119e0ac4e922">
+			</testcontainer>
+			<testcontainer
 			id="e3bbf36b-3bbd-47c3-b4f3-a3ce7e01e65d">
 			</testcontainer>
 			<testcontainer
@@ -4755,10 +4829,25 @@
 			id="e904a5e4-0281-4cf7-b91c-e2431ec11911">
 			</testcontainer>
 			<testcontainer
+			id="f0b08436-1934-4b78-b828-e5522c7e0d91">
+			</testcontainer>
+			<testcontainer
 			id="f1230659-bac2-43d6-bfd5-c4645296fbc0">
 			</testcontainer>
 			<testcontainer
+			id="f2756322-b4f6-434d-a12d-fa731c793f9d">
+			</testcontainer>
+			<testcontainer
+			id="f36b5f97-44cf-46b3-a0fb-8cb5e54893d5">
+			</testcontainer>
+			<testcontainer
+			id="f9575b86-8955-41f5-9963-ba28357c3318">
+			</testcontainer>
+			<testcontainer
 			id="f9cb055a-901f-4048-a5fa-eb14d7db3efd">
+			</testcontainer>
+			<testcontainer
+			id="ff975747-306b-4cfe-8fd4-eb3fb0de1826">
 			</testcontainer>
 			<testcontainer
 			id="ffd7722e-fb6a-4059-a901-6b57196a5a93">
