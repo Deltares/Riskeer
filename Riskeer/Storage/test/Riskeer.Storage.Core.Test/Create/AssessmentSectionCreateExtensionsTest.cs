@@ -77,7 +77,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
             var normativeNorm = random.NextEnumValue<NormType>();
-            IEnumerable<SpecificFailurePath> specificFailurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10)).ToArray();
+            IEnumerable<SpecificFailurePath> specificFailurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
+                                                                              .ToArray();
 
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
