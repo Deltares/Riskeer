@@ -94,7 +94,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 UnitWeightWater = generalInput.WaterVolumetricWeight,
                 HeadLines = waternet.PhreaticLines.Select(pl => Create(pl, idFactory)).ToArray(),
                 ReferenceLines = waternet.WaternetLines.Select(wl => Create(wl, idFactory)).ToArray(),
-                PhreaticLineId = createdHeadLines[waternet.PhreaticLines.First()].Id
+                PhreaticLineId = waternet.PhreaticLines.Any()
+                                     ? createdHeadLines[waternet.PhreaticLines.First()].Id
+                                     : null
             };
 
             registry.AddWaternet(stageType, persistableWaternet.Id);

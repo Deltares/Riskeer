@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             AssertPersistableSoilLayers(layers, persistableDataModel.SoilLayers, persistableDataModel.Soils.Soils, persistableDataModel.Geometry);
             AssertWaternets(new[]
             {
-                DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters,new GeneralMacroStabilityInwardsInput()),
+                DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters, new GeneralMacroStabilityInwardsInput()),
                 DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN)
             }, persistableDataModel.Waternets);
             AssertWaternetCreatorSettings(calculation.InputParameters, persistableDataModel.WaternetCreatorSettings, AssessmentSectionTestHelper.GetTestAssessmentLevel(), new[]
@@ -303,8 +303,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.IsNotNull(actualWaternet.Id);
                 Assert.AreEqual(9.81, actualWaternet.UnitWeightWater);
 
-                PersistableHeadLine firstHeadLine = actualWaternet.HeadLines.First();
-                Assert.AreEqual(actualWaternet.PhreaticLineId, firstHeadLine.Id);
+                PersistableHeadLine firstHeadLine = actualWaternet.HeadLines.FirstOrDefault();
+                Assert.AreEqual(actualWaternet.PhreaticLineId, firstHeadLine?.Id);
 
                 Assert.AreEqual(originalWaternet.PhreaticLines.Count(), actualWaternet.HeadLines.Count());
 

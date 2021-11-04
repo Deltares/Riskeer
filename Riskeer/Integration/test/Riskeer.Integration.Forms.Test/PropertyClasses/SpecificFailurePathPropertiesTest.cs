@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             {
                 IsRelevant = random.NextBoolean()
             };
-            
+
             // Call
             var properties = new SpecificFailurePathProperties(failurePath);
 
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<SpecificFailurePath>>(properties);
             Assert.AreEqual(failurePath.Name, properties.Name);
             Assert.AreEqual(failurePath.IsRelevant, properties.IsRelevant);
-            
+
             SpecificFailurePathInput input = failurePath.Input;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
@@ -106,14 +106,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-            
+
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-        }        
-        
+        }
+
         [Test]
         public void Constructor_IsRelevantFalse_PropertiesHaveExpectedAttributesValues()
         {
@@ -144,8 +144,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Is relevant",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-        }        
-        
+        }
+
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
@@ -180,6 +180,54 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(newN, input.N, input.N.GetAccuracy());
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var failurePath = new SpecificFailurePath();
+            failurePath.Attach(observer);
+
+            var properties = new SpecificFailurePathProperties(failurePath);
+
+            // Call
+            void Call() => properties.N = (RoundedDouble) newN;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        {
+            // Setup
+            var failurePath = new SpecificFailurePath
+            {
+                IsRelevant = isRelevant
+            };
+            var properties = new SpecificFailurePathProperties(failurePath);
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
     }
 }
