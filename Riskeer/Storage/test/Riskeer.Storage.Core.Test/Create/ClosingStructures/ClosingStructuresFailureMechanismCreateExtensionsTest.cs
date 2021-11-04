@@ -54,12 +54,12 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                InAssembly = isRelevant,
+                InAssembly = inAssembly,
                 InputComments =
                 {
                     Body = "Some input text"
@@ -85,7 +85,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.ReliabilityClosingOfStructure, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);

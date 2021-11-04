@@ -203,7 +203,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         [Test]
         [TestCase(true, TestName = "Create_WithCalculationGroup_ReturnFMEntityWithCalculationGroupEntities(true)")]
         [TestCase(false, TestName = "Create_WithCalculationGroup_ReturnFMEntityWithCalculationGroupEntities(false)")]
-        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
+        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool inAssembly)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

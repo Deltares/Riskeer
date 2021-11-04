@@ -114,8 +114,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
@@ -179,8 +179,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex - 1];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",

@@ -100,8 +100,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Naam",
                                                                             "Naam van het faalpad.");
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
@@ -138,8 +138,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Naam",
                                                                             "Naam van het faalpad.");
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[inAssemblyPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
+            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",

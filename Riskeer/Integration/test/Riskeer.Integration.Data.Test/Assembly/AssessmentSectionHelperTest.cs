@@ -63,12 +63,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
         [TestCaseSource(nameof(GetHasManualAssemblyResultCases))]
         public void HasManualAssemblyResults_FailureMechanismHasManualAssemblyResult_ReturnsExpectedValue(
             Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>> getFailureMechanismFunc,
-            bool isRelevant, bool expectedResult)
+            bool inAssembly, bool expectedResult)
         {
             // Setup
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             IHasSectionResults<FailureMechanismSectionResult> failureMechanism = getFailureMechanismFunc(assessmentSection);
-            failureMechanism.InAssembly = isRelevant;
+            failureMechanism.InAssembly = inAssembly;
             failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
