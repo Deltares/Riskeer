@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
@@ -97,7 +98,16 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
 
             specificFailurePath.SetSections(new[]
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new []
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new []
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 0)
+                })                
             }, specificFailurePathSectionsSourcePath);
 
             var registry = new PersistenceRegistry();
