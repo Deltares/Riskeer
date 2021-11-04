@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
     internal static class SpecificFailurePathEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="SpecificFailurePathEntity"/> and use the information to update a 
+        /// Reads the <see cref="SpecificFailurePathEntity"/> and use the information to create a 
         /// <see cref="SpecificFailurePath"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to create <see cref="SpecificFailurePath"/> for.</param>
@@ -49,11 +49,6 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
-            }
-
-            if (collector.Contains(entity))
-            {
-                return collector.Get(entity);
             }
 
             var specificFailurePath = new SpecificFailurePath
@@ -76,8 +71,6 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
 
             entity.ReadFailureMechanismSections(specificFailurePath, collector);
             entity.ReadSpecificFailurePathInput(specificFailurePath);
-
-            collector.Read(entity, specificFailurePath);
 
             return specificFailurePath;
         }

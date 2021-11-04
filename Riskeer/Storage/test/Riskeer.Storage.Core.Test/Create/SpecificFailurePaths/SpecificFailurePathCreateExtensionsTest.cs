@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
@@ -77,6 +78,35 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             Assert.IsNull(entity.InputComments);
             Assert.IsNull(entity.OutputComments);
             Assert.IsNull(entity.NotRelevantComments);
+        }
+
+        [Test]
+        public void Create_WithSections_ReturnsExpectedEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            int order = random.Next();
+            const string specificFailurePathSectionsSourcePath = "File\\Path";
+            var specificFailurePath = new SpecificFailurePath
+            {
+                Input =
+                {
+                    N = random.NextRoundedDouble(1.0, 20.0)
+                }
+            };
+
+            specificFailurePath.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, specificFailurePathSectionsSourcePath);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, order);
+
+            // Assert
+            Assert.AreEqual(specificFailurePath.Sections.Count(), entity.FailureMechanismSectionEntities.Count);
         }
 
         [Test]

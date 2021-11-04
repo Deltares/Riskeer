@@ -116,6 +116,27 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
         }
 
         [Test]
+        public void Read_ValidEntityWithoutSections_ReturnSpecificFailurePath()
+        {
+            // Setup
+            var entity = new SpecificFailurePathEntity
+            {
+                N = 1.1
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            SpecificFailurePath specificFailurePath = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
+            Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
+
+            Assert.IsTrue(collector.Contains(entity));
+        }
+
+        [Test]
         public void Read_EntityRegistered_ReturnRegisteredSpecificFailurePath()
         {
             // Setup

@@ -1015,24 +1015,42 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
-            bool isRelevant = random.NextBoolean();
-            const string name = "Specific failure path name";
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
-            const string notRelevantComments = "Some not relevant text";
+            bool isRelevant1 = random.NextBoolean();
+            const string name1 = "Specific failure path name";
+            const string inputComments1 = "Some input text";
+            const string outputComments1 = "Some output text";
+            const string notRelevantComments1 = "Some not relevant text";
 
-            RoundedDouble n = random.NextRoundedDouble(1, 20);
-            var specificFailurePathEntity = new SpecificFailurePathEntity
+            bool isRelevant2 = random.NextBoolean();
+            const string name2 = "Specific failure path name2";
+            const string inputComments2 = "Some input text2";
+            const string outputComments2 = "Some output text2";
+            const string notRelevantComments2 = "Some not relevant text2";
+
+            RoundedDouble n1 = random.NextRoundedDouble(1, 20);
+            RoundedDouble n2 = random.NextRoundedDouble(1, 20);
+            var firstSpecificFailurePathEntity = new SpecificFailurePathEntity
             {
-                Name = name,
-                IsRelevant = Convert.ToByte(isRelevant),
-                N = n,
-                InputComments = inputComments,
-                OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments
+                Name = name1,
+                IsRelevant = Convert.ToByte(isRelevant1),
+                N = n1,
+                InputComments = inputComments1,
+                OutputComments = outputComments1,
+                NotRelevantComments = notRelevantComments1
             };
 
-            entity.SpecificFailurePathEntities.Add(specificFailurePathEntity);
+            var secondSpecificFailurePathEntity = new SpecificFailurePathEntity
+            {
+                Name = name2,
+                IsRelevant = Convert.ToByte(isRelevant2),
+                N = n2,
+                InputComments = inputComments2,
+                OutputComments = outputComments2,
+                NotRelevantComments = notRelevantComments2
+            };
+
+            entity.SpecificFailurePathEntities.Add(firstSpecificFailurePathEntity);
+            entity.SpecificFailurePathEntities.Add(secondSpecificFailurePathEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
@@ -1041,15 +1059,25 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            var specificFailurePath = section.SpecificFailurePaths.Single() as SpecificFailurePath;
-            Assert.IsNotNull(specificFailurePath);
-            Assert.AreEqual(name, specificFailurePath.Name);
-            Assert.AreEqual(isRelevant, specificFailurePath.IsRelevant);
-            Assert.AreEqual(inputComments, specificFailurePath.InputComments.Body);
-            Assert.AreEqual(outputComments, specificFailurePath.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, specificFailurePath.NotRelevantComments.Body);
-            Assert.AreEqual(n, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
-            Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
+            var specificFailurePath1 = section.SpecificFailurePaths[0] as SpecificFailurePath;
+            Assert.IsNotNull(specificFailurePath1);
+            Assert.AreEqual(name1, specificFailurePath1.Name);
+            Assert.AreEqual(isRelevant1, specificFailurePath1.IsRelevant);
+            Assert.AreEqual(inputComments1, specificFailurePath1.InputComments.Body);
+            Assert.AreEqual(outputComments1, specificFailurePath1.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments1, specificFailurePath1.NotRelevantComments.Body);
+            Assert.AreEqual(n1, specificFailurePath1.Input.N, specificFailurePath1.Input.N.GetAccuracy());
+            Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
+
+            var specificFailurePath2 = section.SpecificFailurePaths[1] as SpecificFailurePath;
+            Assert.IsNotNull(specificFailurePath2);
+            Assert.AreEqual(name2, specificFailurePath2.Name);
+            Assert.AreEqual(isRelevant2, specificFailurePath2.IsRelevant);
+            Assert.AreEqual(inputComments2, specificFailurePath2.InputComments.Body);
+            Assert.AreEqual(outputComments2, specificFailurePath2.OutputComments.Body);
+            Assert.AreEqual(notRelevantComments2, specificFailurePath2.NotRelevantComments.Body);
+            Assert.AreEqual(n2, specificFailurePath2.Input.N, specificFailurePath2.Input.N.GetAccuracy());
+            Assert.IsNull(specificFailurePath2.FailureMechanismSectionSourcePath);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity expectedEntity,
