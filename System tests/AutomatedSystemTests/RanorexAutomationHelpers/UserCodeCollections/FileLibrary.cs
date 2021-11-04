@@ -338,7 +338,7 @@ namespace Ranorex.AutomationHelpers.UserCodeCollections
             string foundDifferences = "";
             for (int i = 0; i < minLength; i++) {
                 if (lines1[i]!=lines2[i]) {
-                    foundDifferences += "File 1: " + lines1[i] + "\r\n" + "File 2: " + lines2[i] + "\r\n \r\n";
+                    foundDifferences += "Line: " + i.ToString() + "\r\nFile 1: " + lines1[i] + "\r\nFile 2: " + lines2[i] + "\r\n \r\n";
                 }
             }
             Report.Info("Differences found:\r\n" + foundDifferences);
