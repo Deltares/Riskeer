@@ -187,7 +187,7 @@
     <value>Er is een onverwachte fout opgetreden tijdens het assembleren.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid" xml:space="preserve">
-    <value>Ieder relevant toetsspoor moet een vakindeling geïmporteerd hebben.</value>
+    <value>Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_SectionsWithoutCategory" xml:space="preserve">
     <value>Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben.</value>

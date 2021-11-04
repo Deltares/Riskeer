@@ -72,7 +72,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.InAssembly && ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName))
+            if (!data.InAssembly && ShouldHidePropertyWhenFailureMechanismNotInAssembly(propertyName))
             {
                 return false;
             }
@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        private bool ShouldHidePropertyWhenFailureMechanismNotInAssembly(string propertyName)
         {
             return nameof(Contribution).Equals(propertyName)
                    || nameof(N).Equals(propertyName);

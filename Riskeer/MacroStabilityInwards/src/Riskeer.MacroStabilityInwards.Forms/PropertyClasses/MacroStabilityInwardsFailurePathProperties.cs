@@ -73,10 +73,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotInAssembly(propertyName);
         }
 
-        private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
+        private bool ShouldHidePropertyWhenFailureMechanismNotInAssembly(string propertyName)
         {
             return nameof(Contribution).Equals(propertyName)
                    || nameof(A).Equals(propertyName)

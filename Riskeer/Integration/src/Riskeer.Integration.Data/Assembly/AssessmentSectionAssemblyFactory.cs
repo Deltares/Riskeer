@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Data.Assembly
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                Dictionary<IFailureMechanism, int> relevantFailureMechanisms = assessmentSection.GetFailureMechanisms()
+                Dictionary<IFailureMechanism, int> failureMechanismsInAssembly = assessmentSection.GetFailureMechanisms()
                                                                                                 .Where(fm => fm.InAssembly)
                                                                                                 .Select((fm, i) => new
                                                                                                 {
@@ -188,10 +188,10 @@ namespace Riskeer.Integration.Data.Assembly
                                                                                                 .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
                 IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
-                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, relevantFailureMechanisms.Keys, useManual),
+                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsInAssembly.Keys, useManual),
                     assessmentSection.ReferenceLine.Length);
 
-                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, relevantFailureMechanisms, assessmentSection);
+                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, failureMechanismsInAssembly, assessmentSection);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {

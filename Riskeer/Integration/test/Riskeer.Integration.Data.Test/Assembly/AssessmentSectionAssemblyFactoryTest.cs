@@ -315,7 +315,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability))]
         public void AssembleFailureMechanismsWithoutProbability_FailureMechanismWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator(AssessmentSection assessmentSection,
-                                                                                                                                                              IFailureMechanism relevantFailureMechanism)
+                                                                                                                                                              IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(relevantFailureMechanism, failureMechanismAssemblyCalculator);
+                AssertFailureMechanismsWithoutProbabilityManualAssemblyCalculatorInput(failureMechanismInAssembly, failureMechanismAssemblyCalculator);
             }
         }
 

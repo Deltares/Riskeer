@@ -115,10 +115,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(nameof(GetFailureMechanismTestCaseData))]
-        public void CreateInput_WithOneFailureMechanism_ReturnsInputCollection(AssessmentSection assessmentSection, IFailureMechanism relevantFailureMechanism)
+        public void CreateInput_WithOneFailureMechanism_ReturnsInputCollection(AssessmentSection assessmentSection, IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(failureMechanism => failureMechanism.InAssembly = failureMechanism == relevantFailureMechanism);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(failureMechanism => failureMechanism.InAssembly = failureMechanism == failureMechanismInAssembly);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -126,11 +126,11 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, new[]
                     {
-                        relevantFailureMechanism
+                        failureMechanismInAssembly
                     }, new Random(39).NextBoolean());
 
                 // Assert
-                AssertSections(((IHasSectionResults<FailureMechanismSectionResult>) relevantFailureMechanism).SectionResults, inputs.Single());
+                AssertSections(((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults, inputs.Single());
             }
         }
 
@@ -197,7 +197,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability))]
         public void CreateInput_AssessmentSectionWithFailureMechanismWithProbabilityWithManualAssemblyAndUseManualTrue_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
-                                                                                                                                                     IFailureMechanism relevantFailureMechanism)
+                                                                                                                                                     IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -205,13 +205,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
-                    relevantFailureMechanism
+                    failureMechanismInAssembly
                 }, true);
 
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResult>) relevantFailureMechanism).SectionResults,
+                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults,
                                          sectionCalculator.ManualAssemblyAssemblyOutput.Group,
                                          input.Single());
             }
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithProbability))]
         public void CreateInput_AssessmentSectionWithFailureMechanismWithProbabilityWithManualAssemblyAndUseManualFalse_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
-                                                                                                                                                      IFailureMechanism relevantFailureMechanism)
+                                                                                                                                                      IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -228,13 +228,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // When
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
-                    relevantFailureMechanism
+                    failureMechanismInAssembly
                 }, false);
 
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResult>) relevantFailureMechanism).SectionResults,
+                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults,
                                          sectionCalculator.CombinedAssemblyOutput.Group,
                                          input.Single());
             }
@@ -247,7 +247,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability))]
         public void CreateInput_AssessmentSectionWithFailureMechanismWithoutProbabilityWithManualAssemblyAndUseManualTrue_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
-                                                                                                                                                        IFailureMechanism relevantFailureMechanism)
+                                                                                                                                                        IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -255,18 +255,18 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
-                    relevantFailureMechanism
+                    failureMechanismInAssembly
                 }, true);
 
                 // Then
-                AssertInputForFailureMechanismsWithoutProbabilityWithManualAssembly(relevantFailureMechanism, input);
+                AssertInputForFailureMechanismsWithoutProbabilityWithManualAssembly(failureMechanismInAssembly, input);
             }
         }
 
         [Test]
         [TestCaseSource(typeof(AssessmentSectionAssemblyTestHelper), nameof(AssessmentSectionAssemblyTestHelper.GetAssessmentSectionWithConfiguredFailureMechanismsWithoutProbability))]
         public void CreateInput_AssessmentSectionWithFailureMechanismWithoutProbabilityWithManualAssemblyAndUseManualFalse_ReturnsInputWithExpectedValue(AssessmentSection assessmentSection,
-                                                                                                                                                         IFailureMechanism relevantFailureMechanism)
+                                                                                                                                                         IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // When
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
-                    relevantFailureMechanism
+                    failureMechanismInAssembly
                 }, false);
 
                 // Then

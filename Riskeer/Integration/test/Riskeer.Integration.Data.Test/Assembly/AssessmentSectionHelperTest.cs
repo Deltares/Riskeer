@@ -109,11 +109,11 @@ namespace Riskeer.Integration.Data.Test.Assembly
             }
         }
 
-        private static AssessmentSection CreateConfiguredAssessmentSection(bool failureMechanismsRelevant)
+        private static AssessmentSection CreateConfiguredAssessmentSection(bool failureMechanismsInAssembly)
         {
             var random = new Random(39);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = failureMechanismsRelevant);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = failureMechanismsInAssembly);
             const int nrOfSections = 1;
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, nrOfSections);

@@ -54,8 +54,8 @@ namespace Riskeer.Integration.Data.TestUtil
         /// Gets a collection of <see cref="AssessmentSection"/> configurations of
         /// failure mechanisms having an assembly result with probability, such that:
         /// <list type="bullet">
-        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
-        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
+        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations
@@ -69,8 +69,8 @@ namespace Riskeer.Integration.Data.TestUtil
         /// Gets a collection of <see cref="AssessmentSection"/> configurations of
         /// failure mechanisms having an assembly result without probability, such that:
         /// <list type="bullet">
-        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
-        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
+        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations
@@ -84,8 +84,8 @@ namespace Riskeer.Integration.Data.TestUtil
         /// Gets a collection of <see cref="AssessmentSection"/> configurations of
         /// failure mechanisms having an assembly result with probability, such that:
         /// <list type="bullet">
-        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
-        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
+        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
@@ -98,8 +98,8 @@ namespace Riskeer.Integration.Data.TestUtil
         /// Gets a collection of <see cref="AssessmentSection"/> configurations of
         /// failure mechanisms having an assembly result without probability, such that:
         /// <list type="bullet">
-        /// <item>All other failure mechanisms are marked as irrelevant, except one failure mechanism.</item>
-        /// <item>The relevant failure mechanism will have one section which contains manual assembly data.</item>
+        /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
+        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Data.TestUtil
         {
             foreach (AssessmentSectionConfiguration configuration in configurations)
             {
-                AssessmentSection assessmentSection = CreateAssessmentSectionWithIrrelevantFailureMechanisms();
+                AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
                 configuration.ConfigureAssessmentSectionAction(assessmentSection);
 
                 IFailureMechanism configuredFailureMechanism = configuration.GetFailureMechanismFunc(assessmentSection);
@@ -124,14 +124,14 @@ namespace Riskeer.Integration.Data.TestUtil
         {
             foreach (AssessmentSectionConfiguration configuration in configurations)
             {
-                AssessmentSection assessmentSection = CreateAssessmentSectionWithIrrelevantFailureMechanisms();
+                AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
                 configuration.ConfigureAssessmentSectionAction(assessmentSection);
 
                 yield return new TestCaseData(assessmentSection);
             }
         }
 
-        private static AssessmentSection CreateAssessmentSectionWithIrrelevantFailureMechanisms()
+        private static AssessmentSection CreateAssessmentSectionWithFailureMechanismsNotInAssembly()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune);
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = false);

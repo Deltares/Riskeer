@@ -1226,7 +1226,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = string.Concat("InputComment", failureMechanismType.ToString()),
                 OutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
-                NotRelevantComments = string.Concat("NotRelevantComment", failureMechanismType.ToString())
+                NotRelevantComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString())
             };
         }
 

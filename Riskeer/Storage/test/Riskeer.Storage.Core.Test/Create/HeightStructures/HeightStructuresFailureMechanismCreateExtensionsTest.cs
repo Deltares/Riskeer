@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
                 },
                 NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 },
                 GeneralInput =
                 {

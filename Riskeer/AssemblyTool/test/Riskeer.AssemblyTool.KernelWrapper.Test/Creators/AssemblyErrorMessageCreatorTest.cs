@@ -78,7 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.FailureProbabilityOutOfRange, "De gespecificeerde kans moet in het bereik [0,1] liggen.")]
         [TestCase(EAssemblyErrors.InputNotTheSameType, "De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten.")]
         [TestCase(EAssemblyErrors.FailureMechanismAssemblerInputInvalid, "Er moet een vakindeling zijn geïmporteerd.")]
-        [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsInvalid, "Ieder relevant toetsspoor moet een vakindeling geïmporteerd hebben.")]
+        [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsInvalid, "Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben.")]
         [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive, "Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].")]
         [TestCase(EAssemblyErrors.RequestedPointOutOfRange, "De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject.")]
         [TestCase(EAssemblyErrors.SectionsWithoutCategory, "Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben.")]
