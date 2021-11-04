@@ -129,14 +129,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dike, DikeDune)")]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dike, Dune)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(DikeDune, Dike)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(DikeDune, Dune)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dune, Dike)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(Dune, DikeDune)")]
-        public void ChangeComposition_SetNewValue_ChangeRelevancyAndReturnAffectedObjects(AssessmentSectionComposition oldComposition,
-                                                                                          AssessmentSectionComposition newComposition)
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(Dike, DikeDune)")]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(Dike, Dune)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(DikeDune, Dike)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, TestName = "ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(DikeDune, Dune)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, TestName = "ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(Dune, Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, TestName = "ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(Dune, DikeDune)")]
+        public void ChangeComposition_SetNewValue_ChangesCompositionAndReturnAffectedObjects(AssessmentSectionComposition oldComposition,
+                                                                                             AssessmentSectionComposition newComposition)
         {
             // Setup
             var mocks = new MockRepository();
@@ -162,15 +162,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         }
 
         [Test]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dike, DikeDune)")]
-        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dike, Dune)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dike)")]
-        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dune)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, Dike)")]
-        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, DikeDune)")]
-        public void ChangeComposition_InAssemblyChanged_CloseViewsForIrrelevantFailureMechanisms(AssessmentSectionComposition oldComposition,
-                                                                                                 AssessmentSectionComposition newComposition,
-                                                                                                 int expectedNumberOfCalls)
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(Dike, DikeDune)")]
+        [TestCase(AssessmentSectionComposition.Dike, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(Dike, Dune)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(DikeDune, Dike)")]
+        [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(DikeDune, Dune)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(Dune, Dike)")]
+        [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(Dune, DikeDune)")]
+        public void ChangeComposition_InAssemblyChanged_CloseViewsForNotInAssemblyFailureMechanisms(AssessmentSectionComposition oldComposition,
+                                                                                                    AssessmentSectionComposition newComposition,
+                                                                                                    int expectedNumberOfCalls)
         {
             // Setup
             var mocks = new MockRepository();

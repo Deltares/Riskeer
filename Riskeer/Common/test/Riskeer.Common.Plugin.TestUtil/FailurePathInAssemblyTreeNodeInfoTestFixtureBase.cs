@@ -48,8 +48,8 @@ namespace Riskeer.Common.Plugin.TestUtil
         where TFailurePath : IFailurePath, new()
         where TFailurePathContext : IFailurePathContext<TFailurePath>
     {
-        private readonly int contextMenuRelevancyIndexWhenNotInAssembly;
-        private readonly int contextMenuRelevancyIndexWhenInAssembly;
+        private readonly int contextMenuIndexWhenNotInAssembly;
+        private readonly int contextMenuIndexWhenInAssembly;
 
         [Test]
         public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnInAssemblyItem_MakeFailureMechanismNotInAssemblyAndRemovesAllViewsForItem()
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuRelevancyIndexWhenInAssembly].PerformClick();
+                        contextMenu.Items[contextMenuIndexWhenInAssembly].PerformClick();
 
                         // Assert
                         Assert.IsFalse(failureMechanism.InAssembly);
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuRelevancyIndexWhenNotInAssembly].PerformClick();
+                        contextMenu.Items[contextMenuIndexWhenNotInAssembly].PerformClick();
 
                         // Assert
                         Assert.IsTrue(failureMechanism.InAssembly);
@@ -172,7 +172,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenInAssembly,
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssembly,
                                                                       "I&n assemblage",
                                                                       "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
@@ -217,7 +217,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotInAssembly,
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenNotInAssembly,
                                                                       "I&n assemblage",
                                                                       "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
@@ -231,15 +231,15 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="FailurePathInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailurePath,TFailurePathContext}"/>.
         /// </summary>
-        /// <param name="contextMenuRelevancyIndexWhenInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuIndexWhenInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
         /// is in the assembly.</param>
-        /// <param name="contextMenuRelevancyIndexWhenNotInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuIndexWhenNotInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
         /// is not in the assembly.</param>
-        protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuRelevancyIndexWhenInAssembly,
-                                                                        int contextMenuRelevancyIndexWhenNotInAssembly)
+        protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssembly,
+                                                                        int contextMenuIndexWhenNotInAssembly)
         {
-            this.contextMenuRelevancyIndexWhenInAssembly = contextMenuRelevancyIndexWhenInAssembly;
-            this.contextMenuRelevancyIndexWhenNotInAssembly = contextMenuRelevancyIndexWhenNotInAssembly;
+            this.contextMenuIndexWhenInAssembly = contextMenuIndexWhenInAssembly;
+            this.contextMenuIndexWhenNotInAssembly = contextMenuIndexWhenNotInAssembly;
         }
 
         protected abstract TFailurePathContext CreateFailureMechanismContext(TFailurePath failureMechanism, IAssessmentSection assessmentSection);

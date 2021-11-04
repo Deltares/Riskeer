@@ -45,8 +45,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingStructureFailurePathContextTreeNodeInfoTest
     {
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private MockRepository mocks;
         private TreeNodeInfo info;
         private RiskeerPlugin plugin;
