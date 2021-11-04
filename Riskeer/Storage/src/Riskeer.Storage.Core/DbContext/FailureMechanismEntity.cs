@@ -65,11 +65,11 @@ namespace Riskeer.Storage.Core.DbContext
         public long AssessmentSectionEntityId { get; set; }
         public long? CalculationGroupEntityId { get; set; }
         public short FailureMechanismType { get; set; }
-        public byte IsRelevant { get; set; }
+        public byte InAssembly { get; set; }
         public string FailureMechanismSectionCollectionSourcePath { get; set; }
         public string InputComments { get; set; }
         public string OutputComments { get; set; }
-        public string NotRelevantComments { get; set; }
+        public string NotInAssemblyComments { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

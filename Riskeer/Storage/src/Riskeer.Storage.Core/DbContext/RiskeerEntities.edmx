@@ -271,11 +271,11 @@
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="CalculationGroupEntityId" Type="integer" />
           <Property Name="FailureMechanismType" Type="smallint" Nullable="false" />
-          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="InAssembly" Type="tinyint" Nullable="false" />
           <Property Name="FailureMechanismSectionCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="InputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="NotInAssemblyComments" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="FailureMechanismFailureMechanismSectionEntity">
           <Key>
@@ -1214,11 +1214,11 @@
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Order" Type="int" Nullable="false" />
-          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="InAssembly" Type="tinyint" Nullable="false" />
           <Property Name="FailureMechanismSectionCollectionSourcePath" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="InputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="OutputComments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="NotRelevantComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="NotInAssemblyComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="N" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="SpecificFailurePathFailureMechanismSectionEntity">
@@ -5216,11 +5216,11 @@
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="CalculationGroupEntityId" Type="Int64" />
           <Property Name="FailureMechanismType" Type="Int16" Nullable="false" />
-          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="InAssembly" Type="Byte" Nullable="false" />
           <Property Name="FailureMechanismSectionCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="InputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="OutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="NotRelevantComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="NotInAssemblyComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ClosingStructureEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructureEntity" />
@@ -6283,11 +6283,11 @@
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="InAssembly" Type="Byte" Nullable="false" />
           <Property Name="FailureMechanismSectionCollectionSourcePath" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="InputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="OutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="NotRelevantComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="NotInAssemblyComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="N" Type="Double" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0" FromRole="SpecificFailurePathEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" FromRole="SpecificFailurePathEntity" ToRole="FailureMechanismSectionEntity" />
@@ -8709,11 +8709,11 @@
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
-                <ScalarProperty Name="NotRelevantComments" ColumnName="NotRelevantComments" />
+                <ScalarProperty Name="NotInAssemblyComments" ColumnName="NotInAssemblyComments" />
                 <ScalarProperty Name="OutputComments" ColumnName="OutputComments" />
                 <ScalarProperty Name="InputComments" ColumnName="InputComments" />
                 <ScalarProperty Name="FailureMechanismSectionCollectionSourcePath" ColumnName="FailureMechanismSectionCollectionSourcePath" />
-                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
+                <ScalarProperty Name="InAssembly" ColumnName="InAssembly" />
                 <ScalarProperty Name="FailureMechanismType" ColumnName="FailureMechanismType" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
@@ -9646,11 +9646,11 @@
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.SpecificFailurePathEntity">
               <MappingFragment StoreEntitySet="SpecificFailurePathEntity">
                 <ScalarProperty Name="N" ColumnName="N" />
-                <ScalarProperty Name="NotRelevantComments" ColumnName="NotRelevantComments" />
+                <ScalarProperty Name="NotInAssemblyComments" ColumnName="NotInAssemblyComments" />
                 <ScalarProperty Name="OutputComments" ColumnName="OutputComments" />
                 <ScalarProperty Name="InputComments" ColumnName="InputComments" />
                 <ScalarProperty Name="FailureMechanismSectionCollectionSourcePath" ColumnName="FailureMechanismSectionCollectionSourcePath" />
-                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
+                <ScalarProperty Name="InAssembly" ColumnName="InAssembly" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
