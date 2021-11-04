@@ -383,7 +383,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             return new object[]
             {
-                context.WrappedData.NotRelevantComments
+                context.WrappedData.NotInAssemblyComments
             };
         }
 

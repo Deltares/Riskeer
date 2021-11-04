@@ -98,12 +98,12 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotInAssemblyText = "Really not in assembly";
             const string failureMechanismSectionsSourcePath = "File\\Path";
             IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool");
             failureMechanism.InputComments.Body = originalInput;
             failureMechanism.OutputComments.Body = originalOutput;
-            failureMechanism.NotRelevantComments.Body = originalNotRelevantText;
+            failureMechanism.NotInAssemblyComments.Body = originalNotInAssemblyText;
             failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
@@ -117,7 +117,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
     }

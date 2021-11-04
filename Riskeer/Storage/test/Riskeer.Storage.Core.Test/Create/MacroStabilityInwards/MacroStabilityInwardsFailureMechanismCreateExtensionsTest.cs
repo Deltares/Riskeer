@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
             Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
@@ -96,9 +96,9 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 },
                 MacroStabilityInwardsProbabilityAssessmentInput =
                 {
@@ -116,7 +116,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
@@ -140,9 +140,9 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 }
             };
             var registry = new PersistenceRegistry();
@@ -154,7 +154,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.IsNotNull(entity);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
         }
 
         [Test]

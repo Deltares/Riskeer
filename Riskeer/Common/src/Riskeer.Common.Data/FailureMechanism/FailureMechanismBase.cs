@@ -63,7 +63,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             InAssembly = true;
             InputComments = new Comment();
             OutputComments = new Comment();
-            NotRelevantComments = new Comment();
+            NotInAssemblyComments = new Comment();
         }
 
         public double Contribution
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public Comment OutputComments { get; }
 
-        public Comment NotRelevantComments { get; }
+        public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
 

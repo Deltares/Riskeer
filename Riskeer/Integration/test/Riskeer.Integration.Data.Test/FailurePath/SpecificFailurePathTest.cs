@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             Assert.IsNotNull(failurePath.Input);
             Assert.IsNotNull(failurePath.InputComments);
             Assert.IsNotNull(failurePath.OutputComments);
-            Assert.IsNotNull(failurePath.NotRelevantComments);
+            Assert.IsNotNull(failurePath.NotInAssemblyComments);
             Assert.IsTrue(failurePath.InAssembly);
             CollectionAssert.IsEmpty(failurePath.Sections);
         }

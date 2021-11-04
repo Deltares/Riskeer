@@ -2349,7 +2349,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 failurePath.InAssembly = random.NextBoolean();
                 failurePath.InputComments.Body = $"Input comment path: {i}";
                 failurePath.OutputComments.Body = $"Output comment path: {i}";
-                failurePath.NotRelevantComments.Body = $"NotRelevant comment path: {i}";
+                failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
 
                 i++;
             }

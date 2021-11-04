@@ -375,7 +375,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double parameterA = random.NextDouble() / 10;
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -384,7 +384,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 PipingFailureMechanismMetaEntities =
                 {
                     new PipingFailureMechanismMetaEntity
@@ -405,7 +405,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.Piping.InAssembly);
             Assert.AreEqual(inputComments, section.Piping.InputComments.Body);
             Assert.AreEqual(outputComments, section.Piping.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.Piping.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.Piping.NotInAssemblyComments.Body);
             Assert.AreEqual(parameterA, section.Piping.PipingProbabilityAssessmentInput.A);
             Assert.IsNull(section.Piping.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.Piping.StochasticSoilModels.SourcePath);
@@ -422,7 +422,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double parameterA = random.NextDouble();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -431,7 +431,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 MacroStabilityInwardsFailureMechanismMetaEntities =
                 {
                     new MacroStabilityInwardsFailureMechanismMetaEntity
@@ -452,7 +452,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.MacroStabilityInwards.InAssembly);
             Assert.AreEqual(inputComments, section.MacroStabilityInwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.MacroStabilityInwards.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.MacroStabilityInwards.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.MacroStabilityInwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.MacroStabilityInwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.MacroStabilityInwards.StochasticSoilModels.SourcePath);
             Assert.IsNull(section.MacroStabilityInwards.SurfaceLines.SourcePath);
@@ -472,7 +472,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double parameterA = random.NextDouble();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -480,7 +480,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 MacroStabilityOutwardsFailureMechanismMetaEntities =
                 {
                     new MacroStabilityOutwardsFailureMechanismMetaEntity
@@ -501,7 +501,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.MacroStabilityOutwards.InAssembly);
             Assert.AreEqual(inputComments, section.MacroStabilityOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.MacroStabilityOutwards.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.MacroStabilityOutwards.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.MacroStabilityOutwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.MacroStabilityOutwards.FailureMechanismSectionSourcePath);
 
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityOutwards
@@ -519,7 +519,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double n = random.NextDouble(1.0, 20.0);
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotInAssemblyText = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -528,7 +528,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = originalInput,
                 OutputComments = originalOutput,
-                NotRelevantComments = originalNotRelevantText,
+                NotRelevantComments = originalNotInAssemblyText,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -549,7 +549,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.GrassCoverErosionInwards.InAssembly);
             Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
             Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
-            Assert.AreEqual(originalNotRelevantText, section.GrassCoverErosionInwards.NotRelevantComments.Body);
+            Assert.AreEqual(originalNotInAssemblyText, section.GrassCoverErosionInwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.GrassCoverErosionInwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.GrassCoverErosionInwards.DikeProfiles.SourcePath);
 
@@ -567,7 +567,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -576,7 +576,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -597,7 +597,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.GrassCoverErosionOutwards.InAssembly);
             Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
             Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.GrassCoverErosionOutwards.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.GrassCoverErosionOutwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.GrassCoverErosionOutwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.GrassCoverErosionOutwards.ForeshoreProfiles.SourcePath);
 
@@ -615,7 +615,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -624,7 +624,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
@@ -645,7 +645,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.StabilityStoneCover.InAssembly);
             Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.StabilityStoneCover.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.StabilityStoneCover.NotInAssemblyComments.Body);
             Assert.IsNull(section.StabilityStoneCover.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.StabilityStoneCover.ForeshoreProfiles.SourcePath);
 
@@ -663,7 +663,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double deltaL = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -672,7 +672,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
@@ -693,7 +693,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.WaveImpactAsphaltCover.InAssembly);
             Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Body);
             Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.WaveImpactAsphaltCover.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.WaveImpactAsphaltCover.NotInAssemblyComments.Body);
             Assert.IsNull(section.WaveImpactAsphaltCover.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.WaveImpactAsphaltCover.ForeshoreProfiles.SourcePath);
 
@@ -711,7 +711,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -720,7 +720,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
                     new HeightStructuresFailureMechanismMetaEntity
@@ -741,7 +741,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.HeightStructures.InAssembly);
             Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.HeightStructures.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.HeightStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.HeightStructures.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.HeightStructures.HeightStructures.SourcePath);
 
@@ -759,7 +759,7 @@ namespace Riskeer.Storage.Core.Test.Read
             int n2a = random.Next(1, 40);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -768,7 +768,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
@@ -789,7 +789,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.ClosingStructures.InAssembly);
             Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.ClosingStructures.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.ClosingStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.ClosingStructures.FailureMechanismSectionSourcePath);
             Assert.AreEqual(n2a, section.ClosingStructures.GeneralInput.N2A);
         }
@@ -804,7 +804,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double n = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -813,7 +813,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
@@ -834,7 +834,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.StabilityPointStructures.InAssembly);
             Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
             Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.StabilityPointStructures.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.StabilityPointStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.StabilityPointStructures.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.StabilityPointStructures.StabilityPointStructures.SourcePath);
 
@@ -849,7 +849,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
             var random = new Random(39);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
@@ -861,7 +861,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 DuneErosionFailureMechanismMetaEntities =
                 {
                     new DuneErosionFailureMechanismMetaEntity
@@ -882,7 +882,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.DuneErosion.InAssembly);
             Assert.AreEqual(inputComments, section.DuneErosion.InputComments.Body);
             Assert.AreEqual(outputComments, section.DuneErosion.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.DuneErosion.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.DuneErosion.NotInAssemblyComments.Body);
             Assert.IsNull(section.DuneErosion.FailureMechanismSectionSourcePath);
 
             RoundedDouble actualN = section.DuneErosion.GeneralInput.N;
@@ -899,7 +899,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double parameterN = random.NextDouble(1.0, 20.0);
             const string inputComments = "Some input text";
             const string outputComments = "Some output text";
-            const string notRelevantComments = "Really not relevant";
+            const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -907,7 +907,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notRelevantComments,
+                NotRelevantComments = notInAssemblyComments,
                 PipingStructureFailureMechanismMetaEntities =
                 {
                     new PipingStructureFailureMechanismMetaEntity
@@ -928,7 +928,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly, section.PipingStructure.InAssembly);
             Assert.AreEqual(inputComments, section.PipingStructure.InputComments.Body);
             Assert.AreEqual(outputComments, section.PipingStructure.OutputComments.Body);
-            Assert.AreEqual(notRelevantComments, section.PipingStructure.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments, section.PipingStructure.NotInAssemblyComments.Body);
             Assert.IsNull(section.PipingStructure.FailureMechanismSectionSourcePath);
 
             RoundedDouble actualN = section.PipingStructure.N;
@@ -1232,12 +1232,12 @@ namespace Riskeer.Storage.Core.Test.Read
 
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
                                                         string expectedInputComments, string expectedOutputComments,
-                                                        string expectedNotRelevantComments, IFailureMechanism failureMechanism)
+                                                        string expectedNotInAssemblyComments, IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(expectedInputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(expectedOutputComments, failureMechanism.OutputComments.Body);
-            Assert.AreEqual(expectedNotRelevantComments, failureMechanism.NotRelevantComments.Body);
+            Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
     }

@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
                 IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
-                NotRelevantComments = "Some not relevant text",
+                NotRelevantComments = "Some not in assembly text",
                 FailureMechanismSectionCollectionSourcePath = filePath,
                 FailureMechanismSectionEntities =
                 {
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             Assert.AreEqual(inAssembly, specificFailurePath.InAssembly);
             Assert.AreEqual(entity.InputComments, specificFailurePath.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, specificFailurePath.OutputComments.Body);
-            Assert.AreEqual(entity.NotRelevantComments, specificFailurePath.NotRelevantComments.Body);
+            Assert.AreEqual(entity.NotRelevantComments, specificFailurePath.NotInAssemblyComments.Body);
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 

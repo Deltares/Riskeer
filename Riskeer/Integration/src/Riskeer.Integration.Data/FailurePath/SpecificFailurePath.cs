@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Data.FailurePath
             Input = new SpecificFailurePathInput();
             InputComments = new Comment();
             OutputComments = new Comment();
-            NotRelevantComments = new Comment();
+            NotInAssemblyComments = new Comment();
         }
 
         public string Name { get; set; }
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Data.FailurePath
 
         public Comment OutputComments { get; }
 
-        public Comment NotRelevantComments { get; }
+        public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
         

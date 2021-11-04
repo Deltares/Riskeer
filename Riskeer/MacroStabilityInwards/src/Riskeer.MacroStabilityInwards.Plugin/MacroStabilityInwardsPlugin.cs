@@ -690,7 +690,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             return new object[]
             {
-                context.WrappedData.NotRelevantComments
+                context.WrappedData.NotInAssemblyComments
             };
         }
 

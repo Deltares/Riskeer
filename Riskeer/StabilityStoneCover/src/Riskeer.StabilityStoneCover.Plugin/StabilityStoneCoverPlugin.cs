@@ -384,7 +384,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
         {
             return new object[]
             {
-                context.WrappedData.NotRelevantComments
+                context.WrappedData.NotInAssemblyComments
             };
         }
 

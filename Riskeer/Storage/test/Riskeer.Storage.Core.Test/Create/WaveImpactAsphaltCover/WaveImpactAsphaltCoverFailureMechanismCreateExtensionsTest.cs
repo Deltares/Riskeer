@@ -66,9 +66,9 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 },
                 GeneralWaveImpactAsphaltCoverInput =
                 {
@@ -86,7 +86,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
             Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL,
                             entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL);
         }
@@ -97,7 +97,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 InputComments =
@@ -108,9 +108,9 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 {
                     Body = originalOutput
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = originalNotInAssemblyText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             // Assert
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
         }
 
         [Test]

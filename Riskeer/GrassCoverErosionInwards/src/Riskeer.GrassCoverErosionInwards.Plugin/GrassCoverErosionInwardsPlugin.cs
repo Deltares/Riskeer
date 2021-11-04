@@ -609,7 +609,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                context.WrappedData.NotRelevantComments
+                context.WrappedData.NotInAssemblyComments
             };
         }
 

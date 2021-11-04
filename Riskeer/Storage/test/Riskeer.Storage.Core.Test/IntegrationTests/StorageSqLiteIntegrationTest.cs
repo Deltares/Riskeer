@@ -447,7 +447,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.InAssembly, actualFailureMechanism.InAssembly);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
             AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
-            AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
+            AssertComments(expectedFailureMechanism.NotInAssemblyComments, actualFailureMechanism.NotInAssemblyComments);
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
             Assert.AreEqual(expectedFailureMechanism.FailureMechanismSectionSourcePath, actualFailureMechanism.FailureMechanismSectionSourcePath);
         }
@@ -750,7 +750,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             AssertComments(expected.InputComments, actual.InputComments);
             AssertComments(expected.OutputComments, actual.OutputComments);
-            AssertComments(expected.NotRelevantComments, actual.NotRelevantComments);
+            AssertComments(expected.NotInAssemblyComments, actual.NotInAssemblyComments);
 
             Assert.AreEqual(expected.FailureMechanismSectionSourcePath, actual.FailureMechanismSectionSourcePath);
             AssertFailureMechanismSections(expected.Sections, actual.Sections);

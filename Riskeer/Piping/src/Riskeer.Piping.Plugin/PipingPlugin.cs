@@ -877,7 +877,7 @@ namespace Riskeer.Piping.Plugin
         {
             return new object[]
             {
-                context.WrappedData.NotRelevantComments
+                context.WrappedData.NotInAssemblyComments
             };
         }
 

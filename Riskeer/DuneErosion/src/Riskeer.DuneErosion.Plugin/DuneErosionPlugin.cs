@@ -432,7 +432,7 @@ namespace Riskeer.DuneErosion.Plugin
         {
             return new object[]
             {
-                context.WrappedData.NotRelevantComments
+                context.WrappedData.NotInAssemblyComments
             };
         }
 

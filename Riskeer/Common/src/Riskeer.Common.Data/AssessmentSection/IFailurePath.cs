@@ -47,9 +47,9 @@ namespace Riskeer.Common.Data.AssessmentSection
         Comment OutputComments { get; }
 
         /// <summary>
-        /// Gets the comments associated when the failure path is set to be not relevant.
+        /// Gets the comments associated when the failure path is set to be not part of the assembly.
         /// </summary>
-        Comment NotRelevantComments { get; }
+        Comment NotInAssemblyComments { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this failure path is part of the assembly.

@@ -80,7 +80,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.AreEqual(group, failureMechanism.Group);
             Assert.IsNotNull(failureMechanism.InputComments);
             Assert.IsNotNull(failureMechanism.OutputComments);
-            Assert.IsNotNull(failureMechanism.NotRelevantComments);
+            Assert.IsNotNull(failureMechanism.NotInAssemblyComments);
             Assert.IsTrue(failureMechanism.InAssembly);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }

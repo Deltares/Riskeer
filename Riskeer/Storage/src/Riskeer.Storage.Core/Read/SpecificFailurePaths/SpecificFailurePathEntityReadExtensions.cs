@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
                 {
                     Body = entity.OutputComments
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
                     Body = entity.NotRelevantComments
                 }

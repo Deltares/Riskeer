@@ -139,7 +139,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
                 {
                     Body = originalOutput
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
                     Body = originalNotRelevantText
                 }
@@ -158,7 +158,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.Name, entity.Name);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotInAssemblyComments.Body, entity.NotRelevantComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
     }

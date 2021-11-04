@@ -279,7 +279,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var comment = (Comment) children[0];
-            Assert.AreSame(failurePath.NotRelevantComments, comment);
+            Assert.AreSame(failurePath.NotInAssemblyComments, comment);
         }
 
         [Test]

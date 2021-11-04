@@ -1800,7 +1800,7 @@ namespace Riskeer.Integration.Plugin
         {
             yield return failurePath.InputComments;
             yield return failurePath.OutputComments;
-            yield return failurePath.NotRelevantComments;
+            yield return failurePath.NotInAssemblyComments;
         }
 
         private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
@@ -2246,7 +2246,7 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                nodeData.WrappedData.NotRelevantComments
+                nodeData.WrappedData.NotInAssemblyComments
             };
         }
 
@@ -2333,7 +2333,7 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                nodeData.WrappedData.NotRelevantComments
+                nodeData.WrappedData.NotInAssemblyComments
             };
         }
 

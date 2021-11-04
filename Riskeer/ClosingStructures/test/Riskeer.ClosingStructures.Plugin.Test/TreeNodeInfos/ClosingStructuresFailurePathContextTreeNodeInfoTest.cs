@@ -189,7 +189,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(1, children.Length);
 
             var comment = (Comment) children[0];
-            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
+            Assert.AreSame(failureMechanism.NotInAssemblyComments, comment);
             
             mocks.VerifyAll();
         }

@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
                     Body = "Really not relevant"
                 },
@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
@@ -102,7 +102,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InputComments =
@@ -113,9 +113,9 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
                 {
                     Body = originalOutput
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = originalNotInAssemblyText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -126,7 +126,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             // Assert
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
         }
 
         [Test]

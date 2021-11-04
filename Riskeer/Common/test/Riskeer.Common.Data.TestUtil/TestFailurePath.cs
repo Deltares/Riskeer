@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data.TestUtil
             InAssembly = true;
             InputComments = new Comment();
             OutputComments = new Comment();
-            NotRelevantComments = new Comment();
+            NotInAssemblyComments = new Comment();
         }
 
         public string Name { get; }
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public Comment OutputComments { get; }
 
-        public Comment NotRelevantComments { get; }
+        public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
 

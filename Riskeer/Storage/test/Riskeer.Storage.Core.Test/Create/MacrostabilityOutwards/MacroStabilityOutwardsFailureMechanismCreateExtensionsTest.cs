@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
@@ -89,9 +89,9 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 },
                 MacroStabilityOutwardsProbabilityAssessmentInput =
                 {
@@ -109,7 +109,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
             MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
         }
@@ -120,7 +120,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 InputComments =
@@ -131,9 +131,9 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
                 {
                     Body = originalOutput
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = originalNotInAssemblyText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             // Assert
             TestHelper.AssertAreEqualButNotSame(originalInput, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(originalOutput, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(originalNotRelevantText, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(originalNotInAssemblyText, entity.NotRelevantComments);
         }
 
         [Test]

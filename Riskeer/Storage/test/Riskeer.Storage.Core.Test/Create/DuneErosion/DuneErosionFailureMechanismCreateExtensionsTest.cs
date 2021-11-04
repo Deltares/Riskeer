@@ -66,9 +66,9 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 },
                 GeneralInput =
                 {
@@ -87,7 +87,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
 
             DuneErosionFailureMechanismMetaEntity metaEntity = entity.DuneErosionFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N, failureMechanism.GeneralInput.N.GetAccuracy());
@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotRelevantText = "Really not in assembly";
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 InputComments =
@@ -110,7 +110,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
                 {
                     Body = originalOutput
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
                     Body = originalNotRelevantText
                 }
@@ -123,7 +123,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             // Assert
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
         }
 
         [Test]

@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, children.Length);
             var comment = (Comment) children[0];
-            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
+            Assert.AreSame(failureMechanism.NotInAssemblyComments, comment);
         }
 
         [Test]

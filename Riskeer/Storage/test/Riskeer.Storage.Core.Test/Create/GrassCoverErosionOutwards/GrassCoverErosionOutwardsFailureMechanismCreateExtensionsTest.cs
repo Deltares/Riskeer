@@ -66,9 +66,9 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                 {
                     Body = "Some output text"
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
-                    Body = "Really not relevant"
+                    Body = "Really not in assembly"
                 },
                 GeneralInput =
                 {
@@ -86,7 +86,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
 
             Assert.AreEqual(1, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionOutwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotRelevantText = "Really not in assembly";
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 InputComments =
@@ -110,7 +110,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                 {
                     Body = originalOutput
                 },
-                NotRelevantComments =
+                NotInAssemblyComments =
                 {
                     Body = originalNotRelevantText
                 }
@@ -123,7 +123,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             // Assert
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
         }
 
         [Test]
