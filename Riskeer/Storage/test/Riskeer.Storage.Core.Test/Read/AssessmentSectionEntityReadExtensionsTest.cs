@@ -381,10 +381,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 PipingFailureMechanismMetaEntities =
                 {
                     new PipingFailureMechanismMetaEntity
@@ -428,10 +428,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 MacroStabilityInwardsFailureMechanismMetaEntities =
                 {
                     new MacroStabilityInwardsFailureMechanismMetaEntity
@@ -477,10 +477,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityOutwards,
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 MacroStabilityOutwardsFailureMechanismMetaEntities =
                 {
                     new MacroStabilityOutwardsFailureMechanismMetaEntity
@@ -525,10 +525,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = originalInput,
                 OutputComments = originalOutput,
-                NotRelevantComments = originalNotInAssemblyText,
+                NotInAssemblyComments = originalNotInAssemblyText,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -573,10 +573,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -621,10 +621,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
@@ -669,10 +669,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
@@ -717,10 +717,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.StructureHeight,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
                     new HeightStructuresFailureMechanismMetaEntity
@@ -765,10 +765,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.ReliabilityClosingOfStructure,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
@@ -810,10 +810,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.StabilityPointStructures,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
@@ -858,10 +858,10 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.DuneErosion,
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 DuneErosionFailureMechanismMetaEntities =
                 {
                     new DuneErosionFailureMechanismMetaEntity
@@ -904,10 +904,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.PipingAtStructure,
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = inputComments,
                 OutputComments = outputComments,
-                NotRelevantComments = notInAssemblyComments,
+                NotInAssemblyComments = notInAssemblyComments,
                 PipingStructureFailureMechanismMetaEntities =
                 {
                     new PipingStructureFailureMechanismMetaEntity
@@ -942,30 +942,30 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(31);
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            bool microstabilityIsRelevant = random.NextBoolean();
-            bool strengthAndStabilityParallelConstructionIsRelevant = random.NextBoolean();
-            bool waterOverpressureAsphaltRevetmentIsRelevant = random.NextBoolean();
-            bool grassRevetmentSlidingOutwardsIsRelevant = random.NextBoolean();
-            bool grassRevetmentSlidingInwardsIsRelevant = random.NextBoolean();
-            bool technicalInnovationsIsRelevant = random.NextBoolean();
+            bool microstabilityInAssembly = random.NextBoolean();
+            bool strengthAndStabilityParallelConstructionInAssembly = random.NextBoolean();
+            bool waterOverpressureAsphaltRevetmentInAssembly = random.NextBoolean();
+            bool grassRevetmentSlidingOutwardsInAssembly = random.NextBoolean();
+            bool grassRevetmentSlidingInwardsInAssembly = random.NextBoolean();
+            bool technicalInnovationsInAssembly = random.NextBoolean();
 
             FailureMechanismEntity microstability = CreateFailureMechanismEntity(
-                microstabilityIsRelevant,
+                microstabilityInAssembly,
                 FailureMechanismType.Microstability);
             FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
-                strengthAndStabilityParallelConstructionIsRelevant,
+                strengthAndStabilityParallelConstructionInAssembly,
                 FailureMechanismType.StrengthAndStabilityParallelConstruction);
             FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
-                waterOverpressureAsphaltRevetmentIsRelevant,
+                waterOverpressureAsphaltRevetmentInAssembly,
                 FailureMechanismType.WaterOverpressureAsphaltRevetment);
             FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
-                grassRevetmentSlidingOutwardsIsRelevant,
+                grassRevetmentSlidingOutwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingOutwards);
             FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
-                grassRevetmentSlidingInwardsIsRelevant,
+                grassRevetmentSlidingInwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingInwards);
             FailureMechanismEntity technicalInnovation = CreateFailureMechanismEntity(
-                technicalInnovationsIsRelevant,
+                technicalInnovationsInAssembly,
                 FailureMechanismType.TechnicalInnovations);
 
             entity.FailureMechanismEntities.Add(microstability);
@@ -982,30 +982,30 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            AssertFailureMechanismEqual(microstabilityIsRelevant,
+            AssertFailureMechanismEqual(microstabilityInAssembly,
                                         microstability.InputComments,
                                         microstability.OutputComments,
-                                        microstability.NotRelevantComments,
+                                        microstability.NotInAssemblyComments,
                                         section.Microstability);
-            AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionIsRelevant,
+            AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
                                         strengthAndStabilityParallelConstruction.InputComments,
                                         strengthAndStabilityParallelConstruction.OutputComments,
-                                        strengthAndStabilityParallelConstruction.NotRelevantComments,
+                                        strengthAndStabilityParallelConstruction.NotInAssemblyComments,
                                         section.StrengthStabilityLengthwiseConstruction);
-            AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentIsRelevant,
+            AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
                                         waterOverpressureAsphaltRevetment.InputComments,
                                         waterOverpressureAsphaltRevetment.OutputComments,
-                                        waterOverpressureAsphaltRevetment.NotRelevantComments,
+                                        waterOverpressureAsphaltRevetment.NotInAssemblyComments,
                                         section.WaterPressureAsphaltCover);
-            AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsIsRelevant,
+            AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
                                         grassRevetmentSlidingOutwards.InputComments,
                                         grassRevetmentSlidingOutwards.OutputComments,
-                                        grassRevetmentSlidingOutwards.NotRelevantComments,
+                                        grassRevetmentSlidingOutwards.NotInAssemblyComments,
                                         section.GrassCoverSlipOffOutwards);
-            AssertFailureMechanismEqual(technicalInnovationsIsRelevant,
+            AssertFailureMechanismEqual(technicalInnovationsInAssembly,
                                         technicalInnovation.InputComments,
                                         technicalInnovation.OutputComments,
-                                        technicalInnovation.NotRelevantComments,
+                                        technicalInnovation.NotInAssemblyComments,
                                         section.TechnicalInnovation);
         }
 
@@ -1033,21 +1033,21 @@ namespace Riskeer.Storage.Core.Test.Read
             var firstSpecificFailurePathEntity = new SpecificFailurePathEntity
             {
                 Name = name1,
-                IsRelevant = Convert.ToByte(inAssembly1),
+                InAssembly = Convert.ToByte(inAssembly1),
                 N = n1,
                 InputComments = inputComments1,
                 OutputComments = outputComments1,
-                NotRelevantComments = notInAssemblyComments1
+                NotInAssemblyComments = notInAssemblyComments1
             };
 
             var secondSpecificFailurePathEntity = new SpecificFailurePathEntity
             {
                 Name = name2,
-                IsRelevant = Convert.ToByte(inAssembly2),
+                InAssembly = Convert.ToByte(inAssembly2),
                 N = n2,
                 InputComments = inputComments2,
                 OutputComments = outputComments2,
-                NotRelevantComments = notInAssemblyComments2
+                NotInAssemblyComments = notInAssemblyComments2
             };
 
             entity.SpecificFailurePathEntities.Add(firstSpecificFailurePathEntity);
@@ -1223,10 +1223,10 @@ namespace Riskeer.Storage.Core.Test.Read
             return new FailureMechanismEntity
             {
                 FailureMechanismType = (short) failureMechanismType,
-                IsRelevant = Convert.ToByte(inAssembly),
+                InAssembly = Convert.ToByte(inAssembly),
                 InputComments = string.Concat("InputComment", failureMechanismType.ToString()),
                 OutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
-                NotRelevantComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString())
+                NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString())
             };
         }
 

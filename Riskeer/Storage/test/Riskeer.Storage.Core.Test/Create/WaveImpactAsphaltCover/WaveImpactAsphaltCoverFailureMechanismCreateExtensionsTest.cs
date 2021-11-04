@@ -83,10 +83,10 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.WaveImpactOnAsphaltRevetment, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(inAssembly), entity.InAssembly);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
-            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
+            Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL,
                             entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL);
         }
@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             // Assert
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
         }
 
         [Test]

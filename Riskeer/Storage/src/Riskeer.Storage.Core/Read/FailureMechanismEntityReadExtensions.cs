@@ -70,10 +70,10 @@ namespace Riskeer.Storage.Core.Read
                                                                   IFailureMechanism failureMechanism,
                                                                   ReadConversionCollector collector)
         {
-            failureMechanism.InAssembly = Convert.ToBoolean(entity.IsRelevant);
+            failureMechanism.InAssembly = Convert.ToBoolean(entity.InAssembly);
             failureMechanism.InputComments.Body = entity.InputComments;
             failureMechanism.OutputComments.Body = entity.OutputComments;
-            failureMechanism.NotInAssemblyComments.Body = entity.NotRelevantComments;
+            failureMechanism.NotInAssemblyComments.Body = entity.NotInAssemblyComments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
         }

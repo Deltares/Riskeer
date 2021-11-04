@@ -74,11 +74,11 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             Assert.AreEqual(expectedInput.N, entity.N, expectedInput.N.GetAccuracy());
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
 
-            Assert.AreEqual(Convert.ToByte(specificFailurePath.InAssembly), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(specificFailurePath.InAssembly), entity.InAssembly);
 
             Assert.IsNull(entity.InputComments);
             Assert.IsNull(entity.OutputComments);
-            Assert.IsNull(entity.NotRelevantComments);
+            Assert.IsNull(entity.NotInAssemblyComments);
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.Name, entity.Name);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.OutputComments.Body, entity.OutputComments);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotInAssemblyComments.Body, entity.NotRelevantComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
     }
