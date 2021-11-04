@@ -31,10 +31,11 @@ namespace Riskeer.Integration.Data.FailurePath
     public class SpecificFailurePathInput
     {
         private const int numberOfDecimalPlacesN = 2;
-        private static RoundedDouble n;
 
         private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
                                                                                                new RoundedDouble(numberOfDecimalPlacesN, 20));
+
+        private RoundedDouble n;
 
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailurePathInput"/>.
