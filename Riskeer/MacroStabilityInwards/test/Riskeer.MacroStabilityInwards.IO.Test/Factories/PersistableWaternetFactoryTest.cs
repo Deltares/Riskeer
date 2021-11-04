@@ -39,9 +39,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_DailyWaternetNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableWaternetFactory.Create(null, new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0],
-                                                             new MacroStabilityInwardsWaternetLine[0]), new GeneralMacroStabilityInwardsInput(),
-                                                             new IdFactory(), new MacroStabilityInwardsExportRegistry());
+            void Call() => PersistableWaternetFactory.Create(null, new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]),
+                                                             new GeneralMacroStabilityInwardsInput(), new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -126,6 +125,40 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             {
                 waternetLine2
             });
+
+            var idFactory = new IdFactory();
+            var registry = new MacroStabilityInwardsExportRegistry();
+
+            // Call
+            IEnumerable<PersistableWaternet> persistableWaternets = PersistableWaternetFactory.Create(dailyWaternet, extremeWaternet, new GeneralMacroStabilityInwardsInput(), idFactory, registry);
+
+            // Assert
+            PersistableDataModelTestHelper.AssertWaternets(new[]
+            {
+                dailyWaternet,
+                extremeWaternet
+            }, persistableWaternets);
+
+            var stages = new[]
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            };
+
+            Assert.AreEqual(2, registry.Waternets.Count);
+
+            for (var i = 0; i < stages.Length; i++)
+            {
+                Assert.AreEqual(registry.Waternets[stages[i]], persistableWaternets.ElementAt(i).Id);
+            }
+        }
+
+        [Test]
+        public void Create_WithWaternetsWithoutLines_ReturnsPersistableWaternetCollection()
+        {
+            // Setup
+            var dailyWaternet = new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]);
+            var extremeWaternet = new MacroStabilityInwardsWaternet(new MacroStabilityInwardsPhreaticLine[0], new MacroStabilityInwardsWaternetLine[0]);
 
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
