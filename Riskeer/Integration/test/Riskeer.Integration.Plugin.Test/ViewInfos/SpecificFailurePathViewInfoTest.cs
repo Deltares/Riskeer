@@ -119,13 +119,13 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AdditionalDataCheck_WithContext_ReturnsFailurePathIsRelevantValue(bool isRelevant)
+        public void AdditionalDataCheck_WithContext_ReturnsFailurePathInAssemblyValue(bool inAssembly)
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = isRelevant
+                InAssembly = inAssembly
             };
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
-            Assert.AreEqual(isRelevant, additionalDataCheck);
+            Assert.AreEqual(inAssembly, additionalDataCheck);
         }
 
         [Test]

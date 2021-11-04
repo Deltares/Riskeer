@@ -1065,12 +1065,12 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        public void AssembleFailureMechanism_FailureMechanismNotInAssembly_ReturnsNotApplicableAssembly()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             var mocks = new MockRepository();

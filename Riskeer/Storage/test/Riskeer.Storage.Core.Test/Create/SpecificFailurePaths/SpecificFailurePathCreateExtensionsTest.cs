@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             int order = random.Next();
             var specificFailurePath = new SpecificFailurePath
             {
-                IsRelevant = random.NextBoolean(),
+                InAssembly = random.NextBoolean(),
                 Input =
                 {
                     N = random.NextRoundedDouble(1.0, 20.0)
@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             Assert.AreEqual(expectedInput.N, entity.N, expectedInput.N.GetAccuracy());
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
 
-            Assert.AreEqual(Convert.ToByte(specificFailurePath.IsRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(specificFailurePath.InAssembly), entity.IsRelevant);
 
             Assert.IsNull(entity.InputComments);
             Assert.IsNull(entity.OutputComments);

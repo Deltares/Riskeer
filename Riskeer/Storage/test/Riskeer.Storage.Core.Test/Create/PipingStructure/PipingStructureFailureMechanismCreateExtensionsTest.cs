@@ -51,12 +51,12 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism
             {
-                IsRelevant = isRelevant,
+                InAssembly = inAssembly,
                 InputComments =
                 {
                     Body = "Some input text"
@@ -79,7 +79,7 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.PipingAtStructure, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);

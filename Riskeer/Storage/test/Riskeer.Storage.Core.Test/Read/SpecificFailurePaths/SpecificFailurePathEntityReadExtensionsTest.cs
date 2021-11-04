@@ -55,13 +55,13 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
         {
             // Setup
             var random = new Random(21);
-            bool isRelevant = random.NextBoolean();
+            bool inAssembly = random.NextBoolean();
             const string filePath = "failureMechanismSections/File/Path";
             var entity = new SpecificFailurePathEntity
             {
                 Name = "Specific failure path name",
                 N = random.NextDouble(1.0, 20.0),
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Some not relevant text",
@@ -79,7 +79,7 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
 
             // Assert
             Assert.AreEqual(entity.Name, specificFailurePath.Name);
-            Assert.AreEqual(isRelevant, specificFailurePath.IsRelevant);
+            Assert.AreEqual(inAssembly, specificFailurePath.InAssembly);
             Assert.AreEqual(entity.InputComments, specificFailurePath.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, specificFailurePath.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, specificFailurePath.NotRelevantComments.Body);

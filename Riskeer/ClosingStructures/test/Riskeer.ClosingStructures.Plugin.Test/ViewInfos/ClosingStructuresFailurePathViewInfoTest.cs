@@ -95,7 +95,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
+        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -103,7 +103,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                IsRelevant = isRelevant
+                InAssembly = inAssembly
             };
 
             var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
@@ -112,7 +112,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             bool result = info.AdditionalDataCheck(context);
 
             // Assert
-            Assert.AreEqual(isRelevant, result);
+            Assert.AreEqual(inAssembly, result);
             mocks.VerifyAll();
         }
 

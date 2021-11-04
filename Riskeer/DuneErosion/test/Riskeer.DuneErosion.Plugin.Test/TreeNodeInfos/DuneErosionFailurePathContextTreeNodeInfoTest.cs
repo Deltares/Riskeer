@@ -173,7 +173,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnChildDataNodes()
         {
             // Setup
             var mocks = new MockRepository();
@@ -182,7 +182,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
             var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
 
@@ -204,7 +204,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
@@ -260,7 +260,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
-                    IsRelevant = false
+                    InAssembly = false
                 };
                 var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
 

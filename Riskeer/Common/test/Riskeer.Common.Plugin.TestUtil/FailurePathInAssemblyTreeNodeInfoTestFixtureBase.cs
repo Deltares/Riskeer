@@ -52,7 +52,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         private readonly int contextMenuRelevancyIndexWhenInAssembly;
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_MakeFailureMechanismNotRelevantAndRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnInAssemblyItem_MakeFailureMechanismNotInAssemblyAndRemovesAllViewsForItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         contextMenu.Items[contextMenuRelevancyIndexWhenInAssembly].PerformClick();
 
                         // Assert
-                        Assert.IsFalse(failureMechanism.IsRelevant);
+                        Assert.IsFalse(failureMechanism.InAssembly);
                     }
                 }
             }
@@ -96,13 +96,13 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevantAndRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyAndRemovesAllViewsForItem()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = new TFailurePath
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -134,7 +134,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                         contextMenu.Items[contextMenuRelevancyIndexWhenNotInAssembly].PerformClick();
 
                         // Assert
-                        Assert.IsTrue(failureMechanism.IsRelevant);
+                        Assert.IsTrue(failureMechanism.InAssembly);
                     }
                 }
             }
@@ -193,7 +193,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new TFailurePath
                 {
-                    IsRelevant = false
+                    InAssembly = false
                 };
 
                 TFailurePathContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);

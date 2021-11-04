@@ -496,7 +496,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Name, cells[failurePathNameIndex].Value);
-            Assert.AreEqual(expectedFailureMechanism.IsRelevant, cells[inAssemblyIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.InAssembly, cells[inAssemblyIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Calculations.Count(), cells[numberOfCalculationsIndex].Value);
         }
@@ -506,7 +506,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
             Assert.AreEqual(expectedFailurePath.Name, cells[failurePathNameIndex].Value);
-            Assert.AreEqual(expectedFailurePath.IsRelevant, cells[inAssemblyIndex].Value);
+            Assert.AreEqual(expectedFailurePath.InAssembly, cells[inAssemblyIndex].Value);
             Assert.AreEqual(expectedFailurePath.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(0, cells[numberOfCalculationsIndex].Value);
         }

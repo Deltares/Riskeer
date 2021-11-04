@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
-        private const int isRelevantPropertyIndex = 5;
+        private const int inAssemblyPropertyIndex = 5;
         private const int aPropertyIndex = 6;
         private const int bPropertyIndex = 7;
         private const int sectionLengthPropertyIndex = 8;
@@ -73,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.IsRelevant || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismIrrelevant(propertyName);
         }
 
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
@@ -100,15 +100,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
+        [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
-        public bool IsRelevant
+        public bool InAssembly
         {
             get
             {
-                return data.IsRelevant;
+                return data.InAssembly;
             }
         }
 

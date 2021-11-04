@@ -455,7 +455,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                                            random.NextDouble(),
                                                                                                            totalResult),
                                                                assessmentSection.GetFailureMechanisms()
-                                                                                .Where(fm => fm.IsRelevant)
+                                                                                .Where(fm => fm.InAssembly)
                                                                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
         }
 

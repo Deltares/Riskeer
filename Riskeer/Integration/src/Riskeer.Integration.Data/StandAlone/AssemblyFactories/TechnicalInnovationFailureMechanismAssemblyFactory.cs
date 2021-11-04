@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (!failureMechanism.IsRelevant)
+            if (!failureMechanism.InAssembly)
             {
                 return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }

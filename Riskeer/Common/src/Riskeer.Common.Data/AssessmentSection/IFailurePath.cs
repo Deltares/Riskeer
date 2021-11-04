@@ -47,14 +47,14 @@ namespace Riskeer.Common.Data.AssessmentSection
         Comment OutputComments { get; }
 
         /// <summary>
-        /// Gets the comments associated when the failure mechanism is set to be not relevant.
+        /// Gets the comments associated when the failure path is set to be not relevant.
         /// </summary>
         Comment NotRelevantComments { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this failure mechanism is relevant.
+        /// Gets or sets a value indicating whether this failure path is part of the assembly.
         /// </summary>
-        bool IsRelevant { get; set; }
+        bool InAssembly { get; set; }
 
         /// <summary>
         /// Gets the source path of the imported <see cref="Sections"/>.

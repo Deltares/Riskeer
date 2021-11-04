@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
-
+        
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -59,17 +59,17 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = random.NextBoolean()
+                InAssembly = random.NextBoolean()
             };
-
+            
             // Call
             var properties = new SpecificFailurePathProperties(failurePath);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SpecificFailurePath>>(properties);
             Assert.AreEqual(failurePath.Name, properties.Name);
-            Assert.AreEqual(failurePath.IsRelevant, properties.IsRelevant);
-
+            Assert.AreEqual(failurePath.InAssembly, properties.InAssembly);
+            
             SpecificFailurePathInput input = failurePath.Input;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = true
+                InAssembly = true
             };
 
             // Call
@@ -106,21 +106,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-
+            
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-        }
-
+        }        
+        
         [Test]
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             // Call
@@ -144,8 +144,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-        }
-
+        }        
+        
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
@@ -159,7 +159,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = random.NextBoolean()
+                InAssembly = random.NextBoolean()
             };
 
             // Call
@@ -212,20 +212,20 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(bool isRelevant)
+        public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = isRelevant
+                InAssembly = inAssembly
             };
             var properties = new SpecificFailurePathProperties(failurePath);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
-            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

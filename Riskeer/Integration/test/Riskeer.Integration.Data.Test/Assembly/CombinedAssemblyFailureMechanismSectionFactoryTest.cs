@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void CreateInput_WithOneFailureMechanism_ReturnsInputCollection(AssessmentSection assessmentSection, IFailureMechanism relevantFailureMechanism)
         {
             // Setup
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(failureMechanism => failureMechanism.IsRelevant = failureMechanism == relevantFailureMechanism);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(failureMechanism => failureMechanism.InAssembly = failureMechanism == relevantFailureMechanism);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

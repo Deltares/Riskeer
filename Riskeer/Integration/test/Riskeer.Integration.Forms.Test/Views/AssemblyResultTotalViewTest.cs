@@ -537,7 +537,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 view.AssessmentSection.Piping = new TestPipingFailureMechanism
                 {
-                    IsRelevant = false
+                    InAssembly = false
                 };
                 view.AssessmentSection.NotifyObservers();
                 buttonTester.Click();

@@ -60,7 +60,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             Code = failureMechanismCode;
             Group = group;
             sectionCollection = new FailureMechanismSectionCollection();
-            IsRelevant = true;
+            InAssembly = true;
             InputComments = new Comment();
             OutputComments = new Comment();
             NotRelevantComments = new Comment();
@@ -115,7 +115,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public Comment NotRelevantComments { get; }
 
-        public bool IsRelevant { get; set; }
+        public bool InAssembly { get; set; }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

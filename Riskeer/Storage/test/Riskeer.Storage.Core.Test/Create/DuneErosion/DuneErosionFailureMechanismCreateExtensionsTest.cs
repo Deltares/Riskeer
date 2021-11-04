@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             var random = new Random(21);
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                IsRelevant = random.NextBoolean(),
+                InAssembly = random.NextBoolean(),
                 InputComments =
                 {
                     Body = "Some input text"
@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.DuneErosion, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);

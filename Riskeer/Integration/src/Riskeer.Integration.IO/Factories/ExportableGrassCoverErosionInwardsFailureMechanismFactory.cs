@@ -65,7 +65,7 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!failureMechanism.IsRelevant)
+            if (!failureMechanism.InAssembly)
             {
                 return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(assessmentSection,
                                                                                                                 failureMechanismCode,

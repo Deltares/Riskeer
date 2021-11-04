@@ -489,12 +489,12 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
+        public void AssembleFailureMechanism_FailureMechanismNotInAssembly_ReturnsNotApplicableCategory()
         {
             // Setup
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             // Call

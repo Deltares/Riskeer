@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                IsRelevant = isRelevant,
+                InAssembly = isRelevant,
                 InputComments =
                 {
                     Body = "Some input text"

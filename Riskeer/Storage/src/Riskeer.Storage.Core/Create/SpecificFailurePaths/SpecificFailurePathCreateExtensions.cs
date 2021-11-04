@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 Name = specificFailurePath.Name.DeepClone(),
                 Order = order,
                 N = specificFailurePath.Input.N,
-                IsRelevant = Convert.ToByte(specificFailurePath.IsRelevant),
+                IsRelevant = Convert.ToByte(specificFailurePath.InAssembly),
                 InputComments = specificFailurePath.InputComments.Body.DeepClone(),
                 OutputComments = specificFailurePath.OutputComments.Body.DeepClone(),
                 NotRelevantComments = specificFailurePath.NotRelevantComments.Body.DeepClone(),

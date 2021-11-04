@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public class SpecificFailurePathProperties : ObjectProperties<SpecificFailurePath>
     {
         private const int namePropertyIndex = 1;
-        private const int isRelevantPropertyIndex = 2;
+        private const int inAssemblyPropertyIndex = 2;
         private const int nPropertyIndex = 3;
 
         /// <summary>
@@ -71,15 +71,15 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(isRelevantPropertyIndex)]
+        [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
-        public bool IsRelevant
+        public bool InAssembly
         {
             get
             {
-                return data.IsRelevant;
+                return data.InAssembly;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.IsRelevant && ShouldHidePropertyWhenFailurePathIrrelevant(propertyName))
+            if (!data.InAssembly && ShouldHidePropertyWhenFailurePathIrrelevant(propertyName))
             {
                 return false;
             }

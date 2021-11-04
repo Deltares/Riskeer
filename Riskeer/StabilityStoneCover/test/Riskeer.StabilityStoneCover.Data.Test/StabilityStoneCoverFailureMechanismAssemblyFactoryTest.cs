@@ -557,12 +557,12 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
+        public void AssembleFailureMechanism_FailureMechanismNotInAssembly_ReturnsNotApplicableCategory()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             // Call

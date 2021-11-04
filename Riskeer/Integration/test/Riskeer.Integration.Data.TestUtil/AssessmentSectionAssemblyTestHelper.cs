@@ -134,7 +134,7 @@ namespace Riskeer.Integration.Data.TestUtil
         private static AssessmentSection CreateAssessmentSectionWithIrrelevantFailureMechanisms()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune);
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.IsRelevant = false);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = false);
             return assessmentSection;
         }
 
@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -189,7 +189,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -228,7 +228,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 StabilityStoneCoverFailureMechanism failureMechanism = assessmentSection.StabilityStoneCover;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 WaveImpactAsphaltCoverFailureMechanism failureMechanism = assessmentSection.WaveImpactAsphaltCover;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -261,7 +261,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 GrassCoverSlipOffInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -272,7 +272,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 GrassCoverSlipOffOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 PipingStructureFailureMechanism failureMechanism = assessmentSection.PipingStructure;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -294,7 +294,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -305,7 +305,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -316,7 +316,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -327,7 +327,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
                 MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
@@ -338,7 +338,7 @@ namespace Riskeer.Integration.Data.TestUtil
             yield return new AssessmentSectionConfiguration(section =>
             {
                 WaterPressureAsphaltCoverFailureMechanism failureMechanism = section.WaterPressureAsphaltCover;
-                failureMechanism.IsRelevant = true;
+                failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
                 WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();

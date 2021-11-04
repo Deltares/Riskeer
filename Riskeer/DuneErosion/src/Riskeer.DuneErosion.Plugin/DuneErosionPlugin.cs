@@ -188,7 +188,7 @@ namespace Riskeer.DuneErosion.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };

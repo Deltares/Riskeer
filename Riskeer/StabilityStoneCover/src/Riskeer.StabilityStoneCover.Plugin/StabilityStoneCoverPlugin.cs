@@ -103,7 +103,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };

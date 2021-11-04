@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Data.Assembly
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 Dictionary<IFailureMechanism, int> relevantFailureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                                .Where(fm => fm.IsRelevant)
+                                                                                                .Where(fm => fm.InAssembly)
                                                                                                 .Select((fm, i) => new
                                                                                                 {
                                                                                                     FailureMechanism = fm,

@@ -69,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                IsRelevant = random.NextBoolean()
+                InAssembly = random.NextBoolean()
             };
 
             // Call
@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
@@ -108,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                IsRelevant = true
+                InAssembly = true
             };
 
             // Call
@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             // Call
@@ -309,7 +309,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var pipingFailureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                IsRelevant = inAssembly
+                InAssembly = inAssembly
             };
 
             var properties = new MacroStabilityInwardsFailurePathProperties(pipingFailureMechanism, assessmentSection);
@@ -318,7 +318,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.A)));

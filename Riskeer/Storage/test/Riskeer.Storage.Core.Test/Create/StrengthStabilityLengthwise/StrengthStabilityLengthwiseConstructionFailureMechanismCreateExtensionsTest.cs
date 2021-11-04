@@ -51,12 +51,12 @@ namespace Riskeer.Storage.Core.Test.Create.StrengthStabilityLengthwise
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithCollectorAndProperties_ReturnsExpectedEntity(bool isRelevant)
+        public void Create_WithCollectorAndProperties_ReturnsExpectedEntity(bool inAssembly)
         {
             // Setup
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
             {
-                IsRelevant = isRelevant,
+                InAssembly = inAssembly,
                 InputComments =
                 {
                     Body = "Some input text"
@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Test.Create.StrengthStabilityLengthwise
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.StrengthAndStabilityParallelConstruction, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);

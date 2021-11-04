@@ -81,23 +81,23 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsNotNull(failureMechanism.InputComments);
             Assert.IsNotNull(failureMechanism.OutputComments);
             Assert.IsNotNull(failureMechanism.NotRelevantComments);
-            Assert.IsTrue(failureMechanism.IsRelevant);
+            Assert.IsTrue(failureMechanism.InAssembly);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void IsRelevant_SetNewValue_GetNewlySetValue(bool relevant)
+        public void InAssembly_SetNewValue_GetNewlySetValue(bool relevant)
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call
-            failureMechanism.IsRelevant = relevant;
+            failureMechanism.InAssembly = relevant;
 
             // Assert
-            Assert.AreEqual(relevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(relevant, failureMechanism.InAssembly);
         }
 
         [Test]

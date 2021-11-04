@@ -113,10 +113,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="TreeNodeInfo"/> object for a failure path context of the type <typeparamref name="TFailurePathContext"/>.
         /// </summary>
         /// <typeparam name="TFailurePathContext">The type of failure path context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
-        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.IsRelevant"/> is <c>true</c>.</param>
-        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.IsRelevant"/> is <c>false</c>.</param>
-        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.IsRelevant"/> is <c>true</c>.</param>
-        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.IsRelevant"/> is <c>false</c>.</param>
+        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.InAssembly"/> is <c>true</c>.</param>
+        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.InAssembly"/> is <c>false</c>.</param>
+        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.InAssembly"/> is <c>true</c>.</param>
+        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.InAssembly"/> is <c>false</c>.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TFailurePathContext> CreateFailurePathContextTreeNodeInfo<TFailurePathContext>(
             Func<TFailurePathContext, object[]> enabledChildNodeObjects,
@@ -128,14 +128,14 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             return new TreeNodeInfo<TFailurePathContext>
             {
                 Text = context => context.WrappedData.Name,
-                ForeColor = context => context.WrappedData.IsRelevant
+                ForeColor = context => context.WrappedData.InAssembly
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 Image = context => Resources.FailureMechanismIcon,
-                ChildNodeObjects = context => context.WrappedData.IsRelevant
+                ChildNodeObjects = context => context.WrappedData.InAssembly
                                                   ? enabledChildNodeObjects(context)
                                                   : disabledChildNodeObjects(context),
-                ContextMenuStrip = (context, parentData, treeViewControl) => context.WrappedData.IsRelevant
+                ContextMenuStrip = (context, parentData, treeViewControl) => context.WrappedData.InAssembly
                                                                                  ? enabledContextMenuStrip(context, parentData, treeViewControl)
                                                                                  : disabledContextMenuStrip(context, parentData, treeViewControl)
             };

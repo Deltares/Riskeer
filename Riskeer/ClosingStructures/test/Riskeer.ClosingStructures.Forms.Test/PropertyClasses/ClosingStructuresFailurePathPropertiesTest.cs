@@ -50,7 +50,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                IsRelevant = random.NextBoolean()
+                InAssembly = random.NextBoolean()
             };
 
             // Call
@@ -63,7 +63,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
 
@@ -148,7 +148,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Call
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
             var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
 
@@ -248,7 +248,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                IsRelevant = inAssembly
+                InAssembly = inAssembly
             };
             var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
 
@@ -256,7 +256,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.C)));

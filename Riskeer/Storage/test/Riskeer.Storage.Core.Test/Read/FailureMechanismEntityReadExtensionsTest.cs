@@ -60,12 +60,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool isRelevant)
+        public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant"
@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -422,10 +422,10 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(31);
-            bool isRelevant = random.NextBoolean();
+            bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -447,7 +447,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -765,10 +765,10 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(31);
-            bool isRelevant = random.NextBoolean();
+            bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -789,7 +789,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -1136,10 +1136,10 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(31);
-            bool isRelevant = random.NextBoolean();
+            bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -1160,7 +1160,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -1212,12 +1212,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -1238,7 +1238,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -1389,12 +1389,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -1415,7 +1415,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -1601,12 +1601,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsStabilityStoneCoverFailureMechanism_WithCollector_ReturnsNewStabilityStoneCoverFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithCollector_ReturnsNewStabilityStoneCoverFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -1627,7 +1627,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -1814,12 +1814,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCollector_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCollector_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -1840,7 +1840,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -2028,12 +2028,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsHeightStructuresFailureMechanism_WithCollector_ReturnsNewHeightStructuresFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsHeightStructuresFailureMechanism_WithCollector_ReturnsNewHeightStructuresFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -2054,7 +2054,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -2306,12 +2306,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsClosingStructuresFailureMechanism_WithCollector_ReturnsNewClosingStructuresFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsClosingStructuresFailureMechanism_WithCollector_ReturnsNewClosingStructuresFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -2329,7 +2329,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -2594,12 +2594,12 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsStabilityPointStructuresFailureMechanism_WithCollector_ReturnsNewStabilityPointStructuresFailureMechanismWithPropertiesSet(bool isRelevant)
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithCollector_ReturnsNewStabilityPointStructuresFailureMechanismWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -2620,7 +2620,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);
@@ -2940,10 +2940,10 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(31);
-            bool isRelevant = random.NextBoolean();
+            bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
-                IsRelevant = Convert.ToByte(isRelevant),
+                IsRelevant = Convert.ToByte(inAssembly),
                 InputComments = "Some input text",
                 OutputComments = "Some output text",
                 NotRelevantComments = "Really not relevant",
@@ -2964,7 +2964,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(isRelevant, failureMechanism.IsRelevant);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
             Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
             Assert.AreEqual(entity.NotRelevantComments, failureMechanism.NotRelevantComments.Body);

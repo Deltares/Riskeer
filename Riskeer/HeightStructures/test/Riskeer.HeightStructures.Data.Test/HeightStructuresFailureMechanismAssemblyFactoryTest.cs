@@ -997,12 +997,12 @@ namespace Riskeer.HeightStructures.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        public void AssembleFailureMechanism_FailureMechanismNotInAssembly_ReturnsNotApplicableAssembly()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             var mocks = new MockRepository();

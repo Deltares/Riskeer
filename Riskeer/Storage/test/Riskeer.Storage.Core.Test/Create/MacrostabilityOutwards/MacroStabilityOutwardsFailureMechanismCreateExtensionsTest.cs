@@ -61,7 +61,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.MacroStabilityOutwards, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);
@@ -74,13 +74,13 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
+        public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
             var random = new Random(31);
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
-                IsRelevant = isRelevant,
+                InAssembly = inAssembly,
                 InputComments =
                 {
                     Body = "Some input text"
@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.MacroStabilityOutwards, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(inAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);

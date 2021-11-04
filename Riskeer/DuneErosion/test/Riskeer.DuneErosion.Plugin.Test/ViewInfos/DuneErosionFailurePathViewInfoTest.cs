@@ -86,7 +86,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
+        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismInAssembly(bool inAssembly)
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -94,7 +94,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                IsRelevant = isRelevant
+                InAssembly = inAssembly
             };
 
             var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
@@ -103,7 +103,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             bool result = info.AdditionalDataCheck(context);
 
             // Assert
-            Assert.AreEqual(isRelevant, result);
+            Assert.AreEqual(inAssembly, result);
             mocks.VerifyAll();
         }
 

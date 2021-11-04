@@ -74,13 +74,13 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismNotRelevant_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismNotInAssembly_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismRelevant_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismInAssembly_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);

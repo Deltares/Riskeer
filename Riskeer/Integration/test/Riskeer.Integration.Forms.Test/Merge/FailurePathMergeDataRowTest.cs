@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             const string failurePathName = "Just a name";
 
             var random = new Random(21);
-            bool isRelevant = random.NextBoolean();
+            bool inAssembly = random.NextBoolean();
 
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailurePath>();
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             failurePath.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
             mocks.ReplayAll();
 
-            failurePath.IsRelevant = isRelevant;
+            failurePath.InAssembly = inAssembly;
 
             // Call
             var row = new FailurePathMergeDataRow(failurePath);
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             // Assert
             Assert.IsInstanceOf<FailurePathMergeDataRow>(row);
             Assert.AreSame(failurePath, row.FailurePath);
-            Assert.AreEqual(isRelevant, failurePath.IsRelevant);
+            Assert.AreEqual(inAssembly, failurePath.InAssembly);
             Assert.IsFalse(row.HasSections);
             Assert.AreEqual(0, row.NumberOfCalculations);
 

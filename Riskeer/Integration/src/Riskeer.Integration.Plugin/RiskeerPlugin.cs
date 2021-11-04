@@ -598,7 +598,7 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new SpecificFailurePathView(context.WrappedData, context.Parent),
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView
             };
 
@@ -1644,7 +1644,7 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = createInstanceFunc
             };
         }
@@ -1666,7 +1666,7 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                AdditionalDataCheck = context => context.WrappedData.IsRelevant,
+                AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = createInstanceFunc
             };
         }

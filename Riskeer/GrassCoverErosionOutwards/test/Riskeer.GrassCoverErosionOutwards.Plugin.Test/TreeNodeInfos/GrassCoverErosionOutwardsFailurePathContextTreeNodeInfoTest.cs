@@ -113,7 +113,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -165,7 +165,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnChildDataNodes()
         {
             // Setup
             var mocks = new MockRepository();
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
             var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
@@ -191,7 +191,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
@@ -231,7 +231,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismNotInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
@@ -241,7 +241,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
                 {
-                    IsRelevant = false
+                    InAssembly = false
                 };
                 var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
 

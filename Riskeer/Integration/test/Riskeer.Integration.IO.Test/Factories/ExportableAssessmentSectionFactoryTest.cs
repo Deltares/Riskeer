@@ -141,7 +141,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            failureMechanism.IsRelevant = true;
+            failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;

@@ -54,12 +54,12 @@ namespace Riskeer.Integration.Forms.Merge
         public IFailurePath FailurePath { get; }
 
         /// <summary>
-        /// Gets and sets whether the failure mechanism is selected to be merged.
+        /// Gets and sets whether the failure path is selected to be merged.
         /// </summary>
         public bool IsSelected { get; set; }
 
         /// <summary>
-        /// Gets the name of the failure mechanism.
+        /// Gets the name of the failure path.
         /// </summary>
         public string Name
         {
@@ -70,18 +70,18 @@ namespace Riskeer.Integration.Forms.Merge
         }
 
         /// <summary>
-        /// Gets indicator whether the failure mechanism is marked relevant.
+        /// Gets indicator whether the failure path is marked as part of the assembly.
         /// </summary>
-        public bool IsRelevant
+        public bool InAssembly
         {
             get
             {
-                return FailurePath.IsRelevant;
+                return FailurePath.InAssembly;
             }
         }
 
         /// <summary>
-        /// Gets indicator whether the failure mechanism has sections.
+        /// Gets indicator whether the failure path has sections.
         /// </summary>
         public bool HasSections
         {
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Merge
         }
 
         /// <summary>
-        /// Gets the amount of calculations that are contained by the failure mechanism.
+        /// Gets the amount of calculations that are contained by the failure path.
         /// </summary>
         public virtual int NumberOfCalculations
         {

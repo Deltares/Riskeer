@@ -399,8 +399,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Action<TFailurePathContext> onChangeAction)
             where TFailurePathContext : IFailurePathContext<IFailurePath>
         {
-            bool isRelevant = failurePathContext.WrappedData.IsRelevant;
-            Bitmap checkboxImage = isRelevant ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
+            bool inAssembly = failurePathContext.WrappedData.InAssembly;
+            Bitmap checkboxImage = inAssembly ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
                 Resources.FailurePathContextMenuStrip_In_assembly,
                 Resources.FailurePath_InAssembly_Description,
@@ -409,7 +409,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 {
                     onChangeAction?.Invoke(failurePathContext);
 
-                    failurePathContext.WrappedData.IsRelevant = !isRelevant;
+                    failurePathContext.WrappedData.InAssembly = !inAssembly;
                     failurePathContext.WrappedData.NotifyObservers();
                 });
         }

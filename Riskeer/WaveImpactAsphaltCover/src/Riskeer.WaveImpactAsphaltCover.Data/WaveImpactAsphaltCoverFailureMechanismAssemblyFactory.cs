@@ -222,7 +222,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (!failureMechanism.IsRelevant)
+            if (!failureMechanism.InAssembly)
             {
                 return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }

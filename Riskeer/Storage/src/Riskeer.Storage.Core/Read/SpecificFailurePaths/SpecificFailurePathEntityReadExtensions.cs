@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
             var specificFailurePath = new SpecificFailurePath
             {
                 Name = entity.Name,
-                IsRelevant = Convert.ToBoolean(entity.IsRelevant),
+                InAssembly = Convert.ToBoolean(entity.IsRelevant),
                 InputComments =
                 {
                     Body = entity.InputComments

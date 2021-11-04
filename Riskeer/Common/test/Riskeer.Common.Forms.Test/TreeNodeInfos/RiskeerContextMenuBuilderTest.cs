@@ -318,7 +318,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddToggleInAssemblyOfFailurePathItem_WhenBuild_ItemAddedToContextMenuEnabled(bool isRelevant)
+        public void AddToggleInAssemblyOfFailurePathItem_WhenBuild_ItemAddedToContextMenuEnabled(bool inAssembly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -328,7 +328,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var failurePath = mocks.StrictMock<IFailurePath>();
-            failurePath.Expect(fm => fm.IsRelevant).Return(isRelevant);
+            failurePath.Expect(fm => fm.InAssembly).Return(inAssembly);
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailurePath>>();
             failurePathContext.Expect(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
@@ -350,7 +350,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
                 Assert.AreEqual(1, result.Items.Count);
-                Bitmap checkboxIcon = isRelevant ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
+                Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "I&n assemblage",
                                                               "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",

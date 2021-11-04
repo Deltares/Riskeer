@@ -1061,12 +1061,12 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        public void AssembleFailureMechanism_FailureMechanismNotInAssembly_ReturnsNotApplicableAssembly()
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             var mocks = new MockRepository();

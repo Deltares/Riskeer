@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Create
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismType = (short) type,
-                IsRelevant = Convert.ToByte(mechanism.IsRelevant),
+                IsRelevant = Convert.ToByte(mechanism.InAssembly),
                 InputComments = mechanism.InputComments.Body.DeepClone(),
                 OutputComments = mechanism.OutputComments.Body.DeepClone(),
                 NotRelevantComments = mechanism.NotRelevantComments.Body.DeepClone(),

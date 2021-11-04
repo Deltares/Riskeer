@@ -168,14 +168,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [TestCase(AssessmentSectionComposition.DikeAndDune, AssessmentSectionComposition.Dune, 10, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(DikeDune, Dune)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.Dike, 1, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, Dike)")]
         [TestCase(AssessmentSectionComposition.Dune, AssessmentSectionComposition.DikeAndDune, 0, TestName = "ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(Dune, DikeDune)")]
-        public void ChangeComposition_RelevancyChanged_CloseViewsForIrrelevantFailureMechanisms(AssessmentSectionComposition oldComposition,
-                                                                                                AssessmentSectionComposition newComposition,
-                                                                                                int expectedNumberOfCalls)
+        public void ChangeComposition_InAssemblyChanged_CloseViewsForIrrelevantFailureMechanisms(AssessmentSectionComposition oldComposition,
+                                                                                                 AssessmentSectionComposition newComposition,
+                                                                                                 int expectedNumberOfCalls)
         {
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.IsRelevant)))
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.InAssembly)))
                         .Repeat.Times(expectedNumberOfCalls);
             mocks.ReplayAll();
 

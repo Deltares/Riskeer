@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
+        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new PipingStructureFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             var failureMechanismContext = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -255,12 +255,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismNotInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);

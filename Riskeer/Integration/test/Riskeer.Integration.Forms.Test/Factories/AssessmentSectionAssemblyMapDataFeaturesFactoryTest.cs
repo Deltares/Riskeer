@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
                                                                                                            random.NextDouble(),
                                                                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                                                                assessmentSection.GetFailureMechanisms()
-                                                                                .Where(fm => fm.IsRelevant)
+                                                                                .Where(fm => fm.InAssembly)
                                                                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
         }
 

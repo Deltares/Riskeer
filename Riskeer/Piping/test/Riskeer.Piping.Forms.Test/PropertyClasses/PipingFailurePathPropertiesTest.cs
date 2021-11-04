@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = random.NextBoolean()
+                InAssembly = random.NextBoolean()
             };
 
             // Call
@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
-            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
             Assert.AreEqual(probabilityAssessmentInput.A, properties.A);
@@ -194,7 +194,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             // Call
@@ -307,7 +307,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             var pipingFailureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = inAssembly
+                InAssembly = inAssembly
             };
 
             var properties = new PipingFailurePathProperties(pipingFailureMechanism, assessmentSection);
@@ -316,7 +316,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.A)));

@@ -2346,7 +2346,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 failurePath.Input.N = random.NextRoundedDouble(1, 20);
 
                 failurePath.Name = $"Path {i}";
-                failurePath.IsRelevant = random.NextBoolean();
+                failurePath.InAssembly = random.NextBoolean();
                 failurePath.InputComments.Body = $"Input comment path: {i}";
                 failurePath.OutputComments.Body = $"Output comment path: {i}";
                 failurePath.NotRelevantComments.Body = $"NotRelevant comment path: {i}";

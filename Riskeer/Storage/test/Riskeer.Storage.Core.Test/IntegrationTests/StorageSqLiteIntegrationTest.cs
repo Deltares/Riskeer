@@ -444,7 +444,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             Assert.AreEqual(expectedFailureMechanism.Name, actualFailureMechanism.Name);
             Assert.AreEqual(expectedFailureMechanism.Code, actualFailureMechanism.Code);
-            Assert.AreEqual(expectedFailureMechanism.IsRelevant, actualFailureMechanism.IsRelevant);
+            Assert.AreEqual(expectedFailureMechanism.InAssembly, actualFailureMechanism.InAssembly);
             AssertComments(expectedFailureMechanism.InputComments, actualFailureMechanism.InputComments);
             AssertComments(expectedFailureMechanism.OutputComments, actualFailureMechanism.OutputComments);
             AssertComments(expectedFailureMechanism.NotRelevantComments, actualFailureMechanism.NotRelevantComments);
@@ -746,7 +746,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.IsRelevant, actual.IsRelevant);
+            Assert.AreEqual(expected.InAssembly, actual.InAssembly);
 
             AssertComments(expected.InputComments, actual.InputComments);
             AssertComments(expected.OutputComments, actual.OutputComments);

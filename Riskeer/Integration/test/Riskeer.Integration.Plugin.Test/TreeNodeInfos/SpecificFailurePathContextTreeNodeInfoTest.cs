@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismNotRelevantComments()
+        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -268,7 +268,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathIsRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailurePathInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -325,12 +325,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathIsNotRelevant_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailurePathNotInAssembly_CallsContextMenuBuilderMethods()
         {
             // Setup
             var failurePath = new SpecificFailurePath
             {
-                IsRelevant = false
+                InAssembly = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);

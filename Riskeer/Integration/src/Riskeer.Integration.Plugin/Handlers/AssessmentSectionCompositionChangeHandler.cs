@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Dictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.IsRelevant, new ReferenceEqualityComparer<IFailureMechanism>());
+            Dictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.InAssembly, new ReferenceEqualityComparer<IFailureMechanism>());
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -74,23 +74,23 @@ namespace Riskeer.Integration.Plugin.Handlers
                 affectedObjects.Add(assessmentSection.FailureMechanismContribution);
                 affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
 
-                CloseViewsForIrrelevantFailureMechanisms(GetFailureMechanismsWithRelevancyUpdated(oldFailureMechanismRelevancies));
+                CloseViewsForFailureMechanismsNotInAssembly(GetFailureMechanismsWithInAssemblyUpdated(oldFailureMechanismRelevancies));
             }
 
             return affectedObjects;
         }
 
-        private void CloseViewsForIrrelevantFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
+        private void CloseViewsForFailureMechanismsNotInAssembly(IEnumerable<IFailureMechanism> failureMechanisms)
         {
-            foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.IsRelevant))
+            foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.InAssembly))
             {
                 viewCommands.RemoveAllViewsForItem(failureMechanism);
             }
         }
 
-        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithRelevancyUpdated(IDictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies)
+        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithInAssemblyUpdated(IDictionary<IFailureMechanism, bool> oldFailureMechanismRelevancies)
         {
-            return oldFailureMechanismRelevancies.Where(fmr => fmr.Value != fmr.Key.IsRelevant).Select(fmr => fmr.Key);
+            return oldFailureMechanismRelevancies.Where(fmr => fmr.Value != fmr.Key.InAssembly).Select(fmr => fmr.Key);
         }
     }
 }

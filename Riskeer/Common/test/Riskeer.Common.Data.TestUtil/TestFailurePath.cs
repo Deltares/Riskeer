@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.TestUtil
             Name = "Faalpad";
 
             sectionCollection = new FailureMechanismSectionCollection();
-            IsRelevant = true;
+            InAssembly = true;
             InputComments = new Comment();
             OutputComments = new Comment();
             NotRelevantComments = new Comment();
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public Comment NotRelevantComments { get; }
 
-        public bool IsRelevant { get; set; }
+        public bool InAssembly { get; set; }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

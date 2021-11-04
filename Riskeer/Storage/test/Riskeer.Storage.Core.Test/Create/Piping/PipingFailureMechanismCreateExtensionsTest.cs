@@ -62,7 +62,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var random = new Random(31);
             var failureMechanism = new PipingFailureMechanism
             {
-                IsRelevant = random.NextBoolean(),
+                InAssembly = random.NextBoolean(),
                 InputComments =
                 {
                     Body = "Some input text"
@@ -92,7 +92,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.Piping, entity.FailureMechanismType);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.IsRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
             Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotRelevantComments.Body, entity.NotRelevantComments);

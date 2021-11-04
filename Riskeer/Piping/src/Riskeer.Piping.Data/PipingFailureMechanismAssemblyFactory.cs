@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!failureMechanism.IsRelevant)
+            if (!failureMechanism.InAssembly)
             {
                 return FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly();
             }

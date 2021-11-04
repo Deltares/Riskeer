@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             IHasSectionResults<FailureMechanismSectionResult> failureMechanism = getFailureMechanismFunc(assessmentSection);
-            failureMechanism.IsRelevant = isRelevant;
+            failureMechanism.InAssembly = isRelevant;
             failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
             // Call
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         {
             var random = new Random(39);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.IsRelevant = failureMechanismsRelevant);
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = failureMechanismsRelevant);
             const int nrOfSections = 1;
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, nrOfSections);

@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = random.NextBoolean()
+                InAssembly = random.NextBoolean()
             };
 
             var mocks = new MockRepository();
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual($"Overig ({otherContribution})", properties.Contribution);
-            Assert.AreEqual(failureMechanism.IsRelevant, properties.IsRelevant);
+            Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
             mocks.VerifyAll();
         }
 
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = true
+                InAssembly = true
             };
 
             // Call
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = false
+                InAssembly = false
             };
 
             // Call
@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var failureMechanism = new TestFailureMechanism
             {
-                IsRelevant = inAssembly
+                InAssembly = inAssembly
             };
             var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
 
