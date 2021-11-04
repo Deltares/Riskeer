@@ -51,30 +51,6 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
         }
 
         [Test]
-        public void Read_EntityNotReadBefore_RegisterEntity()
-        {
-            // Setup
-            var random = new Random(21);
-            var entity = new SpecificFailurePathEntity
-            {
-                Name = "name",
-                N = random.NextDouble(1.0, 20.0)
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Precondition
-            Assert.IsFalse(collector.Contains(entity));
-
-            // Call
-            SpecificFailurePath specificFailurePath = entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(collector.Contains(entity));
-            Assert.AreSame(specificFailurePath, collector.Get(entity));
-        }
-
-        [Test]
         public void Read_ValidEntity_ReturnSpecificFailurePath()
         {
             // Setup
@@ -111,8 +87,6 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 
             Assert.AreEqual(entity.N, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
-
-            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]
@@ -132,24 +106,6 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             // Assert
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
             Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
-
-            Assert.IsTrue(collector.Contains(entity));
-        }
-
-        [Test]
-        public void Read_EntityRegistered_ReturnRegisteredSpecificFailurePath()
-        {
-            // Setup
-            var entity = new SpecificFailurePathEntity();
-            var registeredSpecificFailurePath = new SpecificFailurePath();
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, registeredSpecificFailurePath);
-
-            // Call
-            SpecificFailurePath readSpecificFailurePath = entity.Read(collector);
-
-            // Assert
-            Assert.AreSame(registeredSpecificFailurePath, readSpecificFailurePath);
         }
 
         private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()

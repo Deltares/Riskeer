@@ -28,7 +28,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.HeightStructures.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Data.SoilProfile;
@@ -98,9 +97,6 @@ namespace Riskeer.Storage.Core.Read
 
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
             CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
-
-        private readonly Dictionary<SpecificFailurePathEntity, SpecificFailurePath> specificFailurePaths =
-            CreateDictionary<SpecificFailurePathEntity, SpecificFailurePath>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -1367,77 +1363,6 @@ namespace Riskeer.Storage.Core.Read
             try
             {
                 return stabilityPointStructures[entity];
-            }
-            catch (KeyNotFoundException e)
-            {
-                throw new InvalidOperationException(e.Message, e);
-            }
-        }
-
-        #endregion
-
-        #region SpecificFailurePathEntity: Read, Contains, Get
-
-        /// <summary>
-        /// Registers a read operation for <see cref="SpecificFailurePathEntity"/> and the
-        /// <see cref="SpecificFailurePath"/> that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> that was read.</param>
-        /// <param name="model">The <see cref="SpecificFailurePath"/> that was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Read(SpecificFailurePathEntity entity, SpecificFailurePath model)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            specificFailurePaths[entity] = model;
-        }
-
-        /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="SpecificFailurePathEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(SpecificFailurePathEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            return specificFailurePaths.ContainsKey(entity);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="SpecificFailurePath"/> which was read for the
-        /// given <see cref="SpecificFailurePathEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> for which a read
-        /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="SpecificFailurePath"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has
-        /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(SpecificFailurePathEntity)"/> to find out whether a
-        /// read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal SpecificFailurePath Get(SpecificFailurePathEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            try
-            {
-                return specificFailurePaths[entity];
             }
             catch (KeyNotFoundException e)
             {

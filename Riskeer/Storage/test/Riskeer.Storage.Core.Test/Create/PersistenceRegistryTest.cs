@@ -34,7 +34,6 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
@@ -404,25 +403,6 @@ namespace Riskeer.Storage.Core.Test.Create
             protected override StabilityPointStructure CreateDataModel()
             {
                 return new TestStabilityPointStructure();
-            }
-        }
-
-        #endregion
-
-        #region SpecificFailurePaths
-
-        [TestFixture]
-        private class SpecificFailurePathRegistryTest : RegistryTest<
-            SpecificFailurePath, SpecificFailurePathEntity>
-        {
-            public SpecificFailurePathRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override SpecificFailurePath CreateDataModel()
-            {
-                return new SpecificFailurePath();
             }
         }
 
