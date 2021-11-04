@@ -61,33 +61,12 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 FailureMechanismSectionCollectionSourcePath = specificFailurePath.FailureMechanismSectionSourcePath.DeepClone()
             };
             specificFailurePath.AddEntitiesForFailureMechanismSections(registry, entity);
+
             return entity;
         }
 
-        /// <summary>
-        /// Creates <see cref="FailureMechanismSectionEntity"/> instances based on the information of the <see cref="FailureMechanismBase"/>.
-        /// </summary>
-        /// <param name="specificFailurePath">The failure mechanism to create a database failure mechanism section entities for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to which to add the created entities.</param>
-        /// <exception cref="ArgumentNullException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="registry"/> is <c>null</c></item>
-        /// <item><paramref name="entity"/> is <c>null</c></item>
-        /// </list>
-        /// </exception>
-        internal static void AddEntitiesForFailureMechanismSections(this IFailurePath specificFailurePath, PersistenceRegistry registry, SpecificFailurePathEntity entity)
+        private static void AddEntitiesForFailureMechanismSections(this IFailurePath specificFailurePath, PersistenceRegistry registry, SpecificFailurePathEntity entity)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
             foreach (FailureMechanismSection failureMechanismSection in specificFailurePath.Sections)
             {
                 entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(registry));

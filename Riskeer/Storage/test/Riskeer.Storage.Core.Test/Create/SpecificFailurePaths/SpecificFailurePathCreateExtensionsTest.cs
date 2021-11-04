@@ -83,12 +83,14 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
+            const string name = "newName";
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotRelevantText = "Really not relevant";
             const string specificFailurePathSectionsSourcePath = "File\\Path";
             var specificFailurePath = new SpecificFailurePath
             {
+                Name = name,
                 InputComments =
                 {
                     Body = originalInput
@@ -113,70 +115,11 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             SpecificFailurePathEntity entity = specificFailurePath.Create(registry, 0);
 
             // Assert
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.Name, entity.Name);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.InputComments.Body, entity.InputComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.OutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotRelevantComments.Body, entity.NotRelevantComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
-        }
-
-        [Test]
-        public void AddEntitiesForFailureMechanismSections_WithoutCollector_ThrowsArgumentNullException()
-        {
-            // Setup
-            var specificFailurePath = new SpecificFailurePath();
-
-            // Call
-            void Call() => specificFailurePath.AddEntitiesForFailureMechanismSections(null, new SpecificFailurePathEntity());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
-        public void AddEntitiesForFailureMechanismSections_WithoutEntity_ThrowsArgumentNullException()
-        {
-            // Setup
-            var specificFailurePath = new SpecificFailurePath();
-
-            // Call
-            void Call() => specificFailurePath.AddEntitiesForFailureMechanismSections(new PersistenceRegistry(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("entity", paramName);
-        }
-
-        [Test]
-        public void AddEntitiesForFailureMechanismSections_WithoutSections_EmptySpecificFailurePathSectionEntities()
-        {
-            // Setup
-            var specificFailurePath = new SpecificFailurePath();
-            var specificFailurePathEntity = new SpecificFailurePathEntity();
-
-            // Call
-            specificFailurePath.AddEntitiesForFailureMechanismSections(new PersistenceRegistry(), specificFailurePathEntity);
-
-            // Assert
-            CollectionAssert.IsEmpty(specificFailurePathEntity.FailureMechanismSectionEntities);
-        }
-
-        [Test]
-        public void AddEntitiesForFailureMechanismSections_WithSections_SpecificFailurePathSectionEntitiesCreated()
-        {
-            // Setup
-            var specificFailurePath = new SpecificFailurePath();
-            FailureMechanismTestHelper.SetSections(specificFailurePath, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-            var specificFailurePathEntity = new SpecificFailurePathEntity();
-
-            // Call
-            specificFailurePath.AddEntitiesForFailureMechanismSections(new PersistenceRegistry(), specificFailurePathEntity);
-
-            // Assert
-            Assert.AreEqual(1, specificFailurePathEntity.FailureMechanismSectionEntities.Count);
         }
     }
 }
