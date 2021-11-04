@@ -1066,7 +1066,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly1, specificFailurePath1.InAssembly);
             Assert.AreEqual(inputComments1, specificFailurePath1.InputComments.Body);
             Assert.AreEqual(outputComments1, specificFailurePath1.OutputComments.Body);
-            Assert.AreEqual(notInAssemblyComments1, specificFailurePath1.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments1, specificFailurePath1.NotInAssemblyComments.Body);
             Assert.AreEqual(n1, specificFailurePath1.Input.N, specificFailurePath1.Input.N.GetAccuracy());
             Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
 
@@ -1076,7 +1076,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(inAssembly2, specificFailurePath2.InAssembly);
             Assert.AreEqual(inputComments2, specificFailurePath2.InputComments.Body);
             Assert.AreEqual(outputComments2, specificFailurePath2.OutputComments.Body);
-            Assert.AreEqual(notInAssemblyComments2, specificFailurePath2.NotRelevantComments.Body);
+            Assert.AreEqual(notInAssemblyComments2, specificFailurePath2.NotInAssemblyComments.Body);
             Assert.AreEqual(n2, specificFailurePath2.Input.N, specificFailurePath2.Input.N.GetAccuracy());
             Assert.IsNull(specificFailurePath2.FailureMechanismSectionSourcePath);
         }

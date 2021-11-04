@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotInAssemblyComments()
+        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotRelevantComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
