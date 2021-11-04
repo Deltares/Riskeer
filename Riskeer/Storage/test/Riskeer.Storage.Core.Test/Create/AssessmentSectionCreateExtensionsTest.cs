@@ -77,6 +77,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
             var normativeNorm = random.NextEnumValue<NormType>();
+            IEnumerable<SpecificFailurePath> specificFailurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10)).ToArray();
+
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
                 Id = testId,
@@ -97,12 +99,10 @@ namespace Riskeer.Storage.Core.Test.Create
                     Transparency = (RoundedDouble) transparency,
                     IsVisible = isVisible,
                     Configuration = new WmtsBackgroundDataConfiguration(false, null, null, null)
-                },
-                SpecificFailurePaths =
-                {
-                    new SpecificFailurePath()
                 }
             };
+
+            assessmentSection.SpecificFailurePaths.AddRange(specificFailurePaths);
             var registry = new PersistenceRegistry();
 
             // Call
@@ -136,7 +136,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StrengthAndStabilityParallelConstruction));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
-            Assert.IsNotNull(entity.SpecificFailurePathEntities.SingleOrDefault());
+            Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, entity.SpecificFailurePathEntities.Count);
             Assert.AreEqual(order, entity.Order);
 
             Assert.IsNull(entity.ReferenceLinePointXml);

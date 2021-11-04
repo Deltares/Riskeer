@@ -77,15 +77,15 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
-                    
-                    AssertFailureMechanismSectionEntity(reader, sourceFilePath);
+
+                    AssertFailureMechanismSection(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
         }
 
-        private static void AssertFailureMechanismSectionEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertFailureMechanismSection(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateFailureMechanismSectionMapping =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -98,9 +98,9 @@ namespace Riskeer.Migration.Integration.Test
                 "JOIN SOURCEPROJECT.FailureMechanismSectionEntity OLD USING(FailureMechanismSectionEntityId) " +
                 "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId];" +
                 "DETACH SOURCEPROJECT;";
-            
+
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionMapping);
-            
+
             string validateFailureMechanismSectionEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
@@ -483,7 +483,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertStabilityStoneCoverCalculations(MigratedDatabaseReader reader, string sourceFilePath)
         {
-             string validateNormBaseQueryFormat =
+            string validateNormBaseQueryFormat =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -550,9 +550,10 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateOtherCalculations);
         }
+
         private static void AssertWaveImpactAsphaltCoverCalculations(MigratedDatabaseReader reader, string sourceFilePath)
         {
-             string validateNormBaseQueryFormat =
+            string validateNormBaseQueryFormat =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
