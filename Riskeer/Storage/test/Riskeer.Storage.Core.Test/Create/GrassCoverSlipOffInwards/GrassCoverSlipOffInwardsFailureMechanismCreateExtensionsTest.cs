@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffInwards
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not in assembly";
+            const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
             {
                 InputComments =
@@ -103,7 +103,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffInwards
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = originalNotInAssemblyText
                 }
             };
             var registry = new PersistenceRegistry();

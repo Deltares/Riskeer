@@ -99,7 +99,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             // Setup
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not in assembly";
+            const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InputComments =
@@ -112,7 +112,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = originalNotInAssemblyText
                 }
             };
             var registry = new PersistenceRegistry();

@@ -126,7 +126,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             const string name = "newName";
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
-            const string originalNotRelevantText = "Really not relevant";
+            const string originalNotInAssemblyText = "Really not relevant";
             const string specificFailurePathSectionsSourcePath = "File\\Path";
             var specificFailurePath = new SpecificFailurePath
             {
@@ -141,7 +141,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotRelevantText
+                    Body = originalNotInAssemblyText
                 }
             };
             specificFailurePath.SetSections(new[]

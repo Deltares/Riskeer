@@ -361,7 +361,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsFailureMechanismNotRelevantCommentOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsFailureMechanismNotInAssemblyCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
             var comment = new Comment();
@@ -604,7 +604,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewDataIsFailurePathNotRelevantCommentOfDeletedAssessmentSection_ReturnTrue()
+        public void CloseForData_ViewDataIsFailurePathNotInAssemblyCommentOfDeletedAssessmentSection_ReturnTrue()
         {
             // Setup
             var comment = new Comment();

@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotRelevantComments()
+        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotInAssemblyComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

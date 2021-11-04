@@ -96,7 +96,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyAndRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismNotInAssemblyAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyAndRemovesAllViewsForItem()
         {
             // Setup
             var mocks = new MockRepository();

@@ -998,8 +998,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             using (var treeView = new TreeViewControl())
-            using (var contextMenuStripRelevant = new ContextMenuStrip())
-            using (var contextMenuStripNotRelevant = new ContextMenuStrip())
+            using (var contextMenuStripInAssembly = new ContextMenuStrip())
+            using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
                 var mocks = new MockRepository();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1021,7 +1021,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                             Assert.AreEqual(assessmentSection, parent);
                             Assert.AreEqual(treeView, treeViewControl);
 
-                            return contextMenuStripRelevant;
+                            return contextMenuStripInAssembly;
                         },
                         (mechanismContext, parent, treeViewControl) =>
                         {
@@ -1029,14 +1029,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                             Assert.AreEqual(assessmentSection, parent);
                             Assert.AreEqual(treeView, treeViewControl);
 
-                            return contextMenuStripNotRelevant;
+                            return contextMenuStripNotInAssembly;
                         });
 
                 // Call
                 using (ContextMenuStrip contextMenuStrip = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreSame(contextMenuStripRelevant, contextMenuStrip);
+                    Assert.AreSame(contextMenuStripInAssembly, contextMenuStrip);
                 }
 
                 mocks.VerifyAll();
@@ -1048,8 +1048,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             using (var treeView = new TreeViewControl())
-            using (var contextMenuStripRelevant = new ContextMenuStrip())
-            using (var contextMenuStripNotRelevant = new ContextMenuStrip())
+            using (var contextMenuStripInAssembly = new ContextMenuStrip())
+            using (var contextMenuStripNotInAssembly = new ContextMenuStrip())
             {
                 var mocks = new MockRepository();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1071,7 +1071,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                             Assert.AreEqual(assessmentSection, parent);
                             Assert.AreEqual(treeView, treeViewControl);
 
-                            return contextMenuStripRelevant;
+                            return contextMenuStripInAssembly;
                         },
                         (mechanismContext, parent, treeViewControl) =>
                         {
@@ -1079,14 +1079,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                             Assert.AreEqual(assessmentSection, parent);
                             Assert.AreEqual(treeView, treeViewControl);
 
-                            return contextMenuStripNotRelevant;
+                            return contextMenuStripNotInAssembly;
                         });
 
                 // Call
                 using (ContextMenuStrip result = treeNodeInfo.ContextMenuStrip(context, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreSame(contextMenuStripNotRelevant, result);
+                    Assert.AreSame(contextMenuStripNotInAssembly, result);
                 }
 
                 mocks.VerifyAll();
