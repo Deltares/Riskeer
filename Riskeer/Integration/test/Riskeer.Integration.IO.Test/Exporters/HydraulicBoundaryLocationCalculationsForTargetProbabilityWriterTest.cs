@@ -77,6 +77,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(HydraulicBoundaryLocationCalculationsType.WaterLevel, "ExpectedWaterLevelExport")]
         [TestCase(HydraulicBoundaryLocationCalculationsType.WaveHeight, "ExpectedWaveHeightExport")]
         public void WriteHydraulicBoundaryLocationCalculations_ValidData_WritesShapeFile(HydraulicBoundaryLocationCalculationsType calculationsType,

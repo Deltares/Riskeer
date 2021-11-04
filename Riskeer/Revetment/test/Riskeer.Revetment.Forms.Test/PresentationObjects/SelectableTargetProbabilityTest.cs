@@ -89,6 +89,7 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCaseSource(nameof(GetTestCases))]
         public void ToString_Always_ReturnsExpectedString(SelectableTargetProbability selectableTargetProbability, string expectedString)
         {

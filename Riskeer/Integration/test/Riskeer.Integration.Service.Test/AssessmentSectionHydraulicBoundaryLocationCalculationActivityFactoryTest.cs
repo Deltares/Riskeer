@@ -58,6 +58,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
@@ -176,6 +177,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateWaterLevelCalculationActivitiesForNormTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
@@ -241,6 +243,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateWaterLevelCalculationActivitiesForUserDefinedTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
@@ -319,6 +322,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         [TestCase(true)]
         [TestCase(false)]
         public void CreateWaveHeightCalculationActivitiesForUserDefinedTargetProbabilities_WithValidDataAndUsePreprocessorStates_ExpectedInputSetToActivities(bool usePreprocessor)
