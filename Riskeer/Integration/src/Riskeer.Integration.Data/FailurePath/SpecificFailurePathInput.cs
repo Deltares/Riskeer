@@ -32,9 +32,9 @@ namespace Riskeer.Integration.Data.FailurePath
     {
         private const int numberOfDecimalPlacesN = 2;
         private static RoundedDouble n;
+
         private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
                                                                                                new RoundedDouble(numberOfDecimalPlacesN, 20));
-
 
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailurePathInput"/>.
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Data.FailurePath
 
         /// <summary>
         /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the 'N2A' value is set outside the range [0, 20].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the 'N' value is set outside the range [1.00, 20.00].</exception>
         /// </summary>
         public RoundedDouble N
         {
