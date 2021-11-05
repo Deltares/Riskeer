@@ -592,6 +592,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkans per doorsnede
+        ///[1/jaar].
+        /// </summary>
+        public static string MacroStabilityInwardsScenarioView_FailureProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsScenarioView_FailureProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Booglengte.
         /// </summary>
         public static string MacroStabilityInwardsSlice_ArcLength_DisplayName {
