@@ -10,6 +10,16 @@
 			<smartfoldernode
 			id="020d4299-60a8-4034-99a7-5e5b08ce6183"
 			name="ValidateProperties">
+				<parameters>
+					<param
+					name="FullPathReferenceFile"
+					value="">
+					</param>
+					<param
+					name="RootPathReferenceFile"
+					value="X:\script19\reference\climateScenario\">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="03178f1b-0bf6-4406-9edf-90406638282a"
@@ -202,18 +212,26 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="referencePropertiesCSVFilePath"
-					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
-					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
-					variablename="filePath2">
-					</var>
-					<var
 					dataname="nameOfExportedPropertiesCSVFile"
 					datasourceid="5399f1b8-8a5e-40cd-9395-bf5b9883b579"
 					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
 					variablename="filePath1">
 					</var>
+					<var
+					dataname="FullPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="referencePropertiesCSVFilePath"
+					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
+					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
+					variablename="filePath2">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="109e9a35-8699-4f46-8028-2723005d13d6"
@@ -709,6 +727,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="439a76dc-6672-4308-ae32-06466a960e4c"
+			name="CalculateFullPathReferenceFile">
+			</smartfoldernode>
 			<smartfoldernode
 			id="44851c49-581b-48e8-b035-7fa79c45d06e"
 			name="OpenView">
@@ -1378,6 +1400,62 @@
 			id="7a70f1b0-adc5-4a5b-82c6-d057bad6589b"
 			name="CreateAndRenameCalculationFolder">
 			</smartfoldernode>
+			<smartfoldernode
+			id="7c815188-1a2c-4a8d-af2e-058017f8bd1f"
+			name="CalculateFullPathReferenceFile">
+			</smartfoldernode>
+			<testmodule
+			id="7de95511-01f4-4946-83b0-cc8dddec9825"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="FullPathReferenceFile"
+					datasourceid="020d4299-60a8-4034-99a7-5e5b08ce6183"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="RootPathReferenceFile"
+					datasourceid="020d4299-60a8-4034-99a7-5e5b08ce6183"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
+					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="FullPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="RooPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="nameOfExportedPropertiesCSVFile"
+					datasourceid="5399f1b8-8a5e-40cd-9395-bf5b9883b579"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="7f06a5ce-4883-4174-aacd-9aaf7f5f4f3b"
 			name="RemoveResultsFromAddedSubfolder">
@@ -2086,6 +2164,16 @@
 			<smartfoldernode
 			id="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
 			name="ValidateProperties">
+				<parameters>
+					<param
+					name="FullPathReferenceFile"
+					value="">
+					</param>
+					<param
+					name="RootPathReferenceFile"
+					value="X:\script19\reference\default\">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="c0cf10ad-71cc-4e61-8ad9-9c9d37b6a1d4"
@@ -2136,6 +2224,38 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="c7d2cc3f-45d1-494e-8a78-03152416dbb8"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="FullPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="RootPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="nameOfExportedPropertiesCSVFile"
+					datasourceid="5399f1b8-8a5e-40cd-9395-bf5b9883b579"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="c892db0f-fb7c-4e1e-969e-fc6b338f8071"
 			name="ValidateRowDoesNotExistInPropertiesPanel"
 			ref="a91dc990-2aae-4244-86f4-1f59055da825"
@@ -2172,8 +2292,8 @@
 					variablename="filePath1">
 					</var>
 					<var
-					dataname="referenceClimateScenarioPropertiesCSVFilePath"
-					datasourceid="282bd820-e2d5-4c85-b132-5d8e734fcbc5"
+					dataname="FullPathReferenceFile"
+					datasourceid="020d4299-60a8-4034-99a7-5e5b08ce6183"
 					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
 					variablename="filePath2">
 					</var>
@@ -2186,8 +2306,8 @@
 					variablename="filePath1">
 					</var>
 					<var
-					dataname="referencePropertiesCSVFilePath"
-					datasourceid="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
+					dataname="referenceClimateScenarioPropertiesCSVFilePath"
+					datasourceid="282bd820-e2d5-4c85-b132-5d8e734fcbc5"
 					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
 					variablename="filePath2">
 					</var>
@@ -2377,7 +2497,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="e777413d-4a96-4bba-a786-266ce48fc3ef"
-			name="CalculateActualPropertiesCSVFileName">
+			name="CalculatePathActualPropertiesCSVFile">
 				<parameters>
 					<param
 					name="intermediateString"
@@ -2583,7 +2703,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="f1631db4-d974-4bd8-a22c-dbb96e9fdddd"
-			name="SelectStateWithCalculations">
+			name="SelectStateCalculations">
 				<parameters>
 					<param
 					name="stateWithCalculations"
@@ -3077,7 +3197,7 @@
 										name="ValidateProperties">
 											<smartfoldernode
 											id="e777413d-4a96-4bba-a786-266ce48fc3ef"
-											name="CalculateActualPropertiesCSVFileName">
+											name="CalculatePathActualPropertiesCSVFile">
 												<testmodule
 												id="e8083811-1465-40a6-bc1e-c3b72ca8cffd"
 												name="ReplaceSubstring">
@@ -3093,6 +3213,14 @@
 												<testmodule
 												id="14bd14f1-d076-4205-ab8d-8038650877a2"
 												name="AppendString">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="439a76dc-6672-4308-ae32-06466a960e4c"
+											name="CalculateFullPathReferenceFile">
+												<testmodule
+												id="c7d2cc3f-45d1-494e-8a78-03152416dbb8"
+												name="ReplaceSubstring">
 												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
@@ -3169,7 +3297,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="f1631db4-d974-4bd8-a22c-dbb96e9fdddd"
-							name="SelectStateWithCalculations">
+							name="SelectStateCalculations">
 								<testmodule
 								id="03178f1b-0bf6-4406-9edf-90406638282a"
 								name="SelectState">
@@ -3313,6 +3441,14 @@
 												<testmodule
 												id="401a06c7-76be-45f1-9d87-32abcdd1b4aa"
 												name="AppendString">
+												</testmodule>
+											</smartfoldernode>
+											<smartfoldernode
+											id="7c815188-1a2c-4a8d-af2e-058017f8bd1f"
+											name="CalculateFullPathReferenceFile">
+												<testmodule
+												id="7de95511-01f4-4946-83b0-cc8dddec9825"
+												name="ReplaceSubstring">
 												</testmodule>
 											</smartfoldernode>
 											<smartfoldernode
@@ -4045,7 +4181,7 @@
 		</DataSource>
 		<DataSource
 		id="7a909d13-27e1-4b3b-b827-cd9a9689ce62"
-		lastknownrowcount="32"
+		lastknownrowcount="28"
 		name="script19a_LoopResultTypes"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4057,9 +4193,6 @@
 				</column>
 				<column>
 					hasView
-				</column>
-				<column>
-					referencePropertiesCSVFilePath
 				</column>
 				<column>
 					calculationName
@@ -4079,9 +4212,6 @@
 						hasView
 					</th>
 					<th>
-						referencePropertiesCSVFilePath
-					</th>
-					<th>
 						calculationName
 					</th>
 				</tr>
@@ -4096,10 +4226,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Norm
+						profiel005_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4113,10 +4240,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Norm
+						profiel005_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4130,10 +4254,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Norm
+						profiel005_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4147,10 +4268,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Norm
+						profiel005_F1_D1_HBN1_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4164,10 +4282,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Requirement
+						profiel005_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4181,10 +4296,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Requirement
+						profiel005_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4198,10 +4310,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Requirement
+						profiel005_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4215,10 +4324,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D1_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F1_D1_Requirement
+						profiel005_F1_D0_HBN1_OD1_(1_1000)
 					</td>
 				</tr>
 				<tr>
@@ -4232,10 +4338,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Norm
+						profiel005_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4249,10 +4352,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Norm
+						profiel005_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4266,10 +4366,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Norm
+						profiel005_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4283,10 +4380,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Norm
+						profiel005_F0_D1_HBN1_OD1_(1_10000)
 					</td>
 				</tr>
 				<tr>
@@ -4300,10 +4394,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Requirement
+						profiel005_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4317,10 +4408,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Requirement
+						profiel005_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4334,10 +4422,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Requirement
+						profiel005_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4351,10 +4436,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F1_D0_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F1_D0_Requirement
+						profiel005_F0_D0_HBN1_OD1_(1_30000)
 					</td>
 				</tr>
 				<tr>
@@ -4368,10 +4450,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Norm
+						profiel005_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4385,10 +4464,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Norm
+						profiel005_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4402,10 +4478,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Norm
+						profiel005_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4419,10 +4492,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Norm
+						profiel005_F1_D1_HBN1_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4436,10 +4506,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Requirement
+						profiel005_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4453,10 +4520,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Requirement
+						profiel005_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4470,10 +4534,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Requirement
+						profiel005_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4487,10 +4548,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D1_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F0_D1_Requirement
+						profiel005_F1_D1_HBN0_OD1_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4504,10 +4562,7 @@
 						false
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Norm
+						profiel005_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4521,10 +4576,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Norm
+						profiel005_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4538,10 +4590,7 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Norm
+						profiel005_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 				<tr>
@@ -4555,85 +4604,14 @@
 						true
 					</td>
 					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Norm
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Results summary
-					</td>
-					<td>
-						&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Requirement
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Overtopping output (Sterkte berekening)
-					</td>
-					<td>
-						&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Requirement
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dike height (HBN)
-					</td>
-					<td>
-						&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Requirement
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Overtopping rate (Overslagdebiet)
-					</td>
-					<td>
-						&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\default\profiel005_F0_D0_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						profiel005_F0_D0_Requirement
+						profiel005_F1_D1_HBN0_OD0_(1_3000)
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="282bd820-e2d5-4c85-b132-5d8e734fcbc5"
-		lastknownrowcount="32"
+		lastknownrowcount="28"
 		name="script19a_LoopResultTypesClimateScenario"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4645,12 +4623,6 @@
 				</column>
 				<column>
 					hasView
-				</column>
-				<column>
-					referencePropertiesCSVFilePath
-				</column>
-				<column>
-					referenceClimateScenarioPropertiesCSVFilePath
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -4666,12 +4638,6 @@
 					<th>
 						hasView
 					</th>
-					<th>
-						referencePropertiesCSVFilePath
-					</th>
-					<th>
-						referenceClimateScenarioPropertiesCSVFilePath
-					</th>
 				</tr>
 				<tr>
 					<td>
@@ -4682,12 +4648,6 @@
 					</td>
 					<td>
 						false
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Norm_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Norm_Resultaat_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4700,12 +4660,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Norm_Resultaat_Sterkte_berekening_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4717,12 +4671,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Norm_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4733,12 +4681,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Norm_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4751,12 +4693,6 @@
 					<td>
 						false
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Requirement_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Requirement_Resultaat_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4767,12 +4703,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Requirement_Resultaat_Sterkte_berekening_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4785,12 +4715,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Requirement_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4801,12 +4725,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D1_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D1_Requirement_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4819,12 +4737,6 @@
 					<td>
 						false
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Norm_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Norm_Resultaat_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4835,12 +4747,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Norm_Resultaat_Sterkte_berekening_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4853,12 +4759,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Norm_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4869,12 +4769,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Norm_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4887,12 +4781,6 @@
 					<td>
 						false
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Requirement_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Requirement_Resultaat_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4903,12 +4791,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Requirement_Resultaat_Sterkte_berekening_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4921,12 +4803,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Requirement_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4937,12 +4813,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F1_D0_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F1_D0_Requirement_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4955,12 +4825,6 @@
 					<td>
 						false
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Norm_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Norm_Resultaat_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -4971,12 +4835,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Norm_Resultaat_Sterkte_berekening_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -4989,12 +4847,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Norm_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5005,12 +4857,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Norm_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -5023,12 +4869,6 @@
 					<td>
 						false
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Requirement_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Requirement_Resultaat_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5039,12 +4879,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Requirement_Resultaat_Sterkte_berekening_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -5057,12 +4891,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Requirement_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5073,12 +4901,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D1_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D1_Requirement_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -5091,12 +4913,6 @@
 					<td>
 						false
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Norm_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Norm_Resultaat_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5107,12 +4923,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Norm_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Norm_Resultaat_Sterkte_berekening_ClimateScenario.csv
 					</td>
 				</tr>
 				<tr>
@@ -5125,12 +4935,6 @@
 					<td>
 						true
 					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Norm_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Norm_Resultaat_HBN_ClimateScenario.csv
-					</td>
 				</tr>
 				<tr>
 					<td>
@@ -5141,80 +4945,6 @@
 					</td>
 					<td>
 						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Norm_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Norm_Resultaat_Overslagdebiet_ClimateScenario.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Results summary
-					</td>
-					<td>
-						&gt;Resultaat
-					</td>
-					<td>
-						false
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Requirement_Resultaat.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Requirement_Resultaat_ClimateScenario.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Overtopping output (Sterkte berekening)
-					</td>
-					<td>
-						&gt;Resultaat&gt;Sterkte berekening
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Requirement_Resultaat_Sterkte_berekening.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Requirement_Resultaat_Sterkte_berekening_ClimateScenario.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dike height (HBN)
-					</td>
-					<td>
-						&gt;Resultaat&gt;HBN
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Requirement_Resultaat_HBN.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Requirement_Resultaat_HBN_ClimateScenario.csv
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Overtopping rate (Overslagdebiet)
-					</td>
-					<td>
-						&gt;Resultaat&gt;Overslagdebiet
-					</td>
-					<td>
-						true
-					</td>
-					<td>
-						x:\script19\reference\profiel005_F0_D0_Requirement_Resultaat_Overslagdebiet.csv
-					</td>
-					<td>
-						x:\script19\reference\climateScenario\profiel005_F0_D0_Requirement_Resultaat_Overslagdebiet_ClimateScenario.csv
 					</td>
 				</tr>
 			</table>
@@ -5355,6 +5085,9 @@
 			id="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e">
 			</testcontainer>
 			<testcontainer
+			id="439a76dc-6672-4308-ae32-06466a960e4c">
+			</testcontainer>
+			<testcontainer
 			id="44851c49-581b-48e8-b035-7fa79c45d06e">
 			</testcontainer>
 			<testcontainer
@@ -5398,6 +5131,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7a70f1b0-adc5-4a5b-82c6-d057bad6589b">
+			</testcontainer>
+			<testcontainer
+			id="7c815188-1a2c-4a8d-af2e-058017f8bd1f">
 			</testcontainer>
 			<testcontainer
 			id="7f06a5ce-4883-4174-aacd-9aaf7f5f4f3b">

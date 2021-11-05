@@ -77,6 +77,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         void ITestModule.Run()
         {
             finalString = originalString.Replace(substringToBeReplaced, substringToReplaceWith);
+            Report.Info("Final string:\r\n" + finalString);
         }
     }
 }
