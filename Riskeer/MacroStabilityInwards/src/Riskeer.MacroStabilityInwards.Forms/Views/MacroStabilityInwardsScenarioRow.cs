@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 
@@ -64,6 +67,24 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         }
 
         public override double FailureProbability => derivedOutput?.MacroStabilityInwardsProbability ?? double.NaN;
+
+        /// <summary>
+        /// Gets the section failure probability of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double SectionFailureProbability
+        {
+            get
+            {
+                if (derivedOutput != null)
+                {
+                    return derivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                               failureMechanismSection.Length);
+                }
+
+                return double.NaN;
+            }
+        }
 
         /// <summary>
         /// Updates the row based on the current output of the calculation scenario.
