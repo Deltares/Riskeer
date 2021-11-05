@@ -344,9 +344,9 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        private static void SetSections(IFailureMechanism failureMechanism)
+        private static void SetSections(IFailurePath failurePath)
         {
-            failureMechanism.SetSections(new[]
+            failurePath.SetSections(new[]
             {
                 new FailureMechanismSection("section 1", new[]
                 {
@@ -552,6 +552,29 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void ConfigurePipingStructureFailureMechanism(PipingStructureFailureMechanism pipingStructureFailureMechanism)
         {
             pipingStructureFailureMechanism.N = (RoundedDouble) 12.5;
+        }
+
+        #endregion
+
+        #region Specific FailurePath
+
+        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailurePath> specificFailurePaths)
+        {
+            var i = 0;
+            foreach (SpecificFailurePath failurePath in specificFailurePaths)
+            {
+                var random = new Random(i);
+                failurePath.Input.N = random.NextRoundedDouble(1, 20);
+
+                failurePath.Name = $"Path {i}";
+                failurePath.InAssembly = random.NextBoolean();
+                failurePath.InputComments.Body = $"Input comment path: {i}";
+                failurePath.OutputComments.Body = $"Output comment path: {i}";
+                failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
+
+                SetSections(failurePath);
+                i++;
+            }
         }
 
         #endregion
@@ -2330,28 +2353,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
                 sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            }
-        }
-
-        #endregion
-
-        #region Specific FailurePath
-
-        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailurePath> specificFailurePaths)
-        {
-            var i = 0;
-            foreach (SpecificFailurePath failurePath in specificFailurePaths)
-            {
-                var random = new Random(i);
-                failurePath.Input.N = random.NextRoundedDouble(1, 20);
-
-                failurePath.Name = $"Path {i}";
-                failurePath.InAssembly = random.NextBoolean();
-                failurePath.InputComments.Body = $"Input comment path: {i}";
-                failurePath.OutputComments.Body = $"Output comment path: {i}";
-                failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
-
-                i++;
             }
         }
 
