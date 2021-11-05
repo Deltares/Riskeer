@@ -379,13 +379,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             });
             mocks.VerifyAll();
         }
-        
+
         private static AssessmentSectionMergeData.ConstructionProperties CreateDefaultConstructionProperties()
         {
-            return new AssessmentSectionMergeData.ConstructionProperties
-            {
-                MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
-            };
+            return new AssessmentSectionMergeData.ConstructionProperties();
         }
     }
 }

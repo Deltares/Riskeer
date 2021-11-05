@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Plugin.Merge
         /// <param name="mergeData">The data to merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="mergeData"/> could not
-        /// successfully merged into <paramref name="targetAssessmentSection"/>.</exception>
+        /// successfully be merged into <paramref name="targetAssessmentSection"/>.</exception>
         void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSectionMergeData mergeData);
     }
 }

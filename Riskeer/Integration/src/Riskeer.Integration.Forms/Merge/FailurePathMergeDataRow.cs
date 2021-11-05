@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Integration.Forms.Merge
 {
@@ -35,7 +34,7 @@ namespace Riskeer.Integration.Forms.Merge
         /// <summary>
         /// Creates a new instance of <see cref="FailurePathMergeDataRow"/>.
         /// </summary>
-        /// <param name="failurePath">The wrapped <see cref="IFailureMechanism"/>.</param>
+        /// <param name="failurePath">The wrapped <see cref="IFailurePath"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
         public FailurePathMergeDataRow(IFailurePath failurePath)
@@ -49,7 +48,7 @@ namespace Riskeer.Integration.Forms.Merge
         }
 
         /// <summary>
-        /// Gets the wrapped failure path of the row.
+        /// Gets the wrapped <see cref="IFailurePath"/> of the row.
         /// </summary>
         public IFailurePath FailurePath { get; }
 

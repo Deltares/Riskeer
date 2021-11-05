@@ -61,11 +61,8 @@ namespace Riskeer.Integration.Data.Test.Merge
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var mergeData = new AssessmentSectionMergeData(assessmentSection, 
-                                                           new AssessmentSectionMergeData.ConstructionProperties
-                                                           {
-                                                               MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
-                                                           });
+            var mergeData = new AssessmentSectionMergeData(assessmentSection,
+                                                           new AssessmentSectionMergeData.ConstructionProperties());
 
             // Assert
             Assert.AreSame(assessmentSection, mergeData.AssessmentSection);
@@ -87,6 +84,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.IsFalse(mergeData.MergeStrengthStabilityLengthwiseConstruction);
             Assert.IsFalse(mergeData.MergeDuneErosion);
             Assert.IsFalse(mergeData.MergeTechnicalInnovation);
+            CollectionAssert.IsEmpty(mergeData.MergeSpecificFailurePaths);
         }
 
         [Test]
@@ -151,7 +149,10 @@ namespace Riskeer.Integration.Data.Test.Merge
         {
             // Call
             void Call() => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                          new AssessmentSectionMergeData.ConstructionProperties());
+                                                          new AssessmentSectionMergeData.ConstructionProperties
+                                                          {
+                                                              MergeSpecificFailurePaths = null
+                                                          });
 
             // Assert
             const string expectedMessage = "MergeSpecificFailurePaths must be set";

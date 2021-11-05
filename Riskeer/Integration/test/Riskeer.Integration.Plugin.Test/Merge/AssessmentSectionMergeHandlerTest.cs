@@ -117,8 +117,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 MergeStabilityPointStructures = true,
                 MergeStrengthStabilityLengthwiseConstruction = true,
                 MergeDuneErosion = true,
-                MergeTechnicalInnovation = true,
-                MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
+                MergeTechnicalInnovation = true
             });
 
             // Call
@@ -208,8 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                                     MergeStabilityPointStructures = true,
                                                     MergeStrengthStabilityLengthwiseConstruction = true,
                                                     MergeDuneErosion = true,
-                                                    MergeTechnicalInnovation = true,
-                                                    MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
+                                                    MergeTechnicalInnovation = true
                                                 }));
 
             // Assert
@@ -483,8 +481,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeGrassCoverErosionOutwards = true,
                                          MergeHeightStructures = true,
                                          MergeClosingStructures = true,
-                                         MergeStabilityPointStructures = true,
-                                         MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
+                                         MergeStabilityPointStructures = true
                                      }));
 
             // Then
@@ -543,10 +540,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
         private static AssessmentSectionMergeData.ConstructionProperties CreateDefaultConstructionProperties()
         {
-            return new AssessmentSectionMergeData.ConstructionProperties
-            {
-                MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
-            };
+            return new AssessmentSectionMergeData.ConstructionProperties();
         }
 
         #region HydraulicBoundaryLocationCalculations
@@ -908,8 +902,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeGrassCoverErosionOutwards = false,
                                          MergeHeightStructures = false,
                                          MergeClosingStructures = false,
-                                         MergeStabilityPointStructures = false,
-                                         MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
+                                         MergeStabilityPointStructures = false
                                      }));
 
             // Then
@@ -971,8 +964,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                          MergeGrassCoverErosionOutwards = false,
                                          MergeHeightStructures = false,
                                          MergeClosingStructures = false,
-                                         MergeStabilityPointStructures = false,
-                                         MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
+                                         MergeStabilityPointStructures = false
                                      }));
 
             // Then

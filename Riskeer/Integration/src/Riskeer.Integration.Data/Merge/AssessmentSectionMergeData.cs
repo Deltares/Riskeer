@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Data.Merge
@@ -277,7 +278,7 @@ namespace Riskeer.Integration.Data.Merge
             /// <summary>
             /// Gets or sets the collection of specific failure paths that should be merged.
             /// </summary>
-            public IEnumerable<IFailurePath> MergeSpecificFailurePaths { internal get; set; }
+            public IEnumerable<IFailurePath> MergeSpecificFailurePaths { internal get; set; } = Enumerable.Empty<IFailurePath>();
         }
     }
 }
