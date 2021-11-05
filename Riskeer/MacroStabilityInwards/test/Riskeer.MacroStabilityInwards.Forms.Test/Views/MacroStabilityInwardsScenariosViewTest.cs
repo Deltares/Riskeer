@@ -44,6 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         private const int contributionColumnIndex = 1;
         private const int nameColumnIndex = 2;
         private const int failureProbabilityColumnIndex = 3;
+        private const int sectionFailureProbabilityColumnIndex = 4;
         private Form testForm;
 
         [SetUp]
@@ -81,11 +82,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(4, dataGridView.ColumnCount);
+            Assert.AreEqual(5, dataGridView.ColumnCount);
             Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
             Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
             Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
             Assert.AreEqual("Faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[failureProbabilityColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionFailureProbabilityColumnIndex].HeaderText);
         }
 
         [Test]
@@ -101,18 +103,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[sectionFailureProbabilityColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(4, cells.Count);
+            Assert.AreEqual(5, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(1), cells[failureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(5.8), cells[sectionFailureProbabilityColumnIndex].FormattedValue);
         }
 
         private void ShowFullyConfiguredMacroStabilityInwardsScenariosView()
@@ -148,12 +152,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 new FailureMechanismSection("Section 1", new[]
                 {
                     new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
+                    new Point2D(8000.0, 0.0)
                 }),
                 new FailureMechanismSection("Section 2", new[]
                 {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
+                    new Point2D(8000.0, 0.0),
+                    new Point2D(9000.0, 0.0)
                 })
             });
 

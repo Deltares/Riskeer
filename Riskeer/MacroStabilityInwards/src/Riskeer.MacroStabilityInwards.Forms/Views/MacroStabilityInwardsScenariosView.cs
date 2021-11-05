@@ -82,6 +82,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 nameof(MacroStabilityInwardsScenarioRow.FailureProbability),
                 Resources.MacroStabilityInwardsScenarioView_FailureProbability_DisplayName
             );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.SectionFailureProbability),
+                Resources.MacroStabilityInwardsScenarioView_SectionFailureProbability_DisplayName
+            );
         }
     }
 }
