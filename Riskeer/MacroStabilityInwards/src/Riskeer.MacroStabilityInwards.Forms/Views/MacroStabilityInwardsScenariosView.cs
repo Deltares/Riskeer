@@ -27,6 +27,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
@@ -60,6 +61,26 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                                  .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism)).ToList();
+        }
+        
+        protected override void InitializeDataGridView()
+        {
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.IsRelevant),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_In_final_rating
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.Contribution),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_Contribution
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.Name),
+                RiskeerCommonFormsResources.ScenarioView_Name_DisplayName
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(MacroStabilityInwardsScenarioRow.FailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_FailureProbability_DisplayName
+            );
         }
     }
 }
