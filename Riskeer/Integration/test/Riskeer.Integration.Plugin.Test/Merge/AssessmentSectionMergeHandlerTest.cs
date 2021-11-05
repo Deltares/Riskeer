@@ -258,11 +258,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
 
-            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
-                                                           new AssessmentSectionMergeData.ConstructionProperties
-                                                           {
-                                                               MergeSpecificFailurePaths = failurePathsToMerge
-                                                           });
+            var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
+            constructionProperties.MergeSpecificFailurePaths.AddRange(failurePathsToMerge);
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
             handler.PerformMerge(targetAssessmentSection, mergeData);
@@ -294,11 +292,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
 
-            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
-                                                           new AssessmentSectionMergeData.ConstructionProperties
-                                                           {
-                                                               MergeSpecificFailurePaths = Enumerable.Empty<IFailurePath>()
-                                                           });
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
 
             // Call
             handler.PerformMerge(targetAssessmentSection, mergeData);
@@ -320,11 +314,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 new SpecificFailurePath()
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
-                                                           new AssessmentSectionMergeData.ConstructionProperties
-                                                           {
-                                                               MergeSpecificFailurePaths = failurePathsToMerge
-                                                           });
+
+            var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
+            constructionProperties.MergeSpecificFailurePaths.AddRange(failurePathsToMerge);
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
@@ -361,11 +354,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
 
-            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection,
-                                                           new AssessmentSectionMergeData.ConstructionProperties
-                                                           {
-                                                               MergeSpecificFailurePaths = failurePathsToMerge
-                                                           });
+            var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
+            constructionProperties.MergeSpecificFailurePaths.AddRange(failurePathsToMerge);
+            var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
             void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);

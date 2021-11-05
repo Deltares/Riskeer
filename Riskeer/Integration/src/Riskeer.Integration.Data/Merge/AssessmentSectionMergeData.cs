@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Data.Merge
@@ -38,7 +37,6 @@ namespace Riskeer.Integration.Data.Merge
         /// <param name="properties">The container of the properties for the
         /// <see cref="AssessmentSectionMergeData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.MergeSpecificFailurePaths"/> is <c>null</c>.</exception>
         public AssessmentSectionMergeData(AssessmentSection assessmentSection,
                                           ConstructionProperties properties)
         {
@@ -50,11 +48,6 @@ namespace Riskeer.Integration.Data.Merge
             if (properties == null)
             {
                 throw new ArgumentNullException(nameof(properties));
-            }
-
-            if (properties.MergeSpecificFailurePaths == null)
-            {
-                throw new ArgumentException($"{nameof(properties.MergeSpecificFailurePaths)} must be set");
             }
 
             AssessmentSection = assessmentSection;
@@ -276,9 +269,9 @@ namespace Riskeer.Integration.Data.Merge
             public bool MergeTechnicalInnovation { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the collection of specific failure paths that should be merged.
+            /// Gets the list of specific failure paths that should be merged.
             /// </summary>
-            public IEnumerable<IFailurePath> MergeSpecificFailurePaths { internal get; set; } = Enumerable.Empty<IFailurePath>();
+            public List<IFailurePath> MergeSpecificFailurePaths { get; } = new List<IFailurePath>();
         }
     }
 }

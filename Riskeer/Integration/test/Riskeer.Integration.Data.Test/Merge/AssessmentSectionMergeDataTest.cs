@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
@@ -94,7 +92,6 @@ namespace Riskeer.Integration.Data.Test.Merge
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            IEnumerable<IFailurePath> failurePaths = Enumerable.Empty<IFailurePath>();
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties
             {
                 MergePiping = random.NextBoolean(),
@@ -114,8 +111,7 @@ namespace Riskeer.Integration.Data.Test.Merge
                 MergeStabilityPointStructures = random.NextBoolean(),
                 MergeStrengthStabilityLengthwiseConstruction = random.NextBoolean(),
                 MergeDuneErosion = random.NextBoolean(),
-                MergeTechnicalInnovation = random.NextBoolean(),
-                MergeSpecificFailurePaths = failurePaths
+                MergeTechnicalInnovation = random.NextBoolean()
             };
 
             // Call            
@@ -142,21 +138,6 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.AreEqual(constructionProperties.MergeDuneErosion, mergeData.MergeDuneErosion);
             Assert.AreEqual(constructionProperties.MergeTechnicalInnovation, mergeData.MergeTechnicalInnovation);
             Assert.AreSame(constructionProperties.MergeSpecificFailurePaths, mergeData.MergeSpecificFailurePaths);
-        }
-
-        [Test]
-        public void Constructor_MergeFailurePathsNull_ThrowsArgumentException()
-        {
-            // Call
-            void Call() => new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                          new AssessmentSectionMergeData.ConstructionProperties
-                                                          {
-                                                              MergeSpecificFailurePaths = null
-                                                          });
-
-            // Assert
-            const string expectedMessage = "MergeSpecificFailurePaths must be set";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
     }
 }
