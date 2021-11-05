@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 
@@ -31,6 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public class MacroStabilityInwardsScenarioRow : ScenarioRow<MacroStabilityInwardsCalculationScenario>
     {
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
+        private readonly FailureMechanismSection failureMechanismSection;
         private DerivedMacroStabilityInwardsOutput derivedOutput;
 
         /// <summary>
@@ -38,9 +40,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// </summary>
         /// <param name="calculationScenario">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="failureMechanismSection">The failure mechanism section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculationScenario,
-                                                  MacroStabilityInwardsFailureMechanism failureMechanism)
+                                                  MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                  FailureMechanismSection failureMechanismSection)
             : base(calculationScenario)
         {
             if (failureMechanism == null)
@@ -48,7 +52,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (failureMechanismSection == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSection));
+            }
+
             this.failureMechanism = failureMechanism;
+            this.failureMechanismSection = failureMechanismSection;
 
             CreateDerivedOutput();
         }
