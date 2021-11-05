@@ -78,11 +78,36 @@ namespace Riskeer.Migration.Integration.Test
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
 
+                    AssertFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanismSection(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanism =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                ") " +
+                "FROM FailureMechanismEntity NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
+                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
+                "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[FailureMechanismType] = OLD.[FailureMechanismType] " +
+                "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
+                "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
+                "AND NEW.[InputComments] IS OLD.[InputComments] " +
+                "AND NEW.[OutputComments] IS OLD.[OutputComments] " +
+                "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments]; " +
+                "DETACH SOURCEPROJECT;";
+            
+            reader.AssertReturnedDataIsValid(validateFailureMechanism);
         }
 
         private static void AssertFailureMechanismSection(MigratedDatabaseReader reader, string sourceFilePath)
