@@ -1965,6 +1965,12 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="9c641dc8-9484-4591-b870-535c54c6e065"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
 			name="DeleteAllSearchFilteredFiles"
 			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
@@ -2699,14 +2705,14 @@
 				<description>
 					<![CDATA[Indicate Case being run]]>
 				</description>
-				<databinding>
+				<missingdatabinding>
 					<var
 					dataname="pathItem"
 					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
 					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
 					variablename="logMessage">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c6f7a6f5-32de-41f2-a536-25e5845d6d17"
@@ -3608,6 +3614,10 @@
 							id="2ac878aa-9705-49f7-b73f-e683190037ef"
 							name="OpenProject">
 							</testmodule>
+							<testmodule
+							id="9c641dc8-9484-4591-b870-535c54c6e065"
+							name="CloseViewCentralPanelWithFocus">
+							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="4f95265d-8bea-4348-97b9-151ec19e126c"
@@ -3623,14 +3633,14 @@
 								id="7a6e5bd5-e8af-4a38-8523-9bebb8b735d7"
 								name="SelecteCasesScript15a_c_Range">
 								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="f439c70d-b78e-4927-af51-08e1f2ab0e05"
-							name="HydraulicBoundaryConditionCases">
 								<testmodule
 								id="c6e2ae66-556b-44fb-a360-5abcd6bb14e0"
 								name="LogInfoMessage">
 								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="f439c70d-b78e-4927-af51-08e1f2ab0e05"
+							name="HydraulicBoundaryConditionCases">
 								<smartfoldernode
 								id="c4e4215d-8510-4c46-9141-f9123e8f0280"
 								name="OpenDocumentViewForHydraulicBCItem">
