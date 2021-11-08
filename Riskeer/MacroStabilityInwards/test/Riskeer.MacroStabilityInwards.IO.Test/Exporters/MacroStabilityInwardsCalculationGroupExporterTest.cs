@@ -150,18 +150,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_CalculationExportReturnsFalse_LogsErrorAndReturnsFalse()
+        [TestCaseSource(nameof(GetCalculationGroupConfigurations))]
+        public void Export_CalculationExportReturnsFalse_LogsErrorAndReturnsFalse(CalculationGroup calculationGroup)
         {
             // Setup
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationExportReturnsFalse_LogsErrorAndReturnsFalse)}");
             Directory.CreateDirectory(folderPath);
             string filePath = Path.Combine(folderPath, "export.zip");
 
-            MacroStabilityInwardsCalculationScenario calculation = CreateCalculation("calculation");
-
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(calculation);
-
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
@@ -180,51 +176,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het exporteren van '{calculation.Name}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
-                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
-                    Assert.IsFalse(exportResult);
-                    Assert.IsFalse(File.Exists(filePath));
-                }
-                finally
-                {
-                    Directory.Delete(folderPath, true);
-                }
-            }
-        }
-
-        [Test]
-        public void Export_CalculationExportInNestedGroupReturnsFalse_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationExportInNestedGroupReturnsFalse_LogsErrorAndReturnsFalse)}");
-            Directory.CreateDirectory(folderPath);
-            string filePath = Path.Combine(folderPath, "export.zip");
-
-            MacroStabilityInwardsCalculationScenario calculation = CreateCalculation("calculation");
-
-            var nestedGroup = new CalculationGroup();
-            nestedGroup.Children.Add(calculation);
-            var calculationGroup = new CalculationGroup();
-            calculationGroup.Children.Add(nestedGroup);
-
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            {
-                var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
-                {
-                    ThrowException = true
-                };
-
-                var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new GeneralMacroStabilityInwardsInput(),
-                                                                                 persistenceFactory, filePath, fileExtension,
-                                                                                 c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
-
-                try
-                {
-                    // Call
-                    var exportResult = true;
-                    void Call() => exportResult = exporter.Export();
-
-                    // Assert
+                    ICalculation calculation = calculationGroup.GetCalculations().First();
                     var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het exporteren van '{calculation.Name}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                     Assert.IsFalse(exportResult);
@@ -379,10 +331,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_CalculationGroupWithNestedGroupsAndCalculations_LogsMessages()
+        public void Export_CalculationGroupWithNestedGroupsAndCalculationsWithExportWarnings_LogsMessagesAndWritesFile()
         {
             // Setup
-            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithNestedGroupsAndCalculations_LogsMessages)}");
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithNestedGroupsAndCalculationsWithExportWarnings_LogsMessagesAndWritesFile)}");
             Directory.CreateDirectory(folderPath);
             string filePath = Path.Combine(folderPath, "export.zip");
 
@@ -853,11 +805,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
         }
 
+        private static IEnumerable<TestCaseData> GetCalculationGroupConfigurations()
+        {
+            MacroStabilityInwardsCalculationScenario calculation = CreateCalculation("calculation");
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation);
+            yield return new TestCaseData(calculationGroup);
+
+            var parentGroup = new CalculationGroup();
+            parentGroup.Children.Add(calculationGroup);
+            yield return new TestCaseData(parentGroup);
+        }
+
         private static void AssertFilesExistInZip(IEnumerable<string> expectedFiles, string filePath)
         {
             using (ZipArchive zipArchive = ZipFile.OpenRead(filePath))
             {
-                CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                CollectionAssert.AreEquivalent(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
             }
         }
 
