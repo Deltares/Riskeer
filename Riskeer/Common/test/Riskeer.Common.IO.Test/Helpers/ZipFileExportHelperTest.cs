@@ -77,12 +77,15 @@ namespace Riskeer.Common.IO.Test.Helpers
                 {
                     var expectedFiles = new[]
                     {
-                        "TestFile1.txt",
-                        "TestFile2.txt",
-                        "TestFile3.txt",
-                        "TestFile4.txt"
+                        "Set1/TestFile1.txt",
+                        "Set1/TestFile2.txt",
+                        "Set1/TestFile3.txt",
+                        "Set1/TestFile4.txt",
+                        "Set2/TestFile5.txt",
+                        "Set2/TestFile6.txt",
+                        "Set2/TestFile7.txt"
                     };
-                    CollectionAssert.IsSubsetOf(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                    CollectionAssert.AreEquivalent(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
                 }
             }
             finally
@@ -92,28 +95,52 @@ namespace Riskeer.Common.IO.Test.Helpers
         }
 
         [Test]
-        public void CreateZipFileFromExportedFiles_FileAlreadyExists_DoesNotThrow()
+        public void CreateZipFileFromExportedFiles_FileAlreadyExists_ReplacesFileWithNewlyCreatedZipFile()
         {
             // Setup
-            string directoryPath = TestHelper.GetScratchPadPath(nameof(CreateZipFileFromExportedFiles_FileAlreadyExists_DoesNotThrow));
+            string directoryPath = TestHelper.GetScratchPadPath(nameof(CreateZipFileFromExportedFiles_FileAlreadyExists_ReplacesFileWithNewlyCreatedZipFile));
             Directory.CreateDirectory(directoryPath);
 
-            string sourceFolderPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO),
-                                                   nameof(ZipFileExportHelper));
+            string sourceFolderPath1 = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO),
+                                                    nameof(ZipFileExportHelper), "Set1");
             string destinationFilePath = Path.Combine(directoryPath, "test.zip");
 
             try
             {
-                ZipFileExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath, destinationFilePath);
+                ZipFileExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath1, destinationFilePath);
 
                 // Precondition
                 Assert.IsTrue(File.Exists(destinationFilePath));
+                using (ZipArchive zipArchive = ZipFile.OpenRead(destinationFilePath))
+                {
+                    var expectedFiles = new[]
+                    {
+                        "TestFile1.txt",
+                        "TestFile2.txt",
+                        "TestFile3.txt",
+                        "TestFile4.txt"
+                    };
+                    CollectionAssert.AreEquivalent(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                }
+
+                string sourceFolderPath2 = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO),
+                                                        nameof(ZipFileExportHelper), "Set2");
 
                 // Call
-                void Call() => ZipFileExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath, destinationFilePath);
+                ZipFileExportHelper.CreateZipFileFromExportedFiles(sourceFolderPath2, destinationFilePath);
 
                 // Assert
-                Assert.DoesNotThrow(Call);
+                Assert.IsTrue(File.Exists(destinationFilePath));
+                using (ZipArchive zipArchive = ZipFile.OpenRead(destinationFilePath))
+                {
+                    var expectedFiles = new[]
+                    {
+                        "TestFile5.txt",
+                        "TestFile6.txt",
+                        "TestFile7.txt"
+                    };
+                    CollectionAssert.AreEquivalent(expectedFiles, zipArchive.Entries.Select(e => e.FullName));
+                }
             }
             finally
             {
@@ -141,7 +168,7 @@ namespace Riskeer.Common.IO.Test.Helpers
 
                     // Assert
                     var exception = Assert.Throws<CriticalFileWriteException>(Call);
-                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{destinationFilePath}'.";
+                    var expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{destinationFilePath}'.";
                     Assert.AreEqual(expectedMessage, exception.Message);
                     Assert.IsNotNull(exception.InnerException);
                 }
