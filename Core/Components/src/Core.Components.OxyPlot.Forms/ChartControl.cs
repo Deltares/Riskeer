@@ -31,6 +31,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Core.Components.OxyPlot.DataSeries.Chart;
 using Core.Components.OxyPlot.Forms.Properties;
+using OxyPlot;
 using OxyPlot.Series;
 
 namespace Core.Components.OxyPlot.Forms
@@ -170,7 +171,8 @@ namespace Core.Components.OxyPlot.Forms
                 BackColor = Color.White,
                 Model =
                 {
-                    IsLegendVisible = false
+                    IsLegendVisible = false,
+                    PlotMargins = new OxyThickness(double.NaN, double.NaN, 25, double.NaN)
                 },
                 Controller = plotController,
                 Dock = DockStyle.Fill
