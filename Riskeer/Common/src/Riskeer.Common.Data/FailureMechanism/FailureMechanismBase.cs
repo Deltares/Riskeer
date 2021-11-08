@@ -64,6 +64,8 @@ namespace Riskeer.Common.Data.FailureMechanism
             InputComments = new Comment();
             OutputComments = new Comment();
             NotInAssemblyComments = new Comment();
+
+            CalculationsComments = new Comment();
         }
 
         public double Contribution
@@ -92,6 +94,8 @@ namespace Riskeer.Common.Data.FailureMechanism
         public int Group { get; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
+        
+        public Comment CalculationsComments { get; }
 
         public IEnumerable<FailureMechanismSection> Sections
         {

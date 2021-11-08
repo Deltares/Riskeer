@@ -53,5 +53,10 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// the failure mechanism.
         /// </summary>
         IEnumerable<ICalculation> Calculations { get; }
+        
+        /// <summary>
+        /// Gets the comments associated with the calculations of the data object.
+        /// </summary>
+        Comment CalculationsComments { get; }
     }
 }

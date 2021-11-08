@@ -81,6 +81,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsNotNull(failureMechanism.InputComments);
             Assert.IsNotNull(failureMechanism.OutputComments);
             Assert.IsNotNull(failureMechanism.NotInAssemblyComments);
+            Assert.IsNotNull(failureMechanism.CalculationsComments);
             Assert.IsTrue(failureMechanism.InAssembly);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
