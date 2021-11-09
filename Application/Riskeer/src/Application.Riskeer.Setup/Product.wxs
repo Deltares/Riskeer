@@ -3,7 +3,7 @@
   <!-- Static variables. -->
   <?include Variables.wxi ?>
   
-  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="E5E9A96A-5B83-46C3-A2BD-0799785E3A81">
+  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="C4106747-8CE1-4922-8463-397F920B1408">
     <!--Comment left empty on purpose to remove auto-generated text.-->
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
