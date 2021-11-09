@@ -82,7 +82,25 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het doelbestand ({0}) is reeds in gebruik..
+        ///   Looks up a localized string similar to Onvoldoende rechten voor het schrijven van het doelbestand..
+        /// </summary>
+        public static string BackedUpFileWriter_Insufficient_access_rights {
+            get {
+                return ResourceManager.GetString("BackedUpFileWriter_Insufficient_access_rights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het pad van het doelbestand is te lang..
+        /// </summary>
+        public static string BackedUpFileWriter_Path_too_long {
+            get {
+                return ResourceManager.GetString("BackedUpFileWriter_Path_too_long", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het doelbestand is reeds in gebruik..
         /// </summary>
         public static string BackedUpFileWriter_Target_file_already_in_use {
             get {

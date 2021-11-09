@@ -62,12 +62,17 @@ namespace Riskeer.Storage.Core
         /// operation fails, so that the backed up target file can be restored.
         /// </summary>
         /// <param name="writeAction">The write action to perform.</param>
-        /// <exception cref="IOException">Thrown when no temporary file can be created, indicating access rights are insufficient
-        /// or the target file is already in use by another process/thread.</exception>
+        /// <exception cref="IOException">Thrown when no temporary file can be created, indicating:
+        /// <list type="bullet">
+        /// <item>access rights are insufficient;</item>
+        /// <item>the target file path is too long;</item>
+        /// <item>the target file is already in use by another process/thread.</item>
+        /// </list>
+        /// </exception>
         /// <remarks>Any <see cref="Exception"/> thrown by <paramref name="writeAction"/> will be rethrown.</remarks>
         public void Perform(Action writeAction)
         {
-            CreateAndLockTemporaryFile();
+            TryCreateTemporaryFile();
 
             try
             {
@@ -81,7 +86,7 @@ namespace Riskeer.Storage.Core
                 }
                 else
                 {
-                    RestoreOriginalFile();
+                    RestoreTargetFile();
                 }
 
                 throw;
@@ -91,11 +96,16 @@ namespace Riskeer.Storage.Core
         }
 
         /// <summary>
-        /// Creates a temporary file and backs up any existing target file.
+        /// Tries to create a temporary file and backs up any existing target file.
         /// </summary>
-        /// <exception cref="IOException">Thrown when the temporary file cannot be created, indicating access rights are
-        /// insufficient or the target file is already in use by another process/thread.</exception>
-        private void CreateAndLockTemporaryFile()
+        /// <exception cref="IOException">Thrown when the temporary file cannot be created, indicating:
+        /// <list type="bullet">
+        /// <item>access rights are insufficient;</item>
+        /// <item>the target file path is too long;</item>
+        /// <item>the target file is already in use by another process/thread.</item>
+        /// </list>
+        /// </exception>
+        private void TryCreateTemporaryFile()
         {
             try
             {
@@ -114,13 +124,21 @@ namespace Riskeer.Storage.Core
                     temporaryFileStream = File.Create(temporaryFilePath);
                 }
             }
-            catch (Exception e)
+            catch (UnauthorizedAccessException e)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Target_file_already_in_use, targetFilePath), e);
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Insufficient_access_rights), e);
+            }
+            catch (PathTooLongException e)
+            {
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Path_too_long), e);
+            }
+            catch (IOException e)
+            {
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Target_file_already_in_use), e);
             }
         }
 
-        private void RestoreOriginalFile()
+        private void RestoreTargetFile()
         {
             File.Delete(targetFilePath);
 
