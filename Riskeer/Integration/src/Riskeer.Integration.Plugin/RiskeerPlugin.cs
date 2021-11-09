@@ -1814,6 +1814,8 @@ namespace Riskeer.Integration.Plugin
             {
                 yield return calculation.Comments;
             }
+
+            yield return failureMechanism.CalculationsComments;
         }
 
         #endregion
