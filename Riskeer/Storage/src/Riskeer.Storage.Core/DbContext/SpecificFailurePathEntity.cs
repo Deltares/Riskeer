@@ -47,8 +47,8 @@ namespace Riskeer.Storage.Core.DbContext
         public int Order { get; set; }
         public byte InAssembly { get; set; }
         public string FailureMechanismSectionCollectionSourcePath { get; set; }
-        public string InputComments { get; set; }
-        public string OutputComments { get; set; }
+        public string InAssemblyInputComments { get; set; }
+        public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
         public double N { get; set; }
 

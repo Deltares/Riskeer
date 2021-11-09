@@ -67,9 +67,10 @@ namespace Riskeer.Storage.Core.DbContext
         public short FailureMechanismType { get; set; }
         public byte InAssembly { get; set; }
         public string FailureMechanismSectionCollectionSourcePath { get; set; }
-        public string InputComments { get; set; }
-        public string OutputComments { get; set; }
+        public string InAssemblyInputComments { get; set; }
+        public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
+        public string CalculationsComments { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
