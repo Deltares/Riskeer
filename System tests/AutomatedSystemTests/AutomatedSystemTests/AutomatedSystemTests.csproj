@@ -189,6 +189,18 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.cs">
+      <BoundTo>316fd1f4-612c-473e-b626-1f1e2ce1414b</BoundTo>
+      <DependentUpon>SelectOptionFromContextMenu.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a446613a-7c40-4e69-8db6-5297043d530c</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.UserCode.cs">
+      <BoundTo>316fd1f4-612c-473e-b626-1f1e2ce1414b</BoundTo>
+      <DependentUpon>SelectOptionFromContextMenu.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>7ded2df1-5d34-4e3d-82eb-463cba82001c</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\AddSingleCalculation.cs">
       <BoundTo>a2d91913-d614-41ff-8c15-cc5dc4bd268e</BoundTo>
       <DependentUpon>AddSingleCalculation.rxrec</DependentUpon>
@@ -2645,6 +2657,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>316fd1f4-612c-473e-b626-1f1e2ce1414b</id>
+      <recordtableid>b649f262-04cb-457f-b71d-d4572aeaf8bb</recordtableid>
     </None>
     <None Include="Modules\ActionsContextMenu\AddSingleCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

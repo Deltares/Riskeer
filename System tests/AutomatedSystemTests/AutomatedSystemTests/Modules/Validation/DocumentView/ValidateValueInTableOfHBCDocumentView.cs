@@ -94,7 +94,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             if (labelFM=="GEBU") {
                 table = myRepository.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.Self;
             } else if (labelFM=="DA") {
-                table = myRepository.RiskeerMainWindow.DocumentViewContainer.HydraulicBCDunes.Table.Self;
+                table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.Self;
             }
 
             Row row = table.Rows[Int32.Parse(rowIndex)+1];

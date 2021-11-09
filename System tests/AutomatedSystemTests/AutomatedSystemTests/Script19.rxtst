@@ -136,6 +136,9 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[replace ">" ->  _]]>
+				</description>
 				<databinding>
 					<var
 					dataname="intermediateString"
@@ -1841,6 +1844,9 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[replace " " ->  _]]>
+				</description>
 				<databinding>
 					<var
 					dataname="intermediateString"
