@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core
                 {
                     isTemporaryFileEmpty = true;
 
-                    temporaryFileStream = File.Create(temporaryFilePath);
+                    temporaryFileStream = File.Open(temporaryFilePath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
                 }
             }
             catch (UnauthorizedAccessException)

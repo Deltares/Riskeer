@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards));
-            string targetFilePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
             string temporaryFilePath = targetFilePath + "~";
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards)))
@@ -86,7 +86,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
-            string targetFilePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
             string temporaryFilePath = targetFilePath + "~";
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
@@ -125,12 +125,14 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
-            string targetFilePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
             string temporaryFilePath = targetFilePath + "~";
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
-            using (new FileDisposeHelper(temporaryFilePath))
+            using (var fileDisposeHelper = new FileDisposeHelper(temporaryFilePath))
             {
+                fileDisposeHelper.LockFiles();
+                
                 if (performWithExistingTargetFile)
                 {
                     File.WriteAllText(targetFilePath, testContent);
