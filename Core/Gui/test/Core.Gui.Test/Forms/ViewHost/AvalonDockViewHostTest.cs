@@ -586,20 +586,26 @@ namespace Core.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void AddToolView_WithTitle_ViewAddedWithExpectedTitle()
+        [TestCase(ToolViewLocation.Left)]
+        [TestCase(ToolViewLocation.Right)]
+        [TestCase(ToolViewLocation.Bottom)]
+        public void AddToolView_WithAllPropertiesSet_ViewAddedWithExpectedProperties(ToolViewLocation toolViewLocation)
         {
             // Setup
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 const string title = "Random title";
+                const string symbol = "Random symbol";
 
                 var testView = new TestView();
 
                 // Call
-                avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, title, string.Empty);
+                avalonDockViewHost.AddToolView(testView, toolViewLocation, title, symbol);
 
                 // Assert
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, title));
+                CustomLayoutAnchorable layoutAnchorable = GetLayoutAnchorable(avalonDockViewHost, testView, toolViewLocation);
+                Assert.AreEqual(title, layoutAnchorable.Title);
+                Assert.AreEqual(symbol, layoutAnchorable.Symbol);
             }
         }
 
