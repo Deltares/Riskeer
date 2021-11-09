@@ -37,7 +37,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Plugin.TestUtil
 {
     /// <summary>
-    /// Test fixture for verifying the InAssembly behaviour of a TreeNodeInfo.
+    /// Test fixture for verifying the InAssembly behavior of a TreeNodeInfo.
     /// </summary>
     /// <typeparam name="TPlugin">The type of plugin to create the tests for.</typeparam>
     /// <typeparam name="TFailurePath">The type of <see cref="IFailurePath"/> to create the tests for.</typeparam>
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         private readonly int contextMenuIndexWhenInAssembly;
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnInAssemblyItem_MakeFailureMechanismNotInAssemblyAndRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismInAssemblyAndClickOnInAssemblyItem_MakeFailureMechanismNotInAssemblyAndRemovesAllViewsForItem()
         {
             // Setup
             var mocks = new MockRepository();

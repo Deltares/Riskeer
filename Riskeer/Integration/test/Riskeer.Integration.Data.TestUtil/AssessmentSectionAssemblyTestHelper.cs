@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Data.TestUtil
         /// failure mechanisms having an assembly result with probability, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
-        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
+        /// <item>The failure mechanism that are part of the assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Data.TestUtil
         /// failure mechanisms having an assembly result without probability, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
-        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
+        /// <item>The failure mechanism that are part of the assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Data.TestUtil
         /// failure mechanisms having an assembly result with probability, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
-        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
+        /// <item>The failure mechanism that are part of the assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Data.TestUtil
         /// failure mechanisms having an assembly result without probability, such that:
         /// <list type="bullet">
         /// <item>All other failure mechanisms are marked as not part of the assembly, except one failure mechanism.</item>
-        /// <item>The failure mechanism in assembly will have one section which contains manual assembly data.</item>
+        /// <item>The failure mechanism that are part of the assembly will have one section which contains manual assembly data.</item>
         /// </list>
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/> with <see cref="AssessmentSection"/> configurations.</returns>

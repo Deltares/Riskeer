@@ -387,7 +387,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of whether the failure path is part of
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing whether the failure path is part of
         /// the assembly or not.
         /// </summary>
         /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>

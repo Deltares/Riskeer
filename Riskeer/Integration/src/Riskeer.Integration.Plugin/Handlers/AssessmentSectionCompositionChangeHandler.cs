@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCompositionChangeHandler"/>.
         /// </summary>
-        /// <param name="viewCommands">The view commands used to close views for failure mechanisms not in assembly.</param>
+        /// <param name="viewCommands">The view commands used to close views for failure mechanisms that are not in the assembly.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
         /// is <c>null</c>.</exception>
         public AssessmentSectionCompositionChangeHandler(IViewCommands viewCommands)

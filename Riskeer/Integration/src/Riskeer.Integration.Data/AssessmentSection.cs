@@ -648,7 +648,7 @@ namespace Riskeer.Integration.Data
             }
 
             Composition = newComposition;
-            SetFailureMechanismInAssembly();
+            SetFailureMechanismsToBeInAssembly();
         }
 
         /// <summary>
@@ -699,7 +699,7 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        private void SetFailureMechanismInAssembly()
+        private void SetFailureMechanismsToBeInAssembly()
         {
             Piping.InAssembly = Composition != AssessmentSectionComposition.Dune;
             GrassCoverErosionInwards.InAssembly = Composition != AssessmentSectionComposition.Dune;

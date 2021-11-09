@@ -311,7 +311,7 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetFailureMechanismInAssemblyState))]
+        [TestCaseSource(nameof(GetFailureMechanismInAssemblyStates))]
         public void ChangeComposition_ToTargetValue_UpdateContributionsAndFailureMechanismRelevancies(AssessmentSectionComposition composition,
                                                                                                       bool[] inAssemblyStates)
         {
@@ -555,7 +555,7 @@ namespace Riskeer.Integration.Data.Test
             return contributions;
         }
 
-        private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyState()
+        private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyStates()
         {
             yield return new TestCaseData(AssessmentSectionComposition.Dike, new[]
             {

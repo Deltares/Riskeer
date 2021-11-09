@@ -84,22 +84,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsTrue(failureMechanism.InAssembly);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void InAssembly_SetNewValue_GetNewlySetValue(bool relevant)
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            // Call
-            failureMechanism.InAssembly = relevant;
-
-            // Assert
-            Assert.AreEqual(relevant, failureMechanism.InAssembly);
-        }
-
+        
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(double.NaN)]
