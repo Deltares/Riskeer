@@ -81,8 +81,9 @@ namespace Core.Gui.Forms.ViewHost
         /// </summary>
         /// <param name="view">The document view to add.</param>
         /// <param name="title">The title to show.</param>
+        /// <param name="symbol">The symbol to show.</param>
         /// <seealso cref="ActiveDocumentView"/>
-        void AddDocumentView(IView view, string title);
+        void AddDocumentView(IView view, string title, string symbol);
 
         /// <summary>
         /// Adds a tool view.

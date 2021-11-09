@@ -656,7 +656,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsNull(GetMapControl(mapLegendView));
 
                 // When
-                gui.ViewHost.AddDocumentView(view, string.Empty);
+                gui.ViewHost.AddDocumentView(view, string.Empty, string.Empty);
 
                 // Then
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
@@ -687,8 +687,8 @@ namespace Core.Gui.Test.Forms.Main
                 var view2 = new TestMapView();
                 MapLegendView mapLegendView = mainWindow.MapLegendView;
 
-                gui.ViewHost.AddDocumentView(view1, string.Empty);
-                gui.ViewHost.AddDocumentView(view2, string.Empty);
+                gui.ViewHost.AddDocumentView(view1, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(view2, string.Empty, string.Empty);
 
                 // Precondition
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
@@ -724,7 +724,7 @@ namespace Core.Gui.Test.Forms.Main
                 var view = new TestMapView();
                 MapLegendView mapLegendView = mainWindow.MapLegendView;
 
-                gui.ViewHost.AddDocumentView(view, string.Empty);
+                gui.ViewHost.AddDocumentView(view, string.Empty, string.Empty);
 
                 // Precondition
                 Assert.AreSame(view.Map, GetMapControl(mapLegendView));
@@ -761,8 +761,8 @@ namespace Core.Gui.Test.Forms.Main
                 var view2 = new TestMapView();
                 MapLegendView mapLegendView = mainWindow.MapLegendView;
 
-                gui.ViewHost.AddDocumentView(view1, string.Empty);
-                gui.ViewHost.AddDocumentView(view2, string.Empty);
+                gui.ViewHost.AddDocumentView(view1, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(view2, string.Empty, string.Empty);
 
                 // Precondition
                 Assert.AreSame(view2.Map, GetMapControl(mapLegendView));
@@ -802,7 +802,7 @@ namespace Core.Gui.Test.Forms.Main
                 Assert.IsNull(GetChartControl(chartLegendView));
 
                 // When
-                gui.ViewHost.AddDocumentView(view, string.Empty);
+                gui.ViewHost.AddDocumentView(view, string.Empty, string.Empty);
 
                 // Then
                 Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
@@ -833,8 +833,8 @@ namespace Core.Gui.Test.Forms.Main
                 var view2 = new TestChartView();
                 ChartLegendView chartLegendView = mainWindow.ChartLegendView;
 
-                gui.ViewHost.AddDocumentView(view1, string.Empty);
-                gui.ViewHost.AddDocumentView(view2, string.Empty);
+                gui.ViewHost.AddDocumentView(view1, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(view2, string.Empty, string.Empty);
 
                 // Precondition
                 Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
@@ -870,7 +870,7 @@ namespace Core.Gui.Test.Forms.Main
                 var view = new TestChartView();
                 ChartLegendView chartLegendView = mainWindow.ChartLegendView;
 
-                gui.ViewHost.AddDocumentView(view, string.Empty);
+                gui.ViewHost.AddDocumentView(view, string.Empty, string.Empty);
 
                 // Precondition
                 Assert.AreSame(view.Chart, GetChartControl(chartLegendView));
@@ -907,8 +907,8 @@ namespace Core.Gui.Test.Forms.Main
                 var view2 = new TestChartView();
                 ChartLegendView chartLegendView = mainWindow.ChartLegendView;
 
-                gui.ViewHost.AddDocumentView(view1, string.Empty);
-                gui.ViewHost.AddDocumentView(view2, string.Empty);
+                gui.ViewHost.AddDocumentView(view1, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(view2, string.Empty, string.Empty);
 
                 // Precondition
                 Assert.AreSame(view2.Chart, GetChartControl(chartLegendView));
@@ -1332,7 +1332,7 @@ namespace Core.Gui.Test.Forms.Main
 
                 mainWindow.SetGui(gui);
 
-                gui.ViewHost.AddDocumentView(new TestView(), string.Empty);
+                gui.ViewHost.AddDocumentView(new TestView(), string.Empty, string.Empty);
 
                 // When
                 bool canExecute = mainWindow.CloseViewTabCommand.CanExecute(null);
@@ -1456,13 +1456,13 @@ namespace Core.Gui.Test.Forms.Main
         {
             return TypeUtils.GetProperty<IChartControl>(chartLegendView, "ChartControl");
         }
-        
+
         private static void AssertViewTitle(DockingManager dockingManager, IView view, string expectedTitle)
         {
-            LayoutContent layoutContent =  dockingManager.Layout.Descendents()
-                                                         .OfType<LayoutContent>()
-                                                         .First(d => ((WindowsFormsHost) d.Content).Child == view);
-            
+            LayoutContent layoutContent = dockingManager.Layout.Descendents()
+                                                        .OfType<LayoutContent>()
+                                                        .First(d => ((WindowsFormsHost) d.Content).Child == view);
+
             Assert.AreEqual(expectedTitle, layoutContent.Title);
         }
     }

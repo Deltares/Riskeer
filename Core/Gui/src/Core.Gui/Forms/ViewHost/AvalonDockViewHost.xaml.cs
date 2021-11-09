@@ -104,7 +104,7 @@ namespace Core.Gui.Forms.ViewHost
             }
         }
 
-        public void AddDocumentView(IView view, string title)
+        public void AddDocumentView(IView view, string title, string symbol)
         {
             var control = view as Control;
             if (control == null)
@@ -126,7 +126,8 @@ namespace Core.Gui.Forms.ViewHost
             var layoutDocument = new CustomLayoutDocument
             {
                 Title = title,
-                Content = hostControl
+                Content = hostControl,
+                Symbol = symbol
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));
