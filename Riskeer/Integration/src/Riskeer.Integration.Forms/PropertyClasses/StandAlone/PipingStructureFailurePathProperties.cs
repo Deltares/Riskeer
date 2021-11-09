@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            if (!data.InAssembly && ShouldHidePropertyWhenFailureMechanismNotInAssembly(propertyName))
+            if (!data.InAssembly && ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName))
             {
                 return false;
             }
@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             return true;
         }
 
-        private bool ShouldHidePropertyWhenFailureMechanismNotInAssembly(string propertyName)
+        private bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
             return nameof(Contribution).Equals(propertyName) || nameof(N).Equals(propertyName);
         }
