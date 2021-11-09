@@ -21,16 +21,16 @@
 
 using System;
 using System.IO;
-using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Storage.Core.Exceptions;
 
 namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
     public class BackedUpFileWriterTest
     {
+        private const string testContent = "Some test content";
+
         private readonly string testWorkDir = TestHelper.GetScratchPadPath(nameof(BackedUpFileWriterTest));
 
         [Test]
@@ -50,30 +50,29 @@ namespace Riskeer.Storage.Core.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Perform_ValidTargetFilePathAndValidContext_ExpectedTemporaryFileCreatedAndTemporaryFileDeletedAfterwards(bool performWithExistingTargetFile)
+        public void Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards(bool performWithExistingTargetFile)
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidTargetFilePathAndValidContext_ExpectedTemporaryFileCreatedAndTemporaryFileDeletedAfterwards));
-            string filePath = Path.Combine(writableDirectory, "iDoExist.txt");
-            string temporaryFilePath = filePath + "~";
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards));
+            string targetFilePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string temporaryFilePath = targetFilePath + "~";
 
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidTargetFilePathAndValidContext_ExpectedTemporaryFileCreatedAndTemporaryFileDeletedAfterwards)))
-            using (new FileDisposeHelper(filePath))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards)))
             {
                 if (performWithExistingTargetFile)
                 {
-                    File.WriteAllText(filePath, "Some test text.");
+                    File.WriteAllText(targetFilePath, testContent);
                 }
 
-                var writer = new BackedUpFileWriter(filePath);
+                var writer = new BackedUpFileWriter(targetFilePath);
 
                 // Call
                 writer.Perform(() =>
                 {
                     // Assert
-                    Assert.IsFalse(File.Exists(filePath));
+                    Assert.IsFalse(File.Exists(targetFilePath));
                     Assert.IsTrue(File.Exists(temporaryFilePath));
-                    Assert.AreEqual(performWithExistingTargetFile ? "Some test text." : string.Empty, ReadAllText(temporaryFilePath));
+                    Assert.AreEqual(performWithExistingTargetFile ? testContent : string.Empty, ReadAllText(temporaryFilePath));
                 });
 
                 Assert.False(File.Exists(temporaryFilePath));
@@ -81,174 +80,67 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
-        public void Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown(bool performWithExistingTargetFile)
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown));
-            string filePath = Path.Combine(writableDirectory, "iDoExist.txt");
-            string temporaryFilePath = filePath + "~";
-            const string testContent = "Some test text to write into file.";
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string targetFilePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string temporaryFilePath = targetFilePath + "~";
 
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ActionThrowsExceptionValidPathFileExists_OriginalFileRevertedAndExceptionThrown)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
             {
-                File.WriteAllText(filePath, testContent);
+                if (performWithExistingTargetFile)
+                {
+                    File.WriteAllText(targetFilePath, testContent);
+                }
 
-                var writer = new BackedUpFileWriter(filePath);
-                var exception = new IOException();
-
-                // Precondition
-                Assert.IsTrue(File.Exists(filePath));
+                var exception = new Exception();
+                var writer = new BackedUpFileWriter(targetFilePath);
 
                 // Call
-                TestDelegate test = () => writer.Perform(() => { throw exception; });
+                Exception actualException = Assert.Throws(exception.GetType(), () => writer.Perform(() => throw exception));
 
-                Exception actualException = Assert.Throws(exception.GetType(), test);
                 Assert.AreSame(exception, actualException);
 
                 Assert.IsFalse(File.Exists(temporaryFilePath));
-                Assert.IsTrue(File.Exists(filePath));
-                Assert.AreEqual(testContent, File.ReadAllText(filePath));
-            }
-        }
 
-        [Test]
-        public void Perform_ValidPathFileExistsTemporaryFileExistsAndCannotBeDeleted_ThrowsIOException()
-        {
-            // Setup
-            string filePath = Path.Combine(testWorkDir, "iDoExist.txt");
-            string temporaryFilePath = filePath + "~";
-
-            using (new FileDisposeHelper(filePath))
-            using (var tempFileHelper = new FileDisposeHelper(temporaryFilePath))
-            {
-                tempFileHelper.LockFiles();
-
-                var writer = new BackedUpFileWriter(filePath);
-
-                // Call
-                TestDelegate test = () => writer.Perform(() => {});
-
-                // Assert
-                string message = Assert.Throws<IOException>(test).Message;
-                string expectedMessage = $"Er bestaat al een tijdelijk bestand ({temporaryFilePath}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.";
-                Assert.AreEqual(message, expectedMessage);
-            }
-        }
-
-        [Test]
-        public void Perform_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException()
-        {
-            // Setup
-            string notWritableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException));
-            string filePath = Path.Combine(notWritableDirectory, "iDoExist.txt");
-
-            using (var directoryHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidPathFileExistsDirectoryNotWritable_ThrowsIOException)))
-            using (new FileDisposeHelper(filePath))
-            {
-                var writer = new BackedUpFileWriter(filePath);
-
-                // Call
-                TestDelegate test = () => writer.Perform(() => {});
-
-                directoryHelper.LockDirectory(FileSystemRights.Write);
-                // Assert
-                string expectedMessage = $"Kan geen tijdelijk bestand maken van het originele bestand ({filePath}).";
-                string message = Assert.Throws<IOException>(test).Message;
-                Assert.AreEqual(expectedMessage, message);
-            }
-        }
-
-        [Test]
-        public void Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow()
-        {
-            // Setup
-            string noAccessDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow));
-            string filePath = Path.Combine(noAccessDirectory, "iDoNotExist.txt");
-
-            using (var directoryHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFileDoesNotExistDeleteRightsRevoked_DoesNotThrow)))
-            {
-                var helper = new BackedUpFileWriter(filePath);
-
-                // Call
-                TestDelegate test = () => helper.Perform(() => {});
-
-                directoryHelper.LockDirectory(FileSystemRights.Delete);
-                // Assert
-                Assert.DoesNotThrow(test);
-            }
-        }
-
-        [Test]
-        public void Perform_TargetFileExistsCannotDeleteFile_ThrowsCannotDeleteBackupFileException()
-        {
-            // Setup
-            string filePath = Path.Combine(testWorkDir, nameof(Perform_TargetFileExistsCannotDeleteFile_ThrowsCannotDeleteBackupFileException));
-            string temporaryFilePath = filePath + "~";
-
-            using (new FileDisposeHelper(filePath))
-            using (var temporaryFileHelper = new FileDisposeHelper(temporaryFilePath))
-            {
-                var helper = new BackedUpFileWriter(filePath);
-
-                // Call
-                TestDelegate test = () => helper.Perform(() => temporaryFileHelper.LockFiles());
-
-                // Assert
-                string expectedMessage = $"Kan het tijdelijke bestand ({temporaryFilePath}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.";
-                string message = Assert.Throws<CannotDeleteBackupFileException>(test).Message;
-                Assert.AreEqual(expectedMessage, message);
-            }
-        }
-
-        [Test]
-        public void Perform_ActionThrowsExceptionTargetFileExistsCannotDeleteFile_ThrowsIOException()
-        {
-            // Setup
-            string filePath = Path.Combine(testWorkDir, nameof(Perform_ActionThrowsExceptionTargetFileExistsCannotDeleteFile_ThrowsIOException));
-            string temporaryFilePath = filePath + "~";
-
-            using (new FileDisposeHelper(filePath))
-            using (var temporaryFileHelper = new FileDisposeHelper(temporaryFilePath))
-            {
-                var helper = new BackedUpFileWriter(filePath);
-
-                // Call
-                TestDelegate test = () => helper.Perform(() =>
+                if (performWithExistingTargetFile)
                 {
-                    temporaryFileHelper.LockFiles();
-                    throw new Exception();
-                });
-
-                // Assert
-                string expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
-                string message = Assert.Throws<IOException>(test).Message;
-                Assert.AreEqual(expectedMessage, message);
+                    Assert.IsTrue(File.Exists(targetFilePath));
+                    Assert.AreEqual(testContent, File.ReadAllText(targetFilePath));
+                }
+                else
+                {
+                    Assert.IsFalse(File.Exists(targetFilePath));
+                }
             }
         }
 
         [Test]
-        public void Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Perform_TemporaryFileInUse_ExpectedExceptionThrown(bool performWithExistingTargetFile)
         {
             // Setup
-            string noAccessDirectory = Path.Combine(testWorkDir, nameof(Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException));
-            string filePath = Path.Combine(noAccessDirectory, "iDoExist.txt");
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string targetFilePath = Path.Combine(writableDirectory, "iDoExist.txt");
+            string temporaryFilePath = targetFilePath + "~";
 
-            using (var directoryHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ActionThrowsExceptionTargetFileExistsCannotMoveFile_ThrowsIOException)))
-            using (new FileDisposeHelper(filePath))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            using (new FileDisposeHelper(temporaryFilePath))
             {
-                var helper = new BackedUpFileWriter(filePath);
+                if (performWithExistingTargetFile)
+                {
+                    File.WriteAllText(targetFilePath, testContent);
+                }
+
+                var writer = new BackedUpFileWriter(targetFilePath);
 
                 // Call
-                TestDelegate test = () => helper.Perform(() =>
-                {
-                    directoryHelper.LockDirectory(FileSystemRights.FullControl);
-                    throw new Exception();
-                });
-
-                // Assert
-                string expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
-                string message = Assert.Throws<IOException>(test).Message;
-                Assert.AreEqual(expectedMessage, message);
+                var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+                Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
             }
         }
 
