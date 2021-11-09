@@ -382,8 +382,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 PipingFailureMechanismMetaEntities =
                 {
@@ -429,8 +429,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 MacroStabilityInwardsFailureMechanismMetaEntities =
                 {
@@ -478,8 +478,8 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityOutwards,
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 MacroStabilityOutwardsFailureMechanismMetaEntities =
                 {
@@ -517,8 +517,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
-            const string originalInput = "Some input text";
-            const string originalOutput = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string originalNotInAssemblyText = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -526,8 +526,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = originalInput,
-                OutputComments = originalOutput,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = originalNotInAssemblyText,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
@@ -547,8 +547,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.GrassCoverErosionInwards.InAssembly);
-            Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InAssemblyInputComments.Body);
-            Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.InAssemblyOutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.GrassCoverErosionInwards.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.GrassCoverErosionInwards.InAssemblyOutputComments.Body);
             Assert.AreEqual(originalNotInAssemblyText, section.GrassCoverErosionInwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.GrassCoverErosionInwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.GrassCoverErosionInwards.DikeProfiles.SourcePath);
@@ -574,8 +574,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
@@ -622,8 +622,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
@@ -670,8 +670,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
@@ -718,8 +718,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.StructureHeight,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
@@ -766,8 +766,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.ReliabilityClosingOfStructure,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
@@ -811,8 +811,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.StabilityPointStructures,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
@@ -859,8 +859,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.DuneErosion,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 DuneErosionFailureMechanismMetaEntities =
                 {
@@ -905,8 +905,8 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (int) FailureMechanismType.PipingAtStructure,
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inAssemblyInputComments,
-                OutputComments = inAssemblyOutputComments,
+                InAssemblyInputComments = inAssemblyInputComments,
+                InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 PipingStructureFailureMechanismMetaEntities =
                 {
@@ -983,29 +983,40 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             AssertFailureMechanismEqual(microstabilityInAssembly,
-                                        microstability.InputComments,
-                                        microstability.OutputComments,
-                                        microstability.NotInAssemblyComments,
+                                        microstability.InAssemblyInputComments,
+                                        microstability.InAssemblyOutputComments,
+                                        microstability.NotInAssemblyComments, 
+                                        microstability.CalculationsComments,
                                         section.Microstability);
             AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
-                                        strengthAndStabilityParallelConstruction.InputComments,
-                                        strengthAndStabilityParallelConstruction.OutputComments,
-                                        strengthAndStabilityParallelConstruction.NotInAssemblyComments,
+                                        strengthAndStabilityParallelConstruction.InAssemblyInputComments,
+                                        strengthAndStabilityParallelConstruction.InAssemblyOutputComments,
+                                        strengthAndStabilityParallelConstruction.NotInAssemblyComments, 
+                                        strengthAndStabilityParallelConstruction.CalculationsComments,
                                         section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
-                                        waterOverpressureAsphaltRevetment.InputComments,
-                                        waterOverpressureAsphaltRevetment.OutputComments,
-                                        waterOverpressureAsphaltRevetment.NotInAssemblyComments,
+                                        waterOverpressureAsphaltRevetment.InAssemblyInputComments,
+                                        waterOverpressureAsphaltRevetment.InAssemblyOutputComments,
+                                        waterOverpressureAsphaltRevetment.NotInAssemblyComments, 
+                                        waterOverpressureAsphaltRevetment.CalculationsComments,
                                         section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
-                                        grassRevetmentSlidingOutwards.InputComments,
-                                        grassRevetmentSlidingOutwards.OutputComments,
-                                        grassRevetmentSlidingOutwards.NotInAssemblyComments,
+                                        grassRevetmentSlidingOutwards.InAssemblyInputComments,
+                                        grassRevetmentSlidingOutwards.InAssemblyOutputComments,
+                                        grassRevetmentSlidingOutwards.NotInAssemblyComments, 
+                                        grassRevetmentSlidingOutwards.CalculationsComments,
                                         section.GrassCoverSlipOffOutwards);
+            AssertFailureMechanismEqual(grassRevetmentSlidingInwardsInAssembly,
+                                        grassRevetmentSlidingInwards.InAssemblyInputComments,
+                                        grassRevetmentSlidingInwards.InAssemblyOutputComments,
+                                        grassRevetmentSlidingInwards.NotInAssemblyComments, 
+                                        grassRevetmentSlidingInwards.CalculationsComments,
+                                        section.GrassCoverSlipOffInwards);
             AssertFailureMechanismEqual(technicalInnovationsInAssembly,
-                                        technicalInnovation.InputComments,
-                                        technicalInnovation.OutputComments,
-                                        technicalInnovation.NotInAssemblyComments,
+                                        technicalInnovation.InAssemblyInputComments,
+                                        technicalInnovation.InAssemblyOutputComments,
+                                        technicalInnovation.NotInAssemblyComments, 
+                                        technicalInnovation.CalculationsComments,
                                         section.TechnicalInnovation);
         }
 
@@ -1018,8 +1029,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             bool inAssembly1 = random.NextBoolean();
             const string name1 = "Specific failure path name";
-            const string inAssemblyinAssemblyInputComments1 = "Some input text";
-            const string inAssemblyinAssemblyOutputComments1 = "Some output text";
+            const string inAssemblyInputComments1 = "Some input text";
+            const string inAssemblyOutputComments1 = "Some output text";
             const string notInAssemblyComments1 = "Some not relevant text";
 
             bool inAssembly2 = random.NextBoolean();
@@ -1035,8 +1046,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 Name = name1,
                 InAssembly = Convert.ToByte(inAssembly1),
                 N = n1,
-                InputComments = inAssemblyinAssemblyInputComments1,
-                OutputComments = inAssemblyinAssemblyOutputComments1,
+                InAssemblyInputComments = inAssemblyInputComments1,
+                InAssemblyOutputComments = inAssemblyOutputComments1,
                 NotInAssemblyComments = notInAssemblyComments1
             };
 
@@ -1045,8 +1056,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 Name = name2,
                 InAssembly = Convert.ToByte(inAssembly2),
                 N = n2,
-                InputComments = inAssemblyInputComments2,
-                OutputComments = inAssemblyOutputComments2,
+                InAssemblyInputComments = inAssemblyInputComments2,
+                InAssemblyOutputComments = inAssemblyOutputComments2,
                 NotInAssemblyComments = notInAssemblyComments2
             };
 
@@ -1064,8 +1075,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNotNull(specificFailurePath1);
             Assert.AreEqual(name1, specificFailurePath1.Name);
             Assert.AreEqual(inAssembly1, specificFailurePath1.InAssembly);
-            Assert.AreEqual(inAssemblyinAssemblyInputComments1, specificFailurePath1.InAssemblyInputComments.Body);
-            Assert.AreEqual(inAssemblyinAssemblyOutputComments1, specificFailurePath1.InAssemblyOutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments1, specificFailurePath1.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments1, specificFailurePath1.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments1, specificFailurePath1.NotInAssemblyComments.Body);
             Assert.AreEqual(n1, specificFailurePath1.Input.N, specificFailurePath1.Input.N.GetAccuracy());
             Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
@@ -1224,20 +1235,23 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismType = (short) failureMechanismType,
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = string.Concat("InputComment", failureMechanismType.ToString()),
-                OutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
-                NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString())
+                InAssemblyInputComments = string.Concat("InputComment", failureMechanismType.ToString()),
+                InAssemblyOutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
+                NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString()),
+                CalculationsComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString())
             };
         }
 
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
                                                         string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
-                                                        string expectedNotInAssemblyComments, IFailureMechanism failureMechanism)
+                                                        string expectedNotInAssemblyComments, string expectedCalculationComments,
+                                                        IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(expectedInAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(expectedInAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(expectedCalculationComments, failureMechanism.CalculationsComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
     }

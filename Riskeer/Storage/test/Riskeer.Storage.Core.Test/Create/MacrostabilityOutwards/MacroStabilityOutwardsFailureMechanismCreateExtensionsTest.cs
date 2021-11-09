@@ -62,9 +62,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.MacroStabilityOutwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
@@ -93,6 +94,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
                 {
                     Body = "Really not in assembly"
                 },
+                CalculationsComments =
+                {
+                    Body = "Some calculation text"
+                },
                 MacroStabilityOutwardsProbabilityAssessmentInput =
                 {
                     A = random.NextDouble()
@@ -107,9 +112,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.MacroStabilityOutwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
             MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
         }
@@ -121,6 +127,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotInAssemblyText = "Really not in assembly";
+            const string originalCalculationsText = "Some calculation text";
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 InAssemblyInputComments =
@@ -134,6 +141,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
                 NotInAssemblyComments =
                 {
                     Body = originalNotInAssemblyText
+                },
+                CalculationsComments =
+                {
+                    Body = originalCalculationsText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -142,9 +153,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(originalInput, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(originalOutput, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(originalInput, entity.InAssemblyInputComments);
+            TestHelper.AssertAreEqualButNotSame(originalOutput, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(originalNotInAssemblyText, entity.NotInAssemblyComments);
+            TestHelper.AssertAreEqualButNotSame(originalCalculationsText, entity.CalculationsComments);
         }
 
         [Test]

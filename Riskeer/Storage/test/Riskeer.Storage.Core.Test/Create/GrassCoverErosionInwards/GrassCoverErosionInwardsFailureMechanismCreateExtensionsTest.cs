@@ -70,6 +70,10 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                 {
                     Body = "Really not in assembly"
                 },
+                CalculationsComments =
+                {
+                    Body = "Some calculation text"
+                },
                 GeneralInput =
                 {
                     N = new Random().NextRoundedDouble(1, 20)
@@ -84,9 +88,10 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.GrassRevetmentTopErosionAndInwards, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
 
             Assert.AreEqual(1, entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionInwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Single();
@@ -100,6 +105,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotInAssemblyText = "Really not in assembly";
+            const string originalCalculationText = "Some calculation text";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssemblyInputComments =
@@ -113,6 +119,10 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                 NotInAssemblyComments =
                 {
                     Body = originalNotInAssemblyText
+                },
+                CalculationsComments =
+                {
+                    Body = originalCalculationText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -121,9 +131,10 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
         }
 
         [Test]

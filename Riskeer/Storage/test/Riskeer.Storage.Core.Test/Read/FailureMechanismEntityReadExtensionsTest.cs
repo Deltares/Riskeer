@@ -66,8 +66,9 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                CalculationsComments = "Some calculation text",
                 NotInAssemblyComments = "Really not in assembly"
             };
             var collector = new ReadConversionCollector();
@@ -79,9 +80,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
@@ -426,9 +428,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 PipingFailureMechanismMetaEntities = new[]
                 {
@@ -448,9 +451,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -769,9 +773,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculations text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 MacroStabilityInwardsFailureMechanismMetaEntities = new[]
                 {
@@ -790,9 +795,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -1140,9 +1146,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation comments",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 MacroStabilityOutwardsFailureMechanismMetaEntities = new[]
                 {
@@ -1161,9 +1168,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             MacroStabilityOutwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
@@ -1218,9 +1226,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -1239,9 +1248,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -1395,9 +1405,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -1416,9 +1427,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -1607,9 +1619,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
@@ -1628,9 +1641,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -1820,9 +1834,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
@@ -1841,9 +1856,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualDeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL;
@@ -2034,9 +2050,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 HeightStructuresFailureMechanismMetaEntities =
                 {
@@ -2055,9 +2072,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -2312,9 +2330,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
@@ -2330,9 +2349,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
@@ -2600,9 +2620,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
@@ -2621,9 +2642,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -2944,9 +2966,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Really not in assembly",
+                CalculationsComments = "Some calculation text",
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 PipingStructureFailureMechanismMetaEntities = new[]
                 {
@@ -2965,9 +2988,10 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             PipingStructureFailureMechanismMetaEntity metaEntity = entity.PipingStructureFailureMechanismMetaEntities.Single();

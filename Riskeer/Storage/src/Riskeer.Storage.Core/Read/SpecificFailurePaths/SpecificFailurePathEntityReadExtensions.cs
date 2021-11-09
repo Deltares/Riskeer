@@ -57,11 +57,11 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
                 InAssembly = Convert.ToBoolean(entity.InAssembly),
                 InAssemblyInputComments =
                 {
-                    Body = entity.InputComments
+                    Body = entity.InAssemblyInputComments
                 },
                 InAssemblyOutputComments =
                 {
-                    Body = entity.OutputComments
+                    Body = entity.InAssemblyOutputComments
                 },
                 NotInAssemblyComments =
                 {

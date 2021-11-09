@@ -55,8 +55,8 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 Order = order,
                 N = specificFailurePath.Input.N,
                 InAssembly = Convert.ToByte(specificFailurePath.InAssembly),
-                InputComments = specificFailurePath.InAssemblyInputComments.Body.DeepClone(),
-                OutputComments = specificFailurePath.InAssemblyOutputComments.Body.DeepClone(),
+                InAssemblyInputComments = specificFailurePath.InAssemblyInputComments.Body.DeepClone(),
+                InAssemblyOutputComments = specificFailurePath.InAssemblyOutputComments.Body.DeepClone(),
                 NotInAssemblyComments = specificFailurePath.NotInAssemblyComments.Body.DeepClone(),
                 FailureMechanismSectionCollectionSourcePath = specificFailurePath.FailureMechanismSectionSourcePath.DeepClone()
             };

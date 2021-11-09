@@ -62,8 +62,8 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
                 Name = "Specific failure path name",
                 N = random.NextDouble(1.0, 20.0),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = "Some input text",
-                OutputComments = "Some output text",
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Some not in assembly text",
                 FailureMechanismSectionCollectionSourcePath = filePath,
                 FailureMechanismSectionEntities =
@@ -80,8 +80,8 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             // Assert
             Assert.AreEqual(entity.Name, specificFailurePath.Name);
             Assert.AreEqual(inAssembly, specificFailurePath.InAssembly);
-            Assert.AreEqual(entity.InputComments, specificFailurePath.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.OutputComments, specificFailurePath.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, specificFailurePath.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, specificFailurePath.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, specificFailurePath.NotInAssemblyComments.Body);
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);

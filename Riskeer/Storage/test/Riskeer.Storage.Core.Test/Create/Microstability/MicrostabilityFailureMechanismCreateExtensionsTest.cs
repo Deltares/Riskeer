@@ -68,6 +68,10 @@ namespace Riskeer.Storage.Core.Test.Create.Microstability
                 NotInAssemblyComments =
                 {
                     Body = "Really not in assembly"
+                },
+                CalculationsComments =
+                {
+                    Body = "Some calculation text"
                 }
             };
             var registry = new PersistenceRegistry();
@@ -79,9 +83,10 @@ namespace Riskeer.Storage.Core.Test.Create.Microstability
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.Microstability, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
         }
 
         [Test]
@@ -91,6 +96,7 @@ namespace Riskeer.Storage.Core.Test.Create.Microstability
             const string originalInput = "Some input text";
             const string originalOutput = "Some output text";
             const string originalNotInAssemblyText = "Really not in assembly";
+            const string originalCalculationsText = "Some calculations text";
             var failureMechanism = new MicrostabilityFailureMechanism
             {
                 InAssemblyInputComments =
@@ -104,6 +110,10 @@ namespace Riskeer.Storage.Core.Test.Create.Microstability
                 NotInAssemblyComments =
                 {
                     Body = originalNotInAssemblyText
+                },
+                CalculationsComments =
+                {
+                    Body = originalCalculationsText
                 }
             };
             var registry = new PersistenceRegistry();
@@ -112,9 +122,10 @@ namespace Riskeer.Storage.Core.Test.Create.Microstability
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
         }
 
         [Test]
