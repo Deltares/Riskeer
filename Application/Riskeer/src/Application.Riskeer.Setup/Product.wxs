@@ -113,7 +113,7 @@
       <!-- Common documents -->
       <Directory Id="WIX_DIR_COMMON_DOCUMENTS">
         <Directory Id="CommonDocumentsApplicationGroup" Name="!(loc.ApplicationGroupShortName)">
-          <Directory Id="CommonDocumentsApplication" Name="!(loc.ApplicationShortName)">
+          <Directory Id="CommonDocumentsApplication" Name="$(var.ApplicationFullName)">
             <Directory Id="CommonDocumentsNBPW" Name="NBPW">
               <Component Id="IHWFile" Guid="5BA794B1-2B84-46C5-A6F0-4BBAD110376D">
                 <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf"/>
