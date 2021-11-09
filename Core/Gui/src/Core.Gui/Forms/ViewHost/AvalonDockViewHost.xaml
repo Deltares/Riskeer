@@ -44,10 +44,7 @@ All rights reserved.
             </xcad:DockingManager.Theme>
             <xcad:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.DataContext>
-                            <viewHost:CustomLayoutDocument/>
-                        </StackPanel.DataContext>
+                    <StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
                                    Text="{Binding Symbol}"
                                    FontFamily="{Binding FontFamily}"
@@ -59,10 +56,7 @@ All rights reserved.
             </xcad:DockingManager.DocumentHeaderTemplate>
             <xcad:DockingManager.AnchorableHeaderTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.DataContext>
-                            <viewHost:CustomLayoutAnchorable/>
-                        </StackPanel.DataContext>
+                    <StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance viewHost:CustomLayoutAnchorable}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
                                    Text="{Binding Symbol}"
                                    Margin="0,0,4,0"
