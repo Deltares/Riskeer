@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotInAssemblyComments()
+        public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnOnlyFailureMechanismNotInAssemblyComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssemblyTrue_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -256,7 +256,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismNotInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism

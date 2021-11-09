@@ -113,7 +113,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -169,7 +169,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnChildDataNodes()
         {
             // Setup
             var mocks = new MockRepository();
@@ -195,7 +195,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssemblyTrue_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();
@@ -235,7 +235,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismNotInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
             var mocks = new MockRepository();

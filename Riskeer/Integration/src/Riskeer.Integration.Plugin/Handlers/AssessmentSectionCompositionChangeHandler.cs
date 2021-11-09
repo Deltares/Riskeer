@@ -73,13 +73,13 @@ namespace Riskeer.Integration.Plugin.Handlers
                 affectedObjects.Add(assessmentSection.FailureMechanismContribution);
                 affectedObjects.AddRange(assessmentSection.GetFailureMechanisms());
 
-                CloseViewsForFailureMechanismsNotInAssembly(GetFailureMechanismsWithInAssemblyUpdated(oldFailureMechanismsInAssembly));
+                CloseViewsForFailureMechanismsNotPartOfAssembly(GetFailureMechanismsWithInAssemblyUpdated(oldFailureMechanismsInAssembly));
             }
 
             return affectedObjects;
         }
 
-        private void CloseViewsForFailureMechanismsNotInAssembly(IEnumerable<IFailureMechanism> failureMechanisms)
+        private void CloseViewsForFailureMechanismsNotPartOfAssembly(IEnumerable<IFailureMechanism> failureMechanisms)
         {
             foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.InAssembly))
             {

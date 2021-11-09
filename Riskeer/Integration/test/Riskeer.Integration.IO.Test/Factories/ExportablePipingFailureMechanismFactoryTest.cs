@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismNotInAssembly_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismInAssemblyFalse_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismInAssembly_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismInAssemblyTrue_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);

@@ -48,11 +48,11 @@ namespace Riskeer.Common.Plugin.TestUtil
         where TFailurePath : IFailurePath, new()
         where TFailurePathContext : IFailurePathContext<TFailurePath>
     {
-        private readonly int contextMenuIndexWhenNotInAssembly;
-        private readonly int contextMenuIndexWhenInAssembly;
+        private readonly int contextMenuIndexWhenInAssemblyFalse;
+        private readonly int contextMenuIndexWhenInAssemblyTrue;
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismInAssemblyAndClickOnInAssemblyItem_MakeFailureMechanismNotInAssemblyAndRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismInAssemblyTrueAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyFalseAndRemovesAllViewsForItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuIndexWhenInAssembly].PerformClick();
+                        contextMenu.Items[contextMenuIndexWhenInAssemblyTrue].PerformClick();
 
                         // Assert
                         Assert.IsFalse(failureMechanism.InAssembly);
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismNotInAssemblyAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyAndRemovesAllViewsForItem()
+        public void ContextMenuStrip_FailureMechanismInAssemblyFalseAndClickOnInAssemblyItem_MakeFailureMechanismInAssemblyTrueAndRemovesAllViewsForItem()
         {
             // Setup
             var mocks = new MockRepository();
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Call
-                        contextMenu.Items[contextMenuIndexWhenNotInAssembly].PerformClick();
+                        contextMenu.Items[contextMenuIndexWhenInAssemblyFalse].PerformClick();
 
                         // Assert
                         Assert.IsTrue(failureMechanism.InAssembly);
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismInAssembly_AddCustomItems()
+        public void ContextMenuStrip_FailureMechanismInAssemblyTrue_AddCustomItems()
         {
             // Setup
             var mocks = new MockRepository();
@@ -172,7 +172,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssembly,
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyTrue,
                                                                       "I&n assemblage",
                                                                       "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_ticked);
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismNotInAssembly_AddCustomItems()
+        public void ContextMenuStrip_FailureMechanismInAssemblyFalse_AddCustomItems()
         {
             // Setup
             var mocks = new MockRepository();
@@ -217,7 +217,7 @@ namespace Riskeer.Common.Plugin.TestUtil
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, assessmentSection, treeView))
                     {
                         // Assert
-                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenNotInAssembly,
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuIndexWhenInAssemblyFalse,
                                                                       "I&n assemblage",
                                                                       "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                       RiskeerCommonFormsResources.Checkbox_empty);
@@ -231,15 +231,15 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="FailurePathInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailurePath,TFailurePathContext}"/>.
         /// </summary>
-        /// <param name="contextMenuIndexWhenInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuIndexWhenInAssemblyTrue">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
         /// is in the assembly.</param>
-        /// <param name="contextMenuIndexWhenNotInAssembly">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
-        /// is not in the assembly.</param>
-        protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssembly,
-                                                                        int contextMenuIndexWhenNotInAssembly)
+        /// <param name="contextMenuIndexWhenInAssemblyFalse">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// is not part of the assembly.</param>
+        protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssemblyTrue,
+                                                                   int contextMenuIndexWhenInAssemblyFalse)
         {
-            this.contextMenuIndexWhenInAssembly = contextMenuIndexWhenInAssembly;
-            this.contextMenuIndexWhenNotInAssembly = contextMenuIndexWhenNotInAssembly;
+            this.contextMenuIndexWhenInAssemblyTrue = contextMenuIndexWhenInAssemblyTrue;
+            this.contextMenuIndexWhenInAssemblyFalse = contextMenuIndexWhenInAssemblyFalse;
         }
 
         protected abstract TFailurePathContext CreateFailureMechanismContext(TFailurePath failureMechanism, IAssessmentSection assessmentSection);

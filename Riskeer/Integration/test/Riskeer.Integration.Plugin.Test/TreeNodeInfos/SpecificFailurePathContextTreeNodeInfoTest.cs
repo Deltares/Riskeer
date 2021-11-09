@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailurePathInAssemblyTrue_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotInAssemblyComments()
+        public void ChildNodeObjects_FailurePathInAssemblyTrue_ReturnOnlyFailurePathNotInAssemblyComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailurePathInAssemblyTrue_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -325,7 +325,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathNotInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailurePathInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
             var failurePath = new SpecificFailurePath

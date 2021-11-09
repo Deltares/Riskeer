@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismInAssembly_ReturnChildDataNodes()
+        public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnChildDataNodes()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailureMechanismNotInAssembly_ReturnOnlyFailureMechanismNotInAssemblyComments()
+        public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnOnlyFailureMechanismNotInAssemblyComments()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -199,7 +199,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismInAssembly_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_FailureMechanismInAssemblyTrue_CallsContextMenuBuilderMethods()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -213,6 +213,45 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 {
                     menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.Build()).Return(null);
+                }
+
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                info.ContextMenuStrip(context, assessmentSection, treeView);
+
+                // Assert
+                // Assert expectancies are called in TearDown()
+            }
+        }
+        
+        [Test]
+        public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism
+            {
+                InAssembly = false
+            };
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var context = new StrengthStabilityLengthwiseConstructionFailurePathContext(failureMechanism, assessmentSection);
+
+            using (var treeView = new TreeViewControl())
+            {
+                var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
+                using (mocks.Ordered())
+                {
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);

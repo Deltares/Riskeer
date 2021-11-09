@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismNotInAssembly_ReturnsDefaultExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismInAssemblyFalse_ReturnsDefaultExportableFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismInAssembly_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithFailureMechanismInAssemblyTrue_ReturnsExportableFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
