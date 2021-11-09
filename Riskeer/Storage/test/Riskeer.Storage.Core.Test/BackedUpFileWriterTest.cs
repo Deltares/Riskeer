@@ -48,19 +48,22 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
-        public void Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Perform_ValidTargetFilePathAndValidContext_ExpectedTemporaryFileCreatedAndTemporaryFileDeletedAfterwards(bool performWithExistingTargetFile)
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards));
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidTargetFilePathAndValidContext_ExpectedTemporaryFileCreatedAndTemporaryFileDeletedAfterwards));
             string filePath = Path.Combine(writableDirectory, "iDoExist.txt");
             string temporaryFilePath = filePath + "~";
-            const string testContent = "Some test text to write into file.";
 
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidFile_TemporaryFileCreatedFromOriginalAndDeletedAfterwards)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidTargetFilePathAndValidContext_ExpectedTemporaryFileCreatedAndTemporaryFileDeletedAfterwards)))
             using (new FileDisposeHelper(filePath))
-            using (new FileDisposeHelper(temporaryFilePath))
             {
-                File.WriteAllText(filePath, testContent);
+                if (performWithExistingTargetFile)
+                {
+                    File.WriteAllText(filePath, "Some test text.");
+                }
 
                 var writer = new BackedUpFileWriter(filePath);
 
@@ -70,8 +73,9 @@ namespace Riskeer.Storage.Core.Test
                     // Assert
                     Assert.IsFalse(File.Exists(filePath));
                     Assert.IsTrue(File.Exists(temporaryFilePath));
-                    Assert.AreEqual(testContent, File.ReadAllText(temporaryFilePath));
+                    Assert.AreEqual(performWithExistingTargetFile ? "Some test text." : string.Empty, ReadAllText(temporaryFilePath));
                 });
+
                 Assert.False(File.Exists(temporaryFilePath));
             }
         }
@@ -245,6 +249,15 @@ namespace Riskeer.Storage.Core.Test
                 string expectedMessage = $"Kan het originele bestand ({filePath}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.";
                 string message = Assert.Throws<IOException>(test).Message;
                 Assert.AreEqual(expectedMessage, message);
+            }
+        }
+
+        private static string ReadAllText(string filePath)
+        {
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var textReader = new StreamReader(fileStream))
+            {
+                return textReader.ReadToEnd();
             }
         }
 

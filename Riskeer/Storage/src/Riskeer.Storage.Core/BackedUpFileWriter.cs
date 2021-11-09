@@ -115,7 +115,7 @@ namespace Riskeer.Storage.Core
 
                     File.Move(targetFilePath, temporaryFilePath);
 
-                    temporaryFileStream = File.Open(temporaryFilePath, FileMode.Open, FileAccess.ReadWrite);
+                    temporaryFileStream = File.Open(temporaryFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
                 }
                 else
                 {
@@ -124,17 +124,17 @@ namespace Riskeer.Storage.Core
                     temporaryFileStream = File.Create(temporaryFilePath);
                 }
             }
-            catch (UnauthorizedAccessException e)
+            catch (UnauthorizedAccessException)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Insufficient_access_rights), e);
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Insufficient_access_rights));
             }
-            catch (PathTooLongException e)
+            catch (PathTooLongException)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Path_too_long), e);
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Path_too_long));
             }
-            catch (IOException e)
+            catch (IOException)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Target_file_already_in_use), e);
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Target_file_already_in_use));
             }
         }
 
