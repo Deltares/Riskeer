@@ -22,53 +22,52 @@
 using System;
 using System.IO;
 using Core.Common.Util;
-using Riskeer.Storage.Core.Exceptions;
 using Riskeer.Storage.Core.Properties;
 
 namespace Riskeer.Storage.Core
 {
     /// <summary>
-    /// Class for providing a safe way of writing files by creating a temporary backup file of targeted files.
+    /// Class for providing a safe way of writing files by:
+    /// <list type="bullet">
+    /// <item>creating and locking a temporary file in order to prevent race conditions (caused by writing to the same target file from different threads/processes);</item> 
+    /// <item>using the temporary file to store any former target file (this way rollback can take place in case of errors).</item>
+    /// </list>
     /// </summary>
     public class BackedUpFileWriter
     {
-        private const string temporarySuffix = "~";
+        private const string temporaryFileSuffix = "~";
 
-        private readonly string temporaryFilePath;
         private readonly string targetFilePath;
-        private bool isTemporaryFileCreated;
+        private readonly string temporaryFilePath;
+        private FileStream temporaryFileStream;
+        private bool isTemporaryFileEmpty;
 
         /// <summary>
         /// Creates an instance of <see cref="BackedUpFileWriter"/>.
         /// </summary>
-        /// <param name="targetFilePath">The path of the file which will be overwritten.</param>
-        /// <exception cref="ArgumentException"><paramref name="targetFilePath"/> is not a valid path.</exception>
+        /// <param name="targetFilePath">The path of the file which will be (over)written.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="targetFilePath"/> is not a valid path.</exception>
         public BackedUpFileWriter(string targetFilePath)
         {
             IOUtils.ValidateFilePath(targetFilePath);
 
             this.targetFilePath = targetFilePath;
-            temporaryFilePath = targetFilePath + temporarySuffix;
+            temporaryFilePath = targetFilePath + temporaryFileSuffix;
         }
 
         /// <summary>
-        /// Performs the <paramref name="writeAction"/> in a safe way by backing up the targeted file provided when
-        /// constructing the <see cref="BackedUpFileWriter"/>. It is expected that the <paramref name="writeAction"/>
-        /// will throw an exception when the operation fails, so that the backed up target file can be restored.
+        /// Performs the <paramref name="writeAction"/> in a safe way. Firstly by creating and locking a temporary file; when no
+        /// temporary file can be created, the <paramref name="writeAction"/> will not be performed. Secondly by backing up any
+        /// existing target file; it is expected that the <paramref name="writeAction"/> will throw an exception when the
+        /// operation fails, so that the backed up target file can be restored.
         /// </summary>
-        /// <param name="writeAction">The action to perform after backing up the targeted file. </param>
-        /// <exception cref="IOException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The temporary file already exists and cannot be deleted.</item>
-        /// <item>The temporary file cannot be created from the target file.</item>
-        /// <item>When reverting, the original file cannot be restored.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="CannotDeleteBackupFileException">Thrown when cleaning up, the temporary file cannot be removed.</exception>
+        /// <param name="writeAction">The write action to perform.</param>
+        /// <exception cref="IOException">Thrown when no temporary file can be created, indicating access rights are insufficient
+        /// or the target file is already in use by another process/thread.</exception>
         /// <remarks>Any <see cref="Exception"/> thrown by <paramref name="writeAction"/> will be rethrown.</remarks>
         public void Perform(Action writeAction)
         {
-            CreateTemporaryFile();
+            CreateAndLockTemporaryFile();
 
             try
             {
@@ -76,163 +75,65 @@ namespace Riskeer.Storage.Core
             }
             catch
             {
-                Revert();
+                if (isTemporaryFileEmpty)
+                {
+                    RemoveTemporaryFile();
+                }
+                else
+                {
+                    RestoreOriginalFile();
+                }
+
                 throw;
             }
 
-            Finish();
+            RemoveTemporaryFile();
         }
 
         /// <summary>
-        /// Removes the temporary file if it was created.
+        /// Creates a temporary file and backs up any existing target file.
         /// </summary>
-        /// <exception cref="CannotDeleteBackupFileException">The temporary file cannot be removed.</exception>
-        private void Finish()
-        {
-            if (isTemporaryFileCreated)
-            {
-                DeleteTemporaryFile();
-            }
-        }
-
-        /// <summary>
-        /// Reverts the target file to the temporary file if it was created. If the operation fails, 
-        /// the temporary file will remain in the directory of the target file.
-        /// </summary>
-        /// <exception cref="IOException">The original file cannot be restored.</exception>
-        private void Revert()
-        {
-            if (isTemporaryFileCreated)
-            {
-                RestoreOriginalFile();
-            }
-        }
-
-        /// <summary>
-        /// Creates a temporary file from the target file, if there is any. Creates a new file at the target
-        /// file path.
-        /// </summary>
-        /// <exception cref="IOException">Thrown when either:
-        /// <list type="bullet">
-        /// <item>The temporary file already exists and cannot be deleted.</item>
-        /// <item>The temporary file cannot be created from the target file.</item>
-        /// </list>
-        /// </exception>
-        private void CreateTemporaryFile()
-        {
-            isTemporaryFileCreated = false;
-
-            if (File.Exists(targetFilePath))
-            {
-                RemoveAlreadyExistingTemporaryFile();
-                CreateNewTemporaryFile();
-                isTemporaryFileCreated = true;
-            }
-        }
-
-        /// <summary>
-        /// Removes the temporary file for the target file if it already exists.
-        /// </summary>
-        /// <exception cref="IOException">The temporary file already exists and cannot be deleted.</exception>
-        private void RemoveAlreadyExistingTemporaryFile()
-        {
-            if (File.Exists(temporaryFilePath))
-            {
-                try
-                {
-                    File.Delete(temporaryFilePath);
-                }
-                catch (Exception e)
-                {
-                    if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
-                    {
-                        string message = string.Format(
-                            Resources.SafeOverwriteFileHelper_RemoveAlreadyExistingTemporaryFile_Already_existing_temporary_file_at_FilePath_0_could_not_be_removed,
-                            temporaryFilePath);
-                        throw new IOException(message, e);
-                    }
-
-                    throw;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Creates a temporary file from the target file.
-        /// </summary>
-        /// <exception cref="IOException">The temporary file cannot be created from the target file.</exception>
-        private void CreateNewTemporaryFile()
+        /// <exception cref="IOException">Thrown when the temporary file cannot be created, indicating access rights are
+        /// insufficient or the target file is already in use by another process/thread.</exception>
+        private void CreateAndLockTemporaryFile()
         {
             try
             {
-                File.Move(targetFilePath, temporaryFilePath);
+                if (File.Exists(targetFilePath))
+                {
+                    isTemporaryFileEmpty = false;
+
+                    File.Move(targetFilePath, temporaryFilePath);
+
+                    temporaryFileStream = File.Open(temporaryFilePath, FileMode.Open, FileAccess.ReadWrite);
+                }
+                else
+                {
+                    isTemporaryFileEmpty = true;
+
+                    temporaryFileStream = File.Create(temporaryFilePath);
+                }
             }
             catch (Exception e)
             {
-                if (e is ArgumentException || e is IOException || e is UnauthorizedAccessException || e is NotSupportedException)
-                {
-                    string message = string.Format(
-                        Resources.SafeOverwriteFileHelper_CreateNewTemporaryFile_Cannot_create_temporary_FilePath_0_Try_change_save_location,
-                        targetFilePath);
-                    throw new IOException(message, e);
-                }
-
-                throw;
+                throw new IOException(string.Format(Resources.BackedUpFileWriter_Target_file_already_in_use, targetFilePath), e);
             }
         }
 
-        /// <summary>
-        /// Moves the temporary file back to the original path. If the operation fails, the temporary file
-        /// will remain.
-        /// </summary>
-        /// <exception cref="IOException">Thrown when either:
-        /// <list type="bullet">
-        /// <item>The new file could not be deleted.</item>
-        /// <item>The temporary file could not be moved to its original place.</item>
-        /// </list></exception>
         private void RestoreOriginalFile()
         {
-            try
-            {
-                File.Delete(targetFilePath);
-                File.Move(temporaryFilePath, targetFilePath);
-            }
-            catch (Exception e)
-            {
-                if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
-                {
-                    string message = string.Format(
-                        Resources.SafeOverwriteFileHelper_RestoreOriginalFile_Cannot_revert_to_original_FilePath_0_Try_reverting_manually,
-                        targetFilePath);
-                    throw new IOException(message, e);
-                }
+            File.Delete(targetFilePath);
 
-                throw;
-            }
+            temporaryFileStream.Close();
+
+            File.Move(temporaryFilePath, targetFilePath);
         }
 
-        /// <summary>
-        /// Deletes the created temporary file.
-        /// </summary>
-        /// <exception cref="CannotDeleteBackupFileException">The temporary file cannot be removed.</exception>
-        private void DeleteTemporaryFile()
+        private void RemoveTemporaryFile()
         {
-            try
-            {
-                File.Delete(temporaryFilePath);
-            }
-            catch (Exception e)
-            {
-                if (e is ArgumentException || e is IOException || e is NotSupportedException || e is UnauthorizedAccessException)
-                {
-                    string message = string.Format(
-                        Resources.SafeOverwriteFileHelper_DeleteTemporaryFile_Cannot_remove_temporary_FilePath_0_Try_removing_manually,
-                        temporaryFilePath);
-                    throw new CannotDeleteBackupFileException(message, e);
-                }
+            temporaryFileStream.Close();
 
-                throw;
-            }
+            File.Delete(temporaryFilePath);
         }
     }
 }
