@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Data.TestUtil
         {
             foreach (AssessmentSectionConfiguration configuration in configurations)
             {
-                AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
+                AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly();
                 configuration.ConfigureAssessmentSectionAction(assessmentSection);
 
                 IFailureMechanism configuredFailureMechanism = configuration.GetFailureMechanismFunc(assessmentSection);
@@ -124,14 +124,14 @@ namespace Riskeer.Integration.Data.TestUtil
         {
             foreach (AssessmentSectionConfiguration configuration in configurations)
             {
-                AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
+                AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly();
                 configuration.ConfigureAssessmentSectionAction(assessmentSection);
 
                 yield return new TestCaseData(assessmentSection);
             }
         }
 
-        private static AssessmentSection CreateAssessmentSectionWithFailureMechanismsNotInAssembly()
+        private static AssessmentSection CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune);
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = false);

@@ -872,7 +872,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailurePathInAssembly_ReturnsControlText()
+        public void ForeColor_FailurePathInAssemblyTrue_ReturnsControlText()
         {
             // Setup
             var mocks = new MockRepository();
@@ -895,7 +895,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailurePathNotInAssembly_ReturnsGrayText()
+        public void ForeColor_FailurePathInAssemblyFalse_ReturnsGrayText()
         {
             // Setup
             var mocks = new MockRepository();
@@ -918,7 +918,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailurePathInAssembly_ReturnResultFromConstructorMethod()
+        public void ChildNodeObjects_FailurePathInAssemblyTrue_ReturnResultFromConstructorMethod()
         {
             // Setup
             var mocks = new MockRepository();
@@ -956,7 +956,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailurePathNotInAssembly_ReturnResultFromConstructorMethod()
+        public void ChildNodeObjects_FailurePathInAssemblyFalse_ReturnResultFromConstructorMethod()
         {
             // Setup
             var mocks = new MockRepository();

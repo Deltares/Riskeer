@@ -578,7 +578,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void GivenAssessmentSectionWithPipingConfigured_WhenAssemblingAssessmentSectionAndUseManualTrue_ThenInputSetOnCalculator()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
@@ -604,7 +604,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleAssessmentSection_FailureMechanismWithProbabilityAndManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
@@ -634,7 +634,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleAssessmentSection_FailureMechanismWithoutProbabilityAndWithManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly();
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
@@ -659,7 +659,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleAssessmentSection_FailureMechanismWithoutProbabilityAndWithManualSectionAssemblyAndUseManualTrue_SetsAssemblyInputOnCalculator()
         {
             // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotInAssembly();
+            AssessmentSection assessmentSection = CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly();
             DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
@@ -911,7 +911,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         #region Helpers
 
-        private static AssessmentSection CreateAssessmentSectionWithFailureMechanismsNotInAssembly()
+        private static AssessmentSection CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly()
         {
             AssessmentSection assessmentSection = CreateAssessmentSection();
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = false);
