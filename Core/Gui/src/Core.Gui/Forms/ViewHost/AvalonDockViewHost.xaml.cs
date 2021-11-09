@@ -123,7 +123,7 @@ namespace Core.Gui.Forms.ViewHost
             {
                 Child = control
             };
-            var layoutDocument = new LayoutDocument
+            var layoutDocument = new CustomLayoutDocument
             {
                 Title = title,
                 Content = hostControl
