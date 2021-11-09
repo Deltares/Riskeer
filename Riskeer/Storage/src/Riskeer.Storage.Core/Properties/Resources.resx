@@ -132,13 +132,13 @@
   <data name="StorageSqLite_LoadProject_Invalid_Riskeer_database_file" xml:space="preserve">
     <value>Het bestand is geen geldig Riskeer bestand.</value>
   </data>
-  <data name="BackedUpFileWriter_Insufficient_access_rights" xml:space="preserve">
+  <data name="SafeFileWriter_Insufficient_access_rights" xml:space="preserve">
     <value>Onvoldoende rechten voor het schrijven van het doelbestand.</value>
   </data>
-  <data name="BackedUpFileWriter_Path_too_long" xml:space="preserve">
+  <data name="SafeFileWriter_Path_too_long" xml:space="preserve">
     <value>Het pad van het doelbestand is te lang.</value>
   </data>
-  <data name="BackedUpFileWriter_Target_file_already_in_use" xml:space="preserve">
+  <data name="SafeFileWriter_Target_file_already_in_use" xml:space="preserve">
     <value>Het doelbestand is reeds in gebruik.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid" xml:space="preserve">

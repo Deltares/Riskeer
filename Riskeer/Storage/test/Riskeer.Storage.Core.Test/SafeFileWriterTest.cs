@@ -28,11 +28,11 @@ using NUnit.Framework;
 namespace Riskeer.Storage.Core.Test
 {
     [TestFixture]
-    public class BackedUpFileWriterTest
+    public class SafeFileWriterTest
     {
         private const string testContent = "Some test content";
 
-        private readonly string testWorkDir = TestHelper.GetScratchPadPath(nameof(BackedUpFileWriterTest));
+        private readonly string testWorkDir = TestHelper.GetScratchPadPath(nameof(SafeFileWriterTest));
 
         [Test]
         [TestCase("")]
@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Test
         public void Constructor_InvalidTargetFilePath_ThrowsArgumentException(string targetFilePath)
         {
             // Call
-            void Call() => new BackedUpFileWriter(targetFilePath);
+            void Call() => new SafeFileWriter(targetFilePath);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Test
                     File.WriteAllText(targetFilePath, testContent);
                 }
 
-                var writer = new BackedUpFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
                 writer.Perform(() =>
@@ -98,7 +98,7 @@ namespace Riskeer.Storage.Core.Test
                 }
 
                 var exception = new Exception();
-                var writer = new BackedUpFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
                 Exception actualException = Assert.Throws(exception.GetType(), () => writer.Perform(() => throw exception));
@@ -129,7 +129,7 @@ namespace Riskeer.Storage.Core.Test
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
             {
-                var writer = new BackedUpFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -150,7 +150,7 @@ namespace Riskeer.Storage.Core.Test
             {
                 directoryDisposeHelper.LockDirectory(FileSystemRights.Write);
 
-                var writer = new BackedUpFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -172,7 +172,7 @@ namespace Riskeer.Storage.Core.Test
             {
                 fileDisposeHelper.LockFiles();
 
-                var writer = new BackedUpFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -202,7 +202,7 @@ namespace Riskeer.Storage.Core.Test
                     File.WriteAllText(targetFilePath, testContent);
                 }
 
-                var writer = new BackedUpFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));

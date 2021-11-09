@@ -33,7 +33,7 @@ namespace Riskeer.Storage.Core
     /// <item>using the temporary file to store any former target file (this way rollback can take place in case of errors).</item>
     /// </list>
     /// </summary>
-    public class BackedUpFileWriter
+    public class SafeFileWriter
     {
         private const string temporaryFileSuffix = "~";
 
@@ -43,11 +43,11 @@ namespace Riskeer.Storage.Core
         private bool isTemporaryFileEmpty;
 
         /// <summary>
-        /// Creates an instance of <see cref="BackedUpFileWriter"/>.
+        /// Creates an instance of <see cref="SafeFileWriter"/>.
         /// </summary>
         /// <param name="targetFilePath">The path of the file which will be (over)written.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="targetFilePath"/> is not a valid path.</exception>
-        public BackedUpFileWriter(string targetFilePath)
+        public SafeFileWriter(string targetFilePath)
         {
             IOUtils.ValidateFilePath(targetFilePath);
 
@@ -126,15 +126,15 @@ namespace Riskeer.Storage.Core
             }
             catch (UnauthorizedAccessException)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Insufficient_access_rights));
+                throw new IOException(string.Format(Resources.SafeFileWriter_Insufficient_access_rights));
             }
             catch (PathTooLongException)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Path_too_long));
+                throw new IOException(string.Format(Resources.SafeFileWriter_Path_too_long));
             }
             catch (IOException)
             {
-                throw new IOException(string.Format(Resources.BackedUpFileWriter_Target_file_already_in_use));
+                throw new IOException(string.Format(Resources.SafeFileWriter_Target_file_already_in_use));
             }
         }
 

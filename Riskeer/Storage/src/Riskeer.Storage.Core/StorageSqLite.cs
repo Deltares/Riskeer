@@ -80,7 +80,7 @@ namespace Riskeer.Storage.Core
 
             try
             {
-                var writer = new BackedUpFileWriter(databaseFilePath);
+                var writer = new SafeFileWriter(databaseFilePath);
                 writer.Perform(() => SaveProjectInDatabase(databaseFilePath));
             }
             catch (IOException e)
