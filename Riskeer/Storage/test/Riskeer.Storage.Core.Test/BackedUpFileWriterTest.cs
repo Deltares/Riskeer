@@ -102,6 +102,7 @@ namespace Riskeer.Storage.Core.Test
                 // Call
                 Exception actualException = Assert.Throws(exception.GetType(), () => writer.Perform(() => throw exception));
 
+                // Assert
                 Assert.AreSame(exception, actualException);
 
                 Assert.IsFalse(File.Exists(temporaryFilePath));
@@ -132,7 +133,7 @@ namespace Riskeer.Storage.Core.Test
             using (var fileDisposeHelper = new FileDisposeHelper(temporaryFilePath))
             {
                 fileDisposeHelper.LockFiles();
-                
+
                 if (performWithExistingTargetFile)
                 {
                     File.WriteAllText(targetFilePath, testContent);
@@ -142,6 +143,8 @@ namespace Riskeer.Storage.Core.Test
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+
+                // Assert
                 Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
             }
         }
