@@ -172,20 +172,23 @@ namespace Core.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void AddDocumentView_WithTitle_ViewAddedWithExpectedTitle()
+        public void AddDocumentView_WithAllPropertiesSet_ViewAddedWithExpectedProperties()
         {
             // Setup
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 const string title = "Random title";
+                const string symbol = "Random symbol";
 
                 var testView = new TestView();
 
                 // Call
-                avalonDockViewHost.AddDocumentView(testView, title, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, title, symbol);
 
                 // Assert
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, title));
+                CustomLayoutDocument layoutDocument = GetLayoutDocument(avalonDockViewHost, testView);
+                Assert.AreEqual(title, layoutDocument.Title);
+                Assert.AreEqual(symbol, layoutDocument.Symbol);
             }
         }
 
@@ -524,19 +527,17 @@ namespace Core.Gui.Test.Forms.ViewHost
             var testView = mocks.StrictMock<IView>();
             mocks.ReplayAll();
 
-            const string symbol = "123";
-
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
                 var viewOpenedCounter = 0;
                 avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
                 // Call
-                avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, string.Empty, symbol);
+                avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, string.Empty, string.Empty);
 
                 // Assert
                 CollectionAssert.IsEmpty(avalonDockViewHost.ToolViews);
-                Assert.IsFalse(IsToolViewPresent(avalonDockViewHost, testView, ToolViewLocation.Left, symbol));
+                Assert.IsFalse(IsToolViewPresent(avalonDockViewHost, testView, ToolViewLocation.Left));
                 Assert.AreEqual(0, viewOpenedCounter);
             }
 
@@ -550,8 +551,6 @@ namespace Core.Gui.Test.Forms.ViewHost
         public void AddToolView_TestViews_ViewAddedAndViewOpenedEventFired(ToolViewLocation toolViewLocation)
         {
             // Setup
-            const string symbol = "123";
-
             var testView = new TestView();
             IEnumerable<ToolViewLocation> otherToolViewLocations = Enum.GetValues(typeof(ToolViewLocation))
                                                                        .Cast<ToolViewLocation>()
@@ -571,7 +570,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 };
 
                 // Call
-                avalonDockViewHost.AddToolView(testView, toolViewLocation, string.Empty, symbol);
+                avalonDockViewHost.AddToolView(testView, toolViewLocation, string.Empty, string.Empty);
 
                 // Assert
                 CollectionAssert.AreEqual(
@@ -580,8 +579,8 @@ namespace Core.Gui.Test.Forms.ViewHost
                         testView
                     },
                     avalonDockViewHost.ToolViews);
-                Assert.IsTrue(IsToolViewPresent(avalonDockViewHost, testView, toolViewLocation, symbol));
-                Assert.IsFalse(otherToolViewLocations.Any(tvl => IsToolViewPresent(avalonDockViewHost, testView, tvl, symbol)));
+                Assert.IsTrue(IsToolViewPresent(avalonDockViewHost, testView, toolViewLocation));
+                Assert.IsFalse(otherToolViewLocations.Any(tvl => IsToolViewPresent(avalonDockViewHost, testView, tvl)));
                 Assert.AreEqual(1, viewOpenedCounter);
             }
         }
@@ -617,7 +616,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 void Call() => avalonDockViewHost.AddToolView(testView, (ToolViewLocation) invalidLocation, string.Empty, string.Empty);
 
                 // Assert
-                string expectedMessage = $"The value of argument 'toolViewLocation' ({invalidLocation}) is invalid for Enum type 'ToolViewLocation'.";
+                var expectedMessage = $"The value of argument 'toolViewLocation' ({invalidLocation}) is invalid for Enum type 'ToolViewLocation'.";
                 string parameter = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(
                     Call,
                     expectedMessage).ParamName;
@@ -894,7 +893,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
         #region Helper methods
 
-        private static bool IsDocumentViewPresent(AvalonDockViewHost avalonDockViewHost, IView documentView)
+        private static CustomLayoutDocument GetLayoutDocument(AvalonDockViewHost avalonDockViewHost, IView documentView)
         {
             var layoutDocumentPaneGroup = TypeUtils.GetField<LayoutDocumentPaneGroup>(avalonDockViewHost, "LayoutDocumentPaneGroup");
 
@@ -902,10 +901,16 @@ namespace Core.Gui.Test.Forms.ViewHost
                                           .OfType<LayoutDocumentPane>()
                                           .First()
                                           .Children
-                                          .Any(c => ((WindowsFormsHost) c.Content).Child == documentView);
+                                          .Cast<CustomLayoutDocument>()
+                                          .FirstOrDefault(c => ((WindowsFormsHost) c.Content).Child == documentView);
         }
 
-        private static bool IsToolViewPresent(AvalonDockViewHost avalonDockViewHost, IView toolView, ToolViewLocation toolViewLocation, string symbol)
+        private static bool IsDocumentViewPresent(AvalonDockViewHost avalonDockViewHost, IView documentView)
+        {
+            return GetLayoutDocument(avalonDockViewHost, documentView) != null;
+        }
+
+        private static CustomLayoutAnchorable GetLayoutAnchorable(AvalonDockViewHost avalonDockViewHost, IView toolView, ToolViewLocation toolViewLocation)
         {
             string paneField;
 
@@ -932,7 +937,12 @@ namespace Core.Gui.Test.Forms.ViewHost
                                             .First()
                                             .Children
                                             .Cast<CustomLayoutAnchorable>()
-                                            .Any(c => ((WindowsFormsHost) c.Content).Child == toolView && c.Symbol == symbol);
+                                            .FirstOrDefault(c => ((WindowsFormsHost) c.Content).Child == toolView);
+        }
+
+        private static bool IsToolViewPresent(AvalonDockViewHost avalonDockViewHost, IView toolView, ToolViewLocation toolViewLocation)
+        {
+            return GetLayoutAnchorable(avalonDockViewHost, toolView, toolViewLocation) != null;
         }
 
         private static bool IsActiveView(AvalonDockViewHost avalonDockViewHost, IView view)
