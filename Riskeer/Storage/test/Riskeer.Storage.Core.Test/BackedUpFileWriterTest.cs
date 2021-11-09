@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Security.AccessControl;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
@@ -135,6 +136,49 @@ namespace Riskeer.Storage.Core.Test
 
                 // Assert
                 Assert.AreEqual("Het pad van het doelbestand is te lang.", exception.Message);
+            }
+        }
+
+        [Test]
+        public void Perform_InsufficientAccessRights_ExpectedExceptionThrown()
+        {
+            // Setup
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
+
+            using (var directoryDisposeHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            {
+                directoryDisposeHelper.LockDirectory(FileSystemRights.Write);
+
+                var writer = new BackedUpFileWriter(targetFilePath);
+
+                // Call
+                var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+
+                // Assert
+                Assert.AreEqual("Onvoldoende rechten voor het schrijven van het doelbestand.", exception.Message);
+            }
+        }
+
+        [Test]
+        public void Perform_TargetFileInUse_ExpectedExceptionThrown()
+        {
+            // Setup
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
+
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
+            {
+                fileDisposeHelper.LockFiles();
+
+                var writer = new BackedUpFileWriter(targetFilePath);
+
+                // Call
+                var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+
+                // Assert
+                Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
             }
         }
 
