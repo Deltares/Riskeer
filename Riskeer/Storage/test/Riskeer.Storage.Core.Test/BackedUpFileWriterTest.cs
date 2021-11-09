@@ -38,13 +38,13 @@ namespace Riskeer.Storage.Core.Test
         [TestCase(null)]
         [TestCase("\"")]
         [TestCase("/")]
-        public void Constructor_InvalidPath_ThrowsArgumentException(string path)
+        public void Constructor_InvalidTargetFilePath_ThrowsArgumentException(string targetFilePath)
         {
             // Call
-            TestDelegate test = () => new BackedUpFileWriter(path);
+            void Call() => new BackedUpFileWriter(targetFilePath);
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
