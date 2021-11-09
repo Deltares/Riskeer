@@ -29,7 +29,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
-using log4net;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create;
@@ -46,33 +45,13 @@ namespace Riskeer.Storage.Core
     /// </summary>
     public class StorageSqLite : IStoreProject
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
-
         private StagedProject stagedProject;
 
-        public string OpenProjectFileFilter
-        {
-            get
-            {
-                return Resources.Supported_Riskeer_open_projects_file_filter;
-            }
-        }
+        public string OpenProjectFileFilter => Resources.Supported_Riskeer_open_projects_file_filter;
 
-        public string SaveProjectFileFilter
-        {
-            get
-            {
-                return Resources.RiskeerProject_FileFilter;
-            }
-        }
+        public string SaveProjectFileFilter => Resources.RiskeerProject_FileFilter;
 
-        public bool HasStagedProject
-        {
-            get
-            {
-                return stagedProject != null;
-            }
-        }
+        public bool HasStagedProject => stagedProject != null;
 
         public void StageProject(IProject project)
         {
@@ -104,13 +83,9 @@ namespace Riskeer.Storage.Core
                 var writer = new BackedUpFileWriter(databaseFilePath);
                 writer.Perform(() => SaveProjectInDatabase(databaseFilePath));
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 throw new StorageException(e.Message, e);
-            }
-            catch (CannotDeleteBackupFileException e)
-            {
-                log.Warn(e.Message, e);
             }
             finally
             {

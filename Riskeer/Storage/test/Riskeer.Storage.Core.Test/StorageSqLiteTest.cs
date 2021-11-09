@@ -368,8 +368,7 @@ namespace Riskeer.Storage.Core.Test
                     Assert.IsInstanceOf<Exception>(exception);
                     Assert.IsInstanceOf<IOException>(exception.InnerException);
                     Assert.IsInstanceOf<Exception>(exception);
-                    Assert.AreEqual($@"Kan geen tijdelijk bestand maken van het originele bestand ({tempProjectFilePath}).",
-                                    exception.Message);
+                    Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
                 }
                 finally
                 {
