@@ -79,8 +79,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
@@ -448,8 +448,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -790,8 +790,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
@@ -1161,8 +1161,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -1239,8 +1239,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -1416,8 +1416,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -1628,8 +1628,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -1841,8 +1841,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -2055,8 +2055,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -2330,8 +2330,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -2621,8 +2621,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
@@ -2965,8 +2965,8 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(failureMechanism);
             Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 

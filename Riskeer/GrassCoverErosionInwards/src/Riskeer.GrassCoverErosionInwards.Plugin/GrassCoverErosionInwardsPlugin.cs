@@ -532,7 +532,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return new object[]
             {
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -618,7 +618,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return new object[]
             {
                 new GrassCoverErosionInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -630,7 +630,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

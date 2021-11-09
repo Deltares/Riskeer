@@ -185,8 +185,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 calculation
             });
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -220,8 +220,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -262,8 +262,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 deletedCalculation
             });
-            deletedfailureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            deletedfailureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             deletedfailureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
@@ -298,8 +298,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(comment);
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(comment);
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -333,8 +333,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(comment);
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(comment);
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -368,8 +368,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(comment);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -409,8 +409,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 calculation
             });
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             mocks.ReplayAll();
@@ -447,8 +447,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 deletedCalculation
             });
-            deletedfailureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            deletedfailureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            deletedfailureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             deletedfailureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             mocks.ReplayAll();
@@ -476,8 +476,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
-            failureMechanism.Stub(fm => fm.InputComments).Return(new Comment());
-            failureMechanism.Stub(fm => fm.OutputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             mocks.ReplayAll();
@@ -502,11 +502,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var viewDataComment = mocks.Stub<IFailurePath>();
-            viewDataComment.Stub(s => s.InputComments).Return(new Comment());
+            viewDataComment.Stub(s => s.InAssemblyInputComments).Return(new Comment());
 
             var deletedFailurePath = mocks.Stub<IFailurePath>();
-            deletedFailurePath.Stub(fm => fm.InputComments).Return(new Comment());
-            deletedFailurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            deletedFailurePath.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            deletedFailurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             deletedFailurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
@@ -520,7 +520,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var view = new CommentView
             {
-                Data = viewDataComment.InputComments
+                Data = viewDataComment.InAssemblyInputComments
             })
             {
                 // Call
@@ -540,8 +540,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var comment = new Comment();
 
             var failurePath = mocks.Stub<IFailurePath>();
-            failurePath.Stub(fm => fm.InputComments).Return(comment);
-            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyInputComments).Return(comment);
+            failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -575,8 +575,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var comment = new Comment();
 
             var failurePath = mocks.Stub<IFailurePath>();
-            failurePath.Stub(fm => fm.InputComments).Return(new Comment());
-            failurePath.Stub(fm => fm.OutputComments).Return(comment);
+            failurePath.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(comment);
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -610,8 +610,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var comment = new Comment();
 
             var failurePath = mocks.Stub<IFailurePath>();
-            failurePath.Stub(fm => fm.InputComments).Return(new Comment());
-            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(comment);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -644,8 +644,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var affectedComment = new Comment();
             var failurePath = mocks.Stub<IFailureMechanism>();
-            failurePath.Stub(fm => fm.InputComments).Return(affectedComment);
-            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyInputComments).Return(affectedComment);
+            failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
             var failurePathContext = mocks.Stub<IFailurePathContext<IFailurePath>>();
 
@@ -674,8 +674,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var unaffectedComment = new Comment();
 
             var failurePath = mocks.Stub<IFailureMechanism>();
-            failurePath.Stub(fm => fm.InputComments).Return(new Comment());
-            failurePath.Stub(fm => fm.OutputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
+            failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
             var failurePathContext = mocks.Stub<IFailurePathContext<IFailurePath>>();
 

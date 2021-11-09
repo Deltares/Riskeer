@@ -628,7 +628,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -699,7 +699,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new MacroStabilityInwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -713,7 +713,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                               () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

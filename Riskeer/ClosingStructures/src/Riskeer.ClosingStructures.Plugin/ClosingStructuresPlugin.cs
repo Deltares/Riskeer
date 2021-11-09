@@ -382,7 +382,7 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -467,7 +467,7 @@ namespace Riskeer.ClosingStructures.Plugin
             return new object[]
             {
                 new ClosingStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -479,7 +479,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

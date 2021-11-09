@@ -60,11 +60,11 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InAssembly = inAssembly,
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = "Some input text"
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = "Some output text"
                 },
@@ -86,8 +86,8 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.ReliabilityClosingOfStructure, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
@@ -105,11 +105,11 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = originalInput
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = originalOutput
                 },
@@ -124,8 +124,8 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
         }
 

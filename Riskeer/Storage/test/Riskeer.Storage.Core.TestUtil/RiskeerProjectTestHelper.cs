@@ -568,8 +568,8 @@ namespace Riskeer.Storage.Core.TestUtil
 
                 failurePath.Name = $"Path {i}";
                 failurePath.InAssembly = random.NextBoolean();
-                failurePath.InputComments.Body = $"Input comment path: {i}";
-                failurePath.OutputComments.Body = $"Output comment path: {i}";
+                failurePath.InAssemblyInputComments.Body = $"Input comment path: {i}";
+                failurePath.InAssemblyOutputComments.Body = $"Output comment path: {i}";
                 failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
 
                 SetSections(failurePath);

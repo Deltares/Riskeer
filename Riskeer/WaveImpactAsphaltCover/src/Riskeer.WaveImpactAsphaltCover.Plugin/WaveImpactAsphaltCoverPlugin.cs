@@ -324,7 +324,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -392,7 +392,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new WaveImpactAsphaltCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -405,7 +405,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                         assessmentSection.ReferenceLine.Length)),
                 new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

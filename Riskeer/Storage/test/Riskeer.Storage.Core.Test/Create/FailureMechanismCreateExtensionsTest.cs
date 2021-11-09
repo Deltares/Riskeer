@@ -101,8 +101,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const string originalNotInAssemblyText = "Really not in assembly";
             const string failureMechanismSectionsSourcePath = "File\\Path";
             IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool");
-            failureMechanism.InputComments.Body = originalInput;
-            failureMechanism.OutputComments.Body = originalOutput;
+            failureMechanism.InAssemblyInputComments.Body = originalInput;
+            failureMechanism.InAssemblyOutputComments.Body = originalOutput;
             failureMechanism.NotInAssemblyComments.Body = originalNotInAssemblyText;
             failureMechanism.SetSections(new[]
             {
@@ -115,8 +115,8 @@ namespace Riskeer.Storage.Core.Test.Create
             FailureMechanismEntity entity = failureMechanism.Create(FailureMechanismType.DuneErosion, registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }

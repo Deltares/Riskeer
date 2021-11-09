@@ -50,8 +50,8 @@ namespace Riskeer.Storage.Core.Create
             {
                 FailureMechanismType = (short) type,
                 InAssembly = Convert.ToByte(mechanism.InAssembly),
-                InputComments = mechanism.InputComments.Body.DeepClone(),
-                OutputComments = mechanism.OutputComments.Body.DeepClone(),
+                InputComments = mechanism.InAssemblyInputComments.Body.DeepClone(),
+                OutputComments = mechanism.InAssemblyOutputComments.Body.DeepClone(),
                 NotInAssemblyComments = mechanism.NotInAssemblyComments.Body.DeepClone(),
                 FailureMechanismSectionCollectionSourcePath = mechanism.FailureMechanismSectionSourcePath.DeepClone()
             };

@@ -131,11 +131,11 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             var specificFailurePath = new SpecificFailurePath
             {
                 Name = name,
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = originalInput
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = originalOutput
                 },
@@ -156,8 +156,8 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.Name, entity.Name);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(specificFailurePath.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.InAssemblyInputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(specificFailurePath.InAssemblyOutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             TestHelper.AssertAreEqualButNotSame(specificFailurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }

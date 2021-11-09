@@ -135,7 +135,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
             var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.InputComments, comment);
+            Assert.AreSame(failureMechanism.InAssemblyInputComments, comment);
 
             var outputsFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -164,7 +164,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
             var outputComment = (Comment) outputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(failureMechanism.OutputComments, outputComment);
+            Assert.AreSame(failureMechanism.InAssemblyOutputComments, outputComment);
         }
 
         [Test]

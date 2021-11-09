@@ -1798,8 +1798,8 @@ namespace Riskeer.Integration.Plugin
 
         private static IEnumerable<Comment> GetCommentElements(IFailurePath failurePath)
         {
-            yield return failurePath.InputComments;
-            yield return failurePath.OutputComments;
+            yield return failurePath.InAssemblyInputComments;
+            yield return failurePath.InAssemblyOutputComments;
             yield return failurePath.NotInAssemblyComments;
         }
 
@@ -2268,7 +2268,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new SpecificFailurePathSectionsContext(nodeData.WrappedData, nodeData.Parent),
-                nodeData.WrappedData.InputComments
+                nodeData.WrappedData.InAssemblyInputComments
             };
         }
 
@@ -2276,7 +2276,7 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                nodeData.WrappedData.OutputComments
+                nodeData.WrappedData.InAssemblyOutputComments
             };
         }
 
@@ -2394,7 +2394,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new GrassCoverSlipOffInwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2404,7 +2404,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2430,7 +2430,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new GrassCoverSlipOffOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2440,7 +2440,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2466,7 +2466,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2481,7 +2481,7 @@ namespace Riskeer.Integration.Plugin
                                                                     () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData, assessmentSection),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2507,7 +2507,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new MicrostabilityFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2517,7 +2517,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2543,7 +2543,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new PipingStructureFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2557,7 +2557,7 @@ namespace Riskeer.Integration.Plugin
                                                               () => nodeData.N),
                 new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData, assessmentSection),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2584,7 +2584,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2594,7 +2594,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2620,7 +2620,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2630,7 +2630,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 
@@ -2656,7 +2656,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new WaterPressureAsphaltCoverFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InputComments
+                nodeData.InAssemblyInputComments
             };
         }
 
@@ -2666,7 +2666,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData),
-                nodeData.OutputComments
+                nodeData.InAssemblyOutputComments
             };
         }
 

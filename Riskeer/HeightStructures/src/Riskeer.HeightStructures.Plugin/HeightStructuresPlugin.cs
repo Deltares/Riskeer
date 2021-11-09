@@ -385,7 +385,7 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -472,7 +472,7 @@ namespace Riskeer.HeightStructures.Plugin
             return new object[]
             {
                 new HeightStructuresFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -484,7 +484,7 @@ namespace Riskeer.HeightStructures.Plugin
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

@@ -248,7 +248,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, sectionsContext.AssessmentSection);
 
             var inputComment = (Comment) inputFolder.Contents.ElementAt(1);
-            Assert.AreSame(specificFailurePath.InputComments, inputComment);
+            Assert.AreSame(specificFailurePath.InAssemblyInputComments, inputComment);
 
             var outputFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual(1, outputFolder.Contents.Count());
@@ -256,7 +256,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
             var outputComment = (Comment) outputFolder.Contents.ElementAt(0);
-            Assert.AreSame(specificFailurePath.OutputComments, outputComment);
+            Assert.AreSame(specificFailurePath.InAssemblyOutputComments, outputComment);
         }
 
         [Test]

@@ -43,8 +43,8 @@ namespace Riskeer.Common.Data.TestUtil
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            InputComments = new Comment();
-            OutputComments = new Comment();
+            InAssemblyInputComments = new Comment();
+            InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
         }
 
@@ -66,9 +66,9 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
-        public Comment InputComments { get; }
+        public Comment InAssemblyInputComments { get; }
 
-        public Comment OutputComments { get; }
+        public Comment InAssemblyOutputComments { get; }
 
         public Comment NotInAssemblyComments { get; }
 

@@ -61,8 +61,8 @@ namespace Riskeer.Common.Data.FailureMechanism
             Group = group;
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            InputComments = new Comment();
-            OutputComments = new Comment();
+            InAssemblyInputComments = new Comment();
+            InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
 
             CalculationsComments = new Comment();
@@ -113,9 +113,9 @@ namespace Riskeer.Common.Data.FailureMechanism
             }
         }
 
-        public Comment InputComments { get; }
+        public Comment InAssemblyInputComments { get; }
 
-        public Comment OutputComments { get; }
+        public Comment InAssemblyOutputComments { get; }
 
         public Comment NotInAssemblyComments { get; }
 

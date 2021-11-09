@@ -63,11 +63,11 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var failureMechanism = new PipingFailureMechanism
             {
                 InAssembly = random.NextBoolean(),
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = "Some input text"
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = "Some output text"
                 },
@@ -93,8 +93,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.Piping, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
@@ -112,11 +112,11 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = "Some input text"
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = "Some output text"
                 },
@@ -131,8 +131,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
         }
 

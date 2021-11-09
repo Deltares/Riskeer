@@ -141,8 +141,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
-                var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-                Assert.AreSame(failureMechanism.InputComments, comment);
+                var inputComment = (Comment) inputsFolder.Contents.ElementAt(1);
+                Assert.AreSame(failureMechanism.InAssemblyInputComments, inputComment);
 
                 var outputsFolder = (CategoryTreeFolder) children[1];
                 Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -168,7 +168,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
                 var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
-                Assert.AreSame(failureMechanism.OutputComments, outputComment);
+                Assert.AreSame(failureMechanism.InAssemblyOutputComments, outputComment);
             }
         }
 

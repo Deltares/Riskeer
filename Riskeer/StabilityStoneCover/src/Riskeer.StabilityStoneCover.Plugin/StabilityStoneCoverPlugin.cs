@@ -325,7 +325,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -393,7 +393,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new StabilityStoneCoverFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -404,7 +404,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

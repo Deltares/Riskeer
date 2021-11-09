@@ -373,8 +373,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double parameterA = random.NextDouble() / 10;
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -382,8 +382,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.Piping,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 PipingFailureMechanismMetaEntities =
                 {
@@ -403,8 +403,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.Piping.InAssembly);
-            Assert.AreEqual(inputComments, section.Piping.InputComments.Body);
-            Assert.AreEqual(outputComments, section.Piping.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.Piping.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.Piping.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.Piping.NotInAssemblyComments.Body);
             Assert.AreEqual(parameterA, section.Piping.PipingProbabilityAssessmentInput.A);
             Assert.IsNull(section.Piping.FailureMechanismSectionSourcePath);
@@ -420,8 +420,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double parameterA = random.NextDouble();
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -429,8 +429,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityInwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 MacroStabilityInwardsFailureMechanismMetaEntities =
                 {
@@ -450,8 +450,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.MacroStabilityInwards.InAssembly);
-            Assert.AreEqual(inputComments, section.MacroStabilityInwards.InputComments.Body);
-            Assert.AreEqual(outputComments, section.MacroStabilityInwards.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.MacroStabilityInwards.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.MacroStabilityInwards.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.MacroStabilityInwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.MacroStabilityInwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.MacroStabilityInwards.StochasticSoilModels.SourcePath);
@@ -470,16 +470,16 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double parameterA = random.NextDouble();
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.MacroStabilityOutwards,
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 MacroStabilityOutwardsFailureMechanismMetaEntities =
                 {
@@ -499,8 +499,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.MacroStabilityOutwards.InAssembly);
-            Assert.AreEqual(inputComments, section.MacroStabilityOutwards.InputComments.Body);
-            Assert.AreEqual(outputComments, section.MacroStabilityOutwards.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.MacroStabilityOutwards.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.MacroStabilityOutwards.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.MacroStabilityOutwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.MacroStabilityOutwards.FailureMechanismSectionSourcePath);
 
@@ -547,8 +547,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.GrassCoverErosionInwards.InAssembly);
-            Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InputComments.Body);
-            Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.OutputComments.Body);
+            Assert.AreEqual(originalInput, section.GrassCoverErosionInwards.InAssemblyInputComments.Body);
+            Assert.AreEqual(originalOutput, section.GrassCoverErosionInwards.InAssemblyOutputComments.Body);
             Assert.AreEqual(originalNotInAssemblyText, section.GrassCoverErosionInwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.GrassCoverErosionInwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.GrassCoverErosionInwards.DikeProfiles.SourcePath);
@@ -565,8 +565,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -574,8 +574,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
@@ -595,8 +595,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.GrassCoverErosionOutwards.InAssembly);
-            Assert.AreEqual(inputComments, section.GrassCoverErosionOutwards.InputComments.Body);
-            Assert.AreEqual(outputComments, section.GrassCoverErosionOutwards.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.GrassCoverErosionOutwards.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.GrassCoverErosionOutwards.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.GrassCoverErosionOutwards.NotInAssemblyComments.Body);
             Assert.IsNull(section.GrassCoverErosionOutwards.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.GrassCoverErosionOutwards.ForeshoreProfiles.SourcePath);
@@ -613,8 +613,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -622,8 +622,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
@@ -643,8 +643,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.StabilityStoneCover.InAssembly);
-            Assert.AreEqual(inputComments, section.StabilityStoneCover.InputComments.Body);
-            Assert.AreEqual(outputComments, section.StabilityStoneCover.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.StabilityStoneCover.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.StabilityStoneCover.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.StabilityStoneCover.NotInAssemblyComments.Body);
             Assert.IsNull(section.StabilityStoneCover.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.StabilityStoneCover.ForeshoreProfiles.SourcePath);
@@ -661,8 +661,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double deltaL = random.NextDouble(1.0, 20.0);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -670,8 +670,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
@@ -691,8 +691,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.WaveImpactAsphaltCover.InAssembly);
-            Assert.AreEqual(inputComments, section.WaveImpactAsphaltCover.InputComments.Body);
-            Assert.AreEqual(outputComments, section.WaveImpactAsphaltCover.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.WaveImpactAsphaltCover.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.WaveImpactAsphaltCover.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.WaveImpactAsphaltCover.NotInAssemblyComments.Body);
             Assert.IsNull(section.WaveImpactAsphaltCover.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.WaveImpactAsphaltCover.ForeshoreProfiles.SourcePath);
@@ -709,8 +709,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -718,8 +718,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.StructureHeight,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
@@ -739,8 +739,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.HeightStructures.InAssembly);
-            Assert.AreEqual(inputComments, section.HeightStructures.InputComments.Body);
-            Assert.AreEqual(outputComments, section.HeightStructures.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.HeightStructures.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.HeightStructures.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.HeightStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.HeightStructures.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.HeightStructures.HeightStructures.SourcePath);
@@ -757,8 +757,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             int n2a = random.Next(1, 40);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -766,8 +766,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.ReliabilityClosingOfStructure,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
@@ -787,8 +787,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.ClosingStructures.InAssembly);
-            Assert.AreEqual(inputComments, section.ClosingStructures.InputComments.Body);
-            Assert.AreEqual(outputComments, section.ClosingStructures.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.ClosingStructures.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.ClosingStructures.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.ClosingStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.ClosingStructures.FailureMechanismSectionSourcePath);
             Assert.AreEqual(n2a, section.ClosingStructures.GeneralInput.N2A);
@@ -802,8 +802,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -811,8 +811,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.StabilityPointStructures,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
@@ -832,8 +832,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.StabilityPointStructures.InAssembly);
-            Assert.AreEqual(inputComments, section.StabilityPointStructures.InputComments.Body);
-            Assert.AreEqual(outputComments, section.StabilityPointStructures.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.StabilityPointStructures.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.StabilityPointStructures.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.StabilityPointStructures.NotInAssemblyComments.Body);
             Assert.IsNull(section.StabilityPointStructures.FailureMechanismSectionSourcePath);
             Assert.IsNull(section.StabilityPointStructures.StabilityPointStructures.SourcePath);
@@ -847,8 +847,8 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
             var random = new Random(39);
             bool inAssembly = random.NextBoolean();
@@ -859,8 +859,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismType = (int) FailureMechanismType.DuneErosion,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 DuneErosionFailureMechanismMetaEntities =
                 {
@@ -880,8 +880,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.DuneErosion.InAssembly);
-            Assert.AreEqual(inputComments, section.DuneErosion.InputComments.Body);
-            Assert.AreEqual(outputComments, section.DuneErosion.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.DuneErosion.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.DuneErosion.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.DuneErosion.NotInAssemblyComments.Body);
             Assert.IsNull(section.DuneErosion.FailureMechanismSectionSourcePath);
 
@@ -897,16 +897,16 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
             double parameterN = random.NextDouble(1.0, 20.0);
-            const string inputComments = "Some input text";
-            const string outputComments = "Some output text";
+            const string inAssemblyInputComments = "Some input text";
+            const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.PipingAtStructure,
                 InAssembly = Convert.ToByte(inAssembly),
-                InputComments = inputComments,
-                OutputComments = outputComments,
+                InputComments = inAssemblyInputComments,
+                OutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
                 PipingStructureFailureMechanismMetaEntities =
                 {
@@ -926,8 +926,8 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(inAssembly, section.PipingStructure.InAssembly);
-            Assert.AreEqual(inputComments, section.PipingStructure.InputComments.Body);
-            Assert.AreEqual(outputComments, section.PipingStructure.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments, section.PipingStructure.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments, section.PipingStructure.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments, section.PipingStructure.NotInAssemblyComments.Body);
             Assert.IsNull(section.PipingStructure.FailureMechanismSectionSourcePath);
 
@@ -1018,14 +1018,14 @@ namespace Riskeer.Storage.Core.Test.Read
 
             bool inAssembly1 = random.NextBoolean();
             const string name1 = "Specific failure path name";
-            const string inputComments1 = "Some input text";
-            const string outputComments1 = "Some output text";
+            const string inAssemblyinAssemblyInputComments1 = "Some input text";
+            const string inAssemblyinAssemblyOutputComments1 = "Some output text";
             const string notInAssemblyComments1 = "Some not relevant text";
 
             bool inAssembly2 = random.NextBoolean();
             const string name2 = "Specific failure path name2";
-            const string inputComments2 = "Some input text2";
-            const string outputComments2 = "Some output text2";
+            const string inAssemblyInputComments2 = "Some input text2";
+            const string inAssemblyOutputComments2 = "Some output text2";
             const string notInAssemblyComments2 = "Some not relevant text2";
 
             RoundedDouble n1 = random.NextRoundedDouble(1, 20);
@@ -1035,8 +1035,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 Name = name1,
                 InAssembly = Convert.ToByte(inAssembly1),
                 N = n1,
-                InputComments = inputComments1,
-                OutputComments = outputComments1,
+                InputComments = inAssemblyinAssemblyInputComments1,
+                OutputComments = inAssemblyinAssemblyOutputComments1,
                 NotInAssemblyComments = notInAssemblyComments1
             };
 
@@ -1045,8 +1045,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 Name = name2,
                 InAssembly = Convert.ToByte(inAssembly2),
                 N = n2,
-                InputComments = inputComments2,
-                OutputComments = outputComments2,
+                InputComments = inAssemblyInputComments2,
+                OutputComments = inAssemblyOutputComments2,
                 NotInAssemblyComments = notInAssemblyComments2
             };
 
@@ -1064,8 +1064,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNotNull(specificFailurePath1);
             Assert.AreEqual(name1, specificFailurePath1.Name);
             Assert.AreEqual(inAssembly1, specificFailurePath1.InAssembly);
-            Assert.AreEqual(inputComments1, specificFailurePath1.InputComments.Body);
-            Assert.AreEqual(outputComments1, specificFailurePath1.OutputComments.Body);
+            Assert.AreEqual(inAssemblyinAssemblyInputComments1, specificFailurePath1.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyinAssemblyOutputComments1, specificFailurePath1.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments1, specificFailurePath1.NotInAssemblyComments.Body);
             Assert.AreEqual(n1, specificFailurePath1.Input.N, specificFailurePath1.Input.N.GetAccuracy());
             Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
@@ -1074,8 +1074,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNotNull(specificFailurePath2);
             Assert.AreEqual(name2, specificFailurePath2.Name);
             Assert.AreEqual(inAssembly2, specificFailurePath2.InAssembly);
-            Assert.AreEqual(inputComments2, specificFailurePath2.InputComments.Body);
-            Assert.AreEqual(outputComments2, specificFailurePath2.OutputComments.Body);
+            Assert.AreEqual(inAssemblyInputComments2, specificFailurePath2.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments2, specificFailurePath2.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments2, specificFailurePath2.NotInAssemblyComments.Body);
             Assert.AreEqual(n2, specificFailurePath2.Input.N, specificFailurePath2.Input.N.GetAccuracy());
             Assert.IsNull(specificFailurePath2.FailureMechanismSectionSourcePath);
@@ -1231,12 +1231,12 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
-                                                        string expectedInputComments, string expectedOutputComments,
+                                                        string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
                                                         string expectedNotInAssemblyComments, IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(expectedInputComments, failureMechanism.InputComments.Body);
-            Assert.AreEqual(expectedOutputComments, failureMechanism.OutputComments.Body);
+            Assert.AreEqual(expectedInAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(expectedInAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }

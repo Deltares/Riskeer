@@ -328,7 +328,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -398,7 +398,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new GrassCoverErosionOutwardsFailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                failureMechanism.InputComments
+                failureMechanism.InAssemblyInputComments
             };
         }
 
@@ -409,7 +409,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
-                failureMechanism.OutputComments
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

@@ -58,11 +58,11 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 InAssembly = random.NextBoolean(),
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = "Some input text"
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = "Some output text"
                 },
@@ -85,8 +85,8 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.DuneErosion, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
 
             DuneErosionFailureMechanismMetaEntity metaEntity = entity.DuneErosionFailureMechanismMetaEntities.Single();
@@ -102,11 +102,11 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = originalInput
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = originalOutput
                 },
@@ -121,8 +121,8 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
         }
 

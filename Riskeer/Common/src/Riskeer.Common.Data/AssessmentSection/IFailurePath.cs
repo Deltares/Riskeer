@@ -37,14 +37,14 @@ namespace Riskeer.Common.Data.AssessmentSection
         string Name { get; }
 
         /// <summary>
-        /// Gets the comments associated with the input of the data object.
+        /// Gets the comments associated with the input of the data object when it is part of the assembly.
         /// </summary>
-        Comment InputComments { get; }
+        Comment InAssemblyInputComments { get; }
 
         /// <summary>
-        /// Gets the comments associated with the output of the data object.
+        /// Gets the comments associated with the output of the data object when it is part of the assembly.
         /// </summary>
-        Comment OutputComments { get; }
+        Comment InAssemblyOutputComments { get; }
 
         /// <summary>
         /// Gets the comments associated when the failure path is set to not be part of the assembly.

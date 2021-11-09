@@ -60,11 +60,11 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 InAssembly = inAssembly,
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = "Some input text"
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = "Some output text"
                 },
@@ -86,8 +86,8 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.StabilityPointStructures, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(inAssembly), entity.InAssembly);
-            Assert.AreEqual(failureMechanism.InputComments.Body, entity.InputComments);
-            Assert.AreEqual(failureMechanism.OutputComments.Body, entity.OutputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
 
             StabilityPointStructuresFailureMechanismMetaEntity metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.Single();
@@ -103,11 +103,11 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             const string originalNotInAssemblyText = "Really not in assembly";
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
-                InputComments =
+                InAssemblyInputComments =
                 {
                     Body = originalInput
                 },
-                OutputComments =
+                InAssemblyOutputComments =
                 {
                     Body = originalOutput
                 },
@@ -123,8 +123,8 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.InputComments.Body, entity.InputComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.OutputComments.Body, entity.OutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.OutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
         }
 

@@ -150,8 +150,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.InputComments, comment);
+            var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.InAssemblyInputComments, inputComment);
 
             var calculationsFolder = (MacroStabilityInwardsCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);

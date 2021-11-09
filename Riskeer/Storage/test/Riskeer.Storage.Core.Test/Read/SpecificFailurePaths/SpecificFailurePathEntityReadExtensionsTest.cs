@@ -80,8 +80,8 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             // Assert
             Assert.AreEqual(entity.Name, specificFailurePath.Name);
             Assert.AreEqual(inAssembly, specificFailurePath.InAssembly);
-            Assert.AreEqual(entity.InputComments, specificFailurePath.InputComments.Body);
-            Assert.AreEqual(entity.OutputComments, specificFailurePath.OutputComments.Body);
+            Assert.AreEqual(entity.InputComments, specificFailurePath.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.OutputComments, specificFailurePath.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, specificFailurePath.NotInAssemblyComments.Body);
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);

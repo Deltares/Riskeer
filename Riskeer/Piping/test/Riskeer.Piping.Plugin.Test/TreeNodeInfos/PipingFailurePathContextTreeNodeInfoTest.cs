@@ -136,7 +136,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
             var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.InputComments, comment);
+            Assert.AreSame(failureMechanism.InAssemblyInputComments, comment);
 
             var outputsFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -168,7 +168,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(failureMechanism.OutputComments, commentContext);
+            Assert.AreSame(failureMechanism.InAssemblyOutputComments, commentContext);
         }
 
         [Test]
