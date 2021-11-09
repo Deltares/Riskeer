@@ -328,7 +328,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                failureMechanism.InAssemblyInputComments
+                failureMechanism.CalculationsComments
             };
         }
 

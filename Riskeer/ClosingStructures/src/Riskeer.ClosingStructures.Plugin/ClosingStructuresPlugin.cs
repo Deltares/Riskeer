@@ -382,7 +382,7 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, failureMechanism, assessmentSection),
-                failureMechanism.InAssemblyInputComments
+                failureMechanism.CalculationsComments
             };
         }
 

@@ -168,8 +168,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, stabilityPointStructuresContext.FailureMechanism);
                 Assert.AreSame(assessmentSection, stabilityPointStructuresContext.AssessmentSection);
 
-                var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
-                Assert.AreSame(failureMechanism.InAssemblyInputComments, inputComment);
+                var comment = (Comment) inputsFolder.Contents.ElementAt(2);
+                Assert.AreSame(failureMechanism.CalculationsComments, comment);
 
                 var calculationsFolder = (StabilityPointStructuresCalculationGroupContext) children[1];
                 Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);

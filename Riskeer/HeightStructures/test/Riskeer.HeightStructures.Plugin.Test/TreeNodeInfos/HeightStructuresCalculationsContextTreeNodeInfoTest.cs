@@ -155,8 +155,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, heightStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSection, heightStructuresContext.AssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.InAssemblyInputComments, inputComment);
+            var comment = (Comment) inputsFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.CalculationsComments, comment);
 
             var calculationsFolder = (HeightStructuresCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);

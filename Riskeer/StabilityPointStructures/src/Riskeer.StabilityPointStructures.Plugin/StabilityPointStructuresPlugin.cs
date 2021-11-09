@@ -382,7 +382,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, failureMechanism, assessmentSection),
-                failureMechanism.InAssemblyInputComments
+                failureMechanism.CalculationsComments
             };
         }
 

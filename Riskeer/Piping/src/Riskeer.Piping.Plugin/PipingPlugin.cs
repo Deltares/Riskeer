@@ -794,7 +794,7 @@ namespace Riskeer.Piping.Plugin
                 new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new PipingSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new PipingStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                failureMechanism.InAssemblyInputComments
+                failureMechanism.CalculationsComments
             };
         }
 

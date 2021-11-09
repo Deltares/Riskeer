@@ -325,7 +325,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
-                failureMechanism.InAssemblyInputComments
+                failureMechanism.CalculationsComments
             };
         }
 
