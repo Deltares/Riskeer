@@ -120,6 +120,25 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
+        public void Perform_TargetFilePathTooLong_ExpectedExceptionThrown()
+        {
+            // Setup
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string targetFilePath = Path.Combine(writableDirectory, new string('x', 500) + ".txt");
+
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            {
+                var writer = new BackedUpFileWriter(targetFilePath);
+
+                // Call
+                var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+
+                // Assert
+                Assert.AreEqual("Het pad van het doelbestand is te lang.", exception.Message);
+            }
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Perform_TemporaryFileInUse_ExpectedExceptionThrown(bool performWithExistingTargetFile)
