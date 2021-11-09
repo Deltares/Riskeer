@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
@@ -209,10 +210,13 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSections(assessmentSection.TechnicalInnovation);
             SetSectionResults(assessmentSection.TechnicalInnovation.SectionResults);
 
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(SetComments);
+
             IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
                                                                       .ToArray();
             SetSpecificFailurePaths(failurePaths);
             assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
+            assessmentSection.SpecificFailurePaths.ForEach(SetComments);
 
             var fullTestProject = new RiskeerProject
             {
@@ -536,6 +540,19 @@ namespace Riskeer.Storage.Core.TestUtil
                     )
                 }
             );
+        }
+
+        private static void SetComments(IFailurePath failurePath)
+        {
+            failurePath.InAssemblyInputComments.Body = $"Input comment {failurePath.Name}";
+            failurePath.InAssemblyOutputComments.Body = $"Output comment {failurePath.Name}";
+            failurePath.NotInAssemblyComments.Body = $"Not in assembly comment {failurePath.Name}";
+        }
+
+        private static void SetComments(IFailureMechanism failureMechanism)
+        {
+            SetComments((IFailurePath) failureMechanism);
+            failureMechanism.CalculationsComments.Body = $"Calculation comment: {failureMechanism.Name}";
         }
 
         #region MacroStabilityOutwards FailureMechanism
