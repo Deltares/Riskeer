@@ -100,7 +100,7 @@
 
         <Component Id="DesktopShortcut" Guid="D8F009EB-0C8C-4893-ADD2-22314ACCF2A7">
           <Shortcut Id="ApplicationDesktopShortcut"
-                    Name="!(loc.ApplicationLongName)"
+                    Name="$(var.ApplicationFullName)"
                     Description="!(loc.StartApplicationDescription)"
                     Target="[INSTALLDIR]!(loc.ApplicationLongName).exe"
                     WorkingDirectory="INSTALLDIR"
