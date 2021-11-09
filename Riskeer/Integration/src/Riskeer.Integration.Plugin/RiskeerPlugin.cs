@@ -1755,13 +1755,7 @@ namespace Riskeer.Integration.Plugin
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
             }
-
-            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
-            {
-                return GetCommentElements(failureMechanismContext.WrappedData)
-                    .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
-            }
-
+            
             if (dataToCloseFor is IFailurePathContext<IFailurePath> failurePathContext)
             {
                 return GetCommentElements(failurePathContext.WrappedData)
