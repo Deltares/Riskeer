@@ -42,7 +42,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(failureMechanism);
-            Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", failureMechanism.Name);
+            Assert.AreEqual("Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
             Assert.AreEqual(3, failureMechanism.Group);
             Assert.IsNotNull(failureMechanism.GeneralWaveImpactAsphaltCoverInput);

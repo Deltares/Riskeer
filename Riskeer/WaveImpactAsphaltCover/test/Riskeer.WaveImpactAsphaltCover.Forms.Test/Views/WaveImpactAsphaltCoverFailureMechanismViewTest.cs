@@ -628,7 +628,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", mapDataCollection.Name);
+            Assert.AreEqual("Golfklappen op asfaltbekleding", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

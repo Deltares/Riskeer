@@ -98,7 +98,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", text);
+            Assert.AreEqual("Golfklappen op asfaltbekleding", text);
             mocks.VerifyAll();
         }
 
