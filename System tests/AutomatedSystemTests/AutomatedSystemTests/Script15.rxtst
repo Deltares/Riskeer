@@ -467,7 +467,7 @@
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
 				<description>
-					<![CDATA[replace ">" ->  _]]>
+					<![CDATA[replace ">" with "_"]]>
 				</description>
 				<databinding>
 					<var
@@ -1984,6 +1984,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="888181ff-1574-48cc-987d-0e754fb952f1"
+			name="ConcatenateStrings"
+			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="89530da1-7c02-4965-a829-c4da18c33247"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -2937,6 +2943,9 @@
 			name="ReplaceSubstring"
 			ref="92030a75-8205-438c-9c04-f777a02a0b87"
 			type="UserCode">
+				<description>
+					<![CDATA[replace " " with  "_"]]>
+				</description>
 				<databinding>
 					<var
 					dataname="intermediateString"
@@ -3318,6 +3327,9 @@
 			name="AppendString"
 			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
 			type="UserCode">
+				<description>
+					<![CDATA[append file extension .csv]]>
+				</description>
 				<databinding>
 					<var
 					dataname="suffixClimateScenario"
@@ -4450,6 +4462,10 @@
 												<testmodule
 												id="c26e3818-4a86-4da9-85eb-58d2aa392ad7"
 												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="888181ff-1574-48cc-987d-0e754fb952f1"
+												name="ConcatenateStrings">
 												</testmodule>
 												<testmodule
 												id="e67bd927-35e5-4e2d-9227-ed2812bc01a9"
@@ -10851,9 +10867,6 @@
 			</testcontainer>
 			<testcontainer
 			id="15848e5c-5bc9-4589-ba34-db4bdadc8277">
-			</testcontainer>
-			<testcontainer
-			id="1723cbbd-3943-4428-bcb1-ff81c264e994">
 			</testcontainer>
 			<testcontainer
 			id="18455637-0838-4b15-bd6b-f6d6bc24f402">
