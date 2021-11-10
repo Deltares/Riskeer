@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <!-- Static variables. -->
   <?include Variables.wxi ?>
   
-  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="E5E9A96A-5B83-46C3-A2BD-0799785E3A81">
+  <Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.ReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="C4106747-8CE1-4922-8463-397F920B1408">
     <!--Comment left empty on purpose to remove auto-generated text.-->
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
@@ -71,19 +70,17 @@
 
       <!-- Start menu folder -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuBOI" Name="!(loc.ApplicationGroupShortName)">
-          <Directory Id="ProgramMenuRiskeer" Name="!(loc.ApplicationLongName)">
+          <Directory Id="ProgramMenuRiskeer" Name="$(var.ApplicationFullName)">
             
             <Component Id="ProgramMenuShortcut" Guid="525A6CF6-DCFF-4F57-8A41-E55660F320D6">
               <Shortcut Id="ApplicationStartMenuShortcut"
-                        Name="!(loc.ApplicationLongName)"
+                        Name="$(var.ApplicationFullName)"
                         Description="!(loc.StartApplicationDescription)"
                         Target="[INSTALLDIR]!(loc.ApplicationLongName).exe"
                         WorkingDirectory="INSTALLDIR"
                         Icon="Riskeer.ico"/>
               <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRiskeer" On="uninstall" />
-              <RemoveFolder Id="RemoveProgramMenuBOI" Directory="ProgramMenuBOI" On="uninstall" />
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\InstalledProducts\$(var.ApplicationFullName)" Name="RiskeerProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
             
             <Component Id="ProgramMenuManualShortcut" Guid="30E330BB-E0DF-43EF-9875-16F6FCEB3C66">
@@ -92,11 +89,10 @@
                         Description="!(loc.UserManualDescription)"
                         Target="[INSTALLDIR]!(loc.UserManualName).pdf"
                         Icon="Manual.ico"/>
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerProgMenuManualShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\InstalledProducts\$(var.ApplicationFullName)" Name="RiskeerProgMenuManualShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
           
           </Directory>
-        </Directory>
       </Directory>
 
       <!-- Desktop -->
@@ -104,20 +100,20 @@
 
         <Component Id="DesktopShortcut" Guid="D8F009EB-0C8C-4893-ADD2-22314ACCF2A7">
           <Shortcut Id="ApplicationDesktopShortcut"
-                    Name="!(loc.ApplicationLongName)"
+                    Name="$(var.ApplicationFullName)"
                     Description="!(loc.StartApplicationDescription)"
                     Target="[INSTALLDIR]!(loc.ApplicationLongName).exe"
                     WorkingDirectory="INSTALLDIR"
                     Icon="Riskeer.ico"/>
 
-           <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RiskeerDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+           <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\InstalledProducts\$(var.ApplicationFullName)" Name="RiskeerDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
         </Component>
       </Directory>
 
       <!-- Common documents -->
       <Directory Id="WIX_DIR_COMMON_DOCUMENTS">
         <Directory Id="CommonDocumentsApplicationGroup" Name="!(loc.ApplicationGroupShortName)">
-          <Directory Id="CommonDocumentsApplication" Name="!(loc.ApplicationShortName)">
+          <Directory Id="CommonDocumentsApplication" Name="$(var.ApplicationFullName)">
             <Directory Id="CommonDocumentsNBPW" Name="NBPW">
               <Component Id="IHWFile" Guid="5BA794B1-2B84-46C5-A6F0-4BBAD110376D">
                 <File Source="IHW\voorbeeldbestand_nationaalBestandPrimaireWaterkeringen.dbf"/>
@@ -154,7 +150,7 @@
       </Directory>
     </Directory>
     
-    <Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
+    <Feature Id="CompleteInstallation" Title="$(var.ApplicationFullName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
       <ComponentGroupRef Id="RiskeerExecutable"/>
       <ComponentGroupRef Id="RiskeerExecutableConfig"/>
       <ComponentGroupRef Id="MigrationExecutable"/>

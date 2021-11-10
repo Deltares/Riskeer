@@ -83,17 +83,17 @@ namespace Core.Common.Util.Settings
 
         private static string GetFullPath(string rootPath, string[] subPath)
         {
-            var directorypath = new List<string>
+            var directoryPath = new List<string>
             {
                 rootPath
             };
 
             if (subPath != null)
             {
-                directorypath.AddRange(subPath.ToList());
+                directoryPath.AddRange(subPath.ToList());
             }
 
-            return Path.Combine(directorypath.ToArray());
+            return Path.Combine(directoryPath.ToArray());
         }
     }
 }
