@@ -136,6 +136,20 @@ namespace Core.Gui
             SetTitle();
         }
 
+        /// <summary>
+        /// Gets the active state info object.
+        /// </summary>
+        public StateInfo ActiveStateInfo
+        {
+            get
+            {
+                ToggleButton activeStateToggleButton = stateInfoLookup.Keys.FirstOrDefault(stateToggleButton => stateToggleButton.IsChecked != null
+                                                                                                                && stateToggleButton.IsChecked.Value);
+
+                return activeStateToggleButton != null ? stateInfoLookup[activeStateToggleButton] : null;
+            }
+        }
+
         public IPropertyResolver PropertyResolver { get; private set; }
 
         public IStoreProject ProjectStore { get; }
