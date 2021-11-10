@@ -253,6 +253,8 @@ namespace Core.Gui.Test.Plugin
 
             const string newDescription = "<text>";
             const string newViewName = "<view name>";
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
 
             string GetViewName(IView view, int o)
             {
@@ -262,8 +264,8 @@ namespace Core.Gui.Test.Plugin
             }
 
             Image image = Resources.abacus;
-            string GetSymbol() => "<symbol>";
-            FontFamily GetFontFamily() => new FontFamily();
+            string GetSymbol() => symbol;
+            FontFamily GetFontFamily() => fontFamily;
 
             bool AdditionalDataCheck(int o)
             {
@@ -321,8 +323,8 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(newDescription, info.Description);
             Assert.AreEqual(newViewName, info.GetViewName(stringView, dataObject));
             Assert.AreEqual(image, info.Image);
-            Assert.AreEqual((Func<string>) GetSymbol, info.GetSymbol);
-            Assert.AreEqual((Func<FontFamily>) GetFontFamily, info.GetFontFamily);
+            Assert.AreEqual(symbol, info.GetSymbol());
+            Assert.AreSame(fontFamily, info.GetFontFamily());
             Assert.IsTrue(viewInfo.AdditionalDataCheck(dataObject));
             Assert.AreEqual(dataObject.ToString(), viewInfo.GetViewData(dataObject));
             Assert.AreEqual("A", viewInfo.CreateInstance(dataObject).Text);
@@ -334,6 +336,7 @@ namespace Core.Gui.Test.Plugin
         private class StringView : IView
         {
             public string Text { get; set; }
+
             public object Data { get; set; }
 
             public void Dispose()
