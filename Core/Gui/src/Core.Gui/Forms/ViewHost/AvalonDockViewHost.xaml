@@ -44,25 +44,25 @@ All rights reserved.
             </xcad:DockingManager.Theme>
             <xcad:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
+                    <DockPanel d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
                                    Text="{Binding Symbol}"
                                    FontFamily="{Binding FontFamily}"
                                    Margin="0,0,4,0"
-                                   FontSize="16"/>
-                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
+                                   FontSize="24"/>
+                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                    </DockPanel>
                 </DataTemplate>
             </xcad:DockingManager.DocumentHeaderTemplate>
             <xcad:DockingManager.AnchorableHeaderTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" d:DataContext="{d:DesignInstance viewHost:CustomLayoutAnchorable}">
+                    <DockPanel d:DataContext="{d:DesignInstance viewHost:CustomLayoutAnchorable}">
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
                                    Text="{Binding Symbol}"
                                    Margin="0,0,4,0"
-                                   FontSize="16"/>
-                        <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis"/>
-                    </StackPanel>
+                                   FontSize="24"/>
+                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                    </DockPanel>
                 </DataTemplate>
             </xcad:DockingManager.AnchorableHeaderTemplate>
             <xcad:LayoutRoot>
