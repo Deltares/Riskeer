@@ -102,9 +102,10 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[FailureMechanismType] = OLD.[FailureMechanismType] " +
                 "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
                 "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
-                "AND NEW.[InputComments] IS OLD.[InputComments] " +
-                "AND NEW.[OutputComments] IS OLD.[OutputComments] " +
-                "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments]; " +
+                "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
+                "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
+                "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
+                "AND NEW.[CalculationsComments] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
             
             reader.AssertReturnedDataIsValid(validateFailureMechanism);
