@@ -628,7 +628,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 new MacroStabilityInwardsSurfaceLinesContext(failureMechanism.SurfaceLines, failureMechanism, assessmentSection),
                 new MacroStabilityInwardsStochasticSoilModelCollectionContext(failureMechanism.StochasticSoilModels, failureMechanism, assessmentSection),
-                failureMechanism.CalculationsComments
+                failureMechanism.CalculationsInputComments
             };
         }
 

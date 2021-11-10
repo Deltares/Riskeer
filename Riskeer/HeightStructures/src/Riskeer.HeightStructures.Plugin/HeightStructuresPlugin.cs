@@ -386,7 +386,7 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, failureMechanism, assessmentSection),
                 new HeightStructuresContext(failureMechanism.HeightStructures, failureMechanism, assessmentSection),
-                failureMechanism.CalculationsComments
+                failureMechanism.CalculationsInputComments
             };
         }
 

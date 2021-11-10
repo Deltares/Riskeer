@@ -448,7 +448,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertComments(expectedFailureMechanism.InAssemblyInputComments, actualFailureMechanism.InAssemblyInputComments);
             AssertComments(expectedFailureMechanism.InAssemblyOutputComments, actualFailureMechanism.InAssemblyOutputComments);
             AssertComments(expectedFailureMechanism.NotInAssemblyComments, actualFailureMechanism.NotInAssemblyComments);
-            AssertComments(expectedFailureMechanism.CalculationsComments, actualFailureMechanism.CalculationsComments);
+            AssertComments(expectedFailureMechanism.CalculationsInputComments, actualFailureMechanism.CalculationsInputComments);
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
             Assert.AreEqual(expectedFailureMechanism.FailureMechanismSectionSourcePath, actualFailureMechanism.FailureMechanismSectionSourcePath);
         }

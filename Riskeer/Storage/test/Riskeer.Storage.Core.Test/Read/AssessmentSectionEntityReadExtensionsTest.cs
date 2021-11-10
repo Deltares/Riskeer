@@ -1244,14 +1244,14 @@ namespace Riskeer.Storage.Core.Test.Read
 
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
                                                         string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
-                                                        string expectedNotInAssemblyComments, string expectedCalculationComments,
+                                                        string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
                                                         IFailureMechanism failureMechanism)
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(expectedInAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(expectedInAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(expectedCalculationComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(expectedCalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
     }

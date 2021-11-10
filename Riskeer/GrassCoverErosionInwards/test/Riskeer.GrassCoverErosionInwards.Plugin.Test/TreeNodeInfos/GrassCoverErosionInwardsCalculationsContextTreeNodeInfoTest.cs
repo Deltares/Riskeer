@@ -147,8 +147,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, dikeProfilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, dikeProfilesContext.ParentAssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.CalculationsComments, comment);
+            var calculationsInputComments = (Comment) inputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
             var calculationsFolder = (GrassCoverErosionInwardsCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);

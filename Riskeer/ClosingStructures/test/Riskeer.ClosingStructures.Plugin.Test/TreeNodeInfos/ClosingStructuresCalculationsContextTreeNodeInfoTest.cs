@@ -155,8 +155,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, closingStructuresContext.FailureMechanism);
             Assert.AreSame(assessmentSection, closingStructuresContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.CalculationsComments, comment);
+            var calculationsInputComments = (Comment) inputsFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
             var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
             Assert.AreEqual(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);

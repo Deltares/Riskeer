@@ -71,7 +71,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
+            Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
             Assert.AreEqual(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
@@ -101,7 +101,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                 {
                     Body = "Really not in assembly"
                 },
-                CalculationsComments =
+                CalculationsInputComments =
                 {
                     Body = "Some calculation text"
                 },
@@ -122,7 +122,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
+            Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
 
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
@@ -150,7 +150,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
                 {
                     Body = "Really not in assembly"
                 },
-                CalculationsComments =
+                CalculationsInputComments =
                 {
                     Body = "Some calculation text"
                 }
@@ -165,7 +165,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
         }
 
         [Test]

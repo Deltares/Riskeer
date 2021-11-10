@@ -390,7 +390,7 @@ namespace Riskeer.DuneErosion.Plugin
         {
             return new object[]
             {
-                failureMechanism.CalculationsComments
+                failureMechanism.CalculationsInputComments
             };
         }
 

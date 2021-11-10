@@ -1809,7 +1809,7 @@ namespace Riskeer.Integration.Plugin
                 yield return calculation.Comments;
             }
 
-            yield return failureMechanism.CalculationsComments;
+            yield return failureMechanism.CalculationsInputComments;
         }
 
         #endregion

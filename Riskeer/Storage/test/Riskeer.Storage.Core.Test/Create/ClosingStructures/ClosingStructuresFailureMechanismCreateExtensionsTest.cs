@@ -72,7 +72,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
                 {
                     Body = "Really not in assembly"
                 },
-                CalculationsComments =
+                CalculationsInputComments =
                 {
                     Body = "Some calculation text"
                 },
@@ -93,7 +93,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            Assert.AreEqual(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
+            Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
 
             ClosingStructuresFailureMechanismMetaEntity metaEntity = entity.ClosingStructuresFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
@@ -105,27 +105,27 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string originalInput = "Some input text";
-            const string originalOutput = "Some output text";
-            const string originalNotInAssemblyText = "Really not in assembly";
-            const string originalCalculationsText = "Some calculation text";
+            const string originalInAssemblyInputComments = "Some input text";
+            const string originalInAssemblyOutputComments = "Some output text";
+            const string originalNotInAssemblyComments = "Really not in assembly";
+            const string originalCalculationsInputComments = "Some calculation text";
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InAssemblyInputComments =
                 {
-                    Body = originalInput
+                    Body = originalInAssemblyInputComments
                 },
                 InAssemblyOutputComments =
                 {
-                    Body = originalOutput
+                    Body = originalInAssemblyOutputComments
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotInAssemblyText
+                    Body = originalNotInAssemblyComments
                 },
-                CalculationsComments =
+                CalculationsInputComments =
                 {
-                    Body = originalCalculationsText
+                    Body = originalCalculationsInputComments
                 }
             };
             var registry = new PersistenceRegistry();
@@ -137,7 +137,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsComments.Body, entity.CalculationsComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
         }
 
         [Test]

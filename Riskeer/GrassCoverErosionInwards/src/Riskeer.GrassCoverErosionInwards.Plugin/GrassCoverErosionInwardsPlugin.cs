@@ -532,7 +532,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return new object[]
             {
                 new DikeProfilesContext(failureMechanism.DikeProfiles, failureMechanism, assessmentSection),
-                failureMechanism.CalculationsComments
+                failureMechanism.CalculationsInputComments
             };
         }
 

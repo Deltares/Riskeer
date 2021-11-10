@@ -174,8 +174,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
             Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.CalculationsComments, comment);
+            var calculationsInputComments = (Comment) inputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
             var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);

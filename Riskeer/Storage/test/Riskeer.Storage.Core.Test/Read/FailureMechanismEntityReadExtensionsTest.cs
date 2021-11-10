@@ -83,7 +83,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
         }
@@ -454,7 +454,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -798,7 +798,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
@@ -1171,7 +1171,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             MacroStabilityOutwardsFailureMechanismMetaEntity metaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
@@ -1251,7 +1251,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -1430,7 +1430,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -1644,7 +1644,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -1859,7 +1859,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualDeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL;
@@ -2075,7 +2075,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -2352,7 +2352,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             Assert.IsNull(failureMechanism.ForeshoreProfiles.SourcePath);
@@ -2645,7 +2645,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             RoundedDouble actualN = failureMechanism.GeneralInput.N;
@@ -2991,7 +2991,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
             Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsComments.Body);
+            Assert.AreEqual(entity.CalculationsComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             PipingStructureFailureMechanismMetaEntity metaEntity = entity.PipingStructureFailureMechanismMetaEntities.Single();

@@ -55,8 +55,8 @@ namespace Riskeer.Common.Data.FailureMechanism
         IEnumerable<ICalculation> Calculations { get; }
         
         /// <summary>
-        /// Gets the comments associated with the calculations of the data object.
+        /// Gets the input comments associated with the calculations of the data object.
         /// </summary>
-        Comment CalculationsComments { get; }
+        Comment CalculationsInputComments { get; }
     }
 }

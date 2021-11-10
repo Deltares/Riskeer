@@ -552,7 +552,7 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void SetComments(IFailureMechanism failureMechanism)
         {
             SetComments((IFailurePath) failureMechanism);
-            failureMechanism.CalculationsComments.Body = $"Calculation comment: {failureMechanism.Name}";
+            failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
         }
 
         #region MacroStabilityOutwards FailureMechanism

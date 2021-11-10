@@ -160,8 +160,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(pipingFailureMechanism, stochasticSoilModelContext.FailureMechanism);
             Assert.AreSame(assessmentSection, stochasticSoilModelContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(pipingFailureMechanism.CalculationsComments, comment);
+            var calculationsInputComments = (Comment) inputsFolder.Contents.ElementAt(3);
+            Assert.AreSame(pipingFailureMechanism.CalculationsInputComments, calculationsInputComments);
 
             var calculationsFolder = (PipingCalculationGroupContext) children[1];
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
