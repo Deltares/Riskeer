@@ -628,7 +628,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Dijken en dammen - Stabiliteit steenzetting", mapDataCollection.Name);
+            Assert.AreEqual("Stabiliteit steenzetting", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

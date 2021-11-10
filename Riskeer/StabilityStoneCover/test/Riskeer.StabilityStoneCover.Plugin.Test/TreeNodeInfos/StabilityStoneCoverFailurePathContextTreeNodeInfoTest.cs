@@ -98,7 +98,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Dijken en dammen - Stabiliteit steenzetting", text);
+            Assert.AreEqual("Stabiliteit steenzetting", text);
             mocks.VerifyAll();
         }
 

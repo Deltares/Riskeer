@@ -121,7 +121,7 @@
     <value>ZST</value>
   </data>
   <data name="StabilityStoneCoverFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Stabiliteit steenzetting</value>
+    <value>Stabiliteit steenzetting</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsCalculationType_Blocks_DisplayName" xml:space="preserve">
     <value>Steen (blokken)</value>

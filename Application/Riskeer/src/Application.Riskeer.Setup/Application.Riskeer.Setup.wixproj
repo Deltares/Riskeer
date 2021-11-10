@@ -186,12 +186,12 @@
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.shp" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\vakindeling BSKW traject 50-1.shx" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.cpg" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.prj" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.qpj" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shp" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shx" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.cpg" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.prj" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shp" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shx" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.cpg" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.dbf" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.prj" />
@@ -294,7 +294,7 @@
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Dijken en dammen - Piping\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\" />
-    <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Dijken en dammen - Stabiliteit steenzetting\" />
+    <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\" />
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\" />
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\" />

@@ -91,7 +91,7 @@ namespace Riskeer.StabilityStoneCover.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Stabiliteit steenzetting.
+        ///   Looks up a localized string similar to Stabiliteit steenzetting.
         /// </summary>
         public static string StabilityStoneCoverFailureMechanism_DisplayName {
             get {
