@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding erosie buitentalud.
+        ///   Looks up a localized string similar to Grasbekleding erosie buitentalud.
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanism_DisplayName {
             get {

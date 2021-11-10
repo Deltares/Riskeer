@@ -121,7 +121,7 @@
     <value>GEBU</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding erosie buitentalud</value>
+    <value>Grasbekleding erosie buitentalud</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName" xml:space="preserve">
     <value>Gras (golfoploop en golfklap)</value>

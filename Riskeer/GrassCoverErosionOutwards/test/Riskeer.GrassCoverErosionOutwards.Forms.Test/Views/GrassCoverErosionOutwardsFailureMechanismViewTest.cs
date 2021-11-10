@@ -623,7 +623,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", mapDataCollection.Name);
+            Assert.AreEqual("Grasbekleding erosie buitentalud", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
