@@ -161,8 +161,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
-            var inputComment = (Comment) inputFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.InAssemblyInputComments, inputComment);
+            var inAssemblyInputComments = (Comment) inputFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.InAssemblyInputComments, inAssemblyInputComments);
 
             var outputFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual(3, outputFolder.Contents.Count());
@@ -187,8 +187,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.InAssemblyOutputComments, outputComment);
+            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);
         }
 
         [Test]

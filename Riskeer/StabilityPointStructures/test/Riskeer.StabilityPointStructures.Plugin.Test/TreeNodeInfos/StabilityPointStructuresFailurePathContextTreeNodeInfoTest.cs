@@ -134,8 +134,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
-            var inputComment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.InAssemblyInputComments, inputComment);
+            var inAssemblyInputComments = (Comment) inputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.InAssemblyInputComments, inAssemblyInputComments);
 
             var outputsFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -164,8 +164,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(3);
-            Assert.AreSame(failureMechanism.InAssemblyOutputComments, outputComment);
+            var inAssemblyOutputComments = (Comment) outputsFolder.Contents.ElementAt(3);
+            Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);
         }
 
         [Test]

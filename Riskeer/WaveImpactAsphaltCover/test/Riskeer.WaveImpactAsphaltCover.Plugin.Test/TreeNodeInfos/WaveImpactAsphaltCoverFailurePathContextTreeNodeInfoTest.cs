@@ -134,8 +134,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
-            var comment = (Comment) inputsFolder.Contents.ElementAt(1);
-            Assert.AreSame(failureMechanism.InAssemblyInputComments, comment);
+            var inAssemblyInputComments = (Comment) inputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.InAssemblyInputComments, inAssemblyInputComments);
 
             var outputsFolder = (CategoryTreeFolder) children[1];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
@@ -159,8 +159,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
-            Assert.AreSame(failureMechanism.InAssemblyOutputComments, outputComment);
+            var inAssemblyOutputComments = (Comment) outputsFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);
         }
 
         [Test]
