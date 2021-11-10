@@ -7,13 +7,13 @@
  * To change this template use Tools > Options > Coding > Edit standard headers.
  */
 using System;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -88,44 +88,24 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
             
+            // Initiate the variable
             var myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            // To create the variable
+            
             Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.Self;
             if (labelFM=="GEBU") {
                 table = myRepository.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.Self;
-            } else if (labelFM=="DA") {
+            }
+            else if (labelFM=="DA") {
                 table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.Self;
             }
-
             Row row = table.Rows[Int32.Parse(rowIndex)+1];
             Cell cell = row.Cells[Int32.Parse(columnIndex)];
             cell.Focus();
             cell.Select();
             string currentValue = cell.Element.GetAttributeValueText("AccessibleValue");
-            
-            if (comparisonValue=="-") {
-                if (isComparisonValueExpectedToBeMet=="true") {
-                    Validate.AreEqual(currentValue, comparisonValue);
-                }
-                else    {
-                    Validate.IsTrue(currentValue!=comparisonValue);
-                }
-            } else{
-                System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
-                fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
-                fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
-                System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-                
-                double expectedValueDouble = Double.Parse(comparisonValue, fixedDataSourceCulture);
-                double currentValueDouble = Double.Parse(currentValue, currentCulture);
-                
-                if (isComparisonValueExpectedToBeMet=="true") {
-                    Validate.AreEqual(currentValueDouble, expectedValueDouble);
-                }
-                else    {
-                    Validate.IsTrue(currentValueDouble!=expectedValueDouble);
-                }
-            }
+            comparisonValue = comparisonValue.ToNoGroupSeparator().ToInvariantCultureDecimalSeparator();
+            currentValue = currentValue.ToNoGroupSeparator().ToInvariantCultureDecimalSeparator();
+            Validate.AreEqual(bool.Parse(isComparisonValueExpectedToBeMet), comparisonValue == currentValue);
         }
     }
 }

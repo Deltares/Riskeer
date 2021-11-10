@@ -128,6 +128,26 @@
 					name="dummyString"
 					value="">
 					</param>
+					<param
+					name="separatorCharInPath"
+					value=">">
+					</param>
+					<param
+					name="separatorCharInFileName"
+					value="_">
+					</param>
+					<param
+					name="spaceChar"
+					value=" ">
+					</param>
+					<param
+					name="extensionCSVFile"
+					value=".csv">
+					</param>
+					<param
+					name="separatorCSVFile"
+					value=";">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
@@ -148,31 +168,14 @@
 							<datavaluesource>
 								<databinding
 								bindingtype="DataConnector"
-								dataname="nameParameterInPropertiesPanel"
+								dataname="labelFM"
 								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
 								</databinding>
 							</datavaluesource>
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="Waterstand [m+NAP]">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-					<condition
-					comparison="IsEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="nameParameterInPropertiesPanel"
-								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="Golfhoogte [m]">
+							value="GEBU">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -276,6 +279,12 @@
 					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
 					variableid="4b82dd79-7c11-425a-9f41-b9795be8d16b"
 					variablename="filePath2">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="2dfc00fd-73b9-4da3-8f6e-bb765817601f"
+					variablename="filePath1">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -476,6 +485,24 @@
 					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
 					variablename="finalString">
 					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorCharInPath"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="separatorCharInFileName"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -559,26 +586,6 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="1e1b196c-c642-40eb-832f-3b8e2ed5e046"
-			name="AppendString"
-			ref="ed043061-2b4f-4f84-b57b-5a205f5d26f9"
-			type="UserCode">
-				<missingdatabinding>
-					<var
-					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
-					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
-					variableid="26242e38-327b-4a74-a725-5f16b6024635"
-					variablename="mainString">
-					</var>
-					<var
-					dataname="extensionCSVFile"
-					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
-					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
-					variablename="stringToAppendToMainString">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="1e2e252e-f985-4501-b5ab-b479b7c1b6c8"
@@ -741,6 +748,18 @@
 					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
 					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
 					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1584,7 +1603,11 @@
 					</param>
 					<param
 					name="RootPathReferenceFile"
-					value="X:\script19\reference\climateScenario\">
+					value="X:\script15\reference\">
+					</param>
+					<param
+					name="fullPathCreatedCSVFile"
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1988,6 +2011,74 @@
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
 			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathItem"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="c0f6f1c8-7180-4d58-9ab9-e28819990843"
+					variablename="string1">
+					</var>
+					<var
+					dataname="separatorCharInFileName"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
+					variablename="string3">
+					</var>
+					<var
+					dataname="separatorCharInFileName"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
+					variablename="string4">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
+					variablename="string5">
+					</var>
+					<var
+					dataname="separatorCharInFileName"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
+					variablename="string6">
+					</var>
+					<var
+					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
+					variablename="string7">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
+					variablename="string8">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
+					variablename="string9">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
+					variablename="string10">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
+					variablename="concatenatedString">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="89530da1-7c02-4965-a829-c4da18c33247"
@@ -2917,7 +3008,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="fileToOpen"
+					dataname="fileToSave"
 					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
 					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
 					variablename="fileName">
@@ -2952,6 +3043,24 @@
 					datasourceid="d204466f-92af-4534-8c3a-46a4a962d735"
 					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
 					variablename="originalString">
+					</var>
+					<var
+					dataname="separatorCharInFileName"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="spaceChar"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3050,14 +3159,14 @@
 							<datavaluesource>
 								<databinding
 								bindingtype="DataConnector"
-								dataname="nameParameterInPropertiesPanel"
+								dataname="labelFM"
 								id="06eef7a3-b1a2-4052-b746-d1d65394a95f">
 								</databinding>
 							</datavaluesource>
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="Rekenwaarde waterstand [m+NAP]">
+							value="DA">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -3332,10 +3441,16 @@
 				</description>
 				<databinding>
 					<var
-					dataname="suffixClimateScenario"
-					datasourceid="d204466f-92af-4534-8c3a-46a4a962d735"
+					dataname="extensionCSVFile"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
 					variableid="ac8b4a2f-fc21-444f-b33b-6207615639e2"
 					variablename="stringToAppendToMainString">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="26242e38-327b-4a74-a725-5f16b6024635"
+					variablename="mainString">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3440,22 +3555,10 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="labelFM"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
-					variablename="labelFM">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
-					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="a689d753-fc9c-44c8-89b3-018bf4424da8"
-					variablename="columnIndex">
+					dataname="stringForValueIsNotExpectedToBePresent"
+					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
+					variableid="d7703330-e917-46c0-895f-bd8c7df52928"
+					variablename="isComparisonValueExpectedToBeMet">
 					</var>
 					<var
 					dataname="expectedValueIfNotRun"
@@ -3464,10 +3567,22 @@
 					variablename="comparisonValue">
 					</var>
 					<var
-					dataname="stringForValueIsNotExpectedToBePresent"
-					datasourceid="f439c70d-b78e-4927-af51-08e1f2ab0e05"
-					variableid="d7703330-e917-46c0-895f-bd8c7df52928"
-					variablename="isComparisonValueExpectedToBeMet">
+					dataname="columnIndexWaterLevelWaveHeightCalculationWaterLevelInHBCDocumentView"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="a689d753-fc9c-44c8-89b3-018bf4424da8"
+					variablename="columnIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="808c7a7f-652e-4a6e-9dc7-23a0521a252f"
+					variableid="0496fa63-b4f7-4b7a-844d-d02f0c0d4c5f"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
+					variableid="db7295e4-3f53-4f0b-9cfb-89e2468a69dc"
+					variablename="labelFM">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3763,6 +3878,20 @@
 			name="PrependString"
 			ref="1f888a85-095f-425f-8f17-e3d525506ecc"
 			type="UserCode">
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="9f891cef-5938-4926-8560-0ba9fa86a15f"
+					variablename="stringToPrependToMainString">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="4b2558be-df78-48e5-b43d-0fd066ceebe9"
+					variablename="mainString">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
@@ -3797,6 +3926,20 @@
 			name="ExportPropertiesPanelToCsv"
 			ref="0024b22f-d58b-4ef0-a67d-463153071618"
 			type="UserCode">
+				<databinding>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="5242fb5c-2319-400b-8d05-ca4fb3963db5"
+					variablename="fileName">
+					</var>
+					<var
+					dataname="separatorCSVFile"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="5485f5bd-8954-4627-887f-89283106e308"
+					variablename="separationCharacter">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
@@ -4456,6 +4599,10 @@
 											id="d204466f-92af-4534-8c3a-46a4a962d735"
 											name="CalculateActualPropertiesCSVFileNameClimateScenario">
 												<testmodule
+												id="888181ff-1574-48cc-987d-0e754fb952f1"
+												name="ConcatenateStrings">
+												</testmodule>
+												<testmodule
 												id="17d0b900-cbae-47f8-863b-9817ec14a6aa"
 												name="ReplaceSubstring">
 												</testmodule>
@@ -4464,19 +4611,11 @@
 												name="ReplaceSubstring">
 												</testmodule>
 												<testmodule
-												id="888181ff-1574-48cc-987d-0e754fb952f1"
-												name="ConcatenateStrings">
-												</testmodule>
-												<testmodule
 												id="e67bd927-35e5-4e2d-9227-ed2812bc01a9"
 												name="PrependString">
 												</testmodule>
 												<testmodule
 												id="d4de1ea7-c387-46af-af9b-afcbb2fcb3cb"
-												name="AppendString">
-												</testmodule>
-												<testmodule
-												id="1e1b196c-c642-40eb-832f-3b8e2ed5e046"
 												name="AppendString">
 												</testmodule>
 											</smartfoldernode>
@@ -9953,6 +10092,9 @@
 					fileToOpen
 				</column>
 				<column>
+					fileToSave
+				</column>
+				<column>
 					rangeHBCCalculations
 				</column>
 			</lastknowncolumns>
@@ -9967,6 +10109,9 @@
 						fileToOpen
 					</th>
 					<th>
+						fileToSave
+					</th>
+					<th>
 						rangeHBCCalculations
 					</th>
 				</tr>
@@ -9975,7 +10120,10 @@
 						GEBU
 					</td>
 					<td>
-						Project_15ab_GEBU.risk
+						input_Project_15ab_GEBU.risk
+					</td>
+					<td>
+						output_Project_15ab_GEBU.risk
 					</td>
 					<td>
 					</td>
@@ -9985,7 +10133,10 @@
 						DA
 					</td>
 					<td>
-						Project_15c_DA.risk
+						input_Project_15c_DA.risk
+					</td>
+					<td>
+						output_Project_15c_DA.risk
 					</td>
 					<td>
 						19
@@ -10867,6 +11018,9 @@
 			</testcontainer>
 			<testcontainer
 			id="15848e5c-5bc9-4589-ba34-db4bdadc8277">
+			</testcontainer>
+			<testcontainer
+			id="1723cbbd-3943-4428-bcb1-ff81c264e994">
 			</testcontainer>
 			<testcontainer
 			id="18455637-0838-4b15-bd6b-f6d6bc24f402">
