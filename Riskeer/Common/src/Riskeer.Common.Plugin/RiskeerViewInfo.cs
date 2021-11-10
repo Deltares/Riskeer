@@ -33,17 +33,17 @@ namespace Riskeer.Common.Plugin
         /// <summary>
         /// Initializes a new instance of the <see cref="RiskeerViewInfo{TData, TViewData, TView}"/> class.
         /// </summary>
-        /// <param name="gui">The <see cref="IGui"/> to use during the initialization.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="IGui"/> equals <c>null</c>.</exception>
-        public RiskeerViewInfo(IGui gui)
+        /// <param name="getGuiFunc">The function for retrieving the <see cref="IGui"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="getGuiFunc"/> equals <c>null</c>.</exception>
+        public RiskeerViewInfo(Func<IGui> getGuiFunc)
         {
-            if (gui == null)
+            if (getGuiFunc == null)
             {
-                throw new ArgumentNullException(nameof(gui));
+                throw new ArgumentNullException(nameof(getGuiFunc));
             }
 
-            Symbol = gui.ActiveStateInfo?.Symbol;
-            FontFamily = gui.ActiveStateInfo?.FontFamily;
+            Symbol = getGuiFunc()?.ActiveStateInfo?.Symbol;
+            FontFamily = getGuiFunc()?.ActiveStateInfo?.FontFamily;
         }
     }
 
@@ -55,8 +55,8 @@ namespace Riskeer.Common.Plugin
         /// <summary>
         /// Initializes a new instance of the <see cref="RiskeerViewInfo{TData, TView}"/> class.
         /// </summary>
-        /// <param name="gui">The <see cref="IGui"/> to use during the initialization.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="IGui"/> equals <c>null</c>.</exception>
-        public RiskeerViewInfo(IGui gui) : base(gui) {}
+        /// <param name="getGuiFunc">The function for retrieving the <see cref="IGui"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="getGuiFunc"/> equals <c>null</c>.</exception>
+        public RiskeerViewInfo(Func<IGui> getGuiFunc) : base(getGuiFunc) {}
     }
 }
