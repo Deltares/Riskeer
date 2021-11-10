@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.IsInstanceOf<IHasSectionResults<PipingFailureMechanismSectionResult>>(failureMechanism);
-            Assert.AreEqual("Dijken en dammen - Piping", failureMechanism.Name);
+            Assert.AreEqual("Piping", failureMechanism.Name);
             Assert.AreEqual("STPH", failureMechanism.Code);
             Assert.AreEqual(2, failureMechanism.Group);
 

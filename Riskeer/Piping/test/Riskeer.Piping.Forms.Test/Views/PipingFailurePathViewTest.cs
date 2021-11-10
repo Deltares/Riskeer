@@ -865,7 +865,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Dijken en dammen - Piping", mapDataCollection.Name);
+            Assert.AreEqual("Piping", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

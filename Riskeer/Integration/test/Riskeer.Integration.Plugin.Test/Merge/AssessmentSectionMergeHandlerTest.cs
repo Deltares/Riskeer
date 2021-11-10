@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(19, msgs.Length);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Piping' zijn vervangen.", msgs[1]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Piping' zijn vervangen.", msgs[1]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Macrostabiliteit buitenwaarts' zijn vervangen.", msgs[4]);

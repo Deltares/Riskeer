@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Dijken en dammen - Piping", text);
+            Assert.AreEqual("Piping", text);
             mocks.VerifyAll();
         }
 

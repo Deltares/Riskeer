@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Piping.
+        ///   Looks up a localized string similar to Piping.
         /// </summary>
         public static string PipingFailureMechanism_DisplayName {
             get {
