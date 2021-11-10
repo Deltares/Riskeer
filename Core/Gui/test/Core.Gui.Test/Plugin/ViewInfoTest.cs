@@ -69,52 +69,49 @@ namespace Core.Gui.Test.Plugin
             Type newViewDataType = typeof(string);
             Type viewType = typeof(StringView);
             const string newDescription = "<text>";
-            Func<IView, object, string> getViewNameDelegate = (view, o) => "";
+            string GetViewName(IView view, object o) => "";
             Image image = Resources.abacus;
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-            Func<object, bool> additionalDataDelegate = o => true;
-            Func<object, object> getViewDataDelegate = o => 45;
-            Action<IView, object> afterCreateDelegate = (view, o) =>
-            {
-                // Do something useful
-            };
-            Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
-            Func<object, IView> createInstanceDelegate = o => viewInstance;
+            bool AdditionalDataCheck(object o) => true;
+            object GetViewData(object o) => 45;
+            void AfterCreate(IView view, object o) {}
+            bool CloseForData(IView view, object o) => true;
+            IView CreateInstance(object o) => viewInstance;
 
             // Call
             viewInfo.DataType = newDataType;
             viewInfo.ViewDataType = newViewDataType;
             viewInfo.ViewType = viewType;
             viewInfo.Description = newDescription;
-            viewInfo.GetViewName = getViewNameDelegate;
+            viewInfo.GetViewName = GetViewName;
             viewInfo.Image = image;
             viewInfo.Symbol = symbol;
             viewInfo.FontFamily = fontFamily;
-            viewInfo.AdditionalDataCheck = additionalDataDelegate;
-            viewInfo.GetViewData = getViewDataDelegate;
-            viewInfo.AfterCreate = afterCreateDelegate;
-            viewInfo.CloseForData = closeViewForDataDelegate;
-            viewInfo.CreateInstance = createInstanceDelegate;
+            viewInfo.AdditionalDataCheck = AdditionalDataCheck;
+            viewInfo.GetViewData = GetViewData;
+            viewInfo.AfterCreate = AfterCreate;
+            viewInfo.CloseForData = CloseForData;
+            viewInfo.CreateInstance = CreateInstance;
 
             // Assert
             Assert.AreEqual(newDataType, viewInfo.DataType);
             Assert.AreEqual(newViewDataType, viewInfo.ViewDataType);
             Assert.AreEqual(viewType, viewInfo.ViewType);
             Assert.AreEqual(newDescription, viewInfo.Description);
-            Assert.AreEqual(getViewNameDelegate, viewInfo.GetViewName);
+            Assert.AreEqual((Func<IView, object, string>) GetViewName, viewInfo.GetViewName);
             Assert.AreEqual(image, viewInfo.Image);
             Assert.AreEqual(symbol, viewInfo.Symbol);
             Assert.AreSame(fontFamily, viewInfo.FontFamily);
-            Assert.AreEqual(additionalDataDelegate, viewInfo.AdditionalDataCheck);
-            Assert.AreEqual(getViewDataDelegate, viewInfo.GetViewData);
-            Assert.AreEqual(afterCreateDelegate, viewInfo.AfterCreate);
-            Assert.AreEqual(closeViewForDataDelegate, viewInfo.CloseForData);
-            Assert.AreEqual(createInstanceDelegate, viewInfo.CreateInstance);
+            Assert.AreEqual((Func<object, bool>) AdditionalDataCheck, viewInfo.AdditionalDataCheck);
+            Assert.AreEqual((Func<object, object>) GetViewData, viewInfo.GetViewData);
+            Assert.AreEqual((Action<IView, object>) AfterCreate, viewInfo.AfterCreate);
+            Assert.AreEqual((Func<IView, object, bool>) CloseForData, viewInfo.CloseForData);
+            Assert.AreEqual((Func<object, IView>) CreateInstance, viewInfo.CreateInstance);
         }
 
         [Test]
-        public void CreateInstance_ViewtypeWithDefaultConstructor_ReturnView()
+        public void CreateInstance_ViewTypeWithDefaultConstructor_ReturnView()
         {
             // Setup
             var viewInfo = new ViewInfo
@@ -146,10 +143,10 @@ namespace Core.Gui.Test.Plugin
             };
 
             // Call
-            string text = viewInfo.ToString();
+            var text = viewInfo.ToString();
 
             // Assert
-            string expectedText = $"{viewInfo.DataType} : {viewInfo.ViewDataType} : {viewInfo.ViewType}";
+            var expectedText = $"{viewInfo.DataType} : {viewInfo.ViewDataType} : {viewInfo.ViewType}";
             Assert.AreEqual(expectedText, text);
         }
 
@@ -182,41 +179,38 @@ namespace Core.Gui.Test.Plugin
             var viewInfo = new ViewInfo<int, string, StringView>();
 
             const string newDescription = "<text>";
-            Func<IView, int, string> getViewNameDelegate = (view, o) => "";
+            string GetViewName(IView view, int o) => "";
             Image image = Resources.abacus;
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-            Func<int, bool> additionalDataDelegate = o => true;
-            Func<int, string> getViewDataDelegate = o => o.ToString();
-            Action<IView, int> afterCreateDelegate = (view, o) =>
-            {
-                // Do something useful
-            };
-            Func<IView, object, bool> closeViewForDataDelegate = (view, o) => true;
-            Func<int, StringView> createInstanceDelegate = o => new StringView();
+            bool AdditionalDataCheck(int o) => true;
+            string GetViewData(int o) => o.ToString();
+            void AfterCreate(IView view, int o) {}
+            bool CloseForData(IView view, object o) => true;
+            StringView CreateInstance(int o) => new StringView();
 
             // Call
             viewInfo.Description = newDescription;
-            viewInfo.GetViewName = getViewNameDelegate;
+            viewInfo.GetViewName = (Func<IView, int, string>) GetViewName;
             viewInfo.Image = image;
             viewInfo.Symbol = symbol;
             viewInfo.FontFamily = fontFamily;
-            viewInfo.AdditionalDataCheck = additionalDataDelegate;
-            viewInfo.GetViewData = getViewDataDelegate;
-            viewInfo.AfterCreate = afterCreateDelegate;
-            viewInfo.CloseForData = closeViewForDataDelegate;
-            viewInfo.CreateInstance = createInstanceDelegate;
+            viewInfo.AdditionalDataCheck = AdditionalDataCheck;
+            viewInfo.GetViewData = GetViewData;
+            viewInfo.AfterCreate = (Action<IView, int>) AfterCreate;
+            viewInfo.CloseForData = (Func<IView, object, bool>) CloseForData;
+            viewInfo.CreateInstance = CreateInstance;
 
             // Assert
             Assert.AreEqual(newDescription, viewInfo.Description);
-            Assert.AreEqual(getViewNameDelegate, viewInfo.GetViewName);
+            Assert.AreEqual((Func<IView, int, string>) GetViewName, viewInfo.GetViewName);
             Assert.AreEqual(image, viewInfo.Image);
             Assert.AreEqual(symbol, viewInfo.Symbol);
             Assert.AreSame(fontFamily, viewInfo.FontFamily);
-            Assert.AreEqual(additionalDataDelegate, viewInfo.AdditionalDataCheck);
-            Assert.AreEqual(getViewDataDelegate, viewInfo.GetViewData);
-            Assert.AreEqual(afterCreateDelegate, viewInfo.AfterCreate);
-            Assert.AreEqual(closeViewForDataDelegate, viewInfo.CloseForData);
+            Assert.AreEqual((Func<int, bool>) AdditionalDataCheck, viewInfo.AdditionalDataCheck);
+            Assert.AreEqual((Func<int, string>) GetViewData, viewInfo.GetViewData);
+            Assert.AreEqual((Action<IView, int>) AfterCreate, viewInfo.AfterCreate);
+            Assert.AreEqual((Func<IView, object, bool>) CloseForData, viewInfo.CloseForData);
         }
 
         [Test]
@@ -226,10 +220,10 @@ namespace Core.Gui.Test.Plugin
             var viewInfo = new ViewInfo<int, string, StringView>();
 
             // Call
-            string text = viewInfo.ToString();
+            var text = viewInfo.ToString();
 
             // Assert
-            string expectedText = $"{viewInfo.DataType} : {viewInfo.ViewDataType} : {viewInfo.ViewType}";
+            var expectedText = $"{viewInfo.DataType} : {viewInfo.ViewDataType} : {viewInfo.ViewType}";
             Assert.AreEqual(expectedText, text);
         }
 
@@ -259,48 +253,55 @@ namespace Core.Gui.Test.Plugin
 
             const string newDescription = "<text>";
             const string newViewName = "<view name>";
-            Func<IView, int, string> getViewNameDelegate = (view, o) =>
+
+            string GetViewName(IView view, int o)
             {
                 Assert.AreSame(stringView, view);
                 Assert.AreEqual(dataObject, o);
                 return newViewName;
-            };
+            }
+
             Image image = Resources.abacus;
             const string symbol = "<symbol>";
             var fontFamily = new FontFamily();
-            Func<int, bool> additionalDataDelegate = o =>
+
+            bool AdditionalDataCheck(int o)
             {
                 Assert.AreEqual(dataObject, o);
                 return true;
-            };
-            Func<int, string> getViewDataDelegate = o =>
+            }
+
+            string GetViewData(int o)
             {
                 Assert.AreEqual(dataObject, o);
                 return o.ToString();
-            };
-            var afterCreateDelegateCalled = false;
-            Action<IView, int> afterCreateDelegate = (view, o) =>
+            }
+
+            var afterCreateCalled = false;
+
+            void AfterCreate(IView view, int o)
             {
                 Assert.AreSame(stringView, view);
                 Assert.AreEqual(dataObject, o);
-                afterCreateDelegateCalled = true;
-            };
-            Func<IView, object, bool> closeViewForDataDelegate = (view, o) =>
+                afterCreateCalled = true;
+            }
+
+            bool CloseForData(IView view, object o)
             {
                 Assert.AreSame(stringView, view);
                 Assert.AreEqual(dataObject, o);
                 return true;
-            };
+            }
 
             viewInfo.Description = newDescription;
-            viewInfo.GetViewName = getViewNameDelegate;
+            viewInfo.GetViewName = (Func<IView, int, string>) GetViewName;
             viewInfo.Image = image;
             viewInfo.Symbol = symbol;
             viewInfo.FontFamily = fontFamily;
-            viewInfo.AdditionalDataCheck = additionalDataDelegate;
-            viewInfo.GetViewData = getViewDataDelegate;
-            viewInfo.AfterCreate = afterCreateDelegate;
-            viewInfo.CloseForData = closeViewForDataDelegate;
+            viewInfo.AdditionalDataCheck = AdditionalDataCheck;
+            viewInfo.GetViewData = GetViewData;
+            viewInfo.AfterCreate = (Action<IView, int>) AfterCreate;
+            viewInfo.CloseForData = (Func<IView, object, bool>) CloseForData;
             viewInfo.CreateInstance = o => new StringView
             {
                 Text = "A"
@@ -327,7 +328,7 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual("A", viewInfo.CreateInstance(dataObject).Text);
 
             viewInfo.AfterCreate(stringView, dataObject);
-            Assert.IsTrue(afterCreateDelegateCalled);
+            Assert.IsTrue(afterCreateCalled);
         }
 
         private class StringView : IView
