@@ -124,24 +124,24 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
         {
             // Setup
             const string name = "newName";
-            const string originalInput = "Some input text";
-            const string originalOutput = "Some output text";
-            const string originalNotInAssemblyText = "Really not in assembly";
+            const string originalInAssemblyInputComments = "Some input text";
+            const string originalInAssemblyOutputComments = "Some output text";
+            const string originalNotInAssemblyComments = "Really not in assembly";
             const string specificFailurePathSectionsSourcePath = "File\\Path";
             var specificFailurePath = new SpecificFailurePath
             {
                 Name = name,
                 InAssemblyInputComments =
                 {
-                    Body = originalInput
+                    Body = originalInAssemblyInputComments
                 },
                 InAssemblyOutputComments =
                 {
-                    Body = originalOutput
+                    Body = originalInAssemblyOutputComments
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotInAssemblyText
+                    Body = originalNotInAssemblyComments
                 }
             };
             specificFailurePath.SetSections(new[]
