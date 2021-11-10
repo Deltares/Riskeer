@@ -46,8 +46,8 @@ namespace Core.Gui.Test.Plugin
             Assert.IsNull(viewInfo.Description);
             Assert.IsNull(viewInfo.GetViewName);
             Assert.IsNull(viewInfo.Image);
-            Assert.IsNull(viewInfo.Symbol);
-            Assert.IsNull(viewInfo.FontFamily);
+            Assert.IsNull(viewInfo.GetSymbol);
+            Assert.IsNull(viewInfo.GetFontFamily);
             Assert.IsNull(viewInfo.AdditionalDataCheck);
             Assert.IsNull(viewInfo.GetViewData);
             Assert.IsNull(viewInfo.AfterCreate);
@@ -71,8 +71,8 @@ namespace Core.Gui.Test.Plugin
             const string newDescription = "<text>";
             string GetViewName(IView view, object o) => "";
             Image image = Resources.abacus;
-            const string symbol = "<symbol>";
-            var fontFamily = new FontFamily();
+            string GetSymbol() => "<symbol>";
+            FontFamily GetFontFamily() => new FontFamily();
             bool AdditionalDataCheck(object o) => true;
             object GetViewData(object o) => 45;
             void AfterCreate(IView view, object o) {}
@@ -86,8 +86,8 @@ namespace Core.Gui.Test.Plugin
             viewInfo.Description = newDescription;
             viewInfo.GetViewName = GetViewName;
             viewInfo.Image = image;
-            viewInfo.Symbol = symbol;
-            viewInfo.FontFamily = fontFamily;
+            viewInfo.GetSymbol = GetSymbol;
+            viewInfo.GetFontFamily = GetFontFamily;
             viewInfo.AdditionalDataCheck = AdditionalDataCheck;
             viewInfo.GetViewData = GetViewData;
             viewInfo.AfterCreate = AfterCreate;
@@ -101,8 +101,8 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(newDescription, viewInfo.Description);
             Assert.AreEqual((Func<IView, object, string>) GetViewName, viewInfo.GetViewName);
             Assert.AreEqual(image, viewInfo.Image);
-            Assert.AreEqual(symbol, viewInfo.Symbol);
-            Assert.AreSame(fontFamily, viewInfo.FontFamily);
+            Assert.AreEqual((Func<string>) GetSymbol, viewInfo.GetSymbol);
+            Assert.AreEqual((Func<FontFamily>) GetFontFamily, viewInfo.GetFontFamily);
             Assert.AreEqual((Func<object, bool>) AdditionalDataCheck, viewInfo.AdditionalDataCheck);
             Assert.AreEqual((Func<object, object>) GetViewData, viewInfo.GetViewData);
             Assert.AreEqual((Action<IView, object>) AfterCreate, viewInfo.AfterCreate);
@@ -163,8 +163,8 @@ namespace Core.Gui.Test.Plugin
             Assert.IsNull(viewInfo.Description);
             Assert.IsNull(viewInfo.GetViewName);
             Assert.IsNull(viewInfo.Image);
-            Assert.IsNull(viewInfo.Symbol);
-            Assert.IsNull(viewInfo.FontFamily);
+            Assert.IsNull(viewInfo.GetSymbol);
+            Assert.IsNull(viewInfo.GetFontFamily);
             Assert.IsNull(viewInfo.AdditionalDataCheck);
             Assert.IsNull(viewInfo.GetViewData);
             Assert.IsNull(viewInfo.AfterCreate);
@@ -181,8 +181,8 @@ namespace Core.Gui.Test.Plugin
             const string newDescription = "<text>";
             string GetViewName(IView view, int o) => "";
             Image image = Resources.abacus;
-            const string symbol = "<symbol>";
-            var fontFamily = new FontFamily();
+            string GetSymbol() => "<symbol>";
+            FontFamily GetFontFamily() => new FontFamily();
             bool AdditionalDataCheck(int o) => true;
             string GetViewData(int o) => o.ToString();
             void AfterCreate(IView view, int o) {}
@@ -193,8 +193,8 @@ namespace Core.Gui.Test.Plugin
             viewInfo.Description = newDescription;
             viewInfo.GetViewName = (Func<IView, int, string>) GetViewName;
             viewInfo.Image = image;
-            viewInfo.Symbol = symbol;
-            viewInfo.FontFamily = fontFamily;
+            viewInfo.GetSymbol = GetSymbol;
+            viewInfo.GetFontFamily = GetFontFamily;
             viewInfo.AdditionalDataCheck = AdditionalDataCheck;
             viewInfo.GetViewData = GetViewData;
             viewInfo.AfterCreate = (Action<IView, int>) AfterCreate;
@@ -205,8 +205,8 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(newDescription, viewInfo.Description);
             Assert.AreEqual((Func<IView, int, string>) GetViewName, viewInfo.GetViewName);
             Assert.AreEqual(image, viewInfo.Image);
-            Assert.AreEqual(symbol, viewInfo.Symbol);
-            Assert.AreSame(fontFamily, viewInfo.FontFamily);
+            Assert.AreEqual((Func<string>) GetSymbol, viewInfo.GetSymbol);
+            Assert.AreEqual((Func<FontFamily>) GetFontFamily, viewInfo.GetFontFamily);
             Assert.AreEqual((Func<int, bool>) AdditionalDataCheck, viewInfo.AdditionalDataCheck);
             Assert.AreEqual((Func<int, string>) GetViewData, viewInfo.GetViewData);
             Assert.AreEqual((Action<IView, int>) AfterCreate, viewInfo.AfterCreate);
@@ -262,8 +262,8 @@ namespace Core.Gui.Test.Plugin
             }
 
             Image image = Resources.abacus;
-            const string symbol = "<symbol>";
-            var fontFamily = new FontFamily();
+            string GetSymbol() => "<symbol>";
+            FontFamily GetFontFamily() => new FontFamily();
 
             bool AdditionalDataCheck(int o)
             {
@@ -296,8 +296,8 @@ namespace Core.Gui.Test.Plugin
             viewInfo.Description = newDescription;
             viewInfo.GetViewName = (Func<IView, int, string>) GetViewName;
             viewInfo.Image = image;
-            viewInfo.Symbol = symbol;
-            viewInfo.FontFamily = fontFamily;
+            viewInfo.GetSymbol = GetSymbol;
+            viewInfo.GetFontFamily = GetFontFamily;
             viewInfo.AdditionalDataCheck = AdditionalDataCheck;
             viewInfo.GetViewData = GetViewData;
             viewInfo.AfterCreate = (Action<IView, int>) AfterCreate;
@@ -321,8 +321,8 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(newDescription, info.Description);
             Assert.AreEqual(newViewName, info.GetViewName(stringView, dataObject));
             Assert.AreEqual(image, info.Image);
-            Assert.AreEqual(symbol, info.Symbol);
-            Assert.AreSame(fontFamily, info.FontFamily);
+            Assert.AreEqual((Func<string>) GetSymbol, info.GetSymbol);
+            Assert.AreEqual((Func<FontFamily>) GetFontFamily, info.GetFontFamily);
             Assert.IsTrue(viewInfo.AdditionalDataCheck(dataObject));
             Assert.AreEqual(dataObject.ToString(), viewInfo.GetViewData(dataObject));
             Assert.AreEqual("A", viewInfo.CreateInstance(dataObject).Text);

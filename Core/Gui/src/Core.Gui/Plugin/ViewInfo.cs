@@ -75,15 +75,15 @@ namespace Core.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the symbol of the view.
+        /// Gets or sets the method used to determine the symbol for the view.
         /// </summary>
-        public string Symbol { get; set; }
+        public Func<string> GetSymbol { get; set; }
 
         /// <summary>
-        /// Gets or sets the font family for the symbol of the view.
+        /// Gets or sets the method used to determine the font family of the symbol for the view.
         /// </summary>
-        public FontFamily FontFamily { get; set; }
-        
+        public Func<FontFamily> GetFontFamily { get; set; }
+
         /// <summary>
         /// Gets or sets the optional method for checking if this view info object can be 
         /// used for a given data object. Function arguments:
@@ -213,15 +213,15 @@ namespace Core.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
-        /// Gets or sets the symbol of the view.
+        /// Gets or sets the method used to determine the symbol for the view.
         /// </summary>
-        public string Symbol { get; set; }
+        public Func<string> GetSymbol { get; set; }
 
         /// <summary>
-        /// Gets or sets the font family for the symbol of the view.
+        /// Gets or sets the method used to determine the font family of the symbol for the view.
         /// </summary>
-        public FontFamily FontFamily { get; set; }
-        
+        public Func<FontFamily> GetFontFamily { get; set; }
+
         /// <summary>
         /// Gets or sets the optional method for checking if this view info object can be 
         /// used for a given data object. Function arguments:
@@ -289,8 +289,8 @@ namespace Core.Gui.Plugin
                 ViewType = viewInfo.ViewType,
                 Description = viewInfo.Description,
                 Image = viewInfo.Image,
-                Symbol = viewInfo.Symbol,
-                FontFamily = viewInfo.FontFamily,
+                GetSymbol = viewInfo.GetSymbol,
+                GetFontFamily = viewInfo.GetFontFamily,
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
                 CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
