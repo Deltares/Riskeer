@@ -101,7 +101,7 @@ namespace Riskeer.Storage.Core.Test
                 var writer = new SafeFileWriter(targetFilePath);
 
                 // Call
-                Exception actualException = Assert.Throws(exception.GetType(), () => writer.Perform(() => throw exception));
+                var actualException = Assert.Throws<Exception>(() => writer.Perform(() => throw exception));
 
                 // Assert
                 Assert.AreSame(exception, actualException);
@@ -124,10 +124,10 @@ namespace Riskeer.Storage.Core.Test
         public void Perform_TargetFilePathTooLong_ExpectedExceptionThrown()
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown));
             string targetFilePath = Path.Combine(writableDirectory, new string('x', 500) + ".txt");
 
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown)))
             {
                 var writer = new SafeFileWriter(targetFilePath);
 
@@ -143,10 +143,10 @@ namespace Riskeer.Storage.Core.Test
         public void Perform_InsufficientAccessRights_ExpectedExceptionThrown()
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_InsufficientAccessRights_ExpectedExceptionThrown));
             string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
 
-            using (var directoryDisposeHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            using (var directoryDisposeHelper = new DirectoryDisposeHelper(testWorkDir, nameof(Perform_InsufficientAccessRights_ExpectedExceptionThrown)))
             {
                 directoryDisposeHelper.LockDirectory(FileSystemRights.Write);
 
@@ -164,10 +164,10 @@ namespace Riskeer.Storage.Core.Test
         public void Perform_TargetFileInUse_ExpectedExceptionThrown()
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFileInUse_ExpectedExceptionThrown));
             string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
 
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFileInUse_ExpectedExceptionThrown)))
             using (var fileDisposeHelper = new FileDisposeHelper(targetFilePath))
             {
                 fileDisposeHelper.LockFiles();
@@ -188,11 +188,11 @@ namespace Riskeer.Storage.Core.Test
         public void Perform_TemporaryFileInUse_ExpectedExceptionThrown(bool performWithExistingTargetFile)
         {
             // Setup
-            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TemporaryFileInUse_ExpectedExceptionThrown));
             string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
             string temporaryFilePath = targetFilePath + "~";
 
-            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TemporaryFileInUse_ExpectedExceptionThrown)))
             using (var fileDisposeHelper = new FileDisposeHelper(temporaryFilePath))
             {
                 fileDisposeHelper.LockFiles();

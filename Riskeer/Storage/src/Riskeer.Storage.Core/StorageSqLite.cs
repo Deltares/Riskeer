@@ -55,8 +55,7 @@ namespace Riskeer.Storage.Core
 
         public void StageProject(IProject project)
         {
-            var riskeerProject = project as RiskeerProject;
-            if (riskeerProject == null)
+            if (!(project is RiskeerProject riskeerProject))
             {
                 throw new ArgumentNullException(nameof(project));
             }
