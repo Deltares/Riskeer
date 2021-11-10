@@ -80,7 +80,8 @@ namespace Riskeer.Integration.Forms.Test
             string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory();
 
             // Assert
-            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "BOI", "Riskeer");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
+                                               "BOI", $"Riskeer {settingsHelper.ApplicationVersion}");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 
@@ -94,7 +95,8 @@ namespace Riskeer.Integration.Forms.Test
             string pathFromSettings = settingsHelper.GetCommonDocumentsDirectory("some folder");
 
             // Assert
-            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "BOI", "Riskeer", "some folder");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
+                                               "BOI", $"Riskeer {settingsHelper.ApplicationVersion}", "some folder");
             Assert.AreEqual(expectedPath, pathFromSettings);
         }
 
@@ -102,7 +104,8 @@ namespace Riskeer.Integration.Forms.Test
         public void GetCommonDocumentsRiskeerShapeFileDirectory_ReturnsExpectedDirectory()
         {
             // Setup
-            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments), "BOI", "Riskeer", "NBPW");
+            string expectedPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonDocuments),
+                                               "BOI", $"Riskeer {SettingsHelper.Instance.ApplicationVersion}", "NBPW");
 
             // Call
             string pathFromSettings = RiskeerSettingsHelper.GetCommonDocumentsRiskeerShapeFileDirectory();

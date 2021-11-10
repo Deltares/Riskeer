@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Forms
             var documentsPath = new List<string>
             {
                 "BOI",
-                "Riskeer"
+                $"Riskeer {ApplicationVersion}"
             };
             documentsPath.AddRange(subPath);
             return base.GetCommonDocumentsDirectory(documentsPath.ToArray());
