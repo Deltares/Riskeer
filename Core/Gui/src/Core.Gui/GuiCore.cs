@@ -27,6 +27,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -62,6 +63,8 @@ namespace Core.Gui
 
         private readonly string applicationTitle;
         private readonly Observer projectObserver;
+        private readonly IDictionary<ToggleButton, StateInfo> stateInfoLookup = new Dictionary<ToggleButton, StateInfo>();
+
         private ISelectionProvider currentSelectionProvider;
 
         private bool isExiting;
@@ -418,7 +421,7 @@ namespace Core.Gui
 
             foreach (StateInfo stateInfo in Plugins.SelectMany(pluginGui => pluginGui.GetStateInfos()))
             {
-                mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.FontFamily, stateInfo.GetRootData);
+                stateInfoLookup[mainWindow.AddStateButton(stateInfo.Name, stateInfo.Symbol, stateInfo.FontFamily, stateInfo.GetRootData)] = stateInfo;
             }
 
             mainWindow.SubscribeToGui();

@@ -279,7 +279,7 @@ namespace Core.Gui.Forms.Main
 
         #region State
 
-        internal void AddStateButton(string text, string symbol, FontFamily fontFamily, Func<IProject, object> getRootData)
+        internal ToggleButton AddStateButton(string text, string symbol, FontFamily fontFamily, Func<IProject, object> getRootData)
         {
             var stateToggleButton = new ToggleButton
             {
@@ -299,6 +299,8 @@ namespace Core.Gui.Forms.Main
             MainButtonStackPanel.Children.Insert(MainButtonStackPanel.Children.Count - 1, stateToggleButton);
 
             stateToggleButtonLookup.Add(stateToggleButton, getRootData);
+
+            return stateToggleButton;
         }
 
         internal void ResetState()
