@@ -110,14 +110,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsFailureMechanismView>
+            yield return new RiskeerViewInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathView>
+            yield return new RiskeerViewInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -126,10 +126,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                GrassCoverErosionOutwardsFailureMechanismResultView>
+                GrassCoverErosionOutwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -140,9 +140,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism)
             };
 
-            yield return new ViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
+            yield return new RiskeerViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
                 ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>,
-                WaveConditionsInputView>
+                WaveConditionsInputView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,

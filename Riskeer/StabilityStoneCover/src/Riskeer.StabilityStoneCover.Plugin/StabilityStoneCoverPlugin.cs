@@ -92,14 +92,14 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverFailureMechanismView>
+            yield return new RiskeerViewInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathView>
+            yield return new RiskeerViewInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -108,9 +108,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
+            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
                 IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
-                StabilityStoneCoverResultView>
+                StabilityStoneCoverResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -121,9 +121,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     (StabilityStoneCoverFailureMechanism) context.FailureMechanism)
             };
 
-            yield return new ViewInfo<StabilityStoneCoverWaveConditionsInputContext,
+            yield return new RiskeerViewInfo<StabilityStoneCoverWaveConditionsInputContext,
                 StabilityStoneCoverWaveConditionsCalculation,
-                WaveConditionsInputView>
+                WaveConditionsInputView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,

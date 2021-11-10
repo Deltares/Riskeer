@@ -89,14 +89,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverFailureMechanismView>
+            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathView>
+            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -105,9 +105,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
+            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                WaveImpactAsphaltCoverFailureMechanismResultView>
+                WaveImpactAsphaltCoverFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -118,9 +118,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism)
             };
 
-            yield return new ViewInfo<WaveImpactAsphaltCoverWaveConditionsInputContext,
+            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverWaveConditionsInputContext,
                 ICalculation<WaveConditionsInput>,
-                WaveConditionsInputView>
+                WaveConditionsInputView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,

@@ -243,14 +243,14 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<PipingCalculationsContext, PipingFailureMechanismView>
+            yield return new RiskeerViewInfo<PipingCalculationsContext, PipingFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<PipingFailurePathContext, PipingFailurePathView>
+            yield return new RiskeerViewInfo<PipingFailurePathContext, PipingFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -259,10 +259,10 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingFailurePathViewForData
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
                 IObservableEnumerable<PipingFailureMechanismSectionResult>,
-                PipingFailureMechanismResultView>
+                PipingFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -274,7 +274,7 @@ namespace Riskeer.Piping.Plugin
                     context.AssessmentSection)
             };
 
-            yield return new ViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>
+            yield return new RiskeerViewInfo<PipingCalculationGroupContext, CalculationGroup, PipingCalculationsView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -284,7 +284,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingCalculationsViewForData
             };
 
-            yield return new ViewInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingCalculationScenario, PipingInputView>
+            yield return new RiskeerViewInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingCalculationScenario, PipingInputView>(() => Gui)
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -292,7 +292,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingInputViewForData
             };
 
-            yield return new ViewInfo<ProbabilisticPipingInputContext, ProbabilisticPipingCalculationScenario, PipingInputView>
+            yield return new RiskeerViewInfo<ProbabilisticPipingInputContext, ProbabilisticPipingCalculationScenario, PipingInputView>(() => Gui)
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingInputViewForData
             };
 
-            yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
+            yield return new RiskeerViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
@@ -309,7 +309,7 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
 
-            yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
+            yield return new RiskeerViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData.Sections,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
@@ -320,7 +320,7 @@ namespace Riskeer.Piping.Plugin
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>
+            yield return new RiskeerViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
@@ -332,7 +332,7 @@ namespace Riskeer.Piping.Plugin
                     () => ((PartialProbabilisticFaultTreePipingOutput) context.WrappedData.Output?.ProfileSpecificOutput)?.GeneralResult)
             };
 
-            yield return new ViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingOutputView>
+            yield return new RiskeerViewInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingOutputView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
@@ -347,7 +347,7 @@ namespace Riskeer.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>
+            yield return new RiskeerViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticFaultTreePipingOutputView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
@@ -362,7 +362,7 @@ namespace Riskeer.Piping.Plugin
                 }
             };
 
-            yield return new ViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingOutputView>
+            yield return new RiskeerViewInfo<ProbabilisticPipingSectionSpecificOutputContext, ProbabilisticPipingCalculationScenario, ProbabilisticSubMechanismPipingOutputView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,

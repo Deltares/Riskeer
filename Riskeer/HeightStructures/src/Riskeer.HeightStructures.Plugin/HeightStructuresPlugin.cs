@@ -47,6 +47,7 @@ using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
+using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
@@ -158,14 +159,14 @@ namespace Riskeer.HeightStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<HeightStructuresCalculationsContext, HeightStructuresFailureMechanismView>
+            yield return new RiskeerViewInfo<HeightStructuresCalculationsContext, HeightStructuresFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathView>
+            yield return new RiskeerViewInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -174,10 +175,10 @@ namespace Riskeer.HeightStructures.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 HeightStructuresScenariosContext,
                 CalculationGroup,
-                HeightStructuresScenariosView>
+                HeightStructuresScenariosView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
@@ -186,10 +187,10 @@ namespace Riskeer.HeightStructures.Plugin
                 Image = RiskeerCommonFormsResources.ScenariosIcon
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
-                HeightStructuresFailureMechanismResultView>
+                HeightStructuresFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -201,7 +202,7 @@ namespace Riskeer.HeightStructures.Plugin
                     context.AssessmentSection)
             };
 
-            yield return new ViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>
+            yield return new RiskeerViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>(() => Gui)
             {
                 CreateInstance = context => new HeightStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,

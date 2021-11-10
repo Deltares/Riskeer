@@ -243,14 +243,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<MacroStabilityInwardsCalculationsContext, MacroStabilityInwardsFailureMechanismView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationsContext, MacroStabilityInwardsFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -259,10 +259,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
-                MacroStabilityInwardsFailureMechanismResultView>
+                MacroStabilityInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -273,7 +273,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                     (MacroStabilityInwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -283,7 +283,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CloseForData = CloseCalculationsViewForData
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInputView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInputView>(() => Gui)
             {
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -295,7 +295,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                () => context.AssessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(context.WrappedData.HydraulicBoundaryLocation))
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsScenariosContext, CalculationGroup, MacroStabilityInwardsScenariosView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
@@ -304,7 +304,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CreateInstance = context => new MacroStabilityInwardsScenariosView(context.WrappedData, context.FailureMechanism)
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsOutputView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
@@ -314,7 +314,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                 () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
             };
 
-            yield return new ViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
+            yield return new RiskeerViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RiskeerCommonFormsResources.SectionsIcon,

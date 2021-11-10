@@ -46,6 +46,7 @@ using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
+using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
@@ -91,14 +92,14 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<StabilityPointStructuresCalculationsContext, StabilityPointStructuresFailureMechanismView>
+            yield return new RiskeerViewInfo<StabilityPointStructuresCalculationsContext, StabilityPointStructuresFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathView>
+            yield return new RiskeerViewInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -107,10 +108,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
-                StabilityPointStructuresFailureMechanismResultView>
+                StabilityPointStructuresFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -121,7 +122,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     (StabilityPointStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
-            yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
+            yield return new RiskeerViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
@@ -130,7 +131,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 CloseForData = CloseScenariosViewForData
             };
 
-            yield return new ViewInfo<StabilityPointStructuresCalculationGroupContext, CalculationGroup, StabilityPointStructuresCalculationsView>
+            yield return new RiskeerViewInfo<StabilityPointStructuresCalculationGroupContext, CalculationGroup, StabilityPointStructuresCalculationsView>(() => Gui)
             {
                 CreateInstance = context => new StabilityPointStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,

@@ -177,14 +177,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<GrassCoverErosionInwardsCalculationsContext, GrassCoverErosionInwardsFailureMechanismView>
+            yield return new RiskeerViewInfo<GrassCoverErosionInwardsCalculationsContext, GrassCoverErosionInwardsFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathView>
+            yield return new RiskeerViewInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -193,10 +193,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CreateInstance = context => new GrassCoverErosionInwardsFailurePathView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 GrassCoverErosionInwardsScenariosContext,
                 CalculationGroup,
-                GrassCoverErosionInwardsScenariosView>
+                GrassCoverErosionInwardsScenariosView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
@@ -205,10 +205,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 Image = RiskeerCommonFormsResources.ScenariosIcon
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                GrassCoverErosionInwardsFailureMechanismResultView>
+                GrassCoverErosionInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -220,7 +220,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     context.AssessmentSection)
             };
 
-            yield return new ViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>
+            yield return new RiskeerViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -228,7 +228,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CloseForData = CloseInputViewForData
             };
 
-            yield return new ViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingOutputGeneralResultFaultTreeIllustrationPointView>
+            yield return new RiskeerViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingOutputGeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
@@ -238,7 +238,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.OvertoppingOutput.GeneralResult)
             };
 
-            yield return new ViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, DikeHeightOutputGeneralResultFaultTreeIllustrationPointView>
+            yield return new RiskeerViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, DikeHeightOutputGeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
@@ -248,7 +248,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.DikeHeightOutput?.GeneralResult)
             };
 
-            yield return new ViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView>
+            yield return new RiskeerViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
@@ -258,7 +258,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };
 
-            yield return new ViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>
+            yield return new RiskeerViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>(() => Gui)
             {
                 CreateInstance = context => new GrassCoverErosionInwardsCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,

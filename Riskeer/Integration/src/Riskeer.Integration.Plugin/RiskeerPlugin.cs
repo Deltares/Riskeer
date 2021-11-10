@@ -343,7 +343,7 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>
+            yield return new RiskeerViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Norms_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
@@ -352,7 +352,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
             };
 
-            yield return new ViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
+            yield return new RiskeerViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>(() => Gui)
             {
                 GetViewName = (view, context) => GetWaterLevelCalculationsForNormTargetProbabilitiesViewName(context.WrappedData, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,
@@ -368,7 +368,7 @@ namespace Riskeer.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
+            yield return new RiskeerViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>(() => Gui)
             {
                 GetViewName = (view, context) => GetWaterLevelCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData, context.AssessmentSection),
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
@@ -385,7 +385,7 @@ namespace Riskeer.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
+            yield return new RiskeerViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>(() => Gui)
             {
                 GetViewName = (view, context) => GetWaveHeightCalculationsForUserDefinedTargetProbabilitiesViewName(context.WrappedData, context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities),
                 GetViewData = context => context.WrappedData.HydraulicBoundaryLocationCalculations,
@@ -403,7 +403,7 @@ namespace Riskeer.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>
+            yield return new RiskeerViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
@@ -411,7 +411,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new ViewInfo<HydraulicLoadsStateRootContext, AssessmentSectionExtendedView>
+            yield return new RiskeerViewInfo<HydraulicLoadsStateRootContext, AssessmentSectionExtendedView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
@@ -419,7 +419,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new ViewInfo<CalculationsStateRootContext, AssessmentSectionExtendedView>
+            yield return new RiskeerViewInfo<CalculationsStateRootContext, AssessmentSectionExtendedView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
@@ -427,7 +427,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new ViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>
+            yield return new RiskeerViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 Image = RiskeerFormsResources.Map,
@@ -574,10 +574,10 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     (WaterPressureAsphaltCoverFailureMechanism) context.FailureMechanism));
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>,
-                MacroStabilityOutwardsResultView>
+                MacroStabilityOutwardsResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -593,7 +593,7 @@ namespace Riskeer.Integration.Plugin
                     context.AssessmentSection)
             };
 
-            yield return new ViewInfo<SpecificFailurePathContext, SpecificFailurePathView>
+            yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new SpecificFailurePathView(context.WrappedData, context.Parent),
@@ -602,7 +602,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView
             };
 
-            yield return new ViewInfo<Comment, CommentView>
+            yield return new RiskeerViewInfo<Comment, CommentView>(() => Gui)
             {
                 GetViewName = (view, comment) => Resources.Comment_DisplayName,
                 GetViewData = comment => comment,
@@ -610,7 +610,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseCommentViewForData
             };
 
-            yield return new ViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>
+            yield return new RiskeerViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RiskeerCommonFormsResources.SectionsIcon,
@@ -619,7 +619,7 @@ namespace Riskeer.Integration.Plugin
                 GetViewData = context => context.WrappedData.Sections
             };
 
-            yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>
+            yield return new RiskeerViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
                 Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
@@ -629,7 +629,7 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
-            yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
+            yield return new RiskeerViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,
                 Image = Resources.AssemblyResultTotal,
@@ -637,7 +637,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
 
-            yield return new ViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>
+            yield return new RiskeerViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
                 Image = Resources.AssemblyResultPerSection,
@@ -645,7 +645,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
             };
 
-            yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
+            yield return new RiskeerViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
@@ -656,7 +656,7 @@ namespace Riskeer.Integration.Plugin
                                                                                        context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
 
-            yield return new ViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>
+            yield return new RiskeerViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
@@ -665,7 +665,7 @@ namespace Riskeer.Integration.Plugin
                                                                                              context.AssessmentSection,
                                                                                              context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
-            yield return new ViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>
+            yield return new RiskeerViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
                 Image = RiskeerCommonFormsResources.NormsIcon,
@@ -673,7 +673,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
                                                                              context.GetAssemblyCategoriesFunc)
             };
-            yield return new ViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>
+            yield return new RiskeerViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
                 Image = Resources.AssemblyResultPerSectionMap,
@@ -1325,7 +1325,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
+        private ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
             TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
             Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
@@ -1334,10 +1334,10 @@ namespace Riskeer.Integration.Plugin
             where TResultRow : FailureMechanismSectionResultRow<TResult>
             where TAssemblyResultControl : AssemblyResultControl, new()
         {
-            return new ViewInfo<
+            return new RiskeerViewInfo<
                 FailureMechanismSectionResultContext<TResult>,
                 IObservableEnumerable<TResult>,
-                TView>
+                TView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -1631,15 +1631,15 @@ namespace Riskeer.Integration.Plugin
 
         #region FailureMechanismWithDetailedAssessmentView ViewInfo
 
-        private static ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
+        private ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(
             Func<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
             where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
         {
-            return new ViewInfo<TFailureMechanismContext, TFailureMechanism,
-                FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
+            return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
+                FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -1653,15 +1653,15 @@ namespace Riskeer.Integration.Plugin
 
         #region FailureMechanismWithoutDetailedAssessmentView ViewInfo
 
-        private static ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
+        private ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(
             Func<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
             where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
         {
-            return new ViewInfo<TFailureMechanismContext, TFailureMechanism,
-                FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
+            return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
+                FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,

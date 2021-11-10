@@ -40,6 +40,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
@@ -163,10 +164,10 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>,
                 IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
-                DuneErosionFailureMechanismResultView>
+                DuneErosionFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -177,14 +178,14 @@ namespace Riskeer.DuneErosion.Plugin
                     (DuneErosionFailureMechanism) context.FailureMechanism)
             };
 
-            yield return new ViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>
+            yield return new RiskeerViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<DuneErosionFailurePathContext, DuneErosionFailurePathView>
+            yield return new RiskeerViewInfo<DuneErosionFailurePathContext, DuneErosionFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -193,7 +194,7 @@ namespace Riskeer.DuneErosion.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
+            yield return new RiskeerViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>(() => Gui)
             {
                 GetViewName = (view, context) => GetDuneLocationCalculationsViewName(context.WrappedData, context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities),
                 Image = RiskeerCommonFormsResources.GenericInputOutputIcon,

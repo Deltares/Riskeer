@@ -54,6 +54,7 @@ using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
+using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
@@ -93,14 +94,14 @@ namespace Riskeer.ClosingStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new ViewInfo<ClosingStructuresCalculationsContext, ClosingStructuresFailureMechanismView>
+            yield return new RiskeerViewInfo<ClosingStructuresCalculationsContext, ClosingStructuresFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new ViewInfo<ClosingStructuresFailurePathContext, ClosingStructuresFailurePathView>
+            yield return new RiskeerViewInfo<ClosingStructuresFailurePathContext, ClosingStructuresFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.FailureMechanismIcon,
@@ -109,10 +110,10 @@ namespace Riskeer.ClosingStructures.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new ViewInfo<
+            yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                ClosingStructuresFailureMechanismResultView>
+                ClosingStructuresFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -123,7 +124,7 @@ namespace Riskeer.ClosingStructures.Plugin
                     (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
-            yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
+            yield return new RiskeerViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>(() => Gui)
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
@@ -132,7 +133,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 CloseForData = CloseScenariosViewForData
             };
 
-            yield return new ViewInfo<ClosingStructuresCalculationGroupContext, CalculationGroup, ClosingStructuresCalculationsView>
+            yield return new RiskeerViewInfo<ClosingStructuresCalculationGroupContext, CalculationGroup, ClosingStructuresCalculationsView>(() => Gui)
             {
                 CreateInstance = context => new ClosingStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,
