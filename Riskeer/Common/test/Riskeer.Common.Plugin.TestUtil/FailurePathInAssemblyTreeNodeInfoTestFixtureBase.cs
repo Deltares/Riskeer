@@ -232,7 +232,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// Creates a new instance of <see cref="FailurePathInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailurePath,TFailurePathContext}"/>.
         /// </summary>
         /// <param name="contextMenuIndexWhenInAssemblyTrue">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
-        /// is in the assembly.</param>
+        /// is part of the assembly.</param>
         /// <param name="contextMenuIndexWhenInAssemblyFalse">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
         /// is not part of the assembly.</param>
         protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssemblyTrue,

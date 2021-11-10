@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
         }
 
-        private bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
             return nameof(Contribution).Equals(propertyName)
                    || nameof(A).Equals(propertyName)
