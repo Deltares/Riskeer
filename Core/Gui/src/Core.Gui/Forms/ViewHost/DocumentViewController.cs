@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using Core.Gui.Plugin;
@@ -173,7 +174,7 @@ namespace Core.Gui.Forms.ViewHost
 
             openedViewLookup.Add(data, view);
 
-            viewHost.AddDocumentView(view.Item1, viewInfo.GetViewName(view.Item1, data), string.Empty);
+            viewHost.AddDocumentView(view.Item1, viewInfo.GetViewName(view.Item1, data), string.Empty, new FontFamily());
             viewHost.SetImage(view.Item1, viewInfo.Image);
         }
 

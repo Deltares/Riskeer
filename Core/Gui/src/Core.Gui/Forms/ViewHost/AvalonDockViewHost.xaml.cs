@@ -29,6 +29,7 @@ using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Drawing;
 using Xceed.Wpf.AvalonDock.Layout;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Forms.ViewHost
 {
@@ -104,7 +105,7 @@ namespace Core.Gui.Forms.ViewHost
             }
         }
 
-        public void AddDocumentView(IView view, string title, string symbol)
+        public void AddDocumentView(IView view, string title, string symbol, FontFamily fontFamily)
         {
             var control = view as Control;
             if (control == null)
@@ -127,7 +128,8 @@ namespace Core.Gui.Forms.ViewHost
             {
                 Title = title,
                 Content = hostControl,
-                Symbol = symbol
+                Symbol = symbol,
+                FontFamily = fontFamily
             };
 
             PerformWithoutChangingActiveContent(() => AddLayoutDocument(layoutDocument));

@@ -71,8 +71,8 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             var avalonDockViewHost = new AvalonDockViewHost();
 
-            avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-            avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
+            avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+            avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
             avalonDockViewHost.AddToolView(testView3, ToolViewLocation.Left, string.Empty, string.Empty);
             avalonDockViewHost.AddToolView(testView4, ToolViewLocation.Left, string.Empty, string.Empty);
 
@@ -124,7 +124,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                 avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
 
                 // Call
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 // Assert
                 CollectionAssert.IsEmpty(avalonDockViewHost.DocumentViews);
@@ -160,7 +160,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                     viewList.Add(testView);
 
                     // Call
-                    avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                    avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
                 }
 
                 // Assert
@@ -179,16 +179,18 @@ namespace Core.Gui.Test.Forms.ViewHost
             {
                 const string title = "Random title";
                 const string symbol = "Random symbol";
+                var fontFamily = new System.Windows.Media.FontFamily();
 
                 var testView = new TestView();
 
                 // Call
-                avalonDockViewHost.AddDocumentView(testView, title, symbol);
+                avalonDockViewHost.AddDocumentView(testView, title, symbol, fontFamily);
 
                 // Assert
                 CustomLayoutDocument layoutDocument = GetLayoutDocument(avalonDockViewHost, testView);
                 Assert.AreEqual(title, layoutDocument.Title);
                 Assert.AreEqual(symbol, layoutDocument.Symbol);
+                Assert.AreSame(fontFamily, layoutDocument.FontFamily);
             }
         }
 
@@ -200,7 +202,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 var viewOpenedCounter = 0;
                 avalonDockViewHost.ViewOpened += (sender, args) => viewOpenedCounter++;
@@ -213,7 +215,7 @@ namespace Core.Gui.Test.Forms.ViewHost
                     avalonDockViewHost.DocumentViews);
 
                 // Call
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 // Assert
                 CollectionAssert.AreEqual(
@@ -235,8 +237,8 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
 
                 // Precondition
                 CollectionAssert.AreEqual(
@@ -271,7 +273,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 avalonDockViewHost.ViewClosed += (sender, args) =>
                 {
@@ -300,7 +302,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
                 avalonDockViewHost.AddToolView(testView2, ToolViewLocation.Left, string.Empty, string.Empty);
                 SetActiveView(avalonDockViewHost, testView1);
 
@@ -334,10 +336,10 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView3, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView4, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView3, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView4, string.Empty, string.Empty, null);
                 avalonDockViewHost.AddToolView(testView5, ToolViewLocation.Left, string.Empty, string.Empty);
 
                 SetActiveView(avalonDockViewHost, testView1);
@@ -375,10 +377,10 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView3, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView4, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView3, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView4, string.Empty, string.Empty, null);
                 avalonDockViewHost.AddToolView(testView5, ToolViewLocation.Left, string.Empty, string.Empty);
 
                 SetActiveView(avalonDockViewHost, testView3);
@@ -414,8 +416,8 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
                 SetActiveView(avalonDockViewHost, testView1);
 
                 avalonDockViewHost.ViewBroughtToFront += (sender, args) => viewBroughtToFrontCounter++;
@@ -449,8 +451,8 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
                 SetActiveView(avalonDockViewHost, testView2);
 
                 avalonDockViewHost.ViewBroughtToFront += (sender, args) => viewBroughtToFrontCounter++;
@@ -481,7 +483,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 // Precondition
                 Assert.IsFalse(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, titleToSet));
@@ -502,7 +504,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 // Precondition
                 Assert.IsFalse(IsImageSet(avalonDockViewHost, testView));
@@ -639,7 +641,7 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testDocumentView, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testDocumentView, string.Empty, string.Empty, null);
                 SetActiveView(avalonDockViewHost, testDocumentView);
 
                 // Call
@@ -756,10 +758,10 @@ namespace Core.Gui.Test.Forms.ViewHost
 
             using (var avalonDockViewHost = new AvalonDockViewHost())
             {
-                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView3, string.Empty, string.Empty);
-                avalonDockViewHost.AddDocumentView(testView4, string.Empty, string.Empty);
+                avalonDockViewHost.AddDocumentView(testView1, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView2, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView3, string.Empty, string.Empty, null);
+                avalonDockViewHost.AddDocumentView(testView4, string.Empty, string.Empty, null);
                 avalonDockViewHost.AddToolView(testView5, ToolViewLocation.Left, string.Empty, string.Empty);
 
                 SetActiveView(avalonDockViewHost, testView3);

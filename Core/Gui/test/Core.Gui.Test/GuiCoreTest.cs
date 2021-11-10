@@ -421,7 +421,7 @@ namespace Core.Gui.Test
                 var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
                 gui.Run();
 
-                gui.ViewHost.AddDocumentView(documentView, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(documentView, string.Empty, string.Empty, null);
 
                 // Call
                 gui.Dispose();
@@ -1282,7 +1282,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty, null);
 
                 // Precondition
                 Assert.IsNull(gui.Selection);
@@ -1312,7 +1312,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty, null);
 
                 gui.Selection = new object();
 
@@ -1341,7 +1341,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty, null);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 gui.Selection = new object();
@@ -1372,7 +1372,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty, null);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 gui.ViewHost.Remove(selectionProvider);
@@ -1405,7 +1405,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 gui.Selection = selection;
 
@@ -1435,7 +1435,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(testView, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
 
                 gui.Selection = selection;
 
@@ -1464,7 +1464,7 @@ namespace Core.Gui.Test
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings()))
             {
                 gui.Run();
-                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty);
+                gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty, null);
                 SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
                 // Precondition
@@ -1494,7 +1494,7 @@ namespace Core.Gui.Test
 
             var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, projectFactory, new GuiCoreSettings());
             gui.Run();
-            gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty);
+            gui.ViewHost.AddDocumentView(selectionProvider, string.Empty, string.Empty, null);
             SetActiveView((AvalonDockViewHost) gui.ViewHost, selectionProvider);
 
             gui.Dispose();

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls.Views;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Forms.ViewHost
 {
@@ -82,8 +83,9 @@ namespace Core.Gui.Forms.ViewHost
         /// <param name="view">The document view to add.</param>
         /// <param name="title">The title to show.</param>
         /// <param name="symbol">The symbol to show.</param>
+        /// <param name="fontFamily">The font family the symbol belong to.</param>
         /// <seealso cref="ActiveDocumentView"/>
-        void AddDocumentView(IView view, string title, string symbol);
+        void AddDocumentView(IView view, string title, string symbol, FontFamily fontFamily);
 
         /// <summary>
         /// Adds a tool view.
