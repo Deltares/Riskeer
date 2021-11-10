@@ -121,7 +121,7 @@
     <value>DA</value>
   </data>
   <data name="DuneErosionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Duinwaterkering - Duinafslag</value>
+    <value>Duinafslag</value>
   </data>
   <data name="DuneLocation_Offset_format" xml:space="preserve">
     <value>0.#</value>

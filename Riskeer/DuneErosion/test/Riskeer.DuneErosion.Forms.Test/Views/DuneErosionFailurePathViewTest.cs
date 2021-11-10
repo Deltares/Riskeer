@@ -444,7 +444,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Duinwaterkering - Duinafslag", mapDataCollection.Name);
+            Assert.AreEqual("Duinafslag", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Piping bij kunstwerk' zijn vervangen.", msgs[14]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[15]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[16]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinwaterkering - Duinafslag' zijn vervangen.", msgs[17]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinafslag' zijn vervangen.", msgs[17]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[18]);
             });
         }

@@ -93,7 +93,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 string text = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Duinwaterkering - Duinafslag", text);
+                Assert.AreEqual("Duinafslag", text);
             }
 
             mocks.VerifyAll();
