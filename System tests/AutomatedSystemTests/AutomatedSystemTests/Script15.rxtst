@@ -148,6 +148,10 @@
 					name="separatorCSVFile"
 					value=";">
 					</param>
+					<param
+					name="fractionLineChar"
+					value="/">
+					</param>
 				</parameters>
 			</testcase>
 			<smartfoldernode
@@ -336,26 +340,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="12401393-53d5-401a-907f-79149dc16b18"
-			name="SetRangeInSmartFolder"
-			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameFolderLoopValidationDoubleValuesInPropertiesPanel"
-					datasourceid="fe69f44f-870d-45af-aaed-6672764eb387"
-					variableid="e27c2717-8089-484f-8051-57077da63c0b"
-					variablename="nameOfSmartFolder">
-					</var>
-					<var
-					dataname="rangeLoopValidatePropertiesPanel"
-					datasourceid="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
-					variablename="rangeToBeSetInSmartFolder">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="12b252ba-1c1a-4d8c-9423-82175dacbb27"
 			name="GenerateCSVPropertiesPanel">
@@ -526,12 +510,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="script15_a_c_ExpectedDoubleValuesInPropertiesPanel"
-			errorbehavior="ContinueNextIteration"
-			id="17f30cae-48ec-44b0-8fc5-9f192325b9dc"
-			name="ValidateResultsDoubleValuesInPropertiesPanel">
-			</smartfoldernode>
-			<smartfoldernode
 			id="18455637-0838-4b15-bd6b-f6d6bc24f402"
 			name="SelectStateHBC">
 				<parameters>
@@ -564,26 +542,6 @@
 					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
 					variablename="concatenatedString">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="1db7f88d-a113-4e5b-8f18-93dde2345eec"
-			name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel"
-			ref="ee50ca81-702d-41bf-9d5a-c6659515e29c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="expectedValueParameter"
-					datasourceid="720ce3b1-d9d1-4c30-a433-626999fb14bf"
-					variableid="c4454e97-5bc7-4a1c-9898-54fd594a5f41"
-					variablename="expectedValue">
-					</var>
-					<var
-					dataname="nameParameter"
-					datasourceid="720ce3b1-d9d1-4c30-a433-626999fb14bf"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -721,74 +679,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="2da489aa-cb5f-4f1e-883b-ccd0475d4ac7"
-			name="ValidationDetailedResultsInPropertiesPanel">
-				<parameters>
-					<param
-					name="nameAlphasGroupInPropertiesPanel"
-					value="Invloedscoëfficiënten [-]">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<testmodule
-			id="2e700fb0-3599-47f5-b7c0-8373d052e67b"
-			name="ReplaceSubstring"
-			ref="92030a75-8205-438c-9c04-f777a02a0b87"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="FullPathReferenceFile"
-					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-					<var
-					dataname="RootPathReferenceFile"
-					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="fullPathCreatedCSVFile"
-					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="FullPathReferenceFile"
-					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
-					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
-					variablename="finalString">
-					</var>
-					<var
-					dataname="RooPathReferenceFile"
-					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
-					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
-					variablename="substringToReplaceWith">
-					</var>
-					<var
-					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
-					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
-					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
-					variablename="originalString">
-					</var>
-					<var
-					dataname="scriptOutputFolder"
-					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
-					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
-					variablename="substringToBeReplaced">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="3198f301-fc7c-4991-9a15-b62de7ae6e79"
 			name="CoupleCurrentItemToHBCDatabase"
@@ -823,26 +713,6 @@
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="369141dc-ddaf-49d1-a44c-04908e517208"
-			name="GenerateRandomNumberInRangeCases"
-			ref="6104469d-a535-47ca-b393-2256db12cca4"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameFolderWithCases"
-					datasourceid="51b6252f-f23a-4a29-a151-89a4b786080e"
-					variableid="14b8b92f-c5ac-45fe-9221-5b190e11f77f"
-					variablename="nameOfFolderWithCases">
-					</var>
-					<var
-					dataname="randomRow"
-					datasourceid="51b6252f-f23a-4a29-a151-89a4b786080e"
-					variableid="ff4e49ec-c5ac-454c-81f0-9c2b3d84516c"
-					variablename="generatedRandomNumber">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="36ac75a8-b27f-4b97-bb31-e2e1930c82c8"
@@ -1204,20 +1074,6 @@
 			id="5140b5b2-31f2-44dd-bf20-8778087a4294"
 			name="setup">
 			</setup>
-			<smartfoldernode
-			id="51b6252f-f23a-4a29-a151-89a4b786080e"
-			name="SelectCaseToRun">
-				<parameters>
-					<param
-					name="nameFolderWithCases"
-					value="HydraulicBoundaryConditionCases">
-					</param>
-					<param
-					name="randomRow"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			datasource="script15a_MessagesToValidateWhenStoppingCalculation"
 			errorbehavior="ContinueNextIteration"
@@ -1837,26 +1693,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="7a6e5bd5-e8af-4a38-8523-9bebb8b735d7"
-			name="SelecteCasesScript15a_c_Range"
-			ref="220e925d-6434-4d2c-8772-fc4edd938637"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="nameFolderWithCases"
-					datasourceid="51b6252f-f23a-4a29-a151-89a4b786080e"
-					variableid="b452abcc-83df-4d0e-96e2-3f3c41b7e754"
-					variablename="nameOfFolderWithCases">
-					</var>
-					<var
-					dataname="randomRow"
-					datasourceid="51b6252f-f23a-4a29-a151-89a4b786080e"
-					variableid="901d8aa4-4720-4dc2-9565-19bb5117bcba"
-					variablename="indexRowCaseToSelect">
-					</var>
-				</databinding>
-			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -2322,6 +2158,61 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="9a496640-4fb1-4d5f-aded-b38b00c519aa"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[replace "/" with "_"]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="d204466f-92af-4534-8c3a-46a4a962d735"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="intermediateString"
+					datasourceid="d204466f-92af-4534-8c3a-46a4a962d735"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="fractionLineChar"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="separatorCharInFileName"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fullPathToResultsItem"
+					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="charPathSeparator"
+					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="charUnderscore"
+					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script15d_LoopSeparateCalculations"
 			id="9a74e862-8b16-46ab-871d-ce2180d4ed61"
@@ -2350,6 +2241,12 @@
 			<smartfoldernode
 			id="9d0d9f40-d938-4a73-8d9f-57f314f4fea9"
 			name="CalculateFullPathReferenceFile">
+				<parameters>
+					<param
+					name="pathNoIllegalChars"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="9f6baf6b-e603-4b7c-b6b1-02231088862a"
@@ -3039,7 +2936,7 @@
 				</description>
 				<databinding>
 					<var
-					dataname="intermediateString"
+					dataname="intermediateString2"
 					datasourceid="d204466f-92af-4534-8c3a-46a4a962d735"
 					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
 					variablename="originalString">
@@ -3386,6 +3283,10 @@
 				<parameters>
 					<param
 					name="intermediateString"
+					value="">
+					</param>
+					<param
+					name="intermediateString2"
 					value="">
 					</param>
 					<param
@@ -4064,6 +3965,64 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="efbf7693-53d4-4c70-8c29-5e501ed559e4"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="FullPathReferenceFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="RootPathReferenceFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="fullPathCreatedCSVFile"
+					datasourceid="689e6e69-8446-4594-aae4-af2cecb1a87d"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="FullPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+					<var
+					dataname="RooPathReferenceFile"
+					datasourceid="bf9ec1a6-20c0-4d16-beee-c033d30e5f59"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="nameOfExportedPropertiesCSVFileClimateScenario"
+					datasourceid="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="2cf29f17-6bb0-408c-8799-f364f7480df0"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="efd80357-0883-4fef-a572-cdf525c15b25"
 			name="CalculateFullPathToResultsFromFullPathToCalculation"
 			ref="95b6d533-7626-4835-b2be-85c4ec709857"
@@ -4245,18 +4204,6 @@
 								<testmodule
 								id="9c641dc8-9484-4591-b870-535c54c6e065"
 								name="CloseViewCentralPanelWithFocus">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="51b6252f-f23a-4a29-a151-89a4b786080e"
-							name="SelectCaseToRun">
-								<testmodule
-								id="369141dc-ddaf-49d1-a44c-04908e517208"
-								name="GenerateRandomNumberInRangeCases">
-								</testmodule>
-								<testmodule
-								id="7a6e5bd5-e8af-4a38-8523-9bebb8b735d7"
-								name="SelecteCasesScript15a_c_Range">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -4577,22 +4524,6 @@
 											</smartfoldernode>
 										</smartfoldernode>
 										<smartfoldernode
-										id="2da489aa-cb5f-4f1e-883b-ccd0475d4ac7"
-										name="ValidationDetailedResultsInPropertiesPanel">
-											<testmodule
-											id="12401393-53d5-401a-907f-79149dc16b18"
-											name="SetRangeInSmartFolder">
-											</testmodule>
-											<smartfoldernode
-											id="17f30cae-48ec-44b0-8fc5-9f192325b9dc"
-											name="ValidateResultsDoubleValuesInPropertiesPanel">
-												<testmodule
-												id="1db7f88d-a113-4e5b-8f18-93dde2345eec"
-												name="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel">
-												</testmodule>
-											</smartfoldernode>
-										</smartfoldernode>
-										<smartfoldernode
 										id="689e6e69-8446-4594-aae4-af2cecb1a87d"
 										name="ValidateProperties">
 											<smartfoldernode
@@ -4604,6 +4535,10 @@
 												</testmodule>
 												<testmodule
 												id="17d0b900-cbae-47f8-863b-9817ec14a6aa"
+												name="ReplaceSubstring">
+												</testmodule>
+												<testmodule
+												id="9a496640-4fb1-4d5f-aded-b38b00c519aa"
 												name="ReplaceSubstring">
 												</testmodule>
 												<testmodule
@@ -4623,7 +4558,7 @@
 											id="9d0d9f40-d938-4a73-8d9f-57f314f4fea9"
 											name="CalculateFullPathReferenceFile">
 												<testmodule
-												id="2e700fb0-3599-47f5-b7c0-8373d052e67b"
+												id="efbf7693-53d4-4c70-8c29-5e501ed559e4"
 												name="ReplaceSubstring">
 												</testmodule>
 											</smartfoldernode>
