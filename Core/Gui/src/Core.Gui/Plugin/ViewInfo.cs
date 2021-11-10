@@ -22,6 +22,7 @@
 using System;
 using System.Drawing;
 using Core.Common.Controls.Views;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Plugin
 {
@@ -73,6 +74,16 @@ namespace Core.Gui.Plugin
         /// </summary>
         public Image Image { get; set; }
 
+        /// <summary>
+        /// Gets or sets the symbol of the view.
+        /// </summary>
+        public string Symbol { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font family for the symbol of the view.
+        /// </summary>
+        public FontFamily FontFamily { get; set; }
+        
         /// <summary>
         /// Gets or sets the optional method for checking if this view info object can be 
         /// used for a given data object. Function arguments:
@@ -202,6 +213,16 @@ namespace Core.Gui.Plugin
         public Image Image { get; set; }
 
         /// <summary>
+        /// Gets or sets the symbol of the view.
+        /// </summary>
+        public string Symbol { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font family for the symbol of the view.
+        /// </summary>
+        public FontFamily FontFamily { get; set; }
+        
+        /// <summary>
         /// Gets or sets the optional method for checking if this view info object can be 
         /// used for a given data object. Function arguments:
         /// <list type="number">
@@ -268,6 +289,8 @@ namespace Core.Gui.Plugin
                 ViewType = viewInfo.ViewType,
                 Description = viewInfo.Description,
                 Image = viewInfo.Image,
+                Symbol = viewInfo.Symbol,
+                FontFamily = viewInfo.FontFamily,
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
                 CloseForData = (v, o) => viewInfo.CloseForData != null && viewInfo.CloseForData((TView) v, o),
