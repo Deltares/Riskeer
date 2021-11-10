@@ -136,9 +136,6 @@ namespace Core.Gui
             SetTitle();
         }
 
-        /// <summary>
-        /// Gets the active state info object.
-        /// </summary>
         public StateInfo ActiveStateInfo
         {
             get

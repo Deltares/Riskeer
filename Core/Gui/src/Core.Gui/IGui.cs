@@ -24,6 +24,7 @@ using Core.Common.Base.Storage;
 using Core.Gui.Commands;
 using Core.Gui.ContextMenu;
 using Core.Gui.Forms.PropertyView;
+using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using Core.Gui.Selection;
 using Core.Gui.Settings;
@@ -37,6 +38,11 @@ namespace Core.Gui
                             IApplicationSelection, IViewController, IContextMenuBuilderProvider,
                             IMainWindowController, IPluginsHost, IDisposable
     {
+        /// <summary>
+        /// Gets the active state info object.
+        /// </summary>
+        StateInfo ActiveStateInfo { get; }
+
         /// <summary>
         /// Gets the object responsible for retrieving the <see cref="ObjectProperties{T}"/>
         /// instance for a given data object.
