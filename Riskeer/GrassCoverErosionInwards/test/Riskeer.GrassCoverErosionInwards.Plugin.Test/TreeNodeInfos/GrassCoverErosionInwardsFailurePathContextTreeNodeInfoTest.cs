@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", text);
+            Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", text);
             mocks.VerifyAll();
         }
 

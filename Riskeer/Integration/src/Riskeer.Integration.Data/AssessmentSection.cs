@@ -158,7 +158,7 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
+        /// Gets or sets the "Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
         /// is not equal to the contribution of the current failure mechanism.</exception>

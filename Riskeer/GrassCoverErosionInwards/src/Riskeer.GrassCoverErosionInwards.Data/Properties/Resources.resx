@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GrassCoverErosionInwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding erosie kruin en binnentalud</value>
+    <value>Grasbekleding erosie kruin en binnentalud</value>
   </data>
   <data name="GrassCoverErosionInwardsFailureMechanism_DisplayCode" xml:space="preserve">
     <value>GEKB</value>

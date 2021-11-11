@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding erosie kruin en binnentalud.
+        ///   Looks up a localized string similar to Grasbekleding erosie kruin en binnentalud.
         /// </summary>
         public static string GrassCoverErosionInwardsFailureMechanism_DisplayName {
             get {
