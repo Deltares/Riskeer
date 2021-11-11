@@ -21,7 +21,6 @@
 
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -65,7 +63,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsInputContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityInwardsCalculationScenario), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, info.Image);
         }
 
         [Test]

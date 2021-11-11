@@ -22,7 +22,6 @@
 using System.Linq;
 using System.Threading;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
@@ -69,7 +68,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, info.Image);
         }
 
         [Test]

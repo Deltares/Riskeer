@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -63,7 +62,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(ProbabilisticPipingCalculationScenario), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, info.Image);
         }
 
         [Test]

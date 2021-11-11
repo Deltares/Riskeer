@@ -246,14 +246,12 @@ namespace Riskeer.Piping.Plugin
             yield return new RiskeerViewInfo<PipingCalculationsContext, PipingFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<PipingFailurePathContext, PipingFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = ClosePipingFailurePathViewForData
@@ -265,7 +263,6 @@ namespace Riskeer.Piping.Plugin
                 PipingFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new PipingFailureMechanismResultView(
@@ -278,7 +275,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CreateInstance = context => new PipingCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 CloseForData = ClosePipingCalculationsViewForData
@@ -288,7 +284,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                Image = PipingFormsResources.PipingInputIcon,
                 CloseForData = ClosePipingInputViewForData
             };
 
@@ -296,7 +291,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                Image = PipingFormsResources.PipingInputIcon,
                 CloseForData = ClosePipingInputViewForData
             };
 
@@ -304,7 +298,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
                 CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
@@ -313,7 +306,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData.Sections,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   (IFailureMechanism) context.WrappedData,
@@ -324,7 +316,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 AdditionalDataCheck = context => !context.WrappedData.HasOutput || context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticFaultTreePipingOutput,
                 CreateInstance = context => new ProbabilisticFaultTreePipingOutputView(
@@ -336,7 +327,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput && context.WrappedData.Output.ProfileSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
                 CreateInstance = context =>
@@ -351,7 +341,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 AdditionalDataCheck = context => !context.WrappedData.HasOutput || context.WrappedData.Output.SectionSpecificOutput is PartialProbabilisticFaultTreePipingOutput,
                 CreateInstance = context =>
@@ -366,7 +355,6 @@ namespace Riskeer.Piping.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 AdditionalDataCheck = context => context.WrappedData.HasOutput && context.WrappedData.Output.SectionSpecificOutput is PartialProbabilisticSubMechanismPipingOutput,
                 CreateInstance = context =>

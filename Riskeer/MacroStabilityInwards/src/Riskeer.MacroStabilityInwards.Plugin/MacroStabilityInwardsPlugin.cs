@@ -246,14 +246,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationsContext, MacroStabilityInwardsFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new MacroStabilityInwardsFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
@@ -265,7 +263,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 MacroStabilityInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
@@ -277,7 +274,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CreateInstance = context => new MacroStabilityInwardsCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 CloseForData = CloseCalculationsViewForData
@@ -287,7 +283,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.MacroStabilityInwardsCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData,
                 CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
                                                                                context.FailureMechanism.GeneralInput,
@@ -299,7 +294,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = CloseScenariosViewForData,
                 CreateInstance = context => new MacroStabilityInwardsScenariosView(context.WrappedData, context.FailureMechanism)
             };
@@ -308,7 +302,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData, context.FailureMechanism.GeneralInput,
                                                                                 () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
@@ -317,7 +310,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new RiskeerViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
                                                                                                   (IFailureMechanism) context.WrappedData,
