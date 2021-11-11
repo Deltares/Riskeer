@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows;
+using System.Windows.Media;
 using Xceed.Wpf.AvalonDock.Layout;
 
 namespace Core.Gui.Forms.ViewHost
@@ -36,12 +37,27 @@ namespace Core.Gui.Forms.ViewHost
             "Symbol", typeof(string), typeof(CustomLayoutAnchorable), new PropertyMetadata(default(string)));
 
         /// <summary>
+        /// The font family <see cref="DependencyProperty"/>.
+        /// </summary>
+        public static readonly DependencyProperty FontFamilyProperty = DependencyProperty.Register(
+            "FontFamily", typeof(FontFamily), typeof(CustomLayoutDocument), new PropertyMetadata(default(FontFamily)));
+
+        /// <summary>
         /// Gets or sets the symbol.
         /// </summary>
         public string Symbol
         {
             get => (string) GetValue(SymbolProperty);
             set => SetValue(SymbolProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the font family of the symbol.
+        /// </summary>
+        public FontFamily FontFamily
+        {
+            get => (FontFamily) GetValue(FontFamilyProperty);
+            set => SetValue(FontFamilyProperty, value);
         }
     }
 }

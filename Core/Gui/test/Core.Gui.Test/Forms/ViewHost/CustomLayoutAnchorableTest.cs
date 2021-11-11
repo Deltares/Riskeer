@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Media;
 using Core.Gui.Forms.ViewHost;
 using NUnit.Framework;
 using Xceed.Wpf.AvalonDock.Layout;
@@ -33,16 +34,19 @@ namespace Core.Gui.Test.Forms.ViewHost
         {
             // Setup
             const string symbol = "123";
+            var fontFamily = new FontFamily();
 
             // Call
             var layoutAnchorable = new CustomLayoutAnchorable
             {
-                Symbol = symbol
+                Symbol = symbol,
+                FontFamily = fontFamily
             };
 
             // Assert
             Assert.IsInstanceOf<LayoutAnchorable>(layoutAnchorable);
             Assert.AreEqual(symbol, layoutAnchorable.Symbol);
+            Assert.AreSame(fontFamily, layoutAnchorable.FontFamily);
         }
     }
 }
