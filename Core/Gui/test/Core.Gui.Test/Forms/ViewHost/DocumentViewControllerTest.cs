@@ -208,7 +208,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Equal(viewName),
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
 
@@ -266,7 +266,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
 
@@ -308,7 +308,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
 
@@ -350,7 +350,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
 
@@ -438,7 +438,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
 
@@ -487,7 +487,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
 
@@ -543,7 +543,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
 
@@ -600,7 +600,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestViewDerivative>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestViewDerivative; });
 
@@ -645,11 +645,11 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data1),
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null));
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Matches(c => c.Data == data2),
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null));
 
             mocks.ReplayAll();
@@ -685,7 +685,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(viewList);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => viewList.Add(invocation.Arguments[0] as TestView));
             viewHost.Expect(vh => vh.BringToFront(Arg<TestView>.Matches(c => c == viewList.First())));
@@ -875,7 +875,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
@@ -966,7 +966,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
@@ -1008,7 +1008,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
@@ -1053,7 +1053,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); })
                     .Repeat.Twice();
@@ -1116,7 +1116,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
                                                      Arg<string>.Is.Anything,
-                                                     Arg<string>.Is.Equal(string.Empty),
+                                                     Arg<string>.Is.Null,
                                                      Arg<FontFamily>.Is.Null))
                     .WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); });
             viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull))
