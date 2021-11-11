@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
+using System.Windows.Media;
 using Core.Common.Controls.Views;
-using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Plugin
 {
@@ -68,11 +67,6 @@ namespace Core.Gui.Plugin
         /// </list>
         /// </summary>
         public Func<IView, object, string> GetViewName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the icon of the view.
-        /// </summary>
-        public Image Image { get; set; }
 
         /// <summary>
         /// Gets or sets the method used to determine the symbol for the view.
@@ -208,11 +202,6 @@ namespace Core.Gui.Plugin
         public Func<TView, TData, string> GetViewName { get; set; }
 
         /// <summary>
-        /// Gets or sets the icon of the view.
-        /// </summary>
-        public Image Image { get; set; }
-
-        /// <summary>
         /// Gets or sets the method used to determine the symbol for the view.
         /// </summary>
         public Func<string> GetSymbol { get; set; }
@@ -288,7 +277,6 @@ namespace Core.Gui.Plugin
                 ViewDataType = viewInfo.ViewDataType,
                 ViewType = viewInfo.ViewType,
                 Description = viewInfo.Description,
-                Image = viewInfo.Image,
                 GetSymbol = () => viewInfo.GetSymbol != null ? viewInfo.GetSymbol() : string.Empty,
                 GetFontFamily = () => viewInfo.GetFontFamily?.Invoke(),
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),

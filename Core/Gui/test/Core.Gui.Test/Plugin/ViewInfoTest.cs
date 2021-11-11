@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
+using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
-using Core.Gui.Test.Properties;
 using NUnit.Framework;
 using Rhino.Mocks;
-using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Test.Plugin
 {
@@ -45,7 +43,6 @@ namespace Core.Gui.Test.Plugin
             Assert.IsNull(viewInfo.ViewType);
             Assert.IsNull(viewInfo.Description);
             Assert.IsNull(viewInfo.GetViewName);
-            Assert.IsNull(viewInfo.Image);
             Assert.IsNull(viewInfo.GetSymbol);
             Assert.IsNull(viewInfo.GetFontFamily);
             Assert.IsNull(viewInfo.AdditionalDataCheck);
@@ -70,7 +67,6 @@ namespace Core.Gui.Test.Plugin
             Type viewType = typeof(StringView);
             const string newDescription = "<text>";
             string GetViewName(IView view, object o) => "";
-            Image image = Resources.abacus;
             string GetSymbol() => "<symbol>";
             FontFamily GetFontFamily() => new FontFamily();
             bool AdditionalDataCheck(object o) => true;
@@ -85,7 +81,6 @@ namespace Core.Gui.Test.Plugin
             viewInfo.ViewType = viewType;
             viewInfo.Description = newDescription;
             viewInfo.GetViewName = GetViewName;
-            viewInfo.Image = image;
             viewInfo.GetSymbol = GetSymbol;
             viewInfo.GetFontFamily = GetFontFamily;
             viewInfo.AdditionalDataCheck = AdditionalDataCheck;
@@ -100,7 +95,6 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(viewType, viewInfo.ViewType);
             Assert.AreEqual(newDescription, viewInfo.Description);
             Assert.AreEqual((Func<IView, object, string>) GetViewName, viewInfo.GetViewName);
-            Assert.AreEqual(image, viewInfo.Image);
             Assert.AreEqual((Func<string>) GetSymbol, viewInfo.GetSymbol);
             Assert.AreEqual((Func<FontFamily>) GetFontFamily, viewInfo.GetFontFamily);
             Assert.AreEqual((Func<object, bool>) AdditionalDataCheck, viewInfo.AdditionalDataCheck);
@@ -162,7 +156,6 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(typeof(StringView), viewInfo.ViewType);
             Assert.IsNull(viewInfo.Description);
             Assert.IsNull(viewInfo.GetViewName);
-            Assert.IsNull(viewInfo.Image);
             Assert.IsNull(viewInfo.GetSymbol);
             Assert.IsNull(viewInfo.GetFontFamily);
             Assert.IsNull(viewInfo.AdditionalDataCheck);
@@ -180,7 +173,6 @@ namespace Core.Gui.Test.Plugin
 
             const string newDescription = "<text>";
             string GetViewName(IView view, int o) => "";
-            Image image = Resources.abacus;
             string GetSymbol() => "<symbol>";
             FontFamily GetFontFamily() => new FontFamily();
             bool AdditionalDataCheck(int o) => true;
@@ -192,7 +184,6 @@ namespace Core.Gui.Test.Plugin
             // Call
             viewInfo.Description = newDescription;
             viewInfo.GetViewName = (Func<IView, int, string>) GetViewName;
-            viewInfo.Image = image;
             viewInfo.GetSymbol = GetSymbol;
             viewInfo.GetFontFamily = GetFontFamily;
             viewInfo.AdditionalDataCheck = AdditionalDataCheck;
@@ -204,7 +195,6 @@ namespace Core.Gui.Test.Plugin
             // Assert
             Assert.AreEqual(newDescription, viewInfo.Description);
             Assert.AreEqual((Func<IView, int, string>) GetViewName, viewInfo.GetViewName);
-            Assert.AreEqual(image, viewInfo.Image);
             Assert.AreEqual((Func<string>) GetSymbol, viewInfo.GetSymbol);
             Assert.AreEqual((Func<FontFamily>) GetFontFamily, viewInfo.GetFontFamily);
             Assert.AreEqual((Func<int, bool>) AdditionalDataCheck, viewInfo.AdditionalDataCheck);
@@ -263,7 +253,6 @@ namespace Core.Gui.Test.Plugin
                 return newViewName;
             }
 
-            Image image = Resources.abacus;
             string GetSymbol() => symbol;
             FontFamily GetFontFamily() => fontFamily;
 
@@ -297,7 +286,6 @@ namespace Core.Gui.Test.Plugin
 
             viewInfo.Description = newDescription;
             viewInfo.GetViewName = (Func<IView, int, string>) GetViewName;
-            viewInfo.Image = image;
             viewInfo.GetSymbol = GetSymbol;
             viewInfo.GetFontFamily = GetFontFamily;
             viewInfo.AdditionalDataCheck = AdditionalDataCheck;
@@ -322,7 +310,6 @@ namespace Core.Gui.Test.Plugin
             Assert.AreEqual(typeof(StringView), info.ViewType);
             Assert.AreEqual(newDescription, info.Description);
             Assert.AreEqual(newViewName, info.GetViewName(stringView, dataObject));
-            Assert.AreEqual(image, info.Image);
             Assert.AreEqual(symbol, info.GetSymbol());
             Assert.AreSame(fontFamily, info.GetFontFamily());
             Assert.IsTrue(viewInfo.AdditionalDataCheck(dataObject));
