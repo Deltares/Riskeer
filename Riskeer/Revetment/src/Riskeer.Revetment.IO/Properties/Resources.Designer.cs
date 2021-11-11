@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -258,20 +258,20 @@ namespace Riskeer.Revetment.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfklap voor toets op maat).
-        /// </summary>
-        public static string CoverType_GrassTailorMadeWaveImpact {
-            get {
-                return ResourceManager.GetString("CoverType_GrassTailorMadeWaveImpact", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gras (golfklap).
         /// </summary>
         public static string CoverType_GrassWaveImpact {
             get {
                 return ResourceManager.GetString("CoverType_GrassWaveImpact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gras (golfklap met golfrichting).
+        /// </summary>
+        public static string CoverType_GrassWaveImpactWithWaveDirection {
+            get {
+                return ResourceManager.GetString("CoverType_GrassWaveImpactWithWaveDirection", resourceCulture);
             }
         }
         

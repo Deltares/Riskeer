@@ -175,9 +175,9 @@
     <data name="CoverType_GrassWaveImpact" xml:space="preserve">
     <value>Gras (golfklap)</value>
   </data>
-    <data name="CoverType_GrassTailorMadeWaveImpact" xml:space="preserve">
-    <value>Gras (golfklap voor toets op maat)</value>
-  </data>
+    <data name="CoverType_GrassWaveImpactWithWaveDirection" xml:space="preserve">
+        <value>Gras (golfklap met golfrichting)</value>
+    </data>
     <data name="BekledingenConfiguratieBasisSchema0To1" type="System.Resources.ResXFileRef, System.Windows.Forms">
         <value>..\resources\bekledingenconfiguratiebasisschema0to1.xslt;System.String, mscorlib, Version=4.0.0.0,
             Culture=neutral, PublicKeyToken=b77a5c561934e089;iso-8859-1

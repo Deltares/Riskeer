@@ -63,10 +63,10 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
         }
 
         [Test]
-        public void Name_GrassTailorMadeWaveImpact_CorrectName()
+        public void Name_GrassWaveImpactWithWaveDirection_CorrectName()
         {
             // Assert
-            Assert.AreEqual("Gras (golfklap voor toets op maat)", CoverType.GrassTailorMadeWaveImpact.Name);
+            Assert.AreEqual("Gras (golfklap met golfrichting)", CoverType.GrassWaveImpactWithWaveDirection.Name);
         }
     }
 }
