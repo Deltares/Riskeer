@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
@@ -114,22 +112,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreEqual(typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext), dataType);
-            }
-        }
-
-        [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
-        {
-            // Setup
-            using (var plugin = new DuneErosionPlugin())
-            {
-                ViewInfo info = GetInfo(plugin);
-
-                // Call
-                Image image = info.Image;
-
-                // Assert
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
             }
         }
 

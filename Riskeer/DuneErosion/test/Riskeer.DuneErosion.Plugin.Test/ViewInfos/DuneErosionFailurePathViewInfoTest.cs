@@ -22,7 +22,6 @@
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -62,7 +61,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(DuneErosionFailurePathContext), info.DataType);
             Assert.AreEqual(typeof(DuneErosionFailurePathContext), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, info.Image);
         }
 
         [Test]

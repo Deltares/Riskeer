@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -81,17 +79,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
         }
-
-        [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
-        {
-            // Call
-            Image image = info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
-        }
-
+        
         [Test]
         [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnClosingStructuresFailureMechanismView()

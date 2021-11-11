@@ -170,7 +170,6 @@ namespace Riskeer.DuneErosion.Plugin
                 DuneErosionFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new DuneErosionFailureMechanismResultView(
@@ -181,14 +180,12 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new RiskeerViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<DuneErosionFailurePathContext, DuneErosionFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
@@ -197,7 +194,6 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new RiskeerViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>(() => Gui)
             {
                 GetViewName = (view, context) => GetDuneLocationCalculationsViewName(context.WrappedData, context.FailureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities),
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData.DuneLocationCalculations,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData.DuneLocationCalculations,
