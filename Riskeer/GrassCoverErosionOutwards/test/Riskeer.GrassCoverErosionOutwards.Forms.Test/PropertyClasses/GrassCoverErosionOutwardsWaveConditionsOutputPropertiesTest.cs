@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     {
         private const int waveRunUpPropertyIndex = 0;
         private const int waveImpactPropertyIndex = 1;
-        private const int tailorMadeWaveImpactPropertyIndex = 2;
+        private const int waveImpactWithWaveDirectionPropertyIndex = 2;
 
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
@@ -94,13 +94,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new TestWaveConditionsOutput()
             };
 
-            var tailorMadeWaveImpactOutput = new[]
+            var waveImpactWithWaveDirectionOutput = new[]
             {
                 new TestWaveConditionsOutput()
             };
 
             GrassCoverErosionOutwardsWaveConditionsOutput output =
-                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+                GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(waveRunUpOutput, waveImpactOutput, waveImpactWithWaveDirectionOutput);
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties(output, new GrassCoverErosionOutwardsWaveConditionsInput());
@@ -116,10 +116,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             WaveConditionsOutputProperties waveImpactProperties = properties.WaveImpactOutput[0];
             Assert.AreSame(waveImpactOutput[0], waveImpactProperties.Data);
 
-            CollectionAssert.AllItemsAreInstancesOfType(properties.TailorMadeWaveImpactOutput, typeof(WaveConditionsOutputProperties));
-            Assert.AreEqual(tailorMadeWaveImpactOutput.Length, properties.TailorMadeWaveImpactOutput.Length);
-            WaveConditionsOutputProperties tailorMadeWaveImpactProperties = properties.TailorMadeWaveImpactOutput[0];
-            Assert.AreSame(tailorMadeWaveImpactOutput[0], tailorMadeWaveImpactProperties.Data);
+            CollectionAssert.AllItemsAreInstancesOfType(properties.WaveImpactWithWaveDirectionOutput, typeof(WaveConditionsOutputProperties));
+            Assert.AreEqual(waveImpactWithWaveDirectionOutput.Length, properties.WaveImpactWithWaveDirectionOutput.Length);
+            WaveConditionsOutputProperties waveImpactWithWaveDirectionOutputProperties = properties.WaveImpactWithWaveDirectionOutput[0];
+            Assert.AreSame(waveImpactWithWaveDirectionOutput[0], waveImpactWithWaveDirectionOutputProperties.Data);
         }
 
         [Test]
@@ -157,18 +157,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.",
                                                                             true);
 
-            PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
+            PropertyDescriptor waveImpactWithWaveDirectionProperty = dynamicProperties[waveImpactWithWaveDirectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveImpactWithWaveDirectionProperty,
                                                                             "Resultaat",
-                                                                            "Hydraulische belastingen voor golfklap voor toets op maat",
-                                                                            "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.",
+                                                                            "Hydraulische belastingen voor golfklap met golfrichting",
+                                                                            "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek.",
                                                                             true);
         }
 
         [Test]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, "Hydraulische belastingen voor golfoploop", "Berekende hydraulische belastingen voor golfoploop.")]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, "Hydraulische belastingen voor golfklap", "Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.")]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Hydraulische belastingen voor golfklap voor toets op maat", "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.")]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Hydraulische belastingen voor golfklap met golfrichting", "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek.")]
         public void Constructor_CalculationTypeWaveRunUpOrWaveImpact_PropertiesHaveExpectedAttributesValues(
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, string expectedDisplayName, string expectedDescription)
         {
@@ -217,7 +217,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(waveRunUpVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveRunUpOutput)));
             Assert.AreEqual(waveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactOutput)));
-            Assert.AreEqual(tailorMadeWaveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.TailorMadeWaveImpactOutput)));
+            Assert.AreEqual(tailorMadeWaveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactWithWaveDirectionOutput)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(null));
         }
     }

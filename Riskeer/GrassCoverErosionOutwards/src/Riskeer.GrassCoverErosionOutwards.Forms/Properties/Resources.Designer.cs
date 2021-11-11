@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -82,26 +82,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Descript" +
-                        "ion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfklap voor toets op maat.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayN" +
-                        "ame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek..
         /// </summary>
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description {
@@ -116,6 +96,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_D" +
+                        "escription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golfklap met golfrichting.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_D" +
+                        "isplayName", resourceCulture);
             }
         }
         
@@ -138,26 +138,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutpu" +
-                        "t_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen voor golfklap voor toets op maat.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutpu" +
-                        "t_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_Description {
@@ -174,6 +154,26 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayN" +
                         "ame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirectionOutput_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirecti" +
+                        "onOutput_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen voor golfklap met golfrichting.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirectionOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirecti" +
+                        "onOutput_DisplayName", resourceCulture);
             }
         }
         

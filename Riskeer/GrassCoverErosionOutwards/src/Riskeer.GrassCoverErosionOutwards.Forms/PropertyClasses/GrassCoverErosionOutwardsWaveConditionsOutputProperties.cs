@@ -93,9 +93,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         [DynamicVisible]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description))]
-        public WaveConditionsOutputProperties[] TailorMadeWaveImpactOutput
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirectionOutput_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirectionOutput_Description))]
+        public WaveConditionsOutputProperties[] WaveImpactWithWaveDirectionOutput
         {
             get
             {
@@ -120,7 +120,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
-                case nameof(TailorMadeWaveImpactOutput):
+                case nameof(WaveImpactWithWaveDirectionOutput):
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;

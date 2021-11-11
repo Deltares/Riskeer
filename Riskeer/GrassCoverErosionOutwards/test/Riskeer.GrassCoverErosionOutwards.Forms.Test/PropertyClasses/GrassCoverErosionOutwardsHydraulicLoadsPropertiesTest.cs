@@ -36,7 +36,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         private const int groupPropertyIndex = 2;
         private const int waveRunUpPropertyIndex = 3;
         private const int waveImpactPropertyIndex = 4;
-        private const int tailorMadeWaveImpactPropertyIndex = 5;
+        private const int waveImpactWithWaveDirectionPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -110,12 +110,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek.",
                                                                             true);
 
-            PropertyDescriptor tailorMadeWaveImpactProperty = dynamicProperties[tailorMadeWaveImpactPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(tailorMadeWaveImpactProperty.Converter);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(tailorMadeWaveImpactProperty,
+            PropertyDescriptor waveImpactWithWaveDirectionProperty = dynamicProperties[waveImpactWithWaveDirectionPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(waveImpactWithWaveDirectionProperty.Converter);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveImpactWithWaveDirectionProperty,
                                                                             modelSettingsCategory,
-                                                                            "Golfklap voor toets op maat",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.",
+                                                                            "Golfklap met golfrichting",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek.",
                                                                             true);
         }
     }

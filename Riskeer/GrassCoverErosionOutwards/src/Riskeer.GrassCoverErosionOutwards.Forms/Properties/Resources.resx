@@ -126,14 +126,14 @@
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap zonder invloed van de golfinvalshoek.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description" xml:space="preserve">
-    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek, voor toets op maat.</value>
+  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_Description" xml:space="preserve">
+    <value>De modelinstellingen voor het berekenen van golfcondities voor golfklap met invloed van de golfinvalshoek.</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpact_DisplayName" xml:space="preserve">
     <value>Golfklap</value>
   </data>
-  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName" xml:space="preserve">
-    <value>Golfklap voor toets op maat</value>
+  <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_DisplayName" xml:space="preserve">
+    <value>Golfklap met golfrichting</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismProperties_WaveRunUp_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor golfoploop.</value>
@@ -147,10 +147,10 @@
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactOutput_DisplayName" xml:space="preserve">
     <value>Hydraulische belastingen voor golfklap</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_Description" xml:space="preserve">
-    <value>Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek, voor toets op maat.</value>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirectionOutput_Description" xml:space="preserve">
+    <value>Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_TailorMadeWaveImpactOutput_DisplayName" xml:space="preserve">
-    <value>Hydraulische belastingen voor golfklap voor toets op maat</value>
+  <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_WaveImpactWithWaveDirectionOutput_DisplayName" xml:space="preserve">
+    <value>Hydraulische belastingen voor golfklap met golfrichting</value>
   </data>
 </root>

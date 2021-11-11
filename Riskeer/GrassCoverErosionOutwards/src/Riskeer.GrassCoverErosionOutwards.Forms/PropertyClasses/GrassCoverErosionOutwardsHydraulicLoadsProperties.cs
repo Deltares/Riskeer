@@ -40,7 +40,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int groupPropertyIndex = 3;
         private const int waveRunUpPropertyIndex = 4;
         private const int waveImpactPropertyIndex = 5;
-        private const int tailorMadeWaveImpactPropertyIndex = 6;
+        private const int waveImpactWithWaveDirectionPropertyIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsProperties"/>.
@@ -89,11 +89,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(tailorMadeWaveImpactPropertyIndex)]
+        [PropertyOrder(waveImpactWithWaveDirectionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_WaveImpactWithWaveDirection_Description))]
         public GeneralWaveConditionsInputProperties WaveImpactWithWaveDirection
         {
             get
