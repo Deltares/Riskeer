@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.DbContext
         public string InAssemblyInputComments { get; set; }
         public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
-        public string CalculationsComments { get; set; }
+        public string CalculationsInputComments { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

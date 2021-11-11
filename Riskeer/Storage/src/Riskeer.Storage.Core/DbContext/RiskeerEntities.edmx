@@ -276,7 +276,7 @@
           <Property Name="InAssemblyInputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="InAssemblyOutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotInAssemblyComments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="CalculationsComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="CalculationsInputComments" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
         <EntityType Name="FailureMechanismFailureMechanismSectionEntity">
           <Key>
@@ -5222,7 +5222,7 @@
           <Property Name="InAssemblyInputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="InAssemblyOutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotInAssemblyComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="CalculationsComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="CalculationsInputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ClosingStructureEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructureEntity" />
@@ -8711,7 +8711,7 @@
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
-                <ScalarProperty Name="CalculationsComments" ColumnName="CalculationsComments" />
+                <ScalarProperty Name="CalculationsInputComments" ColumnName="CalculationsInputComments" />
                 <ScalarProperty Name="NotInAssemblyComments" ColumnName="NotInAssemblyComments" />
                 <ScalarProperty Name="InAssemblyOutputComments" ColumnName="InAssemblyOutputComments" />
                 <ScalarProperty Name="InAssemblyInputComments" ColumnName="InAssemblyInputComments" />
