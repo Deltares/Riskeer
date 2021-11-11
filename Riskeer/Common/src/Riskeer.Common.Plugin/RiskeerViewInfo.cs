@@ -42,8 +42,8 @@ namespace Riskeer.Common.Plugin
                 throw new ArgumentNullException(nameof(getGuiFunc));
             }
 
-            GetSymbol = () => getGuiFunc()?.ActiveStateInfo?.Symbol;
-            GetFontFamily = () => getGuiFunc()?.ActiveStateInfo?.FontFamily;
+            GetSymbol = () => getGuiFunc().ActiveStateInfo.Symbol;
+            GetFontFamily = () => getGuiFunc().ActiveStateInfo.FontFamily;
         }
     }
 
