@@ -103,8 +103,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact)]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection, GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact)]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.All, GrassCoverErosionOutwardsWaveConditionsCalculationType.All)]
         public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCalculationType_ReturnGrassCoverErosionOutwardsWaveConditionsCalculationType(
             ConfigurationGrassCoverErosionOutwardsCalculationType originalValue, GrassCoverErosionOutwardsWaveConditionsCalculationType expectedResult)
@@ -123,8 +123,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact, "Gras (golfoploop en golfklap)")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp, "Gras (golfoploop)")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact, "Gras (golfklap)")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection, "Gras (golfklap voor toets op maat)")]
-        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, "Gras (golfoploop en golfklap voor toets op maat)")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection, "Gras (golfklap met golfrichting)")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, "Gras (golfoploop en golfklap met golfrichting)")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCalculationType.All, "Gras (alle types)")]
         public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCalculationType_ReturnExpectedText(
             ConfigurationGrassCoverErosionOutwardsCalculationType originalValue, string expectedText)
@@ -197,8 +197,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase("Gras (golfoploop en golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase("Gras (golfoploop)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
         [TestCase("Gras (golfklap)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
-        [TestCase("Gras (golfklap voor toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
-        [TestCase("Gras (golfoploop en golfklap voor toets op maat)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
+        [TestCase("Gras (golfklap met golfrichting)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
+        [TestCase("Gras (golfoploop en golfklap met golfrichting)", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
         [TestCase("Gras (alle types)", ConfigurationGrassCoverErosionOutwardsCalculationType.All)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(
             string originalValue, ConfigurationGrassCoverErosionOutwardsCalculationType expectedValue)
@@ -217,8 +217,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUp)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, ConfigurationGrassCoverErosionOutwardsCalculationType.All)]
         public void ConvertFrom_ValidGrassCoverErosionOutwardsWaveConditionsCalculationType_ReturnConfigurationGrassCoverErosionOutwardsCalculationType(
             GrassCoverErosionOutwardsWaveConditionsCalculationType originalValue, ConfigurationGrassCoverErosionOutwardsCalculationType expectedValue)

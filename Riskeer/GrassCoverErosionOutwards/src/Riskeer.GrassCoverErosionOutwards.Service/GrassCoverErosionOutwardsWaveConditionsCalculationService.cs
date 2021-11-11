@@ -168,7 +168,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             }
 
             if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
-                || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact)
+                || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)
             {
                 TotalWaterLevelCalculations = waterLevelCount * 2;
                 return;
@@ -179,8 +179,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
         private static bool ShouldCalculateTailorMadeWaveImpact(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
         {
-            return calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
-                   || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+            return calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
+                   || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
         }
 
@@ -196,7 +196,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             return calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All
-                   || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
+                   || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection;
         }
 
         /// <summary>
@@ -222,9 +222,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpactWithWaveDirection(waveImpactWithWaveDirectionOutput);
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection(waveRunUpOutput, waveImpactWithWaveDirectionOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.All:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(waveRunUpOutput, waveImpactOutput, waveImpactWithWaveDirectionOutput);

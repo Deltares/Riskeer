@@ -113,7 +113,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 case nameof(WaveRunUpOutput):
                     return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
-                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                 case nameof(WaveImpactOutput):
@@ -121,8 +121,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                 case nameof(WaveImpactWithWaveDirectionOutput):
-                    return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
-                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                    return input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
+                           || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
                            || input.CalculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                 default:
                     return false;

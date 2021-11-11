@@ -48,16 +48,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         WaveRunUpAndWaveImpact = 3,
 
         /// <summary>
-        /// Calculate the tailor made wave impact.
+        /// Calculate the wave impact with wave direction.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName))]
-        TailorMadeWaveImpact = 4,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpactWithWaveDirection_DisplayName))]
+        WaveImpactWithWaveDirection = 4,
 
         /// <summary>
-        /// Calculate both the wave run up and tailor made wave impact.
+        /// Calculate both the wave run up and wave impact with wave direction.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName))]
-        WaveRunUpAndTailorMadeWaveImpact = 5,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpactWithWaveDirection_DisplayName))]
+        WaveRunUpAndWaveImpactWithWaveDirection = 5,
 
         /// <summary>
         /// Calculate the wave run up, wave impact and tailor made wave impact.

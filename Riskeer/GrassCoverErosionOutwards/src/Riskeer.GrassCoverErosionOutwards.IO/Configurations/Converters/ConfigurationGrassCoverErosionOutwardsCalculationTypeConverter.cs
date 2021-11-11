@@ -63,9 +63,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact:
                         return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection:
-                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact;
+                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection:
-                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact;
+                        return GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.All:
                         return GrassCoverErosionOutwardsWaveConditionsCalculationType.All;
                     default:
@@ -84,9 +84,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection:
-                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName;
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpactWithWaveDirection_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection:
-                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName;
+                        return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpactWithWaveDirection_DisplayName;
                     case ConfigurationGrassCoverErosionOutwardsCalculationType.All:
                         return RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_All_DisplayName;
                     default:
@@ -129,12 +129,12 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
                 }
 
-                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName)
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpactWithWaveDirection_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection;
                 }
 
-                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName)
+                if (stringValue == RiskeerGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpactWithWaveDirection_DisplayName)
                 {
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection;
                 }
@@ -166,9 +166,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact;
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact;
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection:
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection;
-                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
+                case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection:
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection;
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.All:
                     return ConfigurationGrassCoverErosionOutwardsCalculationType.All;

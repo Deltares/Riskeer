@@ -71,7 +71,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
 
                 if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp
-                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(
@@ -88,8 +88,8 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
                             calculation.Name, calculation.InputParameters, calculation.Output.WaveImpactOutput, CoverType.GrassWaveImpact, getTargetProbabilityFunc));
                 }
 
-                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact
-                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact
+                if (calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
+                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
                     || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.All)
                 {
                     exportableWaveConditions.AddRange(

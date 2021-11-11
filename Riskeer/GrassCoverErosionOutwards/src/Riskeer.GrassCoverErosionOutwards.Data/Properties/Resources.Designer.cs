@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -109,16 +109,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfklap voor toets op maat).
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_TailorMadeWaveImpact_Displ" +
-                        "ayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gras (golfklap).
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpact_DisplayName {
@@ -128,12 +118,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gras (golfoploop en golfklap voor toets op maat).
+        ///   Looks up a localized string similar to Gras (golfklap met golfrichting).
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWaveImpact_DisplayName {
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpactWithWaveDirection_DisplayName {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_TailorMadeWa" +
-                        "veImpact_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveImpactWithWaveDirectio" +
+                        "n_DisplayName", resourceCulture);
             }
         }
         
@@ -144,6 +134,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpact_D" +
                         "isplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gras (golfoploop en golfklap met golfrichting).
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpactWithWaveDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationType_WaveRunUp_and_WaveImpactWi" +
+                        "thWaveDirection_DisplayName", resourceCulture);
             }
         }
         

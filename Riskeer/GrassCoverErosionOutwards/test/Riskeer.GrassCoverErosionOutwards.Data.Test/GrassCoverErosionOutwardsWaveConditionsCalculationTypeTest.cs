@@ -44,10 +44,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, 3
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, 4
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection, 4
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, 5
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, 5
                     },
                     {
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.All, 6
@@ -72,10 +72,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, "Gras (golfoploop en golfklap)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Gras (golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection, "Gras (golfklap met golfrichting)"
                     },
                     {
-                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, "Gras (golfoploop en golfklap voor toets op maat)"
+                        GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, "Gras (golfoploop en golfklap met golfrichting)"
                     },
                     {
                         GrassCoverErosionOutwardsWaveConditionsCalculationType.All, "Gras (alle types)"

@@ -168,7 +168,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [Test]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, "Hydraulische belastingen voor golfoploop", "Berekende hydraulische belastingen voor golfoploop.")]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, "Hydraulische belastingen voor golfklap", "Berekende hydraulische belastingen voor golfklap zonder invloed van de golfinvalshoek.")]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, "Hydraulische belastingen voor golfklap met golfrichting", "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek.")]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection, "Hydraulische belastingen voor golfklap met golfrichting", "Berekende hydraulische belastingen voor golfklap met invloed van de golfinvalshoek.")]
         public void Constructor_CalculationTypeWaveRunUpOrWaveImpact_PropertiesHaveExpectedAttributesValues(
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, string expectedDisplayName, string expectedDescription)
         {
@@ -199,8 +199,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact, true, true, false)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUp, true, false, false)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact, false, true, false)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact, false, false, true)]
-        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact, true, false, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection, false, false, true)]
+        [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, true, false, true)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, true, true, true)]
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(
             GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpVisible, bool waveImpactVisible, bool tailorMadeWaveImpactVisible)
