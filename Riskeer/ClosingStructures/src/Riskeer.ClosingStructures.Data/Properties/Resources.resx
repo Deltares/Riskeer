@@ -121,7 +121,7 @@
     <value>BSKW</value>
   </data>
   <data name="ClosingStructuresFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Betrouwbaarheid sluiting kunstwerk</value>
+    <value>Betrouwbaarheid sluiting kunstwerk</value>
   </data>
   <data name="ClosingStructureInflowModelType_VerticalWall_DisplayName" xml:space="preserve">
     <value>Verticale wand</value>

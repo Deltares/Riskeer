@@ -98,7 +98,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", text);
+            Assert.AreEqual("Betrouwbaarheid sluiting kunstwerk", text);
             mocks.VerifyAll();
         }
 
