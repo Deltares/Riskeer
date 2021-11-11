@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
                     waveImpactOutput.Add(outputEntity.Read());
                 }
 
-                if (outputEntity.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact))
+                if (outputEntity.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection))
                 {
                     waveImpactWithWaveDirectionOutput.Add(outputEntity.Read());
                 }

@@ -374,7 +374,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                         WaterLevel = outputCLevel,
                         Order = 2,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
-                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)
                     }
                 }
             };
@@ -433,21 +433,21 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                         WaterLevel = outputBLevel,
                         Order = 4,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
-                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)
                     },
                     new GrassCoverErosionOutwardsWaveConditionsOutputEntity
                     {
                         WaterLevel = outputALevel,
                         Order = 3,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
-                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)
                     },
                     new GrassCoverErosionOutwardsWaveConditionsOutputEntity
                     {
                         WaterLevel = outputCLevel,
                         Order = 5,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
-                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)
                     }
                 }
             };
@@ -575,14 +575,14 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                         WaterLevel = outputBLevel,
                         Order = 1,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
-                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)
                     },
                     new GrassCoverErosionOutwardsWaveConditionsOutputEntity
                     {
                         WaterLevel = outputALevel,
                         Order = 0,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
-                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)
                     }
                 }
             };

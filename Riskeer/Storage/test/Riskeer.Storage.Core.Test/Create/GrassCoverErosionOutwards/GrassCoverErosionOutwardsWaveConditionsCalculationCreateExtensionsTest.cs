@@ -282,7 +282,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
 
             Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp), outputEntities.ElementAt(0).OutputType);
             Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact), outputEntities.ElementAt(1).OutputType);
-            Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact), outputEntities.ElementAt(2).OutputType);
+            Assert.AreEqual(Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection), outputEntities.ElementAt(2).OutputType);
         }
 
         [Test]
@@ -346,7 +346,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Create_HasCalculationOutputWithTailorMadeWaveImpact_EntityHasCalculationOutputEntity()
+        public void Create_HasCalculationOutputWithWaveImpactWithWaveDirection_EntityHasCalculationOutputEntity()
         {
             // Setup
             var registry = new PersistenceRegistry();
@@ -372,7 +372,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                 1
             }, outputEntities.Select(oe => oe.Order));
 
-            Assert.IsTrue(outputEntities.All(oe => oe.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)));
+            Assert.IsTrue(outputEntities.All(oe => oe.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpactWithWaveDirection)));
         }
     }
 }

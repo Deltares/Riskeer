@@ -37,8 +37,8 @@ namespace Riskeer.Storage.Core.DbContext
         WaveImpact = 2,
 
         /// <summary>
-        /// Corresponds to the wave conditions output for tailor made wave impact.
+        /// Corresponds to the wave conditions output for wave impact with wave direction.
         /// </summary>
-        TailorMadeWaveImpact = 3
+        WaveImpactWithWaveDirection = 3
     }
 }
