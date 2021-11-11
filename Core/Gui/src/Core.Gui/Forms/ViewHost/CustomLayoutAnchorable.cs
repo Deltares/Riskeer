@@ -40,7 +40,7 @@ namespace Core.Gui.Forms.ViewHost
         /// The font family <see cref="DependencyProperty"/>.
         /// </summary>
         public static readonly DependencyProperty FontFamilyProperty = DependencyProperty.Register(
-            "FontFamily", typeof(FontFamily), typeof(CustomLayoutDocument), new PropertyMetadata(default(FontFamily)));
+            "FontFamily", typeof(FontFamily), typeof(CustomLayoutAnchorable), new PropertyMetadata(default(FontFamily)));
 
         /// <summary>
         /// Gets or sets the symbol.
