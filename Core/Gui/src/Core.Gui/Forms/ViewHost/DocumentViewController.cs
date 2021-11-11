@@ -174,7 +174,6 @@ namespace Core.Gui.Forms.ViewHost
             openedViewLookup.Add(data, view);
 
             viewHost.AddDocumentView(view.Item1, viewInfo.GetViewName(view.Item1, data), viewInfo.GetSymbol(), viewInfo.GetFontFamily());
-            viewHost.SetImage(view.Item1, viewInfo.Image);
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
