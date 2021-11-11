@@ -376,6 +376,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -385,6 +386,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 PipingFailureMechanismMetaEntities =
                 {
                     new PipingFailureMechanismMetaEntity
@@ -423,6 +425,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -432,6 +435,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 MacroStabilityInwardsFailureMechanismMetaEntities =
                 {
                     new MacroStabilityInwardsFailureMechanismMetaEntity
@@ -473,6 +477,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -481,6 +486,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 MacroStabilityOutwardsFailureMechanismMetaEntities =
                 {
                     new MacroStabilityOutwardsFailureMechanismMetaEntity
@@ -520,6 +526,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string originalNotInAssemblyText = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -529,6 +536,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = originalNotInAssemblyText,
+                CalculationsInputComments = calculationsInputComments,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -568,6 +576,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -577,6 +586,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -616,6 +626,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -625,6 +636,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 StabilityStoneCoverFailureMechanismMetaEntities =
                 {
                     new StabilityStoneCoverFailureMechanismMetaEntity
@@ -664,6 +676,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -673,6 +686,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 WaveImpactAsphaltCoverFailureMechanismMetaEntities =
                 {
                     new WaveImpactAsphaltCoverFailureMechanismMetaEntity
@@ -712,6 +726,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -721,6 +736,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 HeightStructuresFailureMechanismMetaEntities =
                 {
                     new HeightStructuresFailureMechanismMetaEntity
@@ -760,6 +776,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -769,6 +786,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 ClosingStructuresFailureMechanismMetaEntities =
                 {
                     new ClosingStructuresFailureMechanismMetaEntity
@@ -805,6 +823,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -814,6 +833,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 StabilityPointStructuresFailureMechanismMetaEntities =
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
@@ -850,6 +870,8 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
+
             var random = new Random(39);
             bool inAssembly = random.NextBoolean();
             double n = random.NextDouble(1.0, 20.0);
@@ -862,6 +884,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 DuneErosionFailureMechanismMetaEntities =
                 {
                     new DuneErosionFailureMechanismMetaEntity
@@ -900,6 +923,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string inAssemblyInputComments = "Some input text";
             const string inAssemblyOutputComments = "Some output text";
             const string notInAssemblyComments = "Really not in assembly";
+            const string calculationsInputComments = "Some calculations comments";
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -908,6 +932,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = inAssemblyInputComments,
                 InAssemblyOutputComments = inAssemblyOutputComments,
                 NotInAssemblyComments = notInAssemblyComments,
+                CalculationsInputComments = calculationsInputComments,
                 PipingStructureFailureMechanismMetaEntities =
                 {
                     new PipingStructureFailureMechanismMetaEntity
@@ -985,37 +1010,37 @@ namespace Riskeer.Storage.Core.Test.Read
             AssertFailureMechanismEqual(microstabilityInAssembly,
                                         microstability.InAssemblyInputComments,
                                         microstability.InAssemblyOutputComments,
-                                        microstability.NotInAssemblyComments, 
+                                        microstability.NotInAssemblyComments,
                                         microstability.CalculationsInputComments,
                                         section.Microstability);
             AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
                                         strengthAndStabilityParallelConstruction.InAssemblyInputComments,
                                         strengthAndStabilityParallelConstruction.InAssemblyOutputComments,
-                                        strengthAndStabilityParallelConstruction.NotInAssemblyComments, 
+                                        strengthAndStabilityParallelConstruction.NotInAssemblyComments,
                                         strengthAndStabilityParallelConstruction.CalculationsInputComments,
                                         section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
                                         waterOverpressureAsphaltRevetment.InAssemblyInputComments,
                                         waterOverpressureAsphaltRevetment.InAssemblyOutputComments,
-                                        waterOverpressureAsphaltRevetment.NotInAssemblyComments, 
+                                        waterOverpressureAsphaltRevetment.NotInAssemblyComments,
                                         waterOverpressureAsphaltRevetment.CalculationsInputComments,
                                         section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
                                         grassRevetmentSlidingOutwards.InAssemblyInputComments,
                                         grassRevetmentSlidingOutwards.InAssemblyOutputComments,
-                                        grassRevetmentSlidingOutwards.NotInAssemblyComments, 
+                                        grassRevetmentSlidingOutwards.NotInAssemblyComments,
                                         grassRevetmentSlidingOutwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffOutwards);
             AssertFailureMechanismEqual(grassRevetmentSlidingInwardsInAssembly,
                                         grassRevetmentSlidingInwards.InAssemblyInputComments,
                                         grassRevetmentSlidingInwards.InAssemblyOutputComments,
-                                        grassRevetmentSlidingInwards.NotInAssemblyComments, 
+                                        grassRevetmentSlidingInwards.NotInAssemblyComments,
                                         grassRevetmentSlidingInwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffInwards);
             AssertFailureMechanismEqual(technicalInnovationsInAssembly,
                                         technicalInnovation.InAssemblyInputComments,
                                         technicalInnovation.InAssemblyOutputComments,
-                                        technicalInnovation.NotInAssemblyComments, 
+                                        technicalInnovation.NotInAssemblyComments,
                                         technicalInnovation.CalculationsInputComments,
                                         section.TechnicalInnovation);
         }
