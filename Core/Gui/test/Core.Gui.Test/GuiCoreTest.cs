@@ -1512,7 +1512,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void ActiveStateInfo_GuiWithoutStateInfos_ExpectedValue()
+        public void ActiveStateInfo_GuiWithoutStateInfos_ReturnsExpectedValue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1537,7 +1537,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void ActiveStateInfo_GuiWithStateInfosAndWithoutProject_ExpectedValue()
+        public void ActiveStateInfo_GuiWithStateInfosAndWithoutProject_ReturnsExpectedValue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1568,7 +1568,7 @@ namespace Core.Gui.Test
         }
 
         [Test]
-        public void ActiveStateInfo_GuiWithStateInfosAndWithProject_ExpectedValue()
+        public void ActiveStateInfo_GuiWithStateInfosAndWithProject_ReturnsExpectedValue()
         {
             // Setup
             var mocks = new MockRepository();
