@@ -551,7 +551,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, false, true, false)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, false, false, false)]
         public void Calculate_WithValidInput_SetsOutput(
-            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpNull, bool waveImpactNull, bool tailorMadeWaveImpactNull)
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpNull, bool waveImpactNull, bool waveImpactWithWaveDirectionNull)
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
@@ -585,7 +585,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNotNull(calculationOutput);
                 Assert.AreEqual(waveRunUpNull, calculationOutput.WaveRunUpOutput == null);
                 Assert.AreEqual(waveImpactNull, calculationOutput.WaveImpactOutput == null);
-                Assert.AreEqual(tailorMadeWaveImpactNull, calculationOutput.WaveImpactWithWaveDirectionOutput == null);
+                Assert.AreEqual(waveImpactWithWaveDirectionNull, calculationOutput.WaveImpactWithWaveDirectionOutput == null);
 
                 if (!waveRunUpNull)
                 {
@@ -597,7 +597,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                     Assert.AreEqual(3, calculationOutput.WaveImpactOutput.Count());
                 }
 
-                if (!tailorMadeWaveImpactNull)
+                if (!waveImpactWithWaveDirectionNull)
                 {
                     Assert.AreEqual(3, calculationOutput.WaveImpactWithWaveDirectionOutput.Count());
                 }

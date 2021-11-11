@@ -138,7 +138,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 }
 
                 IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = null;
-                if (ShouldCalculateTailorMadeWaveImpact(calculationType))
+                if (ShouldCalculateWaveImpactWithWaveDirection(calculationType))
                 {
                     CurrentCalculationType = Resources.GrassCoverErosionOutwardsWaveConditions_WaveImpactWithWaveDirection_DisplayName;
                     waveImpactWithWaveDirectionOutput = CalculateWaveImpactWithWaveDirection(calculation, failureMechanism, hydraulicBoundaryDatabase, assessmentLevel, targetProbability);
@@ -177,7 +177,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             TotalWaterLevelCalculations = waterLevelCount;
         }
 
-        private static bool ShouldCalculateTailorMadeWaveImpact(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
+        private static bool ShouldCalculateWaveImpactWithWaveDirection(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType)
         {
             return calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
                    || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection

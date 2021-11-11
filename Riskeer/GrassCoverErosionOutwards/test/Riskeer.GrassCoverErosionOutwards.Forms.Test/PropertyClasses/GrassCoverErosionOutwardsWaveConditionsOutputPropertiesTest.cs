@@ -203,7 +203,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, true, false, true)]
         [TestCase(GrassCoverErosionOutwardsWaveConditionsCalculationType.All, true, true, true)]
         public void DynamicVisibleValidationMethod_DependingOnRelevancy_ReturnExpectedVisibility(
-            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpVisible, bool waveImpactVisible, bool tailorMadeWaveImpactVisible)
+            GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType, bool waveRunUpVisible, bool waveImpactVisible, bool waveImpactWithWaveDirectionVisible)
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsOutput output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create();
@@ -217,7 +217,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(waveRunUpVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveRunUpOutput)));
             Assert.AreEqual(waveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactOutput)));
-            Assert.AreEqual(tailorMadeWaveImpactVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactWithWaveDirectionOutput)));
+            Assert.AreEqual(waveImpactWithWaveDirectionVisible, properties.DynamicVisibleValidationMethod(nameof(properties.WaveImpactWithWaveDirectionOutput)));
             Assert.IsFalse(properties.DynamicVisibleValidationMethod(null));
         }
     }
