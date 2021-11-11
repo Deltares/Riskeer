@@ -98,7 +98,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", text);
+            Assert.AreEqual("Sterkte en stabiliteit puntconstructies", text);
             mocks.VerifyAll();
         }
 

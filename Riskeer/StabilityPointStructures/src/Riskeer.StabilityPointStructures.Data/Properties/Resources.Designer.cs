@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -109,7 +109,7 @@ namespace Riskeer.StabilityPointStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Sterkte en stabiliteit puntconstructies.
+        ///   Looks up a localized string similar to Sterkte en stabiliteit puntconstructies.
         /// </summary>
         public static string StabilityPointStructuresFailureMechanism_DisplayName {
             get {

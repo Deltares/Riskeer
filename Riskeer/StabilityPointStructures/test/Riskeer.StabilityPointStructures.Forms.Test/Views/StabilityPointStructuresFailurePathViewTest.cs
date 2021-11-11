@@ -701,7 +701,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", mapDataCollection.Name);
+            Assert.AreEqual("Sterkte en stabiliteit puntconstructies", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
