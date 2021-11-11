@@ -69,7 +69,7 @@ INSERT INTO FailureMechanismEntity (
     [InAssemblyInputComments],
     [InAssemblyOutputComments],
     [NotInAssemblyComments],
-    [CalculationsComments]
+    [CalculationsInputComments]
 ) 
 SELECT
     [FailureMechanismEntityId],
