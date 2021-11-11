@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using Core.Common.Controls.Views;
 using FontFamily = System.Windows.Media.FontFamily;
 
@@ -114,12 +113,5 @@ namespace Core.Gui.Forms.ViewHost
         /// <param name="view">The view to set the title for.</param>
         /// <param name="title">The title.</param>
         void SetTitle(IView view, string title);
-
-        /// <summary>
-        /// Sets the image for a document view or tool view.
-        /// </summary>
-        /// <param name="view">The view to set the image for.</param>
-        /// <param name="image">The image.</param>
-        void SetImage(IView view, Image image);
     }
 }

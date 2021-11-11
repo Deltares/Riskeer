@@ -22,12 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using Core.Common.Controls.Views;
-using Core.Common.Util.Drawing;
 using Xceed.Wpf.AvalonDock.Layout;
 using FontFamily = System.Windows.Media.FontFamily;
 
@@ -238,15 +236,6 @@ namespace Core.Gui.Forms.ViewHost
             if (layoutContent != null)
             {
                 layoutContent.Title = title;
-            }
-        }
-
-        public void SetImage(IView view, Image image)
-        {
-            var layoutContent = GetLayoutContent<LayoutContent>(view);
-            if (layoutContent != null)
-            {
-                layoutContent.IconSource = image.AsBitmapImage();
             }
         }
 

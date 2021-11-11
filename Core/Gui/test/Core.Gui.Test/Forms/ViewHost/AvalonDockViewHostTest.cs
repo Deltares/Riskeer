@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
+using System.Windows.Media;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
@@ -179,7 +179,7 @@ namespace Core.Gui.Test.Forms.ViewHost
             {
                 const string title = "Random title";
                 const string symbol = "Random symbol";
-                var fontFamily = new System.Windows.Media.FontFamily();
+                var fontFamily = new FontFamily();
 
                 var testView = new TestView();
 
@@ -493,27 +493,6 @@ namespace Core.Gui.Test.Forms.ViewHost
 
                 // Assert
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet(avalonDockViewHost, testView, titleToSet));
-            }
-        }
-
-        [Test]
-        public void SetImage_DocumentView_ImageSet()
-        {
-            // Setup
-            var testView = new TestView();
-
-            using (var avalonDockViewHost = new AvalonDockViewHost())
-            {
-                avalonDockViewHost.AddDocumentView(testView, string.Empty, string.Empty, null);
-
-                // Precondition
-                Assert.IsFalse(IsImageSet(avalonDockViewHost, testView));
-
-                // Call
-                avalonDockViewHost.SetImage(testView, new Bitmap(16, 16));
-
-                // Assert
-                Assert.IsTrue(IsImageSet(avalonDockViewHost, testView));
             }
         }
 
@@ -876,27 +855,6 @@ namespace Core.Gui.Test.Forms.ViewHost
             }
         }
 
-        [Test]
-        public void SetImage_ToolView_ImageSet()
-        {
-            // Setup
-            var testView = new TestView();
-
-            using (var avalonDockViewHost = new AvalonDockViewHost())
-            {
-                avalonDockViewHost.AddToolView(testView, ToolViewLocation.Left, string.Empty, string.Empty);
-
-                // Precondition
-                Assert.IsFalse(IsImageSet(avalonDockViewHost, testView));
-
-                // Call
-                avalonDockViewHost.SetImage(testView, new Bitmap(16, 16));
-
-                // Assert
-                Assert.IsTrue(IsImageSet(avalonDockViewHost, testView));
-            }
-        }
-
         #endregion
 
         #region Helper methods
@@ -961,15 +919,6 @@ namespace Core.Gui.Test.Forms.ViewHost
         private static bool IsAnyViewActive(AvalonDockViewHost avalonDockViewHost)
         {
             return avalonDockViewHost.DockingManager.ActiveContent != null;
-        }
-
-        private static bool IsImageSet(AvalonDockViewHost avalonDockViewHost, IView view)
-        {
-            return avalonDockViewHost.DockingManager
-                                     .Layout
-                                     .Descendents()
-                                     .OfType<LayoutContent>()
-                                     .First(lc => ((WindowsFormsHost) lc.Content).Child == view).IconSource != null;
         }
 
         private static void SetActiveView(AvalonDockViewHost avalonDockViewHost, IView view)
