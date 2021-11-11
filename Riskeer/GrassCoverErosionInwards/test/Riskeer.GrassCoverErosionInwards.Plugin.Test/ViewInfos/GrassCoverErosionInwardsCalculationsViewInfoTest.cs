@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -61,7 +60,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationGroupContext), info.DataType);
             Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, info.Image);
         }
 
         [Test]

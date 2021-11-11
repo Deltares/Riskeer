@@ -180,14 +180,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new RiskeerViewInfo<GrassCoverErosionInwardsCalculationsContext, GrassCoverErosionInwardsFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CloseForData = CloseFailurePathViewForData,
                 CreateInstance = context => new GrassCoverErosionInwardsFailurePathView(context.WrappedData, context.Parent)
@@ -201,8 +199,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 CreateInstance = context => new GrassCoverErosionInwardsScenariosView(context.WrappedData, context.ParentFailureMechanism),
-                CloseForData = CloseScenariosViewForData,
-                Image = RiskeerCommonFormsResources.ScenariosIcon
+                CloseForData = CloseScenariosViewForData
             };
 
             yield return new RiskeerViewInfo<
@@ -211,7 +208,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 GrassCoverErosionInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultView(
@@ -222,7 +218,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new RiskeerViewInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInputView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 GetViewData = context => context.Calculation,
                 CloseForData = CloseInputViewForData
@@ -230,7 +225,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new RiskeerViewInfo<OvertoppingOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingOutputGeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => Resources.OvertoppingOutput_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
@@ -240,7 +234,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new RiskeerViewInfo<DikeHeightOutputContext, GrassCoverErosionInwardsCalculation, DikeHeightOutputGeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.DikeHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
@@ -250,7 +243,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new RiskeerViewInfo<OvertoppingRateOutputContext, GrassCoverErosionInwardsCalculation, OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GeneralOutputIcon,
                 GetViewName = (view, context) => GrassCoverErosionInwardsFormsResources.OvertoppingRate_DisplayName,
                 GetViewData = context => context.WrappedData,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
@@ -263,7 +255,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CreateInstance = context => new GrassCoverErosionInwardsCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseCalculationsViewForData
             };

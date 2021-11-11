@@ -21,13 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Storage;
-using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.Commands;
 using Core.Gui.Forms.Main;
@@ -117,22 +115,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreEqual($"Waterstanden bij doelkans - {expectedProbabilityText}", viewName);
-            }
-        }
-
-        [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
-        {
-            // Setup
-            using (var plugin = new RiskeerPlugin())
-            {
-                ViewInfo info = GetViewInfo(plugin);
-
-                // Call
-                Image image = info.Image;
-
-                // Assert
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, image);
             }
         }
 

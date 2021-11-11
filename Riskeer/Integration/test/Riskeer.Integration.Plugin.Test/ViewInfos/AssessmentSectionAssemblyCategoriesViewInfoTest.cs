@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Linq;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -102,16 +100,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual(typeof(AssessmentSectionAssemblyCategoriesView), viewType);
-        }
-
-        [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
-        {
-            // Call
-            Image image = info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.NormsIcon, image);
         }
 
         [Test]

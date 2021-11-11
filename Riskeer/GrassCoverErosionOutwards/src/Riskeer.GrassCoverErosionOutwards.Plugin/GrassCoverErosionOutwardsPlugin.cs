@@ -113,14 +113,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new RiskeerViewInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
@@ -132,7 +130,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 GrassCoverErosionOutwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(
@@ -144,7 +141,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>,
                 WaveConditionsInputView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(

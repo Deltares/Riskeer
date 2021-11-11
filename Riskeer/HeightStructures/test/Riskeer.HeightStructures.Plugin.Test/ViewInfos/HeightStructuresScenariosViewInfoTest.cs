@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -86,16 +84,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreSame(calculationGroup, viewData);
-        }
-
-        [Test]
-        public void Image_Always_ReturnScenariosIcon()
-        {
-            // Call
-            Image image = info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ScenariosIcon, image);
         }
 
         [Test]

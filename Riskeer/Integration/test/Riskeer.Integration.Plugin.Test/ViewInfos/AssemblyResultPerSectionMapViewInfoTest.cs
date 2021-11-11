@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Gui.Plugin;
@@ -29,7 +28,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Views;
-using Riskeer.Integration.Plugin.Properties;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
@@ -68,16 +66,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Assemblagekaart", viewName);
-        }
-
-        [Test]
-        public void Image_Always_ReturnsExpectedIcon()
-        {
-            // Call
-            Image image = info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(Resources.AssemblyResultPerSectionMap, image);
         }
 
         [Test]

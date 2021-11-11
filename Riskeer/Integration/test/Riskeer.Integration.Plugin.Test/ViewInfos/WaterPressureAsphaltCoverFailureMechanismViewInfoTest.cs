@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Features;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -83,16 +81,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
-        }
-
-        [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
-        {
-            // Call
-            Image image = info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismIcon, image);
         }
 
         [Test]

@@ -22,14 +22,12 @@
 using System.Linq;
 using System.Threading;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -72,7 +70,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(TOutputContext), info.DataType);
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculation), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(Resources.GeneralOutputIcon, info.Image);
         }
 
         [Test]

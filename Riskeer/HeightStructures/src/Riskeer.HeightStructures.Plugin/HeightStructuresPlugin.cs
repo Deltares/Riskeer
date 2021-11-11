@@ -162,14 +162,12 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new RiskeerViewInfo<HeightStructuresCalculationsContext, HeightStructuresFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new HeightStructuresFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
@@ -184,7 +182,6 @@ namespace Riskeer.HeightStructures.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 CreateInstance = context => new HeightStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism),
                 CloseForData = CloseScenariosViewForData,
-                Image = RiskeerCommonFormsResources.ScenariosIcon
             };
 
             yield return new RiskeerViewInfo<
@@ -193,7 +190,6 @@ namespace Riskeer.HeightStructures.Plugin
                 HeightStructuresFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new HeightStructuresFailureMechanismResultView(
@@ -207,7 +203,6 @@ namespace Riskeer.HeightStructures.Plugin
                 CreateInstance = context => new HeightStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseCalculationsViewForData
             };

@@ -22,7 +22,6 @@
 using System.Linq;
 using System.Threading;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -71,7 +70,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(StructuresOutputContext), info.DataType);
             Assert.AreEqual(typeof(IStructuresCalculation), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, info.Image);
         }
 
         [Test]

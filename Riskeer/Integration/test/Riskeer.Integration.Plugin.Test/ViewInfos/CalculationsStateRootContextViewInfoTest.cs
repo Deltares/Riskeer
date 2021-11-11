@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
@@ -68,16 +67,6 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.AreEqual("Trajectkaart", viewName);
-        }
-
-        [Test]
-        public void Image_Always_ReturnsExpectedIcon()
-        {
-            // Call
-            Image image = info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerFormsResources.Map, image);
         }
 
         [Test]
