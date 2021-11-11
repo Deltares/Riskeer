@@ -92,14 +92,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return new RiskeerViewInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
@@ -110,7 +108,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 WaveImpactAsphaltCoverFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
@@ -122,7 +119,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 ICalculation<WaveConditionsInput>,
                 WaveConditionsInputView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(

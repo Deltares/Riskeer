@@ -95,14 +95,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return new RiskeerViewInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
@@ -113,7 +111,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 StabilityStoneCoverResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StabilityStoneCoverResultView(
@@ -125,7 +122,6 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 StabilityStoneCoverWaveConditionsCalculation,
                 WaveConditionsInputView>(() => Gui)
             {
-                Image = RiskeerCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(

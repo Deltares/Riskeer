@@ -24,7 +24,6 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Gui.Plugin;
 using NUnit.Framework;
@@ -77,7 +76,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(typeof(WaveImpactAsphaltCoverWaveConditionsInputContext), info.DataType);
             Assert.AreEqual(typeof(ICalculation<WaveConditionsInput>), info.ViewDataType);
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GenericInputOutputIcon, info.Image);
         }
 
         [Test]
