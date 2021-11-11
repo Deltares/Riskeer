@@ -22,6 +22,7 @@
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
@@ -36,6 +37,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views;
+using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 {
@@ -69,7 +71,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
                     typeof(WaveImpactAsphaltCoverHydraulicLoadsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverFailurePathContext),
@@ -91,7 +93,18 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
+
+            var mockRepository = new MockRepository();
+            var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+            mockRepository.ReplayAll();
+            
+            using (var plugin = new WaveImpactAsphaltCoverPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -103,7 +116,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
                     typeof(WaveImpactAsphaltCoverFailureMechanismView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverFailurePathContext),
@@ -120,7 +133,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                     typeof(WaveImpactAsphaltCoverWaveConditionsInputContext),
                     typeof(ICalculation<WaveConditionsInput>),
                     typeof(WaveConditionsInputView));
+
+                viewInfos.ForEachElementDo(vi =>
+                {
+                    Assert.AreEqual(symbol, vi.GetSymbol());
+                    Assert.AreSame(fontFamily, vi.GetFontFamily());
+                });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
