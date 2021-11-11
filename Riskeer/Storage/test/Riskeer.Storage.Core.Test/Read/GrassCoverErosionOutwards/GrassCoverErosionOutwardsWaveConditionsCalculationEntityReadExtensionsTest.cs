@@ -345,7 +345,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Read_EntityWithCalculationOutputEntityWithWaveRunUpAndTailorMadeWaveImpact_CalculationWithOutput()
+        public void Read_EntityWithCalculationOutputEntityWithWaveRunUpAndWaveImpactWithWaveDirection_CalculationWithOutput()
         {
             // Setup
             const double outputALevel = 0;
@@ -386,18 +386,18 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            double accuracy = calculation.Output.TailorMadeWaveImpactOutput.First().WaterLevel.GetAccuracy();
+            double accuracy = calculation.Output.WaveImpactWithWaveDirectionOutput.First().WaterLevel.GetAccuracy();
 
             Assert.AreEqual(2, calculation.Output.WaveRunUpOutput.Count());
             Assert.AreEqual(outputALevel, calculation.Output.WaveRunUpOutput.ElementAt(0).WaterLevel, accuracy);
             Assert.AreEqual(outputBLevel, calculation.Output.WaveRunUpOutput.ElementAt(1).WaterLevel, accuracy);
 
-            Assert.AreEqual(1, calculation.Output.TailorMadeWaveImpactOutput.Count());
-            Assert.AreEqual(outputCLevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(1, calculation.Output.WaveImpactWithWaveDirectionOutput.Count());
+            Assert.AreEqual(outputCLevel, calculation.Output.WaveImpactWithWaveDirectionOutput.ElementAt(0).WaterLevel, accuracy);
         }
 
         [Test]
-        public void Read_EntityWithCalculationOutputEntityWithWaveRunUpAndWaveImpactAndTailorMadeWaveImpact_CalculationWithOutput()
+        public void Read_EntityWithCalculationOutputEntityWithWaveRunUpAndWaveImpactAndWaveImpactWithWaveDirection_CalculationWithOutput()
         {
             // Setup
             const double outputALevel = 0;
@@ -468,10 +468,10 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
             Assert.AreEqual(1, calculation.Output.WaveImpactOutput.Count());
             Assert.AreEqual(outputCLevel, calculation.Output.WaveImpactOutput.ElementAt(0).WaterLevel, accuracy);
 
-            Assert.AreEqual(3, calculation.Output.TailorMadeWaveImpactOutput.Count());
-            Assert.AreEqual(outputALevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(0).WaterLevel, accuracy);
-            Assert.AreEqual(outputBLevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(1).WaterLevel, accuracy);
-            Assert.AreEqual(outputCLevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(2).WaterLevel, accuracy);
+            Assert.AreEqual(3, calculation.Output.WaveImpactWithWaveDirectionOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.WaveImpactWithWaveDirectionOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.WaveImpactWithWaveDirectionOutput.ElementAt(1).WaterLevel, accuracy);
+            Assert.AreEqual(outputCLevel, calculation.Output.WaveImpactWithWaveDirectionOutput.ElementAt(2).WaterLevel, accuracy);
         }
 
         [Test]
@@ -561,7 +561,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Read_EntityWithCalculationOutputEntityWithTailorMadeWaveImpact_CalculationWithOutput()
+        public void Read_EntityWithCalculationOutputEntityWithWaveImpactWithWaveDirection_CalculationWithOutput()
         {
             // Setup
             const double outputALevel = 0;
@@ -594,11 +594,11 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            double accuracy = calculation.Output.TailorMadeWaveImpactOutput.First().WaterLevel.GetAccuracy();
+            double accuracy = calculation.Output.WaveImpactWithWaveDirectionOutput.First().WaterLevel.GetAccuracy();
 
-            Assert.AreEqual(2, calculation.Output.TailorMadeWaveImpactOutput.Count());
-            Assert.AreEqual(outputALevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(0).WaterLevel, accuracy);
-            Assert.AreEqual(outputBLevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(1).WaterLevel, accuracy);
+            Assert.AreEqual(2, calculation.Output.WaveImpactWithWaveDirectionOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.WaveImpactWithWaveDirectionOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.WaveImpactWithWaveDirectionOutput.ElementAt(1).WaterLevel, accuracy);
 
             Assert.IsNull(calculation.Output.WaveRunUpOutput);
         }

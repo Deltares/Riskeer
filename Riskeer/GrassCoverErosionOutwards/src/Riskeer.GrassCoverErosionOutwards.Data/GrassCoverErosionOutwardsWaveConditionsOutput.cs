@@ -37,14 +37,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         /// <param name="waveRunUpOutput">The wave conditions output for wave run up.</param>
         /// <param name="waveImpactOutput">The wave conditions output for wave impact.</param>
-        /// <param name="tailorMadeWaveImpact">The wave conditions output for tailor made wave impact.</param>
+        /// <param name="waveImpactWithWaveDirection">The wave conditions output for wave impact with wave dirction.</param>
         internal GrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
                                                                IEnumerable<WaveConditionsOutput> waveImpactOutput,
-                                                               IEnumerable<WaveConditionsOutput> tailorMadeWaveImpact)
+                                                               IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirection)
         {
             WaveRunUpOutput = waveRunUpOutput;
             WaveImpactOutput = waveImpactOutput;
-            TailorMadeWaveImpactOutput = tailorMadeWaveImpact;
+            WaveImpactWithWaveDirectionOutput = waveImpactWithWaveDirection;
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         public IEnumerable<WaveConditionsOutput> WaveImpactOutput { get; private set; }
 
         /// <summary>
-        /// Gets the wave conditions output for tailor made wave impact.
+        /// Gets the wave conditions output for wave impact with wave direction.
         /// </summary>
-        public IEnumerable<WaveConditionsOutput> TailorMadeWaveImpactOutput { get; private set; }
+        public IEnumerable<WaveConditionsOutput> WaveImpactWithWaveDirectionOutput { get; private set; }
 
         public override object Clone()
         {
@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
 
             clone.WaveRunUpOutput = WaveRunUpOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
             clone.WaveImpactOutput = WaveImpactOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
-            clone.TailorMadeWaveImpactOutput = TailorMadeWaveImpactOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
+            clone.WaveImpactWithWaveDirectionOutput = WaveImpactWithWaveDirectionOutput?.Select(s => (WaveConditionsOutput) s.Clone()).ToArray();
 
             return clone;
         }

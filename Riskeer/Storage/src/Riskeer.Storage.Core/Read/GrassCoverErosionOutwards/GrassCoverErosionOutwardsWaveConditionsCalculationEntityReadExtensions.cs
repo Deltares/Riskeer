@@ -107,7 +107,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
 
             var waveRunUpOutput = new List<WaveConditionsOutput>();
             var waveImpactOutput = new List<WaveConditionsOutput>();
-            var tailorMadeWaveImpactOutput = new List<WaveConditionsOutput>();
+            var waveImpactWithWaveDirectionOutput = new List<WaveConditionsOutput>();
             foreach (GrassCoverErosionOutwardsWaveConditionsOutputEntity outputEntity in
                 entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order))
             {
@@ -123,37 +123,37 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
 
                 if (outputEntity.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact))
                 {
-                    tailorMadeWaveImpactOutput.Add(outputEntity.Read());
+                    waveImpactWithWaveDirectionOutput.Add(outputEntity.Read());
                 }
             }
 
-            calculation.Output = CreateGrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+            calculation.Output = CreateGrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, waveImpactWithWaveDirectionOutput);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsOutput CreateGrassCoverErosionOutwardsWaveConditionsOutput(IEnumerable<WaveConditionsOutput> waveRunUpOutput,
                                                                                                                          IEnumerable<WaveConditionsOutput> waveImpactOutput,
-                                                                                                                         IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput)
+                                                                                                                         IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput)
         {
             bool hasWaveRunUpOutput = waveRunUpOutput.Any();
             bool hasWaveImpactOutput = waveImpactOutput.Any();
-            bool hasTailorMadeWaveImpactOutput = tailorMadeWaveImpactOutput.Any();
+            bool hasWaveImpactWithWaveDirectionOutput = waveImpactWithWaveDirectionOutput.Any();
 
             if (!hasWaveRunUpOutput)
             {
                 return hasWaveImpactOutput
                            ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpact(waveImpactOutput)
-                           : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(tailorMadeWaveImpactOutput);
+                           : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpactWithWaveDirection(waveImpactWithWaveDirectionOutput);
             }
 
             if (hasWaveImpactOutput)
             {
-                return !hasTailorMadeWaveImpactOutput
+                return !hasWaveImpactWithWaveDirectionOutput
                            ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput)
-                           : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+                           : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(waveRunUpOutput, waveImpactOutput, waveImpactWithWaveDirectionOutput);
             }
 
-            return hasTailorMadeWaveImpactOutput
-                       ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, tailorMadeWaveImpactOutput)
+            return hasWaveImpactWithWaveDirectionOutput
+                       ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection(waveRunUpOutput, waveImpactWithWaveDirectionOutput)
                        : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
         }
 

@@ -205,14 +205,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// <param name="calculationType">The type of the calculation.</param>
         /// <param name="waveRunUpOutput">The output of the wave run up calculation.</param>
         /// <param name="waveImpactOutput">The output of the wave impact calculation.</param>
-        /// <param name="tailorMadeWaveImpactOutput">The output of the tailor made wave impact calculation.</param>
+        /// <param name="waveImpactWithWaveDirectionOutput">The output of the wave impact with wave direction calculation.</param>
         /// <returns>The created <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown when <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationType"/>
         /// is a valid value, but unsupported.</exception> 
         private static GrassCoverErosionOutwardsWaveConditionsOutput CreateOutput(GrassCoverErosionOutwardsWaveConditionsCalculationType calculationType,
                                                                                   IEnumerable<WaveConditionsOutput> waveRunUpOutput,
                                                                                   IEnumerable<WaveConditionsOutput> waveImpactOutput,
-                                                                                  IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput)
+                                                                                  IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput)
         {
             switch (calculationType)
             {
@@ -223,11 +223,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact:
                     return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.TailorMadeWaveImpact:
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(tailorMadeWaveImpactOutput);
+                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpactWithWaveDirection(waveImpactWithWaveDirectionOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndTailorMadeWaveImpact:
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, tailorMadeWaveImpactOutput);
+                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpactWithWaveDirection(waveRunUpOutput, waveImpactWithWaveDirectionOutput);
                 case GrassCoverErosionOutwardsWaveConditionsCalculationType.All:
-                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+                    return GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(waveRunUpOutput, waveImpactOutput, waveImpactWithWaveDirectionOutput);
                 default:
                     throw new NotSupportedException();
             }

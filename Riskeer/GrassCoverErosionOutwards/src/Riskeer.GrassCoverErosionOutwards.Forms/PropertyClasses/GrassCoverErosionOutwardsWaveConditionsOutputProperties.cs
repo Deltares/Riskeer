@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.TailorMadeWaveImpactOutput.Select(output => new WaveConditionsOutputProperties
+                return data.WaveImpactWithWaveDirectionOutput.Select(output => new WaveConditionsOutputProperties
                 {
                     Data = output
                 }).ToArray();

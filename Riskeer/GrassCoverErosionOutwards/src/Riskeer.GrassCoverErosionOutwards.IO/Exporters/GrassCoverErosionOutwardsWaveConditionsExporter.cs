@@ -94,7 +94,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Exporters
                 {
                     exportableWaveConditions.AddRange(
                         ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection(
-                            calculation.Name, calculation.InputParameters, calculation.Output.TailorMadeWaveImpactOutput, CoverType.GrassTailorMadeWaveImpact, getTargetProbabilityFunc));
+                            calculation.Name, calculation.InputParameters, calculation.Output.WaveImpactWithWaveDirectionOutput, CoverType.GrassTailorMadeWaveImpact, getTargetProbabilityFunc));
                 }
             }
 

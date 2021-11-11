@@ -585,7 +585,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.IsNotNull(calculationOutput);
                 Assert.AreEqual(waveRunUpNull, calculationOutput.WaveRunUpOutput == null);
                 Assert.AreEqual(waveImpactNull, calculationOutput.WaveImpactOutput == null);
-                Assert.AreEqual(tailorMadeWaveImpactNull, calculationOutput.TailorMadeWaveImpactOutput == null);
+                Assert.AreEqual(tailorMadeWaveImpactNull, calculationOutput.WaveImpactWithWaveDirectionOutput == null);
 
                 if (!waveRunUpNull)
                 {
@@ -599,7 +599,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                 if (!tailorMadeWaveImpactNull)
                 {
-                    Assert.AreEqual(3, calculationOutput.TailorMadeWaveImpactOutput.Count());
+                    Assert.AreEqual(3, calculationOutput.WaveImpactWithWaveDirectionOutput.Count());
                 }
             }
 
@@ -785,8 +785,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 WaveConditionsOutput[] waveImpactOutputs = calculation.Output.WaveImpactOutput.ToArray();
                 Assert.AreEqual(3, waveImpactOutputs.Length);
 
-                WaveConditionsOutput[] tailorMadeWaveImpactOutputs = calculation.Output.TailorMadeWaveImpactOutput.ToArray();
-                Assert.AreEqual(3, tailorMadeWaveImpactOutputs.Length);
+                WaveConditionsOutput[] waveImpactWithWaveDirectionOutputs = calculation.Output.WaveImpactWithWaveDirectionOutput.ToArray();
+                Assert.AreEqual(3, waveImpactWithWaveDirectionOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
                                                                   assessmentSection.FailureMechanismContribution.LowerLimitNorm,

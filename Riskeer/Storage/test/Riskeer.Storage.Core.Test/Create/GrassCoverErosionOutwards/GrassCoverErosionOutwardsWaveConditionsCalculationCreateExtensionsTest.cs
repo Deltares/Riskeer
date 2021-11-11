@@ -252,7 +252,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(
                     new[]
                     {
                         new TestWaveConditionsOutput()
@@ -352,7 +352,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithTailorMadeWaveImpact(
+                Output = GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveImpactWithWaveDirection(
                     new[]
                     {
                         new TestWaveConditionsOutput(),

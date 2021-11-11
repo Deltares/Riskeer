@@ -40,17 +40,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             // Setup
             IEnumerable<WaveConditionsOutput> waveRunUpOutput = Enumerable.Empty<WaveConditionsOutput>();
             IEnumerable<WaveConditionsOutput> waveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
-            IEnumerable<WaveConditionsOutput> tailorMadeWaveImpactOutput = Enumerable.Empty<WaveConditionsOutput>();
+            IEnumerable<WaveConditionsOutput> waveImpactWithWaveDirectionOutput = Enumerable.Empty<WaveConditionsOutput>();
 
             // Call
-            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
+            var output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveRunUpOutput, waveImpactOutput, waveImpactWithWaveDirectionOutput);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreSame(waveRunUpOutput, output.WaveRunUpOutput);
             Assert.AreSame(waveImpactOutput, output.WaveImpactOutput);
-            Assert.AreSame(tailorMadeWaveImpactOutput, output.TailorMadeWaveImpactOutput);
+            Assert.AreSame(waveImpactWithWaveDirectionOutput, output.WaveImpactWithWaveDirectionOutput);
         }
 
         [Test]
