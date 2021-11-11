@@ -262,7 +262,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
                                                                                 double targetProbability)
         {
             return Calculate(calculation, hydraulicBoundaryDatabase, targetProbability, assessmentLevel,
-                             failureMechanism.GeneralInput.GeneralTailorMadeWaveImpactWaveConditionsInput,
+                             failureMechanism.GeneralInput.GeneralWaveImpactWithWaveDirectionWaveConditionsInput,
                              Resources.GrassCoverErosionOutwardsWaveConditions_TailorMadeWaveImpact_DisplayName);
         }
 

@@ -94,13 +94,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsFailureMechanismProperties_TailorMadeWaveImpact_Description))]
-        public GeneralWaveConditionsInputProperties TailorMadeWaveImpact
+        public GeneralWaveConditionsInputProperties WaveImpactWithWaveDirection
         {
             get
             {
                 return new GeneralWaveConditionsInputProperties
                 {
-                    Data = data.GeneralInput.GeneralTailorMadeWaveImpactWaveConditionsInput
+                    Data = data.GeneralInput.GeneralWaveImpactWithWaveDirectionWaveConditionsInput
                 };
             }
         }

@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
             Assert.AreSame(generalInput.GeneralWaveRunUpWaveConditionsInput, properties.WaveRunUp.Data);
             Assert.AreSame(generalInput.GeneralWaveImpactWaveConditionsInput, properties.WaveImpact.Data);
-            Assert.AreSame(generalInput.GeneralTailorMadeWaveImpactWaveConditionsInput, properties.TailorMadeWaveImpact.Data);
+            Assert.AreSame(generalInput.GeneralWaveImpactWithWaveDirectionWaveConditionsInput, properties.WaveImpactWithWaveDirection.Data);
         }
 
         [Test]
