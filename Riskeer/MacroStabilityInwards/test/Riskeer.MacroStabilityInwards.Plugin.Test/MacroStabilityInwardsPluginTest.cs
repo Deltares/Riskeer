@@ -21,8 +21,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
@@ -73,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                     propertyInfos,
                     typeof(MacroStabilityInwardsCalculationsContext),
                     typeof(MacroStabilityInwardsCalculationsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(MacroStabilityInwardsFailurePathContext),
@@ -152,7 +154,18 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new MacroStabilityInwardsPlugin())
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
+
+            var mockRepository = new MockRepository();
+            var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+            mockRepository.ReplayAll();
+
+            using (var plugin = new MacroStabilityInwardsPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -169,7 +182,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                     viewInfos,
                     typeof(MacroStabilityInwardsFailurePathContext),
                     typeof(MacroStabilityInwardsFailurePathView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>),
@@ -205,7 +218,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                     typeof(MacroStabilityInwardsFailureMechanismSectionsContext),
                     typeof(IEnumerable<FailureMechanismSection>),
                     typeof(FailureMechanismSectionsProbabilityAssessmentView));
+
+                viewInfos.ForEachElementDo(vi =>
+                {
+                    Assert.AreEqual(symbol, vi.GetSymbol());
+                    Assert.AreSame(fontFamily, vi.GetFontFamily());
+                });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

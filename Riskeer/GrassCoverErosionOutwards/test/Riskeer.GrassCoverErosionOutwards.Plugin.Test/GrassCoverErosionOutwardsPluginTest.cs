@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Windows.Media;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
@@ -56,7 +58,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
+
+            var mockRepository = new MockRepository();
+            var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+            mockRepository.ReplayAll();
+
+            using (var plugin = new GrassCoverErosionOutwardsPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -85,7 +98,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContext),
                     typeof(ICalculation<GrassCoverErosionOutwardsWaveConditionsInput>),
                     typeof(WaveConditionsInputView));
+
+                viewInfos.ForEachElementDo(vi =>
+                {
+                    Assert.AreEqual(symbol, vi.GetSymbol());
+                    Assert.AreSame(fontFamily, vi.GetFontFamily());
+                });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

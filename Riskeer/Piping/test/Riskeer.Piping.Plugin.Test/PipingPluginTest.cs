@@ -22,8 +22,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Windows.Media;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
@@ -81,7 +83,7 @@ namespace Riskeer.Piping.Plugin.Test
                     propertyInfos,
                     typeof(PipingCalculationsContext),
                     typeof(PipingCalculationsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(PipingFailurePathContext),
@@ -182,7 +184,18 @@ namespace Riskeer.Piping.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new PipingPlugin())
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
+
+            var mockRepository = new MockRepository();
+            var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+            mockRepository.ReplayAll();
+
+            using (var plugin = new PipingPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -194,7 +207,7 @@ namespace Riskeer.Piping.Plugin.Test
                     viewInfos,
                     typeof(PipingCalculationsContext),
                     typeof(PipingFailureMechanismView));
-                
+
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingFailurePathContext),
@@ -259,7 +272,15 @@ namespace Riskeer.Piping.Plugin.Test
                     typeof(ProbabilisticPipingSectionSpecificOutputContext),
                     typeof(ProbabilisticPipingCalculationScenario),
                     typeof(ProbabilisticSubMechanismPipingOutputView));
+
+                viewInfos.ForEachElementDo(vi =>
+                {
+                    Assert.AreEqual(symbol, vi.GetSymbol());
+                    Assert.AreSame(fontFamily, vi.GetFontFamily());
+                });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
