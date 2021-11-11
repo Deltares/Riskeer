@@ -131,15 +131,17 @@ namespace Core.Gui.Test.Forms.ViewHost
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
 
-            const string viewName = "<name of the view>";
+            const string title = "<title>";
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(new IView[0]);
             viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull,
-                                                     Arg<string>.Is.Equal(viewName),
-                                                     Arg<string>.Is.Equal(string.Empty),
-                                                     Arg<FontFamily>.Is.Null))
+                                                     Arg<string>.Is.Equal(title),
+                                                     Arg<string>.Is.Equal(symbol),
+                                                     Arg<FontFamily>.Is.Same(fontFamily)))
                     .WhenCalled(invocation => { view = invocation.Arguments[0] as TestView; });
 
             mocks.ReplayAll();
@@ -168,8 +170,10 @@ namespace Core.Gui.Test.Forms.ViewHost
                     {
                         Assert.IsInstanceOf<TestView>(v);
                         Assert.AreSame(data, o);
-                        return viewName;
-                    }
+                        return title;
+                    },
+                    GetSymbol = () => symbol,
+                    GetFontFamily = () => fontFamily
                 },
                 new ViewInfo<int, TestView>()
             };
