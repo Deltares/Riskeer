@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Windows.Media;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Plugin;
@@ -118,7 +120,18 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new StabilityPointStructuresPlugin())
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
+
+            var mockRepository = new MockRepository();
+            var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+            mockRepository.ReplayAll();
+
+            using (var plugin = new StabilityPointStructuresPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -153,7 +166,15 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                     typeof(StabilityPointStructuresCalculationGroupContext),
                     typeof(CalculationGroup),
                     typeof(StabilityPointStructuresCalculationsView));
+
+                viewInfos.ForEachElementDo(vi =>
+                {
+                    Assert.AreEqual(symbol, vi.GetSymbol());
+                    Assert.AreSame(fontFamily, vi.GetFontFamily());
+                });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

@@ -22,11 +22,13 @@
 using System;
 using System.Linq;
 using System.Threading;
+using System.Windows.Media;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Core.Gui;
 using Core.Gui.Forms.Main;
 using Core.Gui.Forms.ViewHost;
@@ -127,7 +129,18 @@ namespace Riskeer.DuneErosion.Plugin.Test
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new DuneErosionPlugin())
+            const string symbol = "<symbol>";
+            var fontFamily = new FontFamily();
+
+            var mockRepository = new MockRepository();
+            var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
+            mockRepository.ReplayAll();
+
+            using (var plugin = new DuneErosionPlugin
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -156,7 +169,15 @@ namespace Riskeer.DuneErosion.Plugin.Test
                     typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext),
                     typeof(IObservableEnumerable<DuneLocationCalculation>),
                     typeof(DuneLocationCalculationsView));
+
+                viewInfos.ForEachElementDo(vi =>
+                {
+                    Assert.AreEqual(symbol, vi.GetSymbol());
+                    Assert.AreSame(fontFamily, vi.GetFontFamily());
+                });
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
