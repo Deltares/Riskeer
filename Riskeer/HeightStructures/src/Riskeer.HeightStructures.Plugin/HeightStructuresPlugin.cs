@@ -181,7 +181,7 @@ namespace Riskeer.HeightStructures.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 CreateInstance = context => new HeightStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism),
-                CloseForData = CloseScenariosViewForData,
+                CloseForData = CloseScenariosViewForData
             };
 
             yield return new RiskeerViewInfo<

@@ -45,10 +45,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                         ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpact, 3
                     },
                     {
-                        ConfigurationGrassCoverErosionOutwardsCalculationType.TailorMadeWaveImpact, 4
+                        ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection, 4
                     },
                     {
-                        ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndTailorMadeWaveImpact, 5
+                        ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection, 5
                     },
                     {
                         ConfigurationGrassCoverErosionOutwardsCalculationType.All, 6
