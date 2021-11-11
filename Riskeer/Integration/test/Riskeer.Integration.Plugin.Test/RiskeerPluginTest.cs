@@ -408,6 +408,9 @@ namespace Riskeer.Integration.Plugin.Test
 
             var mockRepository = new MockRepository();
             var gui = mockRepository.Stub<IGui>();
+            gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Stub(g => g.ViewHost).Return(mockRepository.Stub<IViewHost>());
             gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             mockRepository.ReplayAll();
 
