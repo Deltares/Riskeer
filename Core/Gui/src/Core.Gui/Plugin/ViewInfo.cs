@@ -277,7 +277,7 @@ namespace Core.Gui.Plugin
                 ViewDataType = viewInfo.ViewDataType,
                 ViewType = viewInfo.ViewType,
                 Description = viewInfo.Description,
-                GetSymbol = () => viewInfo.GetSymbol != null ? viewInfo.GetSymbol() : string.Empty,
+                GetSymbol = () => viewInfo.GetSymbol?.Invoke(),
                 GetFontFamily = () => viewInfo.GetFontFamily?.Invoke(),
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
