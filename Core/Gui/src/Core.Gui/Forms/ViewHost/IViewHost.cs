@@ -82,7 +82,7 @@ namespace Core.Gui.Forms.ViewHost
         /// <param name="view">The document view to add.</param>
         /// <param name="title">The title to show.</param>
         /// <param name="symbol">The symbol to show.</param>
-        /// <param name="fontFamily">The font family the symbol belong to.</param>
+        /// <param name="fontFamily">The font family of the symbol.</param>
         /// <seealso cref="ActiveDocumentView"/>
         void AddDocumentView(IView view, string title, string symbol, FontFamily fontFamily);
 
@@ -93,7 +93,8 @@ namespace Core.Gui.Forms.ViewHost
         /// <param name="toolViewLocation">The location where the tool view should be added.</param>
         /// <param name="title">The title to show.</param>
         /// <param name="symbol">The symbol to show.</param>
-        void AddToolView(IView view, ToolViewLocation toolViewLocation, string title, string symbol);
+        /// <param name="fontFamily">The font family of the symbol.</param>
+        void AddToolView(IView view, ToolViewLocation toolViewLocation, string title, string symbol, FontFamily fontFamily);
 
         /// <summary>
         /// Removes a document view or tool view.
