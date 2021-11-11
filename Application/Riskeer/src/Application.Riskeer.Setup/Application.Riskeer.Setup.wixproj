@@ -292,7 +292,7 @@
     <Folder Include="Examples\Voorbeeld Traject 41-1 - Macrostabiliteit binnenwaarts\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\01. Gegevens - Piping\" />
-    <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Dijken en dammen - Grasbekleding erosie kuin en binnentalud\" />
+    <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Grasbekleding erosie kuin en binnentalud\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Kunstwerken - Betrouwbaarheid sluiting kunstwerk\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\" />
