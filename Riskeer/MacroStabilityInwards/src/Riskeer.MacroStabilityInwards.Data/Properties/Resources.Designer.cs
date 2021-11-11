@@ -127,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit binnenwaarts.
+        ///   Looks up a localized string similar to Macrostabiliteit binnenwaarts.
         /// </summary>
         public static string MacroStabilityInwardsFailureMechanism_DisplayName {
             get {

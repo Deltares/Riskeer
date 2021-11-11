@@ -124,7 +124,7 @@
     <value>STBI</value>
   </data>
   <data name="MacroStabilityInwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit binnenwaarts</value>
+    <value>Macrostabiliteit binnenwaarts</value>
   </data>
   <data name="Automatic_DisplayName" xml:space="preserve">
     <value>Automatisch</value>

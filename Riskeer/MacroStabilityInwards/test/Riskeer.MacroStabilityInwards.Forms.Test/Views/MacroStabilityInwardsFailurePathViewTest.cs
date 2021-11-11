@@ -822,7 +822,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", mapDataCollection.Name);
+            Assert.AreEqual("Macrostabiliteit binnenwaarts", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

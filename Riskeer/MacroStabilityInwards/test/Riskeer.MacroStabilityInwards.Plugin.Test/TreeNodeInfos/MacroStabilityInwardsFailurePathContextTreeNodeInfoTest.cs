@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", text);
+            Assert.AreEqual("Macrostabiliteit binnenwaarts", text);
             mocks.VerifyAll();
         }
 

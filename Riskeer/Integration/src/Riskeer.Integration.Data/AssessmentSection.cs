@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
+        /// Gets or sets the "Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
         /// is not equal to the contribution of the current failure mechanism.</exception>
