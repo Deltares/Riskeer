@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Windows.Media;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Util.Extensions;
@@ -37,7 +38,6 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views;
-using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 {
@@ -100,7 +100,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
             var gui = mockRepository.Stub<IGui>();
             gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             mockRepository.ReplayAll();
-            
+
             using (var plugin = new WaveImpactAsphaltCoverPlugin
             {
                 Gui = gui

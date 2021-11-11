@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 using Core.Common.Controls.Views;
-using FontFamily = System.Windows.Media.FontFamily;
 
 namespace Core.Gui.Forms.ViewHost
 {
