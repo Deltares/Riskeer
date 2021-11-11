@@ -674,7 +674,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", mapDataCollection.Name);
+            Assert.AreEqual("Hoogte kunstwerk", mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

@@ -44,7 +44,7 @@ namespace Riskeer.HeightStructures.Data.Test
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResult>>(failureMechanism);
-            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", failureMechanism.Name);
+            Assert.AreEqual("Hoogte kunstwerk", failureMechanism.Name);
             Assert.AreEqual("HTKW", failureMechanism.Code);
             Assert.AreEqual(1, failureMechanism.Group);
             Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);

@@ -98,7 +98,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", text);
+            Assert.AreEqual("Hoogte kunstwerk", text);
             mocks.VerifyAll();
         }
 

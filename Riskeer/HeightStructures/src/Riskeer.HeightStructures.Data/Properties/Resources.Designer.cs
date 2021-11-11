@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -91,7 +91,7 @@ namespace Riskeer.HeightStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Hoogte kunstwerk.
+        ///   Looks up a localized string similar to Hoogte kunstwerk.
         /// </summary>
         public static string HeightStructuresFailureMechanism_DisplayName {
             get {
