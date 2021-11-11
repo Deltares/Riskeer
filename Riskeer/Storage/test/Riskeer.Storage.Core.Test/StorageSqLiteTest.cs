@@ -368,7 +368,7 @@ namespace Riskeer.Storage.Core.Test
                     Assert.IsInstanceOf<Exception>(exception);
                     Assert.IsInstanceOf<IOException>(exception.InnerException);
                     Assert.IsInstanceOf<Exception>(exception);
-                    Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
+                    Assert.AreEqual("Het doelbestand is momenteel in gebruik.", exception.Message);
                 }
                 finally
                 {

@@ -174,11 +174,11 @@ namespace Riskeer.Storage.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het doelbestand is reeds in gebruik..
+        ///   Looks up a localized string similar to Het doelbestand is momenteel in gebruik..
         /// </summary>
-        public static string SafeFileWriter_Target_file_already_in_use {
+        public static string SafeFileWriter_Target_file_currently_in_use {
             get {
-                return ResourceManager.GetString("SafeFileWriter_Target_file_already_in_use", resourceCulture);
+                return ResourceManager.GetString("SafeFileWriter_Target_file_currently_in_use", resourceCulture);
             }
         }
         

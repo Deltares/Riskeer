@@ -178,7 +178,7 @@ namespace Riskeer.Storage.Core.Test
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
 
                 // Assert
-                Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
+                Assert.AreEqual("Het doelbestand is momenteel in gebruik.", exception.Message);
             }
         }
 
@@ -208,7 +208,7 @@ namespace Riskeer.Storage.Core.Test
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
 
                 // Assert
-                Assert.AreEqual("Het doelbestand is reeds in gebruik.", exception.Message);
+                Assert.AreEqual("Het doelbestand is momenteel in gebruik.", exception.Message);
             }
         }
 

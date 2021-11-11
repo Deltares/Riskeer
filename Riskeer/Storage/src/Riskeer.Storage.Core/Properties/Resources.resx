@@ -138,8 +138,8 @@
   <data name="SafeFileWriter_Path_too_long" xml:space="preserve">
     <value>Het pad van het doelbestand is te lang.</value>
   </data>
-  <data name="SafeFileWriter_Target_file_already_in_use" xml:space="preserve">
-    <value>Het doelbestand is reeds in gebruik.</value>
+  <data name="SafeFileWriter_Target_file_currently_in_use" xml:space="preserve">
+    <value>Het doelbestand is momenteel in gebruik.</value>
   </data>
   <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid" xml:space="preserve">
     <value>Riskeer bestand versie '{0}' is niet valide. De versie van het Riskeer projectbestand dient '16.4' of hoger te zijn.</value>

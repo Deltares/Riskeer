@@ -134,7 +134,7 @@ namespace Riskeer.Storage.Core
             }
             catch (IOException)
             {
-                throw new IOException(string.Format(Resources.SafeFileWriter_Target_file_already_in_use));
+                throw new IOException(string.Format(Resources.SafeFileWriter_Target_file_currently_in_use));
             }
         }
 
