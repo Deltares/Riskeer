@@ -124,27 +124,23 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string originalInAssemblyInputComments = "Some input text";
-            const string originalInAssemblyOutputComments = "Some output text";
-            const string originalNotInAssemblyComments = "Really not in assembly";
-            const string originalCalculationsInputComments = "Some calculation text";
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
                 InAssemblyInputComments =
                 {
-                    Body = originalInAssemblyInputComments
+                    Body = "Some input text"
                 },
                 InAssemblyOutputComments =
                 {
-                    Body = originalInAssemblyOutputComments
+                    Body = "Some output text"
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotInAssemblyComments
+                    Body = "Really not in assembly"
                 },
                 CalculationsInputComments =
                 {
-                    Body = originalCalculationsInputComments
+                    Body = "Some calculation text"
                 }
             };
             var registry = new PersistenceRegistry();
@@ -153,10 +149,10 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(originalInAssemblyInputComments, entity.InAssemblyInputComments);
-            TestHelper.AssertAreEqualButNotSame(originalInAssemblyOutputComments, entity.InAssemblyOutputComments);
-            TestHelper.AssertAreEqualButNotSame(originalNotInAssemblyComments, entity.NotInAssemblyComments);
-            TestHelper.AssertAreEqualButNotSame(originalCalculationsInputComments, entity.CalculationsInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
         }
 
         [Test]

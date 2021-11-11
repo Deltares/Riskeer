@@ -96,20 +96,29 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string originalInAssemblyInputComments = "Some input text";
-            const string originalInAssemblyOutputComments = "Some output text";
-            const string originalNotInAssemblyComments = "Really not in assembly";
-            const string originalCalculationsInputComments = "Some calculations text";
-            const string failureMechanismSectionsSourcePath = "File\\Path";
-            IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool");
-            failureMechanism.InAssemblyInputComments.Body = originalInAssemblyInputComments;
-            failureMechanism.InAssemblyOutputComments.Body = originalInAssemblyOutputComments;
-            failureMechanism.NotInAssemblyComments.Body = originalNotInAssemblyComments;
-            failureMechanism.CalculationsInputComments.Body = originalCalculationsInputComments;
+            IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool")
+            {
+                InAssemblyInputComments =
+                {
+                    Body = "Some input text"
+                },
+                InAssemblyOutputComments =
+                {
+                    Body = "Some output text"
+                },
+                NotInAssemblyComments =
+                {
+                    Body = "Really not in assembly"
+                },
+                CalculationsInputComments =
+                {
+                    Body = "Some calculation text"
+                }
+            };
             failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, failureMechanismSectionsSourcePath);
+            }, "File\\Path");
 
             var registry = new PersistenceRegistry();
 

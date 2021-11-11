@@ -123,31 +123,26 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string name = "newName";
-            const string originalInAssemblyInputComments = "Some input text";
-            const string originalInAssemblyOutputComments = "Some output text";
-            const string originalNotInAssemblyComments = "Really not in assembly";
-            const string specificFailurePathSectionsSourcePath = "File\\Path";
             var specificFailurePath = new SpecificFailurePath
             {
-                Name = name,
+                Name = "newName",
                 InAssemblyInputComments =
                 {
-                    Body = originalInAssemblyInputComments
+                    Body = "Some input text"
                 },
                 InAssemblyOutputComments =
                 {
-                    Body = originalInAssemblyOutputComments
+                    Body = "Some output text"
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotInAssemblyComments
+                    Body = "Really not in assembly"
                 }
             };
             specificFailurePath.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, specificFailurePathSectionsSourcePath);
+            }, "File\\Path");
 
             var registry = new PersistenceRegistry();
 

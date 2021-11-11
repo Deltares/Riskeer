@@ -93,27 +93,23 @@ namespace Riskeer.Storage.Core.Test.Create.Microstability
         public void Create_StringPropertiesDoNotShareReference()
         {
             // Setup
-            const string originalInAssemblyInputComments = "Some input text";
-            const string originalInAssemblyOutputComments = "Some output text";
-            const string originalNotInAssemblyComments = "Really not in assembly";
-            const string originalCalculationsInputComments = "Some calculations text";
             var failureMechanism = new MicrostabilityFailureMechanism
             {
                 InAssemblyInputComments =
                 {
-                    Body = originalInAssemblyInputComments
+                    Body = "Some input text"
                 },
                 InAssemblyOutputComments =
                 {
-                    Body = originalInAssemblyOutputComments
+                    Body = "Some output text"
                 },
                 NotInAssemblyComments =
                 {
-                    Body = originalNotInAssemblyComments
+                    Body = "Really not in assembly"
                 },
                 CalculationsInputComments =
                 {
-                    Body = originalCalculationsInputComments
+                    Body = "Some calculations text"
                 }
             };
             var registry = new PersistenceRegistry();
