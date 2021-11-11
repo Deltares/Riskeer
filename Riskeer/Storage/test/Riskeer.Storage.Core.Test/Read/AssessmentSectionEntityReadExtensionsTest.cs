@@ -986,37 +986,37 @@ namespace Riskeer.Storage.Core.Test.Read
                                         microstability.InAssemblyInputComments,
                                         microstability.InAssemblyOutputComments,
                                         microstability.NotInAssemblyComments, 
-                                        microstability.CalculationsComments,
+                                        microstability.CalculationsInputComments,
                                         section.Microstability);
             AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
                                         strengthAndStabilityParallelConstruction.InAssemblyInputComments,
                                         strengthAndStabilityParallelConstruction.InAssemblyOutputComments,
                                         strengthAndStabilityParallelConstruction.NotInAssemblyComments, 
-                                        strengthAndStabilityParallelConstruction.CalculationsComments,
+                                        strengthAndStabilityParallelConstruction.CalculationsInputComments,
                                         section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
                                         waterOverpressureAsphaltRevetment.InAssemblyInputComments,
                                         waterOverpressureAsphaltRevetment.InAssemblyOutputComments,
                                         waterOverpressureAsphaltRevetment.NotInAssemblyComments, 
-                                        waterOverpressureAsphaltRevetment.CalculationsComments,
+                                        waterOverpressureAsphaltRevetment.CalculationsInputComments,
                                         section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
                                         grassRevetmentSlidingOutwards.InAssemblyInputComments,
                                         grassRevetmentSlidingOutwards.InAssemblyOutputComments,
                                         grassRevetmentSlidingOutwards.NotInAssemblyComments, 
-                                        grassRevetmentSlidingOutwards.CalculationsComments,
+                                        grassRevetmentSlidingOutwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffOutwards);
             AssertFailureMechanismEqual(grassRevetmentSlidingInwardsInAssembly,
                                         grassRevetmentSlidingInwards.InAssemblyInputComments,
                                         grassRevetmentSlidingInwards.InAssemblyOutputComments,
                                         grassRevetmentSlidingInwards.NotInAssemblyComments, 
-                                        grassRevetmentSlidingInwards.CalculationsComments,
+                                        grassRevetmentSlidingInwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffInwards);
             AssertFailureMechanismEqual(technicalInnovationsInAssembly,
                                         technicalInnovation.InAssemblyInputComments,
                                         technicalInnovation.InAssemblyOutputComments,
                                         technicalInnovation.NotInAssemblyComments, 
-                                        technicalInnovation.CalculationsComments,
+                                        technicalInnovation.CalculationsInputComments,
                                         section.TechnicalInnovation);
         }
 
@@ -1238,7 +1238,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyInputComments = string.Concat("InputComment", failureMechanismType.ToString()),
                 InAssemblyOutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
                 NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString()),
-                CalculationsComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString())
+                CalculationsInputComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString())
             };
         }
 

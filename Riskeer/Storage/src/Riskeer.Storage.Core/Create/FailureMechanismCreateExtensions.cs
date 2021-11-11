@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.Create
                 InAssembly = Convert.ToByte(mechanism.InAssembly),
                 InAssemblyInputComments = mechanism.InAssemblyInputComments.Body.DeepClone(),
                 InAssemblyOutputComments = mechanism.InAssemblyOutputComments.Body.DeepClone(),
-                CalculationsComments = mechanism.CalculationsInputComments.Body.DeepClone(),
+                CalculationsInputComments = mechanism.CalculationsInputComments.Body.DeepClone(),
                 NotInAssemblyComments = mechanism.NotInAssemblyComments.Body.DeepClone(),
                 FailureMechanismSectionCollectionSourcePath = mechanism.FailureMechanismSectionSourcePath.DeepClone()
             };

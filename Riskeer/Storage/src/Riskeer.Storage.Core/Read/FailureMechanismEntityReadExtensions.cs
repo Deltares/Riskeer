@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Read
             failureMechanism.InAssembly = Convert.ToBoolean(entity.InAssembly);
             failureMechanism.InAssemblyInputComments.Body = entity.InAssemblyInputComments;
             failureMechanism.InAssemblyOutputComments.Body = entity.InAssemblyOutputComments;
-            failureMechanism.CalculationsInputComments.Body = entity.CalculationsComments;
+            failureMechanism.CalculationsInputComments.Body = entity.CalculationsInputComments;
             failureMechanism.NotInAssemblyComments.Body = entity.NotInAssemblyComments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);

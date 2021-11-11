@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
+            Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             CollectionAssert.IsEmpty(entity.SurfaceLineEntities);
 
@@ -143,7 +143,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
         }
 
         [Test]
