@@ -1511,6 +1511,99 @@ namespace Core.Gui.Test
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void ActiveStateInfo_GuiWithoutStateInfos_ExpectedValue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
+            {
+                gui.Run();
+
+                // Call
+                StateInfo activeStateInfo = gui.ActiveStateInfo;
+
+                // Assert
+                Assert.IsNull(activeStateInfo);
+            }
+        }
+
+        [Test]
+        public void ActiveStateInfo_GuiWithStateInfosAndWithoutProject_ExpectedValue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
+            {
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    new StateInfo("Name 1", "Symbol 1", new FontFamily(), p => p),
+                    new StateInfo("Name 2", "Symbol 2", new FontFamily(), p => p)
+                }));
+
+                gui.Run();
+
+                // Call
+                StateInfo activeStateInfo = gui.ActiveStateInfo;
+
+                // Assert
+                Assert.IsNull(activeStateInfo);
+            }
+        }
+
+        [Test]
+        public void ActiveStateInfo_GuiWithStateInfosAndWithProject_ExpectedValue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStore = mocks.Stub<IStoreProject>();
+            var projectMigrator = mocks.Stub<IMigrateProject>();
+            var projectFactory = mocks.Stub<IProjectFactory>();
+            var project = mocks.Stub<IProject>();
+            mocks.ReplayAll();
+
+            var guiCoreSettings = new GuiCoreSettings();
+
+            using (var mainWindow = new MainWindow())
+            using (var gui = new GuiCore(mainWindow, projectStore, projectMigrator, projectFactory, guiCoreSettings))
+            {
+                var stateInfo1 = new StateInfo("Name 1", "Symbol 1", new FontFamily(), p => p);
+                var stateInfo2 = new StateInfo("Name 2", "Symbol 2", new FontFamily(), p => p);
+
+                gui.Plugins.Add(new TestPlugin(new[]
+                {
+                    stateInfo1,
+                    stateInfo2
+                }));
+
+                gui.Run();
+
+                gui.SetProject(project, null);
+
+                // Call
+                StateInfo activeStateInfo = gui.ActiveStateInfo;
+
+                // Assert
+                Assert.AreSame(stateInfo1, activeStateInfo);
+            }
+        }
+
         private static void SetActiveView(AvalonDockViewHost avalonDockViewHost, IView view)
         {
             avalonDockViewHost.DockingManager.Layout.Descendents()
