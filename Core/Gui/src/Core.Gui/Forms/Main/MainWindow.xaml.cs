@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO.Packaging;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,6 +57,10 @@ namespace Core.Gui.Forms.Main
     /// </summary>
     public partial class MainWindow : IMainWindow, IDisposable, ISynchronizeInvoke
     {
+        private static readonly FontFamily toolViewFontFamily = new FontFamily(
+            new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Core.Gui;component/Style/Symbols/"),
+            "./#Symbols");
+
         /// <summary>
         /// Class to help with hybrid winforms - WPF applications. Provides UI handle to
         /// ensure common UI functionality such as maximizing works as expected.
@@ -567,7 +572,7 @@ namespace Core.Gui.Forms.Main
                     Data = applicationSelection.Selection
                 };
 
-                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, Properties.Resources.Properties_DisplayName, "\uE905");
+                viewController.ViewHost.AddToolView(propertyGrid, ToolViewLocation.Right, Properties.Resources.Properties_DisplayName, "\uE905", toolViewFontFamily);
             }
             else
             {
@@ -588,7 +593,7 @@ namespace Core.Gui.Forms.Main
         {
             ProjectExplorer = new ProjectExplorer(gui.ViewCommands, gui.GetTreeNodeInfos());
 
-            viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, Properties.Resources.ProjectExplorer_DisplayName, "\uE904");
+            viewController.ViewHost.AddToolView(ProjectExplorer, ToolViewLocation.Left, Properties.Resources.ProjectExplorer_DisplayName, "\uE904", toolViewFontFamily);
 
             UpdateProjectExplorer();
         }
@@ -611,21 +616,21 @@ namespace Core.Gui.Forms.Main
         {
             MessageWindow = new MessageWindow(this);
 
-            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, Properties.Resources.Messages, "\uE906");
+            viewController.ViewHost.AddToolView(MessageWindow, ToolViewLocation.Bottom, Properties.Resources.Messages, "\uE906", toolViewFontFamily);
         }
 
         private void InitMapLegendWindow()
         {
             MapLegendView = new MapLegendView(gui);
 
-            viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, Properties.Resources.MapLegendView_Map_DisplayName, "\uE907");
+            viewController.ViewHost.AddToolView(MapLegendView, ToolViewLocation.Left, Properties.Resources.MapLegendView_Map_DisplayName, "\uE907", toolViewFontFamily);
         }
 
         private void InitChartLegendWindow()
         {
             ChartLegendView = new ChartLegendView(gui);
 
-            viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, Properties.Resources.ChartLegendView_Chart_DisplayName, "\uE908");
+            viewController.ViewHost.AddToolView(ChartLegendView, ToolViewLocation.Left, Properties.Resources.ChartLegendView_Chart_DisplayName, "\uE908", toolViewFontFamily);
         }
 
         #endregion
