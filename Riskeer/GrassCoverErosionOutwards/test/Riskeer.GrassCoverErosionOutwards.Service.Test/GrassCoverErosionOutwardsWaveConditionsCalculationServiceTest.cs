@@ -197,7 +197,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfoploop", 1);
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfklap", 9);
-                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfklap voor toets op maat", 17);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfklap met golfrichting", 17);
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedNrOfMessages - 1]);
                 });
@@ -264,7 +264,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfoploop", 1);
                     AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfklap", 9);
-                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfklap voor toets op maat", 17);
+                    AssertCalculationLogs(msgs, GetWaterLevels(calculation, assessmentSection), "golfklap met golfrichting", 17);
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedNrOfMessages - 1]);
                 });
@@ -355,7 +355,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                             countStart += messageBlockSize * 2;
                         }
 
-                        AssertCalculationLogs(msgs, waterLevels, "golfklap voor toets op maat", countStart);
+                        AssertCalculationLogs(msgs, waterLevels, "golfklap met golfrichting", countStart);
                     }
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[expectedMessageCount - 1]);
@@ -774,7 +774,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                     Assert.AreEqual("Berekening voor golfklap is beëindigd.", msgs[23]);
 
-                    AssertCalculationLogs(msgs, waterLevels, "golfklap voor toets op maat", 24);
+                    AssertCalculationLogs(msgs, waterLevels, "golfklap met golfrichting", 24);
 
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[35]);
                 });
@@ -962,7 +962,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                         || calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
                         || step > waterLevels.Length && calculationType == GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)
                     {
-                        revetmentType = "golfklap voor toets op maat";
+                        revetmentType = "golfklap met golfrichting";
                     }
 
                     var text = $"Waterstand '{waterLevels[(step - 1) % waterLevels.Length]}' [m+NAP] voor {revetmentType} berekenen.";

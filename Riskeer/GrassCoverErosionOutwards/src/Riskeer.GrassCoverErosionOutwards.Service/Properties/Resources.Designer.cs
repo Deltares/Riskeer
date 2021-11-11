@@ -82,20 +82,20 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to golfklap voor toets op maat.
-        /// </summary>
-        internal static string GrassCoverErosionOutwardsWaveConditions_TailorMadeWaveImpact_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditions_TailorMadeWaveImpact_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to golfklap.
         /// </summary>
         internal static string GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditions_WaveImpact_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to golfklap met golfrichting.
+        /// </summary>
+        internal static string GrassCoverErosionOutwardsWaveConditions_WaveImpactWithWaveDirection_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditions_WaveImpactWithWaveDirection_DisplayName", resourceCulture);
             }
         }
         
