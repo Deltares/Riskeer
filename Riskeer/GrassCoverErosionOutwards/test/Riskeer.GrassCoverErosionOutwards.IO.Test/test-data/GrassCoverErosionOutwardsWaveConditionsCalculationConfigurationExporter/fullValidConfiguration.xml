@@ -30,5 +30,41 @@
         <orientatie>NaN</orientatie>
       </berekening>
     </map>
+    <berekening naam="Calculation 3">
+      <typebekleding>Gras (golfklap)</typebekleding>
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <orientatie>NaN</orientatie>
+    </berekening>
+    <berekening naam="Calculation 4">
+      <typebekleding>Gras (golfklap met golfrichting)</typebekleding>
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <orientatie>NaN</orientatie>
+    </berekening>
+    <berekening naam="Calculation 5">
+      <typebekleding>Gras (golfoploop en golfklap met golfrichting)</typebekleding>
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <orientatie>NaN</orientatie>
+    </berekening>
+    <berekening naam="Calculation 6">
+      <typebekleding>Gras (alle types)</typebekleding>
+      <bovengrensbekleding>NaN</bovengrensbekleding>
+      <ondergrensbekleding>NaN</ondergrensbekleding>
+      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+      <stapgrootte>0.5</stapgrootte>
+      <orientatie>NaN</orientatie>
+    </berekening>
   </map>
 </configuratie>

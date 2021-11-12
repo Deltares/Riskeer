@@ -66,6 +66,42 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 }
             };
 
+            var calculation3 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "Calculation 3",
+                InputParameters =
+                {
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact
+                }
+            };
+
+            var calculation4 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "Calculation 4",
+                InputParameters =
+                {
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpactWithWaveDirection
+                }
+            };
+
+            var calculation5 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "Calculation 5",
+                InputParameters =
+                {
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection
+                }
+            };
+
+            var calculation6 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Name = "Calculation 6",
+                InputParameters =
+                {
+                    CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All
+                }
+            };
+
             var calculationGroup2 = new CalculationGroup
             {
                 Name = "PK001_0002",
@@ -81,7 +117,11 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 Children =
                 {
                     calculation1,
-                    calculationGroup2
+                    calculationGroup2,
+                    calculation3,
+                    calculation4,
+                    calculation5,
+                    calculation6
                 }
             };
 
