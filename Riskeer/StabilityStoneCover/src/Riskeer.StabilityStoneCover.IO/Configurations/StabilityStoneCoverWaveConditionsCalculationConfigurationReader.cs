@@ -27,6 +27,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Revetment.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Configurations.Converters;
 using Riskeer.StabilityStoneCover.IO.Properties;
+using RiskeerRevetmentIOResources = Riskeer.Revetment.IO.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.IO.Configurations
 {
@@ -55,6 +56,10 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
                 Resources.StabiliteitSteenzettingConfiguratieSchema_0,
                 Resources.StabiliteitSteenzettingConfiguratieSchema_1,
                 Resources.StabiliteitSteenzettingConfiguratieSchema
+            }, new[]
+            {
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema0To1,
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema1To2
             }) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)

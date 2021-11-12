@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.Revetment.IO.Configurations;
+using Riskeer.Revetment.IO.Properties;
 
 namespace Riskeer.Revetment.IO.Test.Configurations
 {
@@ -395,7 +396,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
         {
             public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath, string[] configurationSchemas)
-                : base(xmlFilePath, configurationSchemas) {}
+                : base(xmlFilePath, configurationSchemas, new[]
+                {
+                    Resources.BekledingenConfiguratieBasisSchema0To1,
+                    Resources.BekledingenConfiguratieBasisSchema1To2
+                }) {}
 
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
             {

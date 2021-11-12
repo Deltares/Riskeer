@@ -54,7 +54,9 @@ namespace Riskeer.Revetment.IO.Configurations
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <param name="mainSchemaDefinitions">An <see cref="Array"/> of <see cref="string"/> representing the main schema definitions.</param>
+        /// <param name="migrationScripts">An <see cref="Array"/> of <see cref="string"/> representing the migration scripts.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="migrationScripts"/> contains <c>null</c> elements.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="xmlFilePath"/> points to a file that does not exist.</item>
@@ -64,7 +66,7 @@ namespace Riskeer.Revetment.IO.Configurations
         /// <item><paramref name="mainSchemaDefinitions"/> is invalid.</item>
         /// </list>
         /// </exception>
-        protected WaveConditionsCalculationConfigurationReader(string xmlFilePath, string[] mainSchemaDefinitions)
+        protected WaveConditionsCalculationConfigurationReader(string xmlFilePath, string[] mainSchemaDefinitions, string[] migrationScripts)
             : base(xmlFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
@@ -106,7 +108,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, Resources.BekledingenConfiguratieBasisSchema0To1),
+                    }, migrationScripts[0]),
                 new CalculationConfigurationSchemaDefinition(
                     2, mainSchemaDefinitions[2],
                     new Dictionary<string, string>
@@ -126,7 +128,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, Resources.BekledingenConfiguratieBasisSchema1To2)
+                    }, migrationScripts[1])
             }) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);

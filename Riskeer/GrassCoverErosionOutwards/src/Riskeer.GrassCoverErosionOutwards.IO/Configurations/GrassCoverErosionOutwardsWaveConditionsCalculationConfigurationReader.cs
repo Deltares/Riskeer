@@ -27,6 +27,7 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Riskeer.GrassCoverErosionOutwards.IO.Properties;
 using Riskeer.Revetment.IO.Configurations;
+using RiskeerRevetmentIOResources = Riskeer.Revetment.IO.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
 {
@@ -55,6 +56,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
                 Resources.GEBUConfiguratieSchema_0,
                 Resources.GEBUConfiguratieSchema_1,
                 Resources.GEBUConfiguratieSchema
+            }, new[]
+            {
+                RiskeerRevetmentIOResources.BekledingenConfiguratieBasisSchema0To1,
+                Resources.GEBUConfiguratieSchema1To2
             }) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
