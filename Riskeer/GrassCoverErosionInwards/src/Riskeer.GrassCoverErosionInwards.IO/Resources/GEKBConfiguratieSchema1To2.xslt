@@ -21,17 +21,17 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:template match="node()|@*">
-      <xsl:copy>
-          <xsl:apply-templates select="node()|@*"/>
-      </xsl:copy>
-  </xsl:template>
+    <xsl:template match="node()|@*">
+        <xsl:copy>
+            <xsl:apply-templates select="node()|@*"/>
+        </xsl:copy>
+    </xsl:template>
 
     <!--Adjust value of 'hbnberekenen'.-->
-    <xsl:template match="hbnberekenen">
+    <xsl:template match="hbnberekenen[parent::berekening]">
         <xsl:copy>
             <xsl:choose>
-                <xsl:when test=".='niet'">
+                <xsl:when test=". = 'niet'">
                     <xsl:text>false</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
@@ -42,10 +42,10 @@ All rights reserved.
     </xsl:template>
 
     <!--Adjust value of 'overslagdebietberekenen'.-->
-    <xsl:template match="overslagdebietberekenen">
+    <xsl:template match="overslagdebietberekenen[parent::berekening]">
         <xsl:copy>
             <xsl:choose>
-                <xsl:when test=".='niet'">
+                <xsl:when test=". = 'niet'">
                     <xsl:text>false</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
