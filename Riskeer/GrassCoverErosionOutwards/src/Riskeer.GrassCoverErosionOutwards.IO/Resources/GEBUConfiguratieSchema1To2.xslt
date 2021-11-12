@@ -22,30 +22,30 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:template match="node()|@*">
-      <xsl:copy>
-          <xsl:apply-templates select="node()|@*"/>
-      </xsl:copy>
-  </xsl:template>
+    <xsl:template match="node()|@*">
+        <xsl:copy>
+            <xsl:apply-templates select="node()|@*"/>
+        </xsl:copy>
+    </xsl:template>
 
-  <!-- Remove 'categoriegrens'. -->
-  <xsl:template match="berekening/categoriegrens" />
+    <!-- Remove 'categoriegrens'. -->
+    <xsl:template match="categoriegrens[parent::berekening]" />
 
-  <!--Adjust value of 'bekledingType'.-->
-  <xsl:template match="berekening/bekledingType">
-      <xsl:copy>
-          <xsl:choose>
-              <xsl:when test=".='Gras (golfklap voor toets op maat)'">
-                  <xsl:text>Gras (golfklap met golfrichting)</xsl:text>
-              </xsl:when>
-              <xsl:when test=".='Gras (golfoploop en golfklap voor toets op maat)'">
-                  <xsl:text>Gras (golfoploop en golfklap met golfrichting)</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                  <xsl:apply-templates/>
-              </xsl:otherwise>
-          </xsl:choose>
-      </xsl:copy>
-  </xsl:template>
-    
+    <!--Adjust value of 'typebekleding'.-->
+    <xsl:template match="typebekleding[parent::berekening]">
+        <xsl:copy>
+            <xsl:choose>
+                <xsl:when test=". = 'Gras (golfklap voor toets op maat)'">
+                    <xsl:text>Gras (golfklap met golfrichting)</xsl:text>
+                </xsl:when>
+                <xsl:when test=". = 'Gras (golfoploop en golfklap voor toets op maat)'">
+                    <xsl:text>Gras (golfoploop en golfklap met golfrichting)</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:copy>
+    </xsl:template>
+
 </xsl:stylesheet>
