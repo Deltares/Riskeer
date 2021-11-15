@@ -49,38 +49,8 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex
+                CodePropertyIndex = codePropertyIndex
             }) {}
-
-        #region General
-
-        [PropertyOrder(inAssemblyPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
-        public bool InAssembly
-        {
-            get
-            {
-                return data.InAssembly;
-            }
-        }
-        
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        #endregion
 
         #region Length effect parameters
 
@@ -115,5 +85,46 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             return nameof(Contribution).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
         }
+
+        #region General
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
+            }
+        }
+
+        [PropertyOrder(inAssemblyPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
+        public bool InAssembly
+        {
+            get
+            {
+                return data.InAssembly;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(contributionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Contribution_Description))]
+        public double Contribution
+        {
+            get
+            {
+                return data.Contribution;
+            }
+        }
+
+        #endregion
     }
 }

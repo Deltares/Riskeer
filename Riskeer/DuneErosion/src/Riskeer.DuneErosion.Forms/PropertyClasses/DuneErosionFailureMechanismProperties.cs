@@ -64,9 +64,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 },
                 {
                     nameof(Code), constructionProperties.CodePropertyIndex
-                },
-                {
-                    nameof(Group), constructionProperties.GroupPropertyIndex
                 }
             };
         }
@@ -96,11 +93,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             /// </summary>
             public int CodePropertyIndex { get; set; }
 
-            /// <summary>
-            /// Gets or sets the property index for <see cref="DuneErosionFailureMechanismProperties.Group"/>.
-            /// </summary>
-            public int GroupPropertyIndex { get; set; }
-
             #endregion
         }
 
@@ -127,18 +119,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.Code;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
             }
         }
 
