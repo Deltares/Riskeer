@@ -53,10 +53,7 @@ namespace Riskeer.Integration.Data.Test
             // Assert
             Assert.IsInstanceOf<RiskeerProject>(project);
             var riskeerProject = (RiskeerProject) project;
-            CollectionAssert.AreEqual(new[]
-            {
-                assessmentSection
-            }, riskeerProject.AssessmentSections);
+            Assert.AreSame(assessmentSection, riskeerProject.AssessmentSection);
         }
 
         [Test]

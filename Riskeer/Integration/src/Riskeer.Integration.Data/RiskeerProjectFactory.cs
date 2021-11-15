@@ -71,10 +71,7 @@ namespace Riskeer.Integration.Data
 
             return new RiskeerProject
             {
-                AssessmentSections =
-                {
-                    assessmentSection
-                }
+                AssessmentSection = assessmentSection
             };
         }
     }
