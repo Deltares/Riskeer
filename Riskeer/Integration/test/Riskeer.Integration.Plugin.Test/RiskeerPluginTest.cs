@@ -100,10 +100,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        new AssessmentSection(AssessmentSectionComposition.Dike)
-                    }
+                    AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 };
 
                 // When
@@ -146,10 +143,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 // When
@@ -182,14 +176,11 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
+                    AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                     {
-                        new AssessmentSection(AssessmentSectionComposition.Dike)
+                        HydraulicBoundaryDatabase =
                         {
-                            HydraulicBoundaryDatabase =
-                            {
-                                FilePath = nonExistingFile
-                            }
+                            FilePath = nonExistingFile
                         }
                     }
                 };
@@ -721,10 +712,11 @@ namespace Riskeer.Integration.Plugin.Test
         public void GetChildDataWithViewDefinitions_ProjectWithChildren_ReturnChildren()
         {
             // Setup
-            var project = new RiskeerProject();
-            project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
-            project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
-            project.AssessmentSections.Add(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var project = new RiskeerProject
+            {
+                AssessmentSection = assessmentSection
+            };
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -732,8 +724,10 @@ namespace Riskeer.Integration.Plugin.Test
                 IEnumerable<object> childrenWithViewDefinitions = plugin.GetChildDataWithViewDefinitions(project);
 
                 // Assert
-                List<AssessmentSection> expectedResult = project.AssessmentSections;
-                CollectionAssert.AreEquivalent(expectedResult, childrenWithViewDefinitions);
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    project.AssessmentSection
+                }, childrenWithViewDefinitions);
             }
         }
 
@@ -833,10 +827,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -901,10 +892,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -961,10 +949,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1021,10 +1006,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1076,10 +1058,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1133,10 +1112,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1190,10 +1166,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1244,10 +1217,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1301,10 +1271,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1358,10 +1325,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1415,10 +1379,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);
@@ -1469,10 +1430,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 var project = new RiskeerProject
                 {
-                    AssessmentSections =
-                    {
-                        assessmentSection
-                    }
+                    AssessmentSection = assessmentSection
                 };
 
                 gui.SetProject(project, null);

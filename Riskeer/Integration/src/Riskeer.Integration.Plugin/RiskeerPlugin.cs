@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
+                    AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
 
                     return new AssessmentSectionStateRootContext(assessmentSection);
                 }
@@ -191,7 +191,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new HydraulicLoadsStateRootContext(riskeerProject.AssessmentSections.First());
+                    return new HydraulicLoadsStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -201,7 +201,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new CalculationsStateRootContext(riskeerProject.AssessmentSections.First());
+                    return new CalculationsStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSections.First());
+                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -885,9 +885,9 @@ namespace Riskeer.Integration.Plugin
         {
             if (viewData is RiskeerProject project)
             {
-                foreach (AssessmentSection item in project.AssessmentSections)
+                if (project.AssessmentSection != null)
                 {
-                    yield return item;
+                    yield return project.AssessmentSection;
                 }
             }
 
@@ -1348,8 +1348,8 @@ namespace Riskeer.Integration.Plugin
                 return;
             }
 
-            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = riskeerProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
-            foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
+            AssessmentSection section = riskeerProject.AssessmentSection;
+            if (section != null && section.HydraulicBoundaryDatabase.IsLinked())
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
                     section.HydraulicBoundaryDatabase.FilePath,
