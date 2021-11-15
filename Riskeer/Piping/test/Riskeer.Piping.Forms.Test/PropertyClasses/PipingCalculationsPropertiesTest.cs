@@ -41,18 +41,17 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int waterVolumetricWeightPropertyIndex = 3;
-        private const int upLiftModelFactorPropertyIndex = 4;
-        private const int sellmeijerModelFactorPropertyIndex = 5;
-        private const int criticalHeaveGradientPropertyIndex = 6;
-        private const int sandParticlesVolumetricWeightPropertyIndex = 7;
-        private const int whitesDragCoefficientPropertyIndex = 8;
-        private const int beddingAnglePropertyIndex = 9;
-        private const int waterKinematicViscosityPropertyIndex = 10;
-        private const int gravityPropertyIndex = 11;
-        private const int meanDiameter70PropertyIndex = 12;
-        private const int sellmeijerReductionFactorPropertyIndex = 13;
+        private const int waterVolumetricWeightPropertyIndex = 2;
+        private const int upLiftModelFactorPropertyIndex = 3;
+        private const int sellmeijerModelFactorPropertyIndex = 4;
+        private const int criticalHeaveGradientPropertyIndex = 5;
+        private const int sandParticlesVolumetricWeightPropertyIndex = 6;
+        private const int whitesDragCoefficientPropertyIndex = 7;
+        private const int beddingAnglePropertyIndex = 8;
+        private const int waterKinematicViscosityPropertyIndex = 9;
+        private const int gravityPropertyIndex = 10;
+        private const int meanDiameter70PropertyIndex = 11;
+        private const int sellmeijerReductionFactorPropertyIndex = 12;
 
         [Test]
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
@@ -82,7 +81,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<PipingFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
 
             GeneralPipingInput generalInput = failureMechanism.GeneralInput;
 
@@ -129,7 +127,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(14, dynamicProperties.Count);
+            Assert.AreEqual(13, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string heaveCategory = "Heave";
@@ -148,13 +146,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[waterVolumetricWeightPropertyIndex];

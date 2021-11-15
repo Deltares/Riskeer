@@ -64,9 +64,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 },
                 {
                     nameof(Code), constructionProperties.CodePropertyIndex
-                },
-                {
-                    nameof(Group), constructionProperties.GroupPropertyIndex
                 }
             };
         }
@@ -127,18 +124,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             get
             {
                 return data.Code;
-            }
-        }
-
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
             }
         }
 

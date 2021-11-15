@@ -87,6 +87,18 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region General
 
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
+            }
+        }
+
         [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
