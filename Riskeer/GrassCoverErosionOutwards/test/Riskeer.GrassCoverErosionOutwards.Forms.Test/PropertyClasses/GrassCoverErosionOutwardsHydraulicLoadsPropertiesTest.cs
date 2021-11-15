@@ -33,10 +33,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int waveRunUpPropertyIndex = 3;
-        private const int waveImpactPropertyIndex = 4;
-        private const int waveImpactWithWaveDirectionPropertyIndex = 5;
+        private const int waveRunUpPropertyIndex = 2;
+        private const int waveImpactPropertyIndex = 3;
+        private const int waveImpactWithWaveDirectionPropertyIndex = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -52,7 +51,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
 
             GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
             Assert.AreSame(generalInput.GeneralWaveRunUpWaveConditionsInput, properties.WaveRunUp.Data);
@@ -68,7 +66,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCategory = "Modelinstellingen";
@@ -85,13 +83,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor waveRunUpProperty = dynamicProperties[waveRunUpPropertyIndex];
