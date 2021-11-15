@@ -55,7 +55,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             }
 
             Data = data;
-            
+
             propertyIndexLookup = new Dictionary<string, int>
             {
                 {
@@ -63,9 +63,6 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
                 },
                 {
                     nameof(Code), constructionProperties.CodePropertyIndex
-                },
-                {
-                    nameof(Group), constructionProperties.GroupPropertyIndex
                 }
             };
         }
@@ -77,7 +74,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 
             return propertyIndex;
         }
-        
+
         /// <summary>
         /// Class holding the various construction parameters for <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
         /// </summary>
@@ -94,11 +91,6 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             /// Gets or sets the property index for <see cref="StabilityStoneCoverFailureMechanismProperties.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
-
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityStoneCoverFailureMechanismProperties.Group"/>.
-            /// </summary>
-            public int GroupPropertyIndex { get; set; }
 
             #endregion
         }
@@ -129,18 +121,6 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [DynamicPropertyOrder]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
-        
         #endregion
     }
 }

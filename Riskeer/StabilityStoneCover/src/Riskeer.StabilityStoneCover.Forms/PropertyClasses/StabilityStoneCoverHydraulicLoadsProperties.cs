@@ -37,22 +37,20 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int blocksPropertyIndex = 4;
-        private const int columnsPropertyIndex = 5;
+        private const int blocksPropertyIndex = 3;
+        private const int columnsPropertyIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverHydraulicLoadsProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverHydraulicLoadsProperties(StabilityStoneCoverFailureMechanism data) 
+        public StabilityStoneCoverHydraulicLoadsProperties(StabilityStoneCoverFailureMechanism data)
             : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
-        }) {}
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            }) {}
 
         #region Model settings
 
