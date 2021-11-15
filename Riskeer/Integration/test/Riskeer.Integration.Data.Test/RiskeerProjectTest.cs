@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Data.Test
             Assert.IsInstanceOf<IProject>(project);
             Assert.AreEqual("Project", project.Name);
             Assert.AreEqual("", project.Description);
-            CollectionAssert.IsEmpty(project.AssessmentSections);
+            Assert.IsNull(project.AssessmentSection);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Data.Test
             Assert.IsInstanceOf<IProject>(project);
             Assert.AreEqual(someName, project.Name);
             Assert.AreEqual("", project.Description);
-            CollectionAssert.IsEmpty(project.AssessmentSections);
+            Assert.IsNull(project.AssessmentSection);
         }
 
         [Test]
@@ -148,16 +148,18 @@ namespace Riskeer.Integration.Data.Test
 
                 var random = new Random(21);
                 RiskeerProject differentAssessmentSections = CreateProject();
-                differentAssessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+                differentAssessmentSections.AssessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
                 yield return new TestCaseData(differentAssessmentSections)
                     .SetName("AssessmentSections");
             }
 
             private static RiskeerProject CreateProject()
             {
+                var random = new Random(21);
                 return new RiskeerProject("Some name")
                 {
-                    Description = "Some desctiption"
+                    Description = "Some description",
+                    AssessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
                 };
             }
         }

@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
@@ -45,14 +43,12 @@ namespace Riskeer.Integration.Data
         {
             Name = name;
             Description = "";
-
-            AssessmentSections = new List<AssessmentSection>();
         }
 
         /// <summary>
-        /// Gets or sets the assessment sections of the <see cref="RiskeerProject"/>.
+        /// Gets or sets the assessment section of the <see cref="RiskeerProject"/>.
         /// </summary>
-        public List<AssessmentSection> AssessmentSections { get; }
+        public AssessmentSection AssessmentSection { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the <see cref="RiskeerProject"/>.
@@ -99,7 +95,7 @@ namespace Riskeer.Integration.Data
 
             return string.Equals(Name, otherProject.Name)
                    && string.Equals(Description, otherProject.Description)
-                   && AssessmentSections.SequenceEqual(otherProject.AssessmentSections);
+                   && AssessmentSection.Equals(otherProject.AssessmentSection);
         }
     }
 }
