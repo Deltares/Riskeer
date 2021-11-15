@@ -32,9 +32,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 2;
-        private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 0;
+        private const int namePropertyIndex = 1;
+        private const int codePropertyIndex = 0;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -72,7 +71,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
         }
 
         [Test]
@@ -82,13 +80,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), new WaveImpactAsphaltCoverFailureMechanismProperties.ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex
+                CodePropertyIndex = codePropertyIndex
             });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -104,13 +101,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
         }
     }

@@ -54,11 +54,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailurePathProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
             : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
-        })
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            })
         {
             if (assessmentSection == null)
             {
@@ -82,8 +81,19 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
                    || nameof(N).Equals(propertyName);
         }
 
-        
         #region General
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
+            }
+        }
 
         [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -96,7 +106,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
                 return data.InAssembly;
             }
         }
-        
+
         [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]

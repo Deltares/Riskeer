@@ -36,10 +36,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int aPropertyIndex = 4;
-        private const int bPropertyIndex = 5;
-        private const int cPropertyIndex = 6;
+        private const int aPropertyIndex = 3;
+        private const int bPropertyIndex = 4;
+        private const int cPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverHydraulicLoadsProperties"/>.
@@ -49,8 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         public WaveImpactAsphaltCoverHydraulicLoadsProperties(WaveImpactAsphaltCoverFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
+            CodePropertyIndex = codePropertyIndex
         }) {}
 
         #region Model settings
