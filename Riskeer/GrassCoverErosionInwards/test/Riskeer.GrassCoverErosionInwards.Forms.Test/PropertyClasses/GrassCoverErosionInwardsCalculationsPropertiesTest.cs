@@ -32,11 +32,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int frunupModelFactorPropertyIndex = 3;
-        private const int fbFactorPropertyIndex = 4;
-        private const int fnFactorPropertyIndex = 5;
-        private const int fshallowModelFactorPropertyIndex = 6;
+        private const int frunupModelFactorPropertyIndex = 2;
+        private const int fbFactorPropertyIndex = 3;
+        private const int fnFactorPropertyIndex = 4;
+        private const int fshallowModelFactorPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -52,7 +51,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
 
             GeneralGrassCoverErosionInwardsInput generalInput = failureMechanism.GeneralInput;
 
@@ -84,7 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -98,13 +96,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];

@@ -37,11 +37,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int frunupModelFactorPropertyIndex = 4;
-        private const int fbFactorPropertyIndex = 5;
-        private const int fnFactorPropertyIndex = 6;
-        private const int fshallowModelFactorPropertyIndex = 7;
+        private const int frunupModelFactorPropertyIndex = 3;
+        private const int fbFactorPropertyIndex = 4;
+        private const int fnFactorPropertyIndex = 5;
+        private const int fshallowModelFactorPropertyIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsProperties"/>.
@@ -52,8 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             GrassCoverErosionInwardsFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
+            CodePropertyIndex = codePropertyIndex
         }) {}
 
         #region Model settings
