@@ -37,10 +37,9 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int modelFactorOvertoppingFlowPropertyIndex = 5;
-        private const int modelFactorStorageVolumePropertyIndex = 6;
+        private const int gravitationalAccelerationPropertyIndex = 3;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 4;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationsProperties"/>.
@@ -50,8 +49,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         public HeightStructuresCalculationsProperties(HeightStructuresFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
+            CodePropertyIndex = codePropertyIndex
         }) {}
 
         #region General
