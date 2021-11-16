@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
 
         [Test]
         [TestCase("version0ValidConfigurationFullCalculation.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpact)]
-        [TestCase("version1ValidConfigurationFullCalculationContainingTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
+        [TestCase("version1ValidConfigurationTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveImpactWithWaveDirection)]
         [TestCase("version1ValidConfigurationWaveRunupAndTailorMadeWaveImpact.xml", ConfigurationGrassCoverErosionOutwardsCalculationType.WaveRunUpAndWaveImpactWithWaveDirection)]
         public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation(
             string fileName, ConfigurationGrassCoverErosionOutwardsCalculationType calculationType)

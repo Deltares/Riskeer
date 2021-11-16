@@ -54,10 +54,10 @@
       <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
   </berekening>
-  <berekening naam="Gras (golfklap voor toets op maat)">
+  <berekening naam="Gras (golfklap met golfrichting)">
     <hblocatie>WZ_1_6-3_dk_00002</hblocatie>
     <doelkans>0.0001</doelkans>
-    <typebekleding>Gras (golfklap voor toets op maat)</typebekleding>
+    <typebekleding>Gras (golfklap met golfrichting)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
     <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
@@ -72,10 +72,10 @@
       <voorlandgebruiken>true</voorlandgebruiken>
     </golfreductie>
   </berekening>
-  <berekening naam="Gras (golfoploop en golfklap voor toets op maat)">
+  <berekening naam="Gras (golfoploop en golfklap met golfrichting)">
     <hblocatie>WZ_1_6-3_dk_00012</hblocatie>
     <doelkans>0.0001</doelkans>
-    <typebekleding>Gras (golfoploop en golfklap voor toets op maat)</typebekleding>
+    <typebekleding>Gras (golfoploop en golfklap met golfrichting)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
     <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
