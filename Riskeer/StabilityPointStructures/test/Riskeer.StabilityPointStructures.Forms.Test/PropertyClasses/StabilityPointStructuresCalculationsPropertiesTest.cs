@@ -34,12 +34,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int gravitationalAccelerationPropertyIndex = 3;
-        private const int modelFactorStorageVolumePropertyIndex = 4;
-        private const int modelFactorCollisionLoadPropertyIndex = 5;
-        private const int modelFactorLoadEffectPropertyIndex = 6;
-        private const int modelFactorLongThresholdPropertyIndex = 7;
+        private const int gravitationalAccelerationPropertyIndex = 2;
+        private const int modelFactorStorageVolumePropertyIndex = 3;
+        private const int modelFactorCollisionLoadPropertyIndex = 4;
+        private const int modelFactorLoadEffectPropertyIndex = 5;
+        private const int modelFactorLongThresholdPropertyIndex = 6;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -66,7 +65,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
 
             GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
@@ -94,7 +92,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -108,13 +106,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];

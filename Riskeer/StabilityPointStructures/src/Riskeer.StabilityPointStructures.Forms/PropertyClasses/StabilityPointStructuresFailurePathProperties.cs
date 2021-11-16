@@ -48,9 +48,30 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         public StabilityPointStructuresFailurePathProperties(StabilityPointStructuresFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
+            CodePropertyIndex = codePropertyIndex
         }) {}
+
+        #region Length effect parameters
+
+        [DynamicVisible]
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -65,6 +86,18 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #region General
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
+            }
+        }
 
         [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -88,28 +121,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return data.Contribution;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [DynamicVisible]
-        [PropertyOrder(nPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
-        public RoundedDouble N
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                data.GeneralInput.N = value;
-                data.NotifyObservers();
             }
         }
 
