@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Exceptions;
 using Riskeer.Integration.Service.Merge;
@@ -69,7 +71,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(new RiskeerProject());
+            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(CreateProject());
             mocks.ReplayAll();
 
             var service = new LoadAssessmentSectionService(storeProject);
@@ -85,7 +87,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void LoadAssessmentSections_LoadingProjectSuccessful_ReturnsRiskeerProject()
         {
             // Setup
-            var project = new RiskeerProject();
+            RiskeerProject project = CreateProject();
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
@@ -100,7 +102,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> assessmentSections = service.LoadAssessmentSections(string.Empty);
 
             // Assert
-            Assert.AreSame(project.AssessmentSections, assessmentSections);
+            Assert.AreSame(project.AssessmentSection, assessmentSections.Single());
             mocks.VerifyAll();
         }
 
@@ -162,6 +164,12 @@ namespace Riskeer.Integration.Service.Test.Merge
             Assert.AreEqual(storageException, exception.InnerException);
             Assert.AreEqual(storageException.Message, exception.Message);
             mocks.VerifyAll();
+        }
+
+        private static RiskeerProject CreateProject()
+        {
+            var random = new Random(21);
+            return new RiskeerProject(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
         }
     }
 }
