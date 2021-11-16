@@ -57,11 +57,8 @@ namespace Riskeer.Storage.Core.Create
 
         private static void AddEntitiesForAssessmentSections(RiskeerProject project, ProjectEntity entity, PersistenceRegistry registry)
         {
-            for (var index = 0; index < project.AssessmentSections.Count; index++)
-            {
-                AssessmentSection assessmentSection = project.AssessmentSections[index];
-                entity.AssessmentSectionEntities.Add(assessmentSection.Create(registry, index));
-            }
+            AssessmentSection assessmentSection = project.AssessmentSection;
+            entity.AssessmentSectionEntities.Add(assessmentSection.Create(registry, 0));
         }
     }
 }

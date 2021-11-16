@@ -46,17 +46,21 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var project = new RiskeerProject
+            AssessmentSection assessmentSection = ReadAssessmentSection(entity, collector);
+            var project = new RiskeerProject(assessmentSection)
             {
                 Description = entity.Description
             };
-
-            foreach (AssessmentSectionEntity assessmentSectionEntity in entity.AssessmentSectionEntities.OrderBy(ase => ase.Order))
-            {
-                project.AssessmentSections.Add(assessmentSectionEntity.Read(collector));
-            }
-
+            
             return project;
+        }
+
+        private static AssessmentSection ReadAssessmentSection(ProjectEntity entity, ReadConversionCollector collector)
+        {
+            AssessmentSectionEntity assessmentSectionEntity = entity.AssessmentSectionEntities
+                                                                    .OrderBy(ase => ase.Order)
+                                                                    .FirstOrDefault();
+            return assessmentSectionEntity?.Read(collector);
         }
     }
 }

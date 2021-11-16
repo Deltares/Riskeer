@@ -34,16 +34,43 @@ namespace Riskeer.Integration.Data.Test
     public class RiskeerProjectTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValue()
+        public void DefaultConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            var project = new RiskeerProject();
+            void Call() => new RiskeerProject(null);
+
+            // Assert
+            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
+                                    .With.Property(nameof(ArgumentNullException.ParamName))
+                                    .EqualTo("assessmentSection"));
+        }
+
+        [Test]
+        public void DefaultConstructor_ExpectedValue()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            // Call
+            var project = new RiskeerProject(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IProject>(project);
             Assert.AreEqual("Project", project.Name);
             Assert.AreEqual("", project.Description);
-            CollectionAssert.IsEmpty(project.AssessmentSections);
+            Assert.AreSame(assessmentSection, project.AssessmentSection);
+        }
+
+        [Test]
+        public void NameConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new RiskeerProject(string.Empty, null);
+
+            // Assert
+            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
+                                    .With.Property(nameof(ArgumentNullException.ParamName))
+                                    .EqualTo("assessmentSection"));
         }
 
         [Test]
@@ -51,15 +78,16 @@ namespace Riskeer.Integration.Data.Test
         {
             // Setup
             const string someName = "<Some name>";
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             // Call
-            var project = new RiskeerProject(someName);
+            var project = new RiskeerProject(someName, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<IProject>(project);
             Assert.AreEqual(someName, project.Name);
             Assert.AreEqual("", project.Description);
-            CollectionAssert.IsEmpty(project.AssessmentSections);
+            Assert.AreSame(assessmentSection, project.AssessmentSection);
         }
 
         [Test]
@@ -70,7 +98,7 @@ namespace Riskeer.Integration.Data.Test
             const string nicerDescription = "Nicer description";
 
             // Call
-            var project = new RiskeerProject
+            var project = new RiskeerProject(CreateAssessmentSection())
             {
                 Name = niceProjectName,
                 Description = nicerDescription
@@ -90,7 +118,7 @@ namespace Riskeer.Integration.Data.Test
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var project = new RiskeerProject();
+            var project = new RiskeerProject(CreateAssessmentSection());
             project.Attach(observer);
 
             // Call
@@ -109,7 +137,7 @@ namespace Riskeer.Integration.Data.Test
             observer.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var project = new RiskeerProject();
+            var project = new RiskeerProject(CreateAssessmentSection());
             project.Attach(observer);
             project.NotifyObservers();
 
@@ -121,9 +149,17 @@ namespace Riskeer.Integration.Data.Test
             mockRepository.VerifyAll();
         }
 
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            var random = new Random(21);
+            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+        }
+
         [TestFixture]
         private class RiskeerProjectEqualsTest : EqualsTestFixture<RiskeerProject, DerivedRiskeerProject>
         {
+            private static readonly AssessmentSection assessmentSection = CreateAssessmentSection();
+
             protected override RiskeerProject CreateObject()
             {
                 return CreateProject();
@@ -138,33 +174,34 @@ namespace Riskeer.Integration.Data.Test
             {
                 RiskeerProject baseProject = CreateProject();
 
-                yield return new TestCaseData(new RiskeerProject("Different name")
+                yield return new TestCaseData(new RiskeerProject("Different name", assessmentSection)
                 {
                     Description = baseProject.Description
                 }).SetName("Name");
 
-                yield return new TestCaseData(new RiskeerProject(baseProject.Name))
+                yield return new TestCaseData(new RiskeerProject(baseProject.Name, assessmentSection))
                     .SetName("Description");
 
-                var random = new Random(21);
-                RiskeerProject differentAssessmentSections = CreateProject();
-                differentAssessmentSections.AssessmentSections.Add(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+                var differentAssessmentSections = new RiskeerProject("Some name", CreateAssessmentSection())
+                {
+                    Description = "Some description"
+                };
                 yield return new TestCaseData(differentAssessmentSections)
                     .SetName("AssessmentSections");
             }
 
             private static RiskeerProject CreateProject()
             {
-                return new RiskeerProject("Some name")
+                return new RiskeerProject("Some name", assessmentSection)
                 {
-                    Description = "Some desctiption"
+                    Description = "Some description"
                 };
             }
         }
 
         private class DerivedRiskeerProject : RiskeerProject
         {
-            public DerivedRiskeerProject(RiskeerProject project)
+            public DerivedRiskeerProject(RiskeerProject project) : base(project.AssessmentSection)
             {
                 Name = project.Name;
                 Description = project.Description;

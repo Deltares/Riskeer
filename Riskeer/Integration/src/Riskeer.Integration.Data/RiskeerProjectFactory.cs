@@ -64,18 +64,7 @@ namespace Riskeer.Integration.Data
                 throw new ProjectFactoryException(e.Message, e);
             }
 
-            if (assessmentSection == null)
-            {
-                return null;
-            }
-
-            return new RiskeerProject
-            {
-                AssessmentSections =
-                {
-                    assessmentSection
-                }
-            };
+            return assessmentSection == null ? null : new RiskeerProject(assessmentSection);
         }
     }
 }

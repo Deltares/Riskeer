@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var project = new RiskeerProject();
+            var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             TestDelegate test = () => project.Create(null);
@@ -49,10 +49,10 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_WithCollector_ReturnsProjectEntityWithDescription()
         {
             // Setup
-            const string testdescription = "testDescription";
-            var project = new RiskeerProject
+            const string testDescription = "testDescription";
+            var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike))
             {
-                Description = testdescription
+                Description = testDescription
             };
             var registry = new PersistenceRegistry();
 
@@ -61,7 +61,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             Assert.NotNull(entity);
-            Assert.AreEqual(testdescription, entity.Description);
+            Assert.AreEqual(testDescription, entity.Description);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             const string testdescription = "original description";
-            var project = new RiskeerProject
+            var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike))
             {
                 Description = testdescription
             };
@@ -87,13 +87,9 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_WithAssessmentSections_AddsSectionsToEntity()
         {
             // Setup
-            var project = new RiskeerProject
-            {
-                AssessmentSections =
-                {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                }
-            };
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var project = new RiskeerProject(assessmentSection);
+            
             var registry = new PersistenceRegistry();
 
             // Call

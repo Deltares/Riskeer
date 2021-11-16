@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -63,6 +62,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(project);
             Assert.AreEqual(testDescription, project.Description);
+            Assert.IsNull(project.AssessmentSection);
         }
 
         [Test]
@@ -103,33 +103,6 @@ namespace Riskeer.Storage.Core.Test.Read
                                 }
                             }
                         }
-                    },
-                    new AssessmentSectionEntity
-                    {
-                        SignalingNorm = signalingNorm,
-                        LowerLimitNorm = lowerLimitNorm,
-                        NormativeNormType = Convert.ToByte(NormType.Signaling),
-                        Name = "B",
-                        Order = 0,
-                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
-                        BackgroundDataEntities = new[]
-                        {
-                            new BackgroundDataEntity
-                            {
-                                Name = "Background B",
-                                Transparency = 0.0,
-                                IsVisible = 1,
-                                BackgroundDataType = 2,
-                                BackgroundDataMetaEntities = new[]
-                                {
-                                    new BackgroundDataMetaEntity
-                                    {
-                                        Key = BackgroundDataIdentifiers.WellKnownTileSource,
-                                        Value = "1"
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
             };
@@ -138,12 +111,7 @@ namespace Riskeer.Storage.Core.Test.Read
             RiskeerProject project = entity.Read(new ReadConversionCollector());
 
             // Assert
-            Assert.AreEqual(2, project.AssessmentSections.Count);
-            CollectionAssert.AreEqual(new[]
-            {
-                "B",
-                "A"
-            }, project.AssessmentSections.Select(a => a.Name));
+            Assert.AreEqual("A", project.AssessmentSection.Name);
         }
     }
 }

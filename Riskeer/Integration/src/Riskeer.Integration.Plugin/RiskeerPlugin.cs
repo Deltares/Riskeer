@@ -179,9 +179,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    AssessmentSection assessmentSection = riskeerProject.AssessmentSections.First();
-
-                    return new AssessmentSectionStateRootContext(assessmentSection);
+                    return new AssessmentSectionStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -191,7 +189,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new HydraulicLoadsStateRootContext(riskeerProject.AssessmentSections.First());
+                    return new HydraulicLoadsStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -201,7 +199,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new CalculationsStateRootContext(riskeerProject.AssessmentSections.First());
+                    return new CalculationsStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -211,7 +209,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSections.First());
+                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -885,10 +883,7 @@ namespace Riskeer.Integration.Plugin
         {
             if (viewData is RiskeerProject project)
             {
-                foreach (AssessmentSection item in project.AssessmentSections)
-                {
-                    yield return item;
-                }
+                yield return project.AssessmentSection;
             }
 
             if (viewData is IAssessmentSection assessmentSection)
@@ -1348,14 +1343,14 @@ namespace Riskeer.Integration.Plugin
                 return;
             }
 
-            IEnumerable<AssessmentSection> sectionsWithHydraulicBoundaryDatabaseLinked = riskeerProject.AssessmentSections.Where(i => i.HydraulicBoundaryDatabase.IsLinked());
-            foreach (AssessmentSection section in sectionsWithHydraulicBoundaryDatabaseLinked)
+            AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
+            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                    section.HydraulicBoundaryDatabase.FilePath,
-                    section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                    section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                    section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
                 if (validationProblem != null)
                 {

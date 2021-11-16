@@ -71,7 +71,10 @@ namespace Riskeer.Integration.Service.Merge
                 throw new LoadAssessmentSectionException();
             }
 
-            return openedProject.AssessmentSections;
+            return new[]
+            {
+                openedProject.AssessmentSection
+            };
         }
     }
 }
