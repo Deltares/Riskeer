@@ -30,7 +30,6 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 {

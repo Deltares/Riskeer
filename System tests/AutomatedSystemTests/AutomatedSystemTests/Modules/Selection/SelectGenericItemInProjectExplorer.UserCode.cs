@@ -37,6 +37,7 @@ namespace AutomatedSystemTests.Modules.Selection
 
         public void SelectTreeItemInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
             {
+            pathItem = pathItem.ReplacePathAliases();
             Action<TreeItem> actions = (it=> (it as Adapter).Focus());
             actions += (it=>it.ClickWithoutBoundsCheck(new Location(-0.02, 0.5)));
             TreeItemHelpers.FindNodeInTree(pathItem, rootNodeInfo, actions);

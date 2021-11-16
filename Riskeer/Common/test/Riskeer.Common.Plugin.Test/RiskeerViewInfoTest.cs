@@ -63,6 +63,8 @@ namespace Riskeer.Common.Plugin.Test
 
             // Assert
             Assert.IsInstanceOf<RiskeerViewInfo<int, int, IView>>(viewInfo);
+            Assert.IsNotNull(viewInfo.GetSymbol);
+            Assert.IsNotNull(viewInfo.GetFontFamily);
         }
 
         [Test]
@@ -165,7 +167,7 @@ namespace Riskeer.Common.Plugin.Test
             FontFamily actualFontFamily = viewInfo.GetFontFamily();
 
             // Assert
-            Assert.AreEqual(expectedFontFamily, actualFontFamily);
+            Assert.AreSame(expectedFontFamily, actualFontFamily);
             mockRepository.VerifyAll();
         }
     }

@@ -172,7 +172,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         }
 
         [Test]
-        public void AddDocumentView_WithAllPropertiesSet_ViewAddedWithExpectedProperties()
+        public void AddDocumentView_WithAllParameters_ViewAddedWithExpectedProperties()
         {
             // Setup
             using (var avalonDockViewHost = new AvalonDockViewHost())
@@ -570,7 +570,7 @@ namespace Core.Gui.Test.Forms.ViewHost
         [TestCase(ToolViewLocation.Left)]
         [TestCase(ToolViewLocation.Right)]
         [TestCase(ToolViewLocation.Bottom)]
-        public void AddToolView_WithAllPropertiesSet_ViewAddedWithExpectedProperties(ToolViewLocation toolViewLocation)
+        public void AddToolView_WithAllParameters_ViewAddedWithExpectedProperties(ToolViewLocation toolViewLocation)
         {
             // Setup
             using (var avalonDockViewHost = new AvalonDockViewHost())

@@ -10462,7 +10462,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;Hydraulische&gt;Waterstanden bij doelkans
+						Traject&gt;@HB&gt;Waterstanden bij doelkans
 					</td>
 					<td>
 						1/10000
@@ -10473,7 +10473,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;Hydraulische&gt;Golfhoogten bij doelkans
+						Traject&gt;@HB&gt;Golfhoogten bij doelkans
 					</td>
 					<td>
 						1/1000
@@ -10484,7 +10484,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;Duinafslag&gt;Hydraulische
+						Traject&gt;Duinafslag&gt;@HB
 					</td>
 					<td>
 						1/500

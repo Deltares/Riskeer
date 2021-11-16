@@ -32,7 +32,6 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Views;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {

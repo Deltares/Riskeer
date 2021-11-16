@@ -879,6 +879,9 @@
     <Compile Include="Modules\Calculation\PrependString.cs">
       <id>7ce66da5-d317-495d-af3b-673c128c3237</id>
     </Compile>
+    <Compile Include="Modules\Calculation\ReplaceAllAliasesInPath.cs">
+      <id>c87ab248-217b-4f1d-af56-b5d63289c45c</id>
+    </Compile>
     <Compile Include="Modules\Calculation\ReplaceSubstring.cs">
       <id>9306fd67-a83c-4f05-a0d4-602bade207d0</id>
     </Compile>

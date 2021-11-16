@@ -114,6 +114,28 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             return originalString;
         }
         
+        
+        public static string ReplacePathAliases(this string path)
+        {
+            var replacementsPath = new Dictionary<string, string> {
+                {"@STPH",  "Piping"},
+                {"@GEKB",  "Grasbekleding erosie kruin en binnentalud"},
+                {"@STBI",  "Macrostabiliteit binnenwaarts"},
+                {"@HTKW",  "Hoogte kunstwerk"},
+                {"@BSKW",  "Betrouwbaarheid sluiting kunstwerk"},
+                {"@STKWp", "Sterkte en stabiliteit puntconstructies"},
+                {"@ZST",   "Stabiliteit steenzetting"},
+                {"@AGK",   "Golfklappen op asfaltbekleding"},
+                {"@GEBU",  "Grasbekleding erosie buitentalud"},
+                {"@DA",    "Duinafslag"},
+                {"@HB", "Hydraulische belastingen"}
+            };
+            foreach (var item in replacementsPath) {
+                path = path.Replace(item.Key, item.Value);
+            }
+            return path;
+        }
+        
         private static string ToNewCulture(this string originalString, CultureInfo currentCulture, CultureInfo newCulture)
         {
             return originalString.
@@ -127,5 +149,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
         {
             return Regex.Replace(originalString, @"(\d+)\" + currentSeparator + @"(\d+)", "$1" + newSeparator + "$2");
         }
+        
+        
     }
 }
