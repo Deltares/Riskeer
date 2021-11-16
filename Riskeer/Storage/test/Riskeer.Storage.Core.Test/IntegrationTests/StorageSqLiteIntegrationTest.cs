@@ -77,29 +77,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
-        public void SaveProjectAs_DuplicateItemsInProjectSaveAsNewFile_ProjectAsEntitiesInFile()
-        {
-            // Setup
-            RiskeerProject fullProject = RiskeerProjectTestHelper.GetFullTestProject();
-            RiskeerProject duplicateProject = RiskeerProjectTestHelper.GetFullTestProject();
-
-            AssessmentSection duplicateAssessmentSection = duplicateProject.AssessmentSections.First();
-            fullProject.AssessmentSections.Add(duplicateAssessmentSection);
-
-            string projectFilePath = GetRandomProjectFilePath();
-
-            var storage = new StorageSqLite();
-            storage.StageProject(fullProject);
-
-            // Call
-            storage.SaveProjectAs(projectFilePath);
-            var firstProject = (RiskeerProject) storage.LoadProject(projectFilePath);
-
-            // Assert
-            AssertProjectsAreEqual(fullProject, firstProject);
-        }
-
-        [Test]
         public void SaveProjectAs_SaveAsNewFile_ProjectAsEntitiesInBothFiles()
         {
             // Setup
@@ -241,109 +218,105 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.NotNull(expectedProject);
             Assert.NotNull(actualProject);
             Assert.AreNotSame(expectedProject, actualProject);
+            Assert.AreEqual(expectedProject.Name, actualProject.Name);
+            Assert.AreEqual(expectedProject.Description, actualProject.Description);
 
-            List<AssessmentSection> expectedProjectAssessmentSections = expectedProject.AssessmentSections;
-            List<AssessmentSection> actualProjectAssessmentSections = actualProject.AssessmentSections;
-            Assert.AreEqual(expectedProjectAssessmentSections.Count, actualProjectAssessmentSections.Count);
-            for (var i = 0; i < expectedProjectAssessmentSections.Count; i++)
+            AssessmentSection expectedAssessmentSection = expectedProject.AssessmentSection;
+            AssessmentSection actualAssessmentSection = actualProject.AssessmentSection;
+
+            Assert.AreEqual(expectedAssessmentSection.Id, actualAssessmentSection.Id);
+            Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
+            AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
+
+            FailureMechanismContribution expectedContribution = expectedAssessmentSection.FailureMechanismContribution;
+            FailureMechanismContribution actualContribution = actualAssessmentSection.FailureMechanismContribution;
+            Assert.AreEqual(expectedContribution.LowerLimitNorm, actualContribution.LowerLimitNorm);
+            Assert.AreEqual(expectedContribution.SignalingNorm, actualContribution.SignalingNorm);
+            Assert.AreEqual(expectedContribution.NormativeNorm, actualContribution.NormativeNorm);
+
+            BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
+            AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
+            AssertHydraulicBoundaryLocationCalculations(expectedAssessmentSection, actualAssessmentSection);
+            AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
+
+            IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
+            IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
+            for (var fmi = 0; fmi < expectedProjectFailureMechanisms.Length; fmi++)
             {
-                AssessmentSection expectedAssessmentSection = expectedProjectAssessmentSections[i];
-                AssessmentSection actualAssessmentSection = actualProjectAssessmentSections[i];
-
-                Assert.AreEqual(expectedAssessmentSection.Id, actualAssessmentSection.Id);
-                Assert.AreEqual(expectedAssessmentSection.Name, actualAssessmentSection.Name);
-                AssertComments(expectedAssessmentSection.Comments, actualAssessmentSection.Comments);
-
-                FailureMechanismContribution expectedContribution = expectedAssessmentSection.FailureMechanismContribution;
-                FailureMechanismContribution actualContribution = actualAssessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(expectedContribution.LowerLimitNorm, actualContribution.LowerLimitNorm);
-                Assert.AreEqual(expectedContribution.SignalingNorm, actualContribution.SignalingNorm);
-                Assert.AreEqual(expectedContribution.NormativeNorm, actualContribution.NormativeNorm);
-
-                BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
-                AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);
-                AssertHydraulicBoundaryLocationCalculations(expectedAssessmentSection, actualAssessmentSection);
-                AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
-
-                IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
-                IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
-                for (var fmi = 0; fmi < expectedProjectFailureMechanisms.Length; fmi++)
-                {
-                    AssertFailureMechanism(expectedProjectFailureMechanisms[fmi], actualProjectFailureMechanisms[fmi]);
-                }
-
-                AssertPipingFailureMechanism(expectedAssessmentSection.Piping, actualAssessmentSection.Piping);
-                AssertMacroStabilityOutwardsFailureMechanism(expectedAssessmentSection.MacroStabilityOutwards, actualAssessmentSection.MacroStabilityOutwards);
-                AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
-                AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
-                AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
-                AssertPipingStructureFailureMechanism(expectedAssessmentSection.PipingStructure, actualAssessmentSection.PipingStructure);
-                AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
-                AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
-                AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
-                AssertClosingStructuresFailureMechanism(expectedAssessmentSection.ClosingStructures, actualAssessmentSection.ClosingStructures);
-                AssertDuneErosionFailureMechanism(expectedAssessmentSection.DuneErosion, actualAssessmentSection.DuneErosion);
-                AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
-
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.Piping.SectionResults,
-                    actualAssessmentSection.Piping.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.GrassCoverErosionInwards.SectionResults,
-                    actualAssessmentSection.GrassCoverErosionInwards.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.HeightStructures.SectionResults,
-                    actualAssessmentSection.HeightStructures.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults,
-                    actualAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.TechnicalInnovation.SectionResults,
-                    actualAssessmentSection.TechnicalInnovation.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
-                    actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.ClosingStructures.SectionResults,
-                    actualAssessmentSection.ClosingStructures.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.MacroStabilityOutwards.SectionResults,
-                    actualAssessmentSection.MacroStabilityOutwards.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.MacroStabilityInwards.SectionResults,
-                    actualAssessmentSection.MacroStabilityInwards.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.WaveImpactAsphaltCover.SectionResults,
-                    actualAssessmentSection.WaveImpactAsphaltCover.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.GrassCoverErosionOutwards.SectionResults,
-                    actualAssessmentSection.GrassCoverErosionOutwards.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.GrassCoverSlipOffInwards.SectionResults,
-                    actualAssessmentSection.GrassCoverSlipOffInwards.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.GrassCoverSlipOffOutwards.SectionResults,
-                    actualAssessmentSection.GrassCoverSlipOffOutwards.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.Microstability.SectionResults,
-                    actualAssessmentSection.Microstability.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.PipingStructure.SectionResults,
-                    actualAssessmentSection.PipingStructure.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.DuneErosion.SectionResults,
-                    actualAssessmentSection.DuneErosion.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.StabilityStoneCover.SectionResults,
-                    actualAssessmentSection.StabilityStoneCover.SectionResults);
-                AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.StabilityPointStructures.SectionResults,
-                    actualAssessmentSection.StabilityPointStructures.SectionResults);
-
-                AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
-                                         actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
-                                         AssertSpecificFailurePath);
+                AssertFailureMechanism(expectedProjectFailureMechanisms[fmi], actualProjectFailureMechanisms[fmi]);
             }
+
+            AssertPipingFailureMechanism(expectedAssessmentSection.Piping, actualAssessmentSection.Piping);
+            AssertMacroStabilityOutwardsFailureMechanism(expectedAssessmentSection.MacroStabilityOutwards, actualAssessmentSection.MacroStabilityOutwards);
+            AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
+            AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
+            AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
+            AssertPipingStructureFailureMechanism(expectedAssessmentSection.PipingStructure, actualAssessmentSection.PipingStructure);
+            AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
+            AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
+            AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
+            AssertClosingStructuresFailureMechanism(expectedAssessmentSection.ClosingStructures, actualAssessmentSection.ClosingStructures);
+            AssertDuneErosionFailureMechanism(expectedAssessmentSection.DuneErosion, actualAssessmentSection.DuneErosion);
+            AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
+
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.Piping.SectionResults,
+                actualAssessmentSection.Piping.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.GrassCoverErosionInwards.SectionResults,
+                actualAssessmentSection.GrassCoverErosionInwards.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.HeightStructures.SectionResults,
+                actualAssessmentSection.HeightStructures.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults,
+                actualAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.TechnicalInnovation.SectionResults,
+                actualAssessmentSection.TechnicalInnovation.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
+                actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.ClosingStructures.SectionResults,
+                actualAssessmentSection.ClosingStructures.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.MacroStabilityOutwards.SectionResults,
+                actualAssessmentSection.MacroStabilityOutwards.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.MacroStabilityInwards.SectionResults,
+                actualAssessmentSection.MacroStabilityInwards.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.WaveImpactAsphaltCover.SectionResults,
+                actualAssessmentSection.WaveImpactAsphaltCover.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.GrassCoverErosionOutwards.SectionResults,
+                actualAssessmentSection.GrassCoverErosionOutwards.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.GrassCoverSlipOffInwards.SectionResults,
+                actualAssessmentSection.GrassCoverSlipOffInwards.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.GrassCoverSlipOffOutwards.SectionResults,
+                actualAssessmentSection.GrassCoverSlipOffOutwards.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.Microstability.SectionResults,
+                actualAssessmentSection.Microstability.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.PipingStructure.SectionResults,
+                actualAssessmentSection.PipingStructure.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.DuneErosion.SectionResults,
+                actualAssessmentSection.DuneErosion.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.StabilityStoneCover.SectionResults,
+                actualAssessmentSection.StabilityStoneCover.SectionResults);
+            AssertFailureMechanismSectionResults(
+                expectedAssessmentSection.StabilityPointStructures.SectionResults,
+                actualAssessmentSection.StabilityPointStructures.SectionResults);
+
+            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
+                                     actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
+                                     AssertSpecificFailurePath);
         }
 
         private static void AssertFailureMechanismSectionResults(

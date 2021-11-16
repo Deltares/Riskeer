@@ -218,14 +218,10 @@ namespace Riskeer.Storage.Core.TestUtil
             assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
             assessmentSection.SpecificFailurePaths.ForEach(SetComments);
 
-            var fullTestProject = new RiskeerProject
+            var fullTestProject = new RiskeerProject(assessmentSection)
             {
                 Name = "tempProjectFile",
-                Description = "description",
-                AssessmentSections =
-                {
-                    assessmentSection
-                }
+                Description = "description"
             };
             return fullTestProject;
         }

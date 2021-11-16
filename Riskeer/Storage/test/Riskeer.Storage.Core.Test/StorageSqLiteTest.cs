@@ -28,6 +28,7 @@ using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.TestUtil;
@@ -293,7 +294,7 @@ namespace Riskeer.Storage.Core.Test
         public void SaveProjectAs_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Setup
-            var project = new RiskeerProject();
+            RiskeerProject project = CreateProject();
 
             var storage = new StorageSqLite();
             storage.StageProject(project);
@@ -312,7 +313,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToNonExistingFile_DoesNotThrowException));
-            var project = new RiskeerProject();
+            RiskeerProject project = CreateProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
@@ -331,7 +332,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToExistingFile_DoesNotThrowException));
-            var project = new RiskeerProject();
+            RiskeerProject project = CreateProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
@@ -349,7 +350,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(SaveProjectAs_ValidPathToLockedFile_ThrowsUpdateStorageException));
-            var project = new RiskeerProject();
+            RiskeerProject project = CreateProject();
             var storage = new StorageSqLite();
             storage.StageProject(project);
 
@@ -400,7 +401,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storage = new StorageSqLite();
-            storage.StageProject(new RiskeerProject());
+            storage.StageProject(CreateProject());
 
             string path = Path.Combine(testPath, "ValidCharacteristics.csv");
             char[] invalidCharacters = Path.GetInvalidPathChars();
@@ -435,7 +436,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            storageSqLite.StageProject(new RiskeerProject());
+            storageSqLite.StageProject(CreateProject());
 
             // Call
             bool hasChanges = storageSqLite.HasStagedProjectChanges(null);
@@ -449,7 +450,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            var storedProject = new RiskeerProject();
+            RiskeerProject storedProject = CreateProject();
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoaded_ReturnsFalse));
 
             SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, storedProject);
@@ -468,7 +469,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var storageSqLite = new StorageSqLite();
-            var storedProject = new RiskeerProject();
+            RiskeerProject storedProject = CreateProject();
             const string changedName = "some name";
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_ValidProjectLoadedWithUnaffectedChange_ReturnsFalse));
 
@@ -530,6 +531,12 @@ namespace Riskeer.Storage.Core.Test
             Assert.IsFalse(hasChanges);
 
             mockRepository.VerifyAll();
+        }
+
+        private static RiskeerProject CreateProject()
+        {
+            var random = new Random(21);
+            return new RiskeerProject(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
         }
 
         [OneTimeSetUp]
