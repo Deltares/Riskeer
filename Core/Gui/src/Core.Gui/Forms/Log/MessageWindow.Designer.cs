@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.Forms;
+using Core.Common.Controls.Style;
 
 namespace Core.Gui.Forms.Log
 {
@@ -129,6 +131,7 @@ namespace Core.Gui.Forms.Log
             this.messagesToolStrip.BackColor = System.Drawing.SystemColors.ControlLight;
             resources.ApplyResources(this.messagesToolStrip, "messagesToolStrip");
             this.messagesToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.messagesToolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.messagesToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonShowInfo,
             this.buttonShowWarning,
@@ -137,36 +140,38 @@ namespace Core.Gui.Forms.Log
             this.buttonShowDetails});
             this.messagesToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.messagesToolStrip.Name = "messagesToolStrip";
+            this.messagesToolStrip.Renderer = new CustomToolStripRenderer();
+            this.messagesToolStrip.BackColor = ColorDefinitions.ControlBackgroundColor;
             // 
             // buttonShowInfo
             // 
             this.buttonShowInfo.Checked = true;
             this.buttonShowInfo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.buttonShowInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonShowInfo.Image = global::Core.Gui.Properties.Resources.information;
             resources.ApplyResources(this.buttonShowInfo, "buttonShowInfo");
+            this.buttonShowInfo.Text = "\uE909";
             this.buttonShowInfo.Name = "buttonShowInfo";
             this.buttonShowInfo.Click += new System.EventHandler(this.ButtonShowInfoClick);
+            this.buttonShowInfo.Margin = new System.Windows.Forms.Padding(2);
             // 
             // buttonShowWarning
             // 
             this.buttonShowWarning.Checked = true;
             this.buttonShowWarning.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.buttonShowWarning.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonShowWarning.Image = global::Core.Gui.Properties.Resources.error;
             resources.ApplyResources(this.buttonShowWarning, "buttonShowWarning");
+            this.buttonShowWarning.Text = "\uE90A";
             this.buttonShowWarning.Name = "buttonShowWarning";
             this.buttonShowWarning.Click += new System.EventHandler(this.ButtonShowWarningClick);
+            this.buttonShowWarning.Margin = new System.Windows.Forms.Padding(2);
             // 
             // buttonShowError
             // 
             this.buttonShowError.Checked = true;
             this.buttonShowError.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.buttonShowError.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonShowError.Image = global::Core.Gui.Properties.Resources.exclamation;
             resources.ApplyResources(this.buttonShowError, "buttonShowError");
+            this.buttonShowError.Text = "\uE90B";
             this.buttonShowError.Name = "buttonShowError";
             this.buttonShowError.Click += new System.EventHandler(this.ButtonShowErrorClick);
+            this.buttonShowError.Margin = new System.Windows.Forms.Padding(2);
             // 
             // toolStripSeparator1
             // 
@@ -175,11 +180,11 @@ namespace Core.Gui.Forms.Log
             // 
             // buttonShowDetails
             // 
-            this.buttonShowDetails.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonShowDetails.Image = global::Core.Gui.Properties.Resources.application_import_blue;
             resources.ApplyResources(this.buttonShowDetails, "buttonShowDetails");
+            this.buttonShowDetails.Text = "\uE90C";
             this.buttonShowDetails.Name = "buttonShowDetails";
             this.buttonShowDetails.Click += new System.EventHandler(this.ButtonShowDetailsClick);
+            this.buttonShowDetails.Margin = new System.Windows.Forms.Padding(2);
             // 
             // messagesDataGridView
             // 

@@ -23,10 +23,14 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using Core.Common.Util.Drawing;
 using Core.Gui.Clipboard;
+using Core.Gui.Properties;
 using log4net.Core;
 
 namespace Core.Gui.Forms.Log
@@ -41,6 +45,9 @@ namespace Core.Gui.Forms.Log
         private readonly Dictionary<string, string> levelImageName;
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
         private bool filtering;
+        
+        private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
+        private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageWindow" /> class.
@@ -52,6 +59,11 @@ namespace Core.Gui.Forms.Log
 
             MessageWindowLogAppender.Instance.MessageWindow = this;
             InitializeComponent();
+
+            buttonShowDetails.Font = font;
+            buttonShowInfo.Font = font;
+            buttonShowWarning.Font = font;
+            buttonShowError.Font = font;
 
             // order is the same as in log4j Level (check sources of log4net)
             levelImageName = new Dictionary<string, string>

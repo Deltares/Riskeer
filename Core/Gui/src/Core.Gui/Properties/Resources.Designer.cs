@@ -2443,6 +2443,16 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] Symbols {
+            get {
+                object obj = ResourceManager.GetObject("Symbols", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Systeeminformatie.
         /// </summary>
         public static string SystemInformation_DisplayName {
