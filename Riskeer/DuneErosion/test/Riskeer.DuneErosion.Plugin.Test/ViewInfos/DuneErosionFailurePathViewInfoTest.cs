@@ -30,7 +30,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.Views;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 {

@@ -41,7 +41,6 @@ using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.Views;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {

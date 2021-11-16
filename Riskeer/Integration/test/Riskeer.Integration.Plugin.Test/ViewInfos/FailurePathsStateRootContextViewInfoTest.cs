@@ -29,7 +29,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Views;
-using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {

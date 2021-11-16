@@ -31,7 +31,6 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {

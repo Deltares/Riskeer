@@ -41,7 +41,6 @@ using Riskeer.Revetment.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.Views;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 {

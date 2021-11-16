@@ -32,7 +32,6 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
-using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
 {

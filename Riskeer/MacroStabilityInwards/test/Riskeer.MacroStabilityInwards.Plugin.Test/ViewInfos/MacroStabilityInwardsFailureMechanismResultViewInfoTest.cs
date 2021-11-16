@@ -32,7 +32,6 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Views;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 {
