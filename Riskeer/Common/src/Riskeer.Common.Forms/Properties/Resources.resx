@@ -455,10 +455,10 @@ handmatig</value>
   <data name="FailureMechanism_Code_DisplayName" xml:space="preserve">
     <value>Label</value>
   </data>
-  <data name="FailureMechanism_Group_Description" xml:space="preserve">
+  <data name="FailurePath_Group_Description" xml:space="preserve">
     <value>De groep waar het toetsspoor toe behoort.</value>
   </data>
-  <data name="FailureMechanism_Group_DisplayName" xml:space="preserve">
+  <data name="FailurePath_Group_DisplayName" xml:space="preserve">
     <value>Groep</value>
   </data>
   <data name="FailureMechanism_Name_Description" xml:space="preserve">
@@ -1299,10 +1299,10 @@ Betrouwbaarheidsindex = {1}</value>
   <data name="ReferenceLine_Length_Rounded_Description" xml:space="preserve">
     <value>Totale lengte van het traject in meters (afgerond).</value>
   </data>
-  <data name="FailureMechanism_Contribution_Description" xml:space="preserve">
+  <data name="FailurePath_Contribution_Description" xml:space="preserve">
     <value>Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.</value>
   </data>
-  <data name="FailureMechanism_Contribution_DisplayName" xml:space="preserve">
+  <data name="FailurePath_Contribution_DisplayName" xml:space="preserve">
     <value>Faalkansbijdrage [%]</value>
   </data>
   <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName" xml:space="preserve">

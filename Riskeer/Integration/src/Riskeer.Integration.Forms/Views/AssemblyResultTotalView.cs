@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Forms.Views
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Group),
-                                                 RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName,
+                                                 RiskeerCommonFormsResources.FailurePath_Group_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.CategoryGroup),
