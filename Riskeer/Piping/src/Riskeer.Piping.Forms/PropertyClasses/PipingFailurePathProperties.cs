@@ -58,8 +58,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex
+                CodePropertyIndex = codePropertyIndex
             })
         {
             if (assessmentSection == null)

@@ -41,18 +41,17 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int waterVolumetricWeightPropertyIndex = 4;
-        private const int upLiftModelFactorPropertyIndex = 5;
-        private const int sellmeijerModelFactorPropertyIndex = 6;
-        private const int criticalHeaveGradientPropertyIndex = 7;
-        private const int sandParticlesVolumetricWeightPropertyIndex = 8;
-        private const int whitesDragCoefficientPropertyIndex = 9;
-        private const int beddingAnglePropertyIndex = 10;
-        private const int waterKinematicViscosityPropertyIndex = 11;
-        private const int gravityPropertyIndex = 12;
-        private const int meanDiameter70PropertyIndex = 13;
-        private const int sellmeijerReductionFactorPropertyIndex = 14;
+        private const int waterVolumetricWeightPropertyIndex = 3;
+        private const int upLiftModelFactorPropertyIndex = 4;
+        private const int sellmeijerModelFactorPropertyIndex = 5;
+        private const int criticalHeaveGradientPropertyIndex = 6;
+        private const int sandParticlesVolumetricWeightPropertyIndex = 7;
+        private const int whitesDragCoefficientPropertyIndex = 8;
+        private const int beddingAnglePropertyIndex = 9;
+        private const int waterKinematicViscosityPropertyIndex = 10;
+        private const int gravityPropertyIndex = 11;
+        private const int meanDiameter70PropertyIndex = 12;
+        private const int sellmeijerReductionFactorPropertyIndex = 13;
 
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
@@ -66,8 +65,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                                             IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
+            CodePropertyIndex = codePropertyIndex
         })
         {
             if (handler == null)

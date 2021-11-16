@@ -93,11 +93,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             /// </summary>
             public int CodePropertyIndex { get; set; }
 
-            /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Group"/>.
-            /// </summary>
-            public int GroupPropertyIndex { get; set; }
-
             #endregion
         }
 
