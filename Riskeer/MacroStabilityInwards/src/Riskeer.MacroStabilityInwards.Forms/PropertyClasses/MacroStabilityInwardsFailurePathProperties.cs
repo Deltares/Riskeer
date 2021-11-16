@@ -58,8 +58,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex
+                CodePropertyIndex = codePropertyIndex
             })
         {
             if (assessmentSection == null)
@@ -86,6 +85,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         #region General
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
+            }
+        }
 
         [DynamicVisible]
         [PropertyOrder(contributionPropertyIndex)]
@@ -159,7 +170,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
                 return new RoundedDouble(2, assessmentSection.ReferenceLine.Length);
             }
         }
-        
+
         [DynamicVisible]
         [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]

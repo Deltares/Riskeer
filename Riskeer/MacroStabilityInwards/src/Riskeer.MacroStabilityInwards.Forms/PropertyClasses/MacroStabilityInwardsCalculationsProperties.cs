@@ -35,9 +35,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int waterVolumetricWeightPropertyIndex = 4;
-        private const int modelFactorPropertyIndex = 5;
+        private const int waterVolumetricWeightPropertyIndex = 3;
+        private const int modelFactorPropertyIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationsProperties"/>.
@@ -48,8 +47,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex,
-                GroupPropertyIndex = groupPropertyIndex
+                CodePropertyIndex = codePropertyIndex
             }) {}
 
         #region Model settings
