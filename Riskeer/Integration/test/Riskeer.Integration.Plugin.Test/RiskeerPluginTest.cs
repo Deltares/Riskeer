@@ -98,10 +98,7 @@ namespace Riskeer.Integration.Plugin.Test
                 SetPlugins(gui);
                 gui.Run();
 
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-                };
+                var project = new RiskeerProject(new AssessmentSection(AssessmentSectionComposition.Dike));
 
                 // When
                 void Action() => gui.SetProject(project, null);
@@ -140,11 +137,7 @@ namespace Riskeer.Integration.Plugin.Test
                     }
                 };
                 HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 // When
                 void Action() => gui.SetProject(project, null);
@@ -173,17 +166,14 @@ namespace Riskeer.Integration.Plugin.Test
                 gui.Run();
 
                 const string nonExistingFile = "not_existing_file";
-
-                var project = new RiskeerProject
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    AssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+                    HydraulicBoundaryDatabase =
                     {
-                        HydraulicBoundaryDatabase =
-                        {
-                            FilePath = nonExistingFile
-                        }
+                        FilePath = nonExistingFile
                     }
                 };
+                var project = new RiskeerProject(assessmentSection);
 
                 // When
                 void Action() => gui.SetProject(project, null);
@@ -713,10 +703,7 @@ namespace Riskeer.Integration.Plugin.Test
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var project = new RiskeerProject
-            {
-                AssessmentSection = assessmentSection
-            };
+            var project = new RiskeerProject(assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -824,11 +811,7 @@ namespace Riskeer.Integration.Plugin.Test
                         failurePath
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -889,11 +872,7 @@ namespace Riskeer.Integration.Plugin.Test
                         SignalingNorm = signallingNorm
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -946,11 +925,7 @@ namespace Riskeer.Integration.Plugin.Test
                         SignalingNorm = signallingNorm
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1003,11 +978,7 @@ namespace Riskeer.Integration.Plugin.Test
                         calculationsForTargetProbability
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1056,10 +1027,7 @@ namespace Riskeer.Integration.Plugin.Test
                     }
                 };
 
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1109,11 +1077,7 @@ namespace Riskeer.Integration.Plugin.Test
                         affectedCalculations
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1163,11 +1127,7 @@ namespace Riskeer.Integration.Plugin.Test
                         affectedCalculations
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1214,11 +1174,7 @@ namespace Riskeer.Integration.Plugin.Test
                         calculations
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1268,11 +1224,7 @@ namespace Riskeer.Integration.Plugin.Test
                         calculationsForTargetProbability
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1322,11 +1274,7 @@ namespace Riskeer.Integration.Plugin.Test
                         affectedCalculations
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1376,11 +1324,7 @@ namespace Riskeer.Integration.Plugin.Test
                         affectedCalculations
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 
@@ -1427,11 +1371,7 @@ namespace Riskeer.Integration.Plugin.Test
                         calculations
                     }
                 };
-
-                var project = new RiskeerProject
-                {
-                    AssessmentSection = assessmentSection
-                };
+                var project = new RiskeerProject(assessmentSection);
 
                 gui.SetProject(project, null);
 

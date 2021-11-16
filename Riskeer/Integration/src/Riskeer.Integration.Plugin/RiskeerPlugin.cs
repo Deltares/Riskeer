@@ -179,9 +179,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
-
-                    return new AssessmentSectionStateRootContext(assessmentSection);
+                    return new AssessmentSectionStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -885,10 +883,7 @@ namespace Riskeer.Integration.Plugin
         {
             if (viewData is RiskeerProject project)
             {
-                if (project.AssessmentSection != null)
-                {
-                    yield return project.AssessmentSection;
-                }
+                yield return project.AssessmentSection;
             }
 
             if (viewData is IAssessmentSection assessmentSection)
@@ -1348,14 +1343,14 @@ namespace Riskeer.Integration.Plugin
                 return;
             }
 
-            AssessmentSection section = riskeerProject.AssessmentSection;
-            if (section != null && section.HydraulicBoundaryDatabase.IsLinked())
+            AssessmentSection assessmentSection = riskeerProject.AssessmentSection;
+            if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
             {
                 string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(
-                    section.HydraulicBoundaryDatabase.FilePath,
-                    section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                    section.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                    section.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                    assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
 
                 if (validationProblem != null)
                 {

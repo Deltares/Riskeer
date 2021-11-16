@@ -61,10 +61,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var project = new RiskeerProject
-            {
-                AssessmentSection = assessmentSection
-            };
+            var project = new RiskeerProject(assessmentSection);
 
             // Call
             object rootData = info.GetRootData(project);
