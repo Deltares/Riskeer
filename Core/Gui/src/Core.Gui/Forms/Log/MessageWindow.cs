@@ -41,13 +41,19 @@ namespace Core.Gui.Forms.Log
     /// </summary>
     public partial class MessageWindow : UserControl, IMessageWindow
     {
-        private readonly IWin32Window dialogParent;
-        private readonly Dictionary<string, string> levelImageName;
-        private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
-        private bool filtering;
+        private const string errorLevelUnicode = "\uE90B";
+        private const string warningLevelUnicode = "\uE90A";
+        private const string informationLevelUnicode = "\uE909";
+        private const string debugLevelUnicode = "\uE90C";
         
         private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
         private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
+        
+        private readonly IWin32Window dialogParent;
+        private readonly Dictionary<string, string> levelImageName;
+        private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
+        
+        private bool filtering;
 
         /// <summary>
         /// Creates a new instance of <see cref="MessageWindow" />.
@@ -60,32 +66,29 @@ namespace Core.Gui.Forms.Log
             MessageWindowLogAppender.Instance.MessageWindow = this;
             InitializeComponent();
 
-            buttonShowDetails.Font = font;
-            buttonShowInfo.Font = font;
-            buttonShowWarning.Font = font;
-            buttonShowError.Font = font;
-
             // order is the same as in log4j Level (check sources of log4net)
             levelImageName = new Dictionary<string, string>
             {
-                [Level.Off.ToString()] = errorLevelImageName,
-                [Level.Emergency.ToString()] = errorLevelImageName,
-                [Level.Fatal.ToString()] = errorLevelImageName,
-                [Level.Alert.ToString()] = errorLevelImageName,
-                [Level.Critical.ToString()] = errorLevelImageName,
-                [Level.Severe.ToString()] = errorLevelImageName,
-                [Level.Error.ToString()] = errorLevelImageName,
-                [Level.Warn.ToString()] = warningLevelImageName,
-                [Level.Notice.ToString()] = warningLevelImageName,
-                [Level.Info.ToString()] = informationLevelImageName,
-                [Level.Debug.ToString()] = debugLevelImageName,
-                [Level.Fine.ToString()] = debugLevelImageName,
-                [Level.Trace.ToString()] = debugLevelImageName,
-                [Level.Finer.ToString()] = debugLevelImageName,
-                [Level.Verbose.ToString()] = debugLevelImageName,
-                [Level.Finest.ToString()] = debugLevelImageName,
-                [Level.All.ToString()] = debugLevelImageName
+                [Level.Off.ToString()] = errorLevelUnicode,
+                [Level.Emergency.ToString()] = errorLevelUnicode,
+                [Level.Fatal.ToString()] = errorLevelUnicode,
+                [Level.Alert.ToString()] = errorLevelUnicode,
+                [Level.Critical.ToString()] = errorLevelUnicode,
+                [Level.Severe.ToString()] = errorLevelUnicode,
+                [Level.Error.ToString()] = errorLevelUnicode,
+                [Level.Warn.ToString()] = warningLevelUnicode,
+                [Level.Notice.ToString()] = warningLevelUnicode,
+                [Level.Info.ToString()] = informationLevelUnicode,
+                [Level.Debug.ToString()] = debugLevelUnicode,
+                [Level.Fine.ToString()] = debugLevelUnicode,
+                [Level.Trace.ToString()] = debugLevelUnicode,
+                [Level.Finer.ToString()] = debugLevelUnicode,
+                [Level.Verbose.ToString()] = debugLevelUnicode,
+                [Level.Finest.ToString()] = debugLevelUnicode,
+                [Level.All.ToString()] = debugLevelUnicode
             };
+
+            SetFonts();
 
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
@@ -96,11 +99,6 @@ namespace Core.Gui.Forms.Log
             // fixes DPI problem
             messagesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             messagesDataGridView.RowsAdded += MessagesDataGridViewRowsAdded;
-
-            levelColumnDataGridViewTextBoxColumn.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                Font = font
-            };
         }
 
         #region IView Members
@@ -139,6 +137,18 @@ namespace Core.Gui.Forms.Log
         }
 
         #endregion
+
+        private void SetFonts()
+        {
+            buttonShowDetails.Font = font;
+            buttonShowInfo.Font = font;
+            buttonShowWarning.Font = font;
+            buttonShowError.Font = font;
+            levelColumnDataGridViewTextBoxColumn.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Font = font
+            };
+        }
 
         private void PopulateMessages()
         {
@@ -382,15 +392,6 @@ namespace Core.Gui.Forms.Log
         }
 
         #endregion
-
-        #endregion
-
-        #region Constants referring to the item-names of the ImageList
-
-        private const string errorLevelImageName = "\uE90B";
-        private const string warningLevelImageName = "\uE90A";
-        private const string informationLevelImageName = "\uE909";
-        private const string debugLevelImageName = "\uE90C";
 
         #endregion
     }
