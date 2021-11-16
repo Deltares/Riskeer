@@ -45,14 +45,14 @@ namespace Core.Gui.Forms.Log
         private const string warningLevelUnicode = "\uE90A";
         private const string informationLevelUnicode = "\uE909";
         private const string debugLevelUnicode = "\uE90C";
-        
+
         private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
         private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
-        
+
         private readonly IWin32Window dialogParent;
-        private readonly Dictionary<string, string> levelImageName;
+        private readonly Dictionary<string, string> levelUnicodeLookup;
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
-        
+
         private bool filtering;
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Core.Gui.Forms.Log
             InitializeComponent();
 
             // order is the same as in log4j Level (check sources of log4net)
-            levelImageName = new Dictionary<string, string>
+            levelUnicodeLookup = new Dictionary<string, string>
             {
                 [Level.Off.ToString()] = errorLevelUnicode,
                 [Level.Emergency.ToString()] = errorLevelUnicode,
@@ -128,7 +128,7 @@ namespace Core.Gui.Forms.Log
 
             newMessages.Enqueue(new MessageData
             {
-                ImageName = level.ToString(),
+                Level = level,
                 Time = time,
                 ShortMessage = shortMessage,
                 FullMessage = message
@@ -165,7 +165,7 @@ namespace Core.Gui.Forms.Log
                 {
                     DataRow row = Messages.NewRow();
 
-                    row[0] = msg.ImageName;
+                    row[0] = msg.Level;
                     row[1] = msg.Time;
                     row[2] = msg.ShortMessage;
                     row[3] = msg.FullMessage;
@@ -274,9 +274,9 @@ namespace Core.Gui.Forms.Log
         private class MessageData
         {
             /// <summary>
-            /// Gets or sets the image representation of the logging level.
+            /// Gets or sets the logging level.
             /// </summary>
-            public string ImageName { get; set; }
+            public Level Level { get; set; }
 
             /// <summary>
             /// Gets or sets the time when the message was logged.
@@ -348,10 +348,9 @@ namespace Core.Gui.Forms.Log
                 return;
             }
 
-            // Dataset stores image-name instead of actual image, therefore we map to 
-            // actual image during formatting.
+            // Level is stored instead of unicode, therefore we map to actual unicode during formatting. 
             var level = (string) e.Value;
-            e.Value = levelImageName[level];
+            e.Value = levelUnicodeLookup[level];
         }
 
         #endregion
