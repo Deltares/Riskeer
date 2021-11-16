@@ -218,7 +218,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.NotNull(expectedProject);
             Assert.NotNull(actualProject);
             Assert.AreNotSame(expectedProject, actualProject);
-            Assert.AreEqual(expectedProject.Name, actualProject.Name);
             Assert.AreEqual(expectedProject.Description, actualProject.Description);
 
             AssessmentSection expectedAssessmentSection = expectedProject.AssessmentSection;

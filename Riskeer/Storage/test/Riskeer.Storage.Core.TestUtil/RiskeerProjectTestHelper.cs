@@ -220,7 +220,6 @@ namespace Riskeer.Storage.Core.TestUtil
 
             var fullTestProject = new RiskeerProject(assessmentSection)
             {
-                Name = "tempProjectFile",
                 Description = "description"
             };
             return fullTestProject;
