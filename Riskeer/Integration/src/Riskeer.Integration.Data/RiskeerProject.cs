@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Properties;
@@ -33,22 +34,32 @@ namespace Riskeer.Integration.Data
         /// <summary>
         /// Constructs a new <see cref="RiskeerProject"/>. 
         /// </summary>
-        public RiskeerProject() : this(Resources.Project_Constructor_Default_name) {}
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> of the project.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public RiskeerProject(AssessmentSection assessmentSection) : this(Resources.Project_Constructor_Default_name, assessmentSection) {}
 
         /// <summary>
         /// Constructs a new <see cref="RiskeerProject"/>. 
         /// </summary>
         /// <param name="name">The name of the <see cref="RiskeerProject"/>.</param>
-        public RiskeerProject(string name)
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> of the project.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public RiskeerProject(string name, AssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             Name = name;
             Description = "";
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
-        /// Gets or sets the assessment section of the <see cref="RiskeerProject"/>.
+        /// Gets the assessment section of the <see cref="RiskeerProject"/>.
         /// </summary>
-        public AssessmentSection AssessmentSection { get; set; }
+        public AssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets or sets the name of the <see cref="RiskeerProject"/>.
