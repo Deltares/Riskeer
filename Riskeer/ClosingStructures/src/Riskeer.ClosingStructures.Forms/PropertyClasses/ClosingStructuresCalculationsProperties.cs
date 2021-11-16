@@ -37,13 +37,12 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
+        private const int gravitationalAccelerationPropertyIndex = 3;
 
-        private const int modelFactorOvertoppingFlowPropertyIndex = 5;
-        private const int modelFactorStorageVolumePropertyIndex = 6;
-        private const int modelFactorLongThresholdPropertyIndex = 7;
-        private const int modelFactorInflowVolumePropertyIndex = 8;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 4;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
+        private const int modelFactorLongThresholdPropertyIndex = 6;
+        private const int modelFactorInflowVolumePropertyIndex = 7;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationsProperties"/>.
@@ -53,8 +52,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         public ClosingStructuresCalculationsProperties(ClosingStructuresFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex,
-            GroupPropertyIndex = groupPropertyIndex
+            CodePropertyIndex = codePropertyIndex
         }) {}
 
         #region General
