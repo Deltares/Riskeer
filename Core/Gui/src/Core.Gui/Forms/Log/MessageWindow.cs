@@ -96,6 +96,11 @@ namespace Core.Gui.Forms.Log
             // fixes DPI problem
             messagesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             messagesDataGridView.RowsAdded += MessagesDataGridViewRowsAdded;
+
+            levelColumnDataGridViewTextBoxColumn.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Font = font
+            };
         }
 
         #region IView Members
@@ -336,7 +341,7 @@ namespace Core.Gui.Forms.Log
             // Dataset stores image-name instead of actual image, therefore we map to 
             // actual image during formatting.
             var level = (string) e.Value;
-            e.Value = levelImages.Images[levelImageName[level]];
+            e.Value = levelImageName[level];
         }
 
         #endregion
@@ -382,10 +387,10 @@ namespace Core.Gui.Forms.Log
 
         #region Constants referring to the item-names of the ImageList
 
-        private const string errorLevelImageName = "exclamation.png";
-        private const string warningLevelImageName = "error.png";
-        private const string informationLevelImageName = "information.png";
-        private const string debugLevelImageName = "debug.png";
+        private const string errorLevelImageName = "\uE90B";
+        private const string warningLevelImageName = "\uE90A";
+        private const string informationLevelImageName = "\uE909";
+        private const string debugLevelImageName = "\uE90C";
 
         #endregion
     }

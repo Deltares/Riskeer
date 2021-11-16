@@ -62,7 +62,6 @@ namespace Core.Gui.Forms.Log
             this.buttonCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.buttonClearAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.levelImages = new System.Windows.Forms.ImageList(this.components);
             this.messagesToolStrip = new System.Windows.Forms.ToolStrip();
             this.buttonShowInfo = new System.Windows.Forms.ToolStripButton();
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
@@ -70,7 +69,7 @@ namespace Core.Gui.Forms.Log
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonShowDetails = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
-            this.levelColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.levelColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fullMessageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -116,15 +115,6 @@ namespace Core.Gui.Forms.Log
             this.buttonClearAll.Name = "buttonClearAll";
             resources.ApplyResources(this.buttonClearAll, "buttonClearAll");
             this.buttonClearAll.Click += new System.EventHandler(this.ButtonClearAllClick);
-            // 
-            // levelImages
-            // 
-            this.levelImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("levelImages.ImageStream")));
-            this.levelImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.levelImages.Images.SetKeyName(0, "exclamation.png");
-            this.levelImages.Images.SetKeyName(1, "information.png");
-            this.levelImages.Images.SetKeyName(2, "error.png");
-            this.levelImages.Images.SetKeyName(3, "debug.png");
             // 
             // messagesToolStrip
             // 
@@ -221,6 +211,7 @@ namespace Core.Gui.Forms.Log
             // 
             // levelColumnDataGridViewTextBoxColumn
             // 
+            this.levelColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.levelColumnDataGridViewTextBoxColumn.DataPropertyName = "levelColumn";
             resources.ApplyResources(this.levelColumnDataGridViewTextBoxColumn, "levelColumnDataGridViewTextBoxColumn");
             this.levelColumnDataGridViewTextBoxColumn.Name = "levelColumnDataGridViewTextBoxColumn";
@@ -320,7 +311,6 @@ namespace Core.Gui.Forms.Log
 
         #endregion
 
-        private System.Windows.Forms.ImageList levelImages;
         //Moved this one to main class so it can be precompiled
         //private System.Windows.Forms.DataGridViewImageColumn Level;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
@@ -341,7 +331,7 @@ namespace Core.Gui.Forms.Log
         private System.Data.DataColumn timeColumn;
         private System.Data.DataColumn messageColumn;
         private System.Data.DataColumn fullMessageColumn;
-        private DataGridViewImageColumn levelColumnDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn levelColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn timeColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn messageColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fullMessageColumnDataGridViewTextBoxColumn;
