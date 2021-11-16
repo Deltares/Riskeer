@@ -50,7 +50,7 @@ namespace Core.Gui.Forms.Log
         private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MessageWindow" /> class.
+        /// Creates a new instance of <see cref="MessageWindow" />.
         /// </summary>
         /// <param name="dialogParent">The dialog parent for which dialogs should be shown on top.</param>
         public MessageWindow(IWin32Window dialogParent)
@@ -102,10 +102,7 @@ namespace Core.Gui.Forms.Log
 
         public object Data
         {
-            get
-            {
-                return Messages;
-            }
+            get => Messages;
             set {}
         }
 
@@ -149,8 +146,7 @@ namespace Core.Gui.Forms.Log
 
             try
             {
-                MessageData msg;
-                while (newMessages.TryDequeue(out msg))
+                while (newMessages.TryDequeue(out MessageData msg))
                 {
                     DataRow row = Messages.NewRow();
 
@@ -210,39 +206,39 @@ namespace Core.Gui.Forms.Log
 
         private string CreateLoggingLevelDataGridViewFilter()
         {
-            var filterlines = new List<string>();
+            var filterLines = new List<string>();
             string filterFormat = string.Format(CultureInfo.CurrentCulture,
                                                 "{0} = '{{0}}'",
                                                 levelColumn.ColumnName);
             if (buttonShowInfo.Checked)
             {
-                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                filterLines.Add(string.Format(CultureInfo.CurrentCulture,
                                               filterFormat,
                                               Level.Info));
             }
 
             if (buttonShowWarning.Checked)
             {
-                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                filterLines.Add(string.Format(CultureInfo.CurrentCulture,
                                               filterFormat,
                                               Level.Warn));
             }
 
             if (buttonShowError.Checked)
             {
-                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                filterLines.Add(string.Format(CultureInfo.CurrentCulture,
                                               filterFormat,
                                               Level.Error));
-                filterlines.Add(string.Format(CultureInfo.CurrentCulture,
+                filterLines.Add(string.Format(CultureInfo.CurrentCulture,
                                               filterFormat,
                                               Level.Fatal));
             }
 
-            return filterlines.Count == 0
+            return filterLines.Count == 0
                        ? string.Format(CultureInfo.CurrentCulture,
                                        filterFormat,
                                        "NOTHING SHOWN")
-                       : string.Join(" OR ", filterlines);
+                       : string.Join(" OR ", filterLines);
         }
 
         private void ShowMessageWindowDialog()
