@@ -223,12 +223,13 @@ namespace Core.Gui.Forms.Log
             // 
             // levelColorColumnDataGridViewTextBoxColumn
             // 
-            this.levelColorColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.levelColorColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.levelColorColumnDataGridViewTextBoxColumn.DataPropertyName = "levelColorColumn";
             resources.ApplyResources(this.levelColorColumnDataGridViewTextBoxColumn, "levelColorColumnDataGridViewTextBoxColumn");
             this.levelColorColumnDataGridViewTextBoxColumn.Name = "levelColorColumnDataGridViewTextBoxColumn";
             this.levelColorColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.levelColorColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.levelColorColumnDataGridViewTextBoxColumn.Width = 5;
             // 
             // timeColumnDataGridViewTextBoxColumn
             // 

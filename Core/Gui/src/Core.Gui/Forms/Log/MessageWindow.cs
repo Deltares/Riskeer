@@ -48,7 +48,7 @@ namespace Core.Gui.Forms.Log
 
         private static readonly Color errorLevelColor = Color.Red;
         private static readonly Color warningLevelColor = Color.Orange;
-        private static readonly Color informationLevelColor = Color.FromArgb(0, 139, 191);
+        private static readonly Color informationLevelColor = Color.LightGray;  
         private static readonly Color debugLevelColor = Color.FromArgb(0, 139, 191);
 
         private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
