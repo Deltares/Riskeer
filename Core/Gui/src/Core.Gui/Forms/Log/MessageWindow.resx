@@ -145,100 +145,6 @@
   <data name="&gt;&gt;contextMenu.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="levelImages.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>175, 17</value>
-  </metadata>
-  <data name="levelImages.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACo
-        EwAAAk1TRnQBSQFMAgEBBAEAAVgBAQFYAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABIAMAAQEBAAEgBgABIP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wAIAAFCAQkB/wEA
-        AToBAAH/JAADGQEjA0UBfQJaAV8B2wJMAXIB8wJMAXEB8wJaAV8B2wNFAX0DGQEjIAADGQEjA0UBfQJf
-        AV4B2wFwAV8BXQHzAW8BXwFdAfMCXwFeAdsDRQF9AxkBIxAAA1EBogEcAacB4AH/ARoBpAHfAf8BGAGh
-        Ad0B/wEWAZ4B3AH/ARQBmwHaAf8BEgGYAdkB/wEPAZMB1gH/AQoBjAHTAf8BBQGFAc8B/wEAAW0BzAH/
-        AQABZgHJAf8BAAFgAcYB/wEAAVsBwwH/AQABVwHBAf8DUQGiIAABCQFLAQkB/wEAAUIBCQH/AQABQgEJ
-        Af8gAAMzAVMCWAFkAeYBQQFTAdQB/wGEAZAB5wH/AZUBoAHuAf8BlQGfAe0B/wGDAY4B5QH/ATsBTAHO
-        Af8CWAFiAeYDMwFTGAADMwFTAWICYQHmAdoBqAFuAf8B/QHfAbsC/wHrAc4C/wHrAc4B/wH6AdwBuAH/
-        AdMBogFpAf8DYQHmAzMBUwwAAVgCXwHjAb4B4wH1Af8B9AH8Af4B/wHvAfsB/gH/Ae4B+wH+Af8B7gH7
-        Af4B/wHvAfwB/gH/Ae8B/AH+Af8B7wH7Af4B/wHuAfsB/gH/Ae0B+wH+Af8B7QH7Af4B/wHsAfsB/gH/
-        AfIB/AH+Af8BqwHOAesB/wFaAl4B2BQAAREBgQERAf8BCQFTAREB/wEJAVMBCQH/AQkBSwEJAf8BCQFL
-        AQkB/yAAAzMBUwJSAXkB9AFkAYQB4wH/AaEBrAH0Af8BbgGLAewB/wFLAVYB5AH/AUoBVQHjAf8BbAGH
-        AeoB/wGfAagB8QH/AV4BawHdAf8BSgFSAXUB9AMzAVMQAAMzAVMBdwFlAVIB9AHzAc8BpQL/AeMBxwH/
-        AesBxAGfAf8B3gGyAYoB/wHcAa4BiAH/AeYBvgGaAf8B+QHbAb8B/wHtAcsBnwH/AXABZQFdAfQDMwFT
-        CAADMAFLAVEBvwHoAf8B9AH8Af4B/wG1Ae8B+gH/AUcB2gH1Af8BRwHaAfUB/wFGAdgB8wH/AUcB1wHy
-        Af8BRwHWAfIB/wFGAdkB9AH/AUAB2AH1Af8BPQHXAfQB/wFRAdoB9gH/AeoB+wH+Af8BMwGTAdIB/wMw
-        AUsQAAERAYEBEQH/AREBgQERAf8BUwGlAYEB/wFTAaUBgQH/AREBgQERAf8BCQFLAQkB/wEJAVMBEQH/
-        AQkBSwEJAf8BAAFCAQkB/wEAAUIBCQH/AQABQgEJAf8IAAMYASICXgFlAeUBZwGIAeYB/wGjAbAB9QH/
-        AUYBVgHnAf8BRQFUAeYB/wGJAZIB7QH/AYgBkgHsAf8BQgFOAeIB/wFBAUwB4QH/AZ8BqQHyAf8BXgFs
-        Ad0B/wJeAWUB5QMYASIIAAMYASICZQFeAeUB9wHSAakC/wHkAcoB/wHmAbkBjgH/AeIBtAGKAf8B3wGx
-        AYcB/wHbAawBhgH/AdkBqwGFAf8B2AGrAYQB/wH1AdIBtQH/Ae4BzQGhAf8CZQFeAeUDGAEiCAABWgJd
-        AcoBnQHXAfEB/wHnAfkB/QH/AYsB5QH4Af8BSQHbAfYB/wFKAdoB9AH/ASwBoQHVAf8BLAGhAdUB/wFD
-        AdYB8gH/AUEB2AH1Af8BPwHWAfQB/wHYAfYB/AH/AYgBvwHlAf8BVQJWAbQQAAERAYQBGQH/AQkBgQEJ
-        Af8BlAHGAZwB/wFTAa0BhAH/ATIBnAFLAf8BUwGtAYQB/wGBAaUBgQH/AQkBUwEJAf8BCQFTAREB/wEJ
-        AUsBCQH/AQkBSwEJAf8MAANGAX4BTwFiAeAB/wGkAbMB9wH/AUkBXQHrAf8BSAFbAeoB/wFHAVgB6An/
-        AUQBUQHlAf8BQwFQAeMB/wFCAU4B4gH/AZ8BqQHyAf8BPwFQAdEB/wFFAkYBfggAA0YBfgHnAbkBhgL/
-        AeoB0AH/Ae0BvgGUAf8B6gG5AZEC/wHzAeAL/wH4Af8B3AGtAYYB/wHbAa0BhgH/AfwB3QHBAf8B1gGj
-        AW0B/wNGAX4IAAMaASQBMgGOAaMB+wHzAfsB/gH/AcMB8gH7Af8BSwHcAfYB/wFLAdoB9AH/AVMB3wH2
-        Af8BRgHLAesB/wFEAdYB8gH/AUMB2QH1Af8BlAHnAfgB/wHjAfQB+wH/ATEBagGOAfkDGgEkDAABGQGU
-        ASEB/wERAYwBGQH/AYEBtQGEAf8BMgGcAToB/wGBAbUBjAH/ATIBpQFTAf8BMgGcAUsB/wFTAa0BhAH/
-        ARkBgQEhAf8BCQFTAQkB/wEJAVMBEQH/EAABWgJfAdsBjgGfAfAB/wGEAZkB9AH/AUsBYgHuAf8BSgFf
-        AewB/wFJAV0B6wH/AZABnQHxAf8BpgGvAfMB/wFGAVYB5wH/AUUBVAHmAf8BRAFRAeUB/wFsAYkB6wH/
-        AYUBkQHnAf8CWgFfAdsIAAJfAV4B2wH/AeQBxAH/Af0B1QGxAf8B7wHAAZQB/wHrAb0BkQH/AekBuwGP
-        A/8B+wX/AeMBswGLAf8B4QGyAYsB/wHgAbIBigH/Ae0BxQGgAf8B+gHgAbsB/wJfAV4B2wwAA1MBqgGM
-        AdIB8AH/AeoB+wH+Af8BlAHmAfgB/wFLAdoB9AH/ATYBsQHdAf8BLAGhAdUB/wFFAdcB8gH/AUsB2wH1
-        Af8B3gH4Af0B/wFsAcAB5wH/AUgCSQGHEAABGQGUASEB/wFLAa0BUwH/AYEBvQGUAf8BKgGlAUIB/wEy
-        AZwBOgH/AYEBtQGMAf8BMgGlAVMB/wEyAZwBSwH/AVMBrQGEAf8BUwGlAVMB/wEJAVMBEQH/AQkBUwER
-        Af8EAAEJAUsBCQH/BAABVwFiAYEB9gGgAbMB9wH/AVQBgAHyAf8BTgFnAfAB/wFMAWUB7wH/AUsBYgHu
-        Af8B0wHZAfoF/wFIAVsB6gH/AUcBWAHoAf8BRgFWAecB/wFMAVsB5wH/AZkBpQHxAf8BSAFJAXkB9ggA
-        AYEBbgFdAfYB/wHvAdcB/wH4AcoBngH/Ae0BwQGTAf8B7AG/AZIB/wHsAb4BkQP/AfwF/wHnAbgBjgH/
-        AeYBtwGNAf8B5gG3AYwB/wHmAboBkQL/Ae4B0gH/AXUBYgFcAfYMAAMJAQwBWQFkAWoB7AHIAeoB9wH/
-        AeYB+gH9Af8BTAHaAfQB/wEsAaEB1QH/ASwBoQHVAf8BRgHXAfIB/wHHAfMB/AH/AcAB4wH0Af8BWgJh
-        AeQDCQEMEAABGQGcASEB/wE6Aa0BQgH/AVMBvQGMAf8BMgGlAVMB/wEqAZwBQgH/ATIBpQE6Af8BhAG9
-        AZwB/wE6AaUBUwH/ATIBnAFLAf8BhAG9AZwB/wERAYEBEQH/AQkBgQERAf8BCQFTAREB/wEJAVMBCQH/
-        BAABWwFiAYUB9gGhAbYB+AH/AVYBhAH0Af8BTwFrAfMB/wFOAWkB8QH/AU4BZwHwCf8BSgFfAewB/wFJ
-        AV0B6wH/AUgBWwHqAf8BTgFeAekB/wGbAagB8QH/AUgBSQF7AfYIAAGFAXEBYgH2Af8B8QHYAf8B+AHL
-        AaIB/wH0AcUBmQH/Ae8BwgGUAf8B7QHAAZMJ/wHrAb4BkQH/AekBvAGQAf8B6gG8AZAB/wHrAcABlQL/
-        Ae0B0wH/AXcBYgFcAfYQAAM3AVoBYAHIAe0B/wH5Af4C/wFNAdwB9AH/AS0BogHVAf8BLQGiAdUB/wFL
-        AdkB9AH/Ae0B+wH+Af8BVwG7AeUB/wM3AVoQAAEZAaUBIQH/ARkBpQEhAf8BGQGcASEB/wGUAc4BrQH/
-        AUIBtQGBAf8BOgGtAYEB/wEqAZwBQgH/ATIBpQE6Af8BhAG9AZwB/wE6AaUBUwH/AYwBvQGcAf8BEQGB
-        AREB/wERAYEBEQH/AQkBgQERAf8IAANfAdsBkQGmAfMB/wGIAaEB+AH/AVEBgAH0Af8BUAFtAfMB/wFP
-        AWsB8wn/AUwBZQHvAf8BSwFiAe4B/wFKAV8B7AH/AYIBkwHxAf8BiQGYAewB/wJaAV8B2wgAA18B2wH/
-        AeQBxwL/AdsBuwH/AfcByAGdAf8B9QHGAZoB/wHzAcQBmQL/AecBywL/AecBygH/Ae0BwQGTAf8B7QHB
-        AZMB/wHsAcABkwH/AfkB0wGtAv8B4gG/Af8CXwFeAdsUAAFcAmAB1AGpAd8B9AH/Ae0B+QH9Af8BLQGj
-        AdYB/wEtAaMB1gH/AdQB9QH8Af8BogHXAfEB/wFZAlsBwxAAASEBrQEhAf8BGQGlASEB/wEZAaUBIQH/
-        ASEBpQEhAf8BOgGtAUIB/wGMAc4BpQH/AUIBtQGEAf8BOgGtAYEB/wEqAaUBQgH/AToBrQFCAf8BnAHO
-        Aa0B/wGMAb0BlAH/AREBhAERAf8BCQFCASEB/wwAA0YBfgFbAYEB7AH/AakBvQH7Af8BUgGCAfUB/wFR
-        AYEB9QH/AVEBgAH0Cf8BTgFpAfEB/wFOAWcB8AH/AUwBZQHvAf8BpQG1AfgB/wFMAV8B3QH/AUUCRgF+
-        CAADRgF+AfUBxAGQAv8B8wHcAf8B/AHNAaIB/wH4AcgBnwH/AfcBxgGcCf8B8wHGAZkB/wHzAcUBmQH/
-        AfUByQGfAv8B6AHNAf8B4QGyAYMB/wNGAX4UAAMhATABQAGoAbwB/QH5Af0C/wGUAekB+QH/AZ4B6wH6
-        Af8B7AH6Af4B/wErAXwBsAH8AyEBMBAAASEBtQEqAf8BIQGtASEB/wgAARkBpQEhAf8BIQGlASEB/wGU
-        Ac4BrQH/AUsBvQGEAf8BOgGtAYEB/wFCAbUBgQH/ASEBlAEhAf8BEQGMARkB/wE6AaUBSwH/AQkBOgEq
-        Af8MAAMYASIDZQHlAYMBlwHwAf8BqQG9AfsB/wFSAYIB9QH/AVIBggH1Cf8BUAFtAfMB/wFPAWsB8wH/
-        AaYBuQH5Af8BagGNAeoB/wFeAWQBZQHlAxgBIggAAxgBIgNlAeUB/wHaAbQC/wHyAdsC/wHRAaUB/wH5
-        Ac0BoQL/AewB0AL/AesB0AH/AfgBygGeAf8B+QHMAZ8C/wHlAcoB/wH4AdQBrQH/AmUBXgHlAxgBIhgA
-        AVUCVgG0AZQB2AHyAf8B8wH8Af4B/wHnAfoB/gH/AY8B0wHwAf8BTQJOAZYgAAEhAa0BIQH/ARkBrQEh
-        Af8BIQGlASEB/wEqAa0BMgH/AZwB1gGtAf8BpQHWAb0B/wGEAcYBjAH/AREBjAERAf8BMgG1AUIB/wGc
-        Ac4BrQH/AREBjAEZAf8BEQGEAREB/wERAYQBGQH/CAADMwFTAmUBfwH0AYQBlwHxAf8BqQG9AfsB/wGK
-        AaMB+AH/AVoBiQH2Af8BWgGJAfYB/wGJAaIB+AH/AagBvAH6Af8BbgGSAewB/wFSAWUBfQH0AzMBUxAA
-        AzMBUwF/AXMBZQH0Af8B2gG0Av8B9QHgAv8B4gHFAv8B0wGtAv8B0QGqAv8B2wG5Av8B6gHTAf8B/AHW
-        Aa4B/wF7AWUBXQH0AzMBUxwAAw0BEgFXAXIBewHyAfEB+gH9Af8B1QHvAfoB/wFaAWYBagHtAw0BEiAA
-        ASEBtQEqAf8BIQGtASEB/wQAASEBrQEhAf8BGQGlASEB/wEhAaUBIQH/ARkBpQEhAf8BgQHGAYEB/wGt
-        AecBxgH/AUIBjAGBAf8BGQFLATIB/xQAAzMBUwJhAWYB5gFdAYMB7gH/AZIBpgH0Af8BoAG0AfgB/wGg
-        AbQB+AH/AZEBpgHzAf8BVwFsAekB/wFaAWEBZgHmAzMBUxgAAzMBUwFmAWIBYQHmAfgByAGSAv8B5wHI
-        Av8B7QHWAv8B7QHWAv8B5AHHAf8B8AG/AYoB/wFmAmEB5gMzAVMkAAFNAk4BlQGFAdQB8QH/AYIB0QHw
-        Af8DPQFpJAABIQG1ASoB/wEhAbUBIQH/CAABIQGtASEB/wEZAaUBIQH/ASoBgQFLAf8BIQGEAToB/wEZ
-        AZwBIQH/ASEBgQFCAf8cAAMZASMDRQF9A18B2wFfAWABgAHzAl8BgAHzA18B2wNFAX0DGQEjIAADGQEj
-        A0UBfQNfAdsBgAFwAV8B8wF/AXABXwHzA18B2wNFAX0DGQEjKAADAgEDAVwCYAHUAVkCWwHDAwIBAyQA
-        ASEBvQEqAf8MAAEhAbUBKgH/ASEBrQEhAf8BMgGMAVMB/wEhAaUBIQH/ARkBpQEhAf/sAAEhAbUBKgH/
-        ASEBtQEhAf8EAAEhAa0BIQH/ARkBrQEhAf8QAAFCAU0BPgcAAT4DAAEoAwABQAMAASADAAEBAQABAQYA
-        AQEWAAP/gQAH/wGfAfABDwHwAQ8CAAH/AR8B4AEHAeABBwIAAfgBPwHAAQMBwAEDAgAB8AEBAYABAQGA
-        AQEBgAEBAeABAwGAAQEBgAEBAYABAQHAAQcBgAEBAYABAQHAAQMBwAECAYABAQGAAQEBwAEDAcABAAGA
-        AQEBgAEBAeABBwGAAQEBgAEBAYABAQHwAQ8BAAEDAYABAQGAAQEB8AEPATABAwGAAQEBgAEBAfgBHwHg
-        AQABwAEDAcABAwH4AR8B5AEDAeABBwHgAQcB/AE/AeYBBwHwAQ8B8AEPAfwBPwHuAQ8G/wH+AU8L
-</value>
-  </data>
   <metadata name="messagesToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>671, 17</value>
   </metadata>
@@ -250,10 +156,10 @@
     <value>Magenta</value>
   </data>
   <data name="buttonShowInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
+    <value>23, 21</value>
   </data>
   <data name="buttonShowInfo.Text" xml:space="preserve">
-    <value>Toon Informatieberichten</value>
+    <value></value>
   </data>
   <data name="buttonShowInfo.ToolTipText" xml:space="preserve">
     <value>Toon informatieberichten</value>
@@ -262,10 +168,10 @@
     <value>Magenta</value>
   </data>
   <data name="buttonShowWarning.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
+    <value>23, 21</value>
   </data>
   <data name="buttonShowWarning.Text" xml:space="preserve">
-    <value>Laat Waarschuwingsberichten zien</value>
+    <value></value>
   </data>
   <data name="buttonShowWarning.ToolTipText" xml:space="preserve">
     <value>Toon waarschuwingen</value>
@@ -274,10 +180,10 @@
     <value>Magenta</value>
   </data>
   <data name="buttonShowError.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
+    <value>23, 21</value>
   </data>
   <data name="buttonShowError.Text" xml:space="preserve">
-    <value>Laat foutberichten zien</value>
+    <value></value>
   </data>
   <data name="buttonShowError.ToolTipText" xml:space="preserve">
     <value>Toon fouten</value>
@@ -289,10 +195,10 @@
     <value>Magenta</value>
   </data>
   <data name="buttonShowDetails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 22</value>
+    <value>23, 21</value>
   </data>
   <data name="buttonShowDetails.Text" xml:space="preserve">
-    <value>buttonShowDetails</value>
+    <value></value>
   </data>
   <data name="buttonShowDetails.ToolTipText" xml:space="preserve">
     <value>Toon details van het actieve bericht</value>
@@ -329,7 +235,13 @@
     <value />
   </data>
   <data name="levelIconColumnDataGridViewTextBoxColumn.Width" type="System.Int32, mscorlib">
-    <value>20</value>
+    <value>19</value>
+  </data>
+  <data name="levelColorColumnDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="levelColorColumnDataGridViewTextBoxColumn.Width" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
   <data name="timeColumnDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
     <value>Tijd</value>
@@ -415,12 +327,6 @@
   <data name="&gt;&gt;buttonClearAll.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;levelImages.Name" xml:space="preserve">
-    <value>levelImages</value>
-  </data>
-  <data name="&gt;&gt;levelImages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;buttonShowInfo.Name" xml:space="preserve">
     <value>buttonShowInfo</value>
   </data>
@@ -455,7 +361,13 @@
     <value>levelIconColumnDataGridViewTextBoxColumn</value>
   </data>
   <data name="&gt;&gt;levelIconColumnDataGridViewTextBoxColumn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewImageColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;levelColorColumnDataGridViewTextBoxColumn.Name" xml:space="preserve">
+    <value>levelColorColumnDataGridViewTextBoxColumn</value>
+  </data>
+  <data name="&gt;&gt;levelColorColumnDataGridViewTextBoxColumn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;timeColumnDataGridViewTextBoxColumn.Name" xml:space="preserve">
     <value>timeColumnDataGridViewTextBoxColumn</value>
@@ -497,6 +409,12 @@
     <value>levelIconColumn</value>
   </data>
   <data name="&gt;&gt;levelIconColumn.Type" xml:space="preserve">
+    <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;levelColorColumn.Name" xml:space="preserve">
+    <value>levelColorColumn</value>
+  </data>
+  <data name="&gt;&gt;levelColorColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;timeColumn.Name" xml:space="preserve">

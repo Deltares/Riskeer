@@ -220,7 +220,6 @@ namespace Core.Gui.Forms.Log
             this.levelIconColumnDataGridViewTextBoxColumn.Name = "levelIconColumnDataGridViewTextBoxColumn";
             this.levelIconColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.levelIconColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.levelIconColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // levelColorColumnDataGridViewTextBoxColumn
             // 
@@ -230,7 +229,6 @@ namespace Core.Gui.Forms.Log
             this.levelColorColumnDataGridViewTextBoxColumn.Name = "levelColorColumnDataGridViewTextBoxColumn";
             this.levelColorColumnDataGridViewTextBoxColumn.ReadOnly = true;
             this.levelColorColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.levelColorColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // timeColumnDataGridViewTextBoxColumn
             // 
