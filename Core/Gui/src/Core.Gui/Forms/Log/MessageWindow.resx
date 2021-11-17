@@ -322,13 +322,13 @@
   <data name="&gt;&gt;messagesToolStrip.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="levelColumnDataGridViewTextBoxColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="levelIconColumnDataGridViewTextBoxColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="levelColumnDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+  <data name="levelIconColumnDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
     <value />
   </data>
-  <data name="levelColumnDataGridViewTextBoxColumn.Width" type="System.Int32, mscorlib">
+  <data name="levelIconColumnDataGridViewTextBoxColumn.Width" type="System.Int32, mscorlib">
     <value>20</value>
   </data>
   <data name="timeColumnDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
@@ -451,10 +451,10 @@
   <data name="&gt;&gt;buttonShowDetails.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;levelColumnDataGridViewTextBoxColumn.Name" xml:space="preserve">
-    <value>levelColumnDataGridViewTextBoxColumn</value>
+  <data name="&gt;&gt;levelIconColumnDataGridViewTextBoxColumn.Name" xml:space="preserve">
+    <value>levelIconColumnDataGridViewTextBoxColumn</value>
   </data>
-  <data name="&gt;&gt;levelColumnDataGridViewTextBoxColumn.Type" xml:space="preserve">
+  <data name="&gt;&gt;levelIconColumnDataGridViewTextBoxColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewImageColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;timeColumnDataGridViewTextBoxColumn.Name" xml:space="preserve">
@@ -493,10 +493,10 @@
   <data name="&gt;&gt;Messages.Type" xml:space="preserve">
     <value>System.Data.DataTable, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;levelColumn.Name" xml:space="preserve">
-    <value>levelColumn</value>
+  <data name="&gt;&gt;levelIconColumn.Name" xml:space="preserve">
+    <value>levelIconColumn</value>
   </data>
-  <data name="&gt;&gt;levelColumn.Type" xml:space="preserve">
+  <data name="&gt;&gt;levelIconColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;timeColumn.Name" xml:space="preserve">

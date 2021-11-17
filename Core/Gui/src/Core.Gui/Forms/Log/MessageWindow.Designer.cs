@@ -69,14 +69,16 @@ namespace Core.Gui.Forms.Log
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonShowDetails = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
-            this.levelColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.levelIconColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.levelColorColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fullMessageColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.messageWindowData = new System.Data.DataSet();
             this.Messages = new System.Data.DataTable();
-            this.levelColumn = new System.Data.DataColumn();
+            this.levelIconColumn = new System.Data.DataColumn();
+            this.levelColorColumn = new System.Data.DataColumn();
             this.timeColumn = new System.Data.DataColumn();
             this.messageColumn = new System.Data.DataColumn();
             this.fullMessageColumn = new System.Data.DataColumn();
@@ -186,7 +188,8 @@ namespace Core.Gui.Forms.Log
             this.messagesDataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.messagesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.messagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.levelColumnDataGridViewTextBoxColumn,
+            this.levelIconColumnDataGridViewTextBoxColumn,
+            this.levelColorColumnDataGridViewTextBoxColumn,
             this.timeColumnDataGridViewTextBoxColumn,
             this.messageColumnDataGridViewTextBoxColumn,
             this.fullMessageColumnDataGridViewTextBoxColumn});
@@ -209,15 +212,25 @@ namespace Core.Gui.Forms.Log
             this.messagesDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.MessagesDataGridViewCellMouseDoubleClick);
             this.messagesDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessagesDataGridViewKeyDown);
             // 
-            // levelColumnDataGridViewTextBoxColumn
+            // levelIconColumnDataGridViewTextBoxColumn
             // 
-            this.levelColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.levelColumnDataGridViewTextBoxColumn.DataPropertyName = "levelColumn";
-            resources.ApplyResources(this.levelColumnDataGridViewTextBoxColumn, "levelColumnDataGridViewTextBoxColumn");
-            this.levelColumnDataGridViewTextBoxColumn.Name = "levelColumnDataGridViewTextBoxColumn";
-            this.levelColumnDataGridViewTextBoxColumn.ReadOnly = true;
-            this.levelColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.levelColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.levelIconColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.levelIconColumnDataGridViewTextBoxColumn.DataPropertyName = "levelIconColumn";
+            resources.ApplyResources(this.levelIconColumnDataGridViewTextBoxColumn, "levelIconColumnDataGridViewTextBoxColumn");
+            this.levelIconColumnDataGridViewTextBoxColumn.Name = "levelIconColumnDataGridViewTextBoxColumn";
+            this.levelIconColumnDataGridViewTextBoxColumn.ReadOnly = true;
+            this.levelIconColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.levelIconColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // levelColorColumnDataGridViewTextBoxColumn
+            // 
+            this.levelColorColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.levelColorColumnDataGridViewTextBoxColumn.DataPropertyName = "levelColorColumn";
+            resources.ApplyResources(this.levelColorColumnDataGridViewTextBoxColumn, "levelColorColumnDataGridViewTextBoxColumn");
+            this.levelColorColumnDataGridViewTextBoxColumn.Name = "levelColorColumnDataGridViewTextBoxColumn";
+            this.levelColorColumnDataGridViewTextBoxColumn.ReadOnly = true;
+            this.levelColorColumnDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.levelColorColumnDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // timeColumnDataGridViewTextBoxColumn
             // 
@@ -264,16 +277,22 @@ namespace Core.Gui.Forms.Log
             // Messages
             // 
             this.Messages.Columns.AddRange(new System.Data.DataColumn[] {
-            this.levelColumn,
+            this.levelIconColumn,
+            this.levelColorColumn,
             this.timeColumn,
             this.messageColumn,
             this.fullMessageColumn});
             this.Messages.TableName = "MessageTable";
             // 
-            // levelColumn
+            // levelIconColumn
             // 
-            this.levelColumn.Caption = "";
-            this.levelColumn.ColumnName = "levelColumn";
+            this.levelIconColumn.Caption = "";
+            this.levelIconColumn.ColumnName = "levelIconColumn";
+            // 
+            // levelColorColumn
+            // 
+            this.levelColorColumn.Caption = "";
+            this.levelColorColumn.ColumnName = "levelColorColumn";
             // 
             // timeColumn
             // 
@@ -327,11 +346,13 @@ namespace Core.Gui.Forms.Log
         private ToolStripButton buttonShowDetails;
         private System.Data.DataSet messageWindowData;
         private System.Data.DataTable Messages;
-        private System.Data.DataColumn levelColumn;
+        private System.Data.DataColumn levelIconColumn;
+        private System.Data.DataColumn levelColorColumn;
         private System.Data.DataColumn timeColumn;
         private System.Data.DataColumn messageColumn;
         private System.Data.DataColumn fullMessageColumn;
-        private DataGridViewTextBoxColumn levelColumnDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn levelIconColumnDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn levelColorColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn timeColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn messageColumnDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fullMessageColumnDataGridViewTextBoxColumn;

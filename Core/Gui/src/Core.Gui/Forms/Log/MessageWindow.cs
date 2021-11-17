@@ -46,11 +46,16 @@ namespace Core.Gui.Forms.Log
         private const string informationLevelUnicode = "\uE909";
         private const string debugLevelUnicode = "\uE90C";
 
+        private static readonly Color errorLevelColor = Color.Red;
+        private static readonly Color warningLevelColor = Color.Orange;
+        private static readonly Color informationLevelColor = Color.Purple;
+        private static readonly Color debugLevelColor = Color.Blue;
+
         private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
         private static readonly Font font = FontHelper.CreateFont(Resources.Symbols, privateFontCollection);
 
         private readonly IWin32Window dialogParent;
-        private readonly Dictionary<string, string> levelUnicodeLookup;
+        private readonly Dictionary<string, Tuple<string, Color>> levelUnicodeLookup;
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
 
         private bool filtering;
@@ -67,25 +72,25 @@ namespace Core.Gui.Forms.Log
             InitializeComponent();
 
             // order is the same as in log4j Level (check sources of log4net)
-            levelUnicodeLookup = new Dictionary<string, string>
+            levelUnicodeLookup = new Dictionary<string, Tuple<string, Color>>
             {
-                [Level.Off.ToString()] = errorLevelUnicode,
-                [Level.Emergency.ToString()] = errorLevelUnicode,
-                [Level.Fatal.ToString()] = errorLevelUnicode,
-                [Level.Alert.ToString()] = errorLevelUnicode,
-                [Level.Critical.ToString()] = errorLevelUnicode,
-                [Level.Severe.ToString()] = errorLevelUnicode,
-                [Level.Error.ToString()] = errorLevelUnicode,
-                [Level.Warn.ToString()] = warningLevelUnicode,
-                [Level.Notice.ToString()] = warningLevelUnicode,
-                [Level.Info.ToString()] = informationLevelUnicode,
-                [Level.Debug.ToString()] = debugLevelUnicode,
-                [Level.Fine.ToString()] = debugLevelUnicode,
-                [Level.Trace.ToString()] = debugLevelUnicode,
-                [Level.Finer.ToString()] = debugLevelUnicode,
-                [Level.Verbose.ToString()] = debugLevelUnicode,
-                [Level.Finest.ToString()] = debugLevelUnicode,
-                [Level.All.ToString()] = debugLevelUnicode
+                [Level.Off.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Emergency.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Fatal.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Alert.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Critical.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Severe.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Error.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
+                [Level.Warn.ToString()] = new Tuple<string, Color>(warningLevelUnicode, warningLevelColor),
+                [Level.Notice.ToString()] = new Tuple<string, Color>(warningLevelUnicode, warningLevelColor),
+                [Level.Info.ToString()] = new Tuple<string, Color>(informationLevelUnicode, informationLevelColor),
+                [Level.Debug.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
+                [Level.Fine.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
+                [Level.Trace.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
+                [Level.Finer.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
+                [Level.Verbose.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
+                [Level.Finest.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
+                [Level.All.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor)
             };
 
             SetFonts();
@@ -144,7 +149,7 @@ namespace Core.Gui.Forms.Log
             buttonShowInfo.Font = font;
             buttonShowWarning.Font = font;
             buttonShowError.Font = font;
-            levelColumnDataGridViewTextBoxColumn.DefaultCellStyle = new DataGridViewCellStyle
+            levelIconColumnDataGridViewTextBoxColumn.DefaultCellStyle = new DataGridViewCellStyle
             {
                 Font = font
             };
@@ -166,9 +171,9 @@ namespace Core.Gui.Forms.Log
                     DataRow row = Messages.NewRow();
 
                     row[0] = msg.Level;
-                    row[1] = msg.Time;
-                    row[2] = msg.ShortMessage;
-                    row[3] = msg.FullMessage;
+                    row[2] = msg.Time;
+                    row[3] = msg.ShortMessage;
+                    row[4] = msg.FullMessage;
 
                     Messages.Rows.InsertAt(row, 0);
                 }
@@ -224,7 +229,7 @@ namespace Core.Gui.Forms.Log
             var filterLines = new List<string>();
             string filterFormat = string.Format(CultureInfo.CurrentCulture,
                                                 "{0} = '{{0}}'",
-                                                levelColumn.ColumnName);
+                                                levelIconColumn.ColumnName);
             if (buttonShowInfo.Checked)
             {
                 filterLines.Add(string.Format(CultureInfo.CurrentCulture,
@@ -343,14 +348,26 @@ namespace Core.Gui.Forms.Log
 
         private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != levelColumnDataGridViewTextBoxColumn.Index || e.Value == null)
+            if (e.Value == null)
             {
                 return;
             }
 
-            // Level is stored instead of unicode, therefore we map to actual unicode during formatting. 
-            var level = (string) e.Value;
-            e.Value = levelUnicodeLookup[level];
+            if (e.ColumnIndex == levelIconColumnDataGridViewTextBoxColumn.Index)
+            {
+                // Level is stored instead of unicode, therefore we map to actual unicode during formatting.
+                var level = (string) e.Value;
+                e.Value = levelUnicodeLookup[level].Item1;
+            }
+
+            if (e.ColumnIndex == levelColorColumnDataGridViewTextBoxColumn.Index)
+            {
+                DataGridViewCell cell = messagesDataGridView.Rows[e.RowIndex].Cells[levelIconColumnDataGridViewTextBoxColumn.Index];
+
+                var level = (string) cell.Value;
+                e.CellStyle.BackColor = levelUnicodeLookup[level].Item2;
+                e.Value = string.Empty;
+            }
         }
 
         #endregion
