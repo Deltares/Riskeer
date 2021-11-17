@@ -48,7 +48,7 @@ namespace Core.Gui.Forms.Log
 
         private static readonly Color errorLevelColor = Color.Red;
         private static readonly Color warningLevelColor = Color.Orange;
-        private static readonly Color informationLevelColor = Color.LightGray;  
+        private static readonly Color informationLevelColor = Color.LightGray;
         private static readonly Color debugLevelColor = Color.FromArgb(0, 139, 191);
 
         private static readonly PrivateFontCollection privateFontCollection = new PrivateFontCollection();
@@ -383,7 +383,16 @@ namespace Core.Gui.Forms.Log
         private void ButtonCopyClick(object sender, EventArgs e)
         {
             copying = true;
+
+            var currencyManager = (CurrencyManager) BindingContext[messagesDataGridView.DataSource];
+            currencyManager.SuspendBinding();
+            messagesDataGridView.Columns[levelColorColumnDataGridViewTextBoxColumn.Index].Visible = false;
+
             ClipboardProvider.Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
+
+            messagesDataGridView.Columns[levelColorColumnDataGridViewTextBoxColumn.Index].Visible = true;
+            currencyManager.ResumeBinding();
+
             copying = false;
         }
 
