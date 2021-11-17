@@ -190,9 +190,9 @@ namespace Core.Gui.Forms.Log
             this.messagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.levelIconColumnDataGridViewTextBoxColumn,
             this.levelColorColumnDataGridViewTextBoxColumn,
-            this.timeColumnDataGridViewTextBoxColumn,
             this.messageColumnDataGridViewTextBoxColumn,
-            this.fullMessageColumnDataGridViewTextBoxColumn});
+            this.fullMessageColumnDataGridViewTextBoxColumn,
+            this.timeColumnDataGridViewTextBoxColumn});
             this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
