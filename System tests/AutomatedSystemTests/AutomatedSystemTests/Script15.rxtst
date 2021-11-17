@@ -1056,8 +1056,8 @@
 			datarangeactive="True"
 			datasource="script15_ac_LoopFMs"
 			id="4f95265d-8bea-4348-97b9-151ec19e126c"
-			maxrange="1"
-			minrange="1"
+			maxrange="0"
+			minrange="0"
 			name="a)_c)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
 			</smartfoldernode>
 			<testmodule
@@ -2727,6 +2727,26 @@
 			name="ValidateMessagesCalculationsFinished">
 			</smartfoldernode>
 			<testmodule
+			id="b7cbd3f8-c960-4007-b462-2ae635581cc4"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfFolderToSetRange"
+					datasourceid="b90504ff-0735-4284-bafe-cecf4f223312"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeAddFailureProbabilityItems"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="b8644a7f-796f-4e8d-b031-dfabfc503239"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -2752,6 +2772,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="b90504ff-0735-4284-bafe-cecf4f223312"
+			name="SetRangeAddFailureProbs">
+				<parameters>
+					<param
+					name="nameOfFolderToSetRange"
+					value="AddFailureProbabilityItems">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="b94d20bf-4d0b-4056-ae2c-7dea46c7c177"
 			name="GEBU">
@@ -4212,6 +4242,14 @@
 								<testmodule
 								id="823a090b-85fb-41f9-a45d-5d777a525c1f"
 								name="SelectState">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="b90504ff-0735-4284-bafe-cecf4f223312"
+							name="SetRangeAddFailureProbs">
+								<testmodule
+								id="b7cbd3f8-c960-4007-b462-2ae635581cc4"
+								name="SetRangeInSmartFolder">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
@@ -9399,7 +9437,7 @@
 		</DataSource>
 		<DataSource
 		id="06eef7a3-b1a2-4052-b746-d1d65394a95f"
-		lastknownrowcount="19"
+		lastknownrowcount="3"
 		name="script15_a_ExpectedResultsCalculations"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -9465,7 +9503,7 @@
 				</tr>
 				<tr>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;A+
+						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/1000
 					</td>
 					<td>
 						GEBU
@@ -9494,7 +9532,7 @@
 				</tr>
 				<tr>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens A
+						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/3000
 					</td>
 					<td>
 						GEBU
@@ -9523,471 +9561,7 @@
 				</tr>
 				<tr>
 					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens B
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						31-45
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.93
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens C
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						46-60
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.03
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;A+
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						61-75
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						2.61
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens A
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						76-90
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.97
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens B
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						91-105
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.77
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens C
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						106-120
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.17
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens Iv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						121-135
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						6.99
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						136-150
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						6.19
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IIIv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						151-165
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						5.93
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens IVv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						166-180
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.93
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Waterstanden&gt;Categoriegrens Vv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						181-195
-					</td>
-					<td>
-						Waterstand [m+NAP]
-					</td>
-					<td>
-						4.03
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens Iv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						196-210
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						3.48
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						211-225
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						2.75
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IIIv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						226-240
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						2.54
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens IVv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						241-255
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.77
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						330.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Golfhoogten&gt;Categoriegrens Vv
-					</td>
-					<td>
-						GEBU
-					</td>
-					<td>
-						0
-					</td>
-					<td>
-						6
-					</td>
-					<td>
-						256-270
-					</td>
-					<td>
-						Golfhoogte [m]
-					</td>
-					<td>
-						1.17
-					</td>
-					<td>
-						Maatgevende windrichting
-					</td>
-					<td>
-						300.0
-					</td>
-				</tr>
-				<tr>
-					<td>
-						14-9&gt;Duinafslag&gt;Hydraulische&gt;1/500
+						Traject&gt;@DA&gt;@HB&gt;1/500
 					</td>
 					<td>
 						DA
@@ -10032,6 +9606,9 @@
 				<column>
 					rangeHBCCalculations
 				</column>
+				<column>
+					rangeAddFailureProbabilityItems
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -10049,6 +9626,9 @@
 					<th>
 						rangeHBCCalculations
 					</th>
+					<th>
+						rangeAddFailureProbabilityItems
+					</th>
 				</tr>
 				<tr>
 					<td>
@@ -10061,6 +9641,9 @@
 						output_Project_15ab_GEBU.risk
 					</td>
 					<td>
+					</td>
+					<td>
+						1-2
 					</td>
 				</tr>
 				<tr>
@@ -10075,6 +9658,9 @@
 					</td>
 					<td>
 						19
+					</td>
+					<td>
+						3-5
 					</td>
 				</tr>
 			</table>
@@ -10429,7 +10015,7 @@
 		</DataSource>
 		<DataSource
 		id="fc233194-0355-4420-a7b7-92a3a77c0eb0"
-		lastknownrowcount="3"
+		lastknownrowcount="5"
 		name="script15ac_LoopAddFailureProbabilityItems"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -10456,6 +10042,28 @@
 					<th>
 						ValueFailureProbability
 					</th>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						Traject&gt;@HB&gt;Waterstanden bij doelkans
+					</td>
+					<td>
+						1/10000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						Traject&gt;@HB&gt;Golfhoogten bij doelkans
+					</td>
+					<td>
+						1/1000
+					</td>
 				</tr>
 				<tr>
 					<td>
@@ -10940,9 +10548,6 @@
 			id="0909da98-b3a7-4b30-8207-cdb76c08c92e">
 			</testcontainer>
 			<testcontainer
-			id="0e18d60e-93a2-4e17-bd6e-d9789ae914d1">
-			</testcontainer>
-			<testcontainer
 			id="0f46eca1-215b-474c-ae7f-d3b7718d04b4">
 			</testcontainer>
 			<testcontainer
@@ -10956,9 +10561,6 @@
 			</testcontainer>
 			<testcontainer
 			id="1723cbbd-3943-4428-bcb1-ff81c264e994">
-			</testcontainer>
-			<testcontainer
-			id="18455637-0838-4b15-bd6b-f6d6bc24f402">
 			</testcontainer>
 			<testcontainer
 			id="34654bfe-ef73-4a94-953b-f59a2f3cf462">
@@ -11043,6 +10645,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b77e5876-576e-4d86-b05d-baa2430224bd">
+			</testcontainer>
+			<testcontainer
+			id="b90504ff-0735-4284-bafe-cecf4f223312">
 			</testcontainer>
 			<testcontainer
 			id="b94d20bf-4d0b-4056-ae2c-7dea46c7c177">
