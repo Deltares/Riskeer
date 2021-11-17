@@ -22,5 +22,5 @@ All rights reserved.
 -->
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <FontFamily x:Key="Symbols">pack://application:,,,/Core.Gui;component/Style/Symbols/#Symbols</FontFamily>
+    <FontFamily x:Key="Symbols">pack://application:,,,/Core.Gui;component/Style/Symbols/#CoreSymbols</FontFamily>
 </ResourceDictionary>

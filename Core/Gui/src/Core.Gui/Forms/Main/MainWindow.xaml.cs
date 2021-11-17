@@ -59,7 +59,7 @@ namespace Core.Gui.Forms.Main
     {
         private static readonly FontFamily toolViewFontFamily = new FontFamily(
             new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Core.Gui;component/Style/Symbols/"),
-            "./#Symbols");
+            "./#CoreSymbols");
 
         /// <summary>
         /// Class to help with hybrid winforms - WPF applications. Provides UI handle to
