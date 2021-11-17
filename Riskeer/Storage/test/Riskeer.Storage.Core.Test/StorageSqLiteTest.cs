@@ -259,7 +259,7 @@ namespace Riskeer.Storage.Core.Test
             string projectName = Path.GetFileNameWithoutExtension(tempProjectFilePath);
             var storage = new StorageSqLite();
             var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RiskeerProject>();
+            var project = mockRepository.StrictMock<RiskeerProject>(CreateAssessmentSection());
             project.Description = "<some description>";
 
             // Precondition
@@ -512,7 +512,7 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var project = mockRepository.StrictMock<RiskeerProject>();
+            var project = mockRepository.StrictMock<RiskeerProject>(CreateAssessmentSection());
             mockRepository.ReplayAll();
             var storage = new StorageSqLite();
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(HasStagedProjectChanges_SavedToEmptyDatabaseFile_ReturnsFalse));
@@ -535,8 +535,13 @@ namespace Riskeer.Storage.Core.Test
 
         private static RiskeerProject CreateProject()
         {
+            return new RiskeerProject(CreateAssessmentSection());
+        }
+
+        private static AssessmentSection CreateAssessmentSection()
+        {
             var random = new Random(21);
-            return new RiskeerProject(new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
         }
 
         [OneTimeSetUp]

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
@@ -51,9 +52,40 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             const string testDescription = "testName";
+
+            var random = new Random(21);
             var entity = new ProjectEntity
             {
-                Description = testDescription
+                Description = testDescription,
+                AssessmentSectionEntities =
+                {
+                    new AssessmentSectionEntity
+                    {
+                        SignalingNorm = random.NextDouble(0.000001, 0.1),
+                        LowerLimitNorm = random.NextDouble(0.000001, 0.1),
+                        NormativeNormType = Convert.ToByte(NormType.Signaling),
+                        Name = "A",
+                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
+                        BackgroundDataEntities = new[]
+                        {
+                            new BackgroundDataEntity
+                            {
+                                Name = "Background A",
+                                Transparency = 0.0,
+                                IsVisible = 1,
+                                BackgroundDataType = 1,
+                                BackgroundDataMetaEntities = new[]
+                                {
+                                    new BackgroundDataMetaEntity
+                                    {
+                                        Key = BackgroundDataIdentifiers.IsConfigured,
+                                        Value = "0"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             };
 
             // Call
@@ -62,7 +94,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.IsNotNull(project);
             Assert.AreEqual(testDescription, project.Description);
-            Assert.IsNull(project.AssessmentSection);
+            Assert.IsNotNull(project.AssessmentSection);
         }
 
         [Test]

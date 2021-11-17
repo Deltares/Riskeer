@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_WithAssessmentSections_AddsSectionsToEntity()
+        public void Create_WithAssessmentSection_AddsSectionToEntity()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
