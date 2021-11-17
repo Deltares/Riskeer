@@ -38,7 +38,7 @@ namespace Core.Gui.Test.Forms.Log
         private MessageWindowLogAppender originalValue;
 
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var logAppender = new MessageWindowLogAppender();
@@ -441,7 +441,7 @@ namespace Core.Gui.Test.Forms.Log
                 IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
                 Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
                 var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
-                Assert.AreEqual("\t00:00:00\tmessage", actualContent);
+                Assert.AreEqual("WARN\t\tmessage\t00:00:00", actualContent);
             }
         }
 

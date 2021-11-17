@@ -59,6 +59,7 @@ namespace Core.Gui.Forms.Log
         private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
 
         private bool filtering;
+        private bool copying;
 
         /// <summary>
         /// Creates a new instance of <see cref="MessageWindow" />.
@@ -348,7 +349,7 @@ namespace Core.Gui.Forms.Log
 
         private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.Value == null)
+            if (e.Value == null || copying)
             {
                 return;
             }
@@ -381,7 +382,9 @@ namespace Core.Gui.Forms.Log
 
         private void ButtonCopyClick(object sender, EventArgs e)
         {
+            copying = true;
             ClipboardProvider.Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
+            copying = false;
         }
 
         private void ButtonShowDetailsClick(object sender, EventArgs e)
