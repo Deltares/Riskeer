@@ -124,6 +124,10 @@ namespace Riskeer.Storage.Core
             {
                 throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Riskeer_database_file, exception);
             }
+            catch (EntityReadException exception)
+            {
+                throw CreateStorageReaderException(databaseFilePath, exception.Message, exception);
+            }
             catch (SystemException exception)
             {
                 throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Riskeer_database_file, exception);

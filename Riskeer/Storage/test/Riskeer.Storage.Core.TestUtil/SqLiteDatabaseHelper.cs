@@ -81,6 +81,18 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         /// <summary>
+        /// Configures the <c>AssessmentSectionEntity</c> table to an invalid state.
+        /// </summary>
+        /// <param name="databaseFilePath">The database file path.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="databaseFilePath"/> 
+        /// is <c>null</c> or whitespace.</exception>
+        public static void SetInvalidNumberOfAssessmentSectionEntities(string databaseFilePath)
+        {
+            string removeAssessmentSectionEntityRowsCommand = GetRemoveAllAssessmentSectionEntityRowsCommandText();
+            PerformCommandOnDatabase(databaseFilePath, removeAssessmentSectionEntityRowsCommand);
+        }
+
+        /// <summary>
         /// Creates a new Sqlite database file with the structure defined in <paramref name="databaseSchemaQuery"/>.
         /// </summary>
         /// <param name="databaseFilePath">Path to database file.</param>
@@ -177,6 +189,11 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             return "INSERT INTO VersionEntity (Version, Timestamp, FingerPrint) "
                    + $"VALUES (\"{databaseVersion}\", '2016-08-10 10:55:48', 'QWERTY')";
+        }
+
+        private static string GetRemoveAllAssessmentSectionEntityRowsCommandText()
+        {
+            return "DELETE FROM AssessmentSectionEntity; ";
         }
     }
 }

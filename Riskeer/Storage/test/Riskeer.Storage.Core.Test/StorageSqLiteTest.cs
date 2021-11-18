@@ -26,11 +26,13 @@ using System.IO;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
+using Riskeer.Storage.Core.Exceptions;
 using Riskeer.Storage.Core.TestUtil;
 
 namespace Riskeer.Storage.Core.Test
@@ -254,6 +256,35 @@ namespace Riskeer.Storage.Core.Test
                             + "dient '16.4' of hoger te zijn.", exception.Message);
         }
 
+        [Test]
+        public void LoadProject_ReadProjectThrowsEntityReadException_ThrowsStorageException()
+        {
+            // Setup
+            string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_ReadProjectThrowsEntityReadException_ThrowsStorageException));
+            var storage = new StorageSqLite();
+            var mockRepository = new MockRepository();
+            var project = mockRepository.StrictMock<RiskeerProject>(CreateAssessmentSection());
+
+            // Precondition
+            void Precondition()
+            {
+                SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, project);
+                SqLiteDatabaseHelper.SetInvalidNumberOfAssessmentSectionEntities(tempProjectFilePath);
+            }
+            Assert.DoesNotThrow(Precondition);
+
+            // Call
+            void Call() => storage.LoadProject(tempProjectFilePath);
+
+            // Assert
+            var exception = Assert.Throws<StorageException>(Call);
+            Exception innerException = exception.InnerException;
+            Assert.IsInstanceOf<EntityReadException>(innerException);
+
+            var expectedMessage = $"Fout bij het lezen van bestand '{tempProjectFilePath}': {innerException.Message.FirstToLower()}";
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+        
         [Test]
         public void LoadProject_ValidDatabase_ReturnsProject()
         {
