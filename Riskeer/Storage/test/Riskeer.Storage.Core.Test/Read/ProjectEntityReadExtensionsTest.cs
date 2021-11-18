@@ -26,6 +26,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Exceptions;
 using Riskeer.Storage.Core.Read;
 
 namespace Riskeer.Storage.Core.Test.Read
@@ -48,94 +49,56 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewProjectWithPropertiesSet()
+        public void Read_EntityWithMultipleAssessmentSections_ThrowsEntityReadException()
         {
             // Setup
-            const string testDescription = "testName";
-
-            var random = new Random(21);
             var entity = new ProjectEntity
             {
-                Description = testDescription,
                 AssessmentSectionEntities =
                 {
-                    new AssessmentSectionEntity
-                    {
-                        SignalingNorm = random.NextDouble(0.000001, 0.1),
-                        LowerLimitNorm = random.NextDouble(0.000001, 0.1),
-                        NormativeNormType = Convert.ToByte(NormType.Signaling),
-                        Name = "A",
-                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
-                        BackgroundDataEntities = new[]
-                        {
-                            new BackgroundDataEntity
-                            {
-                                Name = "Background A",
-                                Transparency = 0.0,
-                                IsVisible = 1,
-                                BackgroundDataType = 1,
-                                BackgroundDataMetaEntities = new[]
-                                {
-                                    new BackgroundDataMetaEntity
-                                    {
-                                        Key = BackgroundDataIdentifiers.IsConfigured,
-                                        Value = "0"
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    CreateAssessmentSectionEntity(1),
+                    CreateAssessmentSectionEntity(2)
                 }
             };
 
+            var collector = new ReadConversionCollector();
+            
             // Call
-            RiskeerProject project = entity.Read(new ReadConversionCollector());
+            void Call() => entity.Read(collector);
 
             // Assert
-            Assert.IsNotNull(project);
-            Assert.AreEqual(testDescription, project.Description);
-            Assert.IsNotNull(project.AssessmentSection);
+            var exception = Assert.Throws<EntityReadException>(Call);
+            const string message = "Het project bevat meer dan 1 traject.";
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]
-        public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSections()
+        public void Read_EntityWithNoAssessmentSections_ThrowsEntityReadException()
         {
             // Setup
-            const double lowerLimitNorm = 0.0001;
-            const double signalingNorm = 0.00001;
+            var entity = new ProjectEntity();
+            var collector = new ReadConversionCollector();
+            
+            // Call
+            void Call() => entity.Read(collector);
 
+            // Assert
+            var exception = Assert.Throws<EntityReadException>(Call);
+            const string message = "Het project bevat geen traject.";
+            Assert.AreEqual(message, exception.Message);
+        }
+        
+        [Test]
+        public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSection()
+        {
+            // Setup
+            AssessmentSectionEntity assessmentSectionEntity = CreateAssessmentSectionEntity(1);
             var entity = new ProjectEntity
             {
                 Description = "testName",
                 AssessmentSectionEntities =
                 {
-                    new AssessmentSectionEntity
-                    {
-                        SignalingNorm = signalingNorm,
-                        LowerLimitNorm = lowerLimitNorm,
-                        NormativeNormType = Convert.ToByte(NormType.Signaling),
-                        Name = "A",
-                        Order = 56,
-                        Composition = Convert.ToByte(AssessmentSectionComposition.Dike),
-                        BackgroundDataEntities = new[]
-                        {
-                            new BackgroundDataEntity
-                            {
-                                Name = "Background A",
-                                Transparency = 0.0,
-                                IsVisible = 1,
-                                BackgroundDataType = 1,
-                                BackgroundDataMetaEntities = new[]
-                                {
-                                    new BackgroundDataMetaEntity
-                                    {
-                                        Key = BackgroundDataIdentifiers.IsConfigured,
-                                        Value = "0"
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    assessmentSectionEntity
                 }
             };
 
@@ -143,7 +106,40 @@ namespace Riskeer.Storage.Core.Test.Read
             RiskeerProject project = entity.Read(new ReadConversionCollector());
 
             // Assert
-            Assert.AreEqual("A", project.AssessmentSection.Name);
+            Assert.AreEqual(entity.Description, project.Description);
+            Assert.AreEqual(assessmentSectionEntity.Name, project.AssessmentSection.Name);
+        }
+
+        private static AssessmentSectionEntity CreateAssessmentSectionEntity(int seed)
+        {
+            var random = new Random(seed);
+
+            return new AssessmentSectionEntity
+            {
+                SignalingNorm = 0.00001,
+                LowerLimitNorm = 0.0001,
+                NormativeNormType = Convert.ToByte(random.NextEnumValue<NormType>()),
+                Name = "Just a name",
+                Composition = Convert.ToByte(random.NextEnumValue<AssessmentSectionComposition>()),
+                BackgroundDataEntities = new[]
+                {
+                    new BackgroundDataEntity
+                    {
+                        Name = "Background A",
+                        Transparency = 0.0,
+                        IsVisible = 1,
+                        BackgroundDataType = 1,
+                        BackgroundDataMetaEntities = new[]
+                        {
+                            new BackgroundDataMetaEntity
+                            {
+                                Key = BackgroundDataIdentifiers.IsConfigured,
+                                Value = "0"
+                            }
+                        }
+                    }
+                }
+            };
         }
     }
 }

@@ -23,6 +23,8 @@ using System;
 using System.Linq;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Exceptions;
+using Riskeer.Storage.Core.Properties;
 
 namespace Riskeer.Storage.Core.Read
 {
@@ -39,11 +41,23 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="RiskeerProject"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="EntityReadException">Thrown when <paramref name="entity"/> could not be read successfully.</exception>
         internal static RiskeerProject Read(this ProjectEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
+            }
+
+            int nrOfAssessmentSectionEntities = entity.AssessmentSectionEntities.Count;
+            if (nrOfAssessmentSectionEntities > 1)
+            {
+                throw new EntityReadException(Resources.ProjectEntityReadExtensions_Read_ProjectEntity_contains_more_than_one_AssessmentSection);
+            }
+
+            if (nrOfAssessmentSectionEntities == 0)
+            {
+                throw new EntityReadException(Resources.ProjectEntityReadExtensions_Read_ProjectEntity_contains_no_AssessmentSection);
             }
 
             AssessmentSection assessmentSection = ReadAssessmentSection(entity, collector);
@@ -57,10 +71,9 @@ namespace Riskeer.Storage.Core.Read
 
         private static AssessmentSection ReadAssessmentSection(ProjectEntity entity, ReadConversionCollector collector)
         {
-            AssessmentSectionEntity assessmentSectionEntity = entity.AssessmentSectionEntities
-                                                                    .OrderBy(ase => ase.Order)
-                                                                    .FirstOrDefault();
-            return assessmentSectionEntity?.Read(collector);
+            return entity.AssessmentSectionEntities
+                         .Single()
+                         .Read(collector);
         }
     }
 }
