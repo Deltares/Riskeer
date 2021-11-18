@@ -231,7 +231,7 @@ namespace Core.Gui.Forms.Log
             // 
             // timeColumnDataGridViewTextBoxColumn
             // 
-            this.timeColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.timeColumnDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.timeColumnDataGridViewTextBoxColumn.DataPropertyName = "timeColumn";
             dataGridViewCellStyle1.Format = "HH:mm:ss";
             dataGridViewCellStyle1.NullValue = null;
