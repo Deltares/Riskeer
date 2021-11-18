@@ -49,16 +49,9 @@ namespace Riskeer.Storage.Core.Create
             {
                 Description = project.Description.DeepClone()
             };
-
-            AddEntitiesForAssessmentSections(project, entity, registry);
+            entity.AssessmentSectionEntities.Add(project.AssessmentSection.Create(registry));
 
             return entity;
-        }
-
-        private static void AddEntitiesForAssessmentSections(RiskeerProject project, ProjectEntity entity, PersistenceRegistry registry)
-        {
-            AssessmentSection assessmentSection = project.AssessmentSection;
-            entity.AssessmentSectionEntities.Add(assessmentSection.Create(registry, 0));
         }
     }
 }

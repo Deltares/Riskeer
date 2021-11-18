@@ -61,10 +61,9 @@ namespace Riskeer.Storage.Core.Create
         /// </summary>
         /// <param name="section">The section to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <param name="order">The index at which <paramref name="section"/> resides in its parent.</param>
         /// <returns>A new <see cref="AssessmentSectionEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry registry, int order)
+        internal static AssessmentSectionEntity Create(this AssessmentSection section, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -80,8 +79,7 @@ namespace Riskeer.Storage.Core.Create
                 Comments = section.Comments.Body.DeepClone(),
                 LowerLimitNorm = contribution.LowerLimitNorm,
                 SignalingNorm = contribution.SignalingNorm,
-                NormativeNormType = Convert.ToByte(contribution.NormativeNorm),
-                Order = order
+                NormativeNormType = Convert.ToByte(contribution.NormativeNorm)
             };
 
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);

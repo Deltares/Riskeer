@@ -50,7 +50,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var assessmentSection = new AssessmentSection(assessmentSectionComposition);
 
             // Call
-            TestDelegate test = () => assessmentSection.Create(null, 0);
+            TestDelegate test = () => assessmentSection.Create(null);
 
             // Assert
             string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -69,9 +69,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const string comments = "Some text";
             const double lowerLimitNorm = 0.05;
             const double signalingNorm = 0.02;
-            var random = new Random(65);
-            int order = random.Next();
 
+            var random = new Random(65);
             const string mapDataName = "map data name";
             const double transparency = 0.3;
             const bool isVisible = true;
@@ -107,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            AssessmentSectionEntity entity = assessmentSection.Create(registry, order);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -138,7 +137,6 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.TechnicalInnovations));
             Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, entity.SpecificFailurePathEntities.Count);
-            Assert.AreEqual(order, entity.Order);
 
             Assert.IsNull(entity.ReferenceLinePointXml);
 
@@ -175,7 +173,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            AssessmentSectionEntity entity = section.Create(registry, 0);
+            AssessmentSectionEntity entity = section.Create(registry);
 
             // Assert
             Assert.AreNotSame(originalName, entity.Name,
@@ -197,7 +195,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry);
 
             // Assert
             CollectionAssert.IsEmpty(entity.HydraulicBoundaryDatabaseEntities);
@@ -243,7 +241,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry);
 
             // Assert
             HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.Single();
@@ -287,7 +285,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            AssessmentSectionEntity entity = assessmentSection.Create(registry, 0);
+            AssessmentSectionEntity entity = assessmentSection.Create(registry);
 
             // Assert
             string expectedXml = new Point2DCollectionXmlSerializer().ToXml(points);

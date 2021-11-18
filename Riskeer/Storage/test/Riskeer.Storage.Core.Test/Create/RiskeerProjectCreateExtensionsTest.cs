@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_WithCollector_ReturnsProjectEntityWithDescription()
+        public void Create_WithRegistry_ReturnsProjectEntityWithDescription()
         {
             // Setup
             const string testDescription = "testDescription";
@@ -62,6 +62,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.NotNull(entity);
             Assert.AreEqual(testDescription, entity.Description);
+            Assert.AreEqual(1, entity.AssessmentSectionEntities.Count);
         }
 
         [Test]
@@ -81,22 +82,6 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.AreNotSame(testdescription, entity.Description);
             Assert.AreEqual(testdescription, entity.Description);
-        }
-
-        [Test]
-        public void Create_WithAssessmentSection_AddsSectionToEntity()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var project = new RiskeerProject(assessmentSection);
-            
-            var registry = new PersistenceRegistry();
-
-            // Call
-            ProjectEntity entity = project.Create(registry);
-
-            // Assert
-            Assert.AreEqual(1, entity.AssessmentSectionEntities.Count);
         }
     }
 }
