@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using Riskeer.Integration.Data;
@@ -110,32 +109,26 @@ namespace Riskeer.Integration.Plugin.Merge
                 return;
             }
 
-            IEnumerable<AssessmentSection> assessmentSections;
+            AssessmentSection readAssessmentSection;
 
             try
             {
-                assessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
+                readAssessmentSection = assessmentSectionProvider.GetAssessmentSections(filePath).SingleOrDefault();
             }
             catch (AssessmentSectionProviderException)
             {
                 return;
             }
 
-            if (!assessmentSections.Any())
+            bool assessmentSectionMatchesReadAssessmentSection = mergeComparer.Compare(assessmentSection, readAssessmentSection);
+
+            if (assessmentSectionMatchesReadAssessmentSection == false)
             {
                 log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
                 return;
             }
 
-            IEnumerable<AssessmentSection> matchingAssessmentSections = assessmentSections.Where(section => mergeComparer.Compare(assessmentSection, section));
-
-            if (!matchingAssessmentSections.Any())
-            {
-                log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
-                return;
-            }
-
-            AssessmentSectionMergeData mergeData = mergeDataProvider.GetMergeData(matchingAssessmentSections.Single());
+            AssessmentSectionMergeData mergeData = mergeDataProvider.GetMergeData(readAssessmentSection);
 
             if (mergeData == null)
             {

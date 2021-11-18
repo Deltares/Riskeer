@@ -209,31 +209,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnsEmptyCollection_ThenLogErrorAndAbort()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
-                                     .Return(Enumerable.Empty<AssessmentSection>());
-            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
-            var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mocks.ReplayAll();
-
-            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
-
-            // When
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GivenAssessmentSection_WhenComparerReturnsFalse_ThenLogErrorAndAbort()
         {
             // Given
