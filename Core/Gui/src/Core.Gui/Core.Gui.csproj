@@ -60,16 +60,12 @@
     <Page Include="Style\Symbols\Symbols.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\application_import_blue.ico" />
-    <Resource Include="Resources\application_import_blue.png" />
     <Resource Include="Resources\brick.png" />
     <Resource Include="Resources\Copy.png" />
-    <Resource Include="Resources\CopyHS.png" />
     <Resource Include="Resources\DeleteHS.png" />
     <Resource Include="Resources\error.png" />
     <Resource Include="Resources\exclamation.png" />
     <Resource Include="Resources\folder.png" />
-    <Resource Include="Resources\icon_clear_all_messages.PNG" />
     <Resource Include="Resources\information.png" />
     <Resource Include="Resources\Paste.png" />
     <Resource Include="Resources\PasteLarge.png" />

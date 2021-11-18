@@ -136,26 +136,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap application_import_blue {
-            get {
-                object obj = ResourceManager.GetObject("application_import_blue", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon application_import_blue1 {
-            get {
-                object obj = ResourceManager.GetObject("application_import_blue1", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Logbestand kan niet worden geopend..
         /// </summary>
         public static string ApplicationFeatureCommandHandler_OpenLogFileExternal_Unable_to_open_log_file {
@@ -678,16 +658,6 @@ namespace Core.Gui.Properties {
             get {
                 return ResourceManager.GetString("ContextMenuItemFactory_Can_not_create_context_menu_items_without_tree_view_contro" +
                         "l", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CopyHS {
-            get {
-                object obj = ResourceManager.GetObject("CopyHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1453,16 +1423,6 @@ namespace Core.Gui.Properties {
         public static string GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled {
             get {
                 return ResourceManager.GetString("GuiUpdateHandler_UpdateItemsUsingDialog_Updating_from_Path_0_cancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap icon_clear_all_messages {
-            get {
-                object obj = ResourceManager.GetObject("icon_clear_all_messages", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
