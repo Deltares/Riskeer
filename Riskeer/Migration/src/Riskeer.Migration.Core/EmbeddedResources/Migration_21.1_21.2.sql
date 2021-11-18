@@ -20,8 +20,7 @@ INSERT INTO AssessmentSectionEntity (
     [SignalingNorm],
     [NormativeNormType],
     [Composition],
-    [ReferenceLinePointXml],
-    [Order]
+    [ReferenceLinePointXml]
 ) 
 SELECT
     [AssessmentSectionEntityId],
@@ -35,8 +34,7 @@ SELECT
     [SignalingNorm],
     [NormativeNormType],
     [Composition],
-    [ReferenceLinePointXml],
-    [Order]
+    [ReferenceLinePointXml]
 FROM [SOURCEPROJECT].AssessmentSectionEntity;
 INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEntity;
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;

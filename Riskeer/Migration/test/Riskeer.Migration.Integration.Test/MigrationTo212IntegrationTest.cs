@@ -164,8 +164,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[SignalingNorm] = OLD.[SignalingNorm] " +
                 "AND NEW.[NormativeNormType] = OLD.[NormativeNormType] " +
                 "AND NEW.[Composition] = OLD.[Composition] " +
-                "AND NEW.[ReferenceLinePointXml] = OLD.[ReferenceLinePointXml] " +
-                "AND NEW.\"Order\" = OLD.\"Order\";" +
+                "AND NEW.[ReferenceLinePointXml] = OLD.[ReferenceLinePointXml]; " +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateAssessmentSection);
