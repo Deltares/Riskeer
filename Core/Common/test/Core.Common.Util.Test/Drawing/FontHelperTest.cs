@@ -67,5 +67,46 @@ namespace Core.Common.Util.Test.Drawing
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("privateFontCollection", exception.ParamName);
         }
+
+        [Test]
+        public void CreateBitmapFromFont_FontNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FontHelper.CreateBitmapFromFont(null, "");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("font", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateBitmapFromFont_UnicodeNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var privateFontCollection = new PrivateFontCollection();
+            Font font = FontHelper.CreateFont(Resources.ValidFont, privateFontCollection);
+
+            // Call
+            void Call() => FontHelper.CreateBitmapFromFont(font, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("unicode", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateBitmapFromFont_ValidData_CreatesExpectedBitmap()
+        {
+            // Setup
+            var privateFontCollection = new PrivateFontCollection();
+            Font font = FontHelper.CreateFont(Resources.ValidFont, privateFontCollection);
+
+            // Call
+            Bitmap bitmap = FontHelper.CreateBitmapFromFont(font, "I");
+
+            // Assert
+            Assert.AreEqual(51, bitmap.Height);
+            Assert.AreEqual(51, bitmap.Width);
+        }
     }
 }
