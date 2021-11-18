@@ -63,10 +63,10 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_InvalidPath_ThrowsArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(invalidPath);
+            void Call() => new StorageSqLite().LoadProject(invalidPath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet leeg of ongedefinieerd zijn.",
                             exception.Message);
@@ -79,10 +79,10 @@ namespace Riskeer.Storage.Core.Test
             const string nonExistingPath = "fileDoesNotExist";
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(nonExistingPath);
+            void Call() => new StorageSqLite().LoadProject(nonExistingPath);
 
             // Assert
-            StorageException exception = Assert.Throws<CouldNotConnectException>(test);
+            StorageException exception = Assert.Throws<CouldNotConnectException>(Call);
 
             Assert.AreEqual($@"Fout bij het lezen van bestand '{nonExistingPath}': het bestand bestaat niet.",
                             exception.Message);
@@ -92,14 +92,14 @@ namespace Riskeer.Storage.Core.Test
         public void LoadProject_ProjectFileWithoutSchema_ThrowsStorageExceptionAndStorageValidationException()
         {
             // Setup
-            const string validPath = "empty.rtd";
+            const string validPath = "empty.risk";
             string tempFile = Path.Combine(testPath, validPath);
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
+            void Call() => new StorageSqLite().LoadProject(tempFile);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageValidationException>(test);
+            StorageException exception = Assert.Throws<StorageValidationException>(Call);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{tempFile}': het bestand is geen geldig Riskeer bestand.",
                             exception.Message);
         }
@@ -110,16 +110,16 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_ProjectFileWithTwoProjects_ThrowsStorageExceptionAndStorageValidationException));
 
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(tempProjectFilePath);
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+            void Precondition() => SqLiteDatabaseHelper.CreateCompleteDatabaseFileWithoutProjectData(tempProjectFilePath);
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
+            void Call() => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
             string expectedMessage = $@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Riskeer bestand.";
 
-            var exception = Assert.Throws<StorageException>(test);
+            var exception = Assert.Throws<StorageException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -129,14 +129,14 @@ namespace Riskeer.Storage.Core.Test
         {
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_CorruptProjectFileThatPassesValidation_ThrowsStorageExceptionWithFullStackTrace));
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(tempProjectFilePath);
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+            void Precondition() => SqLiteDatabaseHelper.CreateCorruptDatabaseFile(tempProjectFilePath);
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
+            void Call() => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            var exception = Assert.Throws<StorageException>(test);
+            var exception = Assert.Throws<StorageException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': het bestand is geen geldig Riskeer bestand.",
                             exception.Message);
@@ -156,14 +156,14 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithoutVersionEntities_ThrowStorageValidationException));
 
-            TestDelegate precondition = () => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+            void Precondition() => SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
+            void Call() => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageValidationException>(test);
+            StorageException exception = Assert.Throws<StorageValidationException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': database moet één rij in de VersionEntity tabel hebben.",
                             exception.Message);
@@ -177,19 +177,20 @@ namespace Riskeer.Storage.Core.Test
             string projectFilePath = Path.Combine(workingDirectory, nameof(LoadProject_DatabaseWithMultipleVersionEntities_ThrowStorageValidationException));
             string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
 
-            TestDelegate precondition = () =>
+            void Precondition()
             {
                 SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(projectFilePath);
                 SqLiteDatabaseHelper.AddVersionEntity(projectFilePath, currentDatabaseVersion);
                 SqLiteDatabaseHelper.AddVersionEntity(projectFilePath, currentDatabaseVersion);
-            };
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating corrupt database file failed");
+            }
+
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating corrupt database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(projectFilePath);
+            void Call() => new StorageSqLite().LoadProject(projectFilePath);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageValidationException>(test);
+            StorageException exception = Assert.Throws<StorageValidationException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{projectFilePath}': database moet één rij in de VersionEntity tabel hebben.",
                             exception.Message);
@@ -206,18 +207,19 @@ namespace Riskeer.Storage.Core.Test
             string currentDatabaseVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
             string versionCode = additionalVersionNumber + currentDatabaseVersion;
 
-            TestDelegate precondition = () =>
+            void Precondition()
             {
                 SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
                 SqLiteDatabaseHelper.AddVersionEntity(tempProjectFilePath, versionCode);
-            };
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating future database file failed");
+            }
+
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating future database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
+            void Call() => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageValidationException>(test);
+            StorageException exception = Assert.Throws<StorageValidationException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': riskeer "
                             + $"bestand versie '{versionCode}' is hoger dan de huidig ondersteunde versie "
@@ -233,18 +235,19 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string tempProjectFilePath = Path.Combine(workingDirectory, $"{nameof(LoadProject_DatabaseWithInvalidVersionCode_ThrowStorageValidationException)}_{Path.GetRandomFileName()}");
 
-            TestDelegate precondition = () =>
+            void Precondition()
             {
                 SqLiteDatabaseHelper.CreateCompleteDatabaseFileEmpty(tempProjectFilePath);
                 SqLiteDatabaseHelper.AddVersionEntity(tempProjectFilePath, versionCode);
-            };
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating future database file failed");
+            }
+
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating future database file failed");
 
             // Call
-            TestDelegate test = () => new StorageSqLite().LoadProject(tempProjectFilePath);
+            void Call() => new StorageSqLite().LoadProject(tempProjectFilePath);
 
             // Assert
-            StorageException exception = Assert.Throws<StorageValidationException>(test);
+            StorageException exception = Assert.Throws<StorageValidationException>(Call);
             Assert.IsInstanceOf<Exception>(exception);
             Assert.AreEqual($@"Fout bij het lezen van bestand '{tempProjectFilePath}': riskeer "
                             + $"bestand versie '{versionCode}' is niet valide. De versie van het Riskeer projectbestand "
@@ -281,10 +284,10 @@ namespace Riskeer.Storage.Core.Test
             var storage = new StorageSqLite();
 
             // Call
-            TestDelegate test = () => storage.StageProject(null);
+            void Call() => storage.StageProject(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -300,10 +303,10 @@ namespace Riskeer.Storage.Core.Test
             storage.StageProject(project);
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(invalidPath);
+            void Call() => storage.SaveProjectAs(invalidPath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual($"Fout bij het lezen van bestand '{invalidPath}': bestandspad mag niet "
                             + "leeg of ongedefinieerd zijn.", exception.Message);
         }
@@ -321,10 +324,10 @@ namespace Riskeer.Storage.Core.Test
             Assert.IsFalse(File.Exists(tempProjectFilePath));
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempProjectFilePath);
+            void Call() => storage.SaveProjectAs(tempProjectFilePath);
 
             // Assert
-            Assert.DoesNotThrow(test);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -339,10 +342,10 @@ namespace Riskeer.Storage.Core.Test
             using (File.Create(tempProjectFilePath)) {}
 
             // Call
-            TestDelegate test = () => storage.SaveProjectAs(tempProjectFilePath);
+            void Call() => storage.SaveProjectAs(tempProjectFilePath);
 
             // Assert
-            Assert.DoesNotThrow(test);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -361,10 +364,10 @@ namespace Riskeer.Storage.Core.Test
                     fileDisposeHelper.LockFiles();
 
                     // Call
-                    TestDelegate test = () => storage.SaveProjectAs(tempProjectFilePath);
+                    void Call() => storage.SaveProjectAs(tempProjectFilePath);
 
                     // Assert
-                    var exception = Assert.Throws<StorageException>(test);
+                    var exception = Assert.Throws<StorageException>(Call);
 
                     Assert.IsInstanceOf<Exception>(exception);
                     Assert.IsInstanceOf<IOException>(exception.InnerException);
@@ -389,10 +392,10 @@ namespace Riskeer.Storage.Core.Test
             Assert.IsFalse(storage.HasStagedProject);
 
             // Call
-            TestDelegate call = () => storage.SaveProjectAs(tempProjectFilePath);
+            void Call() => storage.SaveProjectAs(tempProjectFilePath);
 
             // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(Call).Message;
             Assert.AreEqual("Call 'StageProject(IProject)' first before calling this method.", message);
         }
 
@@ -408,10 +411,10 @@ namespace Riskeer.Storage.Core.Test
             string corruptPath = path.Replace('V', invalidCharacters[0]);
 
             // Call
-            TestDelegate call = () => storage.HasStagedProjectChanges(corruptPath);
+            void Call() => storage.HasStagedProjectChanges(corruptPath);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
@@ -424,10 +427,10 @@ namespace Riskeer.Storage.Core.Test
             Assert.IsFalse(storage.HasStagedProject);
 
             // Call
-            TestDelegate call = () => storage.HasStagedProjectChanges(null);
+            void Call() => storage.HasStagedProjectChanges(null);
 
             // Assert
-            string message = Assert.Throws<InvalidOperationException>(call).Message;
+            string message = Assert.Throws<InvalidOperationException>(Call).Message;
             Assert.AreEqual("Call 'StageProject(IProject)' first before calling this method.", message);
         }
 
@@ -519,8 +522,8 @@ namespace Riskeer.Storage.Core.Test
 
             // Precondition, required to set the connection string
             storage.StageProject(project);
-            TestDelegate precondition = () => storage.SaveProjectAs(tempProjectFilePath);
-            Assert.DoesNotThrow(precondition, "Precondition failed: creating database file failed");
+            void Precondition() => storage.SaveProjectAs(tempProjectFilePath);
+            Assert.DoesNotThrow(Precondition, "Precondition failed: creating database file failed");
 
             storage.StageProject(project);
 
