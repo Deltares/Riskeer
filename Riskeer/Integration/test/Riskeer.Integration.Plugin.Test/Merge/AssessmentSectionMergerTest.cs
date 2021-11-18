@@ -191,7 +191,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
             var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSection(null)).IgnoreArguments()
                                      .Throw(new AssessmentSectionProviderException());
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
@@ -216,11 +216,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
             var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
-                                     .Return(new[]
-                                     {
-                                         new AssessmentSection(AssessmentSectionComposition.Dike)
-                                     });
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSection(null)).IgnoreArguments()
+                                     .Return(new AssessmentSection(AssessmentSectionComposition.Dike));
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(false);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
@@ -245,11 +242,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
             var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
-                                     .Return(new[]
-                                     {
-                                         new AssessmentSection(AssessmentSectionComposition.Dike)
-                                     });
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSection(null)).IgnoreArguments()
+                                     .Return(new AssessmentSection(AssessmentSectionComposition.Dike));
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
@@ -280,11 +274,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(filePath);
             var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(filePath))
-                                     .Return(new[]
-                                     {
-                                         assessmentSectionToMerge
-                                     });
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSection(filePath))
+                                     .Return(assessmentSectionToMerge);
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
@@ -319,11 +310,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
             var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
-                                     .Return(new[]
-                                     {
-                                         assessmentSectionToMerge
-                                     });
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSection(null)).IgnoreArguments()
+                                     .Return(assessmentSectionToMerge);
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();

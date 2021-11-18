@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using log4net;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
@@ -113,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             try
             {
-                readAssessmentSection = assessmentSectionProvider.GetAssessmentSections(filePath).SingleOrDefault();
+                readAssessmentSection = assessmentSectionProvider.GetAssessmentSection(filePath);
             }
             catch (AssessmentSectionProviderException)
             {

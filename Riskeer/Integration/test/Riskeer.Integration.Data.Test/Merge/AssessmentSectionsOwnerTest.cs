@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             var owner = new AssessmentSectionsOwner();
 
             // Assert
-            Assert.IsNull(owner.AssessmentSections);
+            Assert.IsNull(owner.AssessmentSection);
         }
     }
 }

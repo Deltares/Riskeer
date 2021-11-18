@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.Storage;
 using Core.Gui.Forms;
 using Core.Gui.Forms.ProgressDialog;
@@ -61,7 +60,7 @@ namespace Riskeer.Integration.Plugin.Merge
             this.projectStorage = projectStorage;
         }
 
-        public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
+        public AssessmentSection GetAssessmentSection(string filePath)
         {
             if (filePath == null)
             {
@@ -75,12 +74,12 @@ namespace Riskeer.Integration.Plugin.Merge
                                                  assessmentSectionsOwner, new LoadAssessmentSectionService(projectStorage),
                                                  filePath));
 
-            if (assessmentSectionsOwner.AssessmentSections == null)
+            if (assessmentSectionsOwner.AssessmentSection == null)
             {
                 throw new AssessmentSectionProviderException();
             }
 
-            return assessmentSectionsOwner.AssessmentSections;
+            return assessmentSectionsOwner.AssessmentSection;
         }
     }
 }

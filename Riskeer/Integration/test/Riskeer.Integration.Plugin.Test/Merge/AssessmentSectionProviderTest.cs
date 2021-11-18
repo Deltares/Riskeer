@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using Core.Gui.Forms;
@@ -91,7 +89,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GetAssessmentSections_FilePathNull_ThrowsArgumentNullException()
+        public void GetAssessmentSection_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -102,7 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
             // Call
-            void Call() => provider.GetAssessmentSections(null);
+            void Call() => provider.GetAssessmentSection(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -111,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GetAssessmentSections_AssessmentSectionsFromActivityNull_ThrowsAssessmentSectionProviderException()
+        public void GetAssessmentSection_AssessmentSectionFromActivityNull_ThrowsAssessmentSectionProviderException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -128,7 +126,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 };
 
                 // Call
-                void Call() => provider.GetAssessmentSections("filePath");
+                void Call() => provider.GetAssessmentSection("filePath");
 
                 // Assert
                 Assert.Throws<AssessmentSectionProviderException>(Call);
@@ -138,7 +136,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GetAssessmentSections_ValidFilePath_ReturnsAssessmentSections()
+        public void GetAssessmentSection_ValidFilePath_ReturnsAssessmentSection()
         {
             // Setup
             using (var viewParent = new TestViewParentForm())
@@ -152,10 +150,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 };
 
                 // Call
-                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+                AssessmentSection assessmentSection = provider.GetAssessmentSection(filePath);
 
                 // Assert
-                Assert.AreEqual(1, assessmentSections.Count());
+                Assert.IsNotNull(assessmentSection);
             }
         }
     }

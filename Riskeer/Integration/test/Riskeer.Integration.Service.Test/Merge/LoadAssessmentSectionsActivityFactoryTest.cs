@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Service.Merge;
@@ -90,11 +89,11 @@ namespace Riskeer.Integration.Service.Test.Merge
             const string filePath = "File\\Path";
 
             var owner = new AssessmentSectionsOwner();
-            IEnumerable<AssessmentSection> expectedAssessmentSections = Enumerable.Empty<AssessmentSection>();
+            var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();
             var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            service.Expect(pr => pr.LoadAssessmentSections(filePath)).Return(expectedAssessmentSections);
+            service.Expect(pr => pr.LoadAssessmentSection(filePath)).Return(expectedAssessmentSection);
             mocks.ReplayAll();
 
             // Call
@@ -104,7 +103,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             Assert.IsInstanceOf<LoadAssessmentSectionsActivity>(activity);
 
             activity.Run();
-            Assert.AreSame(expectedAssessmentSections, owner.AssessmentSections);
+            Assert.AreSame(expectedAssessmentSection, owner.AssessmentSection);
 
             mocks.VerifyAll();
         }

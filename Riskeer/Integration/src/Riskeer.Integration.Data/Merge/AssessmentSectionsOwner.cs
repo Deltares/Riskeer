@@ -19,18 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-
 namespace Riskeer.Integration.Data.Merge
 {
     /// <summary>
-    /// Class that holds a collection of <see cref="AssessmentSection"/>. 
+    /// Class that holds a <see cref="Data.AssessmentSection"/>. 
     /// </summary>
     public class AssessmentSectionsOwner
     {
         /// <summary>
-        /// Gets or sets the collection of <see cref="AssessmentSection"/>.
+        /// Gets or sets the <see cref="Data.AssessmentSection"/>.
         /// </summary>
-        public IEnumerable<AssessmentSection> AssessmentSections { get; set; }
+        public AssessmentSection AssessmentSection { get; set; }
     }
 }

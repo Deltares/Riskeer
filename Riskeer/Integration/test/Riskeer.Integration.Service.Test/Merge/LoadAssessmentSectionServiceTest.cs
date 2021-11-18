@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -64,7 +62,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void LoadAssessmentSections_Always_SendsFilePathToLoadsProject()
+        public void LoadAssessmentSection_Always_SendsFilePathToLoadsProject()
         {
             // Setup
             const string filePath = "Some\\path";
@@ -77,14 +75,14 @@ namespace Riskeer.Integration.Service.Test.Merge
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            service.LoadAssessmentSections(filePath);
+            service.LoadAssessmentSection(filePath);
 
             // Assert
             mocks.VerifyAll();
         }
 
         [Test]
-        public void LoadAssessmentSections_LoadingProjectSuccessful_ReturnsRiskeerProject()
+        public void LoadAssessmentSection_LoadingProjectSuccessful_ReturnsRiskeerProject()
         {
             // Setup
             RiskeerProject project = CreateProject();
@@ -99,15 +97,15 @@ namespace Riskeer.Integration.Service.Test.Merge
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            IEnumerable<AssessmentSection> assessmentSections = service.LoadAssessmentSections(string.Empty);
+            AssessmentSection assessmentSection = service.LoadAssessmentSection(string.Empty);
 
             // Assert
-            Assert.AreSame(project.AssessmentSection, assessmentSections.Single());
+            Assert.AreSame(project.AssessmentSection, assessmentSection);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void LoadAssessmentSections_LoadedProjectNull_ThrowsLoadAssessmentSectionException()
+        public void LoadAssessmentSection_LoadedProjectNull_ThrowsLoadAssessmentSectionException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -120,7 +118,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            TestDelegate call = () => service.LoadAssessmentSections(string.Empty);
+            TestDelegate call = () => service.LoadAssessmentSection(string.Empty);
 
             // Assert
             Assert.Throws<LoadAssessmentSectionException>(call);
@@ -128,7 +126,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void LoadAssessmentSections_LoadingProjectThrowsException_ThrowsLoadAssessmentSectionExceptionAndLogsError()
+        public void LoadAssessmentSection_LoadingProjectThrowsException_ThrowsLoadAssessmentSectionExceptionAndLogsError()
         {
             // Setup
             const string exceptionMessage = "StorageException";
@@ -150,7 +148,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             {
                 try
                 {
-                    service.LoadAssessmentSections(string.Empty);
+                    service.LoadAssessmentSection(string.Empty);
                 }
                 catch (LoadAssessmentSectionException e)
                 {

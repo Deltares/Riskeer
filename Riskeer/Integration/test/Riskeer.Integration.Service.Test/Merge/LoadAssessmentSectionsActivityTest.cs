@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Service.Exceptions;
@@ -110,7 +109,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             var mocks = new MockRepository();
             var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            service.Expect(p => p.LoadAssessmentSections(filePath)).Return(Enumerable.Empty<AssessmentSection>());
+            service.Expect(p => p.LoadAssessmentSection(filePath)).Return(new AssessmentSection(AssessmentSectionComposition.Dike));
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
@@ -127,13 +126,13 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void Run_ServiceReturnsAssessmentSections_SetsActivityStateToExecutedAndSetsAssessmentSections()
         {
             // Setup
-            IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();
             var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            service.Expect(p => p.LoadAssessmentSections(null))
+            service.Expect(p => p.LoadAssessmentSection(null))
                    .IgnoreArguments()
-                   .Return(assessmentSections);
+                   .Return(assessmentSection);
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
@@ -144,7 +143,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             // Assert
             Assert.AreEqual(ActivityState.Executed, activity.State);
-            Assert.AreSame(assessmentSections, owner.AssessmentSections);
+            Assert.AreSame(assessmentSection, owner.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -154,7 +153,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            service.Expect(p => p.LoadAssessmentSections(null))
+            service.Expect(p => p.LoadAssessmentSection(null))
                    .IgnoreArguments()
                    .Throw(new LoadAssessmentSectionException());
             mocks.ReplayAll();
@@ -167,7 +166,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             // Assert
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            Assert.IsNull(owner.AssessmentSections);
+            Assert.IsNull(owner.AssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -175,13 +174,13 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void GivenCancelledActivity_WhenFinishingActivity_ThenActivityStateSetToCancelledAndDoesNotSetAssessmentSections()
         {
             // Given
-            IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();
             var service = mocks.StrictMock<ILoadAssessmentSectionService>();
-            service.Expect(p => p.LoadAssessmentSections(null))
+            service.Expect(p => p.LoadAssessmentSection(null))
                    .IgnoreArguments()
-                   .Return(assessmentSections);
+                   .Return(assessmentSection);
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
@@ -195,7 +194,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
-            Assert.IsNull(owner.AssessmentSections);
+            Assert.IsNull(owner.AssessmentSection);
             mocks.VerifyAll();
         }
     }

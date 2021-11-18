@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Service.Merge
 
         protected override void OnRun()
         {
-            assessmentSectionsOwner.AssessmentSections = loadAssessmentSectionService.LoadAssessmentSections(filePath);
+            assessmentSectionsOwner.AssessmentSection = loadAssessmentSectionService.LoadAssessmentSection(filePath);
         }
 
         protected override void OnCancel()
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Service.Merge
         {
             if (canceled)
             {
-                assessmentSectionsOwner.AssessmentSections = null;
+                assessmentSectionsOwner.AssessmentSection = null;
             }
         }
     }

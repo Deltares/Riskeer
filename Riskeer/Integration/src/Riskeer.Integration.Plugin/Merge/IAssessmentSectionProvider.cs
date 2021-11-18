@@ -20,25 +20,24 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Plugin.Merge
 {
     /// <summary>
-    /// Interface for providing <see cref="AssessmentSection"/> instances.
+    /// Interface for providing an <see cref="AssessmentSection"/> instance.
     /// </summary>
     public interface IAssessmentSectionProvider
     {
         /// <summary>
-        /// Gets the assessment sections from the given <paramref name="filePath"/>.
+        /// Gets the assessment section from the given <paramref name="filePath"/>.
         /// </summary>
-        /// <param name="filePath">The file path to read the assessment sections from.</param>
-        /// <returns>A collection of <see cref="AssessmentSection"/>.</returns>
+        /// <param name="filePath">The file path to read the assessment section from.</param>
+        /// <returns>An <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="filePath"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssessmentSectionProviderException">Thrown when something went wrong
-        /// while getting the assessment sections.</exception>
-        IEnumerable<AssessmentSection> GetAssessmentSections(string filePath);
+        /// while getting the assessment section.</exception>
+        AssessmentSection GetAssessmentSection(string filePath);
     }
 }

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.Storage;
 using log4net;
 using Riskeer.Integration.Data;
@@ -51,7 +50,7 @@ namespace Riskeer.Integration.Service.Merge
             storage = projectStorage;
         }
 
-        public IEnumerable<AssessmentSection> LoadAssessmentSections(string filePath)
+        public AssessmentSection LoadAssessmentSection(string filePath)
         {
             RiskeerProject openedProject;
             try
@@ -71,10 +70,7 @@ namespace Riskeer.Integration.Service.Merge
                 throw new LoadAssessmentSectionException();
             }
 
-            return new[]
-            {
-                openedProject.AssessmentSection
-            };
+            return openedProject.AssessmentSection;
         }
     }
 }

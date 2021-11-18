@@ -19,24 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Service.Exceptions;
 
 namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
-    /// Interface for reading and providing <see cref="AssessmentSection"/> instances.
+    /// Interface for reading and providing an <see cref="AssessmentSection"/> instance.
     /// </summary>
     public interface ILoadAssessmentSectionService
     {
         /// <summary>
-        /// Loads the assessment sections from the given <paramref name="filePath"/>.
+        /// Loads the assessment section from the given <paramref name="filePath"/>.
         /// </summary>
-        /// <param name="filePath">The file path to read the assessment sections from.</param>
-        /// <returns>A collection of <see cref="AssessmentSection"/>.</returns>
+        /// <param name="filePath">The file path to read the assessment section from.</param>
+        /// <returns>An <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="LoadAssessmentSectionException">Thrown when something went wrong
-        /// while loading the assessment sections.</exception>
-        IEnumerable<AssessmentSection> LoadAssessmentSections(string filePath);
+        /// while loading the assessment section.</exception>
+        AssessmentSection LoadAssessmentSection(string filePath);
     }
 }
