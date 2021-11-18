@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Er is geen traject gevonden dat samengevoegd kan worden.", LogLevelConstant.Error), 1);
             mocks.VerifyAll();
         }
 

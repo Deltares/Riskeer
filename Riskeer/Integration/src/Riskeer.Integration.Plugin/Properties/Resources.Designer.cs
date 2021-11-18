@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -227,11 +227,11 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen trajecten gevonden die samengevoegd kunnen worden..
+        ///   Looks up a localized string similar to Er is geen traject gevonden dat samengevoegd kan worden..
         /// </summary>
-        public static string AssessmentSectionMerger_No_matching_AssessmentSections {
+        public static string AssessmentSectionMerger_No_matching_AssessmentSection {
             get {
-                return ResourceManager.GetString("AssessmentSectionMerger_No_matching_AssessmentSections", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionMerger_No_matching_AssessmentSection", resourceCulture);
             }
         }
         

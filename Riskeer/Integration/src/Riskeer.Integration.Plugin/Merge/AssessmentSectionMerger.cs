@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             if (assessmentSectionMatchesReadAssessmentSection == false)
             {
-                log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
+                log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSection);
                 return;
             }
 
