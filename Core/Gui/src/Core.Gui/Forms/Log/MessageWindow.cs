@@ -269,7 +269,9 @@ namespace Core.Gui.Forms.Log
                 return;
             }
 
-            var messageWindowDialog = new MessageWindowDialog(dialogParent, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
+            var messageWindowDialog = new MessageWindowDialog(
+                dialogParent, FontHelper.CreateBitmapFromFont(font, debugLevelUnicode),
+                (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }

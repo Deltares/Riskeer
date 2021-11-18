@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Gui.Forms.Log;
 using NUnit.Framework;
@@ -40,7 +41,7 @@ namespace Core.Gui.Test.Forms.Log
             const string testText = "Some text for the dialog";
 
             // Call
-            var dialog = new MessageWindowDialog(parent, testText);
+            var dialog = new MessageWindowDialog(parent, new Bitmap(16, 16), testText);
 
             // Assert
             var textBox = (TextBox) dialog.Controls.Find("textBox", true)[0];
