@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -62,37 +61,6 @@ namespace Core.Common.Util.Drawing
             Marshal.FreeCoTaskMem(fontPtr);
 
             return new Font(privateFontCollection.Families.Last(), 14.0F);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="Bitmap"/> from the given <paramref name="font"/> and <paramref name="unicode"/>.
-        /// </summary>
-        /// <param name="font">The font to use.</param>
-        /// <param name="unicode">The unicode to create an image from.</param>
-        /// <returns>A <see cref="Bitmap"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static Bitmap CreateBitmapFromFont(Font font, string unicode)
-        {
-            if (font == null)
-            {
-                throw new ArgumentNullException(nameof(font));
-            }
-
-            if (unicode == null)
-            {
-                throw new ArgumentNullException(nameof(unicode));
-            }
-
-            var bitmap = new Bitmap(4096, 4096);
-            using (Graphics graphics = Graphics.FromImage(bitmap))
-            {
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                graphics.DrawString(unicode, new Font(font.FontFamily, 2600), Brushes.Black, 0, 0);
-            }
-
-            return bitmap;
         }
 
         [DllImport("gdi32.dll")]

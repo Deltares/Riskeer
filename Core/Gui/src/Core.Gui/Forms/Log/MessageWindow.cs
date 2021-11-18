@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using Core.Common.Util.Drawing;
 using Core.Gui.Clipboard;
 using Core.Gui.Properties;
+using FontAwesome.Sharp;
 using log4net.Core;
 
 namespace Core.Gui.Forms.Log
@@ -156,9 +157,9 @@ namespace Core.Gui.Forms.Log
                 Font = font
             };
 
-            buttonCopy.Image = FontHelper.CreateBitmapFromFont(font, "\uE90D");
-            buttonClearAll.Image = FontHelper.CreateBitmapFromFont(font, "\uE90E");
-            dialogImage = FontHelper.CreateBitmapFromFont(font, debugLevelUnicode);
+            buttonCopy.Image = font.FontFamily.ToBitmap(0xE90D, 512);
+            buttonClearAll.Image = font.FontFamily.ToBitmap(0xE90E, 512);
+            dialogImage = font.FontFamily.ToBitmap(0xE90C, 512);
         }
 
         private void PopulateMessages()
