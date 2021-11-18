@@ -42,9 +42,25 @@ All rights reserved.
             <xcad:DockingManager.Theme>
                 <xcad:GenericTheme/>
             </xcad:DockingManager.Theme>
+            <xcad:DockingManager.IconContentTemplate>
+                <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
+                    <TextBlock Style="{StaticResource ButtonIconStyle}"
+                               Text="{Binding Symbol}"
+                               FontFamily="{Binding FontFamily}"
+                               Margin="0,0,4,0"
+                               FontSize="24"/>
+                </DataTemplate>
+            </xcad:DockingManager.IconContentTemplate>
+            <xcad:DockingManager.DocumentPaneMenuItemHeaderTemplate>
+                <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
+                    <DockPanel>
+                        <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                    </DockPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentPaneMenuItemHeaderTemplate>
             <xcad:DockingManager.DocumentHeaderTemplate>
-                <DataTemplate>
-                    <DockPanel d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
+                <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutDocument}">
+                    <DockPanel>
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
                                    Text="{Binding Symbol}"
                                    FontFamily="{Binding FontFamily}"
@@ -55,8 +71,8 @@ All rights reserved.
                 </DataTemplate>
             </xcad:DockingManager.DocumentHeaderTemplate>
             <xcad:DockingManager.AnchorableHeaderTemplate>
-                <DataTemplate>
-                    <DockPanel d:DataContext="{d:DesignInstance viewHost:CustomLayoutAnchorable}">
+                <DataTemplate d:DataContext="{d:DesignInstance viewHost:CustomLayoutAnchorable}">
+                    <DockPanel>
                         <TextBlock Style="{StaticResource ButtonIconStyle}"
                                    Text="{Binding Symbol}"
                                    FontFamily="{Binding FontFamily}"
