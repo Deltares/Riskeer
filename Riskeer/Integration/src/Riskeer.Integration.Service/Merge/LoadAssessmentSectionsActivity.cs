@@ -28,11 +28,11 @@ using Riskeer.Integration.Service.Properties;
 namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
-    /// Activity to load a collection of <see cref="AssessmentSection"/> from a file.
+    /// Activity to load a <see cref="AssessmentSection"/> from a file.
     /// </summary>
     internal class LoadAssessmentSectionsActivity : Activity
     {
-        private readonly AssessmentSectionsOwner assessmentSectionsOwner;
+        private readonly AssessmentSectionOwner assessmentSectionOwner;
         private readonly ILoadAssessmentSectionService loadAssessmentSectionService;
         private readonly string filePath;
 
@@ -41,20 +41,18 @@ namespace Riskeer.Integration.Service.Merge
         /// <summary>
         /// Creates a new instance of <see cref="LoadAssessmentSectionsActivity"/>.
         /// </summary>
-        /// <param name="assessmentSectionsOwner">The owner to set the retrieved collection
-        /// of <see cref="AssessmentSection"/> on.</param>
+        /// <param name="assessmentSectionOwner">The owner to set the <see cref="AssessmentSection"/> on.</param>
         /// <param name="loadAssessmentSectionService">The service defining how to
-        /// retrieve the collection of <see cref="AssessmentSection"/> from a file.</param>
-        /// <param name="filePath">The file path to retrieve the collection of
-        /// <see cref="AssessmentSection"/> from.</param>
+        /// retrieve the <see cref="AssessmentSection"/> from a file.</param>
+        /// <param name="filePath">The file path to retrieve the <see cref="AssessmentSection"/> from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
-        public LoadAssessmentSectionsActivity(AssessmentSectionsOwner assessmentSectionsOwner,
+        public LoadAssessmentSectionsActivity(AssessmentSectionOwner assessmentSectionOwner,
                                               ILoadAssessmentSectionService loadAssessmentSectionService,
                                               string filePath)
         {
-            if (assessmentSectionsOwner == null)
+            if (assessmentSectionOwner == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSectionsOwner));
+                throw new ArgumentNullException(nameof(assessmentSectionOwner));
             }
 
             if (loadAssessmentSectionService == null)
@@ -67,7 +65,7 @@ namespace Riskeer.Integration.Service.Merge
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            this.assessmentSectionsOwner = assessmentSectionsOwner;
+            this.assessmentSectionOwner = assessmentSectionOwner;
             this.loadAssessmentSectionService = loadAssessmentSectionService;
             this.filePath = filePath;
 
@@ -76,7 +74,7 @@ namespace Riskeer.Integration.Service.Merge
 
         protected override void OnRun()
         {
-            assessmentSectionsOwner.AssessmentSection = loadAssessmentSectionService.LoadAssessmentSection(filePath);
+            assessmentSectionOwner.AssessmentSection = loadAssessmentSectionService.LoadAssessmentSection(filePath);
         }
 
         protected override void OnCancel()
@@ -88,7 +86,7 @@ namespace Riskeer.Integration.Service.Merge
         {
             if (canceled)
             {
-                assessmentSectionsOwner.AssessmentSection = null;
+                assessmentSectionOwner.AssessmentSection = null;
             }
         }
     }

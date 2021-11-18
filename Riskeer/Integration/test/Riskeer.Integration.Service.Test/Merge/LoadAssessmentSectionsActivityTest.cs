@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void Constructor_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(), null, string.Empty);
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionOwner(), null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
                                                                          service,
                                                                          null);
 
@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             var service = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
 
             // Call
             var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             service.Expect(p => p.LoadAssessmentSection(filePath)).Return(new AssessmentSection(AssessmentSectionComposition.Dike));
             mocks.ReplayAll();
 
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
             var activity = new LoadAssessmentSectionsActivity(owner, service, filePath);
 
             // Call
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Service.Test.Merge
                    .Return(assessmentSection);
             mocks.ReplayAll();
 
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
             var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             // Call
@@ -158,7 +158,7 @@ namespace Riskeer.Integration.Service.Test.Merge
                    .Throw(new LoadAssessmentSectionException());
             mocks.ReplayAll();
 
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
             var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             // Call
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Service.Test.Merge
                    .Return(assessmentSection);
             mocks.ReplayAll();
 
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
             var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             activity.Run();

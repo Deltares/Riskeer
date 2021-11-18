@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void CreateLoadAssessmentSectionsActivity_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
+            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
                                                                                                                  null,
                                                                                                                  string.Empty);
 
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
+            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
                                                                                                                  service,
                                                                                                                  null);
 
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             // Setup
             const string filePath = "File\\Path";
 
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
             var expectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var mocks = new MockRepository();

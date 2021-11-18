@@ -24,7 +24,7 @@ namespace Riskeer.Integration.Data.Merge
     /// <summary>
     /// Class that holds a <see cref="Data.AssessmentSection"/>. 
     /// </summary>
-    public class AssessmentSectionsOwner
+    public class AssessmentSectionOwner
     {
         /// <summary>
         /// Gets or sets the <see cref="Data.AssessmentSection"/>.

@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            var assessmentSectionsOwner = new AssessmentSectionsOwner();
+            var assessmentSectionsOwner = new AssessmentSectionOwner();
 
             ActivityProgressDialogRunner.Run(viewParent,
                                              LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(

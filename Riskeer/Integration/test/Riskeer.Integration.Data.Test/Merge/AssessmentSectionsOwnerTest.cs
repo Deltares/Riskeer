@@ -31,7 +31,7 @@ namespace Riskeer.Integration.Data.Test.Merge
         public void Constructor_ExpectedValues()
         {
             // Call
-            var owner = new AssessmentSectionsOwner();
+            var owner = new AssessmentSectionOwner();
 
             // Assert
             Assert.IsNull(owner.AssessmentSection);
