@@ -28,7 +28,7 @@ using Riskeer.Integration.Service.Properties;
 namespace Riskeer.Integration.Service.Merge
 {
     /// <summary>
-    /// Activity to load a <see cref="AssessmentSection"/> from a file.
+    /// Activity to load an <see cref="AssessmentSection"/> from a file.
     /// </summary>
     internal class LoadAssessmentSectionsActivity : Activity
     {
