@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 
@@ -34,13 +33,10 @@ namespace Riskeer.Integration.Forms.Merge
         /// <summary>
         /// Gets the data to merge.
         /// </summary>
-        /// <param name="assessmentSections">The collection of assessment sections to get the merge
-        /// data from.</param>
+        /// <param name="assessmentSection">The assessment section to get the merge data from.</param>
         /// <returns>The selected merge data.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSections"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="assessmentSections"/>
-        /// contains no elements.</exception>
-        AssessmentSectionMergeData GetMergeData(IEnumerable<AssessmentSection> assessmentSections);
+        AssessmentSectionMergeData GetMergeData(AssessmentSection assessmentSection);
     }
 }

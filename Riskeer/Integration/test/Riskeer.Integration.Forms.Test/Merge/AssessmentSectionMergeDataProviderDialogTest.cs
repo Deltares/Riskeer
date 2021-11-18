@@ -184,7 +184,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void GetMergeData_AssessmentSectionsNull_ThrowsArgumentNullException()
+        public void GetMergeData_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -194,29 +194,14 @@ namespace Riskeer.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
-                TestDelegate call = () => dialog.GetMergeData(null);
+                void Call() => dialog.GetMergeData(null);
 
                 // Assert
-                var exception = Assert.Throws<ArgumentNullException>(call);
-                Assert.AreEqual("assessmentSections", exception.ParamName);
+                var exception = Assert.Throws<ArgumentNullException>(Call);
+                Assert.AreEqual("assessmentSection", exception.ParamName);
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GetMergeData_WithEmptyAssessmentSections_ThrowsArgumentException()
-        {
-            // Setup
-            using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
-            {
-                // Call
-                TestDelegate call = () => dialog.GetMergeData(Enumerable.Empty<AssessmentSection>());
-
-                // Assert
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "assessmentSections must at least have one element.");
-            }
         }
 
         [Test]
@@ -228,28 +213,23 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 using (new FormTester(formName)) {}
             };
 
-            AssessmentSection[] assessmentSections =
-            {
-                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths()
-            };
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
-                dialog.GetMergeData(assessmentSections);
+                dialog.GetMergeData(assessmentSection);
 
                 // Assert
-                AssessmentSection expectedDefaultSelectedAssessmentSection = assessmentSections[0];
-
                 var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
 
-                int expectedNrOfRows = expectedDefaultSelectedAssessmentSection.GetFailureMechanisms().Count() +
-                                       expectedDefaultSelectedAssessmentSection.SpecificFailurePaths.Count;
+                int expectedNrOfRows = assessmentSection.GetFailureMechanisms().Count() +
+                                       assessmentSection.SpecificFailurePaths.Count;
                 Assert.AreEqual(expectedNrOfRows, rows.Count);
-                AssertFailureMechanismRows(expectedDefaultSelectedAssessmentSection, rows);
-                AssertFailurePathRows(expectedDefaultSelectedAssessmentSection, rows);
+                AssertFailureMechanismRows(assessmentSection, rows);
+                AssertFailurePathRows(assessmentSection, rows);
             }
         }
 
@@ -270,10 +250,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                AssessmentSectionMergeData result = dialog.GetMergeData(new[]
-                {
-                    TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths()
-                });
+                AssessmentSectionMergeData result = dialog.GetMergeData(TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths());
 
                 // Then
                 Assert.IsNull(result);
@@ -284,7 +261,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenGetMergeDataCalledAndOnlyAssessmentSectionSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
-            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -299,13 +276,10 @@ namespace Riskeer.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                AssessmentSectionMergeData result = dialog.GetMergeData(new[]
-                {
-                    selectedAssessmentSection
-                });
+                AssessmentSectionMergeData result = dialog.GetMergeData(assessmentSection);
 
                 // Then
-                Assert.AreSame(selectedAssessmentSection, result.AssessmentSection);
+                Assert.AreSame(assessmentSection, result.AssessmentSection);
 
                 Assert.IsFalse(result.MergePiping);
                 Assert.IsFalse(result.MergeGrassCoverErosionInwards);
@@ -333,7 +307,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenGetMergeDataCalledAndAllDataSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
-            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -359,13 +333,10 @@ namespace Riskeer.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                AssessmentSectionMergeData result = dialog.GetMergeData(new[]
-                {
-                    selectedAssessmentSection
-                });
+                AssessmentSectionMergeData result = dialog.GetMergeData(assessmentSection);
 
                 // Then
-                Assert.AreSame(selectedAssessmentSection, result.AssessmentSection);
+                Assert.AreSame(assessmentSection, result.AssessmentSection);
 
                 Assert.IsTrue(result.MergePiping);
                 Assert.IsTrue(result.MergeGrassCoverErosionInwards);
@@ -385,7 +356,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsTrue(result.MergeDuneErosion);
                 Assert.IsTrue(result.MergeTechnicalInnovation);
-                CollectionAssert.AreEqual(selectedAssessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
+                CollectionAssert.AreEqual(assessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
             }
         }
 

@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Plugin.Merge
                 return;
             }
 
-            AssessmentSectionMergeData mergeData = mergeDataProvider.GetMergeData(matchingAssessmentSections);
+            AssessmentSectionMergeData mergeData = mergeDataProvider.GetMergeData(matchingAssessmentSections.Single());
 
             if (mergeData == null)
             {

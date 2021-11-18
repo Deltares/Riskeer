@@ -66,19 +66,14 @@ namespace Riskeer.Integration.Forms.Merge
             InitializeDataGridView();
         }
 
-        public AssessmentSectionMergeData GetMergeData(IEnumerable<AssessmentSection> assessmentSections)
+        public AssessmentSectionMergeData GetMergeData(AssessmentSection assessmentSection)
         {
-            if (assessmentSections == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSections));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!assessmentSections.Any())
-            {
-                throw new ArgumentException($@"{nameof(assessmentSections)} must at least have one element.", nameof(assessmentSections));
-            }
-
-            SetDataGridViewData(assessmentSections.Single());
+            SetDataGridViewData(assessmentSection);
 
             if (ShowDialog() == DialogResult.OK)
             {
@@ -105,7 +100,7 @@ namespace Riskeer.Integration.Forms.Merge
                 };
                 constructionProperties.MergeSpecificFailurePaths.AddRange(GetSelectedSpecificFailurePathsToMerge());
 
-                return new AssessmentSectionMergeData(assessmentSections.Single(),
+                return new AssessmentSectionMergeData(assessmentSection,
                                                       constructionProperties);
             }
 
