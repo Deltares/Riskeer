@@ -49,10 +49,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(null, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
+            void Call() => new AssessmentSectionMerger(null, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePathProvider", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -69,10 +69,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, null, comparer, mergeDataProvider, mergeHandler);
+            void Call() => new AssessmentSectionMerger(filePathProvider, null, comparer, mergeDataProvider, mergeHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSectionProvider", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -89,10 +89,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, null, mergeDataProvider, mergeHandler);
+            void Call() => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, null, mergeDataProvider, mergeHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mergeComparer", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -109,10 +109,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, null, mergeHandler);
+            void Call() => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, null, mergeHandler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mergeDataProvider", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -129,10 +129,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, null);
+            void Call() => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mergeHandler", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -152,10 +152,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Call
-            TestDelegate call = () => merger.StartMerge(null);
+            void Call() => merger.StartMerge(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -176,10 +176,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Call
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
             mocks.VerifyAll();
         }
 
@@ -201,10 +201,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Then
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessagesCount(Call, 0);
             mocks.VerifyAll();
         }
 
@@ -230,10 +230,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
             mocks.VerifyAll();
         }
 
@@ -260,10 +260,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+            void Call() => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
             mocks.VerifyAll();
         }
 
@@ -296,10 +296,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            Action call = () => merger.StartMerge(originalAssessmentSection);
+            void Call() => merger.StartMerge(originalAssessmentSection);
 
             // Then
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
             {
                 new Tuple<string, LogLevelConstant>("Samenvoegen van trajectinformatie is gestart.", LogLevelConstant.Info),
                 new Tuple<string, LogLevelConstant>("Samenvoegen van trajectinformatie is gelukt.", LogLevelConstant.Info)
@@ -335,10 +335,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
-            Action call = () => merger.StartMerge(originalAssessmentSection);
+            void Call() => merger.StartMerge(originalAssessmentSection);
 
             // Then
-            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
             {
                 Assert.AreEqual(3, messages.Count());
 
