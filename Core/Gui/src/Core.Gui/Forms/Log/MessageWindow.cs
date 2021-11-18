@@ -96,6 +96,9 @@ namespace Core.Gui.Forms.Log
 
             SetFonts();
 
+            buttonCopy.Image = FontHelper.CreateBitmapFromFont(font, "\uE90D");
+            buttonClearAll.Image = FontHelper.CreateBitmapFromFont(font, "\uE90E");
+
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 

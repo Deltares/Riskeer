@@ -101,7 +101,6 @@ namespace Core.Gui.Forms.Log
             // 
             // buttonCopy
             // 
-            this.buttonCopy.Image = global::Core.Gui.Properties.Resources.CopyHS;
             this.buttonCopy.Name = "buttonCopy";
             resources.ApplyResources(this.buttonCopy, "buttonCopy");
             this.buttonCopy.Click += new System.EventHandler(this.ButtonCopyClick);
@@ -113,7 +112,6 @@ namespace Core.Gui.Forms.Log
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Image = global::Core.Gui.Properties.Resources.icon_clear_all_messages;
             this.buttonClearAll.Name = "buttonClearAll";
             resources.ApplyResources(this.buttonClearAll, "buttonClearAll");
             this.buttonClearAll.Click += new System.EventHandler(this.ButtonClearAllClick);
