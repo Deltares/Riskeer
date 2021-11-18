@@ -27,6 +27,6 @@ using Riskeer.Storage.Core.Exceptions;
 namespace Riskeer.Storage.Core.Test.Exceptions
 {
     [TestFixture]
-    public class EntityNotFoundExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<EntityNotFoundException, Exception> {}
+    public class EntityReadExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<EntityReadException, Exception> {}
 }
