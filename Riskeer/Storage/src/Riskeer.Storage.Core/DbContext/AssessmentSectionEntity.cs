@@ -58,7 +58,6 @@ namespace Riskeer.Storage.Core.DbContext
         public byte NormativeNormType { get; set; }
         public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
-        public int Order { get; set; }
 
         public virtual ProjectEntity ProjectEntity { get; set; }
         public virtual HydraulicLocationCalculationCollectionEntity HydraulicLocationCalculationCollectionEntity { get; set; }
