@@ -54,20 +54,18 @@ namespace Riskeer.Integration.Forms.Merge
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionMergeDataProviderDialog));
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.infoIcon = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanelForForm = new System.Windows.Forms.TableLayoutPanel();
-            this.assessmentSectionSelectLabel = new System.Windows.Forms.Label();
-            this.assessmentSectionComboBox = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanelForLabel = new System.Windows.Forms.TableLayoutPanel();
-            this.failureMechanismSelectLabel = new System.Windows.Forms.Label();
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.flowLayoutPanelButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.infoIcon)).BeginInit();
-            this.tableLayoutPanelForForm.SuspendLayout();
-            this.tableLayoutPanelForLabel.SuspendLayout();
+            this.infoIcon = new System.Windows.Forms.PictureBox();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.tableLayoutPanelForLabel = new System.Windows.Forms.TableLayoutPanel();
+            this.failureMechanismSelectLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanelForForm = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanelButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.infoIcon)).BeginInit();
+            this.tableLayoutPanelForLabel.SuspendLayout();
+            this.tableLayoutPanelForForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip
@@ -76,44 +74,33 @@ namespace Riskeer.Integration.Forms.Merge
             this.toolTip.InitialDelay = 100;
             this.toolTip.ReshowDelay = 100;
             // 
+            // flowLayoutPanelButtons
+            // 
+            resources.ApplyResources(this.flowLayoutPanelButtons, "flowLayoutPanelButtons");
+            this.flowLayoutPanelButtons.Controls.Add(this.cancelButton);
+            this.flowLayoutPanelButtons.Controls.Add(this.importButton);
+            this.flowLayoutPanelButtons.Controls.Add(this.infoIcon);
+            this.flowLayoutPanelButtons.Name = "flowLayoutPanelButtons";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.cancelButton, "cancelButton");
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // importButton
+            // 
+            this.importButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            resources.ApplyResources(this.importButton, "importButton");
+            this.importButton.Name = "importButton";
+            this.importButton.UseVisualStyleBackColor = true;
+            // 
             // infoIcon
             // 
             resources.ApplyResources(this.infoIcon, "infoIcon");
             this.infoIcon.Name = "infoIcon";
             this.infoIcon.TabStop = false;
-            // 
-            // tableLayoutPanelForForm
-            // 
-            resources.ApplyResources(this.tableLayoutPanelForForm, "tableLayoutPanelForForm");
-            this.tableLayoutPanelForForm.Controls.Add(this.assessmentSectionSelectLabel, 0, 0);
-            this.tableLayoutPanelForForm.Controls.Add(this.assessmentSectionComboBox, 0, 1);
-            this.tableLayoutPanelForForm.Controls.Add(this.tableLayoutPanelForLabel, 0, 2);
-            this.tableLayoutPanelForForm.Controls.Add(this.dataGridViewControl, 0, 3);
-            this.tableLayoutPanelForForm.Controls.Add(this.flowLayoutPanelButtons, 0, 4);
-            this.tableLayoutPanelForForm.Name = "tableLayoutPanelForForm";
-            // 
-            // assessmentSectionSelectLabel
-            // 
-            resources.ApplyResources(this.assessmentSectionSelectLabel, "assessmentSectionSelectLabel");
-            this.assessmentSectionSelectLabel.Name = "assessmentSectionSelectLabel";
-            // 
-            // assessmentSectionComboBox
-            // 
-            resources.ApplyResources(this.assessmentSectionComboBox, "assessmentSectionComboBox");
-            this.assessmentSectionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.assessmentSectionComboBox.Name = "assessmentSectionComboBox";
-            // 
-            // tableLayoutPanelForLabel
-            // 
-            resources.ApplyResources(this.tableLayoutPanelForLabel, "tableLayoutPanelForLabel");
-            this.tableLayoutPanelForLabel.Controls.Add(this.infoIcon, 1, 0);
-            this.tableLayoutPanelForLabel.Controls.Add(this.failureMechanismSelectLabel, 0, 0);
-            this.tableLayoutPanelForLabel.Name = "tableLayoutPanelForLabel";
-            // 
-            // failureMechanismSelectLabel
-            // 
-            resources.ApplyResources(this.failureMechanismSelectLabel, "failureMechanismSelectLabel");
-            this.failureMechanismSelectLabel.Name = "failureMechanismSelectLabel";
             // 
             // dataGridViewControl
             // 
@@ -122,26 +109,24 @@ namespace Riskeer.Integration.Forms.Merge
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
-            // flowLayoutPanelButtons
+            // tableLayoutPanelForLabel
             // 
-            resources.ApplyResources(this.flowLayoutPanelButtons, "flowLayoutPanelButtons");
-            this.flowLayoutPanelButtons.Controls.Add(this.cancelButton);
-            this.flowLayoutPanelButtons.Controls.Add(this.importButton);
-            this.flowLayoutPanelButtons.Name = "flowLayoutPanelButtons";
+            resources.ApplyResources(this.tableLayoutPanelForLabel, "tableLayoutPanelForLabel");
+            this.tableLayoutPanelForLabel.Controls.Add(this.failureMechanismSelectLabel, 0, 0);
+            this.tableLayoutPanelForLabel.Name = "tableLayoutPanelForLabel";
             // 
-            // cancelButton
+            // failureMechanismSelectLabel
             // 
-            resources.ApplyResources(this.cancelButton, "cancelButton");
-            this.cancelButton.DialogResult = DialogResult.Cancel;
-            this.cancelButton.Name = "cancelButton";
-            this.cancelButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.failureMechanismSelectLabel, "failureMechanismSelectLabel");
+            this.failureMechanismSelectLabel.Name = "failureMechanismSelectLabel";
             // 
-            // importButton
+            // tableLayoutPanelForForm
             // 
-            resources.ApplyResources(this.importButton, "importButton");
-            this.importButton.DialogResult = DialogResult.OK;
-            this.importButton.Name = "importButton";
-            this.importButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tableLayoutPanelForForm, "tableLayoutPanelForForm");
+            this.tableLayoutPanelForForm.Controls.Add(this.tableLayoutPanelForLabel, 0, 1);
+            this.tableLayoutPanelForForm.Controls.Add(this.dataGridViewControl, 0, 2);
+            this.tableLayoutPanelForForm.Controls.Add(this.flowLayoutPanelButtons, 0, 3);
+            this.tableLayoutPanelForForm.Name = "tableLayoutPanelForForm";
             // 
             // AssessmentSectionMergeDataProviderDialog
             // 
@@ -149,15 +134,14 @@ namespace Riskeer.Integration.Forms.Merge
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanelForForm);
             this.Name = "AssessmentSectionMergeDataProviderDialog";
-            ((System.ComponentModel.ISupportInitialize)(this.infoIcon)).EndInit();
-            this.tableLayoutPanelForForm.ResumeLayout(false);
-            this.tableLayoutPanelForForm.PerformLayout();
+            this.flowLayoutPanelButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize) (this.infoIcon)).EndInit();
             this.tableLayoutPanelForLabel.ResumeLayout(false);
             this.tableLayoutPanelForLabel.PerformLayout();
-            this.flowLayoutPanelButtons.ResumeLayout(false);
+            this.tableLayoutPanelForForm.ResumeLayout(false);
+            this.tableLayoutPanelForForm.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -166,12 +150,10 @@ namespace Riskeer.Integration.Forms.Merge
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelForLabel;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.PictureBox infoIcon;
-        private System.Windows.Forms.Label assessmentSectionSelectLabel;
         private System.Windows.Forms.Label failureMechanismSelectLabel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelButtons;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button importButton;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.ComboBox assessmentSectionComboBox;
     }
 }

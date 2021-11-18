@@ -35,7 +35,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.TestUtil;
@@ -57,10 +56,10 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeDataProviderDialog(null);
+            void Call() => new AssessmentSectionMergeDataProviderDialog(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dialogParent", exception.ParamName);
         }
 
@@ -105,24 +104,15 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
                 var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanelForForm").TheObject;
                 Assert.AreEqual(1, tableLayoutPanel.ColumnCount);
-                Assert.AreEqual(5, tableLayoutPanel.RowCount);
+                Assert.AreEqual(4, tableLayoutPanel.RowCount);
 
-                var assessmentSectionSelectLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 0);
-                Assert.AreEqual("Selecteer traject:", assessmentSectionSelectLabel.Text);
-
-                var assessmentSectionComboBox = (ComboBox) tableLayoutPanel.GetControlFromPosition(0, 1);
-                Assert.IsTrue(assessmentSectionComboBox.Enabled);
-                Assert.AreEqual(ComboBoxStyle.DropDownList, assessmentSectionComboBox.DropDownStyle);
-                CollectionAssert.IsEmpty(assessmentSectionComboBox.Items);
-
-                var tableLayoutPanelForLabels = (TableLayoutPanel) tableLayoutPanel.GetControlFromPosition(0, 2);
+                var tableLayoutPanelForLabels = (TableLayoutPanel) tableLayoutPanel.GetControlFromPosition(0, 1);
                 Assert.AreEqual(2, tableLayoutPanelForLabels.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanelForLabels.RowCount);
                 var failureMechanismSelectionLabel = (Label) tableLayoutPanelForLabels.GetControlFromPosition(0, 0);
                 Assert.AreEqual("Selecteer toetssporen:", failureMechanismSelectionLabel.Text);
-                Assert.IsInstanceOf<PictureBox>(tableLayoutPanelForLabels.GetControlFromPosition(1, 0));
 
-                Assert.IsInstanceOf<DataGridViewControl>(tableLayoutPanel.GetControlFromPosition(0, 3));
+                Assert.IsInstanceOf<DataGridViewControl>(tableLayoutPanel.GetControlFromPosition(0, 2));
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.AreEqual(0, dataGridView.RowCount);
@@ -147,10 +137,11 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
 
-                var flowLayoutPanel = (FlowLayoutPanel) tableLayoutPanel.GetControlFromPosition(0, 4);
+                var flowLayoutPanel = (FlowLayoutPanel) tableLayoutPanel.GetControlFromPosition(0, 3);
                 Control.ControlCollection flowLayoutPanelControls = flowLayoutPanel.Controls;
-                Assert.AreEqual(2, flowLayoutPanelControls.Count);
-                CollectionAssert.AllItemsAreInstancesOfType(flowLayoutPanelControls, typeof(Button));
+                Assert.AreEqual(3, flowLayoutPanelControls.Count);
+                Control pictureBox = flowLayoutPanel.Controls[2];
+                Assert.IsInstanceOf<PictureBox>(pictureBox);
 
                 var buttonSelect = (Button) new ButtonTester("importButton", dialog).TheObject;
                 Assert.AreEqual("Importeren", buttonSelect.Text);
@@ -229,7 +220,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void GetMergeData_WithAssessmentSections_SetsDataOnDialog()
+        public void GetMergeData_WithAssessmentSection_SetsDataOnDialog()
         {
             // Setup
             DialogBoxHandler = (formName, wnd) =>
@@ -237,11 +228,9 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 using (new FormTester(formName)) {}
             };
 
-            var random = new Random(21);
             AssessmentSection[] assessmentSections =
             {
-                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(),
-                new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths()
             };
 
             using (var dialogParent = new Form())
@@ -252,10 +241,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
                 // Assert
                 AssessmentSection expectedDefaultSelectedAssessmentSection = assessmentSections[0];
-
-                var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
-                Assert.AreSame(expectedDefaultSelectedAssessmentSection, comboBox.SelectedItem);
-                CollectionAssert.AreEqual(assessmentSections, comboBox.Items);
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -299,17 +284,12 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenGetMergeDataCalledAndOnlyAssessmentSectionSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
-            var random = new Random(21);
             AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             DialogBoxHandler = (formName, wnd) =>
             {
-                using (var formTester = new FormTester(formName))
+                using (new FormTester(formName))
                 {
-                    var dialog = (AssessmentSectionMergeDataProviderDialog) formTester.TheObject;
-                    var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
-                    comboBox.SelectedItem = selectedAssessmentSection;
-
                     var button = new ButtonTester("importButton", formName);
                     button.Click();
                 }
@@ -321,7 +301,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 // When
                 AssessmentSectionMergeData result = dialog.GetMergeData(new[]
                 {
-                    new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()),
                     selectedAssessmentSection
                 });
 
@@ -354,7 +333,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenGetMergeDataCalledAndAllDataSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
-            var random = new Random(21);
             AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
 
             DialogBoxHandler = (formName, wnd) =>
@@ -362,8 +340,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 using (var formTester = new FormTester(formName))
                 {
                     var dialog = (AssessmentSectionMergeDataProviderDialog) formTester.TheObject;
-                    var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
-                    comboBox.SelectedItem = selectedAssessmentSection;
 
                     var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
 
@@ -385,7 +361,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 // When
                 AssessmentSectionMergeData result = dialog.GetMergeData(new[]
                 {
-                    new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()),
                     selectedAssessmentSection
                 });
 
@@ -411,51 +386,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergeDuneErosion);
                 Assert.IsTrue(result.MergeTechnicalInnovation);
                 CollectionAssert.AreEqual(selectedAssessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
-            }
-        }
-
-        [Test]
-        public void GivenDialogWithAssessmentSection_WhenSelectingOtherAssessmentSection_ThenDataUpdated()
-        {
-            // Given
-            var random = new Random(21);
-            AssessmentSection[] assessmentSections =
-            {
-                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(),
-                new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-                {
-                    SpecificFailurePaths =
-                    {
-                        new SpecificFailurePath()
-                    }
-                }
-            };
-
-            DialogBoxHandler = (formName, wnd) =>
-            {
-                using (new FormTester(formName)) {}
-            };
-
-            using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
-            {
-                dialog.GetMergeData(assessmentSections);
-
-                var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
-
-                // Precondition 
-                AssessmentSection defaultSelectedAssessmentSection = assessmentSections[0];
-                Assert.AreSame(defaultSelectedAssessmentSection, comboBox.SelectedItem);
-                AssertFailureMechanismRows(defaultSelectedAssessmentSection, dataGridView.Rows);
-
-                // When
-                AssessmentSection itemToBeSelected = assessmentSections[1];
-                comboBox.SelectedItem = itemToBeSelected;
-
-                // Then
-                AssertFailureMechanismRows(itemToBeSelected, dataGridView.Rows);
-                AssertFailurePathRows(itemToBeSelected, dataGridView.Rows);
             }
         }
 

@@ -62,7 +62,6 @@ namespace Riskeer.Integration.Forms.Merge
             : base(dialogParent, RiskeerCommonFormsResources.SelectionDialogIcon, 720, 590)
         {
             InitializeComponent();
-            InitializeComboBox();
             InitializeTooltip();
             InitializeDataGridView();
         }
@@ -79,7 +78,7 @@ namespace Riskeer.Integration.Forms.Merge
                 throw new ArgumentException($@"{nameof(assessmentSections)} must at least have one element.", nameof(assessmentSections));
             }
 
-            SetComboBoxData(assessmentSections);
+            SetDataGridViewData(assessmentSections.Single());
 
             if (ShowDialog() == DialogResult.OK)
             {
@@ -106,7 +105,7 @@ namespace Riskeer.Integration.Forms.Merge
                 };
                 constructionProperties.MergeSpecificFailurePaths.AddRange(GetSelectedSpecificFailurePathsToMerge());
 
-                return new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
+                return new AssessmentSectionMergeData(assessmentSections.Single(),
                                                       constructionProperties);
             }
 
@@ -116,11 +115,6 @@ namespace Riskeer.Integration.Forms.Merge
         protected override Button GetCancelButton()
         {
             return cancelButton;
-        }
-
-        private void InitializeComboBox()
-        {
-            assessmentSectionComboBox.SelectedIndexChanged += AssessmentSectionComboBoxOnSelectedIndexChanged;
         }
 
         private void InitializeDataGridView()
@@ -160,28 +154,7 @@ namespace Riskeer.Integration.Forms.Merge
                                            .ToArray();
         }
 
-        #region Event Handling
-
-        private void AssessmentSectionComboBoxOnSelectedIndexChanged(object sender, EventArgs eventArgs)
-        {
-            if (assessmentSectionComboBox.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            SetDataGridViewData((AssessmentSection) assessmentSectionComboBox.SelectedItem);
-        }
-
-        #endregion
-
         #region Data Setters
-
-        private void SetComboBoxData(IEnumerable<AssessmentSection> assessmentSections)
-        {
-            assessmentSectionComboBox.DataSource = null;
-            assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
-            assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
-        }
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
