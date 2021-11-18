@@ -83,14 +83,14 @@ namespace Core.Common.Util.Drawing
                 throw new ArgumentNullException(nameof(unicode));
             }
 
-            var bitmap = new Bitmap(51, 51);
-            Graphics graphics = Graphics.FromImage(bitmap);
-
-            graphics.SmoothingMode = SmoothingMode.HighQuality;
-            graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            graphics.DrawString(unicode, new Font(font.FontFamily, 48, GraphicsUnit.Pixel), Brushes.Black, 0, 0);
-            graphics.Flush();
+            var bitmap = new Bitmap(4096, 4096);
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                graphics.DrawString(unicode, new Font(font.FontFamily, 2600), Brushes.Black, 0, 0);
+            }
 
             return bitmap;
         }

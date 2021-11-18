@@ -105,8 +105,8 @@ namespace Core.Common.Util.Test.Drawing
             Bitmap bitmap = FontHelper.CreateBitmapFromFont(font, "I");
 
             // Assert
-            Assert.AreEqual(51, bitmap.Height);
-            Assert.AreEqual(51, bitmap.Width);
+            Assert.AreEqual(4096, bitmap.Height);
+            Assert.AreEqual(4096, bitmap.Width);
         }
     }
 }
