@@ -38,10 +38,10 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void Constructor_ProjectStorageNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionService(null);
+            void Call() => new LoadAssessmentSectionService(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("projectStorage", exception.ParamName);
         }
 
@@ -118,10 +118,10 @@ namespace Riskeer.Integration.Service.Test.Merge
             var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            TestDelegate call = () => service.LoadAssessmentSection(string.Empty);
+            void Call() => service.LoadAssessmentSection(string.Empty);
 
             // Assert
-            Assert.Throws<LoadAssessmentSectionException>(call);
+            Assert.Throws<LoadAssessmentSectionException>(Call);
             mocks.VerifyAll();
         }
 
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             LoadAssessmentSectionException exception = null;
 
             // Call
-            Action call = () =>
+            void Call()
             {
                 try
                 {
@@ -154,11 +154,11 @@ namespace Riskeer.Integration.Service.Test.Merge
                 {
                     exception = e;
                 }
-            };
+            }
 
             // Assert
             var expectedLogMessage = new Tuple<string, LogLevelConstant>(exceptionMessage, LogLevelConstant.Error);
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, expectedLogMessage);
             Assert.AreEqual(storageException, exception.InnerException);
             Assert.AreEqual(storageException.Message, exception.Message);
             mocks.VerifyAll();
