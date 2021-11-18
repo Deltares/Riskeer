@@ -60,6 +60,7 @@ namespace Core.Gui.Forms.Log
 
         private bool filtering;
         private bool copying;
+        private Bitmap dialogImage;
 
         /// <summary>
         /// Creates a new instance of <see cref="MessageWindow" />.
@@ -94,10 +95,7 @@ namespace Core.Gui.Forms.Log
                 [Level.All.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor)
             };
 
-            SetFonts();
-
-            buttonCopy.Image = FontHelper.CreateBitmapFromFont(font, "\uE90D");
-            buttonClearAll.Image = FontHelper.CreateBitmapFromFont(font, "\uE90E");
+            SetFontsAndImages();
 
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
@@ -147,7 +145,7 @@ namespace Core.Gui.Forms.Log
 
         #endregion
 
-        private void SetFonts()
+        private void SetFontsAndImages()
         {
             buttonShowDetails.Font = font;
             buttonShowInfo.Font = font;
@@ -157,6 +155,10 @@ namespace Core.Gui.Forms.Log
             {
                 Font = font
             };
+
+            buttonCopy.Image = FontHelper.CreateBitmapFromFont(font, "\uE90D");
+            buttonClearAll.Image = FontHelper.CreateBitmapFromFont(font, "\uE90E");
+            dialogImage = FontHelper.CreateBitmapFromFont(font, debugLevelUnicode);
         }
 
         private void PopulateMessages()
@@ -273,8 +275,7 @@ namespace Core.Gui.Forms.Log
             }
 
             var messageWindowDialog = new MessageWindowDialog(
-                dialogParent, FontHelper.CreateBitmapFromFont(font, debugLevelUnicode),
-                (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
+                dialogParent, dialogImage, (string) messagesDataGridView.CurrentRow.Cells[fullMessageColumnDataGridViewTextBoxColumn.Index].Value);
 
             messageWindowDialog.ShowDialog();
         }
