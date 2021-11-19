@@ -63,13 +63,13 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        protected override void AddSectionResult(FailureMechanismSection section)
+        protected override void AddSectionDependentData(FailureMechanismSection section)
         {
-            base.AddSectionResult(section);
+            base.AddSectionDependentData(section);
             sectionResults.Add(new TechnicalInnovationFailureMechanismSectionResult(section));
         }
 
-        protected override void ClearSectionResults()
+        protected override void ClearSectionDependentData()
         {
             sectionResults.Clear();
         }

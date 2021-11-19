@@ -185,7 +185,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 section2
             }, failureMechanism.Sections);
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsTrue(failureMechanism.SectionResultAdded);
+            Assert.IsTrue(failureMechanism.SectionDependentDataAdded);
         }
 
         [Test]
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void ClearAllSections_HasSections_ClearSectionsAndSectionResultsAndSourcePath()
+        public void ClearAllSections_HasSections_ClearSectionsAndSectionDependentDataAndSourcePath()
         {
             // Setup
             var section = new FailureMechanismSection("A", new[]
@@ -276,7 +276,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsTrue(failureMechanism.SectionResultsCleared);
+            Assert.IsTrue(failureMechanism.SectionDependentDataCleared);
         }
 
         private class SimpleFailureMechanismBase : FailureMechanismBase
@@ -285,28 +285,22 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                                               string failureMechanismCode = "SomeCode",
                                               int group = 1) : base(name, failureMechanismCode, group) {}
 
-            public override IEnumerable<ICalculation> Calculations
+            public override IEnumerable<ICalculation> Calculations => throw new NotImplementedException();
+
+            public bool SectionDependentDataCleared { get; private set; }
+
+            public bool SectionDependentDataAdded { get; private set; }
+
+            protected override void AddSectionDependentData(FailureMechanismSection section)
             {
-                get
-                {
-                    throw new NotImplementedException();
-                }
+                base.AddSectionDependentData(section);
+                SectionDependentDataAdded = true;
             }
 
-            public bool SectionResultsCleared { get; private set; }
-
-            public bool SectionResultAdded { get; private set; }
-
-            protected override void AddSectionResult(FailureMechanismSection section)
+            protected override void ClearSectionDependentData()
             {
-                base.AddSectionResult(section);
-                SectionResultAdded = true;
-            }
-
-            protected override void ClearSectionResults()
-            {
-                base.ClearSectionResults();
-                SectionResultsCleared = true;
+                base.ClearSectionDependentData();
+                SectionDependentDataCleared = true;
             }
         }
     }

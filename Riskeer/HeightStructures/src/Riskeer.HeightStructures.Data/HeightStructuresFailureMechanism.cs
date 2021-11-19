@@ -93,13 +93,13 @@ namespace Riskeer.HeightStructures.Data
             }
         }
 
-        protected override void AddSectionResult(FailureMechanismSection section)
+        protected override void AddSectionDependentData(FailureMechanismSection section)
         {
-            base.AddSectionResult(section);
+            base.AddSectionDependentData(section);
             sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
 
-        protected override void ClearSectionResults()
+        protected override void ClearSectionDependentData()
         {
             sectionResults.Clear();
         }

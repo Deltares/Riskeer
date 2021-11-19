@@ -70,10 +70,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public double Contribution
         {
-            get
-            {
-                return contribution;
-            }
+            get => contribution;
             set
             {
                 if (!contributionValidityRange.InRange(value))
@@ -97,21 +94,9 @@ namespace Riskeer.Common.Data.FailureMechanism
         
         public Comment CalculationsInputComments { get; }
 
-        public IEnumerable<FailureMechanismSection> Sections
-        {
-            get
-            {
-                return sectionCollection;
-            }
-        }
+        public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
 
-        public string FailureMechanismSectionSourcePath
-        {
-            get
-            {
-                return sectionCollection.SourcePath;
-            }
-        }
+        public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
 
         public Comment InAssemblyInputComments { get; }
 
@@ -133,24 +118,24 @@ namespace Riskeer.Common.Data.FailureMechanism
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            ClearSectionResults();
+            ClearSectionDependentData();
             sectionCollection.SetSections(sections, sourcePath);
 
             foreach (FailureMechanismSection failureMechanismSection in Sections)
             {
-                AddSectionResult(failureMechanismSection);
+                AddSectionDependentData(failureMechanismSection);
             }
         }
 
         public void ClearAllSections()
         {
             sectionCollection.Clear();
-            ClearSectionResults();
+            ClearSectionDependentData();
         }
 
-        protected virtual void AddSectionResult(FailureMechanismSection section) {}
+        protected virtual void AddSectionDependentData(FailureMechanismSection section) {}
 
-        protected virtual void ClearSectionResults() {}
+        protected virtual void ClearSectionDependentData() {}
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
