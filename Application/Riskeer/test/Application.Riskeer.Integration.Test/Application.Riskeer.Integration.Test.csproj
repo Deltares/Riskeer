@@ -1,13 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)build\Test.targets" />
+  <Import Project="$(SolutionDir)build\Test.targets"/>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
+    <Compile Remove="test-data\**"/>
+    <EmbeddedResource Remove="test-data\**"/>
+    <None Remove="test-data\**"/>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore"/>
+    <Reference Include="PresentationFramework"/>
+    <Reference Include="System"/>
+    <Reference Include="System.Core"/>
+    <Reference Include="System.Windows.Forms"/>
+    <Reference Include="System.Xaml"/>
+    <Reference Include="WindowsBase"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
