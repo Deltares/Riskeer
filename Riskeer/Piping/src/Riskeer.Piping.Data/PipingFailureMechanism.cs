@@ -52,6 +52,7 @@ namespace Riskeer.Piping.Data
             };
 
             sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
+            ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
         }
 
         /// <summary>
@@ -92,6 +93,11 @@ namespace Riskeer.Piping.Data
                 return sectionResults;
             }
         }
+        
+        /// <summary>
+        /// Gets or sets the <see cref="PipingScenarioConfigurationType"/>.
+        /// </summary>
+        public PipingScenarioConfigurationType ScenarioConfigurationType { get; set; }
 
         protected override void AddSectionResult(FailureMechanismSection section)
         {

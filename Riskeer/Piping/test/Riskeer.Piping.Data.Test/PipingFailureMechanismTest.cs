@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Data.Test
     public class PipingFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new PipingFailureMechanism();
@@ -54,6 +54,10 @@ namespace Riskeer.Piping.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
+            
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            
+            Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
         }
 
         [Test]
