@@ -35,9 +35,10 @@ namespace Riskeer.Piping.Data
     public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResult>
     {
         private readonly ObservableList<PipingFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
+        /// Creates a new instance of <see cref="PipingFailureMechanism"/>.
         /// </summary>
         public PipingFailureMechanism()
             : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode, 2)
@@ -52,7 +53,9 @@ namespace Riskeer.Piping.Data
             };
 
             sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
+
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
+            scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
         }
 
         /// <summary>
@@ -76,28 +79,22 @@ namespace Riskeer.Piping.Data
         /// </summary>
         public PipingProbabilityAssessmentInput PipingProbabilityAssessmentInput { get; }
 
-        public CalculationGroup CalculationsGroup { get; }
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations();
-            }
-        }
-
-        public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
-        
         /// <summary>
         /// Gets or sets the <see cref="PipingScenarioConfigurationType"/>.
         /// </summary>
         public PipingScenarioConfigurationType ScenarioConfigurationType { get; set; }
+
+        /// <summary>
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
+        /// </summary>
+        public IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> ScenarioConfigurationsPerFailureMechanismSection =>
+            scenarioConfigurationsPerFailureMechanismSection;
+
+        public CalculationGroup CalculationsGroup { get; }
+
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+
+        public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionResult(FailureMechanismSection section)
         {

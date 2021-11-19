@@ -56,8 +56,9 @@ namespace Riskeer.Piping.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            
+
             Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
+            CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
         }
 
         [Test]
