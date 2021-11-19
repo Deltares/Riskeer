@@ -168,7 +168,7 @@ namespace Core.Gui.Forms.Log
             // 
             resources.ApplyResources(this.buttonClearAll, "buttonClearAll");
             this.buttonClearAll.Text = "\uE90E";
-            this.buttonClearAll.Name = "buttonCopy";
+            this.buttonClearAll.Name = "buttonClearAll";
             this.buttonClearAll.Click += new System.EventHandler(this.ButtonClearAllClick);
             this.buttonClearAll.Margin = new System.Windows.Forms.Padding(2);
             // 

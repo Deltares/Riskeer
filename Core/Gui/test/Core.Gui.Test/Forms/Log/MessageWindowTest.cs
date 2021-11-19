@@ -408,7 +408,7 @@ namespace Core.Gui.Test.Forms.Log
                 messageWindow.Refresh();
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
 
-                var button = new ToolStripItemTester("buttonClearAll");
+                var button = new ToolStripButtonTester("buttonClearAll");
 
                 // Call
                 button.Click();
@@ -432,7 +432,7 @@ namespace Core.Gui.Test.Forms.Log
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
                 messageWindow.Refresh();
 
-                var button = new ToolStripItemTester("buttonCopy");
+                var button = new ToolStripButtonTester("buttonCopy");
 
                 // Call
                 button.Click();
