@@ -99,7 +99,6 @@ namespace Core.Gui.Forms.Log
             SetFontsAndImages();
 
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 
             ApplyFilter();
             messagesDataGridView.CellFormatting += MessagesDataGridViewCellFormatting;
@@ -152,13 +151,13 @@ namespace Core.Gui.Forms.Log
             buttonShowInfo.Font = font;
             buttonShowWarning.Font = font;
             buttonShowError.Font = font;
+            buttonCopy.Font = font;
+            buttonClearAll.Font = font;
             levelIconColumnDataGridViewTextBoxColumn.DefaultCellStyle = new DataGridViewCellStyle
             {
                 Font = font
             };
 
-            buttonCopy.Image = font.FontFamily.ToBitmap(0xE90D, 512);
-            buttonClearAll.Image = font.FontFamily.ToBitmap(0xE90E, 512);
             dialogImage = font.FontFamily.ToBitmap(0xE90C, 512);
         }
 
@@ -207,14 +206,6 @@ namespace Core.Gui.Forms.Log
             }
 
             messagesDataGridView.AutoResizeRow(row.Index, DataGridViewAutoSizeRowMode.AllCells);
-        }
-
-        private void ValidateContextMenuCommands()
-        {
-            foreach (ToolStripItem item in contextMenu.Items)
-            {
-                item.Enabled = messagesDataGridView.Rows.Count > 0;
-            }
         }
 
         private void ApplyFilter()
@@ -335,14 +326,6 @@ namespace Core.Gui.Forms.Log
             }
         }
 
-        private void MessagesDataGridViewMouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                ValidateContextMenuCommands();
-            }
-        }
-
         private void MessagesDataGridViewRowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             if (filtering)
@@ -389,6 +372,11 @@ namespace Core.Gui.Forms.Log
 
         private void ButtonCopyClick(object sender, EventArgs e)
         {
+            if (messagesDataGridView.Rows.Count <= 0)
+            {
+                return;
+            }
+            
             copying = true;
 
             var currencyManager = (CurrencyManager) BindingContext[messagesDataGridView.DataSource];

@@ -58,16 +58,15 @@ namespace Core.Gui.Forms.Log
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.buttonCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.messagesToolStrip = new System.Windows.Forms.ToolStrip();
             this.buttonShowInfo = new System.Windows.Forms.ToolStripButton();
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonShowDetails = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonCopy = new System.Windows.Forms.ToolStripButton();
+            this.buttonClearAll = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
             this.levelIconColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.levelColorColumnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -82,39 +81,12 @@ namespace Core.Gui.Forms.Log
             this.timeColumn = new System.Data.DataColumn();
             this.messageColumn = new System.Data.DataColumn();
             this.fullMessageColumn = new System.Data.DataColumn();
-            this.contextMenu.SuspendLayout();
             this.messagesToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.messagesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.messageWindowData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Messages)).BeginInit();
             this.SuspendLayout();
-            // 
-            // contextMenu
-            // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.buttonCopy,
-            this.cToolStripMenuItem,
-            this.buttonClearAll});
-            this.contextMenu.Name = "contextMenu";
-            resources.ApplyResources(this.contextMenu, "contextMenu");
-            // 
-            // buttonCopy
-            // 
-            this.buttonCopy.Name = "buttonCopy";
-            resources.ApplyResources(this.buttonCopy, "buttonCopy");
-            this.buttonCopy.Click += new System.EventHandler(this.ButtonCopyClick);
-            // 
-            // cToolStripMenuItem
-            // 
-            this.cToolStripMenuItem.Name = "cToolStripMenuItem";
-            resources.ApplyResources(this.cToolStripMenuItem, "cToolStripMenuItem");
-            // 
-            // buttonClearAll
-            // 
-            this.buttonClearAll.Name = "buttonClearAll";
-            resources.ApplyResources(this.buttonClearAll, "buttonClearAll");
-            this.buttonClearAll.Click += new System.EventHandler(this.ButtonClearAllClick);
             // 
             // messagesToolStrip
             // 
@@ -127,7 +99,10 @@ namespace Core.Gui.Forms.Log
             this.buttonShowWarning,
             this.buttonShowError,
             this.toolStripSeparator1,
-            this.buttonShowDetails});
+            this.buttonShowDetails,
+            this.toolStripSeparator2,
+            this.buttonCopy,
+            this.buttonClearAll});
             this.messagesToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.messagesToolStrip.Name = "messagesToolStrip";
             this.messagesToolStrip.Renderer = new CustomToolStripRenderer();
@@ -176,6 +151,27 @@ namespace Core.Gui.Forms.Log
             this.buttonShowDetails.Click += new System.EventHandler(this.ButtonShowDetailsClick);
             this.buttonShowDetails.Margin = new System.Windows.Forms.Padding(2);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // buttonCopy
+            // 
+            resources.ApplyResources(this.buttonCopy, "buttonCopy");
+            this.buttonCopy.Text = "\uE90D";
+            this.buttonCopy.Name = "buttonCopy";
+            this.buttonCopy.Click += new System.EventHandler(this.ButtonCopyClick);
+            this.buttonCopy.Margin = new System.Windows.Forms.Padding(2);
+            // 
+            // buttonClearAll
+            // 
+            resources.ApplyResources(this.buttonClearAll, "buttonClearAll");
+            this.buttonClearAll.Text = "\uE90E";
+            this.buttonClearAll.Name = "buttonCopy";
+            this.buttonClearAll.Click += new System.EventHandler(this.ButtonClearAllClick);
+            this.buttonClearAll.Margin = new System.Windows.Forms.Padding(2);
+            // 
             // messagesDataGridView
             // 
             this.messagesDataGridView.AllowUserToAddRows = false;
@@ -191,7 +187,6 @@ namespace Core.Gui.Forms.Log
             this.messageColumnDataGridViewTextBoxColumn,
             this.fullMessageColumnDataGridViewTextBoxColumn,
             this.timeColumnDataGridViewTextBoxColumn});
-            this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
@@ -313,7 +308,6 @@ namespace Core.Gui.Forms.Log
             this.Controls.Add(this.messagesDataGridView);
             this.Controls.Add(this.messagesToolStrip);
             this.Name = "MessageWindow";
-            this.contextMenu.ResumeLayout(false);
             this.messagesToolStrip.ResumeLayout(false);
             this.messagesToolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).EndInit();
@@ -329,18 +323,17 @@ namespace Core.Gui.Forms.Log
 
         //Moved this one to main class so it can be precompiled
         //private System.Windows.Forms.DataGridViewImageColumn Level;
-        private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem buttonCopy;
-        private System.Windows.Forms.ToolStripSeparator cToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem buttonClearAll;
         private System.Windows.Forms.BindingSource messagesBindingSource;
         private System.Windows.Forms.ToolStrip messagesToolStrip;
         private System.Windows.Forms.ToolStripButton buttonShowWarning;
         private System.Windows.Forms.ToolStripButton buttonShowError;
         private System.Windows.Forms.ToolStripButton buttonShowInfo;
-        private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton buttonShowDetails;
+        private System.Windows.Forms.ToolStripButton buttonShowDetails;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton buttonCopy;
+        private System.Windows.Forms.ToolStripButton buttonClearAll;
+        private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Data.DataSet messageWindowData;
         private System.Data.DataTable Messages;
         private System.Data.DataColumn levelIconColumn;
