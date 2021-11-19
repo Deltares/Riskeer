@@ -36,6 +36,14 @@ namespace Core.Common.TestUtil
             };
         }
 
+        public static class Application
+        {
+            public static class Riskeer
+            {
+                public static readonly TestDataPath Integration = "Application.Riskeer.Integration.Test";
+            }
+        }
+
         public static class Core
         {
             public static class Common

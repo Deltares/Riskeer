@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Riskeer.Common.Util;
 
@@ -35,7 +34,7 @@ namespace Riskeer.Migration.Core.TestUtil
 
         /// <summary>
         /// Retrieves the file path of a project with the latest database version
-        /// format.
+        /// format that can be opened in the application.
         /// </summary>
         /// <returns>A file path to a project file with the latest database version.</returns>
         public static string GetLatestProjectFilePath()
@@ -49,7 +48,7 @@ namespace Riskeer.Migration.Core.TestUtil
 
         /// <summary>
         /// Retrieves the file path of a project with an older database version,
-        /// which is supported for migration.
+        /// which is supported for migration and can be opened in the application.
         /// </summary>
         /// <returns>A file path to an outdated project which is supported 
         /// for migration.</returns>
@@ -57,23 +56,6 @@ namespace Riskeer.Migration.Core.TestUtil
         {
             const string projectFileName = "MigrationTestProject164.rtd";
             return TestHelper.GetTestDataPath(testDataPath, projectFileName);
-        }
-
-        /// <summary>
-        /// Retrieves the project file names with an older database version,
-        /// which are supported for the migration.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of all the version numbers of supported
-        /// outdated projects.</returns>
-        public static IEnumerable<string> GetAllOutdatedSupportedProjectFileNames()
-        {
-            yield return "MigrationTestProject164.rtd";
-            yield return "MigrationTestProject171.rtd";
-            yield return "MigrationTestProject172.rtd";
-            yield return "MigrationTestProject173.rtd";
-            yield return "MigrationTestProject181.rtd";
-            yield return "MigrationTestProject191.risk";
-            yield return "MigrationTestProject211.risk";
         }
 
         /// <summary>

@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -34,7 +36,6 @@ using Riskeer.Common.Util;
 using Riskeer.Integration.Data;
 using Riskeer.Migration;
 using Riskeer.Migration.Core;
-using Riskeer.Migration.Core.TestUtil;
 using Riskeer.Storage.Core;
 
 namespace Application.Riskeer.Integration.Test
@@ -46,11 +47,10 @@ namespace Application.Riskeer.Integration.Test
         private DirectoryDisposeHelper directoryDisposeHelper;
 
         [Test]
-        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames))]
+        [TestCaseSource(nameof(GetAllOutdatedSupportedProjects))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string version)
+        public void GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet(string sourceFilePath)
         {
-            string sourceFilePath = GetTestProjectFilePath(version);
             string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGuiWithStorageSql_WhenRunWithMigratedFile_MigratedProjectSet));
             MigrateFile(sourceFilePath, targetFilePath);
 
@@ -63,7 +63,7 @@ namespace Application.Riskeer.Integration.Test
             var projectMigrator = new ProjectMigrator(inquiryHelper);
             var guiCoreSettings = new GuiCoreSettings
             {
-                 ApplicationIcon = SystemIcons.Application
+                ApplicationIcon = SystemIcons.Application
             };
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
@@ -84,12 +84,11 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames))]
+        [TestCaseSource(nameof(GetAllOutdatedSupportedProjects))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string version)
+        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet(string sourceFilePath)
         {
             // Given
-            string sourceFilePath = GetTestProjectFilePath(version);
             string targetFilePath = Path.Combine(workingDirectory, nameof(GivenRiskeerGui_WhenRunWithUnmigratedFileAndInquireContinuation_MigratedProjectSet));
 
             var projectStore = new StorageSqLite();
@@ -111,7 +110,6 @@ namespace Application.Riskeer.Integration.Test
 
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(() => null), guiCoreSettings))
             {
-
                 // When
                 gui.Run(sourceFilePath);
 
@@ -127,12 +125,11 @@ namespace Application.Riskeer.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(ProjectMigrationTestHelper), nameof(ProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileNames))]
+        [TestCaseSource(nameof(GetAllOutdatedSupportedProjects))]
         [Apartment(ApartmentState.STA)]
-        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string version)
+        public void GivenRiskeerGui_WhenRunWithUnmigratedFileAndNoInquireContinuation_MigratedProjectNotSet(string sourceFilePath)
         {
             // Given
-            string sourceFilePath = GetTestProjectFilePath(version);
             var projectStore = new StorageSqLite();
             var mocks = new MockRepository();
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
@@ -170,6 +167,25 @@ namespace Application.Riskeer.Integration.Test
             directoryDisposeHelper.Dispose();
         }
 
+        private static IEnumerable<TestCaseData> GetAllOutdatedSupportedProjects()
+        {
+            var fileDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Riskeer.Integration), "StorageMigrationIntegrationTest");
+            return GetAllOutdatedSupportedProjectFileNames().Select(projectFileName => new TestCaseData(Path.Combine(fileDirectory, projectFileName))
+                                                                        .SetName(projectFileName))
+                                                            .ToArray();
+        }
+
+        private static IEnumerable<string> GetAllOutdatedSupportedProjectFileNames()
+        {
+            yield return "MigrationTestProjectSingleAssessmentSection164.rtd";
+            yield return "MigrationTestProjectSingleAssessmentSection171.rtd";
+            yield return "MigrationTestProjectSingleAssessmentSection172.rtd";
+            yield return "MigrationTestProjectSingleAssessmentSection173.rtd";
+            yield return "MigrationTestProjectSingleAssessmentSection181.rtd";
+            yield return "MigrationTestProjectSingleAssessmentSection191.risk";
+            yield return "MigrationTestProjectSingleAssessmentSection211.risk";
+        }
+
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
         {
             string newVersion = ProjectVersionHelper.GetCurrentDatabaseVersion();
@@ -177,11 +193,6 @@ namespace Application.Riskeer.Integration.Test
             var migrator = new ProjectFileMigrator();
 
             migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
-        }
-
-        private static string GetTestProjectFilePath(string fileName)
-        {
-            return TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core, fileName);
         }
     }
 }
