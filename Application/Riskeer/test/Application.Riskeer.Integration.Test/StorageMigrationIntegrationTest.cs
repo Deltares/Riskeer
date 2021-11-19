@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -169,21 +168,15 @@ namespace Application.Riskeer.Integration.Test
 
         private static IEnumerable<TestCaseData> GetAllOutdatedSupportedProjects()
         {
-            var fileDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Riskeer.Integration), "StorageMigrationIntegrationTest");
-            return GetAllOutdatedSupportedProjectFileNames().Select(projectFileName => new TestCaseData(Path.Combine(fileDirectory, projectFileName))
-                                                                        .SetName(projectFileName))
-                                                            .ToArray();
-        }
+            string fileDirectory = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Riskeer.Integration), "StorageMigrationIntegrationTest");
 
-        private static IEnumerable<string> GetAllOutdatedSupportedProjectFileNames()
-        {
-            yield return "MigrationTestProjectSingleAssessmentSection164.rtd";
-            yield return "MigrationTestProjectSingleAssessmentSection171.rtd";
-            yield return "MigrationTestProjectSingleAssessmentSection172.rtd";
-            yield return "MigrationTestProjectSingleAssessmentSection173.rtd";
-            yield return "MigrationTestProjectSingleAssessmentSection181.rtd";
-            yield return "MigrationTestProjectSingleAssessmentSection191.risk";
-            yield return "MigrationTestProjectSingleAssessmentSection211.risk";
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection164.rtd"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection171.rtd"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection172.rtd"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection173.rtd"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection181.rtd"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection191.risk"));
+            yield return new TestCaseData(Path.Combine(fileDirectory, "MigrationTestProjectSingleAssessmentSection211.risk"));
         }
 
         private static void MigrateFile(string sourceFilePath, string targetFilePath)
