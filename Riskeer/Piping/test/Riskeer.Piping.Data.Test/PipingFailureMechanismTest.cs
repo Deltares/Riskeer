@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
-            
+
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
 
             Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
@@ -139,6 +139,8 @@ namespace Riskeer.Piping.Data.Test
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
+            Assert.AreEqual(1, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
+            Assert.AreSame(section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().Section);
         }
 
         [Test]
@@ -161,12 +163,14 @@ namespace Riskeer.Piping.Data.Test
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
         }
     }
 }

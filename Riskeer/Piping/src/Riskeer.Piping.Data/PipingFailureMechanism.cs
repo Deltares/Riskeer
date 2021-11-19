@@ -100,11 +100,13 @@ namespace Riskeer.Piping.Data
         {
             base.AddSectionDependentData(section);
             sectionResults.Add(new PipingFailureMechanismSectionResult(section));
+            scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResults.Clear();
+            scenarioConfigurationsPerFailureMechanismSection.Clear();
         }
     }
 }
