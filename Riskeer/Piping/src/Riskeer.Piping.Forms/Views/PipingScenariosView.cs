@@ -22,11 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
@@ -37,9 +40,18 @@ namespace Riskeer.Piping.Forms.Views
     /// <summary>
     /// View for configuring piping calculation scenarios.
     /// </summary>
-    public class PipingScenariosView : ScenariosView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>
+    public partial class PipingScenariosView : UserControl, IView
     {
+        private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private CalculationGroup calculationGroup;
+
+        private Observer failureMechanismObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario> calculationObserver;
+        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingInput> calculationInputObserver;
+
+        private IEnumerable<PipingScenarioRow> scenarioRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosView"/>.
@@ -52,66 +64,169 @@ namespace Riskeer.Piping.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         public PipingScenariosView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism)
         {
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            this.calculationGroup = calculationGroup;
+            this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            InitializeObservers();
+
+            InitializeComponent();
+
+            InitializeListBox();
+            InitializeDataGridView();
+
+            UpdateSectionsListBox();
+            UpdateDataGridViewDataSource();
         }
 
-        protected override PipingInput GetCalculationInput(SemiProbabilisticPipingCalculationScenario calculationScenario)
+        public object Data
         {
-            return calculationScenario.InputParameters;
+            get => calculationGroup;
+            set => calculationGroup = (CalculationGroup) value;
         }
 
-        protected override IEnumerable<PipingScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
+        protected override void Dispose(bool disposing)
+        {
+            failureMechanismObserver.Dispose();
+            calculationGroupObserver.Dispose();
+            calculationObserver.Dispose();
+            calculationInputObserver.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void InitializeObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            {
+                Observable = failureMechanism
+            };
+
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+
+            calculationObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
+                                                                                                                 pcg.Children.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                                                    .Select(c => c.InputParameters)))
+            {
+                Observable = calculationGroup
+            };
+        }
+
+        private void InitializeListBox()
+        {
+            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridViewControl.AddCheckBoxColumn(
+                nameof(PipingScenarioRow.IsRelevant),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_In_final_rating
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.Contribution),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_Contribution
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.Name),
+                RiskeerCommonFormsResources.ScenarioView_Name_DisplayName
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.FailureProbabilityUplift),
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.FailureProbabilityHeave),
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.FailureProbabilitySellmeijer),
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.FailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_ProfileFailureProbability_DisplayName
+            );
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.SectionFailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_SectionFailureProbability_DisplayName
+            );
+        }
+
+        private void UpdateDataGridViewDataSource()
+        {
+            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
+            {
+                dataGridViewControl.SetDataSource(null);
+                return;
+            }
+
+            scenarioRows = GetScenarioRows(failureMechanismSection);
+            dataGridViewControl.SetDataSource(scenarioRows);
+        }
+
+        private void UpdateSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (failureMechanism.Sections.Any())
+            {
+                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = failureMechanism.Sections.First();
+            }
+        }
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewDataSource();
+        }
+
+        private void UpdateScenarioRows()
+        {
+            scenarioRows.ForEachElementDo(row => row.Update());
+            dataGridViewControl.RefreshDataGridView();
+        }
+
+        private IEnumerable<PipingScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
         {
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculations = CalculationGroup
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculations = calculationGroup
                                                                                          .GetCalculations()
                                                                                          .OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                                          .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
-            return pipingCalculations.Select(pc => new PipingScenarioRow(pc, FailureMechanism, failureMechanismSection, assessmentSection)).ToList();
-        }
-
-        protected override void InitializeDataGridView()
-        {
-            DataGridViewControl.AddCheckBoxColumn(
-                nameof(PipingScenarioRow.IsRelevant),
-                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_In_final_rating
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.Contribution),
-                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_Contribution
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.Name),
-                RiskeerCommonFormsResources.ScenarioView_Name_DisplayName
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.FailureProbabilityUplift),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.FailureProbabilityHeave),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.FailureProbabilitySellmeijer),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.FailureProbability),
-                RiskeerCommonFormsResources.ScenarioView_ProfileFailureProbability_DisplayName
-            );
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(PipingScenarioRow.SectionFailureProbability),
-                RiskeerCommonFormsResources.ScenarioView_SectionFailureProbability_DisplayName
-            );
+            return pipingCalculations.Select(pc => new PipingScenarioRow(pc, failureMechanism, failureMechanismSection, assessmentSection)).ToList();
         }
     }
 }

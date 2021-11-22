@@ -21,9 +21,12 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -32,7 +35,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -67,6 +69,40 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new PipingScenariosView(null, new PipingFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new PipingScenariosView(new CalculationGroup(), null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -91,11 +127,53 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (var pipingScenarioView = new PipingScenariosView(calculationGroup, new PipingFailureMechanism(), assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<ScenariosView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>>(pipingScenarioView);
+                Assert.IsInstanceOf<UserControl>(pipingScenarioView);
+                Assert.IsInstanceOf<IView>(pipingScenarioView);
                 Assert.AreSame(calculationGroup, pipingScenarioView.Data);
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ListBoxCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            Assert.AreEqual(nameof(FailureMechanismSection.Name), listBox.DisplayMember);
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
         }
 
         [Test]
@@ -121,7 +199,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowFullyConfiguredPipingScenariosView();
+            ShowFullyConfiguredPipingScenariosView(new PipingFailureMechanism());
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -152,7 +230,244 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.44140625e-4), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
         }
 
-        private void ShowFullyConfiguredPipingScenariosView()
+        [Test]
+        public void PipingScenariosView_ContributionValueInvalid_ShowsErrorTooltip()
+        {
+            // Setup
+            ShowFullyConfiguredPipingScenariosView(new PipingFailureMechanism());
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = "test";
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(1e-6)]
+        [TestCase(100)]
+        [TestCase(14.3)]
+        public void PipingScenariosView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue)
+        {
+            // Setup
+            ShowFullyConfiguredPipingScenariosView(new PipingFailureMechanism());
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(isRelevantColumnIndex, true)]
+        [TestCase(contributionColumnIndex, 30.0)]
+        public void PipingScenariosView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+
+            ICalculation calculation = failureMechanism.CalculationsGroup.GetCalculations().First();
+            calculation.Attach(calculationObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenSelectingDifferentItemInSectionsListBox_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreSame(failureMechanism.Sections.First(), listBox.SelectedItem);
+
+            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                .Select(r => r.DataBoundItem)
+                                                                .Cast<PipingScenarioRow>()
+                                                                .ToArray();
+
+            // When
+            listBox.SelectedItem = failureMechanism.Sections.Last();
+
+            // Then
+            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                          .Select(r => r.DataBoundItem)
+                                                          .Cast<PipingScenarioRow>()
+                                                          .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenFailureMechanismNotifiesObserver_ThenSectionsListBoxCorrectlyUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowPipingScenariosView(failureMechanism);
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+
+            // Precondition
+            CollectionAssert.IsEmpty(listBox.Items);
+
+            // When
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenFailureMechanismNotifiesObserver_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                .Select(r => r.DataBoundItem)
+                                                                .Cast<PipingScenarioRow>()
+                                                                .ToArray();
+
+            // When
+            failureMechanism.NotifyObservers();
+
+            // Then
+            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                          .Select(r => r.DataBoundItem)
+                                                          .Cast<PipingScenarioRow>()
+                                                          .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenCalculationGroupNotifiesObserver_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                .Select(r => r.DataBoundItem)
+                                                                .Cast<PipingScenarioRow>()
+                                                                .ToArray();
+
+            // When
+            failureMechanism.CalculationsGroup.NotifyObservers();
+
+            // Then
+            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                          .Select(r => r.DataBoundItem)
+                                                          .Cast<PipingScenarioRow>()
+                                                          .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenCalculationNotifiesObserver_ThenViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            var refreshed = 0;
+            dataGridView.Invalidated += (sender, args) => refreshed++;
+
+            ICalculation calculation = failureMechanism.CalculationsGroup.GetCalculations().First();
+
+            // When
+            calculation.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshed);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenCalculationInputNotifiesObserver_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                .Select(r => r.DataBoundItem)
+                                                                .Cast<PipingScenarioRow>()
+                                                                .ToArray();
+
+            SemiProbabilisticPipingCalculationScenario calculation = failureMechanism.CalculationsGroup.GetCalculations()
+                                                                                     .Cast<SemiProbabilisticPipingCalculationScenario>()
+                                                                                     .First();
+
+            // When
+            calculation.InputParameters.NotifyObservers();
+
+            // Then
+            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                          .Select(r => r.DataBoundItem)
+                                                          .Cast<PipingScenarioRow>()
+                                                          .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        private void ShowFullyConfiguredPipingScenariosView(PipingFailureMechanism failureMechanism)
         {
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
@@ -177,8 +492,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 new Point3D(5.0, 0.0, 1.0),
                 new Point3D(5.0, -5.0, 0.0)
             });
-
-            var failureMechanism = new PipingFailureMechanism();
 
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
