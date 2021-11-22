@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
@@ -95,6 +96,24 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double FailureProbabilitySellmeijer => derivedOutput?.SellmeijerProbability ?? double.NaN;
+
+        /// <summary>
+        /// Gets the section failure probability of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double SectionFailureProbability
+        {
+            get
+            {
+                if (derivedOutput != null)
+                {
+                    return derivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                               failureMechanismSection.Length);
+                }
+
+                return double.NaN;
+            }
+        }
 
         public override void Update()
         {

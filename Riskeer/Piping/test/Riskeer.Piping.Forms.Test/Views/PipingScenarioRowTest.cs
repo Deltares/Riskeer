@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -117,6 +118,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 nameof(PipingScenarioRow.FailureProbabilityHeave));
             TestHelper.AssertTypeConverter<PipingScenarioRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingScenarioRow.FailureProbabilitySellmeijer));
+            TestHelper.AssertTypeConverter<PipingScenarioRow, NoProbabilityValueDoubleConverter>(
+                nameof(PipingScenarioRow.SectionFailureProbability));
         }
 
         [Test]
@@ -145,6 +148,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                failureMechanismSection.Length),
+                            row.SectionFailureProbability);
             mocks.VerifyAll();
         }
 
@@ -167,6 +173,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNaN(row.FailureProbabilityUplift);
             Assert.IsNaN(row.FailureProbabilityHeave);
             Assert.IsNaN(row.FailureProbabilitySellmeijer);
+            Assert.IsNaN(row.SectionFailureProbability);
             mocks.VerifyAll();
         }
 
@@ -190,6 +197,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNaN(row.FailureProbabilityUplift);
             Assert.IsNaN(row.FailureProbabilityHeave);
             Assert.IsNaN(row.FailureProbabilitySellmeijer);
+            Assert.IsNaN(row.SectionFailureProbability);
 
             // When
             calculation.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
@@ -201,6 +209,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                failureMechanismSection.Length),
+                            row.SectionFailureProbability);
             mocks.VerifyAll();
         }
 
@@ -228,6 +239,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                failureMechanismSection.Length),
+                            row.SectionFailureProbability);
 
             // When
             calculation.Output = null;
@@ -238,6 +252,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNaN(row.FailureProbabilityUplift);
             Assert.IsNaN(row.FailureProbabilityHeave);
             Assert.IsNaN(row.FailureProbabilitySellmeijer);
+            Assert.IsNaN(row.SectionFailureProbability);
             mocks.VerifyAll();
         }
 
@@ -265,6 +280,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
+            Assert.AreEqual(expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                failureMechanismSection.Length),
+                            row.SectionFailureProbability);
 
             var random = new Random(11);
 
@@ -278,6 +296,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(newExpectedDerivedOutput.UpliftProbability, row.FailureProbabilityUplift);
             Assert.AreEqual(newExpectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(newExpectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
+            Assert.AreEqual(newExpectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                failureMechanismSection.Length),
+                            row.SectionFailureProbability);
             mocks.VerifyAll();
         }
     }
