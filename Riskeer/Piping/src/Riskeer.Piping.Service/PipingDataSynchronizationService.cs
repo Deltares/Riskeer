@@ -131,6 +131,7 @@ namespace Riskeer.Piping.Service
             var changedObjects = new Collection<IObservable>();
             object[] removedObjects = failureMechanism.Sections.OfType<object>()
                                                       .Concat(failureMechanism.SectionResults)
+                                                      .Concat(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection)
                                                       .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                       .Concat(failureMechanism.StochasticSoilModels)
                                                       .Concat(failureMechanism.SurfaceLines)
@@ -139,6 +140,7 @@ namespace Riskeer.Piping.Service
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResults);
+            changedObjects.Add(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
 
             failureMechanism.CalculationsGroup.Children.Clear();
             changedObjects.Add(failureMechanism.CalculationsGroup);
