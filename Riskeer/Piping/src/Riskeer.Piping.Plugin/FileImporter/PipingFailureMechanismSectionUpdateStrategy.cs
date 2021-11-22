@@ -55,7 +55,12 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
+            PipingScenarioConfigurationPerFailureMechanismSection[] oldScenarioConfigurationsPerFailureMechanismSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ToArray();
+
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
+
+            UpdateScenarioConfigurations(oldScenarioConfigurationsPerFailureMechanismSection);
+
             affectedObjects.Add(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             return affectedObjects;
         }
@@ -63,6 +68,21 @@ namespace Riskeer.Piping.Plugin.FileImporter
         public override IEnumerable<IObservable> DoPostUpdateActions()
         {
             return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
+        }
+
+        private void UpdateScenarioConfigurations(PipingScenarioConfigurationPerFailureMechanismSection[] oldScenarioConfigurationsPerFailureMechanismSection)
+        {
+            foreach (PipingScenarioConfigurationPerFailureMechanismSection newScenarioConfiguration in failureMechanism.ScenarioConfigurationsPerFailureMechanismSection)
+            {
+                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationToCopy = oldScenarioConfigurationsPerFailureMechanismSection.FirstOrDefault(
+                    oldScenarioConfiguration => oldScenarioConfiguration.Section.StartPoint.Equals(newScenarioConfiguration.Section.StartPoint)
+                                                && oldScenarioConfiguration.Section.EndPoint.Equals(newScenarioConfiguration.Section.EndPoint));
+
+                if (scenarioConfigurationToCopy != null)
+                {
+                    newScenarioConfiguration.ScenarioConfigurationType = scenarioConfigurationToCopy.ScenarioConfigurationType;
+                }
+            }
         }
     }
 }

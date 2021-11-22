@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
@@ -67,6 +68,45 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
             Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                failureMechanism,
+                failureMechanism.SectionResults,
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithSections_WhenUpdateSectionsWithImportedData_ThenDataUpdatedAndReturnsAffectedObjects()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
+                failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
+
+            FailureMechanismSection[] sections =
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(3, 0)
+                })
+            };
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            failureMechanism.SetSections(sections, sourcePath);
+            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+
+            // When
+            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Then
+            CollectionAssert.AreEqual(new[]
+            {
+                PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic,
+                PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+            }, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Select(sc => sc.ScenarioConfigurationType));
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
