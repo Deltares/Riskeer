@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
@@ -51,6 +52,7 @@ namespace Riskeer.Common.IO.FileImporters
         private readonly ReferenceLine referenceLine;
         private readonly IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy;
         private readonly IImporterMessageProvider messageProvider;
+        private List<IObservable> affectedObjects;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsImporter"/> class.
@@ -133,11 +135,12 @@ namespace Riskeer.Common.IO.FileImporters
 
         protected override void DoPostImportUpdates()
         {
-            failureMechanismSectionUpdateStrategy.DoPostUpdateActions();
+            affectedObjects.AddRange(failureMechanismSectionUpdateStrategy.DoPostUpdateActions());
 
-            base.DoPostImportUpdates();
-            var failureMechanismWithSectionResults = ImportTarget as IHasSectionResults<FailureMechanismSectionResult>;
-            failureMechanismWithSectionResults?.SectionResults.NotifyObservers();
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
         }
 
         protected override void LogImportCanceledMessage()
@@ -242,7 +245,7 @@ namespace Riskeer.Common.IO.FileImporters
         {
             IEnumerable<FailureMechanismSection> snappedSections = SnapReadSectionsToReferenceLine(failureMechanismSections, referenceLine);
 
-            failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(snappedSections, FilePath);
+            affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(snappedSections, FilePath).ToList();
         }
 
         private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> failureMechanismSections,
