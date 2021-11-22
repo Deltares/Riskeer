@@ -1669,11 +1669,12 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(59, changedObjects.Length);
+            Assert.AreEqual(60, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SurfaceLines);
@@ -1796,6 +1797,11 @@ namespace Riskeer.Integration.Service.Test
             foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<PipingFailureMechanism>(failureMechanism))
             {
                 yield return failureMechanismObject;
+            }
+
+            foreach (PipingScenarioConfigurationPerFailureMechanismSection scenarioConfiguration in failureMechanism.ScenarioConfigurationsPerFailureMechanismSection)
+            {
+                yield return scenarioConfiguration;
             }
 
             foreach (ICalculationBase calculationBase in failureMechanism.CalculationsGroup.GetAllChildrenRecursive())

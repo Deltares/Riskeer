@@ -204,13 +204,15 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(59, observables.Length);
+            Assert.AreEqual(60, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(observables, pipingFailureMechanism);
             CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(pipingFailureMechanism.StochasticSoilModels);
@@ -387,7 +389,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 195;
+            const int expectedNumberOfRemovedInstances = 197;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -411,7 +413,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void DoPostUpdateActions_CalledSecondTimeAfterUpdateAndUpdateCycle_DoNothing()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 195;
+            const int expectedNumberOfRemovedInstances = 197;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
