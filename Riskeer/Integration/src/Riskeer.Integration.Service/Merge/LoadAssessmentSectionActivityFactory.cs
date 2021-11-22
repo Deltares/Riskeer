@@ -30,15 +30,15 @@ namespace Riskeer.Integration.Service.Merge
     /// This class defines factory methods that can be used to create instance of <see cref="Activity"/>
     /// to load <see cref="AssessmentSection"/>.
     /// </summary>
-    public static class LoadAssessmentSectionsActivityFactory
+    public static class LoadAssessmentSectionActivityFactory
     {
         /// <summary>
-        /// Creates an activity to load collections of <see cref="AssessmentSection"/> from a file.
+        /// Creates an activity to load an <see cref="AssessmentSection"/> from a file.
         /// </summary>
-        /// <param name="owner">The owner to set the retrieved collection of <see cref="AssessmentSection"/> on.</param>
-        /// <param name="loadAssessmentSectionService">The service for retrieving the collection of
+        /// <param name="owner">The owner to set the <see cref="AssessmentSection"/> on.</param>
+        /// <param name="loadAssessmentSectionService">The service for retrieving the
         /// <see cref="AssessmentSection"/> from a file.</param>
-        /// <param name="filePath">The file path to retrieve the collection of <see cref="AssessmentSection"/> from.</param>
+        /// <param name="filePath">The file path to retrieve the <see cref="AssessmentSection"/> from.</param>
         /// <returns>The <see cref="Activity"/> to load <see cref="AssessmentSection"/> from a file.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
         public static Activity CreateLoadAssessmentSectionsActivity(AssessmentSectionOwner owner,
@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Service.Merge
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            return new LoadAssessmentSectionsActivity(owner, loadAssessmentSectionService, filePath);
+            return new LoadAssessmentSectionActivity(owner, loadAssessmentSectionService, filePath);
         }
     }
 }

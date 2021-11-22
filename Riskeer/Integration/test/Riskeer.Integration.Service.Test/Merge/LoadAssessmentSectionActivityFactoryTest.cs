@@ -31,7 +31,7 @@ using Riskeer.Integration.Service.Merge;
 namespace Riskeer.Integration.Service.Test.Merge
 {
     [TestFixture]
-    public class LoadAssessmentSectionsActivityFactoryTest
+    public class LoadAssessmentSectionActivityFactoryTest
     {
         [Test]
         public void CreateLoadAssessmentSectionsActivity_AssessmentSectionsOwnerNull_ThrowsArgumentNullException()
@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(null, service, string.Empty);
+            TestDelegate call = () => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(null, service, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,9 +54,9 @@ namespace Riskeer.Integration.Service.Test.Merge
         public void CreateLoadAssessmentSectionsActivity_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
-                                                                                                                 null,
-                                                                                                                 string.Empty);
+            TestDelegate call = () => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
+                                                                                                                null,
+                                                                                                                string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,9 +72,9 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
-                                                                                                                 service,
-                                                                                                                 null);
+            TestDelegate call = () => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
+                                                                                                                service,
+                                                                                                                null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,10 +97,10 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            Activity activity = LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(owner, service, filePath);
+            Activity activity = LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(owner, service, filePath);
 
             // Assert
-            Assert.IsInstanceOf<LoadAssessmentSectionsActivity>(activity);
+            Assert.IsInstanceOf<LoadAssessmentSectionActivity>(activity);
 
             activity.Run();
             Assert.AreSame(expectedAssessmentSection, owner.AssessmentSection);

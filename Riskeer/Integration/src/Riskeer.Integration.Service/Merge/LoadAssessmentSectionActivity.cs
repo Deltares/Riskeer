@@ -30,7 +30,7 @@ namespace Riskeer.Integration.Service.Merge
     /// <summary>
     /// Activity to load an <see cref="AssessmentSection"/> from a file.
     /// </summary>
-    internal class LoadAssessmentSectionsActivity : Activity
+    internal class LoadAssessmentSectionActivity : Activity
     {
         private readonly AssessmentSectionOwner assessmentSectionOwner;
         private readonly ILoadAssessmentSectionService loadAssessmentSectionService;
@@ -39,16 +39,16 @@ namespace Riskeer.Integration.Service.Merge
         private bool canceled;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LoadAssessmentSectionsActivity"/>.
+        /// Creates a new instance of <see cref="LoadAssessmentSectionActivity"/>.
         /// </summary>
         /// <param name="assessmentSectionOwner">The owner to set the <see cref="AssessmentSection"/> on.</param>
         /// <param name="loadAssessmentSectionService">The service defining how to
         /// retrieve the <see cref="AssessmentSection"/> from a file.</param>
         /// <param name="filePath">The file path to retrieve the <see cref="AssessmentSection"/> from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
-        public LoadAssessmentSectionsActivity(AssessmentSectionOwner assessmentSectionOwner,
-                                              ILoadAssessmentSectionService loadAssessmentSectionService,
-                                              string filePath)
+        public LoadAssessmentSectionActivity(AssessmentSectionOwner assessmentSectionOwner,
+                                             ILoadAssessmentSectionService loadAssessmentSectionService,
+                                             string filePath)
         {
             if (assessmentSectionOwner == null)
             {
