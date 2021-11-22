@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             var exception = Assert.Throws<EntityReadException>(Call);
-            const string message = "Het project bevat meer dan 1 traject.";
+            const string message = "Het project bevat meerdere trajecten. Dit bestand is mogelijk een gemigreerd project met meerdere trajecten.";
             Assert.AreEqual(message, exception.Message);
         }
 
@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             var exception = Assert.Throws<EntityReadException>(Call);
-            const string message = "Het project bevat geen traject.";
+            const string message = "Het project bevat geen traject. Dit bestand is mogelijk een gemigreerd project met geen trajecten.";
             Assert.AreEqual(message, exception.Message);
         }
         
