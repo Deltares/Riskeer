@@ -39,8 +39,8 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Ranorex.Bootstrapper">
       <Private>False</Private>
@@ -3556,9 +3556,7 @@
       <id>f9b54cc6-cbb7-406e-99ab-c3c41eee8d0e</id>
       <recordtableid>a653ace9-5ee8-4659-932a-53a321bc6e32</recordtableid>
     </None>
-    <None Include="packages.config">
-      <id>dfd3a3f5-0e6a-4028-8144-ed4d6153f833</id>
-    </None>
+    <None Include="packages.config" />
     <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReportStap1Van2.png">
       <id>33bfacb4-10d7-4c99-ab52-0f94bd94b857</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
