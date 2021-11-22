@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Service;
@@ -48,14 +50,16 @@ namespace Riskeer.Piping.Plugin.FileImporter
             this.failureMechanism = failureMechanism;
         }
 
-        public override void DoPostUpdateActions()
+        public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            IEnumerable<IObservable> affectedObjects = PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
+            List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
+            affectedObjects.Add(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+            return affectedObjects;
+        }
 
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
+        public override IEnumerable<IObservable> DoPostUpdateActions()
+        {
+            return PipingDataSynchronizationService.ClearAllProbabilisticCalculationOutput(failureMechanism);
         }
     }
 }
