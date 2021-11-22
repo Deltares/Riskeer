@@ -36,6 +36,8 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.calculationConfigurationTypePanel = new System.Windows.Forms.Panel();
+            this.selectScenarioConfigurationTypeLabel = new System.Windows.Forms.Label();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.label = new System.Windows.Forms.Label();
@@ -44,17 +46,38 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.calculationConfigurationTypePanel.SuspendLayout();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
             this.SuspendLayout();
+            //
+            // calculationConfigurationTypeTableLayoutPanel
+            //
+            this.calculationConfigurationTypePanel.Controls.Add(this.selectScenarioConfigurationTypeLabel);
+            this.calculationConfigurationTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.calculationConfigurationTypePanel.Location = new System.Drawing.Point(0, 0);
+            this.calculationConfigurationTypePanel.Name = "calculationConfigurationTypePanel";
+            this.calculationConfigurationTypePanel.Size = new System.Drawing.Size(764, 35);
+            this.calculationConfigurationTypePanel.TabIndex = 1;
+            //
+            // selectScenarioConfigurationTypeLabel
+            //
+            this.selectScenarioConfigurationTypeLabel.AutoSize = true;
+            this.selectScenarioConfigurationTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(3, 0);
+            this.selectScenarioConfigurationTypeLabel.Name = "selectScenarioConfigurationTypeLabel";
+            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(162, 355);
+            this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
+            this.selectScenarioConfigurationTypeLabel.Text = "Type toets:";
+            this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // splitContainer
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Location = new System.Drawing.Point(0, 35);
             this.splitContainer.MinimumSize = new System.Drawing.Size(150, 150);
             this.splitContainer.Name = "splitContainer";
             // 
@@ -139,10 +162,13 @@ namespace Riskeer.Piping.Forms.Views
             // PipingScenariosView
             // 
             this.Controls.Add(this.splitContainer);
+            this.Controls.Add(this.calculationConfigurationTypePanel);
             this.Name = "PipingScenariosView";
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.calculationConfigurationTypePanel.ResumeLayout(false);
+            this.calculationConfigurationTypePanel.PerformLayout();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
@@ -153,6 +179,8 @@ namespace Riskeer.Piping.Forms.Views
 
         #endregion
 
+        private System.Windows.Forms.Panel calculationConfigurationTypePanel;
+        private System.Windows.Forms.Label selectScenarioConfigurationTypeLabel;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBox;
         private System.Windows.Forms.Label label;
