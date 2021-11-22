@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Service.Test.Merge
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSectionsOwner", exception.ParamName);
+            Assert.AreEqual("assessmentSectionOwner", exception.ParamName);
             mocks.VerifyAll();
         }
 

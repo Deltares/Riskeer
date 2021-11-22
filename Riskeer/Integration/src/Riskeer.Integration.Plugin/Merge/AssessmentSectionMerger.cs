@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             bool assessmentSectionMatchesReadAssessmentSection = mergeComparer.Compare(assessmentSection, readAssessmentSection);
 
-            if (assessmentSectionMatchesReadAssessmentSection == false)
+            if (!assessmentSectionMatchesReadAssessmentSection)
             {
                 log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSection);
                 return;
