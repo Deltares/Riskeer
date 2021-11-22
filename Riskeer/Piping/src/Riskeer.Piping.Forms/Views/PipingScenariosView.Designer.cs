@@ -45,31 +45,33 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
             this.calculationConfigurationTypePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
             this.SuspendLayout();
-            //
-            // calculationConfigurationTypeTableLayoutPanel
-            //
+            // 
+            // calculationConfigurationTypePanel
+            // 
+            this.calculationConfigurationTypePanel.Controls.Add(this.selectConfigurationTypeComboBox);
             this.calculationConfigurationTypePanel.Controls.Add(this.selectScenarioConfigurationTypeLabel);
             this.calculationConfigurationTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.calculationConfigurationTypePanel.Location = new System.Drawing.Point(0, 0);
             this.calculationConfigurationTypePanel.Name = "calculationConfigurationTypePanel";
-            this.calculationConfigurationTypePanel.Size = new System.Drawing.Size(764, 35);
+            this.calculationConfigurationTypePanel.Size = new System.Drawing.Size(150, 35);
             this.calculationConfigurationTypePanel.TabIndex = 1;
-            //
+            // 
             // selectScenarioConfigurationTypeLabel
-            //
+            // 
             this.selectScenarioConfigurationTypeLabel.AutoSize = true;
             this.selectScenarioConfigurationTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(3, 0);
+            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(0, 0);
             this.selectScenarioConfigurationTypeLabel.Name = "selectScenarioConfigurationTypeLabel";
-            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(162, 355);
+            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(60, 13);
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
             this.selectScenarioConfigurationTypeLabel.Text = "Type toets:";
             this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -114,7 +116,7 @@ namespace Riskeer.Piping.Forms.Views
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(26, 13);
             this.label.TabIndex = 0;
-            this.label.Text = Riskeer.Common.Forms.Properties.Resources.Section_DisplayName;
+            this.label.Text = "Vak";
             // 
             // listBox
             // 
@@ -145,9 +147,9 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations.AutoSize = true;
             this.labelCalculations.Location = new System.Drawing.Point(3, 0);
             this.labelCalculations.Name = "labelCalculations";
-            this.labelCalculations.Size = new System.Drawing.Size(183, 13);
+            this.labelCalculations.Size = new System.Drawing.Size(182, 13);
             this.labelCalculations.TabIndex = 0;
-            this.labelCalculations.Text = Riskeer.Common.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_DisplayName;
+            this.labelCalculations.Text = "Berekeningen voor geselecteerd vak";
             // 
             // dataGridViewControl
             // 
@@ -159,22 +161,31 @@ namespace Riskeer.Piping.Forms.Views
             this.dataGridViewControl.Size = new System.Drawing.Size(183, 131);
             this.dataGridViewControl.TabIndex = 1;
             // 
+            // selectConfigurationTypeComboBox
+            // 
+            this.selectConfigurationTypeComboBox.FormattingEnabled = true;
+            this.selectConfigurationTypeComboBox.Location = new System.Drawing.Point(67, 0);
+            this.selectConfigurationTypeComboBox.Name = "selectConfigurationTypeComboBox";
+            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.selectConfigurationTypeComboBox.TabIndex = 3;
+            // 
             // PipingScenariosView
             // 
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.calculationConfigurationTypePanel);
             this.Name = "PipingScenariosView";
+            this.calculationConfigurationTypePanel.ResumeLayout(false);
+            this.calculationConfigurationTypePanel.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
-            this.calculationConfigurationTypePanel.ResumeLayout(false);
-            this.calculationConfigurationTypePanel.PerformLayout();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -188,5 +199,6 @@ namespace Riskeer.Piping.Forms.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        private System.Windows.Forms.ComboBox selectConfigurationTypeComboBox;
     }
 }
