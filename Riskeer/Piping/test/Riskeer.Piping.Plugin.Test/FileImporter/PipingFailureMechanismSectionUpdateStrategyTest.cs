@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Util.Extensions;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -47,38 +49,65 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void DoPostUpdateActions_Always_ClearsOutputAndNotifiesObservers()
+        public void UpdateSectionsWithImportedData_WithValidData_UpdatesDataAndReturnsAffectedObjects()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
-            mocks.ReplayAll();
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
+                failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
+            string sourcePath = TestHelper.GetScratchPadPath();
+            FailureMechanismSection[] sections =
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(sections.Single(), failureMechanism.Sections.Single());
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                failureMechanism,
+                failureMechanism.SectionResults,
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void DoPostUpdateActions_Always_ClearsOutputAndReturnsAffectedObjects()
+        {
+            // Setup
+            var calculation1 = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
+            };
+            var calculation2 = new ProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
+            };
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithIllustrationPoints()
-                },
-                new ProbabilisticPipingCalculationScenario
-                {
-                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
-                },
+                calculation1,
+                calculation2,
                 new ProbabilisticPipingCalculationScenario()
             });
-
-            failureMechanism.Calculations.ForEachElementDo(c => c.Attach(observer));
 
             var replaceStrategy = new PipingFailureMechanismSectionUpdateStrategy(failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
 
             // Call
-            replaceStrategy.DoPostUpdateActions();
+            IEnumerable<IObservable> affectedObjects = replaceStrategy.DoPostUpdateActions();
 
             // Assert
             Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
-            mocks.VerifyAll();
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedObjects);
         }
     }
 }
