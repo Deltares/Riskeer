@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -37,6 +38,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// </summary>
         /// <param name="importedFailureMechanismSections">The imported failure mechanism sections.</param>
         /// <param name="sourcePath">The source path from where the failure mechanism sections were imported.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="UpdateDataException">Thrown when:
         /// <list type="bullet">
@@ -44,12 +46,13 @@ namespace Riskeer.Common.IO.FileImporters
         /// <item><paramref name="importedFailureMechanismSections"/> contains sections that are not properly chained.</item>
         /// </list>
         /// </exception>
-        void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
-                                            string sourcePath);
+        IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
+                                                                string sourcePath);
 
         /// <summary>
         /// Perform post-update actions.
         /// </summary>
-        void DoPostUpdateActions();
+        /// <returns>An <see cref="IEnumerable{T}"/> of updated instances.</returns>
+        IEnumerable<IObservable> DoPostUpdateActions();
     }
 }
