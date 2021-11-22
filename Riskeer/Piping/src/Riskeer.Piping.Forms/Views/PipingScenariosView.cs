@@ -30,6 +30,7 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -79,8 +80,18 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void InitializeDataGridView()
         {
-            base.InitializeDataGridView();
-
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(PipingScenarioRow.IsRelevant),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_In_final_rating
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.Contribution),
+                RiskeerCommonFormsResources.ScenarioView_InitializeDataGridView_Contribution
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.Name),
+                RiskeerCommonFormsResources.ScenarioView_Name_DisplayName
+            );
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingScenarioRow.FailureProbabilityUplift),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift
@@ -92,6 +103,10 @@ namespace Riskeer.Piping.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingScenarioRow.FailureProbabilitySellmeijer),
                 Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.FailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_FailureProbability_DisplayName
             );
         }
     }
