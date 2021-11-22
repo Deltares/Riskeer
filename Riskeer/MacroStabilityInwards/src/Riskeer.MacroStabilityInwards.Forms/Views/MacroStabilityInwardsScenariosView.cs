@@ -27,7 +27,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
@@ -80,11 +79,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             );
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsScenarioRow.FailureProbability),
-                Resources.MacroStabilityInwardsScenarioView_FailureProbability_DisplayName
+                RiskeerCommonFormsResources.ScenarioView_ProfileFailureProbability_DisplayName
             );
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsScenarioRow.SectionFailureProbability),
-                Resources.MacroStabilityInwardsScenarioView_SectionFailureProbability_DisplayName
+                RiskeerCommonFormsResources.ScenarioView_SectionFailureProbability_DisplayName
             );
         }
     }

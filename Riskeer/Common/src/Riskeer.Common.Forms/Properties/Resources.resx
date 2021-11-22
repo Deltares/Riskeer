@@ -1580,4 +1580,12 @@ scenario
   <data name="MetaData_WaveHeight_TargetProbability_0" xml:space="preserve">
     <value>Hs - {0}</value>
   </data>
+  <data name="ScenarioView_ProfileFailureProbability_DisplayName" xml:space="preserve">
+    <value>Faalkans per doorsnede
+[1/jaar]</value>
+  </data>
+  <data name="ScenarioView_SectionFailureProbability_DisplayName" xml:space="preserve">
+    <value>Faalkans per vak
+[1/jaar]</value>
+  </data>
 </root>

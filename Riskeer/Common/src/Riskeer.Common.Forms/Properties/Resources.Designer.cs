@@ -3099,6 +3099,26 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkans per doorsnede
+        ///[1/jaar].
+        /// </summary>
+        public static string ScenarioView_ProfileFailureProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioView_ProfileFailureProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans per vak
+        ///[1/jaar].
+        /// </summary>
+        public static string ScenarioView_SectionFailureProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioView_SectionFailureProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vak.
         /// </summary>
         public static string Section_DisplayName {

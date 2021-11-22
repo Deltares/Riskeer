@@ -51,6 +51,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         private const int failureProbabilityHeaveColumnIndex = 4;
         private const int failureProbabilitySellmeijerColumnIndex = 5;
         private const int failureProbabilityPipingColumnIndex = 6;
+        private const int sectionFailureProbabilityPipingColumnIndex = 7;
         private Form testForm;
 
         [SetUp]
@@ -105,14 +106,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(7, dataGridView.ColumnCount);
+            Assert.AreEqual(8, dataGridView.ColumnCount);
             Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
             Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
             Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
             Assert.AreEqual("Kans op\r\nopbarsten\r\n[1/jaar]", dataGridView.Columns[failureProbabilityUpliftColumnIndex].HeaderText);
             Assert.AreEqual("Kans op\r\nheave\r\n[1/jaar]", dataGridView.Columns[failureProbabilityHeaveColumnIndex].HeaderText);
             Assert.AreEqual("Kans op\r\nterugschrijdende erosie\r\n[1/jaar]", dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].HeaderText);
-            Assert.AreEqual("Faalkans\r\n[1/jaar]", dataGridView.Columns[failureProbabilityPipingColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[failureProbabilityPipingColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionFailureProbabilityPipingColumnIndex].HeaderText);
         }
 
         [Test]
@@ -128,7 +130,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(2, rows.Count);
 
             DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(7, cells.Count);
+            Assert.AreEqual(8, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
@@ -136,9 +138,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
             Assert.AreEqual("-".ToString(CultureInfo.CurrentCulture), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
             Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
-            Assert.AreEqual(7, cells.Count);
+            Assert.AreEqual(8, cells.Count);
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
@@ -146,6 +149,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.038461838), cells[failureProbabilityHeaveColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(2.44140625e-4), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
         }
 
         private void ShowFullyConfiguredPipingScenariosView()

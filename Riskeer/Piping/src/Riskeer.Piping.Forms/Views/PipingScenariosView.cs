@@ -106,7 +106,11 @@ namespace Riskeer.Piping.Forms.Views
             );
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingScenarioRow.FailureProbability),
-                RiskeerCommonFormsResources.ScenarioView_FailureProbability_DisplayName
+                RiskeerCommonFormsResources.ScenarioView_ProfileFailureProbability_DisplayName
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(PipingScenarioRow.SectionFailureProbability),
+                RiskeerCommonFormsResources.ScenarioView_SectionFailureProbability_DisplayName
             );
         }
     }

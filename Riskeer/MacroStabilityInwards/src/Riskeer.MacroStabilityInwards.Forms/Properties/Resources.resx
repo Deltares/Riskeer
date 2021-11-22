@@ -722,12 +722,4 @@ waterspanning</value>
     <value>Totale
 waterspanning</value>
   </data>
-  <data name="MacroStabilityInwardsScenarioView_FailureProbability_DisplayName" xml:space="preserve">
-    <value>Faalkans per doorsnede
-[1/jaar]</value>
-  </data>
-  <data name="MacroStabilityInwardsScenarioView_SectionFailureProbability_DisplayName" xml:space="preserve">
-    <value>Faalkans per vak
-[1/jaar]</value>
-  </data>
 </root>
