@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -51,8 +52,8 @@ namespace Riskeer.Common.IO.FileImporters
             this.failurePath = failurePath;
         }
 
-        public void UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
-                                                   string sourcePath)
+        public virtual IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
+                                                                               string sourcePath)
         {
             if (importedFailureMechanismSections == null)
             {
@@ -64,19 +65,30 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
+            var affectedObjects = new List<IObservable>();
+
             try
             {
                 failurePath.SetSections(importedFailureMechanismSections, sourcePath);
+                affectedObjects.Add(failurePath);
             }
             catch (ArgumentException e)
             {
                 throw new UpdateDataException(e.Message, e);
             }
+
+            if (failurePath is IHasSectionResults<FailureMechanismSectionResult> hasSectionResults)
+            {
+                affectedObjects.Add(hasSectionResults.SectionResults);
+            }
+
+            return affectedObjects;
         }
 
-        public virtual void DoPostUpdateActions()
+        public virtual IEnumerable<IObservable> DoPostUpdateActions()
         {
             // Do nothing
+            yield break;
         }
     }
 }
