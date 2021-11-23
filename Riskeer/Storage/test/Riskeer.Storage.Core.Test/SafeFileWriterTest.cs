@@ -161,6 +161,38 @@ namespace Riskeer.Storage.Core.Test
         }
 
         [Test]
+        public void Perform_TargetFileReadOnly_ExpectedExceptionThrown()
+        {
+            // Setup
+            string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TargetFileReadOnly_ExpectedExceptionThrown));
+            string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
+
+            using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFileReadOnly_ExpectedExceptionThrown)))
+            using (new FileDisposeHelper(targetFilePath))
+            {
+                var fileInfo = new FileInfo(targetFilePath)
+                {
+                    IsReadOnly = true
+                };
+
+                try
+                {
+                    var writer = new SafeFileWriter(targetFilePath);
+
+                    // Call
+                    var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
+
+                    // Assert
+                    Assert.AreEqual("Onvoldoende rechten voor het schrijven van het doelbestand.", exception.Message);
+                }
+                finally
+                {
+                    fileInfo.IsReadOnly = false;
+                }
+            }
+        }
+
+        [Test]
         public void Perform_TargetFileInUse_ExpectedExceptionThrown()
         {
             // Setup
