@@ -67,19 +67,19 @@ namespace Riskeer.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            var assessmentSectionsOwner = new AssessmentSectionOwner();
+            var assessmentSectionOwner = new AssessmentSectionOwner();
 
             ActivityProgressDialogRunner.Run(viewParent,
-                                             LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(
-                                                 assessmentSectionsOwner, new LoadAssessmentSectionService(projectStorage),
+                                             LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(
+                                                 assessmentSectionOwner, new LoadAssessmentSectionService(projectStorage),
                                                  filePath));
 
-            if (assessmentSectionsOwner.AssessmentSection == null)
+            if (assessmentSectionOwner.AssessmentSection == null)
             {
                 throw new AssessmentSectionProviderException();
             }
 
-            return assessmentSectionsOwner.AssessmentSection;
+            return assessmentSectionOwner.AssessmentSection;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Service.Test.Merge
     public class LoadAssessmentSectionActivityFactoryTest
     {
         [Test]
-        public void CreateLoadAssessmentSectionsActivity_AssessmentSectionsOwnerNull_ThrowsArgumentNullException()
+        public void CreateLoadAssessmentSectionActivity_AssessmentSectionOwnerNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -42,29 +42,27 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(null, service, string.Empty);
+            void Call() => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(null, service, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("owner", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateLoadAssessmentSectionsActivity_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
+        public void CreateLoadAssessmentSectionActivity_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
-                                                                                                                null,
-                                                                                                                string.Empty);
+            void Call() => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(new AssessmentSectionOwner(), null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("loadAssessmentSectionService", exception.ParamName);
         }
 
         [Test]
-        public void CreateLoadAssessmentSectionsActivity_FilePathNull_ThrowsArgumentNullException()
+        public void CreateLoadAssessmentSectionActivity_FilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -72,18 +70,16 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionOwner(),
-                                                                                                                service,
-                                                                                                                null);
+            void Call() => LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(new AssessmentSectionOwner(), service, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CreateLoadAssessmentSectionsActivity_WithArguments_ReturnsActivityWithParametersSet()
+        public void CreateLoadAssessmentSectionActivity_WithArguments_ReturnsActivityWithParametersSet()
         {
             // Setup
             const string filePath = "File\\Path";
@@ -97,7 +93,7 @@ namespace Riskeer.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            Activity activity = LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionsActivity(owner, service, filePath);
+            Activity activity = LoadAssessmentSectionActivityFactory.CreateLoadAssessmentSectionActivity(owner, service, filePath);
 
             // Assert
             Assert.IsInstanceOf<LoadAssessmentSectionActivity>(activity);

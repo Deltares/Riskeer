@@ -41,9 +41,9 @@ namespace Riskeer.Integration.Service.Merge
         /// <param name="filePath">The file path to retrieve the <see cref="AssessmentSection"/> from.</param>
         /// <returns>The <see cref="Activity"/> to load <see cref="AssessmentSection"/> from a file.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
-        public static Activity CreateLoadAssessmentSectionsActivity(AssessmentSectionOwner owner,
-                                                                    ILoadAssessmentSectionService loadAssessmentSectionService,
-                                                                    string filePath)
+        public static Activity CreateLoadAssessmentSectionActivity(AssessmentSectionOwner owner,
+                                                                   ILoadAssessmentSectionService loadAssessmentSectionService,
+                                                                   string filePath)
         {
             if (owner == null)
             {
