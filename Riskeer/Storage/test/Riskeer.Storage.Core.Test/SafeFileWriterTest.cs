@@ -31,6 +31,7 @@ namespace Riskeer.Storage.Core.Test
     public class SafeFileWriterTest
     {
         private const string testContent = "Some test content";
+        private const string temporaryFileExtension = "corona";
 
         private readonly string testWorkDir = TestHelper.GetScratchPadPath(nameof(SafeFileWriterTest));
 
@@ -42,7 +43,7 @@ namespace Riskeer.Storage.Core.Test
         public void Constructor_InvalidTargetFilePath_ThrowsArgumentException(string targetFilePath)
         {
             // Call
-            void Call() => new SafeFileWriter(targetFilePath);
+            void Call() => new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -56,7 +57,7 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards));
             string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
-            string temporaryFilePath = targetFilePath + "~";
+            string temporaryFilePath = Path.ChangeExtension(targetFilePath, temporaryFileExtension);
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_ValidTargetFileContext_ExpectedTemporaryFileCreatedAndTargetFileContextRestoredAfterwards)))
             {
@@ -65,7 +66,7 @@ namespace Riskeer.Storage.Core.Test
                     File.WriteAllText(targetFilePath, testContent);
                 }
 
-                var writer = new SafeFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                 // Call
                 writer.Perform(() =>
@@ -88,7 +89,7 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown));
             string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
-            string temporaryFilePath = targetFilePath + "~";
+            string temporaryFilePath = Path.ChangeExtension(targetFilePath, temporaryFileExtension);
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_WriteActionThrowsException_TargetFileContextRestoredAndExpectedExceptionThrown)))
             {
@@ -98,7 +99,7 @@ namespace Riskeer.Storage.Core.Test
                 }
 
                 var exception = new Exception();
-                var writer = new SafeFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                 // Call
                 var actualException = Assert.Throws<Exception>(() => writer.Perform(() => throw exception));
@@ -129,7 +130,7 @@ namespace Riskeer.Storage.Core.Test
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TargetFilePathTooLong_ExpectedExceptionThrown)))
             {
-                var writer = new SafeFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -150,7 +151,7 @@ namespace Riskeer.Storage.Core.Test
             {
                 directoryDisposeHelper.LockDirectory(FileSystemRights.Write);
 
-                var writer = new SafeFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -177,7 +178,7 @@ namespace Riskeer.Storage.Core.Test
 
                 try
                 {
-                    var writer = new SafeFileWriter(targetFilePath);
+                    var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                     // Call
                     var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -204,7 +205,7 @@ namespace Riskeer.Storage.Core.Test
             {
                 fileDisposeHelper.LockFiles();
 
-                var writer = new SafeFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
@@ -222,7 +223,7 @@ namespace Riskeer.Storage.Core.Test
             // Setup
             string writableDirectory = Path.Combine(testWorkDir, nameof(Perform_TemporaryFileInUse_ExpectedExceptionThrown));
             string targetFilePath = Path.Combine(writableDirectory, "targetFile.txt");
-            string temporaryFilePath = targetFilePath + "~";
+            string temporaryFilePath = Path.ChangeExtension(targetFilePath, temporaryFileExtension);
 
             using (new DirectoryDisposeHelper(testWorkDir, nameof(Perform_TemporaryFileInUse_ExpectedExceptionThrown)))
             using (var fileDisposeHelper = new FileDisposeHelper(temporaryFilePath))
@@ -234,7 +235,7 @@ namespace Riskeer.Storage.Core.Test
                     File.WriteAllText(targetFilePath, testContent);
                 }
 
-                var writer = new SafeFileWriter(targetFilePath);
+                var writer = new SafeFileWriter(targetFilePath, temporaryFileExtension);
 
                 // Call
                 var exception = Assert.Throws<IOException>(() => writer.Perform(() => {}));
