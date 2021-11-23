@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.calculationConfigurationTypePanel = new System.Windows.Forms.Panel();
+            this.calculationConfigurationTypeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.selectScenarioConfigurationTypeLabel = new System.Windows.Forms.Label();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.calculationConfigurationTypePanel.SuspendLayout();
+            this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -55,26 +55,42 @@ namespace Riskeer.Piping.Forms.Views
             this.tableLayoutPanelDataGrid.SuspendLayout();
             this.SuspendLayout();
             // 
-            // calculationConfigurationTypePanel
+            // calculationConfigurationTypeTableLayoutPanel
             // 
-            this.calculationConfigurationTypePanel.Controls.Add(this.selectConfigurationTypeComboBox);
-            this.calculationConfigurationTypePanel.Controls.Add(this.selectScenarioConfigurationTypeLabel);
-            this.calculationConfigurationTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.calculationConfigurationTypePanel.Location = new System.Drawing.Point(0, 0);
-            this.calculationConfigurationTypePanel.Name = "calculationConfigurationTypePanel";
-            this.calculationConfigurationTypePanel.Size = new System.Drawing.Size(150, 35);
-            this.calculationConfigurationTypePanel.TabIndex = 1;
+            this.calculationConfigurationTypeTableLayoutPanel.ColumnCount = 3;
+            this.calculationConfigurationTypeTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.calculationConfigurationTypeTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.calculationConfigurationTypeTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.calculationConfigurationTypeTableLayoutPanel.Controls.Add(this.selectScenarioConfigurationTypeLabel, 0, 0);
+            this.calculationConfigurationTypeTableLayoutPanel.Controls.Add(this.selectConfigurationTypeComboBox, 1, 0);
+            this.calculationConfigurationTypeTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.calculationConfigurationTypeTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.calculationConfigurationTypeTableLayoutPanel.Name = "calculationConfigurationTypeTableLayoutPanel";
+            this.calculationConfigurationTypeTableLayoutPanel.RowCount = 1;
+            this.calculationConfigurationTypeTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.calculationConfigurationTypeTableLayoutPanel.Size = new System.Drawing.Size(150, 35);
+            this.calculationConfigurationTypeTableLayoutPanel.TabIndex = 1;
             // 
             // selectScenarioConfigurationTypeLabel
             // 
             this.selectScenarioConfigurationTypeLabel.AutoSize = true;
             this.selectScenarioConfigurationTypeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(0, 0);
+            this.selectScenarioConfigurationTypeLabel.Location = new System.Drawing.Point(3, 0);
             this.selectScenarioConfigurationTypeLabel.Name = "selectScenarioConfigurationTypeLabel";
-            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(60, 13);
+            this.selectScenarioConfigurationTypeLabel.Size = new System.Drawing.Size(60, 35);
             this.selectScenarioConfigurationTypeLabel.TabIndex = 2;
             this.selectScenarioConfigurationTypeLabel.Text = "Type toets:";
             this.selectScenarioConfigurationTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.selectScenarioConfigurationTypeLabel.Margin = new System.Windows.Forms.Padding(3);
+            // 
+            // selectConfigurationTypeComboBox
+            // 
+            this.selectConfigurationTypeComboBox.FormattingEnabled = true;
+            this.selectConfigurationTypeComboBox.Location = new System.Drawing.Point(75, 7);
+            this.selectConfigurationTypeComboBox.Name = "selectConfigurationTypeComboBox";
+            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(121, 35);
+            this.selectConfigurationTypeComboBox.TabIndex = 3;
+            this.selectConfigurationTypeComboBox.Margin = new System.Windows.Forms.Padding(7);
             // 
             // splitContainer
             // 
@@ -161,21 +177,13 @@ namespace Riskeer.Piping.Forms.Views
             this.dataGridViewControl.Size = new System.Drawing.Size(183, 131);
             this.dataGridViewControl.TabIndex = 1;
             // 
-            // selectConfigurationTypeComboBox
-            // 
-            this.selectConfigurationTypeComboBox.FormattingEnabled = true;
-            this.selectConfigurationTypeComboBox.Location = new System.Drawing.Point(67, 0);
-            this.selectConfigurationTypeComboBox.Name = "selectConfigurationTypeComboBox";
-            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(121, 21);
-            this.selectConfigurationTypeComboBox.TabIndex = 3;
-            // 
             // PipingScenariosView
             // 
             this.Controls.Add(this.splitContainer);
-            this.Controls.Add(this.calculationConfigurationTypePanel);
+            this.Controls.Add(this.calculationConfigurationTypeTableLayoutPanel);
             this.Name = "PipingScenariosView";
-            this.calculationConfigurationTypePanel.ResumeLayout(false);
-            this.calculationConfigurationTypePanel.PerformLayout();
+            this.calculationConfigurationTypeTableLayoutPanel.ResumeLayout(false);
+            this.calculationConfigurationTypeTableLayoutPanel.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -190,7 +198,7 @@ namespace Riskeer.Piping.Forms.Views
 
         #endregion
 
-        private System.Windows.Forms.Panel calculationConfigurationTypePanel;
+        private System.Windows.Forms.TableLayoutPanel calculationConfigurationTypeTableLayoutPanel;
         private System.Windows.Forms.Label selectScenarioConfigurationTypeLabel;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelListBox;
