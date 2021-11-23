@@ -53,6 +53,7 @@ namespace Riskeer.Piping.Forms.Views
         private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingInput> calculationInputObserver;
 
         private IEnumerable<PipingScenarioRow> scenarioRows;
+        private bool selectConfigurationTypeComboBoxUpdating;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosView"/>.
@@ -127,10 +128,12 @@ namespace Riskeer.Piping.Forms.Views
                                                                                             .ToArray();
 
             selectConfigurationTypeComboBox.BeginUpdate();
+            selectConfigurationTypeComboBoxUpdating = true;
             selectConfigurationTypeComboBox.DataSource = enumDisplayWrappers;
             selectConfigurationTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.Value);
             selectConfigurationTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.DisplayName);
             selectConfigurationTypeComboBox.SelectedValue = failureMechanism.ScenarioConfigurationType;
+            selectConfigurationTypeComboBoxUpdating = false;
             selectConfigurationTypeComboBox.EndUpdate();
         }
 
@@ -245,6 +248,16 @@ namespace Riskeer.Piping.Forms.Views
                                                                                          .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             return pipingCalculations.Select(pc => new PipingScenarioRow(pc, failureMechanism, failureMechanismSection, assessmentSection)).ToList();
+        }
+
+        private void SelectConfigurationTypeComboBox_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectConfigurationTypeComboBoxUpdating || selectConfigurationTypeComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
         }
     }
 }

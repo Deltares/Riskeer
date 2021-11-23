@@ -92,6 +92,7 @@ namespace Riskeer.Piping.Forms.Views
             this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(140, 35);
             this.selectConfigurationTypeComboBox.TabIndex = 3;
             this.selectConfigurationTypeComboBox.Margin = new System.Windows.Forms.Padding(7);
+            this.selectConfigurationTypeComboBox.SelectedIndexChanged += SelectConfigurationTypeComboBox_OnSelectedIndexChanged;
             // 
             // splitContainer
             // 

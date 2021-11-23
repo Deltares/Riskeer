@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -253,6 +254,26 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.44140625e-4), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataSet()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            ShowPipingScenariosView(failureMechanism);
+
+            var comboBox = (ComboBox) new ComboBoxTester("selectConfigurationTypeComboBox").TheObject;
+            
+            // Precondition
+            Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
+            
+            // When
+            var newValue = new Random(21).NextEnumValue<PipingScenarioConfigurationType>();
+            comboBox.SelectedValue = newValue;
+            
+            // Then
+            Assert.AreEqual(newValue, failureMechanism.ScenarioConfigurationType);
         }
 
         [Test]
