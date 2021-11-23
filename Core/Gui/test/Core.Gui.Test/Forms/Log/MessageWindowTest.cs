@@ -446,6 +446,34 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
+        public void ButtonCopy_MessagesSelectedOnKeyDownEvent_CopiesContentToClipboard()
+        {
+            // Setup
+            using (var form = new Form())
+            using (new ClipboardConfig())
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
+                messageWindow.Refresh();
+
+                var gridView = new ControlTester("messagesDataGridView");
+                const Keys keyData = Keys.Control | Keys.C;
+
+                // Call
+                gridView.FireEvent("KeyDown", new KeyEventArgs(keyData));
+
+                // Assert
+                IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
+                Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
+                var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
+                Assert.AreEqual("WARN\tmessage\t00:00:00", actualContent);
+            }
+        }
+        
+        [Test]
         public void ButtonShowInfo_ButtonUnchecked_FiltersInfoMessages()
         {
             // Setup

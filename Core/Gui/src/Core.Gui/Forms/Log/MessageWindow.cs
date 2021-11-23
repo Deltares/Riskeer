@@ -42,9 +42,6 @@ namespace Core.Gui.Forms.Log
     /// </summary>
     public partial class MessageWindow : UserControl, IMessageWindow
     {
-        private const string errorLevelUnicode = "\uE90B";
-        private const string warningLevelUnicode = "\uE90A";
-        private const string informationLevelUnicode = "\uE909";
         private const string debugLevelUnicode = "\uE90C";
 
         private static readonly Color errorLevelColor = Color.Red;
@@ -77,16 +74,16 @@ namespace Core.Gui.Forms.Log
             // order is the same as in log4j Level (check sources of log4net)
             levelUnicodeLookup = new Dictionary<string, Tuple<string, Color>>
             {
-                [Level.Off.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Emergency.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Fatal.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Alert.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Critical.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Severe.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Error.ToString()] = new Tuple<string, Color>(errorLevelUnicode, errorLevelColor),
-                [Level.Warn.ToString()] = new Tuple<string, Color>(warningLevelUnicode, warningLevelColor),
-                [Level.Notice.ToString()] = new Tuple<string, Color>(warningLevelUnicode, warningLevelColor),
-                [Level.Info.ToString()] = new Tuple<string, Color>(informationLevelUnicode, informationLevelColor),
+                [Level.Off.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Emergency.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Fatal.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Alert.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Critical.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Severe.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Error.ToString()] = new Tuple<string, Color>(buttonShowError.Text, errorLevelColor),
+                [Level.Warn.ToString()] = new Tuple<string, Color>(buttonShowWarning.Text, warningLevelColor),
+                [Level.Notice.ToString()] = new Tuple<string, Color>(buttonShowWarning.Text, warningLevelColor),
+                [Level.Info.ToString()] = new Tuple<string, Color>(buttonShowInfo.Text, informationLevelColor),
                 [Level.Debug.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
                 [Level.Fine.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
                 [Level.Trace.ToString()] = new Tuple<string, Color>(debugLevelUnicode, debugLevelColor),
@@ -322,6 +319,12 @@ namespace Core.Gui.Forms.Log
             {
                 ShowMessageWindowDialog();
 
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.C)
+            {
+                ButtonCopyClick(sender, e);
                 e.Handled = true;
             }
         }

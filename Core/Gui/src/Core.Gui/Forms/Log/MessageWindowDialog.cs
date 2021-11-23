@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
@@ -36,6 +37,7 @@ namespace Core.Gui.Forms.Log
         /// <param name="dialogParent">The owner of the dialog, for which this should show on top.</param>
         /// <param name="dialogIcon">The icon of the dialog.</param>
         /// <param name="text">The text to show in the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
         public MessageWindowDialog(IWin32Window dialogParent, Bitmap dialogIcon, string text)
             : base(dialogParent, dialogIcon, 200, 150)
         {

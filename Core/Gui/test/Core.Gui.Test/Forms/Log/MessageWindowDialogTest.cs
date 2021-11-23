@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Core.Gui.Forms.Log;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -44,8 +45,9 @@ namespace Core.Gui.Test.Forms.Log
             var dialog = new MessageWindowDialog(parent, new Bitmap(16, 16), testText);
 
             // Assert
+            Assert.IsInstanceOf<DialogBase>(dialog);
+            
             var textBox = (TextBox) dialog.Controls.Find("textBox", true)[0];
-
             Assert.AreEqual(testText, textBox.Text);
             Assert.IsFalse(textBox.TabStop);
             Assert.IsTrue(textBox.ReadOnly);
