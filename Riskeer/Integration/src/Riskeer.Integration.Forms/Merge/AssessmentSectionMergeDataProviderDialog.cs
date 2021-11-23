@@ -100,8 +100,7 @@ namespace Riskeer.Integration.Forms.Merge
                 };
                 constructionProperties.MergeSpecificFailurePaths.AddRange(GetSelectedSpecificFailurePathsToMerge());
 
-                return new AssessmentSectionMergeData(assessmentSection,
-                                                      constructionProperties);
+                return new AssessmentSectionMergeData(assessmentSection, constructionProperties);
             }
 
             return null;
