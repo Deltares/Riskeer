@@ -35,8 +35,6 @@ namespace Riskeer.Storage.Core
     /// </summary>
     public class SafeFileWriter
     {
-        private const string temporaryFileSuffix = "~";
-
         private readonly string targetFilePath;
         private readonly string temporaryFilePath;
         private FileStream temporaryFileStream;
@@ -46,13 +44,14 @@ namespace Riskeer.Storage.Core
         /// Creates an instance of <see cref="SafeFileWriter"/>.
         /// </summary>
         /// <param name="targetFilePath">The path of the file which will be (over)written.</param>
+        /// <param name="temporaryFileExtension">The extension the temporary file should get.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="targetFilePath"/> is not a valid path.</exception>
-        public SafeFileWriter(string targetFilePath)
+        public SafeFileWriter(string targetFilePath, string temporaryFileExtension)
         {
             IOUtils.ValidateFilePath(targetFilePath);
 
             this.targetFilePath = targetFilePath;
-            temporaryFilePath = targetFilePath + temporaryFileSuffix;
+            temporaryFilePath = Path.ChangeExtension(targetFilePath, temporaryFileExtension);
         }
 
         /// <summary>
