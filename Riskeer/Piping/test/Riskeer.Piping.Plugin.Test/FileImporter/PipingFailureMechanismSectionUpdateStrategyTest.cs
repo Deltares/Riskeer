@@ -25,11 +25,13 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Plugin.FileImporter;
 
@@ -116,7 +118,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void DoPostUpdateActions_Always_ClearsOutputAndReturnsAffectedObjects()
+        public void DoPostUpdateActions_Always_ClearsAllProbabilisticOutputAndReturnsAffectedObjects()
         {
             // Setup
             var calculation1 = new ProbabilisticPipingCalculationScenario
@@ -127,12 +129,17 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             {
                 Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
             };
+            var calculation3 = new SemiProbabilisticPipingCalculationScenario
+            {
+                Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(double.NaN, double.NaN, double.NaN)
+            };
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            failureMechanism.CalculationsGroup.Children.AddRange(new ICalculation[]
             {
                 calculation1,
                 calculation2,
+                calculation3,
                 new ProbabilisticPipingCalculationScenario()
             });
 
@@ -142,7 +149,9 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             IEnumerable<IObservable> affectedObjects = replaceStrategy.DoPostUpdateActions();
 
             // Assert
-            Assert.IsTrue(failureMechanism.Calculations.All(c => !c.HasOutput));
+            Assert.IsFalse(calculation1.HasOutput);
+            Assert.IsFalse(calculation2.HasOutput);
+            Assert.IsTrue(calculation3.HasOutput);
             CollectionAssert.AreEqual(new[]
             {
                 calculation1,
