@@ -113,6 +113,8 @@ namespace Riskeer.Storage.Core
                 {
                     isTemporaryFileEmpty = false;
 
+                    ThrowWhenTargetFileIsReadonly();
+
                     File.Move(targetFilePath, temporaryFilePath);
 
                     temporaryFileStream = File.Open(temporaryFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read);
@@ -152,6 +154,11 @@ namespace Riskeer.Storage.Core
             temporaryFileStream.Close();
 
             File.Delete(temporaryFilePath);
+        }
+
+        private void ThrowWhenTargetFileIsReadonly()
+        {
+            using (File.Open(targetFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read)) {}
         }
     }
 }
