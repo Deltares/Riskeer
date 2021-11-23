@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Service.Merge
             this.loadAssessmentSectionService = loadAssessmentSectionService;
             this.filePath = filePath;
 
-            Description = Resources.LoadAssessmentSectionsActivity_Description;
+            Description = Resources.LoadAssessmentSectionActivity_Description;
         }
 
         protected override void OnRun()

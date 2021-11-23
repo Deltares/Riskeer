@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -84,9 +84,9 @@ namespace Riskeer.Integration.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Inlezen van project.
         /// </summary>
-        internal static string LoadAssessmentSectionsActivity_Description {
+        internal static string LoadAssessmentSectionActivity_Description {
             get {
-                return ResourceManager.GetString("LoadAssessmentSectionsActivity_Description", resourceCulture);
+                return ResourceManager.GetString("LoadAssessmentSectionActivity_Description", resourceCulture);
             }
         }
     }

@@ -25,7 +25,7 @@ using Riskeer.Integration.Data.Merge;
 namespace Riskeer.Integration.Data.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionsOwnerTest
+    public class AssessmentSectionOwnerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
