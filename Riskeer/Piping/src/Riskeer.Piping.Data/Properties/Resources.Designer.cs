@@ -127,6 +127,33 @@ namespace Riskeer.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Per vak instelbaar.
+        /// </summary>
+        public static string PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Probabilistisch.
+        /// </summary>
+        public static string Probabilistic_DisplayName {
+            get {
+                return ResourceManager.GetString("Probabilistic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistisch.
+        /// </summary>
+        public static string SemiProbabilistic_DisplayName {
+            get {
+                return ResourceManager.GetString("SemiProbabilistic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to naam.
         /// </summary>
         public static string UniqueFeature_Name_FeatureDescription {

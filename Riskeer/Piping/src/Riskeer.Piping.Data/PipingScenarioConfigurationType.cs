@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Riskeer.Piping.Data.Properties;
+
 namespace Riskeer.Piping.Data
 {
     /// <summary>
@@ -29,16 +32,19 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// The semi probabilistic scenario configuration type.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SemiProbabilistic_DisplayName))]
         SemiProbabilistic = 1,
         
         /// <summary>
         /// The probabilistic scenario configuration type.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistic_DisplayName))]
         Probabilistic = 2,
         
         /// <summary>
         /// The per failure mechanism section scenario configuration type.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName))]
         PerFailureMechanismSection = 3
     }
 }

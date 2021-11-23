@@ -41,6 +41,7 @@ using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using RiskeerPipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -128,10 +129,10 @@ namespace Riskeer.Piping.Forms.Views
             switch (calculation)
             {
                 case SemiProbabilisticPipingCalculationScenario _:
-                    calculationType = Resources.PipingCalculationsView_CreateRow_Calculation_type_semi_probabilistic;
+                    calculationType = RiskeerPipingDataResources.SemiProbabilistic_DisplayName;
                     break;
                 case ProbabilisticPipingCalculationScenario _:
-                    calculationType = Resources.PipingCalculationsView_CreateRow_Calculation_type_probabilistic;
+                    calculationType = RiskeerPipingDataResources.Probabilistic_DisplayName;
                     break;
                 default:
                     throw new NotSupportedException();

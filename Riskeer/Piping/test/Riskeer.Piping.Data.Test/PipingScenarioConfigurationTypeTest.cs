@@ -26,8 +26,22 @@ using NUnit.Framework;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingScenarioConfigurationTypeTest : EnumValuesTestFixture<PipingScenarioConfigurationType, int>
+    public class PipingScenarioConfigurationTypeTest : EnumWithResourcesDisplayNameTestFixture<PipingScenarioConfigurationType>
     {
+        protected override IDictionary<PipingScenarioConfigurationType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<PipingScenarioConfigurationType, string>
+            {
+                {
+                    PipingScenarioConfigurationType.SemiProbabilistic, "Semi-probabilistisch"
+                },
+                {
+                    PipingScenarioConfigurationType.Probabilistic, "Probabilistisch"
+                },
+                {
+                    PipingScenarioConfigurationType.PerFailureMechanismSection, "Per vak instelbaar"
+                }
+            };
+
         protected override IDictionary<PipingScenarioConfigurationType, int> ExpectedValueForEnumValues =>
             new Dictionary<PipingScenarioConfigurationType, int>
             {
