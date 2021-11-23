@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -88,6 +89,8 @@ namespace Riskeer.Piping.Forms.Views
 
             InitializeComponent();
 
+            InitializeCombobox();
+
             InitializeListBox();
             InitializeDataGridView();
 
@@ -114,6 +117,21 @@ namespace Riskeer.Piping.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void InitializeCombobox()
+        {
+            EnumDisplayWrapper<PipingScenarioConfigurationType>[] enumDisplayWrappers = Enum.GetValues(typeof(PipingScenarioConfigurationType))
+                                                                                            .OfType<PipingScenarioConfigurationType>()
+                                                                                            .Select(ev => new EnumDisplayWrapper<PipingScenarioConfigurationType>(ev))
+                                                                                            .ToArray();
+
+            selectConfigurationTypeComboBox.BeginUpdate();
+            selectConfigurationTypeComboBox.DataSource = enumDisplayWrappers;
+            selectConfigurationTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.Value);
+            selectConfigurationTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.DisplayName);
+            selectConfigurationTypeComboBox.SelectedValue = failureMechanism.ScenarioConfigurationType;
+            selectConfigurationTypeComboBox.EndUpdate();
         }
 
         private void InitializeObservers()

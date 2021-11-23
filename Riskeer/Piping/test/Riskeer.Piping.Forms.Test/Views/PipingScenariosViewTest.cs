@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
+using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -174,6 +175,30 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
+        }
+
+        [Test]
+        public void Constructor_ComboBoxCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var comboBox = (ComboBox) new ComboBoxTester("selectConfigurationTypeComboBox").TheObject;
+            Assert.AreEqual(nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.DisplayName), comboBox.DisplayMember);
+            Assert.AreEqual(nameof(EnumDisplayWrapper<PipingScenarioConfigurationType>.Value), comboBox.ValueMember);
+            Assert.IsInstanceOf<EnumDisplayWrapper<PipingScenarioConfigurationType>>(comboBox.SelectedItem);
+
+            var configurationTypes = (EnumDisplayWrapper<PipingScenarioConfigurationType>[]) comboBox.DataSource;
+            Assert.AreEqual(3, configurationTypes.Length);
+            Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, configurationTypes[0].Value);
+            Assert.AreEqual(PipingScenarioConfigurationType.Probabilistic, configurationTypes[1].Value);
+            Assert.AreEqual(PipingScenarioConfigurationType.PerFailureMechanismSection, configurationTypes[2].Value);
+            Assert.AreEqual(failureMechanism.ScenarioConfigurationType,
+                            ((EnumDisplayWrapper<PipingScenarioConfigurationType>) comboBox.SelectedItem).Value);
         }
 
         [Test]

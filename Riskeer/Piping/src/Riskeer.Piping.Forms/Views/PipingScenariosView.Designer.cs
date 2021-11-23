@@ -85,10 +85,11 @@ namespace Riskeer.Piping.Forms.Views
             // 
             // selectConfigurationTypeComboBox
             // 
+            this.selectConfigurationTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.selectConfigurationTypeComboBox.FormattingEnabled = true;
             this.selectConfigurationTypeComboBox.Location = new System.Drawing.Point(75, 7);
             this.selectConfigurationTypeComboBox.Name = "selectConfigurationTypeComboBox";
-            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(121, 35);
+            this.selectConfigurationTypeComboBox.Size = new System.Drawing.Size(140, 35);
             this.selectConfigurationTypeComboBox.TabIndex = 3;
             this.selectConfigurationTypeComboBox.Margin = new System.Windows.Forms.Padding(7);
             // 
