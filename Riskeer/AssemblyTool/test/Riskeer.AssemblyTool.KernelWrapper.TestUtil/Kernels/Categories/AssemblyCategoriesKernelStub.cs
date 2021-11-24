@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Interfaces;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.CategoryLimits;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Interfaces;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.CategoryLimits;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 {

@@ -21,9 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Interfaces;
-using Assembly.Kernel.Model;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Interfaces;
+using Assembly.Kernel.Old.Model;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
@@ -101,8 +101,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FmSectionWithDirectCategory> DeterminCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
-                                                                                                     bool partialAssembly)
+        public IEnumerable<FmSectionWithDirectCategory> DetermineCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults, bool partialAssembly)
         {
             throw new NotImplementedException();
         }

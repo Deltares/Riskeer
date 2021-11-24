@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Interfaces;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.CategoryLimits;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Interfaces;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.CategoryLimits;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;

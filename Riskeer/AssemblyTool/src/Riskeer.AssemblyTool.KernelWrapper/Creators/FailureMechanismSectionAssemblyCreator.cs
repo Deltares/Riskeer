@@ -21,7 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators

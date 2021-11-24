@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Assembly.Kernel.Model;
+using Assembly.Kernel.Old.Model;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 

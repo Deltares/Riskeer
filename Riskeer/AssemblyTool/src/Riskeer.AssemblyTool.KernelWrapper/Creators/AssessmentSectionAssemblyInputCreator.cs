@@ -21,9 +21,9 @@
 
 using System;
 using System.ComponentModel;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Interfaces;
-using Assembly.Kernel.Model;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Interfaces;
+using Assembly.Kernel.Old.Model;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators

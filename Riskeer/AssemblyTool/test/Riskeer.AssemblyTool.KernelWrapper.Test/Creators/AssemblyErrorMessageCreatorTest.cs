@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Old.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;

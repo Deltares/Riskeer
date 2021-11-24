@@ -20,17 +20,17 @@
 // All rights reserved.
 
 using System;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Interfaces;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.AssessmentResultTypes;
-using Assembly.Kernel.Model.CategoryLimits;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Interfaces;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.AssessmentResultTypes;
+using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Primitives;
-using IFailureMechanismSectionAssemblyCalculatorKernel = Assembly.Kernel.Interfaces.IAssessmentResultsTranslator;
+using IFailureMechanismSectionAssemblyCalculatorKernel = Assembly.Kernel.Old.Interfaces.IAssessmentResultsTranslator;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {

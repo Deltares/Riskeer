@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.CategoryLimits;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil

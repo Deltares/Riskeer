@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Assembly.Kernel.Model;
+using Assembly.Kernel.Old.Model;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;

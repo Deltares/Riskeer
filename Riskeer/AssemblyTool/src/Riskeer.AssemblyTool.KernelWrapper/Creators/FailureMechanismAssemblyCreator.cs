@@ -21,7 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using Assembly.Kernel.Model;
+using Assembly.Kernel.Old.Model;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators

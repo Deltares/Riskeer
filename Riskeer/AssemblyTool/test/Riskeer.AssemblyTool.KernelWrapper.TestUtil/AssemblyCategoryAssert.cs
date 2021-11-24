@@ -22,9 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.CategoryLimits;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 

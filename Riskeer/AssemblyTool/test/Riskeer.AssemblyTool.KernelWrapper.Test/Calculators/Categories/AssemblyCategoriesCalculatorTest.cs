@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Model.CategoryLimits;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Model.CategoryLimits;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;

@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;

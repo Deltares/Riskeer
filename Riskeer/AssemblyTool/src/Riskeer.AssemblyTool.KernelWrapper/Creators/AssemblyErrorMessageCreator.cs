@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Old.Exceptions;
 using Riskeer.AssemblyTool.KernelWrapper.Properties;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators

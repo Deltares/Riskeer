@@ -23,8 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.CategoryLimits;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.CategoryLimits;
 using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators

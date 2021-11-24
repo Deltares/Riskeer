@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.AssessmentResultTypes;
-using Assembly.Kernel.Model.FmSectionTypes;
+using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Old.Model.AssessmentResultTypes;
+using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;

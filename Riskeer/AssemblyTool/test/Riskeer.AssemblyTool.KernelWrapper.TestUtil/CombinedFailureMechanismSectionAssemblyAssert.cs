@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Model;
+using Assembly.Kernel.Old.Model;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 

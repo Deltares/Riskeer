@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Assembly.Kernel.Implementations;
-using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Old.Implementations;
+using Assembly.Kernel.Old.Interfaces;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;

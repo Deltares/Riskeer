@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Old.Interfaces;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
 {
