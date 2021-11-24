@@ -59,7 +59,8 @@
               : using a System.ComponentModel.TypeConverter
               : and then encoded with base64 encoding.
       -->
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
         <xsd:element name="root" msdata:IsDataSet="true">
@@ -272,8 +273,11 @@
     <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-    <data name="tableLayoutPanelForLabel.ColumnCount" type="System.Int32, mscorlib">
-        <value>2</value>
+    <data name="tableLayoutPanelForForm.AutoSize" type="System.Boolean, mscorlib">
+        <value>True</value>
+    </data>
+    <data name="tableLayoutPanelForForm.ColumnCount" type="System.Int32, mscorlib">
+        <value>1</value>
     </data>
     <data name="failureMechanismSelectLabel.AutoSize" type="System.Boolean, mscorlib">
         <value>True</value>
@@ -285,7 +289,7 @@
         <value>NoControl</value>
     </data>
     <data name="failureMechanismSelectLabel.Location" type="System.Drawing.Point, System.Drawing">
-        <value>3, 11</value>
+        <value>0, 11</value>
     </data>
     <data name="failureMechanismSelectLabel.Size" type="System.Drawing.Size, System.Drawing">
         <value>113, 13</value>
@@ -306,51 +310,35 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
     <data name="&gt;&gt;failureMechanismSelectLabel.Parent" xml:space="preserve">
-    <value>tableLayoutPanelForLabel</value>
+    <value>panelForLabel</value>
   </data>
     <data name="&gt;&gt;failureMechanismSelectLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-    <data name="tableLayoutPanelForLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <data name="panelForLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
         <value>Fill</value>
     </data>
-    <data name="tableLayoutPanelForLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <data name="panelForLabel.Location" type="System.Drawing.Point, System.Drawing">
         <value>3, 3</value>
     </data>
-    <data name="tableLayoutPanelForLabel.RowCount" type="System.Int32, mscorlib">
-        <value>1</value>
-    </data>
-    <data name="tableLayoutPanelForLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <data name="panelForLabel.Size" type="System.Drawing.Size, System.Drawing">
         <value>478, 24</value>
     </data>
-    <data name="tableLayoutPanelForLabel.TabIndex" type="System.Int32, mscorlib">
-        <value>1</value>
+    <data name="panelForLabel.TabIndex" type="System.Int32, mscorlib">
+        <value>0</value>
     </data>
-    <data name="&gt;&gt;tableLayoutPanelForLabel.Name" xml:space="preserve">
-    <value>tableLayoutPanelForLabel</value>
+    <data name="&gt;&gt;panelForLabel.Name" xml:space="preserve">
+    <value>panelForLabel</value>
   </data>
-    <data name="&gt;&gt;tableLayoutPanelForLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <data name="&gt;&gt;panelForLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-    <data name="&gt;&gt;tableLayoutPanelForLabel.Parent" xml:space="preserve">
+    <data name="&gt;&gt;panelForLabel.Parent" xml:space="preserve">
     <value>tableLayoutPanelForForm</value>
   </data>
-    <data name="&gt;&gt;tableLayoutPanelForLabel.ZOrder" xml:space="preserve">
+    <data name="&gt;&gt;panelForLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-    <data name="tableLayoutPanelForLabel.LayoutSettings"
-          type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-        <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control
-            Name="failureMechanismSelectLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns
-            Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;
-        </value>
-    </data>
-    <data name="tableLayoutPanelForForm.AutoSize" type="System.Boolean, mscorlib">
-        <value>True</value>
-    </data>
-    <data name="tableLayoutPanelForForm.ColumnCount" type="System.Int32, mscorlib">
-        <value>1</value>
-    </data>
     <data name="tableLayoutPanelForForm.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
         <value>Fill</value>
     </data>
@@ -381,7 +369,7 @@
     <data name="tableLayoutPanelForForm.LayoutSettings"
           type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
         <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control
-            Name="tableLayoutPanelForLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control
+            Name="panelForLabel" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control
             Name="dataGridViewControl" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control
             Name="flowLayoutPanelButtons" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns
             Styles="Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,Absolute,30,Percent,100,AutoSize,0" /&gt;&lt;/TableLayoutSettings&gt;

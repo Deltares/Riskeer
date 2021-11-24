@@ -59,13 +59,13 @@ namespace Riskeer.Integration.Forms.Merge
             this.importButton = new System.Windows.Forms.Button();
             this.infoIcon = new System.Windows.Forms.PictureBox();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.tableLayoutPanelForLabel = new System.Windows.Forms.TableLayoutPanel();
-            this.failureMechanismSelectLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanelForForm = new System.Windows.Forms.TableLayoutPanel();
+            this.panelForLabel = new System.Windows.Forms.Panel();
+            this.failureMechanismSelectLabel = new System.Windows.Forms.Label();
             this.flowLayoutPanelButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.infoIcon)).BeginInit();
-            this.tableLayoutPanelForLabel.SuspendLayout();
             this.tableLayoutPanelForForm.SuspendLayout();
+            this.panelForLabel.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip
@@ -109,24 +109,24 @@ namespace Riskeer.Integration.Forms.Merge
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
-            // tableLayoutPanelForLabel
+            // tableLayoutPanelForForm
             // 
-            resources.ApplyResources(this.tableLayoutPanelForLabel, "tableLayoutPanelForLabel");
-            this.tableLayoutPanelForLabel.Controls.Add(this.failureMechanismSelectLabel, 0, 0);
-            this.tableLayoutPanelForLabel.Name = "tableLayoutPanelForLabel";
+            resources.ApplyResources(this.tableLayoutPanelForForm, "tableLayoutPanelForForm");
+            this.tableLayoutPanelForForm.Controls.Add(this.panelForLabel, 0, 1);
+            this.tableLayoutPanelForForm.Controls.Add(this.dataGridViewControl, 0, 2);
+            this.tableLayoutPanelForForm.Controls.Add(this.flowLayoutPanelButtons, 0, 3);
+            this.tableLayoutPanelForForm.Name = "tableLayoutPanelForForm";
+            // 
+            // panelForLabel
+            // 
+            this.panelForLabel.Controls.Add(this.failureMechanismSelectLabel);
+            resources.ApplyResources(this.panelForLabel, "panelForLabel");
+            this.panelForLabel.Name = "panelForLabel";
             // 
             // failureMechanismSelectLabel
             // 
             resources.ApplyResources(this.failureMechanismSelectLabel, "failureMechanismSelectLabel");
             this.failureMechanismSelectLabel.Name = "failureMechanismSelectLabel";
-            // 
-            // tableLayoutPanelForForm
-            // 
-            resources.ApplyResources(this.tableLayoutPanelForForm, "tableLayoutPanelForForm");
-            this.tableLayoutPanelForForm.Controls.Add(this.tableLayoutPanelForLabel, 0, 1);
-            this.tableLayoutPanelForForm.Controls.Add(this.dataGridViewControl, 0, 2);
-            this.tableLayoutPanelForForm.Controls.Add(this.flowLayoutPanelButtons, 0, 3);
-            this.tableLayoutPanelForForm.Name = "tableLayoutPanelForForm";
             // 
             // AssessmentSectionMergeDataProviderDialog
             // 
@@ -136,10 +136,10 @@ namespace Riskeer.Integration.Forms.Merge
             this.Name = "AssessmentSectionMergeDataProviderDialog";
             this.flowLayoutPanelButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.infoIcon)).EndInit();
-            this.tableLayoutPanelForLabel.ResumeLayout(false);
-            this.tableLayoutPanelForLabel.PerformLayout();
             this.tableLayoutPanelForForm.ResumeLayout(false);
             this.tableLayoutPanelForForm.PerformLayout();
+            this.panelForLabel.ResumeLayout(false);
+            this.panelForLabel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Forms.Merge
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelForForm;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelForLabel;
+        private System.Windows.Forms.Panel panelForLabel;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.PictureBox infoIcon;
         private System.Windows.Forms.Label failureMechanismSelectLabel;

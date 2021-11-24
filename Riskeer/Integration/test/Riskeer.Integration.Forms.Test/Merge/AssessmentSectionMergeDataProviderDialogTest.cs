@@ -106,10 +106,8 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.AreEqual(1, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(4, tableLayoutPanel.RowCount);
 
-                var tableLayoutPanelForLabels = (TableLayoutPanel) tableLayoutPanel.GetControlFromPosition(0, 1);
-                Assert.AreEqual(2, tableLayoutPanelForLabels.ColumnCount);
-                Assert.AreEqual(1, tableLayoutPanelForLabels.RowCount);
-                var failureMechanismSelectionLabel = (Label) tableLayoutPanelForLabels.GetControlFromPosition(0, 0);
+                var panelForLabels = (Panel) tableLayoutPanel.GetControlFromPosition(0, 1);
+                var failureMechanismSelectionLabel = (Label) panelForLabels.Controls[0];
                 Assert.AreEqual("Selecteer toetssporen:", failureMechanismSelectionLabel.Text);
 
                 Assert.IsInstanceOf<DataGridViewControl>(tableLayoutPanel.GetControlFromPosition(0, 2));
@@ -258,7 +256,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void GivenValidDialog_WhenGetMergeDataCalledAndOnlyAssessmentSectionSelectedAndImportPressed_ThenReturnsSelectedData()
+        public void GivenValidDialog_WhenGetMergeDataCalledAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
