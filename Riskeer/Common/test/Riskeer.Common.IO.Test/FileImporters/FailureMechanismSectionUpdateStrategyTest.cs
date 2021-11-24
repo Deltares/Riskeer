@@ -264,11 +264,14 @@ namespace Riskeer.Common.IO.Test.FileImporters
         public void DoPostUpdateActions_Always_ReturnsEmptyCollection()
         {
             // Setup
-            var failureMechanism = new TestFailurePath();
-            var failureMechanismSectionReplaceStrategy = new FailureMechanismSectionReplaceStrategy(failureMechanism);
+            var failureMechanism = new TestFailureMechanism();
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(
+                failureMechanism, sectionResultUpdateStrategy);
 
             // Call
-            IEnumerable<IObservable> affectedObjects = failureMechanismSectionReplaceStrategy.DoPostUpdateActions();
+            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.DoPostUpdateActions();
 
             // Assert
             CollectionAssert.IsEmpty(affectedObjects);
