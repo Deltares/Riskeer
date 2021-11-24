@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
 
             // Assert
             Assert.IsInstanceOf<AssemblyToolKernelFactory>(factory);
@@ -44,11 +44,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void Instance_WhenSetToNull_ReturnsNewInstance()
         {
             // Setup
-            IAssemblyToolKernelFactory firstFactory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld firstFactory = AssemblyToolKernelFactory.Instance;
             AssemblyToolKernelFactory.Instance = null;
 
             // Call
-            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld secondFactory = AssemblyToolKernelFactory.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
             AssemblyToolKernelFactory.Instance = firstFactory;
 
             // Call
-            IAssemblyToolKernelFactory secondFactory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld secondFactory = AssemblyToolKernelFactory.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoryLimitsCalculator()
         {
             // Setup
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
 
             // Call
             ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
@@ -85,7 +85,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelAssessmentResultsTranslator()
         {
             // Setup
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
 
             // Call
             IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
@@ -98,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismResultAssembler()
         {
             // Setup
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
 
             // Call
             IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
@@ -111,7 +111,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateAssessmentSectionAssemblyKernel_Always_ReturnsKernelAssessmentGradeAssembler()
         {
             // Setup
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
 
             // Call
             IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
@@ -124,7 +124,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateCombinedFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelCommonFailureMechanismSectionAssembler()
         {
             // Setup
-            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
 
             // Call
             ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();

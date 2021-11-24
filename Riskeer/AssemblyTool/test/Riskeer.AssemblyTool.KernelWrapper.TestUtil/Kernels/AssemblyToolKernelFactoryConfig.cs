@@ -42,7 +42,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
     /// </example>
     public class AssemblyToolKernelFactoryConfig : IDisposable
     {
-        private readonly IAssemblyToolKernelFactory previousFactory;
+        private readonly IAssemblyToolKernelFactoryOld previousFactory;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyToolKernelFactoryConfig"/>.

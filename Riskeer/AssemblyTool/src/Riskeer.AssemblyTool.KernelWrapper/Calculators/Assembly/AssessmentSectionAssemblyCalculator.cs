@@ -37,14 +37,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// </summary>
     public class AssessmentSectionAssemblyCalculator : IAssessmentSectionAssemblyCalculator
     {
-        private readonly IAssemblyToolKernelFactory factory;
+        private readonly IAssemblyToolKernelFactoryOld factory;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        public AssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
         {
             if (factory == null)
             {

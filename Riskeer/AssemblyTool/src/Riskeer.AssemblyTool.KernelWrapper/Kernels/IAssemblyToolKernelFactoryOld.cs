@@ -26,7 +26,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
     /// <summary>
     /// Factory responsible for creating kernels that can be used for performing an assembly tool calculation.
     /// </summary>
-    public interface IAssemblyToolKernelFactory
+    public interface IAssemblyToolKernelFactoryOld
     {
         /// <summary>
         /// Creates an assembly categories kernel.

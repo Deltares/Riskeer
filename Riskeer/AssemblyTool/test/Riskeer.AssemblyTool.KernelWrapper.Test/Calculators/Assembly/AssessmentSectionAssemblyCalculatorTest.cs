@@ -47,7 +47,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var mocks = new MockRepository();
-            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
+            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactoryOld>();
             mocks.ReplayAll();
 
             // Call

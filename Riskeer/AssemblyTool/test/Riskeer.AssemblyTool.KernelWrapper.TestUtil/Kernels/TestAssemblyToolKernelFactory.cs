@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
     /// <summary>
     /// Factory that creates assembly tool kernel stubs for testing purposes.
     /// </summary>
-    public class TestAssemblyToolKernelFactory : IAssemblyToolKernelFactory
+    public class TestAssemblyToolKernelFactory : IAssemblyToolKernelFactoryOld
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestAssemblyToolKernelFactory"/>.
