@@ -157,7 +157,10 @@ namespace Riskeer.Storage.Core
 
         private void ThrowWhenTargetFileIsReadonly()
         {
-            using (File.Open(targetFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read)) {}
+            using (File.Open(targetFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read))
+            {
+                // Do nothing
+            }
         }
     }
 }
