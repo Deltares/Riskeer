@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 return calculator.AssembleFailureMechanisms(GetFailureMechanismWithProbabilityAssemblyResults(assessmentSection, useManual),
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 return calculator.AssembleFailureMechanisms(GetFailureMechanismsWithoutProbabilityAssemblyResults(assessmentSection,
                                                                                                                   useManual));
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection, useManual),
                                                             AssembleFailureMechanismsWithProbability(assessmentSection, useManual));
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
                                                                                                   .Where(fm => fm.InAssembly)

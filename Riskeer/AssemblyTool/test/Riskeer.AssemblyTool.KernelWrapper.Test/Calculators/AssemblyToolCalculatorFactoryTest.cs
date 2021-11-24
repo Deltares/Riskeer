@@ -80,7 +80,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
-                    AssemblyToolKernelFactory.Instance);
+                    AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
                 Assert.IsInstanceOf<AssemblyCategoriesCalculator>(calculator);
@@ -97,7 +97,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IFailureMechanismSectionAssemblyCalculator calculator =
-                    factory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    factory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculator>(calculator);
@@ -114,7 +114,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IFailureMechanismAssemblyCalculator calculator =
-                    factory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    factory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculator>(calculator);
@@ -131,7 +131,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             {
                 // Call
                 IAssessmentSectionAssemblyCalculator calculator =
-                    factory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    factory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCalculator>(calculator);

@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
-                AssemblyToolKernelFactory.Instance);
+                AssemblyToolKernelFactoryOld.Instance);
 
             try
             {
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double n)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
-                AssemblyToolKernelFactory.Instance);
+                AssemblyToolKernelFactoryOld.Instance);
 
             try
             {
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double failureProbabilityMarginFactor)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
-                AssemblyToolKernelFactory.Instance);
+                AssemblyToolKernelFactoryOld.Instance);
 
             try
             {
@@ -133,7 +133,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double n)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
-                AssemblyToolKernelFactory.Instance);
+                AssemblyToolKernelFactoryOld.Instance);
 
             try
             {
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double n)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
-                AssemblyToolKernelFactory.Instance);
+                AssemblyToolKernelFactoryOld.Instance);
 
             try
             {

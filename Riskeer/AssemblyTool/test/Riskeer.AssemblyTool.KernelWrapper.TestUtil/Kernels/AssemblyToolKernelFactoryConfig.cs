@@ -26,8 +26,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {
     /// <summary>
     /// This class can be used to set a temporary <see cref="TestAssemblyToolKernelFactory"/> 
-    /// for <see cref="AssemblyToolKernelFactory.Instance"/> while testing. 
-    /// Disposing an instance of this class will revert the <see cref="AssemblyToolKernelFactory.Instance"/>.
+    /// for <see cref="AssemblyToolKernelFactoryOld.Instance"/> while testing. 
+    /// Disposing an instance of this class will revert the <see cref="AssemblyToolKernelFactoryOld.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
@@ -47,16 +47,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyToolKernelFactoryConfig"/>.
         /// Sets a <see cref="TestAssemblyToolKernelFactory"/> to 
-        /// <see cref="AssemblyToolKernelFactory.Instance"/>
+        /// <see cref="AssemblyToolKernelFactoryOld.Instance"/>
         /// </summary>
         public AssemblyToolKernelFactoryConfig()
         {
-            previousFactory = AssemblyToolKernelFactory.Instance;
-            AssemblyToolKernelFactory.Instance = new TestAssemblyToolKernelFactory();
+            previousFactory = AssemblyToolKernelFactoryOld.Instance;
+            AssemblyToolKernelFactoryOld.Instance = new TestAssemblyToolKernelFactory();
         }
 
         /// <summary>
-        /// Reverts the <see cref="AssemblyToolKernelFactory.Instance"/> to the value
+        /// Reverts the <see cref="AssemblyToolKernelFactoryOld.Instance"/> to the value
         /// it had at time of construction of the <see cref="AssemblyToolKernelFactoryConfig"/>.
         /// </summary>
         public void Dispose()
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         {
             if (disposing)
             {
-                AssemblyToolKernelFactory.Instance = previousFactory;
+                AssemblyToolKernelFactoryOld.Instance = previousFactory;
             }
         }
     }

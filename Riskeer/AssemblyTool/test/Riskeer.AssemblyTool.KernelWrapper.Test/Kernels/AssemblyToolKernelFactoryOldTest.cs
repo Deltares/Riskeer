@@ -28,27 +28,27 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
 {
     [TestFixture]
-    public class AssemblyToolKernelFactoryTest
+    public class AssemblyToolKernelFactoryOldTest
     {
         [Test]
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
 
             // Assert
-            Assert.IsInstanceOf<AssemblyToolKernelFactory>(factory);
+            Assert.IsInstanceOf<AssemblyToolKernelFactoryOld>(factory);
         }
 
         [Test]
         public void Instance_WhenSetToNull_ReturnsNewInstance()
         {
             // Setup
-            IAssemblyToolKernelFactoryOld firstFactory = AssemblyToolKernelFactory.Instance;
-            AssemblyToolKernelFactory.Instance = null;
+            IAssemblyToolKernelFactoryOld firstFactory = AssemblyToolKernelFactoryOld.Instance;
+            AssemblyToolKernelFactoryOld.Instance = null;
 
             // Call
-            IAssemblyToolKernelFactoryOld secondFactory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld secondFactory = AssemblyToolKernelFactoryOld.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -59,10 +59,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         {
             // Setup
             var firstFactory = new TestAssemblyToolKernelFactory();
-            AssemblyToolKernelFactory.Instance = firstFactory;
+            AssemblyToolKernelFactoryOld.Instance = firstFactory;
 
             // Call
-            IAssemblyToolKernelFactoryOld secondFactory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld secondFactory = AssemblyToolKernelFactoryOld.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoryLimitsCalculator()
         {
             // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
 
             // Call
             ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
@@ -85,7 +85,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelAssessmentResultsTranslator()
         {
             // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
 
             // Call
             IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
@@ -98,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismResultAssembler()
         {
             // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
 
             // Call
             IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
@@ -111,7 +111,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateAssessmentSectionAssemblyKernel_Always_ReturnsKernelAssessmentGradeAssembler()
         {
             // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
 
             // Call
             IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
@@ -124,7 +124,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void CreateCombinedFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelCommonFailureMechanismSectionAssembler()
         {
             // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactory.Instance;
+            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
 
             // Call
             ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();

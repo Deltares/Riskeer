@@ -27,17 +27,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
     /// <summary>
     /// Factory that creates the assembly tool kernels.
     /// </summary>
-    public class AssemblyToolKernelFactory : IAssemblyToolKernelFactoryOld
+    public class AssemblyToolKernelFactoryOld : IAssemblyToolKernelFactoryOld
     {
         private static IAssemblyToolKernelFactoryOld instance;
 
-        private AssemblyToolKernelFactory() {}
+        private AssemblyToolKernelFactoryOld() {}
 
         public static IAssemblyToolKernelFactoryOld Instance
         {
             get
             {
-                return instance ?? (instance = new AssemblyToolKernelFactory());
+                return instance ?? (instance = new AssemblyToolKernelFactoryOld());
             }
             set
             {
