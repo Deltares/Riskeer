@@ -43,13 +43,13 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverSectionResultRowTest
+    public class TechnicalInnovationSectionResultRowOldTest
     {
-        private static WaterPressureAsphaltCoverSectionResultRowOld.ConstructionProperties ConstructionProperties
+        private static TechnicalInnovationSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new WaterPressureAsphaltCoverSectionResultRowOld.ConstructionProperties
+                return new TechnicalInnovationSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     TailorMadeAssessmentResultIndex = 2,
@@ -66,10 +66,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate test = () => new WaterPressureAsphaltCoverSectionResultRowOld(result, null);
+            TestDelegate test = () => new TechnicalInnovationSectionResultRowOld(result, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -81,15 +81,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<TechnicalInnovationFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -174,14 +174,14 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssembly);
@@ -208,12 +208,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -243,7 +243,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -270,7 +270,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -311,7 +311,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section)
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -319,7 +319,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -336,7 +336,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section)
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -376,7 +376,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -389,7 +389,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -420,12 +420,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -449,12 +449,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
+                var row = new TechnicalInnovationSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

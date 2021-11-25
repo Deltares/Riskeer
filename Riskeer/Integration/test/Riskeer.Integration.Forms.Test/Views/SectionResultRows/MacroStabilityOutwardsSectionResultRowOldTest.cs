@@ -46,7 +46,7 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 {
     [TestFixture]
-    public class MacroStabilityOutwardsSectionResultRowTest
+    public class MacroStabilityOutwardsSectionResultRowOldTest
     {
         private static MacroStabilityOutwardsSectionResultRowOld.ConstructionProperties ConstructionProperties
         {

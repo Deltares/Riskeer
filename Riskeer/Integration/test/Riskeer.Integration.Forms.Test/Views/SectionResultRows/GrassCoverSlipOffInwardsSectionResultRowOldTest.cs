@@ -43,13 +43,14 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsSectionResultRowTest
+    public class GrassCoverSlipOffInwardsSectionResultRowOldTest
+
     {
-        private static GrassCoverSlipOffOutwardsSectionResultRowOld.ConstructionProperties ConstructionProperties
+        private static GrassCoverSlipOffInwardsSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new GrassCoverSlipOffOutwardsSectionResultRowOld.ConstructionProperties
+                return new GrassCoverSlipOffInwardsSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     DetailedAssessmentResultIndex = 2,
@@ -68,10 +69,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate test = () => new GrassCoverSlipOffOutwardsSectionResultRowOld(result, null);
+            TestDelegate test = () => new GrassCoverSlipOffInwardsSectionResultRowOld(result, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -83,15 +84,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
@@ -118,7 +119,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -132,7 +133,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -151,7 +152,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -160,7 +161,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -183,14 +184,14 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssembly);
@@ -217,12 +218,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -239,7 +240,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -252,7 +253,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -282,7 +283,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -290,7 +291,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -325,7 +326,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section)
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -333,7 +334,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -352,7 +353,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section)
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -360,7 +361,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -396,7 +397,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -409,7 +410,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -442,12 +443,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -471,12 +472,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
@@ -500,12 +501,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverSlipOffOutwardsSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;
