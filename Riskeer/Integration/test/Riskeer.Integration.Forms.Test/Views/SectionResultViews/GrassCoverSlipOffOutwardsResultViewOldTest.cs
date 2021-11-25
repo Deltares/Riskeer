@@ -41,7 +41,7 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsResultViewTest
+    public class GrassCoverSlipOffOutwardsResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -73,15 +73,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverSlipOffInwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
-                    GrassCoverSlipOffInwardsSectionResultRowOld,
-                    GrassCoverSlipOffInwardsFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
+                    GrassCoverSlipOffOutwardsSectionResultRowOld,
+                    GrassCoverSlipOffOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new GrassCoverSlipOffInwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new GrassCoverSlipOffOutwardsFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -177,13 +177,13 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -200,34 +200,34 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class GrassCoverSlipOffInwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            GrassCoverSlipOffInwardsResultViewOld,
-            GrassCoverSlipOffInwardsFailureMechanism,
-            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
-            GrassCoverSlipOffInwardsSectionResultRowOld>
+        public class GrassCoverSlipOffOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            GrassCoverSlipOffOutwardsResultViewOld,
+            GrassCoverSlipOffOutwardsFailureMechanism,
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
+            GrassCoverSlipOffOutwardsSectionResultRowOld>
         {
-            protected override GrassCoverSlipOffInwardsResultViewOld CreateResultView(GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
+            protected override GrassCoverSlipOffOutwardsResultViewOld CreateResultView(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
             {
-                return new GrassCoverSlipOffInwardsResultViewOld(failureMechanism.SectionResults,
-                                                              failureMechanism);
+                return new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults,
+                                                               failureMechanism);
             }
+        }
+
+        private GrassCoverSlipOffOutwardsResultViewOld ShowFailureMechanismResultsView(
+            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults,
+                                                                                     failureMechanism);
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
 
         private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyControl()
         {
             var control = (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
             return control;
-        }
-
-        private GrassCoverSlipOffInwardsResultViewOld ShowFailureMechanismResultsView(
-            GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
-        {
-            var failureMechanismResultView = new GrassCoverSlipOffInwardsResultViewOld(failureMechanism.SectionResults,
-                                                                                    failureMechanism);
-            testForm.Controls.Add(failureMechanismResultView);
-            testForm.Show();
-
-            return failureMechanismResultView;
         }
 
         private static ErrorProvider GetManualAssemblyWarningProvider(FailureMechanismAssemblyCategoryGroupControl control)

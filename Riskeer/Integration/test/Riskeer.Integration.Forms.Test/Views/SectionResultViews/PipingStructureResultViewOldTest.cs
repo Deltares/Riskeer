@@ -19,18 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
@@ -44,21 +41,19 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class MacroStabilityOutwardsResultViewTest
+    public class PipingStructureResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
-        private const int detailedAssessmentProbabilityIndex = 3;
-        private const int tailorMadeAssessmentResultIndex = 4;
-        private const int tailorMadeAssessmentProbabilityIndex = 5;
-        private const int simpleAssemblyCategoryGroupIndex = 6;
-        private const int detailedAssemblyCategoryGroupIndex = 7;
-        private const int tailorMadeAssemblyCategoryGroupIndex = 8;
-        private const int combinedAssemblyCategoryGroupIndex = 9;
-        private const int useManualAssemblyIndex = 10;
-        private const int manualAssemblyCategoryGroupIndex = 11;
-        private const int columnCount = 12;
+        private const int tailorMadeAssessmentResultIndex = 3;
+        private const int simpleAssemblyCategoryGroupIndex = 4;
+        private const int detailedAssemblyCategoryGroupIndex = 5;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
+        private const int combinedAssemblyCategoryGroupIndex = 7;
+        private const int useManualAssemblyIndex = 8;
+        private const int manualAssemblyCategoryGroupIndex = 9;
+        private const int columnCount = 10;
 
         private Form testForm;
 
@@ -75,40 +70,21 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new PipingStructureFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityOutwardsFailureMechanismSectionResultOld,
-                    MacroStabilityOutwardsSectionResultRowOld,
-                    MacroStabilityOutwardsFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
+                    PipingStructureSectionResultRowOld,
+                    PipingStructureFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
-                mocks.VerifyAll();
             }
         }
 
@@ -116,7 +92,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new MacroStabilityOutwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new PipingStructureFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -126,9 +102,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[tailorMadeAssessmentResultIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[simpleAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
@@ -139,9 +113,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentResultIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak\r\nfaalkans", dataGridView.Columns[detailedAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentResultIndex].HeaderText);
-                Assert.AreEqual("Toets op maat\r\nfaalkans", dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
@@ -152,9 +124,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[detailedAssessmentResultIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[detailedAssessmentProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentResultIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[simpleAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
@@ -171,7 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new PipingStructureFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -192,14 +162,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, cells[detailedAssessmentResultIndex].Value);
-                Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
-                Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
+                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultIndex].Value);
+                Assert.AreEqual(TailorMadeAssessmentResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("IVv", cells[detailedAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("IIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
             }
@@ -209,13 +177,13 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new PipingStructureFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -232,17 +200,16 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class MacroStabilityOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            MacroStabilityOutwardsResultViewOld,
-            MacroStabilityOutwardsFailureMechanism,
-            MacroStabilityOutwardsFailureMechanismSectionResultOld,
-            MacroStabilityOutwardsSectionResultRowOld>
+        public class PipingStructureFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            PipingStructureResultViewOld,
+            PipingStructureFailureMechanism,
+            PipingStructureFailureMechanismSectionResultOld,
+            PipingStructureSectionResultRowOld>
         {
-            protected override MacroStabilityOutwardsResultViewOld CreateResultView(MacroStabilityOutwardsFailureMechanism failureMechanism)
+            protected override PipingStructureResultViewOld CreateResultView(PipingStructureFailureMechanism failureMechanism)
             {
-                return new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults,
-                                                            failureMechanism,
-                                                            new AssessmentSectionStub());
+                return new PipingStructureResultViewOld(failureMechanism.SectionResults,
+                                                     failureMechanism);
             }
         }
 
@@ -252,12 +219,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private MacroStabilityOutwardsResultViewOld ShowFailureMechanismResultsView(
-            MacroStabilityOutwardsFailureMechanism failureMechanism)
+        private PipingStructureResultViewOld ShowFailureMechanismResultsView(
+            PipingStructureFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults,
-                                                                                  failureMechanism,
-                                                                                  new AssessmentSectionStub());
+            var failureMechanismResultView = new PipingStructureResultViewOld(failureMechanism.SectionResults,
+                                                                           failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

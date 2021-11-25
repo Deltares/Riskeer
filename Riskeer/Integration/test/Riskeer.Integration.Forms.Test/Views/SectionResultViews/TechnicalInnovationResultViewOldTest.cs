@@ -41,7 +41,7 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class StrengthStabilityLengthwiseConstructionResultViewTest
+    public class TechnicalInnovationResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -71,15 +71,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
 
             // Call
-            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
-                    StrengthStabilityLengthwiseConstructionSectionResultRowOld,
-                    StrengthStabilityLengthwiseConstructionFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResultOld,
+                    TechnicalInnovationSectionResultRowOld,
+                    TechnicalInnovationFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new StrengthStabilityLengthwiseConstructionFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new TechnicalInnovationFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -167,13 +167,13 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            TechnicalInnovationFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -190,16 +190,16 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class StrengthStabilityLengthwiseConstructionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            StrengthStabilityLengthwiseConstructionResultViewOld,
-            StrengthStabilityLengthwiseConstructionFailureMechanism,
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
-            StrengthStabilityLengthwiseConstructionSectionResultRowOld>
+        public class TechnicalInnovationFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            TechnicalInnovationResultViewOld,
+            TechnicalInnovationFailureMechanism,
+            TechnicalInnovationFailureMechanismSectionResultOld,
+            TechnicalInnovationSectionResultRowOld>
         {
-            protected override StrengthStabilityLengthwiseConstructionResultViewOld CreateResultView(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
+            protected override TechnicalInnovationResultViewOld CreateResultView(TechnicalInnovationFailureMechanism failureMechanism)
             {
-                return new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults,
-                                                                             failureMechanism);
+                return new TechnicalInnovationResultViewOld(failureMechanism.SectionResults,
+                                                         failureMechanism);
             }
         }
 
@@ -209,11 +209,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private StrengthStabilityLengthwiseConstructionResultViewOld ShowFailureMechanismResultsView(
-            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
+        private TechnicalInnovationResultViewOld ShowFailureMechanismResultsView(
+            TechnicalInnovationFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults,
-                                                                                                   failureMechanism);
+            var failureMechanismResultView = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults,
+                                                                               failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -41,7 +41,7 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class PipingStructureResultViewTest
+    public class MicrostabilityResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -73,15 +73,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
 
             // Call
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
-                    PipingStructureSectionResultRowOld,
-                    PipingStructureFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResultOld,
+                    MicrostabilitySectionResultRowOld,
+                    MicrostabilityFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new PipingStructureFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new MicrostabilityFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -177,13 +177,13 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MicrostabilityFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -200,16 +200,16 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class PipingStructureFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            PipingStructureResultViewOld,
-            PipingStructureFailureMechanism,
-            PipingStructureFailureMechanismSectionResultOld,
-            PipingStructureSectionResultRowOld>
+        public class MicrostabilityFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            MicrostabilityResultViewOld,
+            MicrostabilityFailureMechanism,
+            MicrostabilityFailureMechanismSectionResultOld,
+            MicrostabilitySectionResultRowOld>
         {
-            protected override PipingStructureResultViewOld CreateResultView(PipingStructureFailureMechanism failureMechanism)
+            protected override MicrostabilityResultViewOld CreateResultView(MicrostabilityFailureMechanism failureMechanism)
             {
-                return new PipingStructureResultViewOld(failureMechanism.SectionResults,
-                                                     failureMechanism);
+                return new MicrostabilityResultViewOld(failureMechanism.SectionResults,
+                                                    failureMechanism);
             }
         }
 
@@ -219,11 +219,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private PipingStructureResultViewOld ShowFailureMechanismResultsView(
-            PipingStructureFailureMechanism failureMechanism)
+        private MicrostabilityResultViewOld ShowFailureMechanismResultsView(
+            MicrostabilityFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new PipingStructureResultViewOld(failureMechanism.SectionResults,
-                                                                           failureMechanism);
+            var failureMechanismResultView = new MicrostabilityResultViewOld(failureMechanism.SectionResults,
+                                                                          failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

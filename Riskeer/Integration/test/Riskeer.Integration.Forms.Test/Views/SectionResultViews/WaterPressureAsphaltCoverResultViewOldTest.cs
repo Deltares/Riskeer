@@ -41,19 +41,17 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsResultViewTest
+    public class WaterPressureAsphaltCoverResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
-        private const int detailedAssessmentResultIndex = 2;
-        private const int tailorMadeAssessmentResultIndex = 3;
-        private const int simpleAssemblyCategoryGroupIndex = 4;
-        private const int detailedAssemblyCategoryGroupIndex = 5;
-        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
-        private const int combinedAssemblyCategoryGroupIndex = 7;
-        private const int useManualAssemblyIndex = 8;
-        private const int manualAssemblyCategoryGroupIndex = 9;
-        private const int columnCount = 10;
+        private const int tailorMadeAssessmentResultIndex = 2;
+        private const int simpleAssemblyCategoryGroupIndex = 3;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
+        private const int combinedAssemblyCategoryGroupIndex = 5;
+        private const int useManualAssemblyIndex = 6;
+        private const int manualAssemblyCategoryGroupIndex = 7;
+        private const int columnCount = 8;
 
         private Form testForm;
 
@@ -73,15 +71,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
-                    GrassCoverSlipOffOutwardsSectionResultRowOld,
-                    GrassCoverSlipOffOutwardsFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
+                    WaterPressureAsphaltCoverSectionResultRowOld,
+                    WaterPressureAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -92,7 +90,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new GrassCoverSlipOffOutwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new WaterPressureAsphaltCoverFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -101,10 +99,8 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[simpleAssessmentResultIndex]);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[detailedAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[tailorMadeAssessmentResultIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[simpleAssemblyCategoryGroupIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[detailedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[combinedAssemblyCategoryGroupIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyIndex]);
@@ -112,10 +108,8 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
                 Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
-                Assert.AreEqual("Gedetailleerde toets per vak", dataGridView.Columns[detailedAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Toets op maat", dataGridView.Columns[tailorMadeAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\neenvoudige toets", dataGridView.Columns[simpleAssemblyCategoryGroupIndex].HeaderText);
-                Assert.AreEqual("Toetsoordeel\r\ngedetailleerde toets per vak", dataGridView.Columns[detailedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ntoets op maat", dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Toetsoordeel\r\ngecombineerd", dataGridView.Columns[combinedAssemblyCategoryGroupIndex].HeaderText);
                 Assert.AreEqual("Overschrijf\r\ntoetsoordeel", dataGridView.Columns[useManualAssemblyIndex].HeaderText);
@@ -123,10 +117,8 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[simpleAssessmentResultIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[detailedAssessmentResultIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[tailorMadeAssessmentResultIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[simpleAssemblyCategoryGroupIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[detailedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[tailorMadeAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[combinedAssemblyCategoryGroupIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[useManualAssemblyIndex].ReadOnly);
@@ -141,7 +133,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -162,10 +154,8 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
-                Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultIndex].Value);
                 Assert.AreEqual(TailorMadeAssessmentResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
-                Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyIndex].Value);
@@ -177,13 +167,13 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -200,34 +190,34 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class GrassCoverSlipOffOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            GrassCoverSlipOffOutwardsResultViewOld,
-            GrassCoverSlipOffOutwardsFailureMechanism,
-            GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
-            GrassCoverSlipOffOutwardsSectionResultRowOld>
+        public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            WaterPressureAsphaltCoverResultViewOld,
+            WaterPressureAsphaltCoverFailureMechanism,
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
+            WaterPressureAsphaltCoverSectionResultRowOld>
         {
-            protected override GrassCoverSlipOffOutwardsResultViewOld CreateResultView(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
+            protected override WaterPressureAsphaltCoverResultViewOld CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             {
-                return new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults,
+                return new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
                                                                failureMechanism);
             }
-        }
-
-        private GrassCoverSlipOffOutwardsResultViewOld ShowFailureMechanismResultsView(
-            GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
-        {
-            var failureMechanismResultView = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults,
-                                                                                     failureMechanism);
-            testForm.Controls.Add(failureMechanismResultView);
-            testForm.Show();
-
-            return failureMechanismResultView;
         }
 
         private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyControl()
         {
             var control = (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
             return control;
+        }
+
+        private WaterPressureAsphaltCoverResultViewOld ShowFailureMechanismResultsView(
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
+                                                                                     failureMechanism);
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
 
         private static ErrorProvider GetManualAssemblyWarningProvider(FailureMechanismAssemblyCategoryGroupControl control)

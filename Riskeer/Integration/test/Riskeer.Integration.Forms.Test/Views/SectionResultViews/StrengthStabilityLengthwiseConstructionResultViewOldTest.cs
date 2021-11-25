@@ -41,7 +41,7 @@ using Riskeer.Integration.Forms.Views.SectionResultViews;
 namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverResultViewTest
+    public class StrengthStabilityLengthwiseConstructionResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -71,15 +71,15 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
             // Call
-            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
-                    WaterPressureAsphaltCoverSectionResultRowOld,
-                    WaterPressureAsphaltCoverFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
+                    StrengthStabilityLengthwiseConstructionSectionResultRowOld,
+                    StrengthStabilityLengthwiseConstructionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreAdded()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new WaterPressureAsphaltCoverFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new StrengthStabilityLengthwiseConstructionFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -167,13 +167,13 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -190,16 +190,16 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            WaterPressureAsphaltCoverResultViewOld,
-            WaterPressureAsphaltCoverFailureMechanism,
-            WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
-            WaterPressureAsphaltCoverSectionResultRowOld>
+        public class StrengthStabilityLengthwiseConstructionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            StrengthStabilityLengthwiseConstructionResultViewOld,
+            StrengthStabilityLengthwiseConstructionFailureMechanism,
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
+            StrengthStabilityLengthwiseConstructionSectionResultRowOld>
         {
-            protected override WaterPressureAsphaltCoverResultViewOld CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)
+            protected override StrengthStabilityLengthwiseConstructionResultViewOld CreateResultView(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             {
-                return new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
-                                                               failureMechanism);
+                return new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults,
+                                                                             failureMechanism);
             }
         }
 
@@ -209,11 +209,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private WaterPressureAsphaltCoverResultViewOld ShowFailureMechanismResultsView(
-            WaterPressureAsphaltCoverFailureMechanism failureMechanism)
+        private StrengthStabilityLengthwiseConstructionResultViewOld ShowFailureMechanismResultsView(
+            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
-                                                                                     failureMechanism);
+            var failureMechanismResultView = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults,
+                                                                                                   failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
