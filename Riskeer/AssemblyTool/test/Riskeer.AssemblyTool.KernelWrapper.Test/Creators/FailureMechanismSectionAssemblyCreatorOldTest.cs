@@ -30,13 +30,13 @@ using Riskeer.AssemblyTool.KernelWrapper.Creators;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCreatorTest
+    public class FailureMechanismSectionAssemblyCreatorOldTest
     {
         [Test]
         public void Create_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCreator.Create(null);
+            TestDelegate call = () => FailureMechanismSectionAssemblyCreatorOld.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var result = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCreator.Create(result);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCreatorOld.Create(result);
 
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
             // Call
-            FailureMechanismSectionAssemblyOld assembly = FailureMechanismSectionAssemblyCreator.Create(
+            FailureMechanismSectionAssemblyOld assembly = FailureMechanismSectionAssemblyCreatorOld.Create(
                 new FmSectionAssemblyDirectResult(originalGroup));
 
             // Assert
@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateWithFmSectionAssemblyDirectResultWithProbability_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCreator.Create(null);
+            TestDelegate call = () => FailureMechanismSectionAssemblyCreatorOld.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var result = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99, new Random(39).NextDouble());
 
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCreator.Create(result);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCreatorOld.Create(result);
 
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
@@ -126,7 +126,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var result = new FmSectionAssemblyDirectResultWithProbability(originalGroup, probability);
 
             // Call
-            FailureMechanismSectionAssemblyOld assembly = FailureMechanismSectionAssemblyCreator.Create(result);
+            FailureMechanismSectionAssemblyOld assembly = FailureMechanismSectionAssemblyCreatorOld.Create(result);
 
             // Assert
             Assert.AreEqual(expectedGroup, assembly.Group);
@@ -137,7 +137,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyCategoryGroup_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup((EFmSectionCategory) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup((EFmSectionCategory) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
@@ -159,7 +159,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup actualGroup = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(originalGroup);
+            FailureMechanismSectionAssemblyCategoryGroup actualGroup = FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(originalGroup);
 
             // Assert
             Assert.AreEqual(expectedGroup, actualGroup);

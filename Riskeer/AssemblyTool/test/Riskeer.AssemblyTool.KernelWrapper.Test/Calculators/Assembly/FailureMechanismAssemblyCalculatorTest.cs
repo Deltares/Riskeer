@@ -116,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup actualCategoryGroup =
-                    FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(kernel.FmSectionAssemblyResultsInput.Single().Result);
+                    FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(kernel.FmSectionAssemblyResultsInput.Single().Result);
                 Assert.AreEqual(categoryGroups.Single(), actualCategoryGroup);
                 Assert.IsFalse(kernel.PartialAssembly);
             }
@@ -379,7 +379,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                   FmSectionAssemblyDirectResultWithProbability actualResult)
         {
             FailureMechanismSectionAssemblyCategoryGroup actualGroup =
-                FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result);
+                FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result);
             Assert.AreEqual(expectedSectionAssembly.Group, actualGroup);
             Assert.AreEqual(expectedSectionAssembly.Probability, actualResult.FailureProbability);
         }

@@ -115,7 +115,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 categoriesOutput => new FailureMechanismSectionAssemblyCategory(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
-                    FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(categoriesOutput.Category))).ToArray();
+                    FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>

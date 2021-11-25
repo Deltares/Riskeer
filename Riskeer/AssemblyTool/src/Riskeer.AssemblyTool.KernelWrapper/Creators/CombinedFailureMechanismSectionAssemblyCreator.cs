@@ -59,7 +59,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                                                 .Select(failureMechanismSectionList =>
                                                             (FmSectionWithDirectCategory) failureMechanismSectionList.Sections.ElementAt(i))
                                                 .Select(element =>
-                                                            FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(
+                                                            FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(
                                                                 element.Category)).ToArray()));
             }
 
@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         {
             return new CombinedAssemblyFailureMechanismSection(
                 section.SectionStart, section.SectionEnd,
-                FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(section.Category));
+                FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(section.Category));
         }
     }
 }
