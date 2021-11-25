@@ -358,7 +358,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             try
             {
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculations,

@@ -62,8 +62,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(),
-                                                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
+                                                                                                   random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
                 IEnumerable<MapFeature> features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(failureMechanism);

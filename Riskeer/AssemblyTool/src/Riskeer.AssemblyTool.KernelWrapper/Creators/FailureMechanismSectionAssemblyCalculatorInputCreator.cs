@@ -105,7 +105,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="FmSectionAssemblyDirectResultWithProbability"/> based on the given parameters.
         /// </summary>
-        /// <param name="assembly">The <see cref="FailureMechanismSectionAssembly"/> to create
+        /// <param name="assembly">The <see cref="FailureMechanismSectionAssemblyOld"/> to create
         /// a <see cref="FmSectionAssemblyDirectResultWithProbability"/> for.</param>
         /// <returns>The created <see cref="FmSectionAssemblyDirectResultWithProbability"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
@@ -116,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when <paramref name="assembly"/> has an
         /// invalid value.</exception>
-        public static FmSectionAssemblyDirectResultWithProbability CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssembly assembly)
+        public static FmSectionAssemblyDirectResultWithProbability CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssemblyOld assembly)
         {
             if (assembly == null)
             {

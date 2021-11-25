@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var random = new Random(39);
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            var expectedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var expectedAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Call
             var shouldThrowException = true;
@@ -99,7 +99,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            var expectedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var expectedAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Call
             IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<
@@ -194,7 +194,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             }
         }
 
-        private static void AssertMapFeature(FailureMechanismSection section, MapFeature mapFeature, FailureMechanismSectionAssembly expectedAssembly)
+        private static void AssertMapFeature(FailureMechanismSection section, MapFeature mapFeature, FailureMechanismSectionAssemblyOld expectedAssembly)
         {
             IEnumerable<MapGeometry> mapGeometries = mapFeature.MapGeometries;
 

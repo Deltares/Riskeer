@@ -64,8 +64,8 @@ namespace Riskeer.Piping.Forms.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(),
-                                                                                                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
+                                                                                                   random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
                 IEnumerable<MapFeature> features = PipingAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(failureMechanism);
@@ -117,8 +117,8 @@ namespace Riskeer.Piping.Forms.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(),
-                                                                                                  random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
+                                                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
                 IEnumerable<MapFeature> features = PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(failureMechanism,
@@ -171,8 +171,8 @@ namespace Riskeer.Piping.Forms.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(),
-                                                                                                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
+                                                                                                       random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
                 IEnumerable<MapFeature> features = PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(failureMechanism,
@@ -225,8 +225,8 @@ namespace Riskeer.Piping.Forms.Test.Factories
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(random.NextDouble(),
-                                                                                        random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
+                                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
                 IEnumerable<MapFeature> features = PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(failureMechanism,

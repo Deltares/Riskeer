@@ -105,11 +105,11 @@ namespace Riskeer.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
@@ -280,7 +280,7 @@ namespace Riskeer.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
                         new[]
@@ -292,7 +292,7 @@ namespace Riskeer.Piping.Data.Test
                         assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
@@ -446,14 +446,14 @@ namespace Riskeer.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
                 mocks.VerifyAll();
             }
@@ -667,7 +667,7 @@ namespace Riskeer.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult,
                         Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),

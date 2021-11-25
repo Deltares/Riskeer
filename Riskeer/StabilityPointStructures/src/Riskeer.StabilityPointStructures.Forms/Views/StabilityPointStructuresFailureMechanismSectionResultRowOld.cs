@@ -360,7 +360,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         {
             try
             {
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculationScenarios,

@@ -164,10 +164,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
-        private static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssembly expectedSimpleAssembly,
-                                                                           FailureMechanismSectionAssembly expectedDetailedAssembly,
-                                                                           FailureMechanismSectionAssembly expectedTailorMadeAssembly,
-                                                                           FailureMechanismSectionAssembly expectedCombinedAssembly,
+        private static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyOld expectedSimpleAssembly,
+                                                                           FailureMechanismSectionAssemblyOld expectedDetailedAssembly,
+                                                                           FailureMechanismSectionAssemblyOld expectedTailorMadeAssembly,
+                                                                           FailureMechanismSectionAssemblyOld expectedCombinedAssembly,
                                                                            IEnumerable<ExportableFailureMechanismSection> sections,
                                                                            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> results)
         {
@@ -188,10 +188,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             }
         }
 
-        private static void AssertExportableFailureMechanismSectionResult(FailureMechanismSectionAssembly expectedSimpleAssembly,
-                                                                          FailureMechanismSectionAssembly expectedDetailedAssembly,
-                                                                          FailureMechanismSectionAssembly expectedTailorMadeAssembly,
-                                                                          FailureMechanismSectionAssembly expectedCombinedAssembly,
+        private static void AssertExportableFailureMechanismSectionResult(FailureMechanismSectionAssemblyOld expectedSimpleAssembly,
+                                                                          FailureMechanismSectionAssemblyOld expectedDetailedAssembly,
+                                                                          FailureMechanismSectionAssemblyOld expectedTailorMadeAssembly,
+                                                                          FailureMechanismSectionAssemblyOld expectedCombinedAssembly,
                                                                           ExportableFailureMechanismSection expectedSection,
                                                                           ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability actualResult)
         {

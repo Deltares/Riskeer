@@ -359,7 +359,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             try
             {
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculationScenarios,

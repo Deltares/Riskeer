@@ -33,9 +33,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismAssemblyCalculatorStub : IFailureMechanismAssemblyCalculator
     {
         /// <summary>
-        /// Gets the collection of <see cref="FailureMechanismSectionAssembly"/>.
+        /// Gets the collection of <see cref="FailureMechanismSectionAssemblyOld"/>.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssembly> FailureMechanismSectionAssemblies { get; private set; }
+        public IEnumerable<FailureMechanismSectionAssemblyOld> FailureMechanismSectionAssemblies { get; private set; }
 
         /// <summary>
         /// Gets the collection of <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return FailureMechanismAssemblyCategoryGroupOutput.Value;
         }
 
-        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
+        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies,
                                                  AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)

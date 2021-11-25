@@ -252,12 +252,12 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(0.1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(0.1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[combinedAssemblyProbabilityIndex];
                 int initialWidth = dataGridViewCell.OwningColumn.Width;
 
                 // When
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(0.0000000000000000000000000001, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(0.0000000000000000000000000001, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 row.TailorMadeAssessmentProbability = random.NextDouble();
 
                 // Then

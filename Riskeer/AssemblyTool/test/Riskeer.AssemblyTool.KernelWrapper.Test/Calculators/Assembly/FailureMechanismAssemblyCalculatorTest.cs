@@ -225,7 +225,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.Assemble(new[]
                 {
-                    new FailureMechanismSectionAssembly(new Random(39).NextDouble(), (FailureMechanismSectionAssemblyCategoryGroup) 99)
+                    new FailureMechanismSectionAssemblyOld(new Random(39).NextDouble(), (FailureMechanismSectionAssemblyCategoryGroup) 99)
                 }, CreateAssemblyCategoriesInput());
 
                 // Assert
@@ -242,7 +242,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var random = new Random(39);
             var expectedResults = new[]
             {
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
             };
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
 
@@ -293,7 +293,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismAssembly assembly = calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssembly>(),
+                FailureMechanismAssembly assembly = calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssemblyOld>(),
                                                                         CreateAssemblyCategoriesInput());
 
                 // Assert
@@ -316,7 +316,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssembly>(),
+                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssemblyOld>(),
                                                               CreateAssemblyCategoriesInput());
 
                 // Assert
@@ -339,7 +339,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssembly>(),
+                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssemblyOld>(),
                                                               CreateAssemblyCategoriesInput());
 
                 // Assert
@@ -362,7 +362,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssembly>(),
+                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssemblyOld>(),
                                                               CreateAssemblyCategoriesInput());
 
                 // Assert
@@ -375,7 +375,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static void AssertFailureMechanismSectionAssembly(FailureMechanismSectionAssembly expectedSectionAssembly,
+        private static void AssertFailureMechanismSectionAssembly(FailureMechanismSectionAssemblyOld expectedSectionAssembly,
                                                                   FmSectionAssemblyDirectResultWithProbability actualResult)
         {
             FailureMechanismSectionAssemblyCategoryGroup actualGroup =

@@ -108,18 +108,18 @@ namespace Riskeer.Integration.IO.Factories
             {
                 MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
-                FailureMechanismSectionAssembly simpleAssembly =
+                FailureMechanismSectionAssemblyOld simpleAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssembly detailedAssembly =
+                FailureMechanismSectionAssemblyOld detailedAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                     macroStabilityInwardsCalculationScenarios,
                                                                                                     failureMechanism,
                                                                                                     assessmentSection);
-                FailureMechanismSectionAssembly tailorMadeAssembly =
+                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
                                                                                                       failureMechanism,
                                                                                                       assessmentSection);
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
                                                                                                     macroStabilityInwardsCalculationScenarios,
                                                                                                     failureMechanism,

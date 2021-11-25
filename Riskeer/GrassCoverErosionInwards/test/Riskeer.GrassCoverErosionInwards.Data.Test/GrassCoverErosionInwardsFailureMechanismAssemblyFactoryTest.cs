@@ -102,11 +102,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
@@ -246,13 +246,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                         failureMechanism, assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
                 mocks.VerifyAll();
             }
@@ -391,12 +391,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                         sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
                 mocks.VerifyAll();
             }
@@ -575,7 +575,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                         failureMechanism, assessmentSection);

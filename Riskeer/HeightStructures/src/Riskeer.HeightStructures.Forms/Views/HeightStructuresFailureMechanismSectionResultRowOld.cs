@@ -352,7 +352,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             try
             {
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult, calculationScenarios, failureMechanism, assessmentSection);
 

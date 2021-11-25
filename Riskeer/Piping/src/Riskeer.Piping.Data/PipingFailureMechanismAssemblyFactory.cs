@@ -47,12 +47,12 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to assemble the 
         /// simple assembly results for.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
+:D        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(
             PipingFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
@@ -82,11 +82,11 @@ namespace Riskeer.Piping.Data
         /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(
             PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
@@ -137,11 +137,11 @@ namespace Riskeer.Piping.Data
         /// assemble the tailor made assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(
             PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -187,11 +187,11 @@ namespace Riskeer.Piping.Data
         /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleCombinedAssessment(
             PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
@@ -223,7 +223,7 @@ namespace Riskeer.Piping.Data
 
             try
             {
-                FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+                FailureMechanismSectionAssemblyOld simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
 
                 if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible
                     || failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
@@ -310,9 +310,9 @@ namespace Riskeer.Piping.Data
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-                IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResultsOld
-                                                                                                 .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
-                                                                                                 .ToArray();
+                IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies = failureMechanism.SectionResultsOld
+                                                                                                    .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
+                                                                                                    .ToArray();
 
                 IFailureMechanismAssemblyCalculator calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
@@ -336,15 +336,15 @@ namespace Riskeer.Piping.Data
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
-                                                                          PipingFailureMechanism failureMechanism,
-                                                                          IAssessmentSection assessmentSection,
-                                                                          bool useManual)
+        private static FailureMechanismSectionAssemblyOld GetSectionAssembly(PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
+                                                                             PipingFailureMechanism failureMechanism,
+                                                                             IAssessmentSection assessmentSection,
+                                                                             bool useManual)
         {
-            FailureMechanismSectionAssembly sectionAssembly;
+            FailureMechanismSectionAssemblyOld sectionAssembly;
             if (failureMechanismSectionResult.UseManualAssembly && useManual)
             {
                 sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
@@ -369,12 +369,12 @@ namespace Riskeer.Piping.Data
         /// manual assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(PipingFailureMechanismSectionResultOld sectionResult,
-                                                                                PipingFailureMechanism failureMechanism,
-                                                                                AssemblyCategoriesInput assemblyCategoriesInput)
+        private static FailureMechanismSectionAssemblyOld AssembleManualAssessment(PipingFailureMechanismSectionResultOld sectionResult,
+                                                                                   PipingFailureMechanism failureMechanism,
+                                                                                   AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =

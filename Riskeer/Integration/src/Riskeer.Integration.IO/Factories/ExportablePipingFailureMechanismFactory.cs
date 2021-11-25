@@ -108,18 +108,18 @@ namespace Riskeer.Integration.IO.Factories
             {
                 PipingFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
-                FailureMechanismSectionAssembly simpleAssembly =
+                FailureMechanismSectionAssemblyOld simpleAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssembly detailedAssembly =
+                FailureMechanismSectionAssemblyOld detailedAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                      pipingCalculationScenarios,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
-                FailureMechanismSectionAssembly tailorMadeAssembly =
+                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
                                                                                        failureMechanism,
                                                                                        assessmentSection);
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
                                                                                      pipingCalculationScenarios,
                                                                                      failureMechanism,

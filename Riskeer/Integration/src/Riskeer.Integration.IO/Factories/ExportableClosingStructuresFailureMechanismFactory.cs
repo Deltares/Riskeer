@@ -108,18 +108,18 @@ namespace Riskeer.Integration.IO.Factories
             {
                 ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
-                FailureMechanismSectionAssembly simpleAssembly =
+                FailureMechanismSectionAssemblyOld simpleAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssembly detailedAssembly =
+                FailureMechanismSectionAssemblyOld detailedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                 calculationScenarios,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
-                FailureMechanismSectionAssembly tailorMadeAssembly =
+                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
                                                                                                 calculationScenarios,
                                                                                                 failureMechanism,

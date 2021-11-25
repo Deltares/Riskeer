@@ -100,7 +100,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// Asserts whether <paramref name="features"/> contains the data that is representative for the data
         /// in <paramref name="expectedAssembly"/> and <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="expectedAssembly">The expected <see cref="FailureMechanismSectionAssembly"/>.</param>
+        /// <param name="expectedAssembly">The expected <see cref="FailureMechanismSectionAssemblyOld"/>.</param>
         /// <param name="failureMechanism">The failure mechanism that contains the sections.</param>
         /// <param name="features">The features that need to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// the one in the features.</item>
         /// </list>
         /// </exception>
-        public static void AssertAssemblyMapFeatures(FailureMechanismSectionAssembly expectedAssembly,
+        public static void AssertAssemblyMapFeatures(FailureMechanismSectionAssemblyOld expectedAssembly,
                                                      IFailureMechanism failureMechanism,
                                                      IEnumerable<MapFeature> features)
         {

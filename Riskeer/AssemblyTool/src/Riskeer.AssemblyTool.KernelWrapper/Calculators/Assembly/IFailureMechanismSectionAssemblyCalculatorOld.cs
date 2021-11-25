@@ -36,19 +36,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the simple assessment for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="SimpleAssessmentResultType"/> to assemble for.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input);
+        FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(SimpleAssessmentResultType input);
 
         /// <summary>
         /// Assembles the simple assessment for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="SimpleAssessmentValidityOnlyResultType"/> to assemble for.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input);
+        FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input);
 
         /// <summary>
         /// Assembles the detailed assessment based on the input parameter.
@@ -65,16 +65,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
         /// <param name="probability">The probability to calculate with.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="detailedAssessmentResult"/> is
         /// an invalid <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="detailedAssessmentResult"/> contains
         /// a valid but unsupported <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                   double probability,
-                                                                   AssemblyCategoriesInput assemblyCategoriesInput);
+        FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                      double probability,
+                                                                      AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
@@ -83,13 +83,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="probability">The probability to calculate with.</param>
         /// <param name="failureMechanismSectionN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                   double probability,
-                                                                   double failureMechanismSectionN,
-                                                                   AssemblyCategoriesInput assemblyCategoriesInput);
+        FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                      double probability,
+                                                                      double failureMechanismSectionN,
+                                                                      AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
@@ -99,14 +99,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="normativeNorm">The norm which has been defined on the assessment section.</param>
         /// <param name="failureMechanismN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                   double probability,
-                                                                   double normativeNorm,
-                                                                   double failureMechanismN,
-                                                                   double failureMechanismContribution);
+        FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                      double probability,
+                                                                      double normativeNorm,
+                                                                      double failureMechanismN,
+                                                                      double failureMechanismContribution);
 
         /// <summary>
         /// Assembles the detailed assessment based on the input parameters.
@@ -150,14 +150,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="normativeNorm">The norm which has been defined on the assessment section.</param>
         /// <param name="failureMechanismN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
-                                                                     double probability,
-                                                                     double normativeNorm,
-                                                                     double failureMechanismN,
-                                                                     double failureMechanismContribution);
+        FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
+                                                                        double probability,
+                                                                        double normativeNorm,
+                                                                        double failureMechanismN,
+                                                                        double failureMechanismContribution);
 
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
@@ -166,12 +166,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// to assemble for.</param>
         /// <param name="probability">The probability to calculate with.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                     double probability,
-                                                                     AssemblyCategoriesInput assemblyCategoriesInput);
+        FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                        double probability,
+                                                                        AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
@@ -181,13 +181,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="probability">The probability to calculate with.</param>
         /// <param name="failureMechanismSectionN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                     double probability,
-                                                                     double failureMechanismSectionN,
-                                                                     AssemblyCategoriesInput assemblyCategoriesInput);
+        FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                        double probability,
+                                                                        double failureMechanismSectionN,
+                                                                        AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.
@@ -203,10 +203,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the combined assembly based on the given <paramref name="simpleAssembly"/>.
         /// </summary>
         /// <param name="simpleAssembly">The simple assembly.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly);
+        FailureMechanismSectionAssemblyOld AssembleCombined(FailureMechanismSectionAssemblyOld simpleAssembly);
 
         /// <summary>
         /// Assembles the combined assembly based on the input parameters.
@@ -214,12 +214,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="simpleAssembly">The simple assembly.</param>
         /// <param name="detailedAssembly">The detailed assembly.</param>
         /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
-                                                         FailureMechanismSectionAssembly detailedAssembly,
-                                                         FailureMechanismSectionAssembly tailorMadeAssembly);
+        FailureMechanismSectionAssemblyOld AssembleCombined(FailureMechanismSectionAssemblyOld simpleAssembly,
+                                                            FailureMechanismSectionAssemblyOld detailedAssembly,
+                                                            FailureMechanismSectionAssemblyOld tailorMadeAssembly);
 
         /// <summary>
         /// Assembles the combined assembly based on the given <paramref name="simpleAssembly"/>.
@@ -259,11 +259,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="probability">The probability to calculate with.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleManual(double probability,
-                                                       AssemblyCategoriesInput assemblyCategoriesInput);
+        FailureMechanismSectionAssemblyOld AssembleManual(double probability,
+                                                          AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Assembles the manual assembly based on the input parameters.
@@ -271,11 +271,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="probability">The probability to calculate with.</param>
         /// <param name="failureMechanismSectionN">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleManual(double probability,
-                                                       double failureMechanismSectionN,
-                                                       AssemblyCategoriesInput assemblyCategoriesInput);
+        FailureMechanismSectionAssemblyOld AssembleManual(double probability,
+                                                          double failureMechanismSectionN,
+                                                          AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }

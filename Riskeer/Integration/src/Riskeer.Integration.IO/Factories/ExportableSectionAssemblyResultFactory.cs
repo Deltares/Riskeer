@@ -58,7 +58,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssembly"/>
         /// is <c>null</c>.</exception>
         public static ExportableSectionAssemblyResultWithProbability CreateExportableSectionAssemblyResultWithProbability(
-            FailureMechanismSectionAssembly failureMechanismSectionAssembly,
+            FailureMechanismSectionAssemblyOld failureMechanismSectionAssembly,
             ExportableAssemblyMethod assemblyMethod)
         {
             if (failureMechanismSectionAssembly == null)

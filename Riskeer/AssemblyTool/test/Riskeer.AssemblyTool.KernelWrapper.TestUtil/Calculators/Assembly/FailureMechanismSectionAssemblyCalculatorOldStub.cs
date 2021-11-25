@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the simple assessment calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly SimpleAssessmentAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssemblyOld SimpleAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the input of the simple assessment calculation.
@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the detailed assessment calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly DetailedAssessmentAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssemblyOld DetailedAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets or sets the group output of the detailed assessment calculation.
@@ -125,7 +125,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the tailor made assessment calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly TailorMadeAssessmentAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssemblyOld TailorMadeAssessmentAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the result type of the tailor made assessment calculation.
@@ -185,22 +185,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly CombinedAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssemblyOld CombinedAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the simple assembly input of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly CombinedSimpleAssemblyInput { get; private set; }
+        public FailureMechanismSectionAssemblyOld CombinedSimpleAssemblyInput { get; private set; }
 
         /// <summary>
         /// Gets the detailed assembly input of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly CombinedDetailedAssemblyInput { get; private set; }
+        public FailureMechanismSectionAssemblyOld CombinedDetailedAssemblyInput { get; private set; }
 
         /// <summary>
         /// Gets the tailor made assembly input of the combined assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly CombinedTailorMadeAssemblyInput { get; private set; }
+        public FailureMechanismSectionAssemblyOld CombinedTailorMadeAssemblyInput { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of the combined assembly calculation.
@@ -225,7 +225,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the manual assembly calculation.
         /// </summary>
-        public FailureMechanismSectionAssembly ManualAssemblyAssemblyOutput { get; set; }
+        public FailureMechanismSectionAssemblyOld ManualAssemblyAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets the probability input of the manual assembly calculation.
@@ -252,7 +252,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public bool ThrowExceptionOnCalculateCombinedAssembly { private get; set; }
 
-        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
+        public FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -262,10 +262,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SimpleAssessmentInput = input;
 
             return SimpleAssessmentAssemblyOutput ??
-                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
+                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.Iv));
         }
 
-        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input)
+        public FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -275,7 +275,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SimpleAssessmentValidityOnlyInput = input;
 
             return SimpleAssessmentAssemblyOutput ??
-                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
+                   (SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(1, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult)
@@ -295,9 +295,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return DetailedAssessmentAssemblyGroupOutput.Value;
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability,
-                                                                          AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                             double probability,
+                                                                             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -309,13 +309,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return DetailedAssessmentAssemblyOutput ??
-                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability,
-                                                                          double failureMechanismSectionN,
-                                                                          AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                             double probability,
+                                                                             double failureMechanismSectionN,
+                                                                             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -328,14 +328,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentFailureMechanismSectionNInput = failureMechanismSectionN;
 
             return DetailedAssessmentAssemblyOutput ??
-                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability,
-                                                                          double normativeNorm,
-                                                                          double failureMechanismN,
-                                                                          double failureMechanismContribution)
+        public FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                             double probability,
+                                                                             double normativeNorm,
+                                                                             double failureMechanismN,
+                                                                             double failureMechanismContribution)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -349,7 +349,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentFailureMechanismContribution = failureMechanismContribution;
 
             return DetailedAssessmentAssemblyOutput ??
-                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0.25, FailureMechanismSectionAssemblyCategoryGroup.IVv));
+                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(0.25, FailureMechanismSectionAssemblyCategoryGroup.IVv));
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
@@ -395,11 +395,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return TailorMadeAssemblyCategoryOutput.Value;
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            double normativeNorm,
-                                                                            double failureMechanismN,
-                                                                            double failureMechanismContribution)
+        public FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
+                                                                               double probability,
+                                                                               double normativeNorm,
+                                                                               double failureMechanismN,
+                                                                               double failureMechanismContribution)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -413,12 +413,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentFailureMechanismContributionInput = failureMechanismContribution;
 
             return TailorMadeAssessmentAssemblyOutput ??
-                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                               double probability,
+                                                                               AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -430,13 +430,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return TailorMadeAssessmentAssemblyOutput ??
-                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            double failureMechanismSectionN,
-                                                                            AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                               double probability,
+                                                                               double failureMechanismSectionN,
+                                                                               AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -449,7 +449,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentFailureMechanismSectionNInput = failureMechanismSectionN;
 
             return TailorMadeAssessmentAssemblyOutput ??
-                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+                   (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(TailorMadeAssessmentCategoryGroupResultType tailorMadeAssessmentResult)
@@ -469,7 +469,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return TailorMadeAssemblyCategoryOutput.Value;
         }
 
-        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly)
+        public FailureMechanismSectionAssemblyOld AssembleCombined(FailureMechanismSectionAssemblyOld simpleAssembly)
         {
             if (ThrowExceptionOnCalculateCombinedAssembly)
             {
@@ -481,9 +481,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return CombinedAssemblyOutput ?? (CombinedAssemblyOutput = simpleAssembly);
         }
 
-        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
-                                                                FailureMechanismSectionAssembly detailedAssembly,
-                                                                FailureMechanismSectionAssembly tailorMadeAssembly)
+        public FailureMechanismSectionAssemblyOld AssembleCombined(FailureMechanismSectionAssemblyOld simpleAssembly,
+                                                                   FailureMechanismSectionAssemblyOld detailedAssembly,
+                                                                   FailureMechanismSectionAssemblyOld tailorMadeAssembly)
         {
             if (ThrowExceptionOnCalculateCombinedAssembly)
             {
@@ -554,7 +554,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return CombinedAssemblyCategoryOutput.Value;
         }
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability, AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleManual(double probability, AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -565,10 +565,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             ManualAssemblyCategoriesInput = assemblyCategoriesInput;
 
             return ManualAssemblyAssemblyOutput ??
-                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
+                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
         }
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability, double failureMechanismSectionN, AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleManual(double probability, double failureMechanismSectionN, AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -580,7 +580,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             ManualAssemblyNInput = failureMechanismSectionN;
 
             return ManualAssemblyAssemblyOutput ??
-                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(1.0, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
+                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssemblyOld(1.0, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
     }
 }

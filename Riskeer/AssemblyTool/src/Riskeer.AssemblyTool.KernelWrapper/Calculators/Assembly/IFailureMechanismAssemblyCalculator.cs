@@ -42,13 +42,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the failure mechanism with failure probabilities using the given parameters.
         /// </summary>
-        /// <param name="sectionAssemblies">The collection of <see cref="FailureMechanismSectionAssembly"/> to assemble for.</param>
+        /// <param name="sectionAssemblies">The collection of <see cref="FailureMechanismSectionAssemblyOld"/> to assemble for.</param>
         /// <param name="assemblyCategoriesInput">The object containing the input parameters for
         /// determining the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
+        FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies,
                                           AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }

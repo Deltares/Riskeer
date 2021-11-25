@@ -45,12 +45,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to assemble the 
         /// simple assembly results for.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
@@ -80,11 +80,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
@@ -134,11 +134,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// assemble the tailor made assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -183,11 +183,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
+        public static FailureMechanismSectionAssemblyOld AssembleCombinedAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
@@ -219,7 +219,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
             try
             {
-                FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+                FailureMechanismSectionAssemblyOld simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
 
                 if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentValidityOnlyResultType.NotApplicable)
                 {
@@ -305,9 +305,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-                IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResultsOld
-                                                                                                 .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
-                                                                                                 .ToArray();
+                IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies = failureMechanism.SectionResultsOld
+                                                                                                    .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
+                                                                                                    .ToArray();
 
                 IFailureMechanismAssemblyCalculator calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
@@ -331,15 +331,15 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
-                                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                          IAssessmentSection assessmentSection,
-                                                                          bool useManual)
+        private static FailureMechanismSectionAssemblyOld GetSectionAssembly(GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
+                                                                             GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                             IAssessmentSection assessmentSection,
+                                                                             bool useManual)
         {
-            FailureMechanismSectionAssembly sectionAssembly;
+            FailureMechanismSectionAssemblyOld sectionAssembly;
             if (failureMechanismSectionResult.UseManualAssembly && useManual)
             {
                 sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
@@ -362,11 +362,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="sectionResult">The failure mechanism section result to assemble the 
         /// manual assembly for.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyOld"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult,
-                                                                                AssemblyCategoriesInput assemblyCategoriesInput)
+        private static FailureMechanismSectionAssemblyOld AssembleManualAssessment(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult,
+                                                                                   AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =

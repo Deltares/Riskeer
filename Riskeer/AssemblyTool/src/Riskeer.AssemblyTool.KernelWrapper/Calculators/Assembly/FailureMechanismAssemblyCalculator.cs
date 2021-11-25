@@ -76,7 +76,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
+        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies,
                                                  AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try

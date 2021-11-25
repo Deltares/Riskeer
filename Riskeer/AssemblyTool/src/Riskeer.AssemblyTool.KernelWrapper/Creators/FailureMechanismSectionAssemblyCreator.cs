@@ -27,13 +27,13 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="FailureMechanismSectionAssembly"/> instances and
+    /// Creates <see cref="FailureMechanismSectionAssemblyOld"/> instances and
     /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> values.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyCreator
     {
         /// <summary>
-        /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FmSectionAssemblyDirectResult"/>.
+        /// Creates <see cref="FailureMechanismSectionAssemblyOld"/> from the given <see cref="FmSectionAssemblyDirectResult"/>.
         /// </summary>
         /// <param name="result">The result to create the assembly from.</param>
         /// <returns>The created assembly.</returns>
@@ -42,19 +42,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResult result)
+        public static FailureMechanismSectionAssemblyOld Create(FmSectionAssemblyDirectResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssembly(double.NaN,
-                                                       CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
+            return new FailureMechanismSectionAssemblyOld(double.NaN,
+                                                          CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
         }
 
         /// <summary>
-        /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FmSectionAssemblyDirectResultWithProbability"/>.
+        /// Creates <see cref="FailureMechanismSectionAssemblyOld"/> from the given <see cref="FmSectionAssemblyDirectResultWithProbability"/>.
         /// </summary>
         /// <param name="result">The result to create the assembly from.</param>
         /// <returns>The created assembly.</returns>
@@ -63,15 +63,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResultWithProbability result)
+        public static FailureMechanismSectionAssemblyOld Create(FmSectionAssemblyDirectResultWithProbability result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssembly(result.FailureProbability,
-                                                       CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
+            return new FailureMechanismSectionAssemblyOld(result.FailureProbability,
+                                                          CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
         }
 
         /// <summary>

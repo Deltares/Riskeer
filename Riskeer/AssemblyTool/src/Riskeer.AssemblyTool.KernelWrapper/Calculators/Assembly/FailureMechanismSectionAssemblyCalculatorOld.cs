@@ -59,7 +59,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         #region Simple Assessment
 
-        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input)
+        public FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(SimpleAssessmentResultType input)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input)
+        public FailureMechanismSectionAssemblyOld AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input)
         {
             try
             {
@@ -123,26 +123,26 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability,
-                                                                          AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                             double probability,
+                                                                             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             return GetDetailedAssembly(detailedAssessmentResult, probability, assemblyCategoriesInput);
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability,
-                                                                          double failureMechanismSectionN,
-                                                                          AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                             double probability,
+                                                                             double failureMechanismSectionN,
+                                                                             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             return GetDetailedAssembly(detailedAssessmentResult, probability, failureMechanismSectionN, assemblyCategoriesInput);
         }
 
-        public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                          double probability,
-                                                                          double normativeNorm,
-                                                                          double failureMechanismN,
-                                                                          double failureMechanismContribution)
+        public FailureMechanismSectionAssemblyOld AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                             double probability,
+                                                                             double normativeNorm,
+                                                                             double failureMechanismN,
+                                                                             double failureMechanismContribution)
         {
             try
             {
@@ -199,9 +199,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        private FailureMechanismSectionAssembly GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                    double probability,
-                                                                    AssemblyCategoriesInput assemblyCategoriesInput)
+        private FailureMechanismSectionAssemblyOld GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                       double probability,
+                                                                       AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
@@ -223,10 +223,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        private FailureMechanismSectionAssembly GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
-                                                                    double probability,
-                                                                    double failureMechanismSectionN,
-                                                                    AssemblyCategoriesInput assemblyCategoriesInput)
+        private FailureMechanismSectionAssemblyOld GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                       double probability,
+                                                                       double failureMechanismSectionN,
+                                                                       AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
@@ -279,11 +279,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            double normativeNorm,
-                                                                            double failureMechanismN,
-                                                                            double failureMechanismContribution)
+        public FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
+                                                                               double probability,
+                                                                               double normativeNorm,
+                                                                               double failureMechanismN,
+                                                                               double failureMechanismContribution)
         {
             try
             {
@@ -312,9 +312,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                               double probability,
+                                                                               AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
@@ -338,10 +338,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            double failureMechanismSectionN,
-                                                                            AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                               double probability,
+                                                                               double failureMechanismSectionN,
+                                                                               AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
@@ -402,7 +402,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         #region Combined Assembly
 
-        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly)
+        public FailureMechanismSectionAssemblyOld AssembleCombined(FailureMechanismSectionAssemblyOld simpleAssembly)
         {
             try
             {
@@ -424,9 +424,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
-                                                                FailureMechanismSectionAssembly detailedAssembly,
-                                                                FailureMechanismSectionAssembly tailorMadeAssembly)
+        public FailureMechanismSectionAssemblyOld AssembleCombined(FailureMechanismSectionAssemblyOld simpleAssembly,
+                                                                   FailureMechanismSectionAssemblyOld detailedAssembly,
+                                                                   FailureMechanismSectionAssemblyOld tailorMadeAssembly)
         {
             try
             {
@@ -530,15 +530,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         #region Manual Assembly
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability,
-                                                              AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleManual(double probability,
+                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             return GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType.Probability, probability, assemblyCategoriesInput);
         }
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability,
-                                                              double failureMechanismSectionN,
-                                                              AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssemblyOld AssembleManual(double probability,
+                                                                 double failureMechanismSectionN,
+                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             return GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType.Probability, probability, failureMechanismSectionN, assemblyCategoriesInput);
         }

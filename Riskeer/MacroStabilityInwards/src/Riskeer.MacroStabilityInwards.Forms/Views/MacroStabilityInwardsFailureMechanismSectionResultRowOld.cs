@@ -358,7 +358,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             try
             {
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculations,

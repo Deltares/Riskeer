@@ -107,18 +107,18 @@ namespace Riskeer.Integration.IO.Factories
             {
                 GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
-                FailureMechanismSectionAssembly simpleAssembly =
+                FailureMechanismSectionAssemblyOld simpleAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssembly detailedAssembly =
+                FailureMechanismSectionAssemblyOld detailedAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
                                                                                                        calculationScenarios,
                                                                                                        failureMechanism,
                                                                                                        assessmentSection);
-                FailureMechanismSectionAssembly tailorMadeAssembly =
+                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
                                                                                                          failureMechanism,
                                                                                                          assessmentSection);
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
                                                                                                        calculationScenarios,
                                                                                                        failureMechanism,

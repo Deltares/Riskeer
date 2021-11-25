@@ -283,7 +283,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Setup
             var random = new Random(11);
-            var assembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
+            var assembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), originalGroup);
 
             // Call
             FmSectionAssemblyDirectResultWithProbability input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
@@ -299,7 +299,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Call
             TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
-                new FailureMechanismSectionAssembly(0, (FailureMechanismSectionAssemblyCategoryGroup) 99));
+                new FailureMechanismSectionAssemblyOld(0, (FailureMechanismSectionAssemblyCategoryGroup) 99));
 
             // Assert
             string expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyCategoryGroup)}'.";

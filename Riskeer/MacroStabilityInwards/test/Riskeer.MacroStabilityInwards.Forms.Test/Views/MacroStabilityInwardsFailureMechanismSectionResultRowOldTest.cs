@@ -227,16 +227,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
@@ -379,16 +379,16 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRowOld(result,
@@ -686,7 +686,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
+                var assemblyOutput = new FailureMechanismSectionAssemblyOld(0, assemblyCategoryGroup);
                 calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
                 calculator.DetailedAssessmentAssemblyOutput = assemblyOutput;
                 calculator.TailorMadeAssessmentAssemblyOutput = assemblyOutput;

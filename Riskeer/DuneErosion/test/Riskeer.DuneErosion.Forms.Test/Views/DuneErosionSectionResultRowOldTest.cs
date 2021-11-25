@@ -136,7 +136,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 calculator.DetailedAssessmentAssemblyGroupOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -257,7 +257,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 calculator.DetailedAssessmentAssemblyGroupOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -429,7 +429,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
+                calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(0, assemblyCategoryGroup);
                 calculator.DetailedAssessmentAssemblyGroupOutput = assemblyCategoryGroup;
                 calculator.TailorMadeAssemblyCategoryOutput = assemblyCategoryGroup;
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;

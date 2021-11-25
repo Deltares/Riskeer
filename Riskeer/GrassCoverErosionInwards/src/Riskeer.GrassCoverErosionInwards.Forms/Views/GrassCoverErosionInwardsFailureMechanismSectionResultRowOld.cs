@@ -358,7 +358,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             try
             {
-                FailureMechanismSectionAssembly combinedAssembly =
+                FailureMechanismSectionAssemblyOld combinedAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculationScenarios,

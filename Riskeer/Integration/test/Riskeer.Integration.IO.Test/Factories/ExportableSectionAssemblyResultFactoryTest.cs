@@ -69,8 +69,8 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             // Setup
             var random = new Random(21);
-            var assembly = new FailureMechanismSectionAssembly(random.NextDouble(),
-                                                               random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var assembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
+                                                                  random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call

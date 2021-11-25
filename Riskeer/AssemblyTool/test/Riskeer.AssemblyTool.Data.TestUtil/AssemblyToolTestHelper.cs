@@ -29,14 +29,14 @@ namespace Riskeer.AssemblyTool.Data.TestUtil
     public static class AssemblyToolTestHelper
     {
         /// <summary>
-        /// Asserts that two <see cref="FailureMechanismSectionAssembly"/> are equal.
+        /// Asserts that two <see cref="FailureMechanismSectionAssemblyOld"/> are equal.
         /// </summary>
         /// <param name="expectedSectionAssembly">The expected assembly.</param>
         /// <param name="actualSectionAssembly">The actual assembly.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actualSectionAssembly"/> is not
         /// equal to <paramref name="expectedSectionAssembly"/>.</exception>
-        public static void AssertAreEqual(FailureMechanismSectionAssembly expectedSectionAssembly,
-                                          FailureMechanismSectionAssembly actualSectionAssembly)
+        public static void AssertAreEqual(FailureMechanismSectionAssemblyOld expectedSectionAssembly,
+                                          FailureMechanismSectionAssemblyOld actualSectionAssembly)
         {
             Assert.AreEqual(expectedSectionAssembly.Group, actualSectionAssembly.Group);
             Assert.AreEqual(expectedSectionAssembly.Probability, actualSectionAssembly.Probability);

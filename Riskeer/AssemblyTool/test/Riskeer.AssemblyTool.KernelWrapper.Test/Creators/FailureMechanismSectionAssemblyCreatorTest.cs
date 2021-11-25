@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
             // Call
-            FailureMechanismSectionAssembly assembly = FailureMechanismSectionAssemblyCreator.Create(
+            FailureMechanismSectionAssemblyOld assembly = FailureMechanismSectionAssemblyCreator.Create(
                 new FmSectionAssemblyDirectResult(originalGroup));
 
             // Assert
@@ -126,7 +126,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var result = new FmSectionAssemblyDirectResultWithProbability(originalGroup, probability);
 
             // Call
-            FailureMechanismSectionAssembly assembly = FailureMechanismSectionAssemblyCreator.Create(result);
+            FailureMechanismSectionAssemblyOld assembly = FailureMechanismSectionAssemblyCreator.Create(result);
 
             // Assert
             Assert.AreEqual(expectedGroup, assembly.Group);

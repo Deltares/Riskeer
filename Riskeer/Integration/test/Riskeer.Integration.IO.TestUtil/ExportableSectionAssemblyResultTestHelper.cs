@@ -34,7 +34,7 @@ namespace Riskeer.Integration.IO.TestUtil
         /// Asserts an <see cref="ExportableSectionAssemblyResultWithProbability"/>
         /// against the assembly result and the method which was used to generate the result.
         /// </summary>
-        /// <param name="assemblyResult">The expected <see cref="FailureMechanismSectionAssembly"/>.</param>
+        /// <param name="assemblyResult">The expected <see cref="FailureMechanismSectionAssemblyOld"/>.</param>
         /// <param name="assemblyMethod">The <see cref="ExportableAssemblyMethod"/> which was
         /// used to generate the result.</param>
         /// <param name="exportableSectionAssemblyResult">The <see cref="ExportableSectionAssemblyResultWithProbability"/> to assert.</param>
@@ -44,7 +44,7 @@ namespace Riskeer.Integration.IO.TestUtil
         /// do not match.</item>
         /// <item>The <paramref name="assemblyMethod"/> does not match.</item>
         /// </list></exception>
-        public static void AssertExportableSectionAssemblyResult(FailureMechanismSectionAssembly assemblyResult,
+        public static void AssertExportableSectionAssemblyResult(FailureMechanismSectionAssemblyOld assemblyResult,
                                                                  ExportableAssemblyMethod assemblyMethod,
                                                                  ExportableSectionAssemblyResultWithProbability exportableSectionAssemblyResult)
         {
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.IO.TestUtil
         /// Asserts an <see cref="ExportableSectionAssemblyResult"/>
         /// against the assembly result and the method which was used to generate the result.
         /// </summary>
-        /// <param name="assemblyResult">The expected <see cref="FailureMechanismSectionAssembly"/>.</param>
+        /// <param name="assemblyResult">The expected <see cref="FailureMechanismSectionAssemblyOld"/>.</param>
         /// <param name="assemblyMethod">The <see cref="ExportableAssemblyMethod"/> which was
         /// used to generate the result.</param>
         /// <param name="exportableSectionAssemblyResult">The <see cref="ExportableSectionAssemblyResultWithProbability"/> to assert.</param>

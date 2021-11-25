@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Factories
     public static class AssemblyMapDataFeaturesFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="MapFeature"/> for instances of <see cref="FailureMechanismSectionAssembly"/>.
+        /// Creates a collection of <see cref="MapFeature"/> for instances of <see cref="FailureMechanismSectionAssemblyOld"/>.
         /// </summary>
         /// <typeparam name="TFailureMechanism">The type of failure mechanism to create the features for.</typeparam>
         /// <typeparam name="TSectionResult">The type of section result to create the features for.</typeparam>
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateAssemblyFeatures<TFailureMechanism, TSectionResult>(
-            TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssembly> getAssemblyFunc)
+            TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyOld> getAssemblyFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResultOld
         {
@@ -94,14 +94,14 @@ namespace Riskeer.Common.Forms.Factories
         }
 
         private static IEnumerable<MapFeature> CreateFeatures<TFailureMechanism, TSectionResult>(
-            TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssembly> getAssemblyFunc)
+            TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyOld> getAssemblyFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResultOld
         {
             foreach (TSectionResult sectionResult in failureMechanism.SectionResultsOld)
             {
                 MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
 
-                FailureMechanismSectionAssembly assemblyResult;
+                FailureMechanismSectionAssemblyOld assemblyResult;
                 try
                 {
                     assemblyResult = getAssemblyFunc(sectionResult);

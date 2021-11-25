@@ -285,7 +285,7 @@ namespace Riskeer.Common.Forms.TestUtil
 
         /// <summary>
         /// Asserts whether the <see cref="MapDataCollection"/> contains the data that is representative 
-        /// for the <paramref name="failureMechanism"/> and supplied <see cref="FailureMechanismSectionAssembly"/>.
+        /// for the <paramref name="failureMechanism"/> and supplied <see cref="FailureMechanismSectionAssemblyOld"/>.
         /// </summary>
         /// <param name="expectedSimpleAssembly">The expected simple assembly.</param>
         /// <param name="expectedDetailedAssembly">The expected detailed assembly.</param>
@@ -299,10 +299,10 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <item>one of the items in <paramref name="assemblyMapData"/> has incorrect properties.</item>
         /// </list>
         /// </exception>
-        public static void AssertAssemblyMapDataCollection(FailureMechanismSectionAssembly expectedSimpleAssembly,
-                                                           FailureMechanismSectionAssembly expectedDetailedAssembly,
-                                                           FailureMechanismSectionAssembly expectedTailorMadeAssembly,
-                                                           FailureMechanismSectionAssembly expectedCombinedAssembly,
+        public static void AssertAssemblyMapDataCollection(FailureMechanismSectionAssemblyOld expectedSimpleAssembly,
+                                                           FailureMechanismSectionAssemblyOld expectedDetailedAssembly,
+                                                           FailureMechanismSectionAssemblyOld expectedTailorMadeAssembly,
+                                                           FailureMechanismSectionAssemblyOld expectedCombinedAssembly,
                                                            MapDataCollection assemblyMapData,
                                                            IFailureMechanism failureMechanism)
         {
@@ -347,7 +347,7 @@ namespace Riskeer.Common.Forms.TestUtil
 
         private static void AssertAssemblyMapData(string expectedMapDataName,
                                                   IFailureMechanism failureMechanism,
-                                                  FailureMechanismSectionAssembly expectedAssembly,
+                                                  FailureMechanismSectionAssemblyOld expectedAssembly,
                                                   MapData mapData)
         {
             var assemblyMapLineData = (MapLineData) mapData;

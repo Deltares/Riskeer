@@ -105,11 +105,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
@@ -278,7 +278,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                         sectionResult,
                         new[]
@@ -289,7 +289,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                         assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
             }
         }
@@ -442,14 +442,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
+                FailureMechanismSectionAssemblyOld calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
                 Assert.AreSame(calculatorOutput, actualOutput);
                 mocks.VerifyAll();
             }
@@ -663,7 +663,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssembly actualOutput =
+                FailureMechanismSectionAssemblyOld actualOutput =
                     MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult,
                         Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
