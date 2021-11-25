@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     /// <typeparam name="TSectionResult">The type of results which are presented by the 
-    /// <see cref="FailureMechanismResultViewOldOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.</typeparam>
+    /// <see cref="FailureMechanismResultViewOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.</typeparam>
     /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
     /// <typeparam name="TAssemblyResultControl">The type of the assembly result control in this view.</typeparam>
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Views
         private bool rowUpdating;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultViewOldOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultViewOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
@@ -121,7 +121,7 @@ namespace Riskeer.Common.Forms.Views
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultViewOldOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultViewOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.
         /// </summary>
         /// <param name="sectionResult">The <typeparamref name="TSectionResult"/> for which to create a
         /// display object.</param>
