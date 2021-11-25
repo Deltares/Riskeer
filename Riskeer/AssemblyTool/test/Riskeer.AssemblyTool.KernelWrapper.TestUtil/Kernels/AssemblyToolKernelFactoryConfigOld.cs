@@ -40,16 +40,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
     /// }
     /// </code>
     /// </example>
-    public class AssemblyToolKernelFactoryConfig : IDisposable
+    public class AssemblyToolKernelFactoryConfigOld : IDisposable
     {
         private readonly IAssemblyToolKernelFactoryOld previousFactory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyToolKernelFactoryConfig"/>.
+        /// Creates a new instance of <see cref="AssemblyToolKernelFactoryConfigOld"/>.
         /// Sets a <see cref="TestAssemblyToolKernelFactoryOld"/> to 
         /// <see cref="AssemblyToolKernelFactoryOld.Instance"/>
         /// </summary>
-        public AssemblyToolKernelFactoryConfig()
+        public AssemblyToolKernelFactoryConfigOld()
         {
             previousFactory = AssemblyToolKernelFactoryOld.Instance;
             AssemblyToolKernelFactoryOld.Instance = new TestAssemblyToolKernelFactoryOld();
@@ -57,7 +57,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         /// <summary>
         /// Reverts the <see cref="AssemblyToolKernelFactoryOld.Instance"/> to the value
-        /// it had at time of construction of the <see cref="AssemblyToolKernelFactoryConfig"/>.
+        /// it had at time of construction of the <see cref="AssemblyToolKernelFactoryConfigOld"/>.
         /// </summary>
         public void Dispose()
         {

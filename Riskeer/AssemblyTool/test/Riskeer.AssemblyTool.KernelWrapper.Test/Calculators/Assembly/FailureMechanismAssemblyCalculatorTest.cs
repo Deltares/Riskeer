@@ -74,7 +74,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_WithInvalidEnumInput_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
@@ -102,7 +102,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
             };
 
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -125,7 +125,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -147,7 +147,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_KernelWithInvalidOutput_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -169,7 +169,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_KernelThrowsException_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -191,7 +191,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Assemble_KernelThrowsAssemblyException_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -216,7 +216,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleWithProbabilities_WithInvalidEnumInput_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
@@ -245,7 +245,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             };
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
 
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 AssemblyCategoriesKernelStubOld categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
@@ -282,7 +282,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -306,7 +306,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleWithProbabilities_KernelWithInvalidOutput_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -329,7 +329,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleWithProbabilities_KernelThrowsException_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
@@ -352,7 +352,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleWithProbabilities_KernelThrowsAssemblyException_ThrowFailureMechanismAssemblyCalculatorException()
         {
             // Setup
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;

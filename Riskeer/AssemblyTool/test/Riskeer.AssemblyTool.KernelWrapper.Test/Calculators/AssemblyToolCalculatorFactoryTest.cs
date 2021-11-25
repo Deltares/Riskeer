@@ -76,7 +76,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
 
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 // Call
                 IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
@@ -93,7 +93,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
 
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 // Call
                 IFailureMechanismSectionAssemblyCalculator calculator =
@@ -110,7 +110,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
 
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 // Call
                 IFailureMechanismAssemblyCalculator calculator =
@@ -127,7 +127,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
 
-            using (new AssemblyToolKernelFactoryConfig())
+            using (new AssemblyToolKernelFactoryConfigOld())
             {
                 // Call
                 IAssessmentSectionAssemblyCalculator calculator =
