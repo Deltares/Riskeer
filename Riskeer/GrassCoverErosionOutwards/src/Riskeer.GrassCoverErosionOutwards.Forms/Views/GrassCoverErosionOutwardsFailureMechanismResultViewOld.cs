@@ -31,7 +31,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
     /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismResultViewOld : FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
-        GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
+        GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld,
         GrassCoverErosionOutwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -57,11 +57,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult)
+        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult)
         {
-            return new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(
+            return new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(
                 sectionResult,
-                new GrassCoverErosionOutwardsFailureMechanismSectionResultRow.ConstructionProperties
+                new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = detailedAssessmentResultForFactorizedSignalingNormIndex,
@@ -82,59 +82,59 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.Name));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResultForFactorizedSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForSignalingNorm));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResultForSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResultForLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResultForFactorizedLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

@@ -46,11 +46,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultRowTest
     {
-        private static WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties
+        private static WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ConstructionProperties
+                return new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = 2,
@@ -76,7 +76,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, null);
+            TestDelegate call = () => new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,10 +93,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
@@ -147,7 +147,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
@@ -174,7 +174,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -204,7 +204,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssembly);
@@ -236,7 +236,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -267,7 +267,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -305,7 +305,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -348,7 +348,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -383,7 +383,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -439,7 +439,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -477,7 +477,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -506,7 +506,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
@@ -535,7 +535,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForSignalingNorm = newValue;
@@ -564,7 +564,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
@@ -593,7 +593,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForLowerLimitNorm = newValue;
@@ -622,7 +622,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
@@ -651,7 +651,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(result, ConstructionProperties);
+                var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

@@ -83,7 +83,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
-                    GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
+                    GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld,
                     GrassCoverErosionOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -207,7 +207,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             GrassCoverErosionOutwardsFailureMechanismResultViewOld,
             GrassCoverErosionOutwardsFailureMechanism,
             GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
-            GrassCoverErosionOutwardsFailureMechanismSectionResultRow>
+            GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld>
         {
             protected override GrassCoverErosionOutwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             {

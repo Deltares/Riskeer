@@ -35,7 +35,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
     /// Class for displaying <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>
     /// as a row in a grid view.
     /// </summary>
-    public class StabilityStoneCoverSectionResultRow : FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResultOld>
+    public class StabilityStoneCoverSectionResultRowOld : FailureMechanismSectionResultRowOld<StabilityStoneCoverFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultForFactorizedSignalingNormIndex;
@@ -56,16 +56,16 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverSectionResultRow"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverSectionResultRowOld"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>
         /// to wrap so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="StabilityStoneCoverSectionResultRow"/>.</param>
+        /// <see cref="StabilityStoneCoverSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResultOld sectionResult,
+        internal StabilityStoneCoverSectionResultRowOld(StabilityStoneCoverFailureMechanismSectionResultOld sectionResult,
                                                      ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -441,7 +441,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="StabilityStoneCoverSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="StabilityStoneCoverSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

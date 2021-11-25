@@ -20,87 +20,56 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>  as a row in a grid view.
+    /// Class for displaying <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class MacroStabilityOutwardsSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResultOld>
+    public class StrengthStabilityLengthwiseConstructionSectionResultRowOld
+        : FailureMechanismSectionResultRowOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
-        private readonly int detailedAssessmentResultIndex;
-        private readonly int detailedAssessmentProbabilityIndex;
         private readonly int tailorMadeAssessmentResultIndex;
-        private readonly int tailorMadeAssessmentProbabilityIndex;
         private readonly int simpleAssemblyCategoryGroupIndex;
-        private readonly int detailedAssemblyCategoryGroupIndex;
         private readonly int tailorMadeAssemblyCategoryGroupIndex;
         private readonly int combinedAssemblyCategoryGroupIndex;
         private readonly int manualAssemblyCategoryGroupIndex;
 
-        private readonly MacroStabilityOutwardsFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
-        private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityOutwardsSectionResultRow"/>.
+        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/> to wrap
+        /// <param name="sectionResult">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
-        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="MacroStabilityOutwardsSectionResultRow"/>.</param>
+        /// <see cref="StrengthStabilityLengthwiseConstructionSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal MacroStabilityOutwardsSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult,
-                                                        MacroStabilityOutwardsFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection,
-                                                        ConstructionProperties constructionProperties)
+        internal StrengthStabilityLengthwiseConstructionSectionResultRowOld(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult,
+                                                                         ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-
             simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
-            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
-            detailedAssessmentProbabilityIndex = constructionProperties.DetailedAssessmentProbabilityIndex;
             tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
-            tailorMadeAssessmentProbabilityIndex = constructionProperties.TailorMadeAssessmentProbabilityIndex;
             simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
-            detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
             tailorMadeAssemblyCategoryGroupIndex = constructionProperties.TailorMadeAssemblyCategoryGroupIndex;
             combinedAssemblyCategoryGroupIndex = constructionProperties.CombinedAssemblyCategoryGroupIndex;
             manualAssemblyCategoryGroupIndex = constructionProperties.ManualAssemblyCategoryGroupIndex;
@@ -129,50 +98,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets or sets the value representing the detailed assessment result.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult
-        {
-            get
-            {
-                return SectionResult.DetailedAssessmentResult;
-            }
-            set
-            {
-                SectionResult.DetailedAssessmentResult = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the detailed assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
-        /// not in the range [0,1].</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
-        {
-            get
-            {
-                return SectionResult.DetailedAssessmentProbability;
-            }
-            set
-            {
-                SectionResult.DetailedAssessmentProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentResult
+        public TailorMadeAssessmentResultType TailorMadeAssessmentResult
         {
             get
             {
@@ -186,27 +116,6 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets or sets the tailor made assessment probability of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
-        /// not in the range [0,1].</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double TailorMadeAssessmentProbability
-        {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentProbability;
-            }
-            set
-            {
-                SectionResult.TailorMadeAssessmentProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
         public string SimpleAssemblyCategoryGroup
@@ -214,17 +123,6 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             get
             {
                 return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
-            }
-        }
-
-        /// <summary>
-        /// Gets the detailed assembly category group.
-        /// </summary>
-        public string DetailedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
             }
         }
 
@@ -295,12 +193,8 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(tailorMadeAssessmentProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssemblyCategoryGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(combinedAssemblyCategoryGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(manualAssemblyCategoryGroupIndex, new DataGridViewColumnStateDefinition());
@@ -310,7 +204,6 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             ResetErrorTexts();
             TryGetSimpleAssemblyCategoryGroup();
-            TryGetDetailedAssemblyCategoryGroup();
             TryGetTailorMadeAssemblyCategoryGroup();
             TryGetCombinedAssemblyCategoryGroup();
         }
@@ -318,7 +211,6 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         private void ResetErrorTexts()
         {
             ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = string.Empty;
-            ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = string.Empty;
         }
@@ -327,7 +219,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -336,30 +228,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             }
         }
 
-        private void TryGetDetailedAssemblyCategoryGroup()
-        {
-            try
-            {
-                detailedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection);
-            }
-            catch (AssemblyException e)
-            {
-                detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
-            }
-        }
-
         private void TryGetTailorMadeAssemblyCategoryGroup()
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                tailorMadeAssemblyCategoryGroup = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -372,10 +245,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                combinedAssemblyCategoryGroup = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -394,23 +264,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
-                                             simpleAssessmentSufficient || UseManualAssembly);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentProbabilityIndex],
-                                             simpleAssessmentSufficient
-                                             || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
-                                             || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
                                              simpleAssessmentSufficient || UseManualAssembly);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
-                                             simpleAssessmentSufficient
-                                             || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
-                                             || UseManualAssembly);
 
             if (UseManualAssembly)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex]);
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex]);
             }
@@ -418,8 +277,6 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             {
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
                                                                                      simpleAssemblyCategoryGroup);
-                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex],
-                                                                                     detailedAssemblyCategoryGroup);
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
                                                                                      tailorMadeAssemblyCategoryGroup);
                 FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
@@ -430,7 +287,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="MacroStabilityOutwardsSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="StrengthStabilityLengthwiseConstructionSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {
@@ -440,34 +297,14 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             public int SimpleAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the detailed assessment result index.
-            /// </summary>
-            public int DetailedAssessmentResultIndex { internal get; set; }
-
-            /// <summary>
-            /// Sets the detailed assessment probability index.
-            /// </summary>
-            public int DetailedAssessmentProbabilityIndex { internal get; set; }
-
-            /// <summary>
             /// Sets the tailor made assessment result index.
             /// </summary>
             public int TailorMadeAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the tailor made assessment probability index.
-            /// </summary>
-            public int TailorMadeAssessmentProbabilityIndex { internal get; set; }
-
-            /// <summary>
             /// Sets the simple assembly category group index.
             /// </summary>
             public int SimpleAssemblyCategoryGroupIndex { internal get; set; }
-
-            /// <summary>
-            /// Sets the detailed assembly category group index.
-            /// </summary>
-            public int DetailedAssemblyCategoryGroupIndex { internal get; set; }
 
             /// <summary>
             /// Sets the tailor made assembly category group index.

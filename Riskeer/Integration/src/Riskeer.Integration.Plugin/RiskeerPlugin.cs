@@ -498,7 +498,7 @@ namespace Riskeer.Integration.Plugin
                 GrassCoverSlipOffInwardsFailureMechanism,
                 GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
                 GrassCoverSlipOffInwardsResultViewOld,
-                GrassCoverSlipOffInwardsSectionResultRow,
+                GrassCoverSlipOffInwardsSectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new GrassCoverSlipOffInwardsResultViewOld(
                     context.WrappedData,
@@ -508,7 +508,7 @@ namespace Riskeer.Integration.Plugin
                 GrassCoverSlipOffOutwardsFailureMechanism,
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
                 GrassCoverSlipOffOutwardsResultViewOld,
-                GrassCoverSlipOffOutwardsSectionResultRow,
+                GrassCoverSlipOffOutwardsSectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new GrassCoverSlipOffOutwardsResultViewOld(
                     context.WrappedData,
@@ -518,7 +518,7 @@ namespace Riskeer.Integration.Plugin
                 MicrostabilityFailureMechanism,
                 MicrostabilityFailureMechanismSectionResultOld,
                 MicrostabilityResultViewOld,
-                MicrostabilitySectionResultRow,
+                MicrostabilitySectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new MicrostabilityResultViewOld(
                     context.WrappedData,
@@ -528,7 +528,7 @@ namespace Riskeer.Integration.Plugin
                 PipingStructureFailureMechanism,
                 PipingStructureFailureMechanismSectionResultOld,
                 PipingStructureResultViewOld,
-                PipingStructureSectionResultRow,
+                PipingStructureSectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new PipingStructureResultViewOld(
                     context.WrappedData,
@@ -538,7 +538,7 @@ namespace Riskeer.Integration.Plugin
                 TechnicalInnovationFailureMechanism,
                 TechnicalInnovationFailureMechanismSectionResultOld,
                 TechnicalInnovationResultViewOld,
-                TechnicalInnovationSectionResultRow,
+                TechnicalInnovationSectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new TechnicalInnovationResultViewOld(
                     context.WrappedData,
@@ -548,7 +548,7 @@ namespace Riskeer.Integration.Plugin
                 StrengthStabilityLengthwiseConstructionFailureMechanism,
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
                 StrengthStabilityLengthwiseConstructionResultViewOld,
-                StrengthStabilityLengthwiseConstructionSectionResultRow,
+                StrengthStabilityLengthwiseConstructionSectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new StrengthStabilityLengthwiseConstructionResultViewOld(
                     context.WrappedData,
@@ -558,7 +558,7 @@ namespace Riskeer.Integration.Plugin
                 WaterPressureAsphaltCoverFailureMechanism,
                 WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
                 WaterPressureAsphaltCoverResultViewOld,
-                WaterPressureAsphaltCoverSectionResultRow,
+                WaterPressureAsphaltCoverSectionResultRowOld,
                 FailureMechanismAssemblyCategoryGroupControl>(
                 context => new WaterPressureAsphaltCoverResultViewOld(
                     context.WrappedData,
@@ -573,7 +573,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData<MacroStabilityOutwardsFailureMechanism,
                     MacroStabilityOutwardsFailureMechanismSectionResultOld,
                     MacroStabilityOutwardsResultViewOld,
-                    MacroStabilityOutwardsSectionResultRow,
+                    MacroStabilityOutwardsSectionResultRowOld,
                     FailureMechanismAssemblyCategoryGroupControl>,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new MacroStabilityOutwardsResultViewOld(
@@ -1307,7 +1307,7 @@ namespace Riskeer.Integration.Plugin
             where TResult : FailureMechanismSectionResultOld
             where TView : FailureMechanismResultViewOld<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
-            where TResultRow : FailureMechanismSectionResultRow<TResult>
+            where TResultRow : FailureMechanismSectionResultRowOld<TResult>
             where TAssemblyResultControl : AssemblyResultControl, new()
         {
             return new RiskeerViewInfo<
@@ -1652,7 +1652,7 @@ namespace Riskeer.Integration.Plugin
             where TView : FailureMechanismResultViewOld<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResult : FailureMechanismSectionResultOld
-            where TResultRow : FailureMechanismSectionResultRow<TResult>
+            where TResultRow : FailureMechanismSectionResultRowOld<TResult>
             where TAssemblyResultControl : AssemblyResultControl, new()
         {
             if (dataToCloseFor is IAssessmentSection assessmentSection)

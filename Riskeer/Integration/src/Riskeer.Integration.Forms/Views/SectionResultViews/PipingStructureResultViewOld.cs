@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class PipingStructureResultViewOld : FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
-        PipingStructureSectionResultRow,
+        PipingStructureSectionResultRowOld,
         PipingStructureFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -55,11 +55,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
                                          PipingStructureFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResultOld sectionResult)
+        protected override PipingStructureSectionResultRowOld CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResultOld sectionResult)
         {
-            return new PipingStructureSectionResultRow(
+            return new PipingStructureSectionResultRowOld(
                 sectionResult,
-                new PipingStructureSectionResultRow.ConstructionProperties
+                new PipingStructureSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -76,43 +76,43 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.Name));
+                nameof(PipingStructureSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.SimpleAssessmentResult));
+                nameof(PipingStructureSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.DetailedAssessmentResult));
+                nameof(PipingStructureSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.TailorMadeAssessmentResult));
+                nameof(PipingStructureSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.UseManualAssembly));
+                nameof(PipingStructureSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

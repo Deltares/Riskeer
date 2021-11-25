@@ -52,8 +52,8 @@ namespace Riskeer.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingFailureMechanismSectionResultRowTest
     {
-        private static PipingFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
-            new PipingFailureMechanismSectionResultRow.ConstructionProperties
+        private static PipingFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
+            new PipingFailureMechanismSectionResultRowOld.ConstructionProperties
             {
                 SimpleAssessmentResultIndex = 1,
                 DetailedAssessmentResultIndex = 2,
@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), null,
+            void Call() => new PipingFailureMechanismSectionResultRowOld(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), null,
                                                                       assessmentSection, ConstructionProperties);
 
             // Assert
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
+            void Call() => new PipingFailureMechanismSectionResultRowOld(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                       new PipingFailureMechanism(), null, ConstructionProperties);
 
             // Assert
@@ -117,7 +117,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
+            void Call() => new PipingFailureMechanismSectionResultRowOld(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                       new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
@@ -138,7 +138,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, null, new PipingFailureMechanism(),
+            void Call() => new PipingFailureMechanismSectionResultRowOld(result, null, new PipingFailureMechanism(),
                                                                       assessmentSection, ConstructionProperties);
 
             // Assert
@@ -167,14 +167,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(result,
+                var row = new PipingFailureMechanismSectionResultRowOld(result,
                                                                      calculationScenarios,
                                                                      failureMechanism,
                                                                      assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<PipingFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.Norm),
@@ -184,14 +184,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
-                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
@@ -243,7 +243,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result,
+                var row = new PipingFailureMechanismSectionResultRowOld(result,
                                                                      Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                      failureMechanism,
                                                                      assessmentSection,
@@ -281,7 +281,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssembly;
                 bool newValue = !originalValue;
@@ -318,7 +318,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -350,7 +350,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -393,7 +393,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var row = new PipingFailureMechanismSectionResultRow(result,
+                var row = new PipingFailureMechanismSectionResultRowOld(result,
                                                                      Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                      failureMechanism,
                                                                      assessmentSection,
@@ -445,7 +445,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new PipingFailureMechanismSectionResultRow(result,
+                var row = new PipingFailureMechanismSectionResultRowOld(result,
                                                                      Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                      failureMechanism,
                                                                      assessmentSection,
@@ -507,7 +507,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -554,7 +554,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -591,7 +591,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -628,7 +628,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -695,7 +695,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result,
+                var row = new PipingFailureMechanismSectionResultRowOld(result,
                                                                      Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                      failureMechanism,
                                                                      assessmentSection,
@@ -743,7 +743,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -783,7 +783,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -827,7 +827,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -867,7 +867,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
@@ -909,7 +909,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -952,7 +952,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(result,
+                var row = new PipingFailureMechanismSectionResultRowOld(result,
                                                                      Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                      failureMechanism,
                                                                      assessmentSection,
@@ -988,7 +988,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1015,7 +1015,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new PipingFailureMechanismSectionResultRow(sectionResult, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(sectionResult, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -1044,7 +1044,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -1083,7 +1083,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -1121,7 +1121,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new PipingFailureMechanismSectionResultRow(
+                var resultRow = new PipingFailureMechanismSectionResultRowOld(
                     sectionResult,
                     calculationScenarios,
                     failureMechanism,
@@ -1159,7 +1159,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1194,7 +1194,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1226,7 +1226,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(
+                var row = new PipingFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call

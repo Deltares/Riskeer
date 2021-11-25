@@ -32,10 +32,9 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>  as a row in a grid view.
+    /// Class for displaying <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionSectionResultRow
-        : FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
+    public class TechnicalInnovationSectionResultRowOld : FailureMechanismSectionResultRowOld<TechnicalInnovationFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int tailorMadeAssessmentResultIndex;
@@ -49,17 +48,17 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionSectionResultRow"/>.
+        /// Creates a new instance of <see cref="TechnicalInnovationSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/> to wrap
+        /// <param name="sectionResult">The <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="StrengthStabilityLengthwiseConstructionSectionResultRow"/>.</param>
+        /// <see cref="TechnicalInnovationSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal StrengthStabilityLengthwiseConstructionSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult,
-                                                                         ConstructionProperties constructionProperties)
+        internal TechnicalInnovationSectionResultRowOld(TechnicalInnovationFailureMechanismSectionResultOld sectionResult,
+                                                     ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (constructionProperties == null)
@@ -219,7 +218,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -232,7 +231,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -245,7 +244,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
+                combinedAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -287,7 +286,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="StrengthStabilityLengthwiseConstructionSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="TechnicalInnovationSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

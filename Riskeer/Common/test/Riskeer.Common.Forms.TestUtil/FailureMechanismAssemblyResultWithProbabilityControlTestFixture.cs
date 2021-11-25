@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.TestUtil
         where TView : FailureMechanismResultViewOld<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
         where TSectionResult : FailureMechanismSectionResultOld
-        where TResultRow : FailureMechanismSectionResultRow<TSectionResult>
+        where TResultRow : FailureMechanismSectionResultRowOld<TSectionResult>
         where TCalculation : ICalculation<ICalculationInput>
     {
         private Form testForm;

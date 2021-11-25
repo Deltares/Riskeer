@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Forms.Views
     /// The view for the <see cref="PipingFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class PipingFailureMechanismResultViewOld : FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
-        PipingFailureMechanismSectionResultRow,
+        PipingFailureMechanismSectionResultRowOld,
         PipingFailureMechanism,
         FailureMechanismAssemblyControl>
     {
@@ -99,14 +99,14 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResultOld sectionResult)
+        protected override PipingFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResultOld sectionResult)
         {
-            return new PipingFailureMechanismSectionResultRow(
+            return new PipingFailureMechanismSectionResultRowOld(
                 sectionResult,
                 FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
-                new PipingFailureMechanismSectionResultRow.ConstructionProperties
+                new PipingFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -126,55 +126,55 @@ namespace Riskeer.Piping.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.Name));
+                nameof(PipingFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(PipingFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(PipingFailureMechanismSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(PipingFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(PipingFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(PipingFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(PipingFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(PipingFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(PipingFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()

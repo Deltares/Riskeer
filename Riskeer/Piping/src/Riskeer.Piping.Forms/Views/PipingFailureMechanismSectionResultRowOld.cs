@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,21 +25,21 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.ClosingStructures.Forms.Views
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="ClosingStructuresFailureMechanismSectionResultOld"/>.
+    /// This class represents a row of <see cref="PipingFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResultOld>
+    public class PipingFailureMechanismSectionResultRowOld : FailureMechanismSectionResultRowOld<PipingFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -53,38 +53,37 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
 
-        private readonly IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios;
-        private readonly ClosingStructuresFailureMechanism failureMechanism;
+        private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations;
+        private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> to wrap
-        /// so that it can be displayed as a row.</param>
-        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the result belongs to.</param>
+        /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResultOld"/> that is 
+        /// the source of this row.</param>
+        /// <param name="calculations">All calculations in the failure mechanism.</param>
+        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <see cref="PipingFailureMechanismSectionResultRowOld"/>.</param>
+        /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResultOld sectionResult,
-                                                                   IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
-                                                                   ClosingStructuresFailureMechanism failureMechanism,
-                                                                   IAssessmentSection assessmentSection,
-                                                                   ConstructionProperties constructionProperties)
+        internal PipingFailureMechanismSectionResultRowOld(PipingFailureMechanismSectionResultOld sectionResult,
+                                                        IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations,
+                                                        PipingFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection,
+                                                        ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
-            if (calculationScenarios == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(calculationScenarios));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
             if (failureMechanism == null)
@@ -102,7 +101,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            this.calculationScenarios = calculationScenarios;
+            this.calculations = calculations;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -154,10 +153,10 @@ namespace Riskeer.ClosingStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the value representing the detailed assessment probability.
+        /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResultOld"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculationScenarios);
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, assessmentSection.FailureMechanismContribution.Norm);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -270,9 +269,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
             else
             {
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
-                    SectionResult.GetCalculationScenarios(calculationScenarios).ToArray(),
+                    SectionResult.GetCalculationScenarios(calculations).ToArray(),
                     scenarios => SectionResult.GetTotalContribution(scenarios),
-                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios));
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, assessmentSection.FailureMechanismContribution.Norm));
             }
         }
 
@@ -313,7 +312,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -326,9 +325,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
-                    calculationScenarios,
+                    calculations,
                     failureMechanism,
                     assessmentSection).Group;
             }
@@ -343,7 +342,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -360,9 +359,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
-                        calculationScenarios,
+                        calculations,
                         failureMechanism,
                         assessmentSection);
 
@@ -434,7 +433,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="PipingFailureMechanismSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

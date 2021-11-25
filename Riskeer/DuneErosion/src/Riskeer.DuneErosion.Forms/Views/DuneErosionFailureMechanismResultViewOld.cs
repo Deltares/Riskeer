@@ -32,7 +32,7 @@ namespace Riskeer.DuneErosion.Forms.Views
     /// </summary>
     public class DuneErosionFailureMechanismResultViewOld : FailureMechanismResultViewOld
     <DuneErosionFailureMechanismSectionResultOld,
-        DuneErosionSectionResultRow,
+        DuneErosionSectionResultRowOld,
         DuneErosionFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -58,11 +58,11 @@ namespace Riskeer.DuneErosion.Forms.Views
             DuneErosionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResultOld sectionResult)
+        protected override DuneErosionSectionResultRowOld CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResultOld sectionResult)
         {
-            return new DuneErosionSectionResultRow(
+            return new DuneErosionSectionResultRowOld(
                 sectionResult,
-                new DuneErosionSectionResultRow.ConstructionProperties
+                new DuneErosionSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = detailedAssessmentResultForFactorizedSignalingNormIndex,
@@ -83,59 +83,59 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.Name));
+                nameof(DuneErosionSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.SimpleAssessmentResult));
+                nameof(DuneErosionSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
+                nameof(DuneErosionSectionResultRowOld.DetailedAssessmentResultForFactorizedSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForSignalingNorm));
+                nameof(DuneErosionSectionResultRowOld.DetailedAssessmentResultForSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+                nameof(DuneErosionSectionResultRowOld.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+                nameof(DuneErosionSectionResultRowOld.DetailedAssessmentResultForLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+                nameof(DuneErosionSectionResultRowOld.DetailedAssessmentResultForFactorizedLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.TailorMadeAssessmentResult));
+                nameof(DuneErosionSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(DuneErosionSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(DuneErosionSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(DuneErosionSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(DuneErosionSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.UseManualAssembly));
+                nameof(DuneErosionSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(DuneErosionSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(DuneErosionSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

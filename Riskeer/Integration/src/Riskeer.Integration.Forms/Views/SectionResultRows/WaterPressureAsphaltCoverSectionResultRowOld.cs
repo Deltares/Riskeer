@@ -32,9 +32,9 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>  as a row in a grid view.
+    /// Class for displaying <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class TechnicalInnovationSectionResultRow : FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResultOld>
+    public class WaterPressureAsphaltCoverSectionResultRowOld : FailureMechanismSectionResultRowOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int tailorMadeAssessmentResultIndex;
@@ -48,17 +48,17 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TechnicalInnovationSectionResultRow"/>.
+        /// Creates a new instance of <see cref="WaterPressureAsphaltCoverSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/> to wrap
+        /// <param name="sectionResult">The <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="TechnicalInnovationSectionResultRow"/>.</param>
+        /// <see cref="WaterPressureAsphaltCoverSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal TechnicalInnovationSectionResultRow(TechnicalInnovationFailureMechanismSectionResultOld sectionResult,
-                                                     ConstructionProperties constructionProperties)
+        internal WaterPressureAsphaltCoverSectionResultRowOld(WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult,
+                                                           ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (constructionProperties == null)
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
+                combinedAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -286,7 +286,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="TechnicalInnovationSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="WaterPressureAsphaltCoverSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

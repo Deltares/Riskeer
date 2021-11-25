@@ -36,7 +36,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> for closing structures.
     /// </summary>
     public class ClosingStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResultOld,
-        ClosingStructuresFailureMechanismSectionResultRow,
+        ClosingStructuresFailureMechanismSectionResultRowOld,
         ClosingStructuresFailureMechanism,
         FailureMechanismAssemblyControl>
     {
@@ -92,14 +92,14 @@ namespace Riskeer.ClosingStructures.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResultOld sectionResult)
+        protected override ClosingStructuresFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResultOld sectionResult)
         {
-            return new ClosingStructuresFailureMechanismSectionResultRow(
+            return new ClosingStructuresFailureMechanismSectionResultRowOld(
                 sectionResult,
                 FailureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
-                new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                new ClosingStructuresFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -127,55 +127,55 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.Name));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()

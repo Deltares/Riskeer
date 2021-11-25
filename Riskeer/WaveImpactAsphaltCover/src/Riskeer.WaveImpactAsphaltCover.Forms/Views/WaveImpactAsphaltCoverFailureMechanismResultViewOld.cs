@@ -31,7 +31,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
     /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismResultViewOld : FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
-        WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
+        WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld,
         WaveImpactAsphaltCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -56,12 +56,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
                                                                 WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(
             WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult)
         {
-            return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(
+            return new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(
                 sectionResult,
-                new WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ConstructionProperties
+                new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = detailedAssessmentResultForFactorizedSignalingNormIndex,
@@ -82,59 +82,59 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.Name));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.DetailedAssessmentResultForFactorizedSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForSignalingNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.DetailedAssessmentResultForSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.DetailedAssessmentResultForLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.DetailedAssessmentResultForFactorizedLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

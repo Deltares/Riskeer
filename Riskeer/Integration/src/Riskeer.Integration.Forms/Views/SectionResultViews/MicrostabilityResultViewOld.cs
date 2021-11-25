@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class MicrostabilityResultViewOld : FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResultOld,
-        MicrostabilitySectionResultRow,
+        MicrostabilitySectionResultRowOld,
         MicrostabilityFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -55,11 +55,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
                                         MicrostabilityFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResultOld sectionResult)
+        protected override MicrostabilitySectionResultRowOld CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResultOld sectionResult)
         {
-            return new MicrostabilitySectionResultRow(
+            return new MicrostabilitySectionResultRowOld(
                 sectionResult,
-                new MicrostabilitySectionResultRow.ConstructionProperties
+                new MicrostabilitySectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -76,43 +76,43 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.Name));
+                nameof(MicrostabilitySectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.SimpleAssessmentResult));
+                nameof(MicrostabilitySectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.DetailedAssessmentResult));
+                nameof(MicrostabilitySectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.TailorMadeAssessmentResult));
+                nameof(MicrostabilitySectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.UseManualAssembly));
+                nameof(MicrostabilitySectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MicrostabilitySectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.TestUtil
         where TView : FailureMechanismResultViewOld<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, new()
         where TSectionResult : FailureMechanismSectionResultOld
-        where TResultRow : FailureMechanismSectionResultRow<TSectionResult>
+        where TResultRow : FailureMechanismSectionResultRowOld<TSectionResult>
     {
         private Form testForm;
 

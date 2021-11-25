@@ -31,7 +31,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
     /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class StabilityStoneCoverResultViewOld : FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResultOld,
-        StabilityStoneCoverSectionResultRow,
+        StabilityStoneCoverSectionResultRowOld,
         StabilityStoneCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -56,11 +56,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
                                              StabilityStoneCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResultOld sectionResult)
+        protected override StabilityStoneCoverSectionResultRowOld CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResultOld sectionResult)
         {
-            return new StabilityStoneCoverSectionResultRow(
+            return new StabilityStoneCoverSectionResultRowOld(
                 sectionResult,
-                new StabilityStoneCoverSectionResultRow.ConstructionProperties
+                new StabilityStoneCoverSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = detailedAssessmentResultForFactorizedSignalingNormIndex,
@@ -81,59 +81,59 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.Name));
+                nameof(StabilityStoneCoverSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.SimpleAssessmentResult));
+                nameof(StabilityStoneCoverSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
+                nameof(StabilityStoneCoverSectionResultRowOld.DetailedAssessmentResultForFactorizedSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForSignalingNorm));
+                nameof(StabilityStoneCoverSectionResultRowOld.DetailedAssessmentResultForSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+                nameof(StabilityStoneCoverSectionResultRowOld.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+                nameof(StabilityStoneCoverSectionResultRowOld.DetailedAssessmentResultForLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+                nameof(StabilityStoneCoverSectionResultRowOld.DetailedAssessmentResultForFactorizedLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.TailorMadeAssessmentResult));
+                nameof(StabilityStoneCoverSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.UseManualAssembly));
+                nameof(StabilityStoneCoverSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(StabilityStoneCoverSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

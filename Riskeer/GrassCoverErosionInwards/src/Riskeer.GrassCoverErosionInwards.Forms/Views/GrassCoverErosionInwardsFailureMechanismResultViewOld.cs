@@ -36,7 +36,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultViewOld
         : FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld,
-            GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+            GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
             GrassCoverErosionInwardsFailureMechanism,
             FailureMechanismAssemblyControl>
     {
@@ -100,14 +100,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override GrassCoverErosionInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult)
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult)
         {
-            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                 sectionResult,
                 FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
-                new GrassCoverErosionInwardsFailureMechanismSectionResultRow.ConstructionProperties
+                new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -127,55 +127,55 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.Name));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()

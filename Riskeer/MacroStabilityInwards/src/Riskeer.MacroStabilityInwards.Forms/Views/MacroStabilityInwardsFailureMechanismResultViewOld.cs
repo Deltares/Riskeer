@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// The view for the <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismResultViewOld : FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResultOld,
-        MacroStabilityInwardsFailureMechanismSectionResultRow,
+        MacroStabilityInwardsFailureMechanismSectionResultRowOld,
         MacroStabilityInwardsFailureMechanism,
         FailureMechanismAssemblyControl>
     {
@@ -98,15 +98,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
+        protected override MacroStabilityInwardsFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(
             MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult)
         {
-            return new MacroStabilityInwardsFailureMechanismSectionResultRow(
+            return new MacroStabilityInwardsFailureMechanismSectionResultRowOld(
                 sectionResult,
                 FailureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
-                new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
+                new MacroStabilityInwardsFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -126,55 +126,55 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.Name));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()

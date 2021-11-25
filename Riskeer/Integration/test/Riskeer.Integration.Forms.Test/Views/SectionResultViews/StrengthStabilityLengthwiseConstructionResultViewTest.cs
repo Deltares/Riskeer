@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
-                    StrengthStabilityLengthwiseConstructionSectionResultRow,
+                    StrengthStabilityLengthwiseConstructionSectionResultRowOld,
                     StrengthStabilityLengthwiseConstructionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             StrengthStabilityLengthwiseConstructionResultViewOld,
             StrengthStabilityLengthwiseConstructionFailureMechanism,
             StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
-            StrengthStabilityLengthwiseConstructionSectionResultRow>
+            StrengthStabilityLengthwiseConstructionSectionResultRowOld>
         {
             protected override StrengthStabilityLengthwiseConstructionResultViewOld CreateResultView(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             {

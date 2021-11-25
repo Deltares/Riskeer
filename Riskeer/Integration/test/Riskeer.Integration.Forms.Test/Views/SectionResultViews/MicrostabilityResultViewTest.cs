@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResultOld,
-                    MicrostabilitySectionResultRow,
+                    MicrostabilitySectionResultRowOld,
                     MicrostabilityFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             MicrostabilityResultViewOld,
             MicrostabilityFailureMechanism,
             MicrostabilityFailureMechanismSectionResultOld,
-            MicrostabilitySectionResultRow>
+            MicrostabilitySectionResultRowOld>
         {
             protected override MicrostabilityResultViewOld CreateResultView(MicrostabilityFailureMechanism failureMechanism)
             {

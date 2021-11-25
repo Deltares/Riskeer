@@ -83,7 +83,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResultOld,
-                    StabilityStoneCoverSectionResultRow,
+                    StabilityStoneCoverSectionResultRowOld,
                     StabilityStoneCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -207,7 +207,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             StabilityStoneCoverResultViewOld,
             StabilityStoneCoverFailureMechanism,
             StabilityStoneCoverFailureMechanismSectionResultOld,
-            StabilityStoneCoverSectionResultRow>
+            StabilityStoneCoverSectionResultRowOld>
         {
             protected override StabilityStoneCoverResultViewOld CreateResultView(StabilityStoneCoverFailureMechanism failureMechanism)
             {

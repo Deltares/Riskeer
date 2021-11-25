@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
-                    GrassCoverSlipOffOutwardsSectionResultRow,
+                    GrassCoverSlipOffOutwardsSectionResultRowOld,
                     GrassCoverSlipOffOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             GrassCoverSlipOffOutwardsResultViewOld,
             GrassCoverSlipOffOutwardsFailureMechanism,
             GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
-            GrassCoverSlipOffOutwardsSectionResultRow>
+            GrassCoverSlipOffOutwardsSectionResultRowOld>
         {
             protected override GrassCoverSlipOffOutwardsResultViewOld CreateResultView(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
             {

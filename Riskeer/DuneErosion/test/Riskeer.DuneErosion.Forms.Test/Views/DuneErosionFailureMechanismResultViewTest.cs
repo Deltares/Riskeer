@@ -83,7 +83,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<DuneErosionFailureMechanismSectionResultOld,
-                    DuneErosionSectionResultRow,
+                    DuneErosionSectionResultRowOld,
                     DuneErosionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -207,7 +207,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             DuneErosionFailureMechanismResultViewOld,
             DuneErosionFailureMechanism,
             DuneErosionFailureMechanismSectionResultOld,
-            DuneErosionSectionResultRow>
+            DuneErosionSectionResultRowOld>
         {
             protected override DuneErosionFailureMechanismResultViewOld CreateResultView(DuneErosionFailureMechanism failureMechanism)
             {

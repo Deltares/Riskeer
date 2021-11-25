@@ -89,7 +89,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResultOld,
-                    StabilityPointStructuresFailureMechanismSectionResultRow,
+                    StabilityPointStructuresFailureMechanismSectionResultRowOld,
                     StabilityPointStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
@@ -248,7 +248,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (StabilityPointStructuresFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+                var row = (StabilityPointStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -276,7 +276,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             StabilityPointStructuresFailureMechanismResultViewOld,
             StabilityPointStructuresFailureMechanism,
             StabilityPointStructuresFailureMechanismSectionResultOld,
-            StabilityPointStructuresFailureMechanismSectionResultRow,
+            StabilityPointStructuresFailureMechanismSectionResultRowOld,
             StructuresCalculation<StabilityPointStructuresInput>>
         {
             protected override StabilityPointStructuresFailureMechanismResultViewOld CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)

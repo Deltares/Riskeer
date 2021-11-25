@@ -89,7 +89,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResultOld,
-                    MacroStabilityInwardsFailureMechanismSectionResultRow,
+                    MacroStabilityInwardsFailureMechanismSectionResultRowOld,
                     MacroStabilityInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
@@ -247,7 +247,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (MacroStabilityInwardsFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+                var row = (MacroStabilityInwardsFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -275,7 +275,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsFailureMechanismResultViewOld,
             MacroStabilityInwardsFailureMechanism,
             MacroStabilityInwardsFailureMechanismSectionResultOld,
-            MacroStabilityInwardsFailureMechanismSectionResultRow,
+            MacroStabilityInwardsFailureMechanismSectionResultRowOld,
             MacroStabilityInwardsCalculationScenario>
         {
             protected override MacroStabilityInwardsFailureMechanismResultViewOld CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)

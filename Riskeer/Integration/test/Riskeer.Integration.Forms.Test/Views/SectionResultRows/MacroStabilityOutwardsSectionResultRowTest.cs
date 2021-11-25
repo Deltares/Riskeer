@@ -48,11 +48,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
     [TestFixture]
     public class MacroStabilityOutwardsSectionResultRowTest
     {
-        private static MacroStabilityOutwardsSectionResultRow.ConstructionProperties ConstructionProperties
+        private static MacroStabilityOutwardsSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new MacroStabilityOutwardsSectionResultRow.ConstructionProperties
+                return new MacroStabilityOutwardsSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     DetailedAssessmentResultIndex = 2,
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, null, assessmentSection,
+            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRowOld(result, null, assessmentSection,
                                                                                  ConstructionProperties);
 
             // Assert
@@ -97,7 +97,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), null,
+            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRowOld(result, new MacroStabilityOutwardsFailureMechanism(), null,
                                                                                  ConstructionProperties);
 
             // Assert
@@ -117,7 +117,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection, null);
+            TestDelegate test = () => new MacroStabilityOutwardsSectionResultRowOld(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -141,11 +141,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<MacroStabilityOutwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
@@ -154,12 +154,12 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyCategoryGroup, row.ManualAssemblyCategoryGroup);
 
-                TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
+                TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
-                TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRow,
+                    nameof(MacroStabilityOutwardsSectionResultRowOld.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<MacroStabilityOutwardsSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+                    nameof(MacroStabilityOutwardsSectionResultRowOld.TailorMadeAssessmentProbability));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(10, columnStateDefinitions.Count);
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -280,7 +280,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Precondition
@@ -316,7 +316,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -357,7 +357,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Precondition
@@ -404,7 +404,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Precondition
@@ -457,7 +457,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -498,7 +498,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -537,7 +537,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -571,7 +571,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -636,7 +636,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Assert
@@ -680,7 +680,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -713,7 +713,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -748,7 +748,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -780,7 +780,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -814,7 +814,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -849,7 +849,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call
@@ -881,7 +881,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityOutwardsSectionResultRow(result, failureMechanism, assessmentSection,
+                var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
 
                 // Call

@@ -51,8 +51,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultRowTest
     {
-        private static ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
-            new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
+        private static ClosingStructuresFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
+            new ClosingStructuresFailureMechanismSectionResultRowOld.ConstructionProperties
             {
                 SimpleAssessmentResultIndex = 1,
                 DetailedAssessmentResultIndex = 2,
@@ -79,7 +79,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRowOld(
                 result, null, new ClosingStructuresFailureMechanism(),
                 assessmentSection, ConstructionProperties);
 
@@ -101,7 +101,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 null, assessmentSection, ConstructionProperties);
 
@@ -119,7 +119,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), null, ConstructionProperties);
 
@@ -140,7 +140,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), assessmentSection, null);
 
@@ -171,11 +171,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<ClosingStructuresFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios), row.DetailedAssessmentProbability);
@@ -184,14 +184,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
-                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
-                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
-                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(ClosingStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
+                TestHelper.AssertTypeConverter<ClosingStructuresFailureMechanismSectionResultRowOld, NoProbabilityValueDoubleConverter>(
+                    nameof(ClosingStructuresFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
@@ -243,7 +243,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                                                                                 failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -278,7 +278,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssembly;
@@ -316,7 +316,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -349,7 +349,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -393,7 +393,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                                                                                 failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Precondition
@@ -442,7 +442,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                                                                                 failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Precondition
@@ -502,7 +502,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -550,7 +550,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -587,7 +587,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -626,7 +626,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -693,7 +693,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -738,7 +738,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -778,7 +778,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -822,7 +822,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -862,7 +862,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism,
@@ -903,7 +903,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -942,7 +942,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -976,7 +976,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call 
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1010,7 +1010,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1044,7 +1044,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1144,7 +1144,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1178,7 +1178,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1206,7 +1206,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1239,7 +1239,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1269,7 +1269,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -1308,7 +1308,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -1348,7 +1348,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1384,7 +1384,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1417,7 +1417,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new ClosingStructuresFailureMechanismSectionResultRow(
+                var row = new ClosingStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 

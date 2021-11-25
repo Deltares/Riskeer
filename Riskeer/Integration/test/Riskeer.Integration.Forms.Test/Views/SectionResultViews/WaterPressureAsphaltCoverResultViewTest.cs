@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
-                    WaterPressureAsphaltCoverSectionResultRow,
+                    WaterPressureAsphaltCoverSectionResultRowOld,
                     WaterPressureAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             WaterPressureAsphaltCoverResultViewOld,
             WaterPressureAsphaltCoverFailureMechanism,
             WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
-            WaterPressureAsphaltCoverSectionResultRow>
+            WaterPressureAsphaltCoverSectionResultRowOld>
         {
             protected override WaterPressureAsphaltCoverResultViewOld CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             {

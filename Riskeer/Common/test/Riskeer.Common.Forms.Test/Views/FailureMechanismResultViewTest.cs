@@ -672,7 +672,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestAssemblyResultControl : AssemblyResultControl {}
 
-        private class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResultOld>
+        private class TestRow : FailureMechanismSectionResultRowOld<FailureMechanismSectionResultOld>
         {
             private string testString;
 

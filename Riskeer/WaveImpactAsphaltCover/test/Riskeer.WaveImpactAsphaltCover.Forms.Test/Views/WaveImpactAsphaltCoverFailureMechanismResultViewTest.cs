@@ -83,7 +83,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
-                    WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
+                    WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld,
                     WaveImpactAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -207,7 +207,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             WaveImpactAsphaltCoverFailureMechanismResultViewOld,
             WaveImpactAsphaltCoverFailureMechanism,
             WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
-            WaveImpactAsphaltCoverFailureMechanismSectionResultRow>
+            WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld>
         {
             protected override WaveImpactAsphaltCoverFailureMechanismResultViewOld CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             {

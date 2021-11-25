@@ -89,7 +89,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResultOld,
-                    HeightStructuresFailureMechanismSectionResultRow,
+                    HeightStructuresFailureMechanismSectionResultRowOld,
                     HeightStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
@@ -248,7 +248,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (HeightStructuresFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+                var row = (HeightStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -276,7 +276,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             HeightStructuresFailureMechanismResultViewOld,
             HeightStructuresFailureMechanism,
             HeightStructuresFailureMechanismSectionResultOld,
-            HeightStructuresFailureMechanismSectionResultRow,
+            HeightStructuresFailureMechanismSectionResultRowOld,
             StructuresCalculation<HeightStructuresInput>>
         {
             protected override HeightStructuresFailureMechanismResultViewOld CreateResultView(HeightStructuresFailureMechanism failureMechanism)

@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionResultViewOld
         : FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
-            StrengthStabilityLengthwiseConstructionSectionResultRow,
+            StrengthStabilityLengthwiseConstructionSectionResultRowOld,
             StrengthStabilityLengthwiseConstructionFailureMechanism,
             FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -55,12 +55,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(
+        protected override StrengthStabilityLengthwiseConstructionSectionResultRowOld CreateFailureMechanismSectionResultRow(
             StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult)
         {
-            return new StrengthStabilityLengthwiseConstructionSectionResultRow(
+            return new StrengthStabilityLengthwiseConstructionSectionResultRowOld(
                 sectionResult,
-                new StrengthStabilityLengthwiseConstructionSectionResultRow.ConstructionProperties
+                new StrengthStabilityLengthwiseConstructionSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
@@ -75,35 +75,35 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.Name));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssessmentResult));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssessmentResult));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.UseManualAssembly));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

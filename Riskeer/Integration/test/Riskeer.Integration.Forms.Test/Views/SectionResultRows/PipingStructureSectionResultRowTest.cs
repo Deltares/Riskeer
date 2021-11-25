@@ -46,11 +46,11 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
     public class PipingStructureSectionResultRowTest
 
     {
-        private static PipingStructureSectionResultRow.ConstructionProperties ConstructionProperties
+        private static PipingStructureSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new PipingStructureSectionResultRow.ConstructionProperties
+                return new PipingStructureSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     DetailedAssessmentResultIndex = 2,
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate test = () => new PipingStructureSectionResultRow(result, null);
+            TestDelegate test = () => new PipingStructureSectionResultRowOld(result, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -89,10 +89,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<PipingStructureFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -191,7 +191,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssembly);
@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -253,7 +253,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -291,7 +291,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -334,7 +334,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -361,7 +361,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -410,7 +410,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -448,7 +448,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -477,7 +477,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
@@ -506,7 +506,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
+                var row = new PipingStructureSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

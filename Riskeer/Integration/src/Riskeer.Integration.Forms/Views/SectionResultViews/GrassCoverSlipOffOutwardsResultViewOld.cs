@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class GrassCoverSlipOffOutwardsResultViewOld : FailureMechanismResultViewOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
-        GrassCoverSlipOffOutwardsSectionResultRow,
+        GrassCoverSlipOffOutwardsSectionResultRowOld,
         GrassCoverSlipOffOutwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -56,11 +56,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override GrassCoverSlipOffOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult)
+        protected override GrassCoverSlipOffOutwardsSectionResultRowOld CreateFailureMechanismSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult)
         {
-            return new GrassCoverSlipOffOutwardsSectionResultRow(
+            return new GrassCoverSlipOffOutwardsSectionResultRowOld(
                 sectionResult,
-                new GrassCoverSlipOffOutwardsSectionResultRow.ConstructionProperties
+                new GrassCoverSlipOffOutwardsSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -77,43 +77,43 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.Name));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.SimpleAssessmentResult));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.DetailedAssessmentResult));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.TailorMadeAssessmentResult));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.UseManualAssembly));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffOutwardsSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

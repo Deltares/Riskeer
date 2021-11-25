@@ -27,14 +27,14 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.DuneErosion.Data;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
-namespace Riskeer.DuneErosion.Forms.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="DuneErosionFailureMechanismSectionResultOld"/> as a row in a grid view.
+    /// Class for displaying <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/> as a row in a grid view.
     /// </summary>
-    public class DuneErosionSectionResultRow : FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResultOld>
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld : FailureMechanismSectionResultRowOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultForFactorizedSignalingNormIndex;
@@ -55,17 +55,17 @@ namespace Riskeer.DuneErosion.Forms.Views
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionSectionResultRow"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="DuneErosionFailureMechanismSectionResultOld"/> to wrap
+        /// <param name="sectionResult">The <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="DuneErosionSectionResultRow"/>.</param>
+        /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResultOld sectionResult,
-                                             ConstructionProperties constructionProperties)
+        internal GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult,
+                                                                           ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (constructionProperties == null)
@@ -96,7 +96,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult
+        public SimpleAssessmentResultType SimpleAssessmentResult
         {
             get
             {
@@ -345,7 +345,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -358,7 +358,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+                detailedAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -371,7 +371,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -384,7 +384,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         {
             try
             {
-                combinedAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                combinedAssemblyCategoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     SectionResult);
             }
             catch (AssemblyException e)
@@ -440,7 +440,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="DuneErosionSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

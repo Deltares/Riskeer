@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -31,15 +31,15 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.GrassCoverErosionInwards.Data;
 
-namespace Riskeer.Piping.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingFailureMechanismSectionResultOld"/>.
+    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>, which takes care of the
+    /// representation of properties in a grid.
     /// </summary>
-    public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResultOld>
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultRowOld : FailureMechanismSectionResultRowOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -53,8 +53,8 @@ namespace Riskeer.Piping.Forms.Views
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
 
-        private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations;
-        private readonly PipingFailureMechanism failureMechanism;
+        private readonly IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
@@ -62,28 +62,28 @@ namespace Riskeer.Piping.Forms.Views
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResultOld"/> that is 
+        /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/> that is 
         /// the source of this row.</param>
-        /// <param name="calculations">All calculations in the failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
+        /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="PipingFailureMechanismSectionResultRow"/>.</param>
-        /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
+        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRowOld"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResultOld sectionResult,
-                                                        IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations,
-                                                        PipingFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection,
-                                                        ConstructionProperties constructionProperties)
+        internal GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult,
+                                                                          IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
+                                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection,
+                                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
-            if (calculations == null)
+            if (calculationScenarios == null)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            this.calculations = calculations;
+            this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -127,7 +127,7 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public SimpleAssessmentResultType SimpleAssessmentResult
+        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult
         {
             get => SectionResult.SimpleAssessmentResult;
             set
@@ -153,10 +153,10 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResultOld"/>.
+        /// Gets the value representing the result of the detailed assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, assessmentSection.FailureMechanismContribution.Norm);
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculationScenarios);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -174,7 +174,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
+        /// Gets or sets the tailor made assessment probability of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
@@ -254,7 +254,7 @@ namespace Riskeer.Piping.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
-            UpdateColumnStateDefinitions();
+            UpdateColumnDefinitionStates();
             UpdateDetailedAssessmentProbabilityError();
         }
 
@@ -269,9 +269,9 @@ namespace Riskeer.Piping.Forms.Views
             else
             {
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
-                    SectionResult.GetCalculationScenarios(calculations).ToArray(),
+                    SectionResult.GetCalculationScenarios(calculationScenarios).ToArray(),
                     scenarios => SectionResult.GetTotalContribution(scenarios),
-                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, assessmentSection.FailureMechanismContribution.Norm));
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios));
             }
         }
 
@@ -312,7 +312,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -325,9 +325,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
-                    calculations,
+                    calculationScenarios,
                     failureMechanism,
                     assessmentSection).Group;
             }
@@ -342,7 +342,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -359,9 +359,9 @@ namespace Riskeer.Piping.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
-                        calculations,
+                        calculationScenarios,
                         failureMechanism,
                         assessmentSection);
 
@@ -382,13 +382,13 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        private void UpdateColumnStateDefinitions()
+        private void UpdateColumnDefinitionStates()
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient
-                                                                                                    || UseManualAssembly);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
+                                             simpleAssessmentSufficient || UseManualAssembly);
             if (simpleAssessmentSufficient
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
                 || UseManualAssembly)
@@ -401,8 +401,7 @@ namespace Riskeer.Piping.Forms.Views
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                             simpleAssessmentSufficient
-                                             || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
                                              simpleAssessmentSufficient
                                              || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
@@ -433,7 +432,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="PipingFailureMechanismSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

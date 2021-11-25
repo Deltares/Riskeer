@@ -50,8 +50,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionResultRowTest
     {
-        private static GrassCoverErosionInwardsFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
-            new GrassCoverErosionInwardsFailureMechanismSectionResultRow.ConstructionProperties
+        private static GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
+            new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ConstructionProperties
             {
                 SimpleAssessmentResultIndex = 1,
                 DetailedAssessmentResultIndex = 2,
@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                 result, null, new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSection, ConstructionProperties);
 
@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                 null, assessmentSection, ConstructionProperties);
 
@@ -118,7 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 null, ConstructionProperties);
@@ -140,7 +140,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 assessmentSection, null);
@@ -172,11 +172,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
@@ -184,15 +184,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
-                TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+                TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-                TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+                    nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
-                TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+                    nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
+                TestHelper.AssertTypeConverter<GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                    nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
@@ -244,7 +244,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                                                                                        failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -280,7 +280,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssembly;
@@ -318,7 +318,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -351,7 +351,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -395,7 +395,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                                                                                        failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Precondition
@@ -447,7 +447,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                                                                                        failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Precondition
@@ -506,7 +506,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -554,7 +554,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -591,7 +591,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -630,7 +630,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -697,7 +697,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                                                                                        failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -741,7 +741,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -781,7 +781,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -825,7 +825,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -865,7 +865,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult,
                     Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism,
@@ -905,7 +905,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -944,7 +944,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -978,7 +978,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call 
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1012,7 +1012,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1045,7 +1045,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios,
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1112,7 +1112,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1146,7 +1146,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1174,7 +1174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1207,7 +1207,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1237,7 +1237,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -1276,7 +1276,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1309,7 +1309,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1345,7 +1345,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1378,7 +1378,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 

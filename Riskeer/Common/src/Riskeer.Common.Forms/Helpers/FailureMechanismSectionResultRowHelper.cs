@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
     /// Helper class for updating states of a <see cref="DataGridViewColumnStateDefinition"/>
-    /// in a <see cref="FailureMechanismSectionResultRow{T}"/>.
+    /// in a <see cref="FailureMechanismSectionResultRowOld{T}"/>.
     /// </summary>
     public static class FailureMechanismSectionResultRowHelper
     {

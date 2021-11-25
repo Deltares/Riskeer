@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class WaterPressureAsphaltCoverResultViewOld : FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
-        WaterPressureAsphaltCoverSectionResultRow,
+        WaterPressureAsphaltCoverSectionResultRowOld,
         WaterPressureAsphaltCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -54,11 +54,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult)
+        protected override WaterPressureAsphaltCoverSectionResultRowOld CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult)
         {
-            return new WaterPressureAsphaltCoverSectionResultRow(
+            return new WaterPressureAsphaltCoverSectionResultRowOld(
                 sectionResult,
-                new WaterPressureAsphaltCoverSectionResultRow.ConstructionProperties
+                new WaterPressureAsphaltCoverSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
@@ -73,35 +73,35 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.Name));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssessmentResult));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssessmentResult));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.UseManualAssembly));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

@@ -88,7 +88,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld,
-                    GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+                    GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
                     GrassCoverErosionInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
@@ -246,7 +246,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (GrassCoverErosionInwardsFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+                var row = (GrassCoverErosionInwardsFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -274,7 +274,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanismResultViewOld,
             GrassCoverErosionInwardsFailureMechanism,
             GrassCoverErosionInwardsFailureMechanismSectionResultOld,
-            GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+            GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
             GrassCoverErosionInwardsCalculation>
         {
             protected override GrassCoverErosionInwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionInwardsFailureMechanism failureMechanism)

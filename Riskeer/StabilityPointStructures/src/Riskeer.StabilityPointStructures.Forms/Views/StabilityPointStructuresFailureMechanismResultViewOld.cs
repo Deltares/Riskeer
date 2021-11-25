@@ -37,7 +37,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
     /// for stability point structures.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResultOld,
-        StabilityPointStructuresFailureMechanismSectionResultRow,
+        StabilityPointStructuresFailureMechanismSectionResultRowOld,
         StabilityPointStructuresFailureMechanism,
         FailureMechanismAssemblyControl>
     {
@@ -94,14 +94,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResultOld sectionResult)
+        protected override StabilityPointStructuresFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResultOld sectionResult)
         {
-            return new StabilityPointStructuresFailureMechanismSectionResultRow(
+            return new StabilityPointStructuresFailureMechanismSectionResultRowOld(
                 sectionResult,
                 FailureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
-                new StabilityPointStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                new StabilityPointStructuresFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -129,55 +129,55 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.Name));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()

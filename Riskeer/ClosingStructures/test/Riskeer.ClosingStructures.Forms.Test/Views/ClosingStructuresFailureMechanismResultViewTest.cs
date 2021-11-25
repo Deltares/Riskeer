@@ -89,7 +89,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResultOld,
-                    ClosingStructuresFailureMechanismSectionResultRow,
+                    ClosingStructuresFailureMechanismSectionResultRowOld,
                     ClosingStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
@@ -248,7 +248,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (ClosingStructuresFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+                var row = (ClosingStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -276,7 +276,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             ClosingStructuresFailureMechanismResultViewOld,
             ClosingStructuresFailureMechanism,
             ClosingStructuresFailureMechanismSectionResultOld,
-            ClosingStructuresFailureMechanismSectionResultRow,
+            ClosingStructuresFailureMechanismSectionResultRowOld,
             StructuresCalculation<ClosingStructuresInput>>
         {
             protected override ClosingStructuresFailureMechanismResultViewOld CreateResultView(ClosingStructuresFailureMechanism failureMechanism)

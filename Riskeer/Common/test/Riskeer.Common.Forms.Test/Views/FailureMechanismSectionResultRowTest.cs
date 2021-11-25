@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestFailureMechanismSectionResultRow(null);
+            TestDelegate test = () => new TestFailureMechanismSectionResultRowOld(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
-            var row = new TestFailureMechanismSectionResultRow(sectionResult);
+            var row = new TestFailureMechanismSectionResultRowOld(sectionResult);
 
             // Assert
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
             sectionResult.Attach(observer);
 
-            var row = new TestFailureMechanismSectionResultRow(sectionResult);
+            var row = new TestFailureMechanismSectionResultRowOld(sectionResult);
             var rowUpdated = false;
             row.RowUpdated += (sender, args) => rowUpdated = true;
 
@@ -90,9 +90,9 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResultOld>
+        private class TestFailureMechanismSectionResultRowOld : FailureMechanismSectionResultRowOld<TestFailureMechanismSectionResultOld>
         {
-            public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResultOld sectionResult) : base(sectionResult) {}
+            public TestFailureMechanismSectionResultRowOld(TestFailureMechanismSectionResultOld sectionResult) : base(sectionResult) {}
 
             public bool Updated { get; private set; }
 

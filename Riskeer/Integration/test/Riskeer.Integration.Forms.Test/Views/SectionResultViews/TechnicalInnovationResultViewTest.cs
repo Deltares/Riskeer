@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResultOld,
-                    TechnicalInnovationSectionResultRow,
+                    TechnicalInnovationSectionResultRowOld,
                     TechnicalInnovationFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             TechnicalInnovationResultViewOld,
             TechnicalInnovationFailureMechanism,
             TechnicalInnovationFailureMechanismSectionResultOld,
-            TechnicalInnovationSectionResultRow>
+            TechnicalInnovationSectionResultRowOld>
         {
             protected override TechnicalInnovationResultViewOld CreateResultView(TechnicalInnovationFailureMechanism failureMechanism)
             {

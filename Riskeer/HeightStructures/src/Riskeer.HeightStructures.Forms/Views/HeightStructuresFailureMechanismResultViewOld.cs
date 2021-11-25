@@ -37,7 +37,7 @@ namespace Riskeer.HeightStructures.Forms.Views
     /// </summary>
     public class HeightStructuresFailureMechanismResultViewOld
         : FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResultOld,
-            HeightStructuresFailureMechanismSectionResultRow,
+            HeightStructuresFailureMechanismSectionResultRowOld,
             HeightStructuresFailureMechanism,
             FailureMechanismAssemblyControl>
     {
@@ -102,14 +102,14 @@ namespace Riskeer.HeightStructures.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override HeightStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResultOld sectionResult)
+        protected override HeightStructuresFailureMechanismSectionResultRowOld CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResultOld sectionResult)
         {
-            return new HeightStructuresFailureMechanismSectionResultRow(
+            return new HeightStructuresFailureMechanismSectionResultRowOld(
                 sectionResult,
                 FailureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
-                new HeightStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                new HeightStructuresFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -129,55 +129,55 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.Name));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(HeightStructuresFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()

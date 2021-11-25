@@ -34,7 +34,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class TechnicalInnovationResultViewOld : FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResultOld,
-        TechnicalInnovationSectionResultRow,
+        TechnicalInnovationSectionResultRowOld,
         TechnicalInnovationFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
@@ -54,11 +54,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
             TechnicalInnovationFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResultOld sectionResult)
+        protected override TechnicalInnovationSectionResultRowOld CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResultOld sectionResult)
         {
-            return new TechnicalInnovationSectionResultRow(
+            return new TechnicalInnovationSectionResultRowOld(
                 sectionResult,
-                new TechnicalInnovationSectionResultRow.ConstructionProperties
+                new TechnicalInnovationSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
@@ -73,35 +73,35 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.Name));
+                nameof(TechnicalInnovationSectionResultRowOld.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.SimpleAssessmentResult));
+                nameof(TechnicalInnovationSectionResultRowOld.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.TailorMadeAssessmentResult));
+                nameof(TechnicalInnovationSectionResultRowOld.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(TechnicalInnovationSectionResultRowOld.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(TechnicalInnovationSectionResultRowOld.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(TechnicalInnovationSectionResultRowOld.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.UseManualAssembly));
+                nameof(TechnicalInnovationSectionResultRowOld.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(TechnicalInnovationSectionResultRowOld.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()

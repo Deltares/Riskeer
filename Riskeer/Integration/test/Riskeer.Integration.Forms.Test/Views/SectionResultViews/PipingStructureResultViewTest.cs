@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
-                    PipingStructureSectionResultRow,
+                    PipingStructureSectionResultRowOld,
                     PipingStructureFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             PipingStructureResultViewOld,
             PipingStructureFailureMechanism,
             PipingStructureFailureMechanismSectionResultOld,
-            PipingStructureSectionResultRow>
+            PipingStructureSectionResultRowOld>
         {
             protected override PipingStructureResultViewOld CreateResultView(PipingStructureFailureMechanism failureMechanism)
             {

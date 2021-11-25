@@ -22,22 +22,26 @@
 using System;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
-namespace Riskeer.Integration.Forms.Views.SectionResultRows
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="PipingStructureFailureMechanismSectionResultOld"/>  as a row in a grid view.
+    /// Class for displaying <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class PipingStructureSectionResultRow : FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResultOld>
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld : FailureMechanismSectionResultRowOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
-        private readonly int detailedAssessmentResultIndex;
+        private readonly int detailedAssessmentResultForFactorizedSignalingNormIndex;
+        private readonly int detailedAssessmentResultForSignalingNormIndex;
+        private readonly int detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex;
+        private readonly int detailedAssessmentResultForLowerLimitNormIndex;
+        private readonly int detailedAssessmentResultForFactorizedLowerLimitNormIndex;
         private readonly int tailorMadeAssessmentResultIndex;
         private readonly int simpleAssemblyCategoryGroupIndex;
         private readonly int detailedAssemblyCategoryGroupIndex;
@@ -51,17 +55,17 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingStructureSectionResultRow"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="PipingStructureFailureMechanismSectionResultOld"/> to wrap
-        /// so that it can be displayed as a row.</param>
+        /// <param name="sectionResult">The <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>
+        /// to wrap so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="PipingStructureSectionResultRow"/>.</param>
+        /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal PipingStructureSectionResultRow(PipingStructureFailureMechanismSectionResultOld sectionResult,
-                                                 ConstructionProperties constructionProperties)
+        internal WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult,
+                                                                        ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (constructionProperties == null)
@@ -70,7 +74,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             }
 
             simpleAssessmentResultIndex = constructionProperties.SimpleAssessmentResultIndex;
-            detailedAssessmentResultIndex = constructionProperties.DetailedAssessmentResultIndex;
+            detailedAssessmentResultForFactorizedSignalingNormIndex = constructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex;
+            detailedAssessmentResultForSignalingNormIndex = constructionProperties.DetailedAssessmentResultForSignalingNormIndex;
+            detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex = constructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex;
+            detailedAssessmentResultForLowerLimitNormIndex = constructionProperties.DetailedAssessmentResultForLowerLimitNormIndex;
+            detailedAssessmentResultForFactorizedLowerLimitNormIndex = constructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex;
             tailorMadeAssessmentResultIndex = constructionProperties.TailorMadeAssessmentResultIndex;
             simpleAssemblyCategoryGroupIndex = constructionProperties.SimpleAssemblyCategoryGroupIndex;
             detailedAssemblyCategoryGroupIndex = constructionProperties.DetailedAssemblyCategoryGroupIndex;
@@ -102,29 +110,106 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets or sets the value representing the detailed assessment result.
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized signaling norm (Category boundary Iv).
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public DetailedAssessmentResultType DetailedAssessmentResult
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedSignalingNorm
         {
             get
             {
-                return SectionResult.DetailedAssessmentResult;
+                return SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm;
             }
             set
             {
-                SectionResult.DetailedAssessmentResult = value;
+                SectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = value;
                 UpdateInternalData();
             }
         }
 
         /// <summary>
-        /// Gets or sets the value representing the tailor made assessment result.
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the signaling norm (Category boundary IIv).
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public TailorMadeAssessmentResultType TailorMadeAssessmentResult
+        public DetailedAssessmentResultType DetailedAssessmentResultForSignalingNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForSignalingNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForSignalingNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the failure mechanism specific signaling norm (Category boundary IIIv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForMechanismSpecificLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the lower limit norm (Category boundary IVv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the detailed assessment of safety per failure mechanism section
+        /// for the factorized lower limit norm (Category boundary Vv).
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public DetailedAssessmentResultType DetailedAssessmentResultForFactorizedLowerLimitNorm
+        {
+            get
+            {
+                return SectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm;
+            }
+            set
+            {
+                SectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the tailor made assessment result.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
+        public TailorMadeAssessmentCategoryGroupResultType TailorMadeAssessmentResult
         {
             get
             {
@@ -204,15 +289,15 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public ManualFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
+        public SelectableFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup
         {
             get
             {
-                return SectionResult.ManualAssemblyCategoryGroup;
+                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.ManualAssemblyCategoryGroup);
             }
             set
             {
-                SectionResult.ManualAssemblyCategoryGroup = value;
+                SectionResult.ManualAssemblyCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
                 UpdateInternalData();
             }
         }
@@ -226,7 +311,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(simpleAssessmentResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(detailedAssessmentResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForFactorizedSignalingNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForSignalingNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForLowerLimitNormIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(detailedAssessmentResultForFactorizedLowerLimitNormIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(tailorMadeAssessmentResultIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(simpleAssemblyCategoryGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(detailedAssemblyCategoryGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
@@ -256,12 +345,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
                 simpleAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -269,12 +358,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                detailedAssemblyCategoryGroup = PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+                detailedAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
                 detailedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -282,12 +371,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
                 tailorMadeAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -295,12 +384,13 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
+                combinedAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    SectionResult);
             }
             catch (AssemblyException e)
             {
                 combinedAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex].ErrorText = e.InnerException.Message;
             }
         }
 
@@ -314,7 +404,15 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForFactorizedSignalingNormIndex],
+                                             simpleAssessmentSufficient || UseManualAssembly);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForSignalingNormIndex],
+                                             simpleAssessmentSufficient || UseManualAssembly);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
+                                             simpleAssessmentSufficient || UseManualAssembly);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForLowerLimitNormIndex],
+                                             simpleAssessmentSufficient || UseManualAssembly);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForFactorizedLowerLimitNormIndex],
                                              simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
                                              simpleAssessmentSufficient || UseManualAssembly);
@@ -342,7 +440,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="PipingStructureSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {
@@ -352,9 +450,29 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
             public int SimpleAssessmentResultIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the detailed assessment result index.
+            /// Sets the detailed assessment result for factorized signaling norm index.
             /// </summary>
-            public int DetailedAssessmentResultIndex { internal get; set; }
+            public int DetailedAssessmentResultForFactorizedSignalingNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for signaling norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForSignalingNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for mechanism specific lower limit norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for lower limit norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForLowerLimitNormIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the detailed assessment result for factorized lower limit norm index.
+            /// </summary>
+            public int DetailedAssessmentResultForFactorizedLowerLimitNormIndex { internal get; set; }
 
             /// <summary>
             /// Sets the tailor made assessment result index.

@@ -51,8 +51,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
     [TestFixture]
     public class HeightStructuresFailureMechanismSectionResultRowTest
     {
-        private static HeightStructuresFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
-            new HeightStructuresFailureMechanismSectionResultRow.ConstructionProperties
+        private static HeightStructuresFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
+            new HeightStructuresFailureMechanismSectionResultRowOld.ConstructionProperties
             {
                 SimpleAssessmentResultIndex = 1,
                 DetailedAssessmentResultIndex = 2,
@@ -79,7 +79,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new HeightStructuresFailureMechanismSectionResultRow(
+            void Call() => new HeightStructuresFailureMechanismSectionResultRowOld(
                 result, null, new HeightStructuresFailureMechanism(),
                 assessmentSection, ConstructionProperties);
 
@@ -101,7 +101,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new HeightStructuresFailureMechanismSectionResultRow(
+            void Call() => new HeightStructuresFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                 null, assessmentSection, ConstructionProperties);
 
@@ -119,7 +119,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new HeightStructuresFailureMechanismSectionResultRow(
+            void Call() => new HeightStructuresFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                 new HeightStructuresFailureMechanism(), null, ConstructionProperties);
 
@@ -140,7 +140,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => new HeightStructuresFailureMechanismSectionResultRow(
+            void Call() => new HeightStructuresFailureMechanismSectionResultRowOld(
                 result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                 new HeightStructuresFailureMechanism(), assessmentSection, null);
 
@@ -171,11 +171,11 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<HeightStructuresFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
@@ -183,15 +183,15 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
                 Assert.AreEqual(result.ManualAssemblyProbability, row.ManualAssemblyProbability);
 
-                TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow,
+                TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
-                TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow,
+                    nameof(HeightStructuresFailureMechanismSectionResultRowOld.DetailedAssessmentProbability));
+                TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
-                TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRow,
+                    nameof(HeightStructuresFailureMechanismSectionResultRowOld.TailorMadeAssessmentProbability));
+                TestHelper.AssertTypeConverter<HeightStructuresFailureMechanismSectionResultRowOld,
                     NoProbabilityValueDoubleConverter>(
-                    nameof(HeightStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                    nameof(HeightStructuresFailureMechanismSectionResultRowOld.ManualAssemblyProbability));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
@@ -229,7 +229,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssembly;
@@ -267,7 +267,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -300,7 +300,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -345,7 +345,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -398,7 +398,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -459,7 +459,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -507,7 +507,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -544,7 +544,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -583,7 +583,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -650,7 +650,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -695,7 +695,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -735,7 +735,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -779,7 +779,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -819,7 +819,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism,
@@ -860,7 +860,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -899,7 +899,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -933,7 +933,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call 
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -967,7 +967,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1001,7 +1001,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
@@ -1101,7 +1101,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1135,7 +1135,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1163,7 +1163,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1196,7 +1196,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1226,7 +1226,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult,
                     new[]
                     {
@@ -1265,7 +1265,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRowOld(
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
@@ -1298,7 +1298,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1334,7 +1334,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 
@@ -1367,7 +1367,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new HeightStructuresFailureMechanismSectionResultRow(
+                var row = new HeightStructuresFailureMechanismSectionResultRowOld(
                     result, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism, assessmentSection, ConstructionProperties);
 

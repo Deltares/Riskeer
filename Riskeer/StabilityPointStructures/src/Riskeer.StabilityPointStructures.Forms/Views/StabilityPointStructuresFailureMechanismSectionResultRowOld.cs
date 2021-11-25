@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -32,14 +32,15 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.HeightStructures.Data;
+using Riskeer.StabilityPointStructures.Data;
 
-namespace Riskeer.HeightStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResultOld"/> for height structures.
+    /// This class represents a row of <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> for stability point structures
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResultOld>
+    public class StabilityPointStructuresFailureMechanismSectionResultRowOld
+        : FailureMechanismSectionResultRowOld<StabilityPointStructuresFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -52,32 +53,34 @@ namespace Riskeer.HeightStructures.Forms.Views
         private readonly int combinedAssemblyCategoryGroupIndex;
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
-        private readonly HeightStructuresFailureMechanism failureMechanism;
+
+        private readonly IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios;
+        private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
-        private readonly IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup combinedAssemblyCategoryGroup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRowOld"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResultOld"/> this row contains.</param>
+        /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> to wrap
+        /// so that it can be displayed as a row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.</param>
+        /// /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="StabilityPointStructuresFailureMechanismSectionResultRowOld"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResultOld sectionResult,
-                                                                  IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios,
-                                                                  HeightStructuresFailureMechanism failureMechanism,
-                                                                  IAssessmentSection assessmentSection,
-                                                                  ConstructionProperties constructionProperties)
+        internal StabilityPointStructuresFailureMechanismSectionResultRowOld(StabilityPointStructuresFailureMechanismSectionResultOld sectionResult,
+                                                                          IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios,
+                                                                          StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection,
+                                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (calculationScenarios == null)
@@ -126,7 +129,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public SimpleAssessmentResultType SimpleAssessmentResult
+        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult
         {
             get => SectionResult.SimpleAssessmentResult;
             set
@@ -152,8 +155,8 @@ namespace Riskeer.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the value representing the result of the detailed assessment.
-        /// </summary>
+        /// Gets the value representing the detailed assessment probability.
+        /// </summary>        
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculationScenarios);
 
@@ -173,10 +176,10 @@ namespace Riskeer.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the tailor made assessment probability of the <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.
+        /// Gets or sets the value of the tailored assessment of safety.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
-        /// not in the range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when 
+        /// <paramref name="value"/> is outside of the valid ranges.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
@@ -253,7 +256,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         public override void Update()
         {
             UpdateDerivedData();
-            UpdateColumnDefinitionStates();
+            UpdateColumnStateDefinitions();
             UpdateDetailedAssessmentProbabilityError();
         }
 
@@ -311,7 +314,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -324,8 +327,11 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    SectionResult, calculationScenarios, failureMechanism, assessmentSection).Group;
+                detailedAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    SectionResult,
+                    calculationScenarios,
+                    failureMechanism,
+                    assessmentSection).Group;
             }
             catch (AssemblyException e)
             {
@@ -338,8 +344,10 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    SectionResult, failureMechanism, assessmentSection).Group;
+                tailorMadeAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                    SectionResult,
+                    failureMechanism,
+                    assessmentSection).Group;
             }
             catch (AssemblyException e)
             {
@@ -353,8 +361,11 @@ namespace Riskeer.HeightStructures.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        SectionResult, calculationScenarios, failureMechanism, assessmentSection);
+                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                        SectionResult,
+                        calculationScenarios,
+                        failureMechanism,
+                        assessmentSection);
 
                 combinedAssemblyCategoryGroup = combinedAssembly.Group;
                 CombinedAssemblyProbability = combinedAssembly.Probability;
@@ -373,13 +384,14 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        private void UpdateColumnDefinitionStates()
+        private void UpdateColumnStateDefinitions()
         {
             bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
-                                             simpleAssessmentSufficient || UseManualAssembly);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex], simpleAssessmentSufficient
+                                                                                                    || UseManualAssembly);
+
             if (simpleAssessmentSufficient
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
                 || UseManualAssembly)
@@ -392,7 +404,8 @@ namespace Riskeer.HeightStructures.Forms.Views
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                             simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient
+                                             || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
                                              simpleAssessmentSufficient
                                              || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
@@ -423,7 +436,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
+        /// Class holding the various construction parameters for <see cref="StabilityPointStructuresFailureMechanismSectionResultRowOld"/>.
         /// </summary>
         public class ConstructionProperties
         {

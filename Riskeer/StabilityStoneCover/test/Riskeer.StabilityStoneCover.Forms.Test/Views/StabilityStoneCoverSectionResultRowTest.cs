@@ -46,11 +46,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
     [TestFixture]
     public class StabilityStoneCoverSectionResultRowTest
     {
-        private static StabilityStoneCoverSectionResultRow.ConstructionProperties ConstructionProperties
+        private static StabilityStoneCoverSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new StabilityStoneCoverSectionResultRow.ConstructionProperties
+                return new StabilityStoneCoverSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = 2,
@@ -76,7 +76,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             // Call
-            TestDelegate call = () => new StabilityStoneCoverSectionResultRow(result, null);
+            TestDelegate call = () => new StabilityStoneCoverSectionResultRowOld(result, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,10 +93,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResultOld>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<StabilityStoneCoverFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
@@ -147,7 +147,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
@@ -174,7 +174,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -204,7 +204,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssembly);
@@ -236,7 +236,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -267,7 +267,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -305,7 +305,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -347,7 +347,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -382,7 +382,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -438,7 +438,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -476,7 +476,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -505,7 +505,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
@@ -534,7 +534,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForSignalingNorm = newValue;
@@ -563,7 +563,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
@@ -592,7 +592,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForLowerLimitNorm = newValue;
@@ -621,7 +621,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
@@ -650,7 +650,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
+                var row = new StabilityStoneCoverSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

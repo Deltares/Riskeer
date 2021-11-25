@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
-                    PipingFailureMechanismSectionResultRow,
+                    PipingFailureMechanismSectionResultRowOld,
                     PipingFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
@@ -248,7 +248,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (PipingFailureMechanismSectionResultRow) dataGridView.Rows[0].DataBoundItem;
+                var row = (PipingFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -276,7 +276,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingFailureMechanismResultViewOld,
             PipingFailureMechanism,
             PipingFailureMechanismSectionResultOld,
-            PipingFailureMechanismSectionResultRow,
+            PipingFailureMechanismSectionResultRowOld,
             SemiProbabilisticPipingCalculationScenario>
         {
             protected override PipingFailureMechanismResultViewOld CreateResultView(PipingFailureMechanism failureMechanism)

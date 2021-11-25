@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TAssemblyResultControl">The type of the assembly result control in this view.</typeparam>
     public abstract partial class FailureMechanismResultViewOld<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResultOld
-        where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
+        where TSectionResultRow : FailureMechanismSectionResultRowOld<TSectionResult>
         where TFailureMechanism : IHasSectionResults<TSectionResult>
         where TAssemblyResultControl : AssemblyResultControl, new()
     {

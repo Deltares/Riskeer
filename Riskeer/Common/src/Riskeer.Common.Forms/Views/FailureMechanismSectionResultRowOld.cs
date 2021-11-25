@@ -31,7 +31,7 @@ namespace Riskeer.Common.Forms.Views
     /// Base class for a wrapper of a <see cref="FailureMechanismSectionResultOld"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public abstract class FailureMechanismSectionResultRow<T> : IHasColumnStateDefinitions where T : FailureMechanismSectionResultOld
+    public abstract class FailureMechanismSectionResultRowOld<T> : IHasColumnStateDefinitions where T : FailureMechanismSectionResultOld
     {
         /// <summary>
         /// Fired when the row has started updating.
@@ -44,13 +44,13 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler RowUpdateDone;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionResultRow{T}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionResultRowOld{T}"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="FailureMechanismSectionResultOld"/> that is 
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
-        protected FailureMechanismSectionResultRow(T sectionResult)
+        protected FailureMechanismSectionResultRowOld(T sectionResult)
         {
             if (sectionResult == null)
             {
