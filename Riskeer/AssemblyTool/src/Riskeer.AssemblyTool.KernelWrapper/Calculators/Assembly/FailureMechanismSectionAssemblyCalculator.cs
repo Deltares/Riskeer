@@ -27,6 +27,7 @@ using Assembly.Kernel.Old.Model.AssessmentResultTypes;
 using Assembly.Kernel.Old.Model.CategoryLimits;
 using Assembly.Kernel.Old.Model.FmSectionTypes;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Primitives;

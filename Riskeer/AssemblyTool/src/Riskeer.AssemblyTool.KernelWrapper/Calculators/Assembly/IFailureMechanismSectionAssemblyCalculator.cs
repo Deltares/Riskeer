@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 using Riskeer.Common.Primitives;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly

@@ -27,6 +27,7 @@ using Assembly.Kernel.Old.Interfaces;
 using Assembly.Kernel.Old.Model;
 using Assembly.Kernel.Old.Model.CategoryLimits;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 

@@ -25,6 +25,7 @@ using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Contribution;

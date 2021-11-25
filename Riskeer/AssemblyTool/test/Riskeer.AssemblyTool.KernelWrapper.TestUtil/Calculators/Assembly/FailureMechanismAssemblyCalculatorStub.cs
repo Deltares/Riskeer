@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 {
