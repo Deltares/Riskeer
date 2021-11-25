@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Assembly.Kernel.Old.Interfaces;
+using Assembly.Kernel.Interfaces;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
@@ -29,24 +29,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
     /// <summary>
     /// Factory that creates assembly tool kernel stubs for testing purposes.
     /// </summary>
-    public class TestAssemblyToolKernelFactory : IAssemblyToolKernelFactoryOld
+    public class TestAssemblyToolKernelFactory : IAssemblyToolKernelFactory
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestAssemblyToolKernelFactory"/>.
         /// </summary>
         public TestAssemblyToolKernelFactory()
         {
-            LastCreatedAssemblyCategoriesKernel = new AssemblyCategoriesKernelStub();
+            LastCreatedCategoryLimitsKernel = new CategoryLimitsKernelStub();
             LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStub();
-            LastCreatedFailureMechanismAssemblyKernel = new FailureMechanismAssemblyKernelStub();
-            LastCreatedAssessmentSectionAssemblyKernel = new AssessmentSectionAssemblyKernelStub();
-            LastCreatedCombinedFailureMechanismSectionAssemblyKernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
+            LastCreatedFailurePathAssemblyKernel = new FailurePathAssemblyKernelStub();
         }
 
         /// <summary>
-        /// Gets the last created assembly categories kernel.
+        /// Gets the last created category limits kernel.
         /// </summary>
-        public AssemblyCategoriesKernelStub LastCreatedAssemblyCategoriesKernel { get; }
+        public CategoryLimitsKernelStub LastCreatedCategoryLimitsKernel { get; }
 
         /// <summary>
         /// Gets the last created failure mechanism section assembly kernel.
@@ -54,23 +52,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         public FailureMechanismSectionAssemblyKernelStub LastCreatedFailureMechanismSectionAssemblyKernel { get; }
 
         /// <summary>
-        /// Gets the last created failure mechanism assembly kernel.
+        /// Gets the last created failure path assembly kernel.
         /// </summary>
-        public FailureMechanismAssemblyKernelStub LastCreatedFailureMechanismAssemblyKernel { get; }
-
-        /// <summary>
-        /// Gets the last created assessment section assembly kernel.
-        /// </summary>
-        public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; }
-
-        /// <summary>
-        /// Gets the last created combined failure mechanism section assembly kernel.
-        /// </summary>
-        public CombinedFailureMechanismSectionAssemblyKernelStub LastCreatedCombinedFailureMechanismSectionAssemblyKernel { get; }
+        public FailurePathAssemblyKernelStub LastCreatedFailurePathAssemblyKernel { get; }
 
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
-            return LastCreatedAssemblyCategoriesKernel;
+            return LastCreatedCategoryLimitsKernel;
         }
 
         public IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel()
@@ -78,19 +66,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
             return LastCreatedFailureMechanismSectionAssemblyKernel;
         }
 
-        public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
+        public IFailurePathResultAssembler CreateFailurePathAssemblyKernel()
         {
-            return LastCreatedFailureMechanismAssemblyKernel;
-        }
-
-        public IAssessmentGradeAssembler CreateAssessmentSectionAssemblyKernel()
-        {
-            return LastCreatedAssessmentSectionAssemblyKernel;
-        }
-
-        public ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel()
-        {
-            return LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
+            return LastCreatedFailurePathAssemblyKernel;
         }
     }
 }
