@@ -45,7 +45,7 @@ namespace Riskeer.ClosingStructures.Data
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResult sectionResult,
+        public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResultOld sectionResult,
                                                               IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)
@@ -83,7 +83,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static RoundedDouble GetTotalContribution(this ClosingStructuresFailureMechanismSectionResult sectionResult,
+        public static RoundedDouble GetTotalContribution(this ClosingStructuresFailureMechanismSectionResultOld sectionResult,
                                                          IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)
@@ -109,7 +109,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> GetCalculationScenarios(
-            this ClosingStructuresFailureMechanismSectionResult sectionResult,
+            this ClosingStructuresFailureMechanismSectionResultOld sectionResult,
             IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)

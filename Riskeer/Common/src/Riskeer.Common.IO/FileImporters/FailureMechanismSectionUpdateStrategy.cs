@@ -32,9 +32,9 @@ namespace Riskeer.Common.IO.FileImporters
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update failure mechanism sections with
     /// imported failure mechanism sections.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
     public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
-        where T : FailureMechanismSectionResult
+        where T : FailureMechanismSectionResultOld
     {
         private readonly IHasSectionResults<T> failureMechanism;
         private readonly IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy;

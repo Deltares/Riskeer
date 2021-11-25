@@ -51,7 +51,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, 1.1);
@@ -66,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             const double factorOfStability1 = 1.0 / 10.0;
             const double factorOfStability2 = 1.0 / 20.0;
@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), 1.1);
@@ -116,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
 
@@ -154,7 +154,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -195,7 +195,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
@@ -212,7 +212,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResultOld) null).GetTotalContribution(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -224,7 +224,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetTotalContribution(null);
@@ -239,7 +239,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             macroStabilityInwardsCalculationScenario.Contribution = (RoundedDouble) 0.3211;
@@ -267,7 +267,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResultOld) null).GetCalculationScenarios(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -279,7 +279,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetCalculationScenarios(null);
@@ -294,7 +294,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             MacroStabilityInwardsCalculationScenario calculationScenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             MacroStabilityInwardsCalculationScenario calculationScenario2 =
@@ -320,7 +320,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 new Point2D(999, 999),
                 new Point2D(998, 998)
             });
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             MacroStabilityInwardsCalculationScenario calculationScenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(
                     FailureMechanismSectionTestFactory.CreateFailureMechanismSection());

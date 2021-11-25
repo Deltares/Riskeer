@@ -46,7 +46,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
 
             // Call
             string text = info.Text(context);

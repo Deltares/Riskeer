@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
         {
             // Call
             TestDelegate call = () => ((GrassCoverErosionOutwardsSectionResultEntity) null).Read(
-                new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
-            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

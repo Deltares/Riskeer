@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
                 failureMechanism,
                 TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
                 failureMechanism,
                 TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
                 failureMechanism,
                 TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

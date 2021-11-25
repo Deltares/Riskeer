@@ -28,9 +28,9 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismResultViewOld : FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResult,
+    public class GrassCoverErosionOutwardsFailureMechanismResultViewOld : FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
         GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
         GrassCoverErosionOutwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -53,11 +53,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismResultViewOld"/>.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanismResultViewOld(
-            IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> failureMechanismSectionResults,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult)
         {
             return new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(
                 sectionResult,

@@ -88,7 +88,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (var view = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResultOld,
                     MacroStabilityInwardsFailureMechanismSectionResultRow,
                     MacroStabilityInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -219,7 +219,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -274,7 +274,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public class MacroStabilityInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             MacroStabilityInwardsFailureMechanismResultViewOld,
             MacroStabilityInwardsFailureMechanism,
-            MacroStabilityInwardsFailureMechanismSectionResult,
+            MacroStabilityInwardsFailureMechanismSectionResultOld,
             MacroStabilityInwardsFailureMechanismSectionResultRow,
             MacroStabilityInwardsCalculationScenario>
         {

@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
-            PipingFailureMechanismSectionResult failureMechanismSectionResult)
+            PipingFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
-            PipingFailureMechanismSectionResult failureMechanismSectionResult,
+            PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -141,7 +141,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
-            PipingFailureMechanismSectionResult failureMechanismSectionResult,
+            PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -191,7 +191,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
-            PipingFailureMechanismSectionResult failureMechanismSectionResult,
+            PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -252,7 +252,7 @@ namespace Riskeer.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(PipingFailureMechanismSectionResult failureMechanismSectionResult,
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                                                    PipingFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection,
                                                                                                    bool useManual)
@@ -338,7 +338,7 @@ namespace Riskeer.Piping.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(PipingFailureMechanismSectionResult failureMechanismSectionResult,
+        private static FailureMechanismSectionAssembly GetSectionAssembly(PipingFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                           PipingFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           bool useManual)
@@ -371,7 +371,7 @@ namespace Riskeer.Piping.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(PipingFailureMechanismSectionResult sectionResult,
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(PipingFailureMechanismSectionResultOld sectionResult,
                                                                                 PipingFailureMechanism failureMechanism,
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {

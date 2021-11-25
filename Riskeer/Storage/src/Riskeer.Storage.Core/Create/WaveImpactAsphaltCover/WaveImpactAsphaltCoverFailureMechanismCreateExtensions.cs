@@ -52,10 +52,10 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults,
+            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

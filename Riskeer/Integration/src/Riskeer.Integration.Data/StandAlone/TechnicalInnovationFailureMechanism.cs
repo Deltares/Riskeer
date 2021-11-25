@@ -32,9 +32,9 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Technical Innovations failure mechanism.
     /// </summary>
-    public class TechnicalInnovationFailureMechanism : FailureMechanismBase, IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>
+    public class TechnicalInnovationFailureMechanism : FailureMechanismBase, IHasSectionResults<TechnicalInnovationFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<TechnicalInnovationFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<TechnicalInnovationFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TechnicalInnovationFailureMechanism"/> class.
@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Data.StandAlone
                    Resources.TechnicalInnovationFailureMechanism_Code,
                    4)
         {
-            sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResultOld>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Data.StandAlone
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new TechnicalInnovationFailureMechanismSectionResult(section));
+            sectionResults.Add(new TechnicalInnovationFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

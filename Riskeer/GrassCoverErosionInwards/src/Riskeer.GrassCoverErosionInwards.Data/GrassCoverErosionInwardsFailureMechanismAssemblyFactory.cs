@@ -50,7 +50,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
-            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult)
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -84,7 +84,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
-            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -138,7 +138,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
-            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -187,7 +187,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
-            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -247,7 +247,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                                                    GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection,
                                                                                                    bool useManual)
@@ -333,7 +333,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+        private static FailureMechanismSectionAssembly GetSectionAssembly(GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                           GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           bool useManual)
@@ -364,7 +364,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult,
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

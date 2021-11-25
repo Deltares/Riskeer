@@ -60,8 +60,8 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<PipingFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<PipingFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
                                                                                                                    failureMechanism,
                                                                                                                    assessmentSection);
 
@@ -266,7 +266,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults,
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
                                                                                                                    failureMechanism,
                                                                                                                    assessmentSection);
 

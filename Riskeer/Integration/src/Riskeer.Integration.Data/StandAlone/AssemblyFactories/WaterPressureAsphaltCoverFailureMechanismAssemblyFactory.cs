@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
-            WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
-            WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult,
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult,
             bool useManual)
         {
             if (failureMechanismSectionResult == null)

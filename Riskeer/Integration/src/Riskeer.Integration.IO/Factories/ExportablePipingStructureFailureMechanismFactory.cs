@@ -87,20 +87,20 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on the sections in <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingStructureFailureMechanismSectionResult"/>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingStructureFailureMechanismSectionResultOld"/>
         /// to create a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults)
+            IEnumerable<PipingStructureFailureMechanismSectionResultOld> failureMechanismSectionResults)
         {
-            IDictionary<PipingStructureFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<PipingStructureFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<PipingStructureFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<PipingStructureFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                PipingStructureFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+                PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);

@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, assessmentSection => assessmentSection.Piping);
@@ -159,7 +159,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, assessmentSection => assessmentSection.MacroStabilityInwards);
@@ -170,7 +170,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, assessmentSection => assessmentSection.GrassCoverErosionInwards);
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, assessmentSection => assessmentSection.ClosingStructures);
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, assessmentSection => assessmentSection.HeightStructures);
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyProbability = manualAssemblyProbability;
             }, assessmentSection => assessmentSection.StabilityPointStructures);
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.DuneErosion);
@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.GrassCoverErosionOutwards);
@@ -242,7 +242,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                StabilityStoneCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.StabilityStoneCover);
@@ -253,7 +253,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = sectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.WaveImpactAsphaltCover);
@@ -264,7 +264,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.GrassCoverSlipOffInwards);
@@ -275,7 +275,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.GrassCoverSlipOffOutwards);
@@ -286,7 +286,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.PipingStructure);
@@ -297,7 +297,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction);
@@ -308,7 +308,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                TechnicalInnovationFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.TechnicalInnovation);
@@ -319,7 +319,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                MicrostabilityFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.Microstability);
@@ -330,7 +330,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.MacroStabilityOutwards);
@@ -341,7 +341,7 @@ namespace Riskeer.Integration.Data.TestUtil
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-                WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+                WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
                 sectionResult.UseManualAssembly = true;
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.WaterPressureAsphaltCover);

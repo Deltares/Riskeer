@@ -26,15 +26,15 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Grass Cover Slip Off Outwards failure mechanism.
+    /// Piping Structure failure mechanism.
     /// </summary>
-    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class PipingStructureFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="PipingStructureFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public GrassCoverSlipOffOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public PipingStructureFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentResultType.None;

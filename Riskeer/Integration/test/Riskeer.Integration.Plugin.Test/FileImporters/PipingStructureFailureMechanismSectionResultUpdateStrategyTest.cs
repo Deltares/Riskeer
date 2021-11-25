@@ -30,16 +30,16 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class PipingStructureFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        PipingStructureFailureMechanismSectionResultUpdateStrategy, PipingStructureFailureMechanismSectionResult>
+        PipingStructureFailureMechanismSectionResultUpdateStrategy, PipingStructureFailureMechanismSectionResultOld>
     {
-        protected override PipingStructureFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override PipingStructureFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override PipingStructureFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override PipingStructureFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentResultType.Sufficient,
@@ -49,8 +49,8 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(PipingStructureFailureMechanismSectionResult originResult,
-                                                    PipingStructureFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(PipingStructureFailureMechanismSectionResultOld originResult,
+                                                    PipingStructureFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);

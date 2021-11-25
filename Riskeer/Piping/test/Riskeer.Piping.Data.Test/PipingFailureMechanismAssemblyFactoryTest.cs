@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new PipingFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -119,7 +119,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection);
@@ -194,7 +194,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 null,
                 assessmentSection);
@@ -210,7 +210,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
@@ -233,7 +233,7 @@ namespace Riskeer.Piping.Data.Test
                 hydraulicBoundaryLocation
             }, true);
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -272,7 +272,7 @@ namespace Riskeer.Piping.Data.Test
                 hydraulicBoundaryLocation
             }, true);
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -310,7 +310,7 @@ namespace Riskeer.Piping.Data.Test
                 hydraulicBoundaryLocation
             }, true);
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -371,7 +371,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
 
@@ -386,7 +386,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new PipingFailureMechanism(),
                 null);
 
@@ -405,7 +405,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -438,7 +438,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -469,7 +469,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -527,7 +527,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 new PipingFailureMechanism(),
                 assessmentSection);
@@ -548,7 +548,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 null,
                 assessmentSection);
@@ -564,7 +564,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
@@ -586,7 +586,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -624,7 +624,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -659,7 +659,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -690,7 +690,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -749,7 +749,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection,
                 new Random(39).NextBoolean());
@@ -765,7 +765,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Call
             void Call() => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new PipingFailureMechanism(),
                 null,
                 new Random(39).NextBoolean());
@@ -779,7 +779,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
@@ -811,7 +811,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
@@ -850,7 +850,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
@@ -888,7 +888,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new PipingFailureMechanism();
 
             var mocks = new MockRepository();
@@ -917,7 +917,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
@@ -951,7 +951,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
@@ -987,7 +987,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetSectionAssemblyCategoryGroup_CalculatorThrowsException_ThrowsAssemblyException(bool useManualAssembly)
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -1129,7 +1129,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1164,7 +1164,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

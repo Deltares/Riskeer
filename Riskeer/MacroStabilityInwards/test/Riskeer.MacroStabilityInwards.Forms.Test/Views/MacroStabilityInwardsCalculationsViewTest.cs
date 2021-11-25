@@ -643,8 +643,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             MacroStabilityInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>().ToArray();
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
             Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
 

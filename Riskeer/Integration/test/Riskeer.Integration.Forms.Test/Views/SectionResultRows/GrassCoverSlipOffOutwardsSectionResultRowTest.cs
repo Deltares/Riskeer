@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => new GrassCoverSlipOffOutwardsSectionResultRow(result, null);
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 var row = new GrassCoverSlipOffOutwardsSectionResultRow(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -282,7 +282,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -325,7 +325,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section)
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -352,7 +352,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section)
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -396,7 +396,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -442,7 +442,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -471,7 +471,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -500,7 +500,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())

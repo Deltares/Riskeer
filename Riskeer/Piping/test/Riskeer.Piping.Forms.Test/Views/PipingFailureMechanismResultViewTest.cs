@@ -89,7 +89,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
                     PipingFailureMechanismSectionResultRow,
                     PipingFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -275,7 +275,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             PipingFailureMechanismResultViewOld,
             PipingFailureMechanism,
-            PipingFailureMechanismSectionResult,
+            PipingFailureMechanismSectionResultOld,
             PipingFailureMechanismSectionResultRow,
             SemiProbabilisticPipingCalculationScenario>
         {

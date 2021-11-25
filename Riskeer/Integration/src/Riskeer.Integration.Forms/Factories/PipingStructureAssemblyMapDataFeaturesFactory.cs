@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
                 PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
                 PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
         }
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
                 PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
                 PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

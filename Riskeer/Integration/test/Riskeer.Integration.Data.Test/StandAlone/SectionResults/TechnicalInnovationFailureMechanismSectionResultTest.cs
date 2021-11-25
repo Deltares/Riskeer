@@ -37,10 +37,10 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new TechnicalInnovationFailureMechanismSectionResult(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);

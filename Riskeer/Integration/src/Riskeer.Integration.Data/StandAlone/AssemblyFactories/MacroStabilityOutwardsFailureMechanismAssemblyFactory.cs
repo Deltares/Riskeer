@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
-            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult)
+            MacroStabilityOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
-            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
-            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -248,7 +248,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            MacroStabilityOutwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection,
             bool useManual)

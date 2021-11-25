@@ -42,7 +42,7 @@ namespace Riskeer.Common.Util
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
         /// <returns>A <see cref="IDictionary{K, V}"/> containing a <see cref="List{T}"/> 
-        /// of <see cref="FailureMechanismSectionResult"/> objects 
+        /// of <see cref="FailureMechanismSectionResultOld"/> objects 
         /// for each section which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>
         /// or when an element in <paramref name="calculations"/> is <c>null</c>.</exception>

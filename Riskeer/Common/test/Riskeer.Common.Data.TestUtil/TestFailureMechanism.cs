@@ -26,11 +26,11 @@ using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.TestUtil
 {
-    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResult>
+    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld>
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
-        private readonly ObservableList<FailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<FailureMechanismSectionResultOld> sectionResults;
 
         public TestFailureMechanism()
             : this(defaultName, defaultCode) {}
@@ -44,13 +44,13 @@ namespace Riskeer.Common.Data.TestUtil
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
             : base(name, code, 1)
         {
-            sectionResults = new ObservableList<FailureMechanismSectionResult>();
+            sectionResults = new ObservableList<FailureMechanismSectionResultOld>();
             Calculations = calculations;
         }
 
         public override IEnumerable<ICalculation> Calculations { get; }
 
-        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Data.TestUtil
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new TestFailureMechanismSectionResult(section));
+            sectionResults.Add(new TestFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

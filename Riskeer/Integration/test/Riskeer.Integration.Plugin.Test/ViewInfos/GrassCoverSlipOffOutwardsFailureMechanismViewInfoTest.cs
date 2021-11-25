@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                           GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
+                           GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -161,19 +161,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(view);
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>>(view);
 
             var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>) view;
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResult> CreateView(
+        private static FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> CreateView(
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,

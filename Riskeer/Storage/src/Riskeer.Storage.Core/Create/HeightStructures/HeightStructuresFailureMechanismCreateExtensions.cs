@@ -54,10 +54,10 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
+            IEnumerable<HeightStructuresFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 HeightStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

@@ -46,7 +46,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -65,7 +65,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
         }
@@ -84,7 +84,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -103,7 +103,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

@@ -103,8 +103,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
+            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>,
+                IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>,
                 WaveImpactAsphaltCoverFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -153,7 +153,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 FailurePathEnabledContextMenuStrip,
                 FailurePathDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -254,7 +254,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -399,7 +399,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 new FailureMechanismAssemblyCategoriesContext(
                     failureMechanism, assessmentSection, () => failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(
                         assessmentSection.ReferenceLine.Length)),
-                new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+                new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };

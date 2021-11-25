@@ -59,8 +59,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);
@@ -255,7 +255,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

@@ -33,9 +33,9 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<DuneErosionFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<DuneErosionFailureMechanismSectionResultOld> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResultOld>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
         }
@@ -78,7 +78,7 @@ namespace Riskeer.DuneErosion.Data
             }
         }
 
-        public IObservableEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -112,7 +112,7 @@ namespace Riskeer.DuneErosion.Data
         {
             base.AddSectionDependentData(section);
 
-            sectionResults.Add(new DuneErosionFailureMechanismSectionResult(section));
+            sectionResults.Add(new DuneErosionFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

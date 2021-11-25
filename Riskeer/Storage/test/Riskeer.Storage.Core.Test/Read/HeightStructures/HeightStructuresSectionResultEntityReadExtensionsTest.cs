@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HeightStructuresSectionResultEntity) null).Read(new HeightStructuresFailureMechanismSectionResult(
+            void Call() => ((HeightStructuresSectionResultEntity) null).Read(new HeightStructuresFailureMechanismSectionResultOld(
                                                                                  FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -106,7 +106,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

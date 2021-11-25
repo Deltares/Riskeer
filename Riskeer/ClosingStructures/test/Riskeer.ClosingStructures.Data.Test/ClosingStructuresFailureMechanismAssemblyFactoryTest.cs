@@ -72,7 +72,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -95,7 +95,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -117,7 +117,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -169,7 +169,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -188,7 +188,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
             // Assert
@@ -202,7 +202,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), new ClosingStructuresFailureMechanism(), null);
 
             // Assert
@@ -220,7 +220,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>()
             };
@@ -255,7 +255,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -285,7 +285,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -339,7 +339,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection);
 
             // Assert
@@ -353,7 +353,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(), null);
 
             // Assert
@@ -371,7 +371,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -402,7 +402,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -433,7 +433,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -487,7 +487,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -506,7 +506,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
             // Assert
@@ -520,7 +520,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), new ClosingStructuresFailureMechanism(), null);
 
             // Assert
@@ -540,7 +540,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -576,7 +576,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -609,7 +609,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -638,7 +638,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -692,7 +692,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
@@ -706,7 +706,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Call
             void Call() => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
@@ -718,7 +718,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mocks = new MockRepository();
@@ -750,7 +750,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
@@ -789,7 +789,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
@@ -827,7 +827,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mocks = new MockRepository();
@@ -856,7 +856,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
@@ -890,7 +890,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
@@ -926,7 +926,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_CalculatorThrowsException_ThrowsAssemblyException(bool useManualAssembly)
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -1061,7 +1061,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1096,7 +1096,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

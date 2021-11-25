@@ -54,10 +54,10 @@ namespace Riskeer.Storage.Core.Create.ClosingStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
+            IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

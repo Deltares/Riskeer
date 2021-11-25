@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism,
-                           PipingStructureFailureMechanismSectionResult>));
+                           PipingStructureFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingStructureFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingStructureFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -161,19 +161,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism,
-                PipingStructureFailureMechanismSectionResult>>(view);
+                PipingStructureFailureMechanismSectionResultOld>>(view);
 
             var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism,
-                PipingStructureFailureMechanismSectionResult>) view;
+                PipingStructureFailureMechanismSectionResultOld>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResult> CreateView(
+        private static FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld> CreateView(
             PipingStructureFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism,
-                PipingStructureFailureMechanismSectionResult>(
+                PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,

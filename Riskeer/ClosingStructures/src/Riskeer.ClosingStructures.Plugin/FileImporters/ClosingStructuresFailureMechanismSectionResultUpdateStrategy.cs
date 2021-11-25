@@ -26,13 +26,13 @@ using Riskeer.Common.IO.FileImporters;
 namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="ClosingStructuresFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="ClosingStructuresFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(ClosingStructuresFailureMechanismSectionResult origin, ClosingStructuresFailureMechanismSectionResult target)
+        public void UpdateSectionResult(ClosingStructuresFailureMechanismSectionResultOld origin, ClosingStructuresFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

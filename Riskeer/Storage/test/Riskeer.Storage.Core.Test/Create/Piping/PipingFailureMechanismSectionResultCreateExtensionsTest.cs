@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((PipingFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 TailorMadeAssessmentProbability = double.NaN,
                 ManualAssemblyProbability = double.NaN

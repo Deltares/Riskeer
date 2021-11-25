@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GrassCoverErosionOutwardsFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((GrassCoverErosionOutwardsFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResultForFactorizedSignalingNorm = detailedAssessmentResultForFactorizedSignalingNorm,

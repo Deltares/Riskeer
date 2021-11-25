@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingStructureFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((PipingStructureFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,

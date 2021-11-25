@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>, GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld>, GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathView"/>.
@@ -103,8 +103,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                GrassCoverErosionInwardsFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld>,
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

@@ -26,13 +26,13 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<StabilityStoneCoverFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<StabilityStoneCoverFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(StabilityStoneCoverFailureMechanismSectionResult origin, StabilityStoneCoverFailureMechanismSectionResult target)
+        public void UpdateSectionResult(StabilityStoneCoverFailureMechanismSectionResultOld origin, StabilityStoneCoverFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

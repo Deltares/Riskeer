@@ -138,7 +138,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResult>(
+                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld>(
                 new HeightStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -185,8 +185,8 @@ namespace Riskeer.HeightStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
-                IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>,
+                IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>,
                 HeightStructuresFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -277,7 +277,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -478,7 +478,7 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };

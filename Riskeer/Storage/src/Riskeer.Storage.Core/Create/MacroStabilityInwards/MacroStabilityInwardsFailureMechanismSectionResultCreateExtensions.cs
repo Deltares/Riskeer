@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="MacroStabilityInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="MacroStabilityInwardsSectionResultEntity"/> based on the information 
-        /// of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// of the <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
+        internal static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestFailureMechanismResultViewOld(new ObservableList<FailureMechanismSectionResult>(), null);
+            TestDelegate call = () => new TestFailureMechanismResultViewOld(new ObservableList<FailureMechanismSectionResultOld>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -133,7 +133,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const int stringColumnIndex = 1;
 
             // Call
-            using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResultOld>()))
             {
                 // Assert
                 DataGridView dataGridView = GetDataGridView();
@@ -182,9 +182,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultControlUpdated()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -213,7 +213,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
         {
             // Given
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>();
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -234,9 +234,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultControlUpdated()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -267,9 +267,9 @@ namespace Riskeer.Common.Forms.Test.Views
             bool readOnly, string errorText, CellStyle style)
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -299,9 +299,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenRowUpdatingAndSectionResultNotified_ThenNothingUpdates()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -333,9 +333,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultsView_WhenExceptionThrownDuringUpdate_ThenErrorSet()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -362,7 +362,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            FailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
 
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -386,7 +386,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            FailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
 
             using (TestFailureMechanismResultViewOld view = ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -413,9 +413,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultsView_WhenFailureMechanismAssemblyControlUpdated_ThenDataCleared()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -439,7 +439,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            FailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
 
             using (TestFailureMechanismResultViewOld view = ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -470,10 +470,10 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-            TestFailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult1,
                 sectionResult2
@@ -506,7 +506,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenRowUpdated_ThenColumnDoesNotAutoResize()
         {
             // Given
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
@@ -533,8 +533,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnDoesAutoResize()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -562,9 +562,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResultOld>
             {
                 sectionResult
             };
@@ -625,7 +625,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private TestFailureMechanismResultViewOld ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
+        private TestFailureMechanismResultViewOld ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResultOld> sectionResults)
         {
             var failureMechanismResultView = new TestFailureMechanismResultViewOld(sectionResults, new TestFailureMechanism());
             testForm.Controls.Add(failureMechanismResultView);
@@ -634,12 +634,12 @@ namespace Riskeer.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class TestFailureMechanismResultViewOld : FailureMechanismResultViewOld<FailureMechanismSectionResult,
+        private class TestFailureMechanismResultViewOld : FailureMechanismResultViewOld<FailureMechanismSectionResultOld,
             TestRow,
             TestFailureMechanism,
             TestAssemblyResultControl>
         {
-            public TestFailureMechanismResultViewOld(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults,
+            public TestFailureMechanismResultViewOld(IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults,
                                                   TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism) {}
 
@@ -648,7 +648,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public bool AssemblyResultControlUpdated { get; set; }
 
             protected override TestRow CreateFailureMechanismSectionResultRow(
-                FailureMechanismSectionResult sectionResult)
+                FailureMechanismSectionResultOld sectionResult)
             {
                 return new TestRow(sectionResult);
             }
@@ -672,11 +672,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestAssemblyResultControl : AssemblyResultControl {}
 
-        private class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
+        private class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResultOld>
         {
             private string testString;
 
-            public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
+            public TestRow(FailureMechanismSectionResultOld sectionResult) : base(sectionResult)
             {
                 ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
             }

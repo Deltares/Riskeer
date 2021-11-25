@@ -59,8 +59,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(failureMechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
                                                                                                                      failureMechanism);
 
             // Call
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>(
+            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism);
 

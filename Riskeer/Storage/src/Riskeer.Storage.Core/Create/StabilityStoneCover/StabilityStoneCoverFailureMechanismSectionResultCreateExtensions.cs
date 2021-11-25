@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.StabilityStoneCover
 {
     /// <summary>
-    /// Extension methods for <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="StabilityStoneCoverSectionResultEntity"/>.
     /// </summary>
     internal static class StabilityStoneCoverFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StabilityStoneCoverSectionResultEntity"/> based on the information of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="StabilityStoneCoverSectionResultEntity"/> based on the information of the <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="StabilityStoneCoverSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static StabilityStoneCoverSectionResultEntity Create(this StabilityStoneCoverFailureMechanismSectionResult result)
+        internal static StabilityStoneCoverSectionResultEntity Create(this StabilityStoneCoverFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

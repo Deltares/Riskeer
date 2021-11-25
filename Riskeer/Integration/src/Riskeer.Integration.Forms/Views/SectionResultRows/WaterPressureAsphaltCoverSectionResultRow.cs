@@ -32,9 +32,9 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class WaterPressureAsphaltCoverSectionResultRow : FailureMechanismSectionResultRow<WaterPressureAsphaltCoverFailureMechanismSectionResult>
+    public class WaterPressureAsphaltCoverSectionResultRow : FailureMechanismSectionResultRow<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int tailorMadeAssessmentResultIndex;
@@ -50,14 +50,14 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="WaterPressureAsphaltCoverSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal WaterPressureAsphaltCoverSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult,
+        internal WaterPressureAsphaltCoverSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult,
                                                            ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

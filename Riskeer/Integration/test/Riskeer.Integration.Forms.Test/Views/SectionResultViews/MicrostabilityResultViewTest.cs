@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResultOld,
                     MicrostabilitySectionResultRow,
                     MicrostabilityFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MicrostabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            MicrostabilityFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class MicrostabilityFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             MicrostabilityResultViewOld,
             MicrostabilityFailureMechanism,
-            MicrostabilityFailureMechanismSectionResult,
+            MicrostabilityFailureMechanismSectionResultOld,
             MicrostabilitySectionResultRow>
         {
             protected override MicrostabilityResultViewOld CreateResultView(MicrostabilityFailureMechanism failureMechanism)

@@ -26,16 +26,15 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Water Pressure on Asphalt failure mechanism.
+    /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
-    public class WaterPressureAsphaltCoverFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section)
-            : base(section)
+        public StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;

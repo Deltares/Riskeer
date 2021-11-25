@@ -51,7 +51,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
-            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult)
+            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -85,7 +85,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
-            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -139,7 +139,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
-            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -188,7 +188,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
-            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -248,7 +248,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                                                    StabilityPointStructuresFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection,
                                                                                                    bool useManual)
@@ -334,7 +334,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+        private static FailureMechanismSectionAssembly GetSectionAssembly(StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                           StabilityPointStructuresFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           bool useManual)
@@ -365,7 +365,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(StabilityPointStructuresFailureMechanismSectionResultOld sectionResult,
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

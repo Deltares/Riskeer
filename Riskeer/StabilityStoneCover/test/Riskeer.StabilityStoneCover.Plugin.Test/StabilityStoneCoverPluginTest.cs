@@ -108,8 +108,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>),
-                    typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>),
+                    typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>),
+                    typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>),
                     typeof(StabilityStoneCoverResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -144,7 +144,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyStabilityStoneCoverOutput)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsInputContext)));
             }

@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.DuneErosion
 {
     /// <summary>
-    /// Extension methods for <see cref="DuneErosionFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="DuneErosionFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="DuneErosionSectionResultEntity"/>.
     /// </summary>
     internal static class DuneErosionFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="DuneErosionSectionResultEntity"/> based on the information of the <see cref="DuneErosionFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="DuneErosionSectionResultEntity"/> based on the information of the <see cref="DuneErosionFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="DuneErosionSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        internal static DuneErosionSectionResultEntity Create(this DuneErosionFailureMechanismSectionResult result)
+        internal static DuneErosionSectionResultEntity Create(this DuneErosionFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

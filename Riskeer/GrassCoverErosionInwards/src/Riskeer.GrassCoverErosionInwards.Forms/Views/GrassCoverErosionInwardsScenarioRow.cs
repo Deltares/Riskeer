@@ -27,7 +27,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,
+    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     public class GrassCoverErosionInwardsScenarioRow : ScenarioRow<GrassCoverErosionInwardsCalculationScenario>

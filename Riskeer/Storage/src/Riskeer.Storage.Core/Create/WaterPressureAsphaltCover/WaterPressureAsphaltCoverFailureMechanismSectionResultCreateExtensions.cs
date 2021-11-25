@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
 {
     /// <summary>
-    /// Extension methods for <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="WaterPressureAsphaltCoverSectionResultEntity"/>.
     /// </summary>
     internal static class WaterPressureAsphaltCoverFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> based on the information of the <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> based on the information of the <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="WaterPressureAsphaltCoverSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static WaterPressureAsphaltCoverSectionResultEntity Create(this WaterPressureAsphaltCoverFailureMechanismSectionResult result)
+        internal static WaterPressureAsphaltCoverSectionResultEntity Create(this WaterPressureAsphaltCoverFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

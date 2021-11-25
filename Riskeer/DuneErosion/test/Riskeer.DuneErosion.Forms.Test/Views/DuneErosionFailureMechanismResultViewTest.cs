@@ -82,7 +82,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<DuneErosionFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<DuneErosionFailureMechanismSectionResultOld,
                     DuneErosionSectionResultRow,
                     DuneErosionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -186,7 +186,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -206,7 +206,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public class DuneErosionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             DuneErosionFailureMechanismResultViewOld,
             DuneErosionFailureMechanism,
-            DuneErosionFailureMechanismSectionResult,
+            DuneErosionFailureMechanismSectionResultOld,
             DuneErosionSectionResultRow>
         {
             protected override DuneErosionFailureMechanismResultViewOld CreateResultView(DuneErosionFailureMechanism failureMechanism)

@@ -33,9 +33,9 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Water Pressure on Asphalt failure mechanism.
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase,
-                                                             IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>
+                                                             IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Data.StandAlone
         public WaterPressureAsphaltCoverFailureMechanism()
             : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Data.StandAlone
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new WaterPressureAsphaltCoverFailureMechanismSectionResult(section));
+            sectionResults.Add(new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

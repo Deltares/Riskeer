@@ -31,16 +31,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy, WaveImpactAsphaltCoverFailureMechanismSectionResult>
+        WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
-        protected override WaveImpactAsphaltCoverFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override WaveImpactAsphaltCoverFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.Sufficient,
@@ -54,8 +54,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(WaveImpactAsphaltCoverFailureMechanismSectionResult originResult,
-                                                    WaveImpactAsphaltCoverFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(WaveImpactAsphaltCoverFailureMechanismSectionResultOld originResult,
+                                                    WaveImpactAsphaltCoverFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResultForFactorizedSignalingNorm, targetResult.DetailedAssessmentResultForFactorizedSignalingNorm);

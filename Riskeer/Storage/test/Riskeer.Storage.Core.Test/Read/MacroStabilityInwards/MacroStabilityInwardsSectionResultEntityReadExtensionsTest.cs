@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate test = () => ((MacroStabilityInwardsSectionResultEntity) null).Read(sectionResult);
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -101,7 +101,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         {
             // Setup
             var entity = new MacroStabilityInwardsSectionResultEntity();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

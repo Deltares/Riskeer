@@ -106,8 +106,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
-                IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
+            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>,
+                IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>,
                 StabilityStoneCoverResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -173,7 +173,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -254,7 +254,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
+                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -398,7 +398,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+                new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };

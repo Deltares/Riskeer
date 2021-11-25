@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards
 {
     /// <summary>
-    /// Extension methods for <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/>.
     /// </summary>
     internal static class GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/> based on the information of the <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/> based on the information of the <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static GrassCoverSlipOffOutwardsSectionResultEntity Create(this GrassCoverSlipOffOutwardsFailureMechanismSectionResult result)
+        internal static GrassCoverSlipOffOutwardsSectionResultEntity Create(this GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

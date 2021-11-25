@@ -27,19 +27,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.MacroStabilityOutwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/> based on the
     /// <see cref="MacroStabilityOutwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityOutwardsSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="MacroStabilityOutwardsSectionResultEntity"/> and use the information to update a 
-        /// <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+        /// <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="MacroStabilityOutwardsSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this MacroStabilityOutwardsSectionResultEntity entity, MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this MacroStabilityOutwardsSectionResultEntity entity, MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

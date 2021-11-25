@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                           MicrostabilityFailureMechanismSectionResult>));
+                           MicrostabilityFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> view =
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -161,19 +161,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>>(view);
+                MicrostabilityFailureMechanismSectionResultOld>>(view);
 
             var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>) view;
+                MicrostabilityFailureMechanismSectionResultOld>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult> CreateView(
+        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld> CreateView(
             MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>(
+                MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,

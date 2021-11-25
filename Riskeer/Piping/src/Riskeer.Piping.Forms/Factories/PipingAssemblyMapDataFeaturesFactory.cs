@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
                 PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
                                                                                                     failureMechanism,
@@ -127,7 +127,7 @@ namespace Riskeer.Piping.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,

@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(failureMechanism.N, calculator.AssemblyCategoriesInput.N);
             }
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>)
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>)
                 outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);

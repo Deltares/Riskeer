@@ -48,7 +48,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>, StabilityStoneCoverFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>, StabilityStoneCoverFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverFailurePathView"/>.
@@ -103,8 +103,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
-                StabilityStoneCoverFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>,
+                StabilityStoneCoverFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

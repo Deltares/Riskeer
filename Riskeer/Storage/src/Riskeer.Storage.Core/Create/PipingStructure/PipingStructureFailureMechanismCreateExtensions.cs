@@ -48,10 +48,10 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults,
+            IEnumerable<PipingStructureFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (PipingStructureFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 PipingStructureSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

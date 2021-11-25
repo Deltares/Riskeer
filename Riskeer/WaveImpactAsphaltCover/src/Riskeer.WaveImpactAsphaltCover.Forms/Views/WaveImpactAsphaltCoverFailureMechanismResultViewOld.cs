@@ -28,9 +28,9 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismResultViewOld : FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResult,
+    public class WaveImpactAsphaltCoverFailureMechanismResultViewOld : FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
         WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
         WaveImpactAsphaltCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -52,12 +52,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultViewOld"/>.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanismResultViewOld(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+        public WaveImpactAsphaltCoverFailureMechanismResultViewOld(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                                                 WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
-            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult)
         {
             return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(
                 sectionResult,

@@ -408,7 +408,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
-            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
@@ -457,8 +457,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
-            foreach (IHasSectionResults<FailureMechanismSectionResult> failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                                                            .Cast<IHasSectionResults<FailureMechanismSectionResult>>())
+            foreach (IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism in assessmentSection.GetFailureMechanisms()
+                                                                                                            .Cast<IHasSectionResults<FailureMechanismSectionResultOld>>())
             {
                 FailureMechanismTestHelper.AddSectionsBasedOnReferenceLine(assessmentSection.ReferenceLine, failureMechanism, 1);
                 failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;

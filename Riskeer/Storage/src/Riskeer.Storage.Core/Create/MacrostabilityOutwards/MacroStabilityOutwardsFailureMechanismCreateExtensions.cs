@@ -49,10 +49,10 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (MacroStabilityOutwardsFailureMechanismSectionResult macroStabilityOutwardsFailureMechanismSectionResult in sectionResults)
+            foreach (MacroStabilityOutwardsFailureMechanismSectionResultOld macroStabilityOutwardsFailureMechanismSectionResult in sectionResults)
             {
                 MacroStabilityOutwardsSectionResultEntity sectionResultEntity = macroStabilityOutwardsFailureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(macroStabilityOutwardsFailureMechanismSectionResult.Section);

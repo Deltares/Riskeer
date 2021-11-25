@@ -96,58 +96,58 @@ namespace Riskeer.Integration.Forms.Observers
             };
 
             closingStructuresObserver = CreateCalculatableFailureMechanismObserver<ClosingStructuresFailureMechanism,
-                ClosingStructuresFailureMechanismSectionResult, StructuresCalculation<ClosingStructuresInput>>(assessmentSection.ClosingStructures);
+                ClosingStructuresFailureMechanismSectionResultOld, StructuresCalculation<ClosingStructuresInput>>(assessmentSection.ClosingStructures);
 
             duneErosionObserver = CreateFailureMechanismObserver<DuneErosionFailureMechanism,
-                DuneErosionFailureMechanismSectionResult>(assessmentSection.DuneErosion);
+                DuneErosionFailureMechanismSectionResultOld>(assessmentSection.DuneErosion);
 
             grassCoverErosionInwardsObserver = CreateCalculatableFailureMechanismObserver<GrassCoverErosionInwardsFailureMechanism,
-                GrassCoverErosionInwardsFailureMechanismSectionResult, GrassCoverErosionInwardsCalculation>(assessmentSection.GrassCoverErosionInwards);
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld, GrassCoverErosionInwardsCalculation>(assessmentSection.GrassCoverErosionInwards);
 
             grassCoverErosionOutwardsObserver = CreateFailureMechanismObserver<GrassCoverErosionOutwardsFailureMechanism,
-                GrassCoverErosionOutwardsFailureMechanismSectionResult>(assessmentSection.GrassCoverErosionOutwards);
+                GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(assessmentSection.GrassCoverErosionOutwards);
 
             heightStructuresObserver = CreateCalculatableFailureMechanismObserver<HeightStructuresFailureMechanism,
-                HeightStructuresFailureMechanismSectionResult, StructuresCalculation<HeightStructuresInput>>(assessmentSection.HeightStructures);
+                HeightStructuresFailureMechanismSectionResultOld, StructuresCalculation<HeightStructuresInput>>(assessmentSection.HeightStructures);
 
             macroStabilityInwardsObserver = CreateCalculatableFailureMechanismObserver<MacroStabilityInwardsFailureMechanism,
-                MacroStabilityInwardsFailureMechanismSectionResult, MacroStabilityInwardsCalculationScenario>(assessmentSection.MacroStabilityInwards);
+                MacroStabilityInwardsFailureMechanismSectionResultOld, MacroStabilityInwardsCalculationScenario>(assessmentSection.MacroStabilityInwards);
 
             pipingObserver = CreateCalculatableFailureMechanismObserver<PipingFailureMechanism,
-                PipingFailureMechanismSectionResult, SemiProbabilisticPipingCalculationScenario>(assessmentSection.Piping);
+                PipingFailureMechanismSectionResultOld, SemiProbabilisticPipingCalculationScenario>(assessmentSection.Piping);
 
             stabilityPointStructuresObserver = CreateCalculatableFailureMechanismObserver<StabilityPointStructuresFailureMechanism,
-                StabilityPointStructuresFailureMechanismSectionResult, StructuresCalculation<StabilityPointStructuresInput>>(assessmentSection.StabilityPointStructures);
+                StabilityPointStructuresFailureMechanismSectionResultOld, StructuresCalculation<StabilityPointStructuresInput>>(assessmentSection.StabilityPointStructures);
 
             stabilityStoneCoverObserver = CreateFailureMechanismObserver<StabilityStoneCoverFailureMechanism,
-                StabilityStoneCoverFailureMechanismSectionResult>(assessmentSection.StabilityStoneCover);
+                StabilityStoneCoverFailureMechanismSectionResultOld>(assessmentSection.StabilityStoneCover);
 
             waveImpactAsphaltCoverObserver = CreateFailureMechanismObserver<WaveImpactAsphaltCoverFailureMechanism,
-                WaveImpactAsphaltCoverFailureMechanismSectionResult>(assessmentSection.WaveImpactAsphaltCover);
+                WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(assessmentSection.WaveImpactAsphaltCover);
 
             grassCoverSlipOffInwardsObserver = CreateFailureMechanismObserver<GrassCoverSlipOffInwardsFailureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffInwards);
+                GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(assessmentSection.GrassCoverSlipOffInwards);
 
             grassCoverSlipOffOutwardsObserver = CreateFailureMechanismObserver<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(assessmentSection.GrassCoverSlipOffOutwards);
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(assessmentSection.GrassCoverSlipOffOutwards);
 
             macroStabilityOutwardsObserver = CreateFailureMechanismObserver<MacroStabilityOutwardsFailureMechanism,
-                MacroStabilityOutwardsFailureMechanismSectionResult>(assessmentSection.MacroStabilityOutwards);
+                MacroStabilityOutwardsFailureMechanismSectionResultOld>(assessmentSection.MacroStabilityOutwards);
 
             microstabilityObserver = CreateFailureMechanismObserver<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResult>(assessmentSection.Microstability);
+                MicrostabilityFailureMechanismSectionResultOld>(assessmentSection.Microstability);
 
             pipingStructureObserver = CreateFailureMechanismObserver<PipingStructureFailureMechanism,
-                PipingStructureFailureMechanismSectionResult>(assessmentSection.PipingStructure);
+                PipingStructureFailureMechanismSectionResultOld>(assessmentSection.PipingStructure);
 
             strengthStabilityLengthwiseConstructionObserver = CreateFailureMechanismObserver<StrengthStabilityLengthwiseConstructionFailureMechanism,
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>(assessmentSection.StrengthStabilityLengthwiseConstruction);
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>(assessmentSection.StrengthStabilityLengthwiseConstruction);
 
             technicalInnovationObserver = CreateFailureMechanismObserver<TechnicalInnovationFailureMechanism,
-                TechnicalInnovationFailureMechanismSectionResult>(assessmentSection.TechnicalInnovation);
+                TechnicalInnovationFailureMechanismSectionResultOld>(assessmentSection.TechnicalInnovation);
 
             waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
+                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(assessmentSection.WaterPressureAsphaltCover);
         }
 
         public void Dispose()
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Forms.Observers
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
             where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
-            where TSectionResult : FailureMechanismSectionResult
+            where TSectionResult : FailureMechanismSectionResultOld
             where TCalculation : ICalculation<ICalculationInput>
         {
             return new Observer(NotifyObservers)
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Forms.Observers
 
         private Observer CreateFailureMechanismObserver<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism)
             where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
+            where TSectionResult : FailureMechanismSectionResultOld
         {
             return new Observer(NotifyObservers)
             {

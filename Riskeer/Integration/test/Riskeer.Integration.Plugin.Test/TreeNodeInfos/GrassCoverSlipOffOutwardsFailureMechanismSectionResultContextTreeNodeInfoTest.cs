@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(mechanism.SectionResults,
                                                                                                                            mechanism);
             using (plugin)
             {

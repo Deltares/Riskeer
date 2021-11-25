@@ -48,10 +48,10 @@ namespace Riskeer.Storage.Core.Create.Microstability
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults,
+            IEnumerable<MicrostabilityFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (MicrostabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 MicrostabilitySectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

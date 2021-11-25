@@ -27,10 +27,10 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
+    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResultOld"/>.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
-    public class FailureMechanismSectionResultContext<T> : WrappedObjectContextBase<IObservableEnumerable<T>> where T : FailureMechanismSectionResult
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/>.</typeparam>
+    public class FailureMechanismSectionResultContext<T> : WrappedObjectContextBase<IObservableEnumerable<T>> where T : FailureMechanismSectionResultOld
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultContext{T}"/>.

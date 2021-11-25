@@ -26,19 +26,19 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
 {
     /// <summary>
-    /// Extension methods for <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="WaveImpactAsphaltCoverSectionResultEntity"/>.
     /// </summary>
     internal static class WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> based on the information
-        /// of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+        /// of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverSectionResultEntity Create(this WaveImpactAsphaltCoverFailureMechanismSectionResult result)
+        internal static WaveImpactAsphaltCoverSectionResultEntity Create(this WaveImpactAsphaltCoverFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

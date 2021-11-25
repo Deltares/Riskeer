@@ -31,9 +31,9 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class TechnicalInnovationResultViewOld : FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResult,
+    public class TechnicalInnovationResultViewOld : FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResultOld,
         TechnicalInnovationSectionResultRow,
         TechnicalInnovationFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -50,11 +50,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// Creates a new instance of <see cref="TechnicalInnovationResultViewOld"/>.
         /// </summary>
         public TechnicalInnovationResultViewOld(
-            IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> failureMechanismSectionResults,
             TechnicalInnovationFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
+        protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResultOld sectionResult)
         {
             return new TechnicalInnovationSectionResultRow(
                 sectionResult,

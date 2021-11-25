@@ -37,7 +37,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
         {
             // Call
             TestDelegate call = () =>
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup<TestFailureMechanismSectionResult>(null);
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup<TestFailureMechanismSectionResultOld>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,17 +50,17 @@ namespace Riskeer.Integration.IO.Test.Helpers
             // Setup
             var failureMechanismSectionResults = new[]
             {
-                new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(0, 10)
                 })),
-                new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 10),
                     new Point2D(0, 20)
                 })),
-                new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 20),
                     new Point2D(0, 40)
@@ -68,25 +68,25 @@ namespace Riskeer.Integration.IO.Test.Helpers
             };
 
             // Call
-            IDictionary<TestFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionResultsLookup =
+            IDictionary<TestFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionResultsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             // Assert
             CollectionAssert.AreEqual(failureMechanismSectionResults, failureMechanismSectionResultsLookup.Keys);
 
-            TestFailureMechanismSectionResult firstSectionResult = failureMechanismSectionResults[0];
+            TestFailureMechanismSectionResultOld firstSectionResult = failureMechanismSectionResults[0];
             ExportableFailureMechanismSection firstExportableSection = failureMechanismSectionResultsLookup[firstSectionResult];
             Assert.AreSame(firstSectionResult.Section.Points, firstExportableSection.Geometry);
             Assert.AreEqual(0, firstExportableSection.StartDistance);
             Assert.AreEqual(10, firstExportableSection.EndDistance);
 
-            TestFailureMechanismSectionResult secondSectionResult = failureMechanismSectionResults[1];
+            TestFailureMechanismSectionResultOld secondSectionResult = failureMechanismSectionResults[1];
             ExportableFailureMechanismSection secondExportableSection = failureMechanismSectionResultsLookup[secondSectionResult];
             Assert.AreSame(secondSectionResult.Section.Points, secondExportableSection.Geometry);
             Assert.AreEqual(10, secondExportableSection.StartDistance);
             Assert.AreEqual(20, secondExportableSection.EndDistance);
 
-            TestFailureMechanismSectionResult thirdSectionResult = failureMechanismSectionResults[2];
+            TestFailureMechanismSectionResultOld thirdSectionResult = failureMechanismSectionResults[2];
             ExportableFailureMechanismSection thirdExportableSection = failureMechanismSectionResultsLookup[thirdSectionResult];
             Assert.AreSame(thirdSectionResult.Section.Points, thirdExportableSection.Geometry);
             Assert.AreEqual(20, thirdExportableSection.StartDistance);

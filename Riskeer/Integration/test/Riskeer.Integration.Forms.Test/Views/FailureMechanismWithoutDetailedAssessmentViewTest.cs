@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Assert
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 null,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,
@@ -117,11 +117,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 null,
                 Enumerable.Empty<MapFeature>,
@@ -139,12 +139,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 null,
@@ -162,12 +162,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,
@@ -185,12 +185,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            TestDelegate call = () => new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 // Assert
@@ -268,7 +268,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             };
 
             // Call
-            using (var view = new FailureMechanismWithoutDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResult>(
+            using (var view = new FailureMechanismWithoutDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 () => simpleAssemblyFeatures,
@@ -316,7 +316,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -357,7 +357,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
                 CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -392,7 +392,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -443,7 +443,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -517,7 +517,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new MapFeature(Enumerable.Empty<MapGeometry>())
             };
 
-            using (var view = new FailureMechanismWithoutDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResult>(
+            using (var view = new FailureMechanismWithoutDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 new AssessmentSectionStub(),
                 () => originalSimpleAssemblyFeatures,
@@ -589,7 +589,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new MapFeature(Enumerable.Empty<MapGeometry>())
             };
 
-            using (var view = new FailureMechanismWithoutDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResult>(
+            using (var view = new FailureMechanismWithoutDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 new AssessmentSectionStub(),
                 () => originalSimpleAssemblyFeatures,
@@ -637,11 +637,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> CreateView(
-            IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+        private static FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> CreateView(
+            IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            return new FailureMechanismWithoutDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,

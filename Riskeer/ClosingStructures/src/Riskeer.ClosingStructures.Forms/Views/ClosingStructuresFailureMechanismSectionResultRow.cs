@@ -37,9 +37,9 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
+    /// This class represents a row of <see cref="ClosingStructuresFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -65,7 +65,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
@@ -75,7 +75,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult,
+        internal ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResultOld sectionResult,
                                                                    IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
                                                                    ClosingStructuresFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection,

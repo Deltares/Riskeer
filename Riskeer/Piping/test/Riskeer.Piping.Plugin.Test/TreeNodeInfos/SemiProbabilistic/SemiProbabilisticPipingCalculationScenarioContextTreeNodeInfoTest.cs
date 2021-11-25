@@ -801,7 +801,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
             Assert.AreEqual(2, group.Children.Count);
-            PipingFailureMechanismSectionResult[] sectionResults = pipingFailureMechanism.SectionResults.ToArray();
+            PipingFailureMechanismSectionResultOld[] sectionResults = pipingFailureMechanism.SectionResults.ToArray();
             CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), elementToBeRemoved);
 
             // Call

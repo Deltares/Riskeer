@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
 
             return assessmentSection.GetFailureMechanisms()
-                                    .Cast<IHasSectionResults<FailureMechanismSectionResult>>()
+                                    .Cast<IHasSectionResults<FailureMechanismSectionResultOld>>()
                                     .Any(fm => fm.InAssembly && HasSectionResultsHelper.HasManualAssemblyResults(fm));
         }
     }

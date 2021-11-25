@@ -33,9 +33,9 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="PipingFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class PipingFailureMechanismResultViewOld : FailureMechanismResultViewOld<PipingFailureMechanismSectionResult,
+    public class PipingFailureMechanismResultViewOld : FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
         PipingFailureMechanismSectionResultRow,
         PipingFailureMechanism,
         FailureMechanismAssemblyControl>
@@ -59,12 +59,12 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingFailureMechanismSectionResultOld"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismResultViewOld(IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults,
+        public PipingFailureMechanismResultViewOld(IObservableEnumerable<PipingFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                                 PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
+        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResultOld sectionResult)
         {
             return new PipingFailureMechanismSectionResultRow(
                 sectionResult,

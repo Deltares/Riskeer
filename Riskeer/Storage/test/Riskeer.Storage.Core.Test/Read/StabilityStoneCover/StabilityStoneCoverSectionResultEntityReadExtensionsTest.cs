@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         {
             // Call
             TestDelegate call = () => ((StabilityStoneCoverSectionResultEntity) null).Read(
-                new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                new StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -89,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
 
-            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

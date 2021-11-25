@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
                     StrengthStabilityLengthwiseConstructionSectionResultRow,
                     StrengthStabilityLengthwiseConstructionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class StrengthStabilityLengthwiseConstructionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             StrengthStabilityLengthwiseConstructionResultViewOld,
             StrengthStabilityLengthwiseConstructionFailureMechanism,
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
             StrengthStabilityLengthwiseConstructionSectionResultRow>
         {
             protected override StrengthStabilityLengthwiseConstructionResultViewOld CreateResultView(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)

@@ -39,10 +39,10 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.DetailedAssessmentProbability = newValue;
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.DetailedAssessmentProbability = newValue;
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.TailorMadeAssessmentProbability = newValue;

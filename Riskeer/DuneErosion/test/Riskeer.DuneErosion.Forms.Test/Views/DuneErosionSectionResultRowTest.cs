@@ -73,7 +73,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate call = () => new DuneErosionSectionResultRow(result, null);
@@ -87,14 +87,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var result = new DuneErosionFailureMechanismSectionResult(
+            var result = new DuneErosionFailureMechanismSectionResultOld(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             var row = new DuneErosionSectionResultRow(result, ConstructionProperties);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>>(row);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResultOld>>(row);
             Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
             Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
             Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
@@ -130,7 +130,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -162,7 +162,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -194,7 +194,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
@@ -228,7 +228,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -251,7 +251,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -294,7 +294,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -336,7 +336,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section)
+            var result = new DuneErosionFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -371,7 +371,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section)
+            var result = new DuneErosionFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -423,7 +423,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -468,7 +468,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -497,7 +497,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -526,7 +526,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -555,7 +555,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -584,7 +584,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -613,7 +613,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -642,7 +642,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResult(section);
+            var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -26,12 +26,12 @@ using Riskeer.Piping.Data;
 namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="PipingFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="PipingFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="PipingFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="PipingFailureMechanismSectionResultOld"/> instance.
     /// </summary>
-    public class PipingFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<PipingFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(PipingFailureMechanismSectionResult origin, PipingFailureMechanismSectionResult target)
+        public void UpdateSectionResult(PipingFailureMechanismSectionResultOld origin, PipingFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

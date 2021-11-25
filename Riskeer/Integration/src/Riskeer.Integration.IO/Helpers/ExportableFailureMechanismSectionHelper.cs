@@ -35,7 +35,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// Creates a lookup between failure mechanism section results and the corresponding
         /// <see cref="ExportableFailureMechanismSection"/>.
         /// </summary>
-        /// <typeparam name="TSectionResult">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
+        /// <typeparam name="TSectionResult">The type of <see cref="FailureMechanismSectionResultOld"/>.</typeparam>
         /// <param name="failureMechanismSectionResults">The failure mechanism sections results to create a
         /// <see cref="ExportableFailureMechanismSection"/> for.</param>
         /// <returns>A <see cref="IDictionary{TKey,TValue}"/> between the failure mechanism section results
@@ -43,7 +43,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/> is <c>null</c>.</exception>
         public static IDictionary<TSectionResult, ExportableFailureMechanismSection> CreateFailureMechanismSectionResultLookup<TSectionResult>(
             IEnumerable<TSectionResult> failureMechanismSectionResults)
-            where TSectionResult : FailureMechanismSectionResult
+            where TSectionResult : FailureMechanismSectionResultOld
         {
             if (failureMechanismSectionResults == null)
             {

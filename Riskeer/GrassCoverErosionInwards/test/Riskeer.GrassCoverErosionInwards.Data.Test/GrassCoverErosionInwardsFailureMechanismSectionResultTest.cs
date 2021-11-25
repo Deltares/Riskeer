@@ -38,10 +38,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
@@ -61,7 +61,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => result.TailorMadeAssessmentProbability = newValue;
@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.TailorMadeAssessmentProbability = newValue;
@@ -101,7 +101,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => result.ManualAssemblyProbability = newValue;
@@ -122,7 +122,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.ManualAssemblyProbability = newValue;

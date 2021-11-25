@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data
         /// <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static bool HasManualAssemblyResults<T>(IHasSectionResults<T> failureMechanism)
-            where T : FailureMechanismSectionResult
+            where T : FailureMechanismSectionResultOld
         {
             if (failureMechanism == null)
             {

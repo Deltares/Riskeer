@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -65,7 +65,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
         }
@@ -84,7 +84,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -103,7 +103,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

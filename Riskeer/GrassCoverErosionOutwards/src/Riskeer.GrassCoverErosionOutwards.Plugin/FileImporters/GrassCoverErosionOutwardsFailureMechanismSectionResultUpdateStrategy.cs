@@ -26,13 +26,13 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<GrassCoverErosionOutwardsFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(GrassCoverErosionOutwardsFailureMechanismSectionResult origin, GrassCoverErosionOutwardsFailureMechanismSectionResult target)
+        public void UpdateSectionResult(GrassCoverErosionOutwardsFailureMechanismSectionResultOld origin, GrassCoverErosionOutwardsFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

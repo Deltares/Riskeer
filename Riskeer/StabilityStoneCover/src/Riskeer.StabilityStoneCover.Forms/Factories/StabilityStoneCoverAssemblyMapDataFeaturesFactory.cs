@@ -46,7 +46,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -65,7 +65,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
         }
@@ -84,7 +84,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -103,7 +103,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

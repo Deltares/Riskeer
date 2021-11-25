@@ -30,16 +30,16 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class TechnicalInnovationFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        TechnicalInnovationFailureMechanismSectionResultUpdateStrategy, TechnicalInnovationFailureMechanismSectionResult>
+        TechnicalInnovationFailureMechanismSectionResultUpdateStrategy, TechnicalInnovationFailureMechanismSectionResultOld>
     {
-        protected override TechnicalInnovationFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override TechnicalInnovationFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new TechnicalInnovationFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override TechnicalInnovationFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override TechnicalInnovationFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new TechnicalInnovationFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 TailorMadeAssessmentResult = TailorMadeAssessmentResultType.ProbabilityNegligible,
@@ -48,8 +48,8 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(TechnicalInnovationFailureMechanismSectionResult originResult,
-                                                    TechnicalInnovationFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(TechnicalInnovationFailureMechanismSectionResultOld originResult,
+                                                    TechnicalInnovationFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);

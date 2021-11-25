@@ -37,7 +37,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="FailureMechanismSectionResult"/>.
+    /// The view for the <see cref="FailureMechanismSectionResultOld"/>.
     /// </summary>
     /// <typeparam name="TSectionResult">The type of results which are presented by the 
     /// <see cref="FailureMechanismResultViewOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.</typeparam>
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
     /// <typeparam name="TAssemblyResultControl">The type of the assembly result control in this view.</typeparam>
     public abstract partial class FailureMechanismResultViewOld<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl> : UserControl, IView
-        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResult : FailureMechanismSectionResultOld
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TFailureMechanism : IHasSectionResults<TSectionResult>
         where TAssemblyResultControl : AssemblyResultControl, new()

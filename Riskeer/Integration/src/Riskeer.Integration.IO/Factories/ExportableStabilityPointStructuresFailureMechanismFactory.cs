@@ -98,15 +98,15 @@ namespace Riskeer.Integration.IO.Factories
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            IDictionary<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<StabilityPointStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>().ToArray();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<StabilityPointStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<StabilityPointStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+                StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
                 FailureMechanismSectionAssembly simpleAssembly =
                     StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);

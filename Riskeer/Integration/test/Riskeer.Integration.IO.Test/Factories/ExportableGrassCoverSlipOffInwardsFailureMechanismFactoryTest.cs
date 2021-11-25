@@ -156,7 +156,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

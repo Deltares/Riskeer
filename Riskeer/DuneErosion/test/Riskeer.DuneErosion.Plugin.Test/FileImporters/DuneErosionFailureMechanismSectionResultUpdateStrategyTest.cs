@@ -31,16 +31,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class DuneErosionFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        DuneErosionFailureMechanismSectionResultUpdateStrategy, DuneErosionFailureMechanismSectionResult>
+        DuneErosionFailureMechanismSectionResultUpdateStrategy, DuneErosionFailureMechanismSectionResultOld>
     {
-        protected override DuneErosionFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override DuneErosionFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new DuneErosionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override DuneErosionFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override DuneErosionFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new DuneErosionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.Sufficient,
@@ -54,8 +54,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(DuneErosionFailureMechanismSectionResult originResult,
-                                                    DuneErosionFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(DuneErosionFailureMechanismSectionResultOld originResult,
+                                                    DuneErosionFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResultForFactorizedSignalingNorm, targetResult.DetailedAssessmentResultForFactorizedSignalingNorm);

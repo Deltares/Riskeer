@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => new PipingStructureSectionResultRow(result, null);
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 var row = new PipingStructureSectionResultRow(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingStructureFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -184,7 +184,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section)
+            var result = new PipingStructureFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -353,7 +353,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section)
+            var result = new PipingStructureFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -397,7 +397,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -443,7 +443,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -472,7 +472,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -501,7 +501,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<TailorMadeAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingStructureFailureMechanismSectionResult(section);
+            var result = new PipingStructureFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())

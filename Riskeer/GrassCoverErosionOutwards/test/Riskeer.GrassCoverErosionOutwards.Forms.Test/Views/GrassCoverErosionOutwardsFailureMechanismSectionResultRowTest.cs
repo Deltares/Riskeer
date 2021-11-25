@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
@@ -118,7 +118,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -150,7 +150,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -182,7 +182,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
@@ -216,7 +216,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -239,7 +239,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -282,7 +282,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -325,7 +325,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section)
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -360,7 +360,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section)
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -412,7 +412,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -457,7 +457,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -486,7 +486,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -515,7 +515,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -544,7 +544,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -573,7 +573,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -602,7 +602,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -631,7 +631,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())

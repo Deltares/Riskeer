@@ -37,10 +37,10 @@ using Riskeer.StabilityPointStructures.Data;
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> for stability point structures
+    /// This class represents a row of <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> for stability point structures
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResultRow
-        : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
+        : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -66,7 +66,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
@@ -76,7 +76,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+        internal StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResultOld sectionResult,
                                                                           IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios,
                                                                           StabilityPointStructuresFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,

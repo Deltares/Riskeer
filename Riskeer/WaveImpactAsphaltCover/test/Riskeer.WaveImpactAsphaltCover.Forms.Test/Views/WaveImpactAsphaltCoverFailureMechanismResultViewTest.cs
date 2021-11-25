@@ -82,7 +82,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
                     WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
                     WaveImpactAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -186,7 +186,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -206,7 +206,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             WaveImpactAsphaltCoverFailureMechanismResultViewOld,
             WaveImpactAsphaltCoverFailureMechanism,
-            WaveImpactAsphaltCoverFailureMechanismSectionResult,
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
             WaveImpactAsphaltCoverFailureMechanismSectionResultRow>
         {
             protected override WaveImpactAsphaltCoverFailureMechanismResultViewOld CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)

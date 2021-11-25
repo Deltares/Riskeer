@@ -58,8 +58,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -80,12 +80,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>
             {
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             };
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
                 sectionResults,
                 new HeightStructuresFailureMechanism(),
                 assessmentSection);
@@ -259,7 +259,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

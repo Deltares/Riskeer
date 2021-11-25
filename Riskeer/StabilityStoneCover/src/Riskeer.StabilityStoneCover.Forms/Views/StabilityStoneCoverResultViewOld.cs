@@ -28,9 +28,9 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class StabilityStoneCoverResultViewOld : FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResult,
+    public class StabilityStoneCoverResultViewOld : FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResultOld,
         StabilityStoneCoverSectionResultRow,
         StabilityStoneCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -52,11 +52,11 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverResultViewOld"/>.
         /// </summary>
-        public StabilityStoneCoverResultViewOld(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+        public StabilityStoneCoverResultViewOld(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                              StabilityStoneCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
+        protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResultOld sectionResult)
         {
             return new StabilityStoneCoverSectionResultRow(
                 sectionResult,

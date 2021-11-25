@@ -49,7 +49,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism,
-                GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -75,7 +75,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism,
-                GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
@@ -104,7 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism,
-                GrassCoverErosionInwardsFailureMechanismSectionResult>(
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
                                                                                                                       failureMechanism,
@@ -131,7 +131,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,

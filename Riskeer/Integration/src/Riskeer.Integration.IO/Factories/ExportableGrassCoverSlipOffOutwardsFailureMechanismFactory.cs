@@ -87,20 +87,20 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld"/>
         /// to create a <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> failureMechanismSectionResults)
+            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> failureMechanismSectionResults)
         {
-            IDictionary<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);

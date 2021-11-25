@@ -33,10 +33,10 @@ using Riskeer.StabilityPointStructures.Data;
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>
+    /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/>
     /// for stability point structures.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResult,
+    public class StabilityPointStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResultOld,
         StabilityPointStructuresFailureMechanismSectionResultRow,
         StabilityPointStructuresFailureMechanism,
         FailureMechanismAssemblyControl>
@@ -60,13 +60,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresFailureMechanismResultViewOld(
-            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> failureMechanismSectionResults,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -94,7 +94,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResultOld sectionResult)
         {
             return new StabilityPointStructuresFailureMechanismSectionResultRow(
                 sectionResult,

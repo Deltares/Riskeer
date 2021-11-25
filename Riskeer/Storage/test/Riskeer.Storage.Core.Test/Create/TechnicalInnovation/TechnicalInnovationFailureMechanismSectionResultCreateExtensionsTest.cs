@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.TechnicalInnovation
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((TechnicalInnovationFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((TechnicalInnovationFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Create.TechnicalInnovation
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new TechnicalInnovationFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,

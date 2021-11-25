@@ -72,7 +72,7 @@ namespace Riskeer.HeightStructures.Data.Test
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -95,7 +95,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -117,7 +117,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -169,7 +169,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -188,7 +188,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), null, assessmentSection);
 
             // Assert
@@ -202,7 +202,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), new HeightStructuresFailureMechanism(), null);
 
             // Assert
@@ -220,7 +220,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 DetailedAssessmentResult = new Random(21).NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>()
             };
@@ -255,7 +255,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -285,7 +285,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -339,7 +339,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection);
 
             // Assert
@@ -353,7 +353,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new HeightStructuresFailureMechanism(), null);
 
             // Assert
@@ -371,7 +371,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -402,7 +402,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -433,7 +433,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -487,7 +487,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -506,7 +506,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), null, assessmentSection);
 
             // Assert
@@ -520,7 +520,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), new HeightStructuresFailureMechanism(), null);
 
             // Assert
@@ -540,7 +540,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -576,7 +576,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -609,7 +609,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -638,7 +638,7 @@ namespace Riskeer.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -692,7 +692,7 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
@@ -706,7 +706,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Call
             void Call() => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new HeightStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
@@ -718,7 +718,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
@@ -750,7 +750,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
@@ -789,7 +789,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = random.NextDouble(),
@@ -827,7 +827,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var mocks = new MockRepository();
@@ -856,7 +856,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
@@ -890,7 +890,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualFalse_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyProbability = new Random(39).NextDouble()
@@ -926,7 +926,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_CalculatorThrowsException_ThrowsAssemblyException(bool useManualAssembly)
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -1061,7 +1061,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1096,7 +1096,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

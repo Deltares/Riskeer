@@ -51,7 +51,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
-            ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult)
+            ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -85,7 +85,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
-            ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -139,7 +139,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
-            ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -188,7 +188,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
-            ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -249,7 +249,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                                                    ClosingStructuresFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection,
                                                                                                    bool useManual)
@@ -335,7 +335,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+        private static FailureMechanismSectionAssembly GetSectionAssembly(ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                           ClosingStructuresFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           bool useManual)
@@ -366,7 +366,7 @@ namespace Riskeer.ClosingStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(ClosingStructuresFailureMechanismSectionResult sectionResult,
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(ClosingStructuresFailureMechanismSectionResultOld sectionResult,
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

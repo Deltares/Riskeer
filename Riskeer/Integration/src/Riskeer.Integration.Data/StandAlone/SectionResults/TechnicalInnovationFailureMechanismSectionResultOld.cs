@@ -26,18 +26,18 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Piping Structure failure mechanism.
+    /// Technical Innovations failure mechanism.
     /// </summary>
-    public class PipingStructureFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class TechnicalInnovationFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="PipingStructureFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public PipingStructureFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public TechnicalInnovationFailureMechanismSectionResultOld(FailureMechanismSection section)
+            : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            DetailedAssessmentResult = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
             ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.None;
         }
@@ -46,11 +46,6 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the detailed assessment result.
-        /// </summary>
-        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the tailor made assessment result.

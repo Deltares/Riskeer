@@ -32,9 +32,9 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class GrassCoverSlipOffInwardsSectionResultRow : FailureMechanismSectionResultRow<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
+    public class GrassCoverSlipOffInwardsSectionResultRow : FailureMechanismSectionResultRow<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -53,14 +53,14 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="GrassCoverSlipOffInwardsSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal GrassCoverSlipOffInwardsSectionResultRow(GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult,
+        internal GrassCoverSlipOffInwardsSectionResultRow(GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult,
                                                           ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

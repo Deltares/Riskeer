@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate call = () => ((StrengthStabilityLengthwiseConstructionSectionResultEntity) null).Read(sectionResult);
@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
-            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

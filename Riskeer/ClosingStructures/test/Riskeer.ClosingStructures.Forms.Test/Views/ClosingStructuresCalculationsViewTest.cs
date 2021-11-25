@@ -622,8 +622,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Then
             StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios = failureMechanism.Calculations.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().ToArray();
-            ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+            ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
             Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));

@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.HeightStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="HeightStructuresFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="HeightStructuresFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HeightStructuresSectionResultEntity"/> based on the information of the
-        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="HeightStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static HeightStructuresSectionResultEntity Create(this HeightStructuresFailureMechanismSectionResult result)
+        internal static HeightStructuresSectionResultEntity Create(this HeightStructuresFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

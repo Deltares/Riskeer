@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(mechanism.SectionResults, mechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);

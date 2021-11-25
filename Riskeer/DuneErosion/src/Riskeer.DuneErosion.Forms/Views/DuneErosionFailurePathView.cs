@@ -48,7 +48,7 @@ namespace Riskeer.DuneErosion.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResult>, DuneErosionFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>, DuneErosionFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailurePathView"/>.
@@ -78,8 +78,8 @@ namespace Riskeer.DuneErosion.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
-                DuneErosionFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>,
+                DuneErosionFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

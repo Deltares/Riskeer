@@ -32,10 +32,10 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismResultViewOld
-        : FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResult,
+        : FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld,
             GrassCoverErosionInwardsFailureMechanismSectionResultRow,
             GrassCoverErosionInwardsFailureMechanism,
             FailureMechanismAssemblyControl>
@@ -59,13 +59,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismResultViewOld(
-            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> failureMechanismSectionResults,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -100,7 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override GrassCoverErosionInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
                 sectionResult,

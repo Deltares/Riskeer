@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld>>(failureMechanism);
             Assert.AreEqual("Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
             Assert.AreEqual(1, failureMechanism.Group);

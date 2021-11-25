@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new GrassCoverSlipOffInwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
                     GrassCoverSlipOffInwardsSectionResultRow,
                     GrassCoverSlipOffInwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class GrassCoverSlipOffInwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             GrassCoverSlipOffInwardsResultViewOld,
             GrassCoverSlipOffInwardsFailureMechanism,
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
             GrassCoverSlipOffInwardsSectionResultRow>
         {
             protected override GrassCoverSlipOffInwardsResultViewOld CreateResultView(GrassCoverSlipOffInwardsFailureMechanism failureMechanism)

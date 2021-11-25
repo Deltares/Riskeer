@@ -34,7 +34,7 @@ namespace Riskeer.Common.Data.Test
         public void HasManualAssemblyResults_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HasSectionResultsHelper.HasManualAssemblyResults((IHasSectionResults<FailureMechanismSectionResult>) null);
+            TestDelegate call = () => HasSectionResultsHelper.HasManualAssemblyResults((IHasSectionResults<FailureMechanismSectionResultOld>) null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

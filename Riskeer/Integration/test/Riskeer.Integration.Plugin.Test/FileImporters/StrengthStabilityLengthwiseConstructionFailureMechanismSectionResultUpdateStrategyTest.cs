@@ -30,16 +30,16 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+        StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
     {
-        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 TailorMadeAssessmentResult = TailorMadeAssessmentResultType.ProbabilityNegligible,
@@ -48,8 +48,8 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult originResult,
-                                                    StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld originResult,
+                                                    StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);

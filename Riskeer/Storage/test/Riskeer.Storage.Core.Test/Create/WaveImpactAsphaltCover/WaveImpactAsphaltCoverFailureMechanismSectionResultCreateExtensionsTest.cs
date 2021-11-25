@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((WaveImpactAsphaltCoverFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((WaveImpactAsphaltCoverFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResultForFactorizedSignalingNorm = detailedAssessmentResultForFactorizedSignalingNorm,

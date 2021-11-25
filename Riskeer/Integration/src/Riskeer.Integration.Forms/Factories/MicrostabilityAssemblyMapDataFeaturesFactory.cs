@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
         }
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

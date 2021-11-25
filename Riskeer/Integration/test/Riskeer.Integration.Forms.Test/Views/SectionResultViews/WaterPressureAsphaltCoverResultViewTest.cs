@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
                     WaterPressureAsphaltCoverSectionResultRow,
                     WaterPressureAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             WaterPressureAsphaltCoverResultViewOld,
             WaterPressureAsphaltCoverFailureMechanism,
-            WaterPressureAsphaltCoverFailureMechanismSectionResult,
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
             WaterPressureAsphaltCoverSectionResultRow>
         {
             protected override WaterPressureAsphaltCoverResultViewOld CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)

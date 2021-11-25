@@ -49,7 +49,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
-            WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -81,7 +81,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
-            WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -117,7 +117,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -149,7 +149,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
-            WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -191,7 +191,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            WaveImpactAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult,
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult,
             bool useManual)
         {
             if (failureMechanismSectionResult == null)

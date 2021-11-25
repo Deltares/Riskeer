@@ -24,14 +24,14 @@ using Core.Common.Base;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.
+    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResultOld"/> objects.
     /// </summary>
     /// <typeparam name="T">The type of the section results.</typeparam>
     public interface IHasSectionResults<out T> : IFailureMechanism
-        where T : FailureMechanismSectionResult
+        where T : FailureMechanismSectionResultOld
     {
         /// <summary>
-        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResultOld"/>.
         /// </summary>
         IObservableEnumerable<T> SectionResults { get; }
     }

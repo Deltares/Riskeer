@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -89,7 +89,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
 
             // Call
             string text = info.Text(context);

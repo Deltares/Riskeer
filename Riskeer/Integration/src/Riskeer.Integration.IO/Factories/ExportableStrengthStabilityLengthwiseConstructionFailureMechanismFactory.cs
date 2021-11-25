@@ -87,20 +87,20 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/>
         /// with assembly results based <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>
         /// to create a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly> CreateFailureMechanismSectionResults(
-            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults)
+            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> failureMechanismSectionResults)
         {
-            IDictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly>();
-            foreach (KeyValuePair<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
                     StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);

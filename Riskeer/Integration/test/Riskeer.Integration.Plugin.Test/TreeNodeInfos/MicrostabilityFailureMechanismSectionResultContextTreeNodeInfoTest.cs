@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(mechanism.SectionResults,
                                                                                                                 mechanism);
             using (plugin)
             {

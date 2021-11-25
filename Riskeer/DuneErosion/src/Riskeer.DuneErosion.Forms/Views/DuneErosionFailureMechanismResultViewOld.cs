@@ -28,10 +28,10 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class DuneErosionFailureMechanismResultViewOld : FailureMechanismResultViewOld
-    <DuneErosionFailureMechanismSectionResult,
+    <DuneErosionFailureMechanismSectionResultOld,
         DuneErosionSectionResultRow,
         DuneErosionFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -54,11 +54,11 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismResultViewOld"/>.
         /// </summary>
         public DuneErosionFailureMechanismResultViewOld(
-            IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> failureMechanismSectionResults,
             DuneErosionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
+        protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResultOld sectionResult)
         {
             return new DuneErosionSectionResultRow(
                 sectionResult,

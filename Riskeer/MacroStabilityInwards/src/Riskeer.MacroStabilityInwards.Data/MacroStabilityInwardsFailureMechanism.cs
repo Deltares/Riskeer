@@ -34,9 +34,9 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism,
-                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>
+                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld>();
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             }
         }
 
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
+            sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

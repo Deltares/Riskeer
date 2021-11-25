@@ -88,7 +88,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             using (var view = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResultOld,
                     ClosingStructuresFailureMechanismSectionResultRow,
                     ClosingStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -220,7 +220,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -275,7 +275,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public class ClosingStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             ClosingStructuresFailureMechanismResultViewOld,
             ClosingStructuresFailureMechanism,
-            ClosingStructuresFailureMechanismSectionResult,
+            ClosingStructuresFailureMechanismSectionResultOld,
             ClosingStructuresFailureMechanismSectionResultRow,
             StructuresCalculation<ClosingStructuresInput>>
         {

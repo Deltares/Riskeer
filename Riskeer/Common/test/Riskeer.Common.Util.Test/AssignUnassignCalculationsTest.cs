@@ -155,13 +155,13 @@ namespace Riskeer.Common.Util.Test
                 new Point2D(1.1, 1.1)
             });
 
-            var sectionResult = new FailureMechanismSectionResultWithCalculation(section);
+            var sectionResult = new FailureMechanismSectionResultOldWithCalculation(section);
 
             var sectionResults = new List<SectionResultWithCalculationAssignment>
             {
                 new SectionResultWithCalculationAssignment(sectionResult,
-                                                           r => ((FailureMechanismSectionResultWithCalculation) r).Calculation,
-                                                           (r, c) => ((FailureMechanismSectionResultWithCalculation) r).Calculation = c)
+                                                           r => ((FailureMechanismSectionResultOldWithCalculation) r).Calculation,
+                                                           (r, c) => ((FailureMechanismSectionResultOldWithCalculation) r).Calculation = c)
             };
             sectionResult.Calculation = calculation;
 
@@ -189,13 +189,13 @@ namespace Riskeer.Common.Util.Test
                 new Point2D(1.1, 1.1)
             });
 
-            var sectionResult = new FailureMechanismSectionResultWithCalculation(sectionA);
+            var sectionResult = new FailureMechanismSectionResultOldWithCalculation(sectionA);
 
             var sectionResults = new List<SectionResultWithCalculationAssignment>
             {
                 new SectionResultWithCalculationAssignment(sectionResult,
-                                                           r => ((FailureMechanismSectionResultWithCalculation) r).Calculation,
-                                                           (r, c) => ((FailureMechanismSectionResultWithCalculation) r).Calculation = c)
+                                                           r => ((FailureMechanismSectionResultOldWithCalculation) r).Calculation,
+                                                           (r, c) => ((FailureMechanismSectionResultOldWithCalculation) r).Calculation = c)
             };
             sectionResult.Calculation = calculationA;
 
@@ -435,9 +435,9 @@ namespace Riskeer.Common.Util.Test
             };
         }
 
-        private class FailureMechanismSectionResultWithCalculation : FailureMechanismSectionResult
+        private class FailureMechanismSectionResultOldWithCalculation : FailureMechanismSectionResultOld
         {
-            public FailureMechanismSectionResultWithCalculation(FailureMechanismSection section) : base(section) {}
+            public FailureMechanismSectionResultOldWithCalculation(FailureMechanismSection section) : base(section) {}
             public ICalculation Calculation { get; set; }
         }
     }

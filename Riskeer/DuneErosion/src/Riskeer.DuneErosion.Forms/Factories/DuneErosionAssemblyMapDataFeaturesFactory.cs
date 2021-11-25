@@ -46,7 +46,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
                 DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -65,7 +65,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
                 DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
         }
@@ -84,7 +84,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
                 DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
         }
@@ -103,7 +103,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
                 DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
         }

@@ -31,16 +31,16 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a grass cover erosion inwards assessment.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
             DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;

@@ -1985,14 +1985,14 @@ namespace Riskeer.Integration.Service.Test
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
-            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
+            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {
                 yield return section;
             }
 
-            foreach (FailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
+            foreach (FailureMechanismSectionResultOld sectionResult in failureMechanism.SectionResults)
             {
                 yield return sectionResult;
             }

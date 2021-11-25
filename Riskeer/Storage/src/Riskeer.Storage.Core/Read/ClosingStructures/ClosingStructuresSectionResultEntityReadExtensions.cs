@@ -27,21 +27,21 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.ClosingStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="ClosingStructuresFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> based on the
     /// <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class ClosingStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="ClosingStructuresSectionResultEntity"/> and use the information to update a 
-        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
+        /// <see cref="ClosingStructuresFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this ClosingStructuresSectionResultEntity entity,
-                                  ClosingStructuresFailureMechanismSectionResult sectionResult)
+                                  ClosingStructuresFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

@@ -88,7 +88,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (var view = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResultOld,
                     StabilityPointStructuresFailureMechanismSectionResultRow,
                     StabilityPointStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -220,7 +220,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -275,7 +275,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public class StabilityPointStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             StabilityPointStructuresFailureMechanismResultViewOld,
             StabilityPointStructuresFailureMechanism,
-            StabilityPointStructuresFailureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanismSectionResultOld,
             StabilityPointStructuresFailureMechanismSectionResultRow,
             StructuresCalculation<StabilityPointStructuresInput>>
         {

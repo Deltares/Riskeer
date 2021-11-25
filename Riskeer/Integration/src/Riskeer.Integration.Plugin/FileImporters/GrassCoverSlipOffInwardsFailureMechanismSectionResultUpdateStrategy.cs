@@ -26,13 +26,13 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class GrassCoverSlipOffInwardsFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(GrassCoverSlipOffInwardsFailureMechanismSectionResult origin, GrassCoverSlipOffInwardsFailureMechanismSectionResult target)
+        public void UpdateSectionResult(GrassCoverSlipOffInwardsFailureMechanismSectionResultOld origin, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

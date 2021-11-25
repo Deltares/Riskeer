@@ -52,7 +52,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
@@ -68,7 +68,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario1 = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario2 = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
@@ -103,7 +103,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
@@ -118,7 +118,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
             calculationScenario.IsRelevant = false;
@@ -139,7 +139,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
 
@@ -158,7 +158,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -199,7 +199,7 @@ namespace Riskeer.HeightStructures.Data.Test
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new HeightStructuresFailureMechanismSectionResult(section);
+            var result = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
@@ -216,7 +216,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HeightStructuresFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
+            void Call() => ((HeightStructuresFailureMechanismSectionResultOld) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -228,7 +228,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetTotalContribution(null);
@@ -243,7 +243,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             calculationScenario.Contribution = (RoundedDouble) 0.3211;
@@ -280,7 +280,7 @@ namespace Riskeer.HeightStructures.Data.Test
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((HeightStructuresFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
+            void Call() => ((HeightStructuresFailureMechanismSectionResultOld) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -292,7 +292,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetCalculationScenarios(null);
@@ -307,7 +307,7 @@ namespace Riskeer.HeightStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario2 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             calculationScenario2.IsRelevant = false;
@@ -333,7 +333,7 @@ namespace Riskeer.HeightStructures.Data.Test
                 new Point2D(999, 999),
                 new Point2D(998, 998)
             });
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(section);
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 

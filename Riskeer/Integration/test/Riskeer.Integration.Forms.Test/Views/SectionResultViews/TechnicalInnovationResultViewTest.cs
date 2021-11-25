@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResultOld,
                     TechnicalInnovationSectionResultRow,
                     TechnicalInnovationFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            TechnicalInnovationFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            TechnicalInnovationFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class TechnicalInnovationFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             TechnicalInnovationResultViewOld,
             TechnicalInnovationFailureMechanism,
-            TechnicalInnovationFailureMechanismSectionResult,
+            TechnicalInnovationFailureMechanismSectionResultOld,
             TechnicalInnovationSectionResultRow>
         {
             protected override TechnicalInnovationResultViewOld CreateResultView(TechnicalInnovationFailureMechanism failureMechanism)

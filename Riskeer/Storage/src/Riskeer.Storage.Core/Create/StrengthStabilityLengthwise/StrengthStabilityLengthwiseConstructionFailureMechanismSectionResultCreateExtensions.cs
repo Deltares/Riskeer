@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
 {
     /// <summary>
-    /// Extension methods for <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/>.
     /// </summary>
     internal static class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> based on the information of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> based on the information of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static StrengthStabilityLengthwiseConstructionSectionResultEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult result)
+        internal static StrengthStabilityLengthwiseConstructionSectionResultEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

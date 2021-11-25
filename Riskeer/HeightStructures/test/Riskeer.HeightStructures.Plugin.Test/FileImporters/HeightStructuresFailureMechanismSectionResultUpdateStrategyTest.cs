@@ -31,17 +31,17 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        HeightStructuresFailureMechanismSectionResultUpdateStrategy, HeightStructuresFailureMechanismSectionResult>
+        HeightStructuresFailureMechanismSectionResultUpdateStrategy, HeightStructuresFailureMechanismSectionResultOld>
     {
-        protected override HeightStructuresFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override HeightStructuresFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override HeightStructuresFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override HeightStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
             var random = new Random(39);
-            return new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
@@ -52,8 +52,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(HeightStructuresFailureMechanismSectionResult originResult,
-                                                    HeightStructuresFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(HeightStructuresFailureMechanismSectionResultOld originResult,
+                                                    HeightStructuresFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);

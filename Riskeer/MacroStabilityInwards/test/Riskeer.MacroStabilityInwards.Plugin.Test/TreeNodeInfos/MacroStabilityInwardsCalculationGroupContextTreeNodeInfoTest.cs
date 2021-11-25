@@ -1159,8 +1159,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-                    MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+                    MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+                    MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
                     MacroStabilityInwardsCalculationScenario[] macroStabilityInwardsCalculationScenarios = failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>().ToArray();
                     Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(macroStabilityInwardsCalculationScenarios).Count());
@@ -1255,7 +1255,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 plugin.Gui = gui;
 
                 // Precondition
-                foreach (MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in failureMechanism.SectionResults)
+                foreach (MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult in failureMechanism.SectionResults)
                 {
                     CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()));
                 }
@@ -1276,7 +1276,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    foreach (MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in failureMechanism.SectionResults)
+                    foreach (MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult in failureMechanism.SectionResults)
                     {
                         CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()));
                     }
@@ -1364,7 +1364,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
             // Precondition
             Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
-            MacroStabilityInwardsFailureMechanismSectionResult[] sectionResults = macroStabilityInwardsFailureMechanism.SectionResults.ToArray();
+            MacroStabilityInwardsFailureMechanismSectionResultOld[] sectionResults = macroStabilityInwardsFailureMechanism.SectionResults.ToArray();
             CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(macroStabilityInwardsFailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()), calculation);
 
             // Call

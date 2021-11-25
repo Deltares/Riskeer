@@ -26,13 +26,13 @@ using Riskeer.StabilityPointStructures.Data;
 namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(StabilityPointStructuresFailureMechanismSectionResult origin, StabilityPointStructuresFailureMechanismSectionResult target)
+        public void UpdateSectionResult(StabilityPointStructuresFailureMechanismSectionResultOld origin, StabilityPointStructuresFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

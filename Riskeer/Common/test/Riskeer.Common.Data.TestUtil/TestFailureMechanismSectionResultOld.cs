@@ -24,14 +24,14 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class represents the most simple implementation of a <see cref="FailureMechanismSectionResult"/>.
+    /// Class represents the most simple implementation of a <see cref="FailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class TestFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class TestFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="TestFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="TestFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        public TestFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section) {}
     }
 }

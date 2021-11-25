@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
                     GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
                     GrassCoverErosionOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -206,7 +206,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public class GrassCoverErosionOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             GrassCoverErosionOutwardsFailureMechanismResultViewOld,
             GrassCoverErosionOutwardsFailureMechanism,
-            GrassCoverErosionOutwardsFailureMechanismSectionResult,
+            GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
             GrassCoverErosionOutwardsFailureMechanismSectionResultRow>
         {
             protected override GrassCoverErosionOutwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)

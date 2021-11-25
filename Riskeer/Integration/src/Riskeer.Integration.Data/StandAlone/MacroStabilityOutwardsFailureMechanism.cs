@@ -34,9 +34,9 @@ namespace Riskeer.Integration.Data.StandAlone
     /// macro stability outwards failure mechanism.
     /// </summary>
     public class MacroStabilityOutwardsFailureMechanism : FailureMechanismBase,
-                                                          IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>
+                                                          IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<MacroStabilityOutwardsFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityOutwardsFailureMechanism"/> class.
@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Data.StandAlone
         public MacroStabilityOutwardsFailureMechanism()
             : base(Resources.MacroStabilityOutwardsFailureMechanism_DisplayName, Resources.MacroStabilityOutwardsFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResultOld>();
             MacroStabilityOutwardsProbabilityAssessmentInput = new MacroStabilityOutwardsProbabilityAssessmentInput();
         }
 
@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Data.StandAlone
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new MacroStabilityOutwardsFailureMechanismSectionResult(section));
+            sectionResults.Add(new MacroStabilityOutwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

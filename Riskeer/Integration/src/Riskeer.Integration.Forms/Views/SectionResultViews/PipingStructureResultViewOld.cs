@@ -31,9 +31,9 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class PipingStructureResultViewOld : FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResult,
+    public class PipingStructureResultViewOld : FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
         PipingStructureSectionResultRow,
         PipingStructureFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -51,11 +51,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureResultViewOld"/>.
         /// </summary>
-        public PipingStructureResultViewOld(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
+        public PipingStructureResultViewOld(IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                          PipingStructureFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)
+        protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResultOld sectionResult)
         {
             return new PipingStructureSectionResultRow(
                 sectionResult,

@@ -107,8 +107,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
-                IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>,
+                IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld>,
                 StabilityPointStructuresFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -149,7 +149,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 FailurePathEnabledContextMenuStrip,
                 FailurePathDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -278,7 +278,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResult>(
+                StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResultOld>(
                 new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -471,7 +471,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
+                new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };

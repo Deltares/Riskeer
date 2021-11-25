@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Observers
     public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
         : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
-        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResult : FailureMechanismSectionResultOld
         where TCalculation : ICalculation<ICalculationInput>
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationObserver;

@@ -27,20 +27,20 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionResultOld"/> based on the
     /// <see cref="PipingSectionResultEntity"/>.
     /// </summary>
     internal static class PipingSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct a 
-        /// <see cref="PipingFailureMechanismSectionResult"/>.
+        /// <see cref="PipingFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this PipingSectionResultEntity entity, PipingFailureMechanismSectionResult sectionResult)
+        internal static void Read(this PipingSectionResultEntity entity, PipingFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

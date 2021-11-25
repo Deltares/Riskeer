@@ -153,7 +153,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new DuneErosionFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

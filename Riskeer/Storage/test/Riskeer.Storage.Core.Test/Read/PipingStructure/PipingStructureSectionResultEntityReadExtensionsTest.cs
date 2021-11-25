@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.PipingStructure
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate test = () => ((PipingStructureSectionResultEntity) null).Read(sectionResult);
@@ -80,7 +80,7 @@ namespace Riskeer.Storage.Core.Test.Read.PipingStructure
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
-            var sectionResult = new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

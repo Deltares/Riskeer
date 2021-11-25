@@ -49,7 +49,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
-            StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -81,7 +81,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
-            StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -117,7 +117,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -149,7 +149,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
-            StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult)
+            StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -190,7 +190,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult,
+            StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult,
             bool useManual)
         {
             if (failureMechanismSectionResult == null)

@@ -27,19 +27,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> based on the
     /// <see cref="WaterPressureAsphaltCoverSectionResultEntity"/>.
     /// </summary>
     internal static class WaterPressureAsphaltCoverSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> and use the information to update a 
-        /// <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
+        /// <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
+        internal static void Read(this WaterPressureAsphaltCoverSectionResultEntity entity, WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

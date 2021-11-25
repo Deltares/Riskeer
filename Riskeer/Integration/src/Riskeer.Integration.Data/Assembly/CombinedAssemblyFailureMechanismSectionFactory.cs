@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Data.Assembly
             AssessmentSection assessmentSection,
             Func<TFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc,
             bool useManual)
-            where TFailureMechanismSectionResult : FailureMechanismSectionResult
+            where TFailureMechanismSectionResult : FailureMechanismSectionResultOld
         {
             double totalSectionsLength = 0;
 
@@ -224,7 +224,7 @@ namespace Riskeer.Integration.Data.Assembly
             IEnumerable<TFailureMechanismSectionResult> sectionResults,
             Func<TFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc,
             bool useManual)
-            where TFailureMechanismSectionResult : FailureMechanismSectionResult
+            where TFailureMechanismSectionResult : FailureMechanismSectionResultOld
         {
             double totalSectionsLength = 0;
 
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Data.Assembly
         private static CombinedAssemblyFailureMechanismSection CreateSection<TFailureMechanismSectionResult>(
             TFailureMechanismSectionResult sectionResult, FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup,
             double sectionStart)
-            where TFailureMechanismSectionResult : FailureMechanismSectionResult
+            where TFailureMechanismSectionResult : FailureMechanismSectionResultOld
         {
             double sectionEnd = sectionResult.Section.Length + sectionStart;
             return new CombinedAssemblyFailureMechanismSection(sectionStart, sectionEnd, assemblyCategoryGroup);
@@ -248,7 +248,7 @@ namespace Riskeer.Integration.Data.Assembly
 
         #region Assembly Funcs
 
-        private static Func<PipingFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
+        private static Func<PipingFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
         {
             get
             {
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverErosionInwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionInwardsAssemblyFunc
+        private static Func<GrassCoverErosionInwardsFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionInwardsAssemblyFunc
         {
             get
             {
@@ -266,7 +266,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<MacroStabilityInwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityInwardsAssemblyFunc
+        private static Func<MacroStabilityInwardsFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityInwardsAssemblyFunc
         {
             get
             {
@@ -275,7 +275,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<MacroStabilityOutwardsFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
+        private static Func<MacroStabilityOutwardsFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
         {
             get
             {
@@ -284,7 +284,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<MicrostabilityFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> MicrostabilityAssemblyFunc
+        private static Func<MicrostabilityFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> MicrostabilityAssemblyFunc
         {
             get
             {
@@ -292,7 +292,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<StabilityStoneCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityStoneCoverAssemblyFunc
+        private static Func<StabilityStoneCoverFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityStoneCoverAssemblyFunc
         {
             get
             {
@@ -300,7 +300,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<WaveImpactAsphaltCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> WaveImpactAsphaltCoverAssemblyFunc
+        private static Func<WaveImpactAsphaltCoverFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> WaveImpactAsphaltCoverAssemblyFunc
         {
             get
             {
@@ -308,7 +308,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<WaterPressureAsphaltCoverFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> WaterPressureAsphaltCoverAssemblyFunc
+        private static Func<WaterPressureAsphaltCoverFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> WaterPressureAsphaltCoverAssemblyFunc
         {
             get
             {
@@ -316,7 +316,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverErosionOutwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionOutwardsAssemblyFunc
+        private static Func<GrassCoverErosionOutwardsFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionOutwardsAssemblyFunc
         {
             get
             {
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffOutwardsAssemblyFunc
+        private static Func<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffOutwardsAssemblyFunc
         {
             get
             {
@@ -332,7 +332,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<GrassCoverSlipOffInwardsFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffInwardsAssemblyFunc
+        private static Func<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffInwardsAssemblyFunc
         {
             get
             {
@@ -340,7 +340,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<HeightStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> HeightStructuresAssemblyFunc
+        private static Func<HeightStructuresFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> HeightStructuresAssemblyFunc
         {
             get
             {
@@ -349,7 +349,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<ClosingStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> ClosingStructuresAssemblyFunc
+        private static Func<ClosingStructuresFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> ClosingStructuresAssemblyFunc
         {
             get
             {
@@ -358,7 +358,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<PipingStructureFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingStructureAssemblyFunc
+        private static Func<PipingStructureFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> PipingStructureAssemblyFunc
         {
             get
             {
@@ -366,7 +366,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<StabilityPointStructuresFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityPointStructuresAssemblyFunc
+        private static Func<StabilityPointStructuresFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> StabilityPointStructuresAssemblyFunc
         {
             get
             {
@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
+        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
         {
             get
             {
@@ -383,7 +383,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<DuneErosionFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> DuneErosionAssemblyFunc
+        private static Func<DuneErosionFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> DuneErosionAssemblyFunc
         {
             get
             {
@@ -391,7 +391,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
-        private static Func<TechnicalInnovationFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
+        private static Func<TechnicalInnovationFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
         {
             get
             {

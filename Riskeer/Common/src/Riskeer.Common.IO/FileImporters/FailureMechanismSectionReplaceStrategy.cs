@@ -77,7 +77,7 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new UpdateDataException(e.Message, e);
             }
 
-            if (failurePath is IHasSectionResults<FailureMechanismSectionResult> hasSectionResults)
+            if (failurePath is IHasSectionResults<FailureMechanismSectionResultOld> hasSectionResults)
             {
                 affectedObjects.Add(hasSectionResults.SectionResults);
             }

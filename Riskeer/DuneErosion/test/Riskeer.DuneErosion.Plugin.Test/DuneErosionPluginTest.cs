@@ -119,7 +119,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 Assert.AreEqual(5, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionHydraulicLoadsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilitiesGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext)));
             }
@@ -151,8 +151,8 @@ namespace Riskeer.DuneErosion.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
-                    typeof(IObservableEnumerable<DuneErosionFailureMechanismSectionResult>),
+                    typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>),
+                    typeof(IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>),
                     typeof(DuneErosionFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(

@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.StrengthStabilityLengthwise
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Create.StrengthStabilityLengthwise
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,

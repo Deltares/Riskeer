@@ -48,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>, WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>, WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailurePathView"/>.
@@ -103,8 +103,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                WaveImpactAsphaltCoverFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>,
+                WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

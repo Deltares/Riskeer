@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
 
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new MacroStabilityOutwardsFailureMechanism(),
                 null);
 
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -237,7 +237,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -268,7 +268,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
 
@@ -341,7 +341,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new MacroStabilityOutwardsFailureMechanism(),
                 null);
 
@@ -356,7 +356,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>()
             };
@@ -403,7 +403,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -434,7 +434,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -492,7 +492,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection);
 
@@ -507,7 +507,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new MacroStabilityOutwardsFailureMechanism(),
                 null);
 
@@ -529,7 +529,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -564,7 +564,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -596,7 +596,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -628,7 +628,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -687,7 +687,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null,
                 assessmentSection,
                 new Random(39).NextBoolean());
@@ -703,7 +703,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Call
             TestDelegate call = () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new MacroStabilityOutwardsFailureMechanism(),
                 null,
                 new Random(39).NextBoolean());
@@ -717,7 +717,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             var mocks = new MockRepository();
@@ -749,7 +749,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             var mocks = new MockRepository();
@@ -777,7 +777,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
@@ -807,7 +807,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
@@ -842,7 +842,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithoutManualInputAndCalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
@@ -878,7 +878,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = (ManualFailureMechanismSectionAssemblyCategoryGroup) 99
@@ -1006,7 +1006,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -1041,7 +1041,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.IIv;
 

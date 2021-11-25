@@ -34,9 +34,9 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
@@ -44,7 +44,7 @@ namespace Riskeer.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -76,7 +76,7 @@ namespace Riskeer.StabilityStoneCover.Data
             }
         }
 
-        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -87,7 +87,7 @@ namespace Riskeer.StabilityStoneCover.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResult(section));
+            sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

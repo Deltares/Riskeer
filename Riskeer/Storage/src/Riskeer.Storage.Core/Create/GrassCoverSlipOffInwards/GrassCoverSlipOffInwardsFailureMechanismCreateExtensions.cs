@@ -48,10 +48,10 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (GrassCoverSlipOffInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (GrassCoverSlipOffInwardsFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

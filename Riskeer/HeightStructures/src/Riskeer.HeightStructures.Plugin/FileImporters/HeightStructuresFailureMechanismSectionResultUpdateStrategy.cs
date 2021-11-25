@@ -26,13 +26,13 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="HeightStructuresFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="HeightStructuresFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="HeightStructuresFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="HeightStructuresFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(HeightStructuresFailureMechanismSectionResult origin, HeightStructuresFailureMechanismSectionResult target)
+        public void UpdateSectionResult(HeightStructuresFailureMechanismSectionResultOld origin, HeightStructuresFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

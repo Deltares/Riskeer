@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityOutwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityOutwardsFailureMechanismSectionResultOld,
                     MacroStabilityOutwardsSectionResultRow,
                     MacroStabilityOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -235,7 +235,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class MacroStabilityOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             MacroStabilityOutwardsResultViewOld,
             MacroStabilityOutwardsFailureMechanism,
-            MacroStabilityOutwardsFailureMechanismSectionResult,
+            MacroStabilityOutwardsFailureMechanismSectionResultOld,
             MacroStabilityOutwardsSectionResultRow>
         {
             protected override MacroStabilityOutwardsResultViewOld CreateResultView(MacroStabilityOutwardsFailureMechanism failureMechanism)

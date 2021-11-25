@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                           WaterPressureAsphaltCoverFailureMechanismSectionResult>));
+                           WaterPressureAsphaltCoverFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> view =
+            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld> view =
                 CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -161,19 +161,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResult>>(view);
+                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>>(view);
 
             var failureMechanismView = (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResult>) view;
+                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResult> CreateView(
+        private static FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld> CreateView(
             WaterPressureAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResult>(
+                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
                 assessmentSection,
                 Enumerable.Empty<MapFeature>,

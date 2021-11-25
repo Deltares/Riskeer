@@ -32,10 +32,10 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionSectionResultRow
-        : FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+        : FailureMechanismSectionResultRow<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int tailorMadeAssessmentResultIndex;
@@ -51,14 +51,14 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="StrengthStabilityLengthwiseConstructionSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal StrengthStabilityLengthwiseConstructionSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult,
+        internal StrengthStabilityLengthwiseConstructionSectionResultRow(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult,
                                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

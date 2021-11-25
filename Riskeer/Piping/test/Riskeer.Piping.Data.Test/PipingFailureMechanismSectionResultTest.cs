@@ -38,10 +38,10 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             result.TailorMadeAssessmentProbability = newValue;
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.ManualAssemblyProbability = newValue;
@@ -122,7 +122,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             result.ManualAssemblyProbability = newValue;

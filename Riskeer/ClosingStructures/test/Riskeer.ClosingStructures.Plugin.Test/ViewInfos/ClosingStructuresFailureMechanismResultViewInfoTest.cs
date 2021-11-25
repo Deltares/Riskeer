@@ -60,8 +60,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);
@@ -261,7 +261,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
-            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

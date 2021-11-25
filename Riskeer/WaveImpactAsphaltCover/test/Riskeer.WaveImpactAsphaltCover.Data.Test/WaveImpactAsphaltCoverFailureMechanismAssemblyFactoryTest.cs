@@ -58,7 +58,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -81,7 +81,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -102,7 +102,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -142,7 +142,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>(),
                 DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>(),
@@ -173,7 +173,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -194,7 +194,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -234,7 +234,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection)
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
             };
@@ -257,7 +257,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -278,7 +278,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection);
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -320,7 +320,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -347,7 +347,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -371,7 +371,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -393,7 +393,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleCombinedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -434,7 +434,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -457,7 +457,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -478,7 +478,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
@@ -498,7 +498,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
@@ -523,7 +523,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithoutManualInputAndCalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -608,7 +608,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -634,7 +634,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 

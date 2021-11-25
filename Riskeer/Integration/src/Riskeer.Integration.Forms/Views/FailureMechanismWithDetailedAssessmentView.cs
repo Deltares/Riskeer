@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> : UserControl, IMapView
         where TFailureMechanism : IHasSectionResults<TSectionResult>
-        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResult : FailureMechanismSectionResultOld
     {
         private readonly Func<IEnumerable<MapFeature>> getSimpleAssemblyFeaturesFunc;
         private readonly Func<IEnumerable<MapFeature>> getDetailedAssemblyFeaturesFunc;

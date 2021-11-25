@@ -26,18 +26,18 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Grass Cover Slip Off Inwards failure mechanism.
+    /// Water Pressure on Asphalt failure mechanism.
     /// </summary>
-    public class GrassCoverSlipOffInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class WaterPressureAsphaltCoverFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public GrassCoverSlipOffInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public WaterPressureAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSection section)
+            : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
-            DetailedAssessmentResult = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
             ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.None;
         }
@@ -46,11 +46,6 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the detailed assessment result.
-        /// </summary>
-        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the tailor made assessment result.

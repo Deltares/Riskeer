@@ -23,21 +23,21 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.StabilityStoneCover.Data
+namespace Riskeer.GrassCoverErosionOutwards.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Stability of Stone Cover failure mechanism.
+    /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public GrassCoverErosionOutwardsFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
+            SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForSignalingNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
@@ -50,7 +50,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
-        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult { get; set; }
+        public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section

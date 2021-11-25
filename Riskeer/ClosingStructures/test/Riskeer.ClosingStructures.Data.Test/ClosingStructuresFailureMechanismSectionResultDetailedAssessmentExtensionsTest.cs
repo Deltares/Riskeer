@@ -52,7 +52,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null);
@@ -67,7 +67,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario1 = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario2 = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
@@ -102,7 +102,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
@@ -117,7 +117,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
             calculationScenario.IsRelevant = false;
@@ -138,7 +138,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
 
@@ -157,7 +157,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -198,7 +198,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            var result = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
@@ -215,7 +215,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((ClosingStructuresFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>());
+            void Call() => ((ClosingStructuresFailureMechanismSectionResultOld) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -227,7 +227,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetTotalContribution(null);
@@ -242,7 +242,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
             calculationScenario.Contribution = (RoundedDouble) 0.3211;
@@ -279,7 +279,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((ClosingStructuresFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>());
+            void Call() => ((ClosingStructuresFailureMechanismSectionResultOld) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -291,7 +291,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetCalculationScenarios(null);
@@ -306,7 +306,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario2 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
             calculationScenario2.IsRelevant = false;
@@ -331,7 +331,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 new Point2D(999, 999),
                 new Point2D(998, 998)
             });
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(section);
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 

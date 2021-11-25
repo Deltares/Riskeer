@@ -59,8 +59,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<PipingStructureFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(failureMechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
                                                                                                                  failureMechanism);
 
             // Call
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
+            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism);
 

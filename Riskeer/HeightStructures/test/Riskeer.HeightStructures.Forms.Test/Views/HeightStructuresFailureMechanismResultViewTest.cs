@@ -88,7 +88,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (var view = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResultOld,
                     HeightStructuresFailureMechanismSectionResultRow,
                     HeightStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -220,7 +220,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -275,7 +275,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public class HeightStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             HeightStructuresFailureMechanismResultViewOld,
             HeightStructuresFailureMechanism,
-            HeightStructuresFailureMechanismSectionResult,
+            HeightStructuresFailureMechanismSectionResultOld,
             HeightStructuresFailureMechanismSectionResultRow,
             StructuresCalculation<HeightStructuresInput>>
         {

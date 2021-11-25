@@ -76,7 +76,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
@@ -98,7 +98,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
@@ -116,7 +116,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
@@ -137,7 +137,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
@@ -161,7 +161,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
@@ -175,7 +175,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                     result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResultOld>>(row);
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
@@ -222,7 +222,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -272,7 +272,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -332,7 +332,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -382,7 +382,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -420,7 +420,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -454,7 +454,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -489,7 +489,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
@@ -538,7 +538,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 DetailedAssessmentResult = detailedAssessmentResult
             };
@@ -580,7 +580,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult
             };
@@ -613,7 +613,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
@@ -678,7 +678,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
@@ -728,7 +728,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -771,7 +771,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -811,7 +811,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -855,7 +855,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -892,7 +892,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -933,7 +933,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
@@ -964,7 +964,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = true
             };
@@ -998,7 +998,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
@@ -1035,7 +1035,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResultType
             };
@@ -1107,7 +1107,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             var newValue = new Random(21).NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
@@ -1143,7 +1143,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1172,7 +1172,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -1200,7 +1200,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
@@ -1232,7 +1232,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             calculation.Output = new TestStructuresOutput(double.NaN);
@@ -1271,7 +1271,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             const double reliability = 0.95;
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             calculation.Output = new TestStructuresOutput(reliability);
@@ -1313,7 +1313,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1349,7 +1349,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1383,7 +1383,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

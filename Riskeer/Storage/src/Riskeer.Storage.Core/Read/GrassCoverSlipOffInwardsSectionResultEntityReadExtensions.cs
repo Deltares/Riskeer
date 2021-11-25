@@ -27,19 +27,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/> based on the
     /// <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class GrassCoverSlipOffInwardsSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> and use the information to update a 
-        /// <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
+        /// <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverSlipOffInwardsSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this GrassCoverSlipOffInwardsSectionResultEntity entity, GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this GrassCoverSlipOffInwardsSectionResultEntity entity, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

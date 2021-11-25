@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> or <paramref name="calculationScenarios"/> is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+        public static double GetDetailedAssessmentProbability(this MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult,
                                                               IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
                                                               double modelFactor)
         {
@@ -83,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static RoundedDouble GetTotalContribution(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+        public static RoundedDouble GetTotalContribution(this MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult,
                                                          IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
@@ -109,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MacroStabilityInwardsCalculationScenario> GetCalculationScenarios(
-            this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+            this MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult,
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)

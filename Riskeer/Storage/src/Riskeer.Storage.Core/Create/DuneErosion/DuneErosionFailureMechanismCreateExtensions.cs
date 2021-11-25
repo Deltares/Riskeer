@@ -49,10 +49,10 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults,
+            IEnumerable<DuneErosionFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (DuneErosionFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 DuneErosionSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

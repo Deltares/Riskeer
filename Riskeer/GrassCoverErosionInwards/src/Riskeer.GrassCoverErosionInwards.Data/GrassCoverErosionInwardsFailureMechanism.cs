@@ -35,9 +35,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism,
-                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>
+                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
@@ -50,7 +50,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld>();
             DikeProfiles = new DikeProfileCollection();
         }
 
@@ -74,7 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             }
         }
 
-        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         {
             base.AddSectionDependentData(section);
 
-            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResult(section));
+            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

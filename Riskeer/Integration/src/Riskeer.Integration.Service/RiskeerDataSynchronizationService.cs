@@ -829,7 +829,7 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults)
+            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResultOld> failureMechanismWithSectionResults)
             {
                 removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
                 changedObjects.Add(failureMechanismWithSectionResults.SectionResults);

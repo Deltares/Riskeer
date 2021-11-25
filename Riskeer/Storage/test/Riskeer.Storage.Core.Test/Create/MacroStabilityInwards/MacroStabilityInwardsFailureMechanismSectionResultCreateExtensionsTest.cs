@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 TailorMadeAssessmentProbability = double.NaN,
                 ManualAssemblyProbability = double.NaN

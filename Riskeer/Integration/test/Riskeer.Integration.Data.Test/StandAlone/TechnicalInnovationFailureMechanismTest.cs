@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<TechnicalInnovationFailureMechanismSectionResultOld>>(failureMechanism);
             Assert.AreEqual("Technische innovaties - Technische innovaties", failureMechanism.Name);
             Assert.AreEqual("INN", failureMechanism.Code);
             Assert.AreEqual(4, failureMechanism.Group);

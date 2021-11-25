@@ -43,7 +43,7 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_GetCalculationActionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            TestFailureMechanismSectionResult failureMechanismSectionResult =
+            TestFailureMechanismSectionResultOld failureMechanismSectionResult =
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
@@ -59,7 +59,7 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_SetCalculationActionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            TestFailureMechanismSectionResult failureMechanismSectionResult =
+            TestFailureMechanismSectionResultOld failureMechanismSectionResult =
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Util.Test
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            TestFailureMechanismSectionResult failureMechanismSectionResult =
+            TestFailureMechanismSectionResultOld failureMechanismSectionResult =
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call

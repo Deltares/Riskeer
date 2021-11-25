@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((ClosingStructuresSectionResultEntity) null).Read(new ClosingStructuresFailureMechanismSectionResult(
+            void Call() => ((ClosingStructuresSectionResultEntity) null).Read(new ClosingStructuresFailureMechanismSectionResultOld(
                                                                                   FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

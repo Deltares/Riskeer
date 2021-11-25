@@ -31,9 +31,9 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class WaterPressureAsphaltCoverResultViewOld : FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+    public class WaterPressureAsphaltCoverResultViewOld : FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
         WaterPressureAsphaltCoverSectionResultRow,
         WaterPressureAsphaltCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -50,11 +50,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultViewOld"/>.
         /// </summary>
         public WaterPressureAsphaltCoverResultViewOld(
-            IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> failureMechanismSectionResults,
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
+        protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult)
         {
             return new WaterPressureAsphaltCoverSectionResultRow(
                 sectionResult,

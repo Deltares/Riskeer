@@ -28,20 +28,20 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/> based on the
     /// <see cref="WaveImpactAsphaltCoverSectionResultEntity"/>.
     /// </summary>
     internal static class WaveImpactAsphaltCoverSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> and use the information to update a 
-        /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+        /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.</returns>
+        /// <returns>A new <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this WaveImpactAsphaltCoverSectionResultEntity entity, WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
+        internal static void Read(this WaveImpactAsphaltCoverSectionResultEntity entity, WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

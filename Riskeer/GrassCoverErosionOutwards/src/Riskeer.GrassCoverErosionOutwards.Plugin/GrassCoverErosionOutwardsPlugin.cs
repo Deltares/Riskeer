@@ -125,8 +125,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
+                FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>,
+                IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>,
                 GrassCoverErosionOutwardsFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -173,7 +173,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationContextOnNodeRemoved,
                 CalculationType.Hydraulic);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -264,7 +264,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 new GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -403,7 +403,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
+                new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };

@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((WaterPressureAsphaltCoverFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((WaterPressureAsphaltCoverFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,

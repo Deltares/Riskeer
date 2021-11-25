@@ -154,7 +154,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new PipingStructureFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

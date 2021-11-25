@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
         {
             // Call
             TestDelegate call = () => ((DuneErosionSectionResultEntity) null).Read(
-                new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                new DuneErosionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
-            var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new DuneErosionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

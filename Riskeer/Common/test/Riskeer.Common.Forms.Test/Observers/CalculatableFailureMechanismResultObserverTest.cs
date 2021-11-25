@@ -39,11 +39,11 @@ namespace Riskeer.Common.Forms.Test.Observers
         {
             // Call
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult,
+                FailureMechanismSectionResultOld,
                 TestCalculationWithInput>(new TestCalculatableFailureMechanism()))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultObserver<TestCalculatableFailureMechanism, FailureMechanismSectionResult>>(resultObserver);
+                Assert.IsInstanceOf<FailureMechanismResultObserver<TestCalculatableFailureMechanism, FailureMechanismSectionResultOld>>(resultObserver);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult,
+                FailureMechanismSectionResultOld,
                 TestCalculationWithInput>(failureMechanism))
             {
                 var mocks = new MockRepository();
@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult,
+                FailureMechanismSectionResultOld,
                 TestCalculationWithInput>(failureMechanism))
             {
                 var mocks = new MockRepository();

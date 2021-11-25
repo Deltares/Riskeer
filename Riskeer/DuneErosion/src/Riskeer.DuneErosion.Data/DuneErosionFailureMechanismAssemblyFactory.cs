@@ -48,7 +48,7 @@ namespace Riskeer.DuneErosion.Data
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
+        public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -80,7 +80,7 @@ namespace Riskeer.DuneErosion.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
-            DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
+            DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -116,7 +116,7 @@ namespace Riskeer.DuneErosion.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
+            DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -148,7 +148,7 @@ namespace Riskeer.DuneErosion.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
-            DuneErosionFailureMechanismSectionResult failureMechanismSectionResult)
+            DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -189,7 +189,7 @@ namespace Riskeer.DuneErosion.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            DuneErosionFailureMechanismSectionResult failureMechanismSectionResult,
+            DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult,
             bool useManual)
         {
             if (failureMechanismSectionResult == null)

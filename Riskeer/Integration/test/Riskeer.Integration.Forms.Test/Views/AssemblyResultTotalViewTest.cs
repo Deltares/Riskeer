@@ -834,7 +834,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             throw new NotSupportedException();
         }
 
-        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResult
+        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResultOld
         {
             return failureMechanism.SectionResults.Single();
         }

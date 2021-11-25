@@ -59,8 +59,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(failureMechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
                                                                                                                 failureMechanism);
 
             // Call
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
+            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism);
 

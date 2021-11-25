@@ -50,7 +50,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism,
-                HeightStructuresFailureMechanismSectionResult>(
+                HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -76,7 +76,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism,
-                HeightStructuresFailureMechanismSectionResult>(
+                HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
@@ -105,7 +105,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism,
-                HeightStructuresFailureMechanismSectionResult>(
+                HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
                                                                                                               failureMechanism,
@@ -132,7 +132,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,

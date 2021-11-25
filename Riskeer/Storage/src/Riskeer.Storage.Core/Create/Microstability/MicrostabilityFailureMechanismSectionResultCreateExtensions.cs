@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.Microstability
 {
     /// <summary>
-    /// Extension methods for <see cref="MicrostabilityFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="MicrostabilityFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="MicrostabilitySectionResultEntity"/>.
     /// </summary>
     internal static class MicrostabilityFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MicrostabilitySectionResultEntity"/> based on the information of the <see cref="MicrostabilityFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="MicrostabilitySectionResultEntity"/> based on the information of the <see cref="MicrostabilityFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MicrostabilitySectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static MicrostabilitySectionResultEntity Create(this MicrostabilityFailureMechanismSectionResult result)
+        internal static MicrostabilitySectionResultEntity Create(this MicrostabilityFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

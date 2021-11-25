@@ -109,8 +109,8 @@ namespace Riskeer.ClosingStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
-                IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
+                ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>,
+                IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>,
                 ClosingStructuresFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -162,7 +162,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 CalculationContextOnNodeRemoved,
                 CalculationType.Probabilistic);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -265,7 +265,7 @@ namespace Riskeer.ClosingStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                ClosingStructuresFailureMechanismSectionsContext, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResult>(
+                ClosingStructuresFailureMechanismSectionsContext, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResultOld>(
                 new ClosingStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -473,7 +473,7 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
+                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };

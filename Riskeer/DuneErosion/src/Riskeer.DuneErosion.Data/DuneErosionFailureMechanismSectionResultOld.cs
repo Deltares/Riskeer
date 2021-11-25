@@ -23,21 +23,21 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.WaveImpactAsphaltCover.Data
+namespace Riskeer.DuneErosion.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Wave Impact on Asphalt failure mechanism.
+    /// Dune Erosion failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class DuneErosionFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public DuneErosionFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentResult = SimpleAssessmentResultType.None;
+            SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
             DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForSignalingNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
@@ -50,7 +50,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
-        public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
+        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section

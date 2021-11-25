@@ -26,17 +26,18 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Strength and Stability of Lengthwise Constructions failure mechanism.
+    /// Grass Cover Slip Off Outwards failure mechanism.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
+            DetailedAssessmentResult = DetailedAssessmentResultType.None;
             TailorMadeAssessmentResult = TailorMadeAssessmentResultType.None;
             ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.None;
         }
@@ -45,6 +46,11 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the detailed assessment result.
+        /// </summary>
+        public DetailedAssessmentResultType DetailedAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the tailor made assessment result.

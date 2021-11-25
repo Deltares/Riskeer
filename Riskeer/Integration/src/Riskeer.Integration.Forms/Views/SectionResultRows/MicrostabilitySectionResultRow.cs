@@ -32,10 +32,10 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="MicrostabilityFailureMechanismSectionResult"/>
+    /// Class for displaying <see cref="MicrostabilityFailureMechanismSectionResultOld"/>
     /// as a row in a grid view.
     /// </summary>
-    public class MicrostabilitySectionResultRow : FailureMechanismSectionResultRow<MicrostabilityFailureMechanismSectionResult>
+    public class MicrostabilitySectionResultRow : FailureMechanismSectionResultRow<MicrostabilityFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -54,14 +54,14 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Creates a new instance of <see cref="MicrostabilitySectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="MicrostabilityFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="MicrostabilityFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="MicrostabilitySectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal MicrostabilitySectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult,
+        internal MicrostabilitySectionResultRow(MicrostabilityFailureMechanismSectionResultOld sectionResult,
                                                 ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

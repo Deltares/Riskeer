@@ -28,19 +28,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.DuneErosion
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="DuneErosionFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="DuneErosionFailureMechanismSectionResultOld"/> based on the
     /// <see cref="DuneErosionSectionResultEntity"/>.
     /// </summary>
     internal static class DuneErosionSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="DuneErosionSectionResultEntity"/> and use the information to update a 
-        /// <see cref="DuneErosionFailureMechanismSectionResult"/>.
+        /// <see cref="DuneErosionFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="DuneErosionSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this DuneErosionSectionResultEntity entity, DuneErosionFailureMechanismSectionResult sectionResult)
+        internal static void Read(this DuneErosionSectionResultEntity entity, DuneErosionFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

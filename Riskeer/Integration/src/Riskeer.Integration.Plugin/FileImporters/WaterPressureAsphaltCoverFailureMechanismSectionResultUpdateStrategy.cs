@@ -26,13 +26,13 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<WaterPressureAsphaltCoverFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(WaterPressureAsphaltCoverFailureMechanismSectionResult origin, WaterPressureAsphaltCoverFailureMechanismSectionResult target)
+        public void UpdateSectionResult(WaterPressureAsphaltCoverFailureMechanismSectionResultOld origin, WaterPressureAsphaltCoverFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

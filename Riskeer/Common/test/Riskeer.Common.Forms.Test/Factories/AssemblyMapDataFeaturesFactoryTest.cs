@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             TestDelegate call = () => AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<
-                IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(null, sr => null);
+                IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(null, sr => null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             TestDelegate call = () => AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<
-                TestFailureMechanism, FailureMechanismSectionResult>(new TestFailureMechanism(), null);
+                TestFailureMechanism, FailureMechanismSectionResultOld>(new TestFailureMechanism(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             // Call
             var shouldThrowException = true;
             IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<
-                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr =>
+                TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism, sr =>
             {
                 if (shouldThrowException)
                 {
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             // Call
             IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<
-                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr => expectedAssembly);
+                TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism, sr => expectedAssembly);
 
             // Assert
             Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());
@@ -121,7 +121,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             TestDelegate call = () => AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
-                IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
                 null,
                 sr => new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.Factories
         {
             // Call
             TestDelegate call = () => AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
-                TestFailureMechanism, FailureMechanismSectionResult>(new TestFailureMechanism(), null);
+                TestFailureMechanism, FailureMechanismSectionResultOld>(new TestFailureMechanism(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             // Call
             var shouldThrowException = true;
             IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
-                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr =>
+                TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism, sr =>
             {
                 if (shouldThrowException)
                 {
@@ -181,7 +181,7 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             // Call
             IEnumerable<MapFeature> features = AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<
-                TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism, sr => expectedCategoryGroup);
+                TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism, sr => expectedCategoryGroup);
 
             // Assert
             Assert.AreEqual(failureMechanism.Sections.Count(), features.Count());

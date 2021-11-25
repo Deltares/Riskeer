@@ -38,9 +38,9 @@ namespace Riskeer.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase,
                                                      ICalculatableFailureMechanism,
-                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
+                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
@@ -54,7 +54,7 @@ namespace Riskeer.ClosingStructures.Data
             };
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new ObservableList<ClosingStructuresFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -83,7 +83,7 @@ namespace Riskeer.ClosingStructures.Data
             }
         }
 
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Riskeer.ClosingStructures.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

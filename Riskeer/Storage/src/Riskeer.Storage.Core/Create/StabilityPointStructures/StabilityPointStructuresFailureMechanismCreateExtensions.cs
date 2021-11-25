@@ -54,10 +54,10 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 StabilityPointStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

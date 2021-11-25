@@ -32,9 +32,9 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<PipingFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<PipingFailureMechanismSectionResultOld> sectionResults;
         private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<PipingFailureMechanismSectionResultOld>();
 
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
             scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
@@ -94,12 +94,12 @@ namespace Riskeer.Piping.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults => sectionResults;
+        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new PipingFailureMechanismSectionResult(section));
+            sectionResults.Add(new PipingFailureMechanismSectionResultOld(section));
             scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
         }
 

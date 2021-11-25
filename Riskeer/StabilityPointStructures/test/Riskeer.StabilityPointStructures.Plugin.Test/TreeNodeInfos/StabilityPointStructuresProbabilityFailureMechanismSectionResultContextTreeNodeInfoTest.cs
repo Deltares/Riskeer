@@ -43,7 +43,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>));
         }
 
         [TearDown]

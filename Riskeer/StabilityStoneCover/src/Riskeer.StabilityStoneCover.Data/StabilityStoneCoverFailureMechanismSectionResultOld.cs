@@ -23,19 +23,19 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.DuneErosion.Data
+namespace Riskeer.StabilityStoneCover.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Dune Erosion failure mechanism.
+    /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class StabilityStoneCoverFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public DuneErosionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
             DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;

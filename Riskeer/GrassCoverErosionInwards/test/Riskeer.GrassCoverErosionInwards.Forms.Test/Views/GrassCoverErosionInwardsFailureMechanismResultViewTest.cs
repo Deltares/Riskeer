@@ -87,7 +87,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld,
                     GrassCoverErosionInwardsFailureMechanismSectionResultRow,
                     GrassCoverErosionInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -273,7 +273,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public class GrassCoverErosionInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             GrassCoverErosionInwardsFailureMechanismResultViewOld,
             GrassCoverErosionInwardsFailureMechanism,
-            GrassCoverErosionInwardsFailureMechanismSectionResult,
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld,
             GrassCoverErosionInwardsFailureMechanismSectionResultRow,
             GrassCoverErosionInwardsCalculation>
         {

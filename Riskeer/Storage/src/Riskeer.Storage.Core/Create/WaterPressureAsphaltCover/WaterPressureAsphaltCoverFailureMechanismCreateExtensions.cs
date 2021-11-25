@@ -48,10 +48,10 @@ namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults,
+            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (WaterPressureAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

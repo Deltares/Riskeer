@@ -98,15 +98,15 @@ namespace Riskeer.Integration.IO.Factories
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            IDictionary<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<HeightStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
             StructuresCalculationScenario<HeightStructuresInput>[] structuresCalculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>().ToArray();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<HeightStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+                HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
                 FailureMechanismSectionAssembly simpleAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);

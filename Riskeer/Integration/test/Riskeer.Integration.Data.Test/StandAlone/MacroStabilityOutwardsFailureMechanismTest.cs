@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResultOld>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Macrostabiliteit buitenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBU", failureMechanism.Code);
             Assert.AreEqual(4, failureMechanism.Group);

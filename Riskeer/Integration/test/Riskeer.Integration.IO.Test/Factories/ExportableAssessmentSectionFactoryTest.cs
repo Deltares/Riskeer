@@ -143,7 +143,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         private static void AssertExportableFailureMechanismWithProbability(FailureMechanismAssembly expectedAssemblyOutput,
                                                                             ExportableFailureMechanismType expectedFailureMechanismCode,
                                                                             ExportableFailureMechanismGroup expectedFailureMechanismGroup,
-                                                                            IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+                                                                            IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism,
                                                                             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
@@ -313,7 +313,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,
                                                                                ExportableFailureMechanismType expectedFailureMechanismCode,
                                                                                ExportableFailureMechanismGroup expectedFailureMechanismGroup,
-                                                                               IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+                                                                               IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism,
                                                                                ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);

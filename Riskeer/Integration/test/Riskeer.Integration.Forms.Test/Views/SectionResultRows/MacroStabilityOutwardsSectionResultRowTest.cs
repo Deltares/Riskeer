@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, null, assessmentSection,
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), null,
@@ -114,7 +114,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => new MacroStabilityOutwardsSectionResultRow(result, new MacroStabilityOutwardsFailureMechanism(), assessmentSection, null);
@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                                                                      ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityOutwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentProbability, row.DetailedAssessmentProbability);
@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -235,7 +235,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -273,7 +273,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
@@ -311,7 +311,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -340,7 +340,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -396,7 +396,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -448,7 +448,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
@@ -490,7 +490,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section)
             {
                 DetailedAssessmentResult = detailedAssessmentResult
             };
@@ -529,7 +529,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult
             };
@@ -562,7 +562,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
@@ -620,7 +620,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
             };
@@ -675,7 +675,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -708,7 +708,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -743,7 +743,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -776,7 +776,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -809,7 +809,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -844,7 +844,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -877,7 +877,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityOutwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

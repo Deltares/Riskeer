@@ -90,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
 
         /// <summary>
         /// Asserts that the <paramref name="failureMechanism"/> contains <see cref="FailureMechanismSection"/> and
-        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="failureMechanism"/>

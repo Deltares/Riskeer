@@ -31,9 +31,9 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class GrassCoverSlipOffInwardsResultViewOld : FailureMechanismResultViewOld<GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+    public class GrassCoverSlipOffInwardsResultViewOld : FailureMechanismResultViewOld<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
         GrassCoverSlipOffInwardsSectionResultRow,
         GrassCoverSlipOffInwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -51,12 +51,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultViewOld"/>.
         /// </summary>
-        public GrassCoverSlipOffInwardsResultViewOld(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+        public GrassCoverSlipOffInwardsResultViewOld(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                                   GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override GrassCoverSlipOffInwardsSectionResultRow CreateFailureMechanismSectionResultRow(
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
+            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult)
         {
             return new GrassCoverSlipOffInwardsSectionResultRow(
                 sectionResult,

@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
         {
             // Call
             TestDelegate call = () => ((GrassCoverErosionInwardsSectionResultEntity) null).Read(
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ReadConversionCollector());
 
             // Assert
@@ -68,7 +68,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
+            TestDelegate call = () => entity.Read(new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -101,7 +101,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -128,7 +128,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);

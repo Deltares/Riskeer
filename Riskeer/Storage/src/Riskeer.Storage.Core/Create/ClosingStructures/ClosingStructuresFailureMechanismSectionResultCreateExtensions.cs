@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.ClosingStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="ClosingStructuresFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class ClosingStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="ClosingStructuresSectionResultEntity"/> 
-        /// based on the information of the <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
+        /// based on the information of the <see cref="ClosingStructuresFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="ClosingStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static ClosingStructuresSectionResultEntity Create(this ClosingStructuresFailureMechanismSectionResult result)
+        internal static ClosingStructuresSectionResultEntity Create(this ClosingStructuresFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

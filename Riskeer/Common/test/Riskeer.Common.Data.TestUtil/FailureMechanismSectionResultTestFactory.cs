@@ -25,21 +25,21 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
-    /// Factory for creating a valid <see cref="FailureMechanismSectionResult"/> which can 
+    /// Factory for creating a valid <see cref="FailureMechanismSectionResultOld"/> which can 
     /// be used for testing.
     /// </summary>
     public static class FailureMechanismSectionResultTestFactory
     {
         /// <summary>
-        /// Creates a default <see cref="TestFailureMechanismSectionResult"/>.
+        /// Creates a default <see cref="TestFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="name">The name of the section.</param>
-        /// <returns>A valid <see cref="TestFailureMechanismSectionResult"/>.</returns>
+        /// <returns>A valid <see cref="TestFailureMechanismSectionResultOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <param name="name"></param>
         /// is <c>null</c>.</exception>
-        public static TestFailureMechanismSectionResult CreateFailureMechanismSectionResult(string name = "test")
+        public static TestFailureMechanismSectionResultOld CreateFailureMechanismSectionResult(string name = "test")
         {
-            return new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(name));
+            return new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(name));
         }
     }
 }

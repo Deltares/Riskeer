@@ -33,7 +33,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
     /// <typeparam name="TSectionResult">The type of the failure mechanism section result the update strategy uses.</typeparam>
     public abstract class FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResult>
         where TUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TSectionResult>, new()
-        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResult : FailureMechanismSectionResultOld
     {
         [Test]
         public void Constructor_ExpectedValues()

@@ -51,7 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario1 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
             GrassCoverErosionInwardsCalculationScenario calculationScenario2 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
@@ -102,7 +102,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
@@ -116,7 +116,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
             calculationScenario.IsRelevant = false;
@@ -137,7 +137,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
 
@@ -156,7 +156,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -197,7 +197,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
@@ -214,7 +214,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((GrassCoverErosionInwardsFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
+            void Call() => ((GrassCoverErosionInwardsFailureMechanismSectionResultOld) null).GetTotalContribution(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -226,7 +226,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetTotalContribution(null);
@@ -241,7 +241,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
             calculationScenario.Contribution = (RoundedDouble) 0.3211;
@@ -270,7 +270,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((GrassCoverErosionInwardsFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
+            void Call() => ((GrassCoverErosionInwardsFailureMechanismSectionResultOld) null).GetCalculationScenarios(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -282,7 +282,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetCalculationScenarios(null);
@@ -297,7 +297,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
             GrassCoverErosionInwardsCalculationScenario calculationScenario2 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
             calculationScenario2.IsRelevant = false;
@@ -322,7 +322,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(999, 999),
                 new Point2D(998, 998)
             });
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 

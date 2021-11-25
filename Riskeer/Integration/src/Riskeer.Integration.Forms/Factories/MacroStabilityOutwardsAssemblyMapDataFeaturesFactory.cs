@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
                                                                                                                     failureMechanism,
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,

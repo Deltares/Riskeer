@@ -33,9 +33,9 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> for closing structures.
+    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> for closing structures.
     /// </summary>
-    public class ClosingStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResult,
+    public class ClosingStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResultOld,
         ClosingStructuresFailureMechanismSectionResultRow,
         ClosingStructuresFailureMechanism,
         FailureMechanismAssemblyControl>
@@ -59,13 +59,13 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresFailureMechanismResultViewOld(
-            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> failureMechanismSectionResults,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -92,7 +92,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
+        protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResultOld sectionResult)
         {
             return new ClosingStructuresFailureMechanismSectionResultRow(
                 sectionResult,

@@ -670,8 +670,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Then
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>().ToArray();
-            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
             Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));

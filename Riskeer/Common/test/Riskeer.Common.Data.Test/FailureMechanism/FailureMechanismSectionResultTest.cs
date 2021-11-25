@@ -36,10 +36,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new TestFailureMechanismSectionResult(section);
+            var result = new TestFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
         }
 
@@ -47,16 +47,16 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestFailureMechanismSectionResult(null);
+            TestDelegate test = () => new TestFailureMechanismSectionResultOld(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 
-        private class TestFailureMechanismSectionResult : FailureMechanismSectionResult
+        private class TestFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
         {
-            public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+            public TestFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section) {}
         }
     }
 }

@@ -51,7 +51,7 @@ namespace Riskeer.HeightStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
-            HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult)
+            HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -85,7 +85,7 @@ namespace Riskeer.HeightStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
-            HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -139,7 +139,7 @@ namespace Riskeer.HeightStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
-            HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -188,7 +188,7 @@ namespace Riskeer.HeightStructures.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
-            HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -249,7 +249,7 @@ namespace Riskeer.HeightStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                                                    HeightStructuresFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection,
                                                                                                    bool useManual)
@@ -335,7 +335,7 @@ namespace Riskeer.HeightStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+        private static FailureMechanismSectionAssembly GetSectionAssembly(HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                           HeightStructuresFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           bool useManual)
@@ -366,7 +366,7 @@ namespace Riskeer.HeightStructures.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(HeightStructuresFailureMechanismSectionResult sectionResult,
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(HeightStructuresFailureMechanismSectionResultOld sectionResult,
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

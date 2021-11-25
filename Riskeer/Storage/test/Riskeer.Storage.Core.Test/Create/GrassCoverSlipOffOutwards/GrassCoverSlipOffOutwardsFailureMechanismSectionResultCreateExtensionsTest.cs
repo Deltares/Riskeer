@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffOutwards
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GrassCoverSlipOffOutwardsFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -55,7 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffOutwards
             bool useManualAssembly = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,

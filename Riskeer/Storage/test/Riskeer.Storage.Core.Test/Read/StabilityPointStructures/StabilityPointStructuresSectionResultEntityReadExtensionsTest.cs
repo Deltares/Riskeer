@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((StabilityPointStructuresSectionResultEntity) null).Read(new StabilityPointStructuresFailureMechanismSectionResult(
+            void Call() => ((StabilityPointStructuresSectionResultEntity) null).Read(new StabilityPointStructuresFailureMechanismSectionResultOld(
                                                                                          FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
                 UseManualAssembly = Convert.ToByte(useManualAssembly),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

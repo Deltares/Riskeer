@@ -97,15 +97,15 @@ namespace Riskeer.Integration.IO.Factories
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            IDictionary<GrassCoverErosionInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<GrassCoverErosionInwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
-            foreach (KeyValuePair<GrassCoverErosionInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<GrassCoverErosionInwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult = failureMechanismSectionPair.Key;
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
 
                 FailureMechanismSectionAssembly simpleAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);

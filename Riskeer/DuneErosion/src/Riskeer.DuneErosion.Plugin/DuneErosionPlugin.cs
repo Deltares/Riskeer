@@ -125,7 +125,7 @@ namespace Riskeer.DuneErosion.Plugin
                 FailurePathEnabledContextMenuStrip,
                 FailurePathDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>>
+            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -165,8 +165,8 @@ namespace Riskeer.DuneErosion.Plugin
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new RiskeerViewInfo<
-                FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>,
-                IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
+                FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>,
+                IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>,
                 DuneErosionFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -240,7 +240,7 @@ namespace Riskeer.DuneErosion.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResult>(
+                DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 new DuneErosionFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -447,7 +447,7 @@ namespace Riskeer.DuneErosion.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
+                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };

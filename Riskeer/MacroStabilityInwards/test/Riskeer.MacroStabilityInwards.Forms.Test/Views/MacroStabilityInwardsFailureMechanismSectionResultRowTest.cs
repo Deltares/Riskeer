@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
@@ -133,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, new MacroStabilityInwardsFailureMechanism(),
@@ -156,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
@@ -172,7 +172,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                     ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor),
@@ -221,7 +221,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -274,7 +274,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -311,7 +311,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -344,7 +344,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -373,7 +373,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -435,7 +435,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -492,7 +492,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
@@ -540,7 +540,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 DetailedAssessmentResult = detailedAssessmentResult
             };
@@ -581,7 +581,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult
             };
@@ -613,7 +613,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
@@ -677,7 +677,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
@@ -729,7 +729,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -773,7 +773,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -813,7 +813,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -857,7 +857,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -894,7 +894,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -938,7 +938,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             var newValue = new Random(21).NextEnumValue<SimpleAssessmentResultType>();
@@ -976,7 +976,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1004,7 +1004,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -1030,7 +1030,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             MacroStabilityInwardsCalculationScenario scenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -1067,7 +1067,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             MacroStabilityInwardsCalculationScenario scenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -1106,7 +1106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
@@ -1147,7 +1147,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1182,7 +1182,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1215,7 +1215,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

@@ -62,12 +62,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
         [Test]
         [TestCaseSource(nameof(GetHasManualAssemblyResultCases))]
         public void HasManualAssemblyResults_FailureMechanismHasManualAssemblyResult_ReturnsExpectedValue(
-            Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>> getFailureMechanismFunc,
+            Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResultOld>> getFailureMechanismFunc,
             bool inAssembly, bool expectedResult)
         {
             // Setup
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
-            IHasSectionResults<FailureMechanismSectionResult> failureMechanism = getFailureMechanismFunc(assessmentSection);
+            IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism = getFailureMechanismFunc(assessmentSection);
             failureMechanism.InAssembly = inAssembly;
             failureMechanism.SectionResults.Single().UseManualAssembly = true;
 
@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         private static IEnumerable<TestCaseData> GetHasManualAssemblyResultCases()
         {
-            Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>>[] getFailureMechanismFuncs =
+            Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResultOld>>[] getFailureMechanismFuncs =
             {
                 assessmentSection => assessmentSection.Piping,
                 assessmentSection => assessmentSection.MacroStabilityInwards,
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 assessmentSection => assessmentSection.WaterPressureAsphaltCover
             };
 
-            foreach (Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResult>> func in getFailureMechanismFuncs)
+            foreach (Func<AssessmentSection, IHasSectionResults<FailureMechanismSectionResultOld>> func in getFailureMechanismFuncs)
             {
                 yield return new TestCaseData(func, true, true);
                 yield return new TestCaseData(func, false, false);

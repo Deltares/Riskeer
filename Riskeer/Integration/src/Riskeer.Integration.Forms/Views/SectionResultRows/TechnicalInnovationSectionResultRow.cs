@@ -32,9 +32,9 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="TechnicalInnovationFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class TechnicalInnovationSectionResultRow : FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResult>
+    public class TechnicalInnovationSectionResultRow : FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int tailorMadeAssessmentResultIndex;
@@ -50,14 +50,14 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
         /// <summary>
         /// Creates a new instance of <see cref="TechnicalInnovationSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="TechnicalInnovationFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="TechnicalInnovationSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal TechnicalInnovationSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult,
+        internal TechnicalInnovationSectionResultRow(TechnicalInnovationFailureMechanismSectionResultOld sectionResult,
                                                      ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

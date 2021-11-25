@@ -31,16 +31,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy, StabilityStoneCoverFailureMechanismSectionResult>
+        StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy, StabilityStoneCoverFailureMechanismSectionResultOld>
     {
-        protected override StabilityStoneCoverFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override StabilityStoneCoverFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.Sufficient,
@@ -54,8 +54,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(StabilityStoneCoverFailureMechanismSectionResult originResult,
-                                                    StabilityStoneCoverFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(StabilityStoneCoverFailureMechanismSectionResultOld originResult,
+                                                    StabilityStoneCoverFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResultForFactorizedSignalingNorm, targetResult.DetailedAssessmentResultForFactorizedSignalingNorm);

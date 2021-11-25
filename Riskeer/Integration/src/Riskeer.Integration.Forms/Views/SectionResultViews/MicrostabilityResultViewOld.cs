@@ -31,9 +31,9 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class MicrostabilityResultViewOld : FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResult,
+    public class MicrostabilityResultViewOld : FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResultOld,
         MicrostabilitySectionResultRow,
         MicrostabilityFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -51,11 +51,11 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// <summary>
         /// Creates a new instance of <see cref="MicrostabilityResultViewOld"/>.
         /// </summary>
-        public MicrostabilityResultViewOld(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults,
+        public MicrostabilityResultViewOld(IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                         MicrostabilityFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)
+        protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResultOld sectionResult)
         {
             return new MicrostabilitySectionResultRow(
                 sectionResult,

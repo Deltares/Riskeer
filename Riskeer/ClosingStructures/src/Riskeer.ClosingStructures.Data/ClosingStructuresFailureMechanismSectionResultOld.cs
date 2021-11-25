@@ -25,22 +25,22 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
-namespace Riskeer.MacroStabilityInwards.Data
+namespace Riskeer.ClosingStructures.Data
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
-    /// for a macro stability inwards assessment.
+    /// for a closing structures assessment.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class ClosingStructuresFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// Initializes a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;

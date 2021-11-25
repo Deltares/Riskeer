@@ -48,7 +48,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>, ClosingStructuresFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>, ClosingStructuresFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailurePathView"/>.
@@ -103,8 +103,8 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                ClosingStructuresFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>,
+                ClosingStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

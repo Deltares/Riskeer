@@ -23,19 +23,19 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.GrassCoverErosionOutwards.Data
+namespace Riskeer.WaveImpactAsphaltCover.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Grass Cover Erosion Outwards failure mechanism.
+    /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.None;

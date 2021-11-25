@@ -50,7 +50,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism,
-                ClosingStructuresFailureMechanismSectionResult>(
+                ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -76,7 +76,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism,
-                ClosingStructuresFailureMechanismSectionResult>(
+                ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
@@ -105,7 +105,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism,
-                ClosingStructuresFailureMechanismSectionResult>(
+                ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
                                                                                                                failureMechanism,
@@ -132,7 +132,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,

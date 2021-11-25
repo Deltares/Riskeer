@@ -38,10 +38,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.TailorMadeAssessmentProbability = newValue;
@@ -101,7 +101,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.ManualAssemblyProbability = newValue;
@@ -122,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new MacroStabilityInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.ManualAssemblyProbability = newValue;

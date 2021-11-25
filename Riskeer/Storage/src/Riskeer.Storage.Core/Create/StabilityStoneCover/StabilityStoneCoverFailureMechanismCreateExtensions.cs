@@ -53,10 +53,10 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (StabilityStoneCoverFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 StabilityStoneCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

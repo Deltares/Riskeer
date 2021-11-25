@@ -59,8 +59,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>), info.ViewDataType);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -247,7 +247,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

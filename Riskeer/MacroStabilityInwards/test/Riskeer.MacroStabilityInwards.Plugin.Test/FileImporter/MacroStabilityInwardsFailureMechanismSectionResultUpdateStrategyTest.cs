@@ -31,17 +31,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy, MacroStabilityInwardsFailureMechanismSectionResult>
+        MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy, MacroStabilityInwardsFailureMechanismSectionResultOld>
     {
-        protected override MacroStabilityInwardsFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override MacroStabilityInwardsFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override MacroStabilityInwardsFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override MacroStabilityInwardsFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
             var random = new Random(39);
-            return new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
@@ -52,8 +52,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             };
         }
 
-        protected override void AssertSectionResult(MacroStabilityInwardsFailureMechanismSectionResult originResult,
-                                                    MacroStabilityInwardsFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(MacroStabilityInwardsFailureMechanismSectionResultOld originResult,
+                                                    MacroStabilityInwardsFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);

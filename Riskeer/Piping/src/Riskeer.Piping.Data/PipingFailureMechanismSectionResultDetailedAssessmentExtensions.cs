@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Data
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResult sectionResult,
+        public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResultOld sectionResult,
                                                               IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
                                                               double norm)
         {
@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Data
         /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult sectionResult,
+        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResultOld sectionResult,
                                                          IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Data
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<SemiProbabilisticPipingCalculationScenario> GetCalculationScenarios(
-            this PipingFailureMechanismSectionResult sectionResult,
+            this PipingFailureMechanismSectionResultOld sectionResult,
             IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)

@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards
 {
     /// <summary>
-    /// Extension methods for <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="MacroStabilityOutwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityOutwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="MacroStabilityOutwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="MacroStabilityOutwardsSectionResultEntity"/> based on the information of the <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityOutwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static MacroStabilityOutwardsSectionResultEntity Create(this MacroStabilityOutwardsFailureMechanismSectionResult result)
+        internal static MacroStabilityOutwardsSectionResultEntity Create(this MacroStabilityOutwardsFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

@@ -31,16 +31,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy, GrassCoverErosionOutwardsFailureMechanismSectionResult>
+        GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>
     {
-        protected override GrassCoverErosionOutwardsFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override GrassCoverErosionOutwardsFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override GrassCoverErosionOutwardsFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new GrassCoverErosionOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResultForFactorizedSignalingNorm = DetailedAssessmentResultType.Sufficient,
@@ -54,8 +54,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(GrassCoverErosionOutwardsFailureMechanismSectionResult originResult,
-                                                    GrassCoverErosionOutwardsFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(GrassCoverErosionOutwardsFailureMechanismSectionResultOld originResult,
+                                                    GrassCoverErosionOutwardsFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResultForFactorizedSignalingNorm, targetResult.DetailedAssessmentResultForFactorizedSignalingNorm);

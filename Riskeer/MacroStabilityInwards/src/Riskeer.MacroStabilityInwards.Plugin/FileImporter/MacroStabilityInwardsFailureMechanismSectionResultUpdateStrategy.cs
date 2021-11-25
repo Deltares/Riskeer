@@ -26,13 +26,13 @@ using Riskeer.MacroStabilityInwards.Data;
 namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(MacroStabilityInwardsFailureMechanismSectionResult origin, MacroStabilityInwardsFailureMechanismSectionResult target)
+        public void UpdateSectionResult(MacroStabilityInwardsFailureMechanismSectionResultOld origin, MacroStabilityInwardsFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

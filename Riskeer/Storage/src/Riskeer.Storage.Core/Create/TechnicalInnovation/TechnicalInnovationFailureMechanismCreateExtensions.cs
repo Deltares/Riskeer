@@ -48,10 +48,10 @@ namespace Riskeer.Storage.Core.Create.TechnicalInnovation
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults,
+            IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (TechnicalInnovationFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (TechnicalInnovationFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 TechnicalInnovationSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

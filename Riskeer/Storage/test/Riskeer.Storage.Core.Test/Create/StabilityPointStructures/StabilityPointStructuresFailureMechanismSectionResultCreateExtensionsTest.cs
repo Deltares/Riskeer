@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult) null).Create();
+            void Call() => ((StabilityPointStructuresFailureMechanismSectionResultOld) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 TailorMadeAssessmentProbability = double.NaN,
                 ManualAssemblyProbability = double.NaN

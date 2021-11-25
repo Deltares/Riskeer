@@ -30,16 +30,16 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy, WaterPressureAsphaltCoverFailureMechanismSectionResult>
+        WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
-        protected override WaterPressureAsphaltCoverFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override WaterPressureAsphaltCoverFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override WaterPressureAsphaltCoverFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override WaterPressureAsphaltCoverFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 TailorMadeAssessmentResult = TailorMadeAssessmentResultType.ProbabilityNegligible,
@@ -48,8 +48,8 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(WaterPressureAsphaltCoverFailureMechanismSectionResult originResult,
-                                                    WaterPressureAsphaltCoverFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(WaterPressureAsphaltCoverFailureMechanismSectionResultOld originResult,
+                                                    WaterPressureAsphaltCoverFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);

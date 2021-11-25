@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Factories
         public static IEnumerable<MapFeature> CreateAssemblyFeatures<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssembly> getAssemblyFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
+            where TSectionResult : FailureMechanismSectionResultOld
         {
             if (failureMechanism == null)
             {
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Factories
         public static IEnumerable<MapFeature> CreateAssemblyCategoryGroupFeatures<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyCategoryGroupFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
-            where TSectionResult : FailureMechanismSectionResult
+            where TSectionResult : FailureMechanismSectionResultOld
         {
             if (failureMechanism == null)
             {
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Forms.Factories
 
         private static IEnumerable<MapFeature> CreateFeatures<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssembly> getAssemblyFunc)
-            where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResult
+            where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResultOld
         {
             foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
             {
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Forms.Factories
 
         private static IEnumerable<MapFeature> CreateCategoryGroupFeatures<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyCategoryGroupFunc)
-            where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResult
+            where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResultOld
         {
             foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
             {

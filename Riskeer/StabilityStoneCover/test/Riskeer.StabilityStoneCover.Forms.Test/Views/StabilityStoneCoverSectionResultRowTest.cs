@@ -73,7 +73,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate call = () => new StabilityStoneCoverSectionResultRow(result, null);
@@ -88,7 +88,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -96,7 +96,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 var row = new StabilityStoneCoverSectionResultRow(result, ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
@@ -133,7 +133,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -165,7 +165,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -197,7 +197,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
@@ -231,7 +231,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -254,7 +254,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -297,7 +297,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -339,7 +339,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -374,7 +374,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section)
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -426,7 +426,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -471,7 +471,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -500,7 +500,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -529,7 +529,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -558,7 +558,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -587,7 +587,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -616,7 +616,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -645,7 +645,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())

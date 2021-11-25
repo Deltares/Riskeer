@@ -154,7 +154,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

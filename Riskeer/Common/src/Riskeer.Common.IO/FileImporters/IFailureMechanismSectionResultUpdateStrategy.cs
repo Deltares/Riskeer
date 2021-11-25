@@ -25,12 +25,12 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
-    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResult"/> derivatives
+    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResultOld"/> derivatives
     /// with data from another instance.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
     public interface IFailureMechanismSectionResultUpdateStrategy<in T>
-        where T : FailureMechanismSectionResult
+        where T : FailureMechanismSectionResultOld
     {
         /// <summary>
         /// Updates the <paramref name="target"/> object with the registered result

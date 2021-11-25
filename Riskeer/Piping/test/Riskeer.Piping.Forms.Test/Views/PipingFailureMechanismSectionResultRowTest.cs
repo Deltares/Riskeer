@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), null,
@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
@@ -135,7 +135,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => new PipingFailureMechanismSectionResultRow(result, null, new PipingFailureMechanism(),
@@ -158,7 +158,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
@@ -174,7 +174,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                                      ConstructionProperties);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
+                Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResultOld>>(row);
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
                 Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.Norm),
@@ -223,7 +223,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -276,7 +276,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -313,7 +313,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -346,7 +346,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -375,7 +375,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -437,7 +437,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -494,7 +494,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section)
+            var result = new PipingFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
@@ -542,7 +542,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section)
+            var result = new PipingFailureMechanismSectionResultOld(section)
             {
                 DetailedAssessmentResult = detailedAssessmentResult
             };
@@ -583,7 +583,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section)
+            var result = new PipingFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult
             };
@@ -615,7 +615,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section)
+            var result = new PipingFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
@@ -679,7 +679,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section)
+            var result = new PipingFailureMechanismSectionResultOld(section)
             {
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
@@ -731,7 +731,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section)
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -775,7 +775,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section)
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -815,7 +815,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section)
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -859,7 +859,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section)
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -896,7 +896,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section)
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -945,7 +945,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             var newValue = new Random(21).NextEnumValue<SimpleAssessmentResultType>();
@@ -983,7 +983,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1011,7 +1011,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -1037,7 +1037,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
 
             var calculationScenario =
                 SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
@@ -1074,7 +1074,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
 
             var calculationScenario =
                 SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
@@ -1113,7 +1113,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
             SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
             {
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
@@ -1154,7 +1154,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1189,7 +1189,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1222,7 +1222,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

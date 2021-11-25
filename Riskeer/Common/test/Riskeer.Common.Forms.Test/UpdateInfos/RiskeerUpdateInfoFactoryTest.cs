@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Call
             TestDelegate call = () => RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(null);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(null);
 
             // Assert
             // Assert
@@ -57,14 +57,14 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(sectionResultUpdateStrategy);
 
             // Assert
             Assert.AreEqual("Vakindeling", updateInfo.Name);
@@ -84,14 +84,14 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(sectionResultUpdateStrategy);
 
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
@@ -105,14 +105,14 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(sectionResultUpdateStrategy);
 
             // Assert
             var testFailureMechanism = new TestFailureMechanism();
@@ -127,14 +127,14 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(sectionResultUpdateStrategy);
 
             // Assert
             var testFailureMechanism = new TestFailureMechanism();
@@ -150,14 +150,14 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(sectionResultUpdateStrategy);
 
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);
@@ -170,14 +170,14 @@ namespace Riskeer.Common.Forms.Test.UpdateInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
             // Call
             UpdateInfo<FailureMechanismSectionsContext> updateInfo = RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResult>(sectionResultUpdateStrategy);
+                FailureMechanismSectionsContext, TestFailureMechanism, FailureMechanismSectionResultOld>(sectionResultUpdateStrategy);
 
             // Assert
             var failureMechanismSectionsContext = new FailureMechanismSectionsContext(new TestFailureMechanism(), assessmentSection);

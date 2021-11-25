@@ -43,7 +43,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResultOld>>(failureMechanism);
             Assert.AreEqual("Sterkte en stabiliteit puntconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWp", failureMechanism.Code);
             Assert.AreEqual(1, failureMechanism.Group);

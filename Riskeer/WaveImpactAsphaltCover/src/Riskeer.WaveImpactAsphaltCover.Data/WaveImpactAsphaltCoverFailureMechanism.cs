@@ -35,9 +35,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -83,7 +83,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             }
         }
 
-        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResult(section));
+            sectionResults.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

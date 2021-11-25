@@ -48,7 +48,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
 
             // Call
             string text = info.Text(context);
@@ -124,9 +124,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                       {
                                                           new Point2D(0, 0)
                                                       });
-            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(section);
-            var sectionResultContext = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
-                new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
+            var sectionResultContext = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
+                new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>
                 {
                     sectionResult
                 }, failureMechanism);

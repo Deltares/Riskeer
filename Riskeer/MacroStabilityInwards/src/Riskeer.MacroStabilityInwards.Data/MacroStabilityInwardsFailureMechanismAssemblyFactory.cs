@@ -51,7 +51,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleSimpleAssessment(
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult)
+            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -140,7 +140,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleTailorMadeAssessment(
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -190,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
             IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
@@ -251,7 +251,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                                                    MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                                                    IAssessmentSection assessmentSection,
                                                                                                    bool useManual)
@@ -337,7 +337,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly GetSectionAssembly(MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+        private static FailureMechanismSectionAssembly GetSectionAssembly(MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult,
                                                                           MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           bool useManual)
@@ -370,7 +370,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static FailureMechanismSectionAssembly AssembleManualAssessment(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult,
                                                                                 MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {

@@ -43,7 +43,7 @@ namespace Riskeer.HeightStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld>>(failureMechanism);
             Assert.AreEqual("Hoogte kunstwerk", failureMechanism.Name);
             Assert.AreEqual("HTKW", failureMechanism.Code);
             Assert.AreEqual(1, failureMechanism.Group);

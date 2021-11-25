@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>, MacroStabilityInwardsFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld>, MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailurePathView"/>.
@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>, MacroStabilityInwardsFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld>, MacroStabilityInwardsFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

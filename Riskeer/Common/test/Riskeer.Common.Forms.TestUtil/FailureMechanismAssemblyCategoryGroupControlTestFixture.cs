@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.TestUtil
     public abstract class FailureMechanismAssemblyCategoryGroupControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow>
         where TView : FailureMechanismResultViewOld<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, new()
-        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResult : FailureMechanismSectionResultOld
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>
     {
         private Form testForm;

@@ -319,8 +319,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -334,8 +334,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<TechnicalInnovationFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<TechnicalInnovationFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -349,8 +349,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -364,24 +364,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-                                     });
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -396,8 +380,24 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MicrostabilityFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MicrostabilityFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
+                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<MicrostabilityFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<MicrostabilityFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -745,8 +745,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> expectedSectionResults,
+                                                                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -879,8 +879,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<ClosingStructuresFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> expectedSectionResults,
+                                                                 IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -992,8 +992,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<DuneErosionFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<DuneErosionFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<DuneErosionFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1096,8 +1096,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<HeightStructuresFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResultOld> expectedSectionResults,
+                                                                 IEnumerable<HeightStructuresFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1196,8 +1196,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<PipingFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<PipingFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1403,8 +1403,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1736,8 +1736,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1860,8 +1860,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> expectedSectionResults,
+                                                                 IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1918,8 +1918,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> expectedSectionResults,
+                                                                 IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -1976,8 +1976,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> expectedSectionResults,
+                                                                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) =>
             {
@@ -2022,8 +2022,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<PipingStructureFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<PipingStructureFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<PipingStructureFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
@@ -2048,8 +2048,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,

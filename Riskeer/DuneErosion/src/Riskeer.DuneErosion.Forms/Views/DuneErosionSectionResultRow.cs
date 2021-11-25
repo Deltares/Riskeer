@@ -32,9 +32,9 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="DuneErosionFailureMechanismSectionResult"/> as a row in a grid view.
+    /// Class for displaying <see cref="DuneErosionFailureMechanismSectionResultOld"/> as a row in a grid view.
     /// </summary>
-    public class DuneErosionSectionResultRow : FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>
+    public class DuneErosionSectionResultRow : FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultForFactorizedSignalingNormIndex;
@@ -57,14 +57,14 @@ namespace Riskeer.DuneErosion.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="DuneErosionFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="DuneErosionFailureMechanismSectionResultOld"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="DuneErosionSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult,
+        internal DuneErosionSectionResultRow(DuneErosionFailureMechanismSectionResultOld sectionResult,
                                              ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

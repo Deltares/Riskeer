@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.TestUtil
     public abstract class FailureMechanismAssemblyResultWithProbabilityControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation>
         where TView : FailureMechanismResultViewOld<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
-        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResult : FailureMechanismSectionResultOld
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TCalculation : ICalculation<ICalculationInput>
     {

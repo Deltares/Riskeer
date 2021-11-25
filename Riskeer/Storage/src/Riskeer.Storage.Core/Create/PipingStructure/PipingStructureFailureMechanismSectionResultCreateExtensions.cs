@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.PipingStructure
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingStructureFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="PipingStructureFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="PipingStructureSectionResultEntity"/>.
     /// </summary>
     internal static class PipingStructureFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="PipingStructureSectionResultEntity"/> based on the information of the <see cref="PipingStructureFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="PipingStructureSectionResultEntity"/> based on the information of the <see cref="PipingStructureFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="PipingStructureSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static PipingStructureSectionResultEntity Create(this PipingStructureFailureMechanismSectionResult result)
+        internal static PipingStructureSectionResultEntity Create(this PipingStructureFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

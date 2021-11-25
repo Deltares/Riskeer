@@ -25,22 +25,22 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
-namespace Riskeer.HeightStructures.Data
+namespace Riskeer.Piping.Data
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
-    /// for a height structures assessment.
+    /// for a piping assessment.
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class PipingFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public PipingFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;

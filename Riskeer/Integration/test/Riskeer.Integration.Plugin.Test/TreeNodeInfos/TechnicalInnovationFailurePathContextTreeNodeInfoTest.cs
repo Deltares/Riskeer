@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>)
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>)
                 outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);

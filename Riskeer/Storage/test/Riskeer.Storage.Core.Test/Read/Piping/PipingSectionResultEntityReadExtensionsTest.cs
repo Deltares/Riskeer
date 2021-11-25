@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         {
             // Call
             TestDelegate call = () => ((PipingSectionResultEntity) null).Read(
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,7 +81,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
                 ManualAssemblyProbability = manualAssemblyProbability
             };
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         {
             // Setup
             var entity = new PipingSectionResultEntity();
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

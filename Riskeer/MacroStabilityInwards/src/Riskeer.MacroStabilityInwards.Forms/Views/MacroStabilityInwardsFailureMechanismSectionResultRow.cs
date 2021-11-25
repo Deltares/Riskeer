@@ -36,10 +36,10 @@ using Riskeer.MacroStabilityInwards.Data;
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>, which takes care of the
+    /// Container of a <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> that is 
         /// the source of this row.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+        internal MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult,
                                                                        IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
                                                                        MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                        IAssessmentSection assessmentSection,
@@ -153,7 +153,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets the detailed assessment probability a of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// Gets the detailed assessment probability a of the <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism.GeneralInput.ModelFactor);

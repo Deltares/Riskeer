@@ -31,10 +31,10 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionResultViewOld
-        : FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+        : FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
             StrengthStabilityLengthwiseConstructionSectionResultRow,
             StrengthStabilityLengthwiseConstructionFailureMechanism,
             FailureMechanismAssemblyCategoryGroupControl>
@@ -51,12 +51,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultViewOld"/>.
         /// </summary>
         public StrengthStabilityLengthwiseConstructionResultViewOld(
-            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> failureMechanismSectionResults,
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult)
         {
             return new StrengthStabilityLengthwiseConstructionSectionResultRow(
                 sectionResult,

@@ -32,9 +32,9 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     /// <summary>
-    /// Class for displaying <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>  as a row in a grid view.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultForFactorizedSignalingNormIndex;
@@ -57,14 +57,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>
+        /// <param name="sectionResult">The <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>
         /// to wrap so that it can be displayed as a row.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult,
+        internal WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult,
                                                                         ConstructionProperties constructionProperties)
             : base(sectionResult)
         {

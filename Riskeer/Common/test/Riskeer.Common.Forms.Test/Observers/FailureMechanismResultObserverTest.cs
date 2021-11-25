@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(null);
+            TestDelegate test = () => new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResultOld>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void Constructor_WithFailureMechanism_ExpectedProperties()
         {
             // Call
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(new TestFailureMechanism()))
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResultOld>(new TestFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<Observable>(resultObserver);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             // Given
             var failureMechanism = new TestFailureMechanism();
 
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism))
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Observers
             // Given
             var failureMechanism = new TestFailureMechanism();
 
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism))
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.Observers
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResultOld>(failureMechanism))
             {
                 var mocks = new MockRepository();
                 var observer = mocks.StrictMock<IObserver>();

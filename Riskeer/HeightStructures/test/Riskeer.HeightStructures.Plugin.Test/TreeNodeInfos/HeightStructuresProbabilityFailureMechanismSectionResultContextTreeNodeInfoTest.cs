@@ -45,7 +45,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -112,8 +112,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
-                new ObservableList<HeightStructuresFailureMechanismSectionResult>(), failureMechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
+                new ObservableList<HeightStructuresFailureMechanismSectionResultOld>(), failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

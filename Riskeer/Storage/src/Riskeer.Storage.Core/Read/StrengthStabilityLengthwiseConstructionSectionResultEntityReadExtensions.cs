@@ -27,20 +27,20 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/> based on the
     /// <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/>.
     /// </summary>
     internal static class StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> and use the information to update a 
-        /// <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
+        /// <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this StrengthStabilityLengthwiseConstructionSectionResultEntity entity,
-                                  StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
+                                  StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

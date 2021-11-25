@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
                     PipingStructureSectionResultRow,
                     PipingStructureFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            PipingStructureFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -203,7 +203,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         public class PipingStructureFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             PipingStructureResultViewOld,
             PipingStructureFailureMechanism,
-            PipingStructureFailureMechanismSectionResult,
+            PipingStructureFailureMechanismSectionResultOld,
             PipingStructureSectionResultRow>
         {
             protected override PipingStructureResultViewOld CreateResultView(PipingStructureFailureMechanism failureMechanism)

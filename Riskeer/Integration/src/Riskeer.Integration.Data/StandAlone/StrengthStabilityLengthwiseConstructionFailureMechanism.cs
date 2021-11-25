@@ -33,9 +33,9 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase,
-                                                                           IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>
+                                                                           IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> class.
@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Data.StandAlone
                    Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code,
                    4)
         {
-            sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Data.StandAlone
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section));
+            sectionResults.Add(new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

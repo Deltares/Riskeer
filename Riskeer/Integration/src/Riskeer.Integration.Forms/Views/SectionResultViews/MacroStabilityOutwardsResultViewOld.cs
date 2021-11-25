@@ -33,9 +33,9 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class MacroStabilityOutwardsResultViewOld : FailureMechanismResultViewOld<MacroStabilityOutwardsFailureMechanismSectionResult,
+    public class MacroStabilityOutwardsResultViewOld : FailureMechanismResultViewOld<MacroStabilityOutwardsFailureMechanismSectionResultOld,
         MacroStabilityOutwardsSectionResultRow,
         MacroStabilityOutwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -56,12 +56,12 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityOutwardsResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityOutwardsResultViewOld(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+        public MacroStabilityOutwardsResultViewOld(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> failureMechanismSectionResults,
                                                 MacroStabilityOutwardsFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
             this.assessmentSection = assessmentSection;
         }
 
-        protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
+        protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult)
         {
             return new MacroStabilityOutwardsSectionResultRow(
                 sectionResult, FailureMechanism, assessmentSection,

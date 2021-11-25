@@ -38,14 +38,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
             mocks.ReplayAll();
 
             // Call
-            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(sectionResults, failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<IObservableEnumerable<FailureMechanismSectionResult>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<IObservableEnumerable<FailureMechanismSectionResultOld>>>(context);
             Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             mocks.VerifyAll();
@@ -56,11 +56,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResult>(sectionResults, null);
+            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(sectionResults, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

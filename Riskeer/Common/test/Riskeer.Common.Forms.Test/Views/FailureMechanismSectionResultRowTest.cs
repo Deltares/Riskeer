@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
             var row = new TestFailureMechanismSectionResultRow(sectionResult);
@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
             sectionResult.Attach(observer);
 
             var row = new TestFailureMechanismSectionResultRow(sectionResult);
@@ -90,9 +90,9 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
+        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResultOld>
         {
-            public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+            public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResultOld sectionResult) : base(sectionResult) {}
 
             public bool Updated { get; private set; }
 

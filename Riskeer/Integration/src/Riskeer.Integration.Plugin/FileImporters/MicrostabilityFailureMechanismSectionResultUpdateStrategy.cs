@@ -26,13 +26,13 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="MicrostabilityFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="MicrostabilityFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="MicrostabilityFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="MicrostabilityFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class MicrostabilityFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<MicrostabilityFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<MicrostabilityFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(MicrostabilityFailureMechanismSectionResult origin, MicrostabilityFailureMechanismSectionResult target)
+        public void UpdateSectionResult(MicrostabilityFailureMechanismSectionResultOld origin, MicrostabilityFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

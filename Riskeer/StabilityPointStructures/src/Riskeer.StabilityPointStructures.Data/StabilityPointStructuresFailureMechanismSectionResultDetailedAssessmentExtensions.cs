@@ -45,7 +45,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+        public static double GetDetailedAssessmentProbability(this StabilityPointStructuresFailureMechanismSectionResultOld sectionResult,
                                                               IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)
@@ -83,7 +83,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static RoundedDouble GetTotalContribution(this StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+        public static RoundedDouble GetTotalContribution(this StabilityPointStructuresFailureMechanismSectionResultOld sectionResult,
                                                          IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)
@@ -109,7 +109,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> GetCalculationScenarios(
-            this StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+            this StabilityPointStructuresFailureMechanismSectionResultOld sectionResult,
             IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios)
         {
             if (sectionResult == null)

@@ -48,7 +48,7 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         private Observer failureMechanismObserver;
 
-        private RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>, HeightStructuresFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>, HeightStructuresFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailurePathView"/>.
@@ -103,8 +103,8 @@ namespace Riskeer.HeightStructures.Forms.Views
                 Observable = FailureMechanism
             };
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
-                HeightStructuresFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>,
+                HeightStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

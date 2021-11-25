@@ -27,15 +27,15 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResult"/>.
+    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResultOld"/>.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
-    public class ProbabilityFailureMechanismSectionResultContext<T> : FailureMechanismSectionResultContext<T> where T : FailureMechanismSectionResult
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/>.</typeparam>
+    public class ProbabilityFailureMechanismSectionResultContext<T> : FailureMechanismSectionResultContext<T> where T : FailureMechanismSectionResultOld
     {
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilityFailureMechanismSectionResultContext{T}"/>.
         /// </summary>
-        /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/> to wrap.</param>
+        /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResultOld"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

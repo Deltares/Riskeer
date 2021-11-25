@@ -37,9 +37,9 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/> for height structures.
+    /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResultOld"/> for height structures.
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -64,7 +64,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
+        /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResultOld"/> this row contains.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
@@ -73,7 +73,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
+        internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResultOld sectionResult,
                                                                   IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios,
                                                                   HeightStructuresFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection,
@@ -173,7 +173,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the tailor made assessment probability of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// Gets or sets the tailor made assessment probability of the <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>

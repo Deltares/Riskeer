@@ -37,9 +37,9 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingFailureMechanismSectionResult"/>.
+    /// This class represents a row of <see cref="PipingFailureMechanismSectionResultOld"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResultOld"/> that is 
         /// the source of this row.</param>
         /// <param name="calculations">All calculations in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
+        internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResultOld sectionResult,
                                                         IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations,
                                                         PipingFailureMechanism failureMechanism,
                                                         IAssessmentSection assessmentSection,
@@ -153,7 +153,7 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResult"/>.
+        /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResultOld"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, assessmentSection.FailureMechanismContribution.Norm);

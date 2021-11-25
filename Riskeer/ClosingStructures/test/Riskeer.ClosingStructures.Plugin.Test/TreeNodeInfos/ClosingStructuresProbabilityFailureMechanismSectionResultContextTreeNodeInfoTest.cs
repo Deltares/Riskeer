@@ -46,7 +46,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>));
         }
 
         [TearDown]
@@ -112,9 +112,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
-                    new ObservableList<ClosingStructuresFailureMechanismSectionResult>
+                var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
+                    new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>
                     {
                         sectionResult
                     }, failureMechanism, assessmentSection);

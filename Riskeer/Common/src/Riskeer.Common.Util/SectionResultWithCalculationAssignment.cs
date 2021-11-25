@@ -31,8 +31,8 @@ namespace Riskeer.Common.Util
     /// </summary>
     public class SectionResultWithCalculationAssignment
     {
-        private readonly Action<FailureMechanismSectionResult, ICalculation> setCalculationAction;
-        private readonly Func<FailureMechanismSectionResult, ICalculation> getCalculationAction;
+        private readonly Action<FailureMechanismSectionResultOld, ICalculation> setCalculationAction;
+        private readonly Func<FailureMechanismSectionResultOld, ICalculation> getCalculationAction;
 
         /// <summary>
         /// Creates  new instance of <see cref="SectionResultWithCalculationAssignment"/>.
@@ -44,9 +44,9 @@ namespace Riskeer.Common.Util
         /// to the <paramref name="result"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the parameters is <c>null</c>.</exception>
         public SectionResultWithCalculationAssignment(
-            FailureMechanismSectionResult result,
-            Func<FailureMechanismSectionResult, ICalculation> getCalculationAction,
-            Action<FailureMechanismSectionResult, ICalculation> setCalculationAction)
+            FailureMechanismSectionResultOld result,
+            Func<FailureMechanismSectionResultOld, ICalculation> getCalculationAction,
+            Action<FailureMechanismSectionResultOld, ICalculation> setCalculationAction)
         {
             if (result == null)
             {
@@ -69,9 +69,9 @@ namespace Riskeer.Common.Util
         }
 
         /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionResult"/> for which the assignment object is defined.
+        /// Gets the <see cref="FailureMechanismSectionResultOld"/> for which the assignment object is defined.
         /// </summary>
-        public FailureMechanismSectionResult Result { get; }
+        public FailureMechanismSectionResultOld Result { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="ICalculation"/> from the <see cref="Result"/> using the actions passed

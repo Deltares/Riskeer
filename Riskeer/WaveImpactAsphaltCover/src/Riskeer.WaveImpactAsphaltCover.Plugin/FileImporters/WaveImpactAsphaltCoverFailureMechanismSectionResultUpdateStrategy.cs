@@ -26,13 +26,13 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> instance with data
-    /// from an old <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> instance.
+    /// An update strategy that can be used to update a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/> instance with data
+    /// from an old <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<WaveImpactAsphaltCoverFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(WaveImpactAsphaltCoverFailureMechanismSectionResult origin, WaveImpactAsphaltCoverFailureMechanismSectionResult target)
+        public void UpdateSectionResult(WaveImpactAsphaltCoverFailureMechanismSectionResultOld origin, WaveImpactAsphaltCoverFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

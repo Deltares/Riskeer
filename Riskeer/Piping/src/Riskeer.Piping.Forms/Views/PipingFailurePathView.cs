@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.Views
         private MapLineData tailorMadeAssemblyMapData;
         private MapLineData combinedAssemblyMapData;
 
-        private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult> sectionResultObserver;
+        private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResultOld>, PipingFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailurePathView"/>.
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Forms.Views
         {
             base.CreateObservers();
 
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult>(UpdateAssemblyMapData, sr => sr)
+            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResultOld>, PipingFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
                 Observable = FailureMechanism.SectionResults
             };

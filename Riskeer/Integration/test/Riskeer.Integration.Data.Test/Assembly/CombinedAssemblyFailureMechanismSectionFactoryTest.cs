@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     }, new Random(39).NextBoolean());
 
                 // Assert
-                AssertSections(((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults, inputs.Single());
+                AssertSections(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResults, inputs.Single());
             }
         }
 
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         private static void AssertSectionsWithResult<T>(IEnumerable<T> originalSectionResults,
                                                         FailureMechanismSectionAssemblyCategoryGroup expectedAssemblyCategoryGroupInput,
                                                         IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
-            where T : FailureMechanismSectionResult
+            where T : FailureMechanismSectionResultOld
         {
             AssertSections(originalSectionResults, inputSections);
 
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         private static void AssertSections<T>(IEnumerable<T> originalSectionResults, IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
-            where T : FailureMechanismSectionResult
+            where T : FailureMechanismSectionResultOld
         {
             Assert.AreEqual(originalSectionResults.Count(), inputSections.Count());
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults,
+                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResults,
                                          sectionCalculator.ManualAssemblyAssemblyOutput.Group,
                                          input.Single());
             }
@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults,
+                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResults,
                                          sectionCalculator.CombinedAssemblyOutput.Group,
                                          input.Single());
             }
@@ -398,7 +398,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             throw new NotSupportedException();
         }
 
-        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResult
+        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResultOld
         {
             return failureMechanism.SectionResults.Single();
         }

@@ -33,9 +33,9 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Grass Cover Slip Off Inwards failure mechanism.
     /// </summary>
     public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase,
-                                                            IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>
+                                                            IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.
@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Data.StandAlone
         public GrassCoverSlipOffInwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Data.StandAlone
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new GrassCoverSlipOffInwardsFailureMechanismSectionResult(section));
+            sectionResults.Add(new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

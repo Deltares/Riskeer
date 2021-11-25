@@ -48,10 +48,10 @@ namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
             {
                 StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

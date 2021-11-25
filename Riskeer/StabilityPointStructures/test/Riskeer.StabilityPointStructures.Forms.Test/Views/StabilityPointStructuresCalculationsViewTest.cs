@@ -648,8 +648,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             // Then
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios = failureMechanism.Calculations.OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>().ToArray();
-            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
             Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));

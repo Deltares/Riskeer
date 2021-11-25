@@ -33,10 +33,10 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.
     /// </summary>
     public class HeightStructuresFailureMechanismResultViewOld
-        : FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResult,
+        : FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResultOld,
             HeightStructuresFailureMechanismSectionResultRow,
             HeightStructuresFailureMechanism,
             FailureMechanismAssemblyControl>
@@ -60,13 +60,13 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="HeightStructuresFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="HeightStructuresFailureMechanismSectionResultOld"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HeightStructuresFailureMechanismResultViewOld(
-            IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
+            IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> failureMechanismSectionResults,
             HeightStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -102,7 +102,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override HeightStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
+        protected override HeightStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResultOld sectionResult)
         {
             return new HeightStructuresFailureMechanismSectionResultRow(
                 sectionResult,

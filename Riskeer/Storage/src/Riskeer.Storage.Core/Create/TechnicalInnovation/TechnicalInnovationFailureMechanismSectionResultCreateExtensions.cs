@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.TechnicalInnovation
 {
     /// <summary>
-    /// Extension methods for <see cref="TechnicalInnovationFailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/> related to creating a 
     /// <see cref="TechnicalInnovationSectionResultEntity"/>.
     /// </summary>
     internal static class TechnicalInnovationFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="TechnicalInnovationSectionResultEntity"/> based on the information of the <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="TechnicalInnovationSectionResultEntity"/> based on the information of the <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="TechnicalInnovationSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static TechnicalInnovationSectionResultEntity Create(this TechnicalInnovationFailureMechanismSectionResult result)
+        internal static TechnicalInnovationSectionResultEntity Create(this TechnicalInnovationFailureMechanismSectionResultOld result)
         {
             if (result == null)
             {

@@ -37,12 +37,12 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(
+            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(
                 sectionResults, failureMechanism, null);
 
             // Assert
@@ -58,15 +58,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
             mocks.ReplayAll();
 
             // Call
-            var context = new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResult>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(
                 sectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultContext<FailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<FailureMechanismSectionResultOld>>(context);
             Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

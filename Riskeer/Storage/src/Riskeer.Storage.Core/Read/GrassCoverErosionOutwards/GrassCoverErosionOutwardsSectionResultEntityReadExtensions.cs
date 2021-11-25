@@ -28,20 +28,20 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/> based on the
     /// <see cref="GrassCoverErosionOutwardsSectionResultEntity"/>.
     /// </summary>
     internal static class GrassCoverErosionOutwardsSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> and use the information to update a 
-        /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
+        /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> used
         /// to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

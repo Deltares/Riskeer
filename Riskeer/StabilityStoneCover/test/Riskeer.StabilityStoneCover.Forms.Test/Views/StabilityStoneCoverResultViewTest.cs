@@ -82,7 +82,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResultOld,
                     StabilityStoneCoverSectionResultRow,
                     StabilityStoneCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -186,7 +186,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            StabilityStoneCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -206,7 +206,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         public class StabilityStoneCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             StabilityStoneCoverResultViewOld,
             StabilityStoneCoverFailureMechanism,
-            StabilityStoneCoverFailureMechanismSectionResult,
+            StabilityStoneCoverFailureMechanismSectionResultOld,
             StabilityStoneCoverSectionResultRow>
         {
             protected override StabilityStoneCoverResultViewOld CreateResultView(StabilityStoneCoverFailureMechanism failureMechanism)

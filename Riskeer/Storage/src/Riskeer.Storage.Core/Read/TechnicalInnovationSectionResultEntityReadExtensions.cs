@@ -27,19 +27,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="TechnicalInnovationFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/> based on the
     /// <see cref="TechnicalInnovationSectionResultEntity"/>.
     /// </summary>
     internal static class TechnicalInnovationSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="TechnicalInnovationSectionResultEntity"/> and use the information to update a 
-        /// <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
+        /// <see cref="TechnicalInnovationFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="TechnicalInnovationSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResult sectionResult)
+        internal static void Read(this TechnicalInnovationSectionResultEntity entity, TechnicalInnovationFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

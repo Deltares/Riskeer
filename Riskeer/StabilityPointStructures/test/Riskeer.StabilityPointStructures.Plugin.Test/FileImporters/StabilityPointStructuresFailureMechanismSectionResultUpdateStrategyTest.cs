@@ -31,17 +31,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy, StabilityPointStructuresFailureMechanismSectionResult>
+        StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy, StabilityPointStructuresFailureMechanismSectionResultOld>
     {
-        protected override StabilityPointStructuresFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override StabilityPointStructuresFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
             var random = new Random(39);
-            return new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
@@ -52,8 +52,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(StabilityPointStructuresFailureMechanismSectionResult originResult,
-                                                    StabilityPointStructuresFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(StabilityPointStructuresFailureMechanismSectionResultOld originResult,
+                                                    StabilityPointStructuresFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);

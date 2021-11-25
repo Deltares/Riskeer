@@ -25,24 +25,24 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
-namespace Riskeer.StabilityPointStructures.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
-    /// for a stability point structures assessment.
+    /// for a macro stability inwards assessment.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class MacroStabilityInwardsFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
         private double tailorMadeAssessmentProbability;
         private double manualAssemblyProbability;
 
         /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
-            SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.None;
+            SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;
             TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
@@ -52,7 +52,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
-        public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult { get; set; }
+        public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the detailed assessment result.
@@ -65,11 +65,9 @@ namespace Riskeer.StabilityPointStructures.Data
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
-        /// Gets or sets the value of the tailor made assessment of safety
-        /// per failure mechanism section as a probability.
+        /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when
-        /// <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double TailorMadeAssessmentProbability
         {
             get
@@ -86,10 +84,9 @@ namespace Riskeer.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the manually set assembly probability.
+        /// Gets or sets the manually entered assembly probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when
-        /// <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double ManualAssemblyProbability
         {
             get

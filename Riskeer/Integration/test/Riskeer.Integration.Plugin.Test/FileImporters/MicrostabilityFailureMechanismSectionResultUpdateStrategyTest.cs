@@ -30,16 +30,16 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class MicrostabilityFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        MicrostabilityFailureMechanismSectionResultUpdateStrategy, MicrostabilityFailureMechanismSectionResult>
+        MicrostabilityFailureMechanismSectionResultUpdateStrategy, MicrostabilityFailureMechanismSectionResultOld>
     {
-        protected override MicrostabilityFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override MicrostabilityFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override MicrostabilityFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override MicrostabilityFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
-            return new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentResultType.Sufficient,
@@ -49,8 +49,8 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(MicrostabilityFailureMechanismSectionResult originResult,
-                                                    MicrostabilityFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(MicrostabilityFailureMechanismSectionResultOld originResult,
+                                                    MicrostabilityFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);

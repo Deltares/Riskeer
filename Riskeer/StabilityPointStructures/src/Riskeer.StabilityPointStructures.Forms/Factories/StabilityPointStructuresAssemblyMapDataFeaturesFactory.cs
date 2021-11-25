@@ -50,7 +50,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism,
-                StabilityPointStructuresFailureMechanismSectionResult>(
+                StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
         }
@@ -76,7 +76,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism,
-                StabilityPointStructuresFailureMechanismSectionResult>(
+                StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
@@ -105,7 +105,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
             }
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism,
-                StabilityPointStructuresFailureMechanismSectionResult>(
+                StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
                                                                                                                       failureMechanism,
@@ -132,7 +132,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResult>(
+            return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
                 sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,

@@ -25,28 +25,29 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
-    /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
-    /// for a piping assessment.
+    /// This class holds information about the result of a calculation on section level for the
+    /// macro stability outwards failure mechanism.
     /// </summary>
-    public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class MacroStabilityOutwardsFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
     {
+        private double detailedAssessmentProbability;
         private double tailorMadeAssessmentProbability;
-        private double manualAssemblyProbability;
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="MacroStabilityOutwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
-        public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
+        public MacroStabilityOutwardsFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section)
         {
             SimpleAssessmentResult = SimpleAssessmentResultType.None;
             DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.Probability;
-            TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.None;
+            DetailedAssessmentProbability = double.NaN;
+            TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None;
             TailorMadeAssessmentProbability = double.NaN;
-            ManualAssemblyProbability = double.NaN;
+            ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
         /// <summary>
@@ -62,7 +63,26 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets or sets the tailor made assessment result.
         /// </summary>
-        public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult { get; set; }
+        public TailorMadeAssessmentProbabilityAndDetailedCalculationResultType TailorMadeAssessmentResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double DetailedAssessmentProbability
+        {
+            get
+            {
+                return detailedAssessmentProbability;
+            }
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                detailedAssessmentProbability = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the value of the tailor made assessment of safety per failure mechanism section as a probability.
@@ -84,22 +104,8 @@ namespace Riskeer.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the manually entered assembly probability.
+        /// Gets or sets the manually selected assembly category group.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        public double ManualAssemblyProbability
-        {
-            get
-            {
-                return manualAssemblyProbability;
-            }
-            set
-            {
-                ProbabilityHelper.ValidateProbability(value, null,
-                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
-                                                      true);
-                manualAssemblyProbability = value;
-            }
-        }
+        public ManualFailureMechanismSectionAssemblyCategoryGroup ManualAssemblyCategoryGroup { get; set; }
     }
 }

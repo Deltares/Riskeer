@@ -36,10 +36,10 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>, which takes care of the
+    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionInwardsFailureMechanismSectionResultOld>
     {
         private readonly int simpleAssessmentResultIndex;
         private readonly int detailedAssessmentResultIndex;
@@ -64,7 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/> that is 
         /// the source of this row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
@@ -74,7 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        internal GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+        internal GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult,
                                                                           IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
                                                                           GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the tailor made assessment probability of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
+        /// Gets or sets the tailor made assessment probability of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>

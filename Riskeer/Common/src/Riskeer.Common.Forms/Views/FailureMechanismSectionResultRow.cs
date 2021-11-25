@@ -28,10 +28,10 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// Base class for a wrapper of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
+    /// Base class for a wrapper of a <see cref="FailureMechanismSectionResultOld"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public abstract class FailureMechanismSectionResultRow<T> : IHasColumnStateDefinitions where T : FailureMechanismSectionResult
+    public abstract class FailureMechanismSectionResultRow<T> : IHasColumnStateDefinitions where T : FailureMechanismSectionResultOld
     {
         /// <summary>
         /// Fired when the row has started updating.
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultRow{T}"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="FailureMechanismSectionResultOld"/> that is 
         /// the source of this row.</param>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
         /// <c>null</c>.</exception>
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Forms.Views
         public abstract void Update();
 
         /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionResult"/> that is the source of this row.
+        /// Gets the <see cref="FailureMechanismSectionResultOld"/> that is the source of this row.
         /// </summary>
         protected T SectionResult { get; }
 

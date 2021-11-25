@@ -52,7 +52,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null);
@@ -67,7 +67,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario1 = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario2 = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
@@ -102,7 +102,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
@@ -117,7 +117,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
             calculationScenario.IsRelevant = false;
@@ -138,7 +138,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
 
@@ -157,7 +157,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -198,7 +198,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             scenarioA.Contribution = (RoundedDouble) contributionA;
             scenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
@@ -215,7 +215,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
+            void Call() => ((StabilityPointStructuresFailureMechanismSectionResultOld) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -227,7 +227,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetTotalContribution(null);
@@ -242,7 +242,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             calculationScenario.Contribution = (RoundedDouble) 0.3211;
@@ -279,7 +279,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
+            void Call() => ((StabilityPointStructuresFailureMechanismSectionResultOld) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -291,7 +291,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => sectionResult.GetCalculationScenarios(null);
@@ -306,7 +306,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario2 = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             calculationScenario2.IsRelevant = false;
@@ -331,7 +331,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 new Point2D(999, 999),
                 new Point2D(998, 998)
             });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 

@@ -38,9 +38,9 @@ namespace Riskeer.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism,
-                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
+                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
@@ -54,7 +54,7 @@ namespace Riskeer.StabilityPointStructures.Data
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
-            sectionResults = new ObservableList<StabilityPointStructuresFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -83,7 +83,7 @@ namespace Riskeer.StabilityPointStructures.Data
             }
         }
 
-        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Riskeer.StabilityPointStructures.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()

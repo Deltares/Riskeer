@@ -28,20 +28,20 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.StabilityStoneCover
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> based on the
+    /// This class defines extension methods for read operations for a <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/> based on the
     /// <see cref="StabilityStoneCoverSectionResultEntity"/>.
     /// </summary>
     internal static class StabilityStoneCoverSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="StabilityStoneCoverSectionResultEntity"/> and use the information to update a 
-        /// <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
+        /// <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StabilityStoneCoverSectionResultEntity"/> used 
         /// to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this StabilityStoneCoverSectionResultEntity entity, StabilityStoneCoverFailureMechanismSectionResult sectionResult)
+        internal static void Read(this StabilityStoneCoverSectionResultEntity entity, StabilityStoneCoverFailureMechanismSectionResultOld sectionResult)
         {
             if (entity == null)
             {

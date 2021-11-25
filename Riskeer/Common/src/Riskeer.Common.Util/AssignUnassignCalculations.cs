@@ -31,12 +31,12 @@ namespace Riskeer.Common.Util
 {
     /// <summary>
     /// Utility class for data synchronization of the <see cref="ICalculation"/> 
-    /// of <see cref="FailureMechanismSectionResult"/> objects.
+    /// of <see cref="FailureMechanismSectionResultOld"/> objects.
     /// </summary>
     public static class AssignUnassignCalculations
     {
         /// <summary>
-        /// Update <see cref="FailureMechanismSectionResult"/> objects with the <paramref name="calculations"/>.
+        /// Update <see cref="FailureMechanismSectionResultOld"/> objects with the <paramref name="calculations"/>.
         /// </summary>
         /// <param name="sectionResults">The <see cref="SectionResultWithCalculationAssignment"/> objects which contain the
         /// information about assigning calculations to sections.</param>
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Util
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> or <paramref name="calculations"/>
         /// contains a <c>null</c> element.</exception>
-        public static IEnumerable<FailureMechanismSectionResult> Update(
+        public static IEnumerable<FailureMechanismSectionResultOld> Update(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
             IEnumerable<CalculationWithLocation> calculations)
         {
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Util
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
         /// <returns>A <see cref="IDictionary{K, V}"/> containing a <see cref="List{T}"/> 
-        /// of <see cref="FailureMechanismSectionResult"/> objects 
+        /// of <see cref="FailureMechanismSectionResultOld"/> objects 
         /// for each section name which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> or <paramref name="calculations"/>
@@ -121,11 +121,11 @@ namespace Riskeer.Common.Util
             return FindSectionAtLocation(sectionSegments, calculation.Location);
         }
 
-        private static IEnumerable<FailureMechanismSectionResult> UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
+        private static IEnumerable<FailureMechanismSectionResultOld> UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
             IDictionary<string, List<ICalculation>> calculationsPerSegmentName)
         {
-            var affectedObjects = new Collection<FailureMechanismSectionResult>();
+            var affectedObjects = new Collection<FailureMechanismSectionResultOld>();
             foreach (SectionResultWithCalculationAssignment sectionResult in sectionResults)
             {
                 string sectionName = sectionResult.Result.Section.Name;

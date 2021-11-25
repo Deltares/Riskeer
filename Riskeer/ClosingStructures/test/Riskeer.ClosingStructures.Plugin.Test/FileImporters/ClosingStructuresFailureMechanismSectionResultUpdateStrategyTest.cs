@@ -31,17 +31,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        ClosingStructuresFailureMechanismSectionResultUpdateStrategy, ClosingStructuresFailureMechanismSectionResult>
+        ClosingStructuresFailureMechanismSectionResultUpdateStrategy, ClosingStructuresFailureMechanismSectionResultOld>
     {
-        protected override ClosingStructuresFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override ClosingStructuresFailureMechanismSectionResultOld CreateEmptySectionResult()
         {
-            return new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override ClosingStructuresFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override ClosingStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResult()
         {
             var random = new Random(39);
-            return new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
@@ -52,8 +52,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(ClosingStructuresFailureMechanismSectionResult originResult,
-                                                    ClosingStructuresFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(ClosingStructuresFailureMechanismSectionResultOld originResult,
+                                                    ClosingStructuresFailureMechanismSectionResultOld targetResult)
         {
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);

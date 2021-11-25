@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
         {
             // Call
             TestDelegate call = () => ((WaveImpactAsphaltCoverSectionResultEntity) null).Read(
-                new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -89,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
 
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

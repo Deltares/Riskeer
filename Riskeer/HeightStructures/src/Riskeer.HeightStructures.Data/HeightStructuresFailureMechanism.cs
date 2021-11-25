@@ -37,9 +37,9 @@ namespace Riskeer.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism,
-                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResult>
+                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<HeightStructuresFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -47,7 +47,7 @@ namespace Riskeer.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code, 1)
         {
-            sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -85,7 +85,7 @@ namespace Riskeer.HeightStructures.Data
             }
         }
 
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults
+        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResults
         {
             get
             {
@@ -96,7 +96,7 @@ namespace Riskeer.HeightStructures.Data
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
+            sectionResults.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
