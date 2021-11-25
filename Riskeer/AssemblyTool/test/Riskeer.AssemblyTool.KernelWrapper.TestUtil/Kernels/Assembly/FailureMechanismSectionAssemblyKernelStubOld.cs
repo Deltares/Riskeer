@@ -32,12 +32,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     /// <summary>
     /// Failure mechanism section assembly kernel stub for testing purposes.
     /// </summary>
-    public class FailureMechanismSectionAssemblyKernelStub : IAssessmentResultsTranslator
+    public class FailureMechanismSectionAssemblyKernelStubOld : IAssessmentResultsTranslator
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyKernelStub"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyKernelStubOld"/>.
         /// </summary>
-        public FailureMechanismSectionAssemblyKernelStub()
+        public FailureMechanismSectionAssemblyKernelStubOld()
         {
             FailureProbabilityInput = double.NaN;
             LengthEffectFactorInput = double.NaN;

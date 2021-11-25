@@ -30,7 +30,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
     /// <summary>
     /// Assembly categories kernel stub for testing purposes.
     /// </summary>
-    public class AssemblyCategoriesKernelStub : ICategoryLimitsCalculator
+    public class AssemblyCategoriesKernelStubOld : ICategoryLimitsCalculator
     {
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.

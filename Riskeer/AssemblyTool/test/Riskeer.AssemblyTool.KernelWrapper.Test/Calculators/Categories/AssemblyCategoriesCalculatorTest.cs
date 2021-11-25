@@ -76,8 +76,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = CategoriesListTestFactory.CreateAssessmentSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -102,8 +102,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -126,8 +126,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -152,8 +152,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -179,8 +179,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.FailureMechanismCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -204,8 +204,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.FailureMechanismCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -225,8 +225,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -248,8 +248,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -276,8 +276,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -301,8 +301,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.FailureMechanismSectionCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -322,8 +322,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -345,8 +345,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -376,8 +376,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -403,8 +403,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.FailureMechanismSectionCategoriesOutput = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -427,8 +427,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var random = new Random(21);
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
@@ -453,8 +453,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var random = new Random(21);
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
+                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);

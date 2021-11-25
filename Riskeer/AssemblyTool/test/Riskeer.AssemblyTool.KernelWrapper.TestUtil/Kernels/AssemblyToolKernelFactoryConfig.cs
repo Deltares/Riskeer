@@ -25,7 +25,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="TestAssemblyToolKernelFactory"/> 
+    /// This class can be used to set a temporary <see cref="TestAssemblyToolKernelFactoryOld"/> 
     /// for <see cref="AssemblyToolKernelFactoryOld.Instance"/> while testing. 
     /// Disposing an instance of this class will revert the <see cref="AssemblyToolKernelFactoryOld.Instance"/>.
     /// </summary>
@@ -46,13 +46,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyToolKernelFactoryConfig"/>.
-        /// Sets a <see cref="TestAssemblyToolKernelFactory"/> to 
+        /// Sets a <see cref="TestAssemblyToolKernelFactoryOld"/> to 
         /// <see cref="AssemblyToolKernelFactoryOld.Instance"/>
         /// </summary>
         public AssemblyToolKernelFactoryConfig()
         {
             previousFactory = AssemblyToolKernelFactoryOld.Instance;
-            AssemblyToolKernelFactoryOld.Instance = new TestAssemblyToolKernelFactory();
+            AssemblyToolKernelFactoryOld.Instance = new TestAssemblyToolKernelFactoryOld();
         }
 
         /// <summary>

@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         public void Instance_WhenSetToInstance_ReturnsThatInstance()
         {
             // Setup
-            var firstFactory = new TestAssemblyToolKernelFactory();
+            var firstFactory = new TestAssemblyToolKernelFactoryOld();
             AssemblyToolKernelFactoryOld.Instance = firstFactory;
 
             // Call
