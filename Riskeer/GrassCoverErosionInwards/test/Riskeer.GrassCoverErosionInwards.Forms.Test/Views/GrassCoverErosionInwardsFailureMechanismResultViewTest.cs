@@ -84,10 +84,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionInwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResult,
                     GrassCoverErosionInwardsFailureMechanismSectionResultRow,
                     GrassCoverErosionInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -105,7 +105,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -271,15 +271,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         [TestFixture]
         public class GrassCoverErosionInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            GrassCoverErosionInwardsFailureMechanismResultView,
+            GrassCoverErosionInwardsFailureMechanismResultViewOld,
             GrassCoverErosionInwardsFailureMechanism,
             GrassCoverErosionInwardsFailureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanismSectionResultRow,
             GrassCoverErosionInwardsCalculation>
         {
-            protected override GrassCoverErosionInwardsFailureMechanismResultView CreateResultView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            protected override GrassCoverErosionInwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
             {
-                return new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+                return new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                               failureMechanism,
                                                                               new AssessmentSectionStub());
             }
@@ -290,9 +290,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-        private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private GrassCoverErosionInwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                                     failureMechanism,
                                                                                                     new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

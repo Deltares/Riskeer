@@ -76,10 +76,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
                     GrassCoverSlipOffOutwardsSectionResultRow,
                     GrassCoverSlipOffOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -201,22 +201,22 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
         [TestFixture]
         public class GrassCoverSlipOffOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            GrassCoverSlipOffOutwardsResultView,
+            GrassCoverSlipOffOutwardsResultViewOld,
             GrassCoverSlipOffOutwardsFailureMechanism,
             GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
             GrassCoverSlipOffOutwardsSectionResultRow>
         {
-            protected override GrassCoverSlipOffOutwardsResultView CreateResultView(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
+            protected override GrassCoverSlipOffOutwardsResultViewOld CreateResultView(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
             {
-                return new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults,
+                return new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults,
                                                                failureMechanism);
             }
         }
 
-        private GrassCoverSlipOffOutwardsResultView ShowFailureMechanismResultsView(
+        private GrassCoverSlipOffOutwardsResultViewOld ShowFailureMechanismResultsView(
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults,
                                                                                      failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

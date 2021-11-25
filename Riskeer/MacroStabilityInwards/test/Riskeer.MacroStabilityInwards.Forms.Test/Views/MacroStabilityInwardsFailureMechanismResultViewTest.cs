@@ -85,10 +85,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResult,
                     MacroStabilityInwardsFailureMechanismSectionResultRow,
                     MacroStabilityInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -272,15 +272,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         [TestFixture]
         public class MacroStabilityInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            MacroStabilityInwardsFailureMechanismResultView,
+            MacroStabilityInwardsFailureMechanismResultViewOld,
             MacroStabilityInwardsFailureMechanism,
             MacroStabilityInwardsFailureMechanismSectionResult,
             MacroStabilityInwardsFailureMechanismSectionResultRow,
             MacroStabilityInwardsCalculationScenario>
         {
-            protected override MacroStabilityInwardsFailureMechanismResultView CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
+            protected override MacroStabilityInwardsFailureMechanismResultViewOld CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
             {
-                return new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+                return new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                            failureMechanism,
                                                                            new AssessmentSectionStub());
             }
@@ -291,9 +291,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private MacroStabilityInwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                                  failureMechanism,
                                                                                                  new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

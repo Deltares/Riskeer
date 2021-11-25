@@ -167,12 +167,12 @@ namespace Riskeer.DuneErosion.Plugin
             yield return new RiskeerViewInfo<
                 FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>,
                 IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
-                DuneErosionFailureMechanismResultView>(() => Gui)
+                DuneErosionFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new DuneErosionFailureMechanismResultView(
+                CreateInstance = context => new DuneErosionFailureMechanismResultViewOld(
                     context.WrappedData,
                     (DuneErosionFailureMechanism) context.FailureMechanism)
             };
@@ -329,7 +329,7 @@ namespace Riskeer.DuneErosion.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
 

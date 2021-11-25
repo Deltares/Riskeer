@@ -86,10 +86,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResult,
                     PipingFailureMechanismSectionResultRow,
                     PipingFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -273,15 +273,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [TestFixture]
         public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            PipingFailureMechanismResultView,
+            PipingFailureMechanismResultViewOld,
             PipingFailureMechanism,
             PipingFailureMechanismSectionResult,
             PipingFailureMechanismSectionResultRow,
             SemiProbabilisticPipingCalculationScenario>
         {
-            protected override PipingFailureMechanismResultView CreateResultView(PipingFailureMechanism failureMechanism)
+            protected override PipingFailureMechanismResultViewOld CreateResultView(PipingFailureMechanism failureMechanism)
             {
-                return new PipingFailureMechanismResultView(failureMechanism.SectionResults,
+                return new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                             failureMechanism,
                                                             new AssessmentSectionStub());
             }
@@ -292,9 +292,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
         }
 
-        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
+        private PipingFailureMechanismResultViewOld ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new PipingFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                   failureMechanism,
                                                                                   new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

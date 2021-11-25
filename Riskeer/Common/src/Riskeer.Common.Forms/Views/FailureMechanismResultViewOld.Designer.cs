@@ -21,7 +21,7 @@
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl>
+    partial class FailureMechanismResultViewOld<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl>
     {
         /// <summary> 
         /// Required designer variable.
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Forms.Views
             this.DataGridViewControl.Size = new System.Drawing.Size(764, 52);
             this.DataGridViewControl.TabIndex = 0;
             // 
-            // FailureMechanismResultView
+            // FailureMechanismResultViewOld
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(500, 0);
             this.Controls.Add(this.DataGridViewControl);
             this.Controls.Add(this.TableLayoutPanel);
-            this.Name = "FailureMechanismResultView";
+            this.Name = "FailureMechanismResultViewOld";
             this.Size = new System.Drawing.Size(764, 82);
             this.TableLayoutPanel.ResumeLayout(false);
             this.TableLayoutPanel.PerformLayout();

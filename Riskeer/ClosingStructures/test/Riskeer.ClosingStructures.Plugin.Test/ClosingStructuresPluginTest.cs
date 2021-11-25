@@ -153,7 +153,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>),
-                    typeof(ClosingStructuresFailureMechanismResultView));
+                    typeof(ClosingStructuresFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

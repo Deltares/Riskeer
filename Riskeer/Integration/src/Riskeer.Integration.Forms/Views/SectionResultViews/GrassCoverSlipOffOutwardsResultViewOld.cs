@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
     /// <summary>
     /// The view for a collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverSlipOffOutwardsResultView : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
+    public class GrassCoverSlipOffOutwardsResultViewOld : FailureMechanismResultViewOld<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
         GrassCoverSlipOffOutwardsSectionResultRow,
         GrassCoverSlipOffOutwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
@@ -49,9 +49,9 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsResultView"/>.
+        /// Creates a new instance of <see cref="GrassCoverSlipOffOutwardsResultViewOld"/>.
         /// </summary>
-        public GrassCoverSlipOffOutwardsResultView(
+        public GrassCoverSlipOffOutwardsResultViewOld(
             IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}

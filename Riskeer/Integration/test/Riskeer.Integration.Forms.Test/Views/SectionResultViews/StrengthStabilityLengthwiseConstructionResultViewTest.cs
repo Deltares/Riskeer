@@ -74,10 +74,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
             // Call
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
                     StrengthStabilityLengthwiseConstructionSectionResultRow,
                     StrengthStabilityLengthwiseConstructionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -191,14 +191,14 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
         [TestFixture]
         public class StrengthStabilityLengthwiseConstructionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            StrengthStabilityLengthwiseConstructionResultView,
+            StrengthStabilityLengthwiseConstructionResultViewOld,
             StrengthStabilityLengthwiseConstructionFailureMechanism,
             StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
             StrengthStabilityLengthwiseConstructionSectionResultRow>
         {
-            protected override StrengthStabilityLengthwiseConstructionResultView CreateResultView(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
+            protected override StrengthStabilityLengthwiseConstructionResultViewOld CreateResultView(StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             {
-                return new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults,
+                return new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults,
                                                                              failureMechanism);
             }
         }
@@ -209,10 +209,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private StrengthStabilityLengthwiseConstructionResultView ShowFailureMechanismResultsView(
+        private StrengthStabilityLengthwiseConstructionResultViewOld ShowFailureMechanismResultsView(
             StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults,
                                                                                                    failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

@@ -31,38 +31,42 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class WaterPressureAsphaltCoverResultView : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
-        WaterPressureAsphaltCoverSectionResultRow,
-        WaterPressureAsphaltCoverFailureMechanism,
+    public class GrassCoverSlipOffInwardsResultViewOld : FailureMechanismResultViewOld<GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+        GrassCoverSlipOffInwardsSectionResultRow,
+        GrassCoverSlipOffInwardsFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
-        private const int tailorMadeAssessmentResultIndex = 2;
-        private const int simpleAssemblyCategoryGroupIndex = 3;
-        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
-        private const int combinedAssemblyCategoryGroupIndex = 5;
-        private const int manualAssemblyCategoryGroupIndex = 7;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int tailorMadeAssessmentResultIndex = 3;
+        private const int simpleAssemblyCategoryGroupIndex = 4;
+        private const int detailedAssemblyCategoryGroupIndex = 5;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
+        private const int combinedAssemblyCategoryGroupIndex = 7;
+        private const int manualAssemblyCategoryGroupIndex = 9;
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultView"/>.
+        /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultViewOld"/>.
         /// </summary>
-        public WaterPressureAsphaltCoverResultView(
-            IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
-            WaterPressureAsphaltCoverFailureMechanism failureMechanism)
+        public GrassCoverSlipOffInwardsResultViewOld(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+                                                  GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverSlipOffInwardsSectionResultRow CreateFailureMechanismSectionResultRow(
+            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
         {
-            return new WaterPressureAsphaltCoverSectionResultRow(
+            return new GrassCoverSlipOffInwardsSectionResultRow(
                 sectionResult,
-                new WaterPressureAsphaltCoverSectionResultRow.ConstructionProperties
+                new GrassCoverSlipOffInwardsSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
                     SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
                     TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
                     CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
                     ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
@@ -73,40 +77,48 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.Name));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssessmentResult));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.SimpleAssessmentResult));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssessmentResult));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.SimpleAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.UseManualAssembly));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(WaterPressureAsphaltCoverSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(GrassCoverSlipOffInwardsSectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.TestUtil
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
     [TestFixture]
     public abstract class FailureMechanismAssemblyCategoryGroupControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow>
-        where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
+        where TView : FailureMechanismResultViewOld<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, new()
         where TSectionResult : FailureMechanismSectionResult
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>

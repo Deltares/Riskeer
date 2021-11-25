@@ -260,12 +260,12 @@ namespace Riskeer.Piping.Plugin
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
                 IObservableEnumerable<PipingFailureMechanismSectionResult>,
-                PipingFailureMechanismResultView>(() => Gui)
+                PipingFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new PipingFailureMechanismResultView(
+                CreateInstance = context => new PipingFailureMechanismResultViewOld(
                     context.WrappedData,
                     (PipingFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection)
@@ -588,7 +588,7 @@ namespace Riskeer.Piping.Plugin
                        : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as PipingFailureMechanism;
 

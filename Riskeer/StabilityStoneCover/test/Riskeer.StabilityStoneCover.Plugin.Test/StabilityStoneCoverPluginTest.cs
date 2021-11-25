@@ -110,7 +110,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>),
-                    typeof(StabilityStoneCoverResultView));
+                    typeof(StabilityStoneCoverResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

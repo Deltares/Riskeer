@@ -154,7 +154,7 @@ namespace Riskeer.HeightStructures.Plugin.Test
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>),
-                    typeof(HeightStructuresFailureMechanismResultView));
+                    typeof(HeightStructuresFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

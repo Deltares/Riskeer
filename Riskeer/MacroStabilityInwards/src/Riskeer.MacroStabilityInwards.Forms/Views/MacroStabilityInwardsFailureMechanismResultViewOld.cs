@@ -22,22 +22,21 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
+using Riskeer.MacroStabilityInwards.Data;
 
-namespace Riskeer.ClosingStructures.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> for closing structures.
+    /// The view for the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult,
-        ClosingStructuresFailureMechanismSectionResultRow,
-        ClosingStructuresFailureMechanism,
+    public class MacroStabilityInwardsFailureMechanismResultViewOld : FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResult,
+        MacroStabilityInwardsFailureMechanismSectionResultRow,
+        MacroStabilityInwardsFailureMechanism,
         FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
@@ -52,22 +51,21 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private const int combinedAssemblyProbabilityIndex = 10;
         private const int manualAssemblyProbabilityIndex = 12;
 
-        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismResultView(
-            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
-            ClosingStructuresFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsFailureMechanismResultViewOld(IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+                                                               MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                               IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -81,7 +79,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<StructuresCalculation<ClosingStructuresInput>>()
+                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
                                                    .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
@@ -92,14 +90,23 @@ namespace Riskeer.ClosingStructures.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
+        protected override void Dispose(bool disposing)
         {
-            return new ClosingStructuresFailureMechanismSectionResultRow(
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
+            MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        {
+            return new MacroStabilityInwardsFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                FailureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
-                new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -115,67 +122,59 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.Name));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(ClosingStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()
@@ -186,7 +185,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
     }
 }

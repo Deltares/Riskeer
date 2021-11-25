@@ -20,25 +20,25 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Integration.Forms.Views.SectionResultRows;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Integration.Forms.Views.SectionResultViews
+namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
     /// </summary>
-    public class MacroStabilityOutwardsResultView : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
-        MacroStabilityOutwardsSectionResultRow,
-        MacroStabilityOutwardsFailureMechanism,
-        FailureMechanismAssemblyCategoryGroupControl>
+    public class PipingFailureMechanismResultViewOld : FailureMechanismResultViewOld<PipingFailureMechanismSectionResult,
+        PipingFailureMechanismSectionResultRow,
+        PipingFailureMechanism,
+        FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
@@ -49,20 +49,23 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         private const int detailedAssemblyCategoryGroupIndex = 7;
         private const int tailorMadeAssemblyCategoryGroupIndex = 8;
         private const int combinedAssemblyCategoryGroupIndex = 9;
-        private const int manualAssemblyCategoryGroupIndex = 11;
+        private const int combinedAssemblyProbabilityIndex = 10;
+        private const int manualAssemblyProbabilityIndex = 12;
 
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityOutwardsResultView"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityOutwardsResultView(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
-                                                MacroStabilityOutwardsFailureMechanism failureMechanism,
+        public PipingFailureMechanismResultViewOld(IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults,
+                                                PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
@@ -72,13 +75,38 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
             }
 
             this.assessmentSection = assessmentSection;
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateView,
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                   .Select(c => c.InputParameters)));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
+                UpdateView,
+                c => c.Children);
+
+            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
+            calculationInputObserver.Observable = observableGroup;
+            calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
+        protected override void Dispose(bool disposing)
         {
-            return new MacroStabilityOutwardsSectionResultRow(
-                sectionResult, FailureMechanism, assessmentSection,
-                new MacroStabilityOutwardsSectionResultRow.ConstructionProperties
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
+        {
+            return new PipingFailureMechanismSectionResultRow(
+                sectionResult,
+                FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
+                FailureMechanism,
+                assessmentSection,
+                new PipingFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -89,7 +117,8 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
                     DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
                     TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
                     CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
-                    ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
+                    CombinedAssemblyProbabilityIndex = combinedAssemblyProbabilityIndex,
+                    ManualAssemblyProbabilityIndex = manualAssemblyProbabilityIndex
                 });
         }
 
@@ -97,58 +126,66 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.Name));
+                nameof(PipingFailureMechanismSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssessmentResult));
+                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentResult));
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssessmentProbability));
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityAndDetailedCalculationResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentResult));
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.UseManualAssembly));
+                nameof(PipingFailureMechanismSectionResultRow.UseManualAssembly));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
+        }
+
+        protected override void RefreshDataGrid()
+        {
+            base.RefreshDataGrid();
+            DataGridViewControl.AutoResizeColumn(combinedAssemblyProbabilityIndex);
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism,
-                                                                                                                                                   assessmentSection,
-                                                                                                                                                   true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
     }
 }

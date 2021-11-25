@@ -76,10 +76,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             // Call
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResult,
                     MicrostabilitySectionResultRow,
                     MicrostabilityFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -201,14 +201,14 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
         [TestFixture]
         public class MicrostabilityFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            MicrostabilityResultView,
+            MicrostabilityResultViewOld,
             MicrostabilityFailureMechanism,
             MicrostabilityFailureMechanismSectionResult,
             MicrostabilitySectionResultRow>
         {
-            protected override MicrostabilityResultView CreateResultView(MicrostabilityFailureMechanism failureMechanism)
+            protected override MicrostabilityResultViewOld CreateResultView(MicrostabilityFailureMechanism failureMechanism)
             {
-                return new MicrostabilityResultView(failureMechanism.SectionResults,
+                return new MicrostabilityResultViewOld(failureMechanism.SectionResults,
                                                     failureMechanism);
             }
         }
@@ -219,10 +219,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private MicrostabilityResultView ShowFailureMechanismResultsView(
+        private MicrostabilityResultViewOld ShowFailureMechanismResultsView(
             MicrostabilityFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new MicrostabilityResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new MicrostabilityResultViewOld(failureMechanism.SectionResults,
                                                                           failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

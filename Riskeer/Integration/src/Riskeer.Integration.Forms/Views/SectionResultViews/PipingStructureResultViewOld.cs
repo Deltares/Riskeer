@@ -31,11 +31,11 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
     /// </summary>
-    public class GrassCoverSlipOffInwardsResultView : FailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanismSectionResult,
-        GrassCoverSlipOffInwardsSectionResultRow,
-        GrassCoverSlipOffInwardsFailureMechanism,
+    public class PipingStructureResultViewOld : FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResult,
+        PipingStructureSectionResultRow,
+        PipingStructureFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
@@ -49,18 +49,17 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsResultView"/>.
+        /// Creates a new instance of <see cref="PipingStructureResultViewOld"/>.
         /// </summary>
-        public GrassCoverSlipOffInwardsResultView(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
-                                                  GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
+        public PipingStructureResultViewOld(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
+                                         PipingStructureFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override GrassCoverSlipOffInwardsSectionResultRow CreateFailureMechanismSectionResultRow(
-            GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
+        protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)
         {
-            return new GrassCoverSlipOffInwardsSectionResultRow(
+            return new PipingStructureSectionResultRow(
                 sectionResult,
-                new GrassCoverSlipOffInwardsSectionResultRow.ConstructionProperties
+                new PipingStructureSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -77,48 +76,48 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.Name));
+                nameof(PipingStructureSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.SimpleAssessmentResult));
+                nameof(PipingStructureSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.DetailedAssessmentResult));
+                nameof(PipingStructureSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.TailorMadeAssessmentResult));
+                nameof(PipingStructureSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.UseManualAssembly));
+                nameof(PipingStructureSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(GrassCoverSlipOffInwardsSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(PipingStructureSectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
     }
 }

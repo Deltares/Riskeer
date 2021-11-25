@@ -153,7 +153,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult>),
-                    typeof(StabilityPointStructuresFailureMechanismResultView));
+                    typeof(StabilityPointStructuresFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

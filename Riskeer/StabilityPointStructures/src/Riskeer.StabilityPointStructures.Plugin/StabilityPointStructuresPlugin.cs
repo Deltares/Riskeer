@@ -109,12 +109,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
-                StabilityPointStructuresFailureMechanismResultView>(() => Gui)
+                StabilityPointStructuresFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new StabilityPointStructuresFailureMechanismResultView(
+                CreateInstance = context => new StabilityPointStructuresFailureMechanismResultViewOld(
                     context.WrappedData,
                     (StabilityPointStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
@@ -294,7 +294,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as StabilityPointStructuresFailureMechanism;
 

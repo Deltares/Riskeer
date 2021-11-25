@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MicrostabilityResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MicrostabilityResultViewOld));
         }
 
         [TearDown]
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (var view = new MicrostabilityResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new MicrostabilityResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -216,7 +216,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MicrostabilityResultView>(view);
+            Assert.IsInstanceOf<MicrostabilityResultViewOld>(view);
         }
     }
 }

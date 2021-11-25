@@ -31,12 +31,13 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
     /// </summary>
-    public class TechnicalInnovationResultView : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
-        TechnicalInnovationSectionResultRow,
-        TechnicalInnovationFailureMechanism,
-        FailureMechanismAssemblyCategoryGroupControl>
+    public class StrengthStabilityLengthwiseConstructionResultViewOld
+        : FailureMechanismResultViewOld<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
+            StrengthStabilityLengthwiseConstructionSectionResultRow,
+            StrengthStabilityLengthwiseConstructionFailureMechanism,
+            FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int tailorMadeAssessmentResultIndex = 2;
@@ -47,18 +48,19 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="TechnicalInnovationResultView"/>.
+        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultViewOld"/>.
         /// </summary>
-        public TechnicalInnovationResultView(
-            IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
-            TechnicalInnovationFailureMechanism failureMechanism)
+        public StrengthStabilityLengthwiseConstructionResultViewOld(
+            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults,
+            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
+        protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
         {
-            return new TechnicalInnovationSectionResultRow(
+            return new StrengthStabilityLengthwiseConstructionSectionResultRow(
                 sectionResult,
-                new TechnicalInnovationSectionResultRow.ConstructionProperties
+                new StrengthStabilityLengthwiseConstructionSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
@@ -73,40 +75,40 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.Name));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.SimpleAssessmentResult));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.TailorMadeAssessmentResult));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.UseManualAssembly));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(TechnicalInnovationSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
     }
 }

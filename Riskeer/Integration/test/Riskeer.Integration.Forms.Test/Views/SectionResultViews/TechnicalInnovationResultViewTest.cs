@@ -74,10 +74,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new TechnicalInnovationFailureMechanism();
 
             // Call
-            using (var view = new TechnicalInnovationResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<TechnicalInnovationFailureMechanismSectionResult,
                     TechnicalInnovationSectionResultRow,
                     TechnicalInnovationFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -191,14 +191,14 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
         [TestFixture]
         public class TechnicalInnovationFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            TechnicalInnovationResultView,
+            TechnicalInnovationResultViewOld,
             TechnicalInnovationFailureMechanism,
             TechnicalInnovationFailureMechanismSectionResult,
             TechnicalInnovationSectionResultRow>
         {
-            protected override TechnicalInnovationResultView CreateResultView(TechnicalInnovationFailureMechanism failureMechanism)
+            protected override TechnicalInnovationResultViewOld CreateResultView(TechnicalInnovationFailureMechanism failureMechanism)
             {
-                return new TechnicalInnovationResultView(failureMechanism.SectionResults,
+                return new TechnicalInnovationResultViewOld(failureMechanism.SectionResults,
                                                          failureMechanism);
             }
         }
@@ -209,10 +209,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private TechnicalInnovationResultView ShowFailureMechanismResultsView(
+        private TechnicalInnovationResultViewOld ShowFailureMechanismResultsView(
             TechnicalInnovationFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new TechnicalInnovationResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults,
                                                                                failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

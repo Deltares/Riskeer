@@ -23,16 +23,16 @@ using Core.Common.Base;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
-namespace Riskeer.StabilityStoneCover.Forms.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StabilityStoneCoverResultView : FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult,
-        StabilityStoneCoverSectionResultRow,
-        StabilityStoneCoverFailureMechanism,
+    public class WaveImpactAsphaltCoverFailureMechanismResultViewOld : FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResult,
+        WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
+        WaveImpactAsphaltCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
@@ -50,17 +50,18 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverResultView"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismResultViewOld"/>.
         /// </summary>
-        public StabilityStoneCoverResultView(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults,
-                                             StabilityStoneCoverFailureMechanism failureMechanism)
+        public WaveImpactAsphaltCoverFailureMechanismResultViewOld(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+                                                                WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
+            WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
-            return new StabilityStoneCoverSectionResultRow(
+            return new WaveImpactAsphaltCoverFailureMechanismSectionResultRow(
                 sectionResult,
-                new StabilityStoneCoverSectionResultRow.ConstructionProperties
+                new WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = detailedAssessmentResultForFactorizedSignalingNormIndex,
@@ -81,64 +82,64 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.Name));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.SimpleAssessmentResult));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedSignalingNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForSignalingNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForSignalingNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForSignalingNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForMechanismSpecificLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultForFactorizedLowerLimitNormColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssessmentResultForFactorizedLowerLimitNorm));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.TailorMadeAssessmentResult));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.UseManualAssembly));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSelectableAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StabilityStoneCoverSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(WaveImpactAsphaltCoverFailureMechanismSectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
     }
 }

@@ -105,12 +105,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
                 IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>,
-                WaveImpactAsphaltCoverFailureMechanismResultView>(() => Gui)
+                WaveImpactAsphaltCoverFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
+                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultViewOld(
                     context.WrappedData,
                     (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism)
             };
@@ -276,7 +276,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(WaveImpactAsphaltCoverFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
 

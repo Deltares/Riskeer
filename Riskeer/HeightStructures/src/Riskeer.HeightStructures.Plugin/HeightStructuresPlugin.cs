@@ -187,12 +187,12 @@ namespace Riskeer.HeightStructures.Plugin
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
-                HeightStructuresFailureMechanismResultView>(() => Gui)
+                HeightStructuresFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new HeightStructuresFailureMechanismResultView(
+                CreateInstance = context => new HeightStructuresFailureMechanismResultViewOld(
                     context.WrappedData,
                     (HeightStructuresFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection)
@@ -318,7 +318,7 @@ namespace Riskeer.HeightStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as HeightStructuresFailureMechanism;
 

@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsFailureMechanismResultViewOld));
         }
 
         [TearDown]
@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -130,7 +130,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -154,7 +154,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);
@@ -194,7 +194,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, new GrassCoverErosionInwardsFailureMechanism());
@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
 
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, context);
@@ -234,7 +234,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var view = new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             var context = new GrassCoverErosionInwardsFailurePathContext(new GrassCoverErosionInwardsFailureMechanism(),
                                                                          assessmentSection);
@@ -266,7 +266,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismResultView>(view);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismResultViewOld>(view);
             mocks.VerifyAll();
         }
     }

@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 // Show the view
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-                var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(
+                var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(
                     assessmentSection.MacroStabilityInwards.SectionResults,
                     assessmentSection.MacroStabilityInwards,
                     assessmentSection);

@@ -85,10 +85,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResult,
                     HeightStructuresFailureMechanismSectionResultRow,
                     HeightStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -106,7 +106,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -273,15 +273,15 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         [TestFixture]
         public class HeightStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            HeightStructuresFailureMechanismResultView,
+            HeightStructuresFailureMechanismResultViewOld,
             HeightStructuresFailureMechanism,
             HeightStructuresFailureMechanismSectionResult,
             HeightStructuresFailureMechanismSectionResultRow,
             StructuresCalculation<HeightStructuresInput>>
         {
-            protected override HeightStructuresFailureMechanismResultView CreateResultView(HeightStructuresFailureMechanism failureMechanism)
+            protected override HeightStructuresFailureMechanismResultViewOld CreateResultView(HeightStructuresFailureMechanism failureMechanism)
             {
-                return new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+                return new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                       failureMechanism,
                                                                       new AssessmentSectionStub());
             }
@@ -292,9 +292,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             }
         }
 
-        private HeightStructuresFailureMechanismResultView ShowFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)
+        private HeightStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new HeightStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                             failureMechanism,
                                                                                             new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

@@ -497,86 +497,86 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffInwardsFailureMechanism,
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
-                GrassCoverSlipOffInwardsResultView,
+                GrassCoverSlipOffInwardsResultViewOld,
                 GrassCoverSlipOffInwardsSectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new GrassCoverSlipOffInwardsResultView(
+                context => new GrassCoverSlipOffInwardsResultViewOld(
                     context.WrappedData,
                     (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 GrassCoverSlipOffOutwardsFailureMechanism,
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
-                GrassCoverSlipOffOutwardsResultView,
+                GrassCoverSlipOffOutwardsResultViewOld,
                 GrassCoverSlipOffOutwardsSectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new GrassCoverSlipOffOutwardsResultView(
+                context => new GrassCoverSlipOffOutwardsResultViewOld(
                     context.WrappedData,
                     (GrassCoverSlipOffOutwardsFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 MicrostabilityFailureMechanism,
                 MicrostabilityFailureMechanismSectionResult,
-                MicrostabilityResultView,
+                MicrostabilityResultViewOld,
                 MicrostabilitySectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new MicrostabilityResultView(
+                context => new MicrostabilityResultViewOld(
                     context.WrappedData,
                     (MicrostabilityFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 PipingStructureFailureMechanism,
                 PipingStructureFailureMechanismSectionResult,
-                PipingStructureResultView,
+                PipingStructureResultViewOld,
                 PipingStructureSectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new PipingStructureResultView(
+                context => new PipingStructureResultViewOld(
                     context.WrappedData,
                     (PipingStructureFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 TechnicalInnovationFailureMechanism,
                 TechnicalInnovationFailureMechanismSectionResult,
-                TechnicalInnovationResultView,
+                TechnicalInnovationResultViewOld,
                 TechnicalInnovationSectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new TechnicalInnovationResultView(
+                context => new TechnicalInnovationResultViewOld(
                     context.WrappedData,
                     (TechnicalInnovationFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 StrengthStabilityLengthwiseConstructionFailureMechanism,
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
-                StrengthStabilityLengthwiseConstructionResultView,
+                StrengthStabilityLengthwiseConstructionResultViewOld,
                 StrengthStabilityLengthwiseConstructionSectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new StrengthStabilityLengthwiseConstructionResultView(
+                context => new StrengthStabilityLengthwiseConstructionResultViewOld(
                     context.WrappedData,
                     (StrengthStabilityLengthwiseConstructionFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<
                 WaterPressureAsphaltCoverFailureMechanism,
                 WaterPressureAsphaltCoverFailureMechanismSectionResult,
-                WaterPressureAsphaltCoverResultView,
+                WaterPressureAsphaltCoverResultViewOld,
                 WaterPressureAsphaltCoverSectionResultRow,
                 FailureMechanismAssemblyCategoryGroupControl>(
-                context => new WaterPressureAsphaltCoverResultView(
+                context => new WaterPressureAsphaltCoverResultViewOld(
                     context.WrappedData,
                     (WaterPressureAsphaltCoverFailureMechanism) context.FailureMechanism));
 
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>,
-                MacroStabilityOutwardsResultView>(() => Gui)
+                MacroStabilityOutwardsResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData<MacroStabilityOutwardsFailureMechanism,
                     MacroStabilityOutwardsFailureMechanismSectionResult,
-                    MacroStabilityOutwardsResultView,
+                    MacroStabilityOutwardsResultViewOld,
                     MacroStabilityOutwardsSectionResultRow,
                     FailureMechanismAssemblyCategoryGroupControl>,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new MacroStabilityOutwardsResultView(
+                CreateInstance = context => new MacroStabilityOutwardsResultViewOld(
                     context.WrappedData,
                     (MacroStabilityOutwardsFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection)
@@ -1305,7 +1305,7 @@ namespace Riskeer.Integration.Plugin
             TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
             Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
-            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
+            where TView : FailureMechanismResultViewOld<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResultRow : FailureMechanismSectionResultRow<TResult>
             where TAssemblyResultControl : AssemblyResultControl, new()
@@ -1649,7 +1649,7 @@ namespace Riskeer.Integration.Plugin
         #region FailureMechanismResults ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(TView view, object dataToCloseFor)
-            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
+            where TView : FailureMechanismResultViewOld<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResult : FailureMechanismSectionResult
             where TResultRow : FailureMechanismSectionResultRow<TResult>

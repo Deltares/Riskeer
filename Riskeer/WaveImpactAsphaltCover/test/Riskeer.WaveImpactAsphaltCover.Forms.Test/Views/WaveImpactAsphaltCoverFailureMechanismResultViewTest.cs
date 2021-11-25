@@ -79,10 +79,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResult,
                     WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
                     WaveImpactAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -204,14 +204,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
         [TestFixture]
         public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            WaveImpactAsphaltCoverFailureMechanismResultView,
+            WaveImpactAsphaltCoverFailureMechanismResultViewOld,
             WaveImpactAsphaltCoverFailureMechanism,
             WaveImpactAsphaltCoverFailureMechanismSectionResult,
             WaveImpactAsphaltCoverFailureMechanismSectionResultRow>
         {
-            protected override WaveImpactAsphaltCoverFailureMechanismResultView CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+            protected override WaveImpactAsphaltCoverFailureMechanismResultViewOld CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             {
-                return new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults,
+                return new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                             failureMechanism);
             }
         }
@@ -222,10 +222,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             return control;
         }
 
-        private WaveImpactAsphaltCoverFailureMechanismResultView ShowFailureMechanismResultsView(
+        private WaveImpactAsphaltCoverFailureMechanismResultViewOld ShowFailureMechanismResultsView(
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                                   failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

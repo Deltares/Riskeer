@@ -31,41 +31,38 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult,
-        PipingStructureSectionResultRow,
-        PipingStructureFailureMechanism,
+    public class WaterPressureAsphaltCoverResultViewOld : FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+        WaterPressureAsphaltCoverSectionResultRow,
+        WaterPressureAsphaltCoverFailureMechanism,
         FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
-        private const int detailedAssessmentResultIndex = 2;
-        private const int tailorMadeAssessmentResultIndex = 3;
-        private const int simpleAssemblyCategoryGroupIndex = 4;
-        private const int detailedAssemblyCategoryGroupIndex = 5;
-        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
-        private const int combinedAssemblyCategoryGroupIndex = 7;
-        private const int manualAssemblyCategoryGroupIndex = 9;
+        private const int tailorMadeAssessmentResultIndex = 2;
+        private const int simpleAssemblyCategoryGroupIndex = 3;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
+        private const int combinedAssemblyCategoryGroupIndex = 5;
+        private const int manualAssemblyCategoryGroupIndex = 7;
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="PipingStructureResultView"/>.
+        /// Creates a new instance of <see cref="WaterPressureAsphaltCoverResultViewOld"/>.
         /// </summary>
-        public PipingStructureResultView(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
-                                         PipingStructureFailureMechanism failureMechanism)
+        public WaterPressureAsphaltCoverResultViewOld(
+            IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)
+        protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
-            return new PipingStructureSectionResultRow(
+            return new WaterPressureAsphaltCoverSectionResultRow(
                 sectionResult,
-                new PipingStructureSectionResultRow.ConstructionProperties
+                new WaterPressureAsphaltCoverSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
-                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
                     SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
-                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
                     TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
                     CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
                     ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
@@ -76,48 +73,40 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.Name));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.SimpleAssessmentResult));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
-                DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.DetailedAssessmentResult));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.TailorMadeAssessmentResult));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.SimpleAssemblyCategoryGroup));
-
-            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
-                DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.UseManualAssembly));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingStructureSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(WaterPressureAsphaltCoverSectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
     }
 }

@@ -108,12 +108,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>,
                 IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>,
-                StabilityStoneCoverResultView>(() => Gui)
+                StabilityStoneCoverResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new StabilityStoneCoverResultView(
+                CreateInstance = context => new StabilityStoneCoverResultViewOld(
                     context.WrappedData,
                     (StabilityStoneCoverFailureMechanism) context.FailureMechanism)
             };
@@ -277,7 +277,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 

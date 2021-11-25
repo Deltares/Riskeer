@@ -260,12 +260,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
-                MacroStabilityInwardsFailureMechanismResultView>(() => Gui)
+                MacroStabilityInwardsFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultViewOld(
                     context.WrappedData,
                     (MacroStabilityInwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
@@ -462,7 +462,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as MacroStabilityInwardsFailureMechanism;
 

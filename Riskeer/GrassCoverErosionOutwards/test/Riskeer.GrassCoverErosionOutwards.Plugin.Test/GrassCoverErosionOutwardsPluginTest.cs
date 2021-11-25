@@ -91,7 +91,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
-                    typeof(GrassCoverErosionOutwardsFailureMechanismResultView));
+                    typeof(GrassCoverErosionOutwardsFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

@@ -79,10 +79,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            using (var view = new StabilityStoneCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityStoneCoverFailureMechanismSectionResult,
                     StabilityStoneCoverSectionResultRow,
                     StabilityStoneCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -204,14 +204,14 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 
         [TestFixture]
         public class StabilityStoneCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            StabilityStoneCoverResultView,
+            StabilityStoneCoverResultViewOld,
             StabilityStoneCoverFailureMechanism,
             StabilityStoneCoverFailureMechanismSectionResult,
             StabilityStoneCoverSectionResultRow>
         {
-            protected override StabilityStoneCoverResultView CreateResultView(StabilityStoneCoverFailureMechanism failureMechanism)
+            protected override StabilityStoneCoverResultViewOld CreateResultView(StabilityStoneCoverFailureMechanism failureMechanism)
             {
-                return new StabilityStoneCoverResultView(failureMechanism.SectionResults,
+                return new StabilityStoneCoverResultViewOld(failureMechanism.SectionResults,
                                                          failureMechanism);
             }
         }
@@ -222,10 +222,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             return control;
         }
 
-        private StabilityStoneCoverResultView ShowFailureMechanismResultsView(
+        private StabilityStoneCoverResultViewOld ShowFailureMechanismResultsView(
             StabilityStoneCoverFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new StabilityStoneCoverResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResults,
                                                                                failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

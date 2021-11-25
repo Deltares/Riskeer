@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.TestUtil
     /// <typeparam name="TCalculation">The type of calculations to get the input from.</typeparam>
     [TestFixture]
     public abstract class FailureMechanismAssemblyResultWithProbabilityControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation>
-        where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyControl>
+        where TView : FailureMechanismResultViewOld<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
         where TSectionResult : FailureMechanismSectionResult
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>

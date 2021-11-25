@@ -111,12 +111,12 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
                 IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
-                ClosingStructuresFailureMechanismResultView>(() => Gui)
+                ClosingStructuresFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new ClosingStructuresFailureMechanismResultView(
+                CreateInstance = context => new ClosingStructuresFailureMechanismResultViewOld(
                     context.WrappedData,
                     (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
@@ -296,7 +296,7 @@ namespace Riskeer.ClosingStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as ClosingStructuresFailureMechanism;
 

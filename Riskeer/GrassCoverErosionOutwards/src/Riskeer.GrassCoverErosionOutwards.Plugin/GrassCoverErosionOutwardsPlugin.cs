@@ -127,12 +127,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return new RiskeerViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                GrassCoverErosionOutwardsFailureMechanismResultView>(() => Gui)
+                GrassCoverErosionOutwardsFailureMechanismResultViewOld>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultView(
+                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultViewOld(
                     context.WrappedData,
                     (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism)
             };
@@ -280,7 +280,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultViewOld view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
 

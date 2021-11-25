@@ -27,17 +27,18 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
-        MacroStabilityInwardsFailureMechanismSectionResultRow,
-        MacroStabilityInwardsFailureMechanism,
-        FailureMechanismAssemblyControl>
+    public class GrassCoverErosionInwardsFailureMechanismResultViewOld
+        : FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResult,
+            GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+            GrassCoverErosionInwardsFailureMechanism,
+            FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
@@ -51,21 +52,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private const int combinedAssemblyProbabilityIndex = 10;
         private const int manualAssemblyProbabilityIndex = 12;
 
+        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismResultView(IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
-                                                               MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                               IAssessmentSection assessmentSection)
+        public GrassCoverErosionInwardsFailureMechanismResultViewOld(
+            IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+            GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -79,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                   .OfType<GrassCoverErosionInwardsCalculation>()
                                                    .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
@@ -98,15 +100,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
-            MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
         {
-            return new MacroStabilityInwardsFailureMechanismSectionResultRow(
+            return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
+                FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
-                new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
+                new GrassCoverErosionInwardsFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -126,55 +127,55 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.Name));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(GrassCoverErosionInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()
@@ -185,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
     }
 }

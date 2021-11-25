@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StrengthStabilityLengthwiseConstructionResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StrengthStabilityLengthwiseConstructionResultViewOld));
         }
 
         [TearDown]
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
 
-            using (var view = new StrengthStabilityLengthwiseConstructionResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new StrengthStabilityLengthwiseConstructionResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StrengthStabilityLengthwiseConstructionResultView>(view);
+            Assert.IsInstanceOf<StrengthStabilityLengthwiseConstructionResultViewOld>(view);
         }
     }
 }

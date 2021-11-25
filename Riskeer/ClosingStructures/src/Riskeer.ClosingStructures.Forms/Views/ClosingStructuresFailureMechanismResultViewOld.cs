@@ -22,22 +22,22 @@
 using System;
 using System.Linq;
 using Core.Common.Base;
+using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Piping.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> for closing structures.
     /// </summary>
-    public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult,
-        PipingFailureMechanismSectionResultRow,
-        PipingFailureMechanism,
+    public class ClosingStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResult,
+        ClosingStructuresFailureMechanismSectionResultRow,
+        ClosingStructuresFailureMechanism,
         FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
@@ -52,21 +52,22 @@ namespace Riskeer.Piping.Forms.Views
         private const int combinedAssemblyProbabilityIndex = 10;
         private const int manualAssemblyProbabilityIndex = 12;
 
+        private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismResultView(IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults,
-                                                PipingFailureMechanism failureMechanism,
-                                                IAssessmentSection assessmentSection)
+        public ClosingStructuresFailureMechanismResultViewOld(
+            IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
+            ClosingStructuresFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -80,7 +81,7 @@ namespace Riskeer.Piping.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                   .OfType<StructuresCalculation<ClosingStructuresInput>>()
                                                    .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
@@ -91,22 +92,14 @@ namespace Riskeer.Piping.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override void Dispose(bool disposing)
+        protected override ClosingStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
-        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
-        {
-            return new PipingFailureMechanismSectionResultRow(
+            return new ClosingStructuresFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
+                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
-                new PipingFailureMechanismSectionResultRow.ConstructionProperties
+                new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -122,59 +115,67 @@ namespace Riskeer.Piping.Forms.Views
                 });
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.Name));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(ClosingStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()
@@ -185,7 +186,7 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
     }
 }

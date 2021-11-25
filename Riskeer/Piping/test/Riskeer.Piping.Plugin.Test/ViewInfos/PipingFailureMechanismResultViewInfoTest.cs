@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingFailureMechanismResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingFailureMechanismResultViewOld));
         }
 
         [TearDown]
@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -131,7 +131,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -177,7 +177,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -198,7 +198,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new PipingFailureMechanism());
@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -241,7 +241,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
 
-            using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 var context = new PipingFailurePathContext(
                     new PipingFailureMechanism(),
@@ -274,7 +274,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismResultView>(view);
+            Assert.IsInstanceOf<PipingFailureMechanismResultViewOld>(view);
             mocks.VerifyAll();
         }
     }

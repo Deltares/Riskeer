@@ -454,49 +454,49 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
-                    typeof(StrengthStabilityLengthwiseConstructionResultView));
+                    typeof(StrengthStabilityLengthwiseConstructionResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
-                    typeof(WaterPressureAsphaltCoverResultView));
+                    typeof(WaterPressureAsphaltCoverResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>),
-                    typeof(MacroStabilityOutwardsResultView));
+                    typeof(MacroStabilityOutwardsResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
-                    typeof(GrassCoverSlipOffInwardsResultView));
+                    typeof(GrassCoverSlipOffInwardsResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
-                    typeof(GrassCoverSlipOffOutwardsResultView));
+                    typeof(GrassCoverSlipOffOutwardsResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult>),
-                    typeof(MicrostabilityResultView));
+                    typeof(MicrostabilityResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<PipingStructureFailureMechanismSectionResult>),
-                    typeof(PipingStructureResultView));
+                    typeof(PipingStructureResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult>),
-                    typeof(TechnicalInnovationResultView));
+                    typeof(TechnicalInnovationResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

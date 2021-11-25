@@ -126,7 +126,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>),
-                    typeof(WaveImpactAsphaltCoverFailureMechanismResultView));
+                    typeof(WaveImpactAsphaltCoverFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

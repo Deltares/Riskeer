@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaterPressureAsphaltCoverResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaterPressureAsphaltCoverResultViewOld));
         }
 
         [TearDown]
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<WaterPressureAsphaltCoverResultView>(view);
+            Assert.IsInstanceOf<WaterPressureAsphaltCoverResultViewOld>(view);
         }
     }
 }

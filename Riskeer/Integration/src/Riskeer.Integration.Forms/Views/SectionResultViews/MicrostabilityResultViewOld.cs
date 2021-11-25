@@ -31,40 +31,41 @@ using Riskeer.Integration.Forms.Views.SectionResultRows;
 namespace Riskeer.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StrengthStabilityLengthwiseConstructionResultView
-        : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
-            StrengthStabilityLengthwiseConstructionSectionResultRow,
-            StrengthStabilityLengthwiseConstructionFailureMechanism,
-            FailureMechanismAssemblyCategoryGroupControl>
+    public class MicrostabilityResultViewOld : FailureMechanismResultViewOld<MicrostabilityFailureMechanismSectionResult,
+        MicrostabilitySectionResultRow,
+        MicrostabilityFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
-        private const int tailorMadeAssessmentResultIndex = 2;
-        private const int simpleAssemblyCategoryGroupIndex = 3;
-        private const int tailorMadeAssemblyCategoryGroupIndex = 4;
-        private const int combinedAssemblyCategoryGroupIndex = 5;
-        private const int manualAssemblyCategoryGroupIndex = 7;
+        private const int detailedAssessmentResultIndex = 2;
+        private const int tailorMadeAssessmentResultIndex = 3;
+        private const int simpleAssemblyCategoryGroupIndex = 4;
+        private const int detailedAssemblyCategoryGroupIndex = 5;
+        private const int tailorMadeAssemblyCategoryGroupIndex = 6;
+        private const int combinedAssemblyCategoryGroupIndex = 7;
+        private const int manualAssemblyCategoryGroupIndex = 9;
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="StrengthStabilityLengthwiseConstructionResultView"/>.
+        /// Creates a new instance of <see cref="MicrostabilityResultViewOld"/>.
         /// </summary>
-        public StrengthStabilityLengthwiseConstructionResultView(
-            IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> failureMechanismSectionResults,
-            StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism)
+        public MicrostabilityResultViewOld(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults,
+                                        MicrostabilityFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism) {}
 
-        protected override StrengthStabilityLengthwiseConstructionSectionResultRow CreateFailureMechanismSectionResultRow(
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult)
+        protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)
         {
-            return new StrengthStabilityLengthwiseConstructionSectionResultRow(
+            return new MicrostabilitySectionResultRow(
                 sectionResult,
-                new StrengthStabilityLengthwiseConstructionSectionResultRow.ConstructionProperties
+                new MicrostabilitySectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
+                    DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
                     TailorMadeAssessmentResultIndex = tailorMadeAssessmentResultIndex,
                     SimpleAssemblyCategoryGroupIndex = simpleAssemblyCategoryGroupIndex,
+                    DetailedAssemblyCategoryGroupIndex = detailedAssemblyCategoryGroupIndex,
                     TailorMadeAssemblyCategoryGroupIndex = tailorMadeAssemblyCategoryGroupIndex,
                     CombinedAssemblyCategoryGroupIndex = combinedAssemblyCategoryGroupIndex,
                     ManualAssemblyCategoryGroupIndex = manualAssemblyCategoryGroupIndex
@@ -75,40 +76,48 @@ namespace Riskeer.Integration.Forms.Views.SectionResultViews
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.Name));
+                nameof(MicrostabilitySectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssessmentResult));
+                nameof(MicrostabilitySectionResultRow.SimpleAssessmentResult));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentResultColumn(
+                DataGridViewControl,
+                nameof(MicrostabilitySectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentResultColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssessmentResult));
+                nameof(MicrostabilitySectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRow.SimpleAssemblyCategoryGroup));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
+                DataGridViewControl,
+                nameof(MicrostabilitySectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.UseManualAssembly));
+                nameof(MicrostabilitySectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(StrengthStabilityLengthwiseConstructionSectionResultRow.ManualAssemblyCategoryGroup));
+                nameof(MicrostabilitySectionResultRow.ManualAssemblyCategoryGroup));
         }
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, true));
         }
     }
 }

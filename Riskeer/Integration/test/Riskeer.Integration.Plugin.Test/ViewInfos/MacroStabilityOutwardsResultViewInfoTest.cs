@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsResultViewOld));
         }
 
         [TearDown]
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, otherAssessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, otherAssessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityOutwardsResultView>(view);
+            Assert.IsInstanceOf<MacroStabilityOutwardsResultViewOld>(view);
             mocks.VerifyAll();
         }
     }

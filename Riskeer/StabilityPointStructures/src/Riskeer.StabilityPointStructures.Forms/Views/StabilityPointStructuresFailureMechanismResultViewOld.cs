@@ -28,18 +28,18 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
-using Riskeer.HeightStructures.Data;
+using Riskeer.StabilityPointStructures.Data;
 
-namespace Riskeer.HeightStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>
+    /// for stability point structures.
     /// </summary>
-    public class HeightStructuresFailureMechanismResultView
-        : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult,
-            HeightStructuresFailureMechanismSectionResultRow,
-            HeightStructuresFailureMechanism,
-            FailureMechanismAssemblyControl>
+    public class StabilityPointStructuresFailureMechanismResultViewOld : FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResult,
+        StabilityPointStructuresFailureMechanismSectionResultRow,
+        StabilityPointStructuresFailureMechanism,
+        FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
@@ -58,16 +58,16 @@ namespace Riskeer.HeightStructures.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismResultView"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultViewOld"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="HeightStructuresFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismResultView(
-            IObservableEnumerable<HeightStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
-            HeightStructuresFailureMechanism failureMechanism,
+        public StabilityPointStructuresFailureMechanismResultViewOld(
+            IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
+            StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
         {
@@ -82,7 +82,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
                                                    .Select(c => c.InputParameters)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
@@ -94,22 +94,14 @@ namespace Riskeer.HeightStructures.Forms.Views
             calculationGroupObserver.Observable = observableGroup;
         }
 
-        protected override void Dispose(bool disposing)
+        protected override StabilityPointStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            base.Dispose(disposing);
-        }
-
-        protected override HeightStructuresFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
-        {
-            return new HeightStructuresFailureMechanismSectionResultRow(
+            return new StabilityPointStructuresFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
+                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
-                new HeightStructuresFailureMechanismSectionResultRow.ConstructionProperties
+                new StabilityPointStructuresFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = simpleAssessmentResultIndex,
                     DetailedAssessmentResultIndex = detailedAssessmentResultIndex,
@@ -125,59 +117,67 @@ namespace Riskeer.HeightStructures.Forms.Views
                 });
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.Name));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.Name));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssessmentValidityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityOnlyResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityCalculationResultColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssessmentProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssessmentProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.SimpleAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddDetailedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.DetailedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.TailorMadeAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyCategoryGroupColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyCategoryGroup));
 
             FailureMechanismSectionResultViewColumnBuilder.AddCombinedAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.CombinedAssemblyProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddUseManualAssemblyColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.UseManualAssembly));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.UseManualAssembly));
 
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
-                nameof(HeightStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+                nameof(StabilityPointStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
 
         protected override void RefreshDataGrid()
@@ -188,7 +188,7 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         protected override void UpdateAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection, true));
         }
     }
 }

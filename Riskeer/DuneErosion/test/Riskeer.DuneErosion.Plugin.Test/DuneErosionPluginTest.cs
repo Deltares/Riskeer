@@ -153,7 +153,7 @@ namespace Riskeer.DuneErosion.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<DuneErosionFailureMechanismSectionResult>),
-                    typeof(DuneErosionFailureMechanismResultView));
+                    typeof(DuneErosionFailureMechanismResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

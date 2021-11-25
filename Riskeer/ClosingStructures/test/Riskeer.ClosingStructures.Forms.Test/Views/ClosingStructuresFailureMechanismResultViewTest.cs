@@ -85,10 +85,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            using (var view = new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResult,
                     ClosingStructuresFailureMechanismSectionResultRow,
                     ClosingStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -106,7 +106,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -273,15 +273,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         [TestFixture]
         public class ClosingStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            ClosingStructuresFailureMechanismResultView,
+            ClosingStructuresFailureMechanismResultViewOld,
             ClosingStructuresFailureMechanism,
             ClosingStructuresFailureMechanismSectionResult,
             ClosingStructuresFailureMechanismSectionResultRow,
             StructuresCalculation<ClosingStructuresInput>>
         {
-            protected override ClosingStructuresFailureMechanismResultView CreateResultView(ClosingStructuresFailureMechanism failureMechanism)
+            protected override ClosingStructuresFailureMechanismResultViewOld CreateResultView(ClosingStructuresFailureMechanism failureMechanism)
             {
-                return new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+                return new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                        failureMechanism,
                                                                        new AssessmentSectionStub());
             }
@@ -292,9 +292,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             }
         }
 
-        private ClosingStructuresFailureMechanismResultView ShowFailureMechanismResultsView(ClosingStructuresFailureMechanism failureMechanism)
+        private ClosingStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(ClosingStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                              failureMechanism,
                                                                                              new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

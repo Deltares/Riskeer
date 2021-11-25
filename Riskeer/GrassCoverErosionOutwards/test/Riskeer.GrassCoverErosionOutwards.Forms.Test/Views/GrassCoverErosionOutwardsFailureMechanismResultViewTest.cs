@@ -79,10 +79,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResult,
                     GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
                     GrassCoverErosionOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -204,14 +204,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 
         [TestFixture]
         public class GrassCoverErosionOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            GrassCoverErosionOutwardsFailureMechanismResultView,
+            GrassCoverErosionOutwardsFailureMechanismResultViewOld,
             GrassCoverErosionOutwardsFailureMechanism,
             GrassCoverErosionOutwardsFailureMechanismSectionResult,
             GrassCoverErosionOutwardsFailureMechanismSectionResultRow>
         {
-            protected override GrassCoverErosionOutwardsFailureMechanismResultView CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+            protected override GrassCoverErosionOutwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             {
-                return new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults,
+                return new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                failureMechanism);
             }
         }
@@ -222,10 +222,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             return control;
         }
 
-        private GrassCoverErosionOutwardsFailureMechanismResultView ShowFailureMechanismResultsView(
+        private GrassCoverErosionOutwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new GrassCoverErosionOutwardsFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                                      failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

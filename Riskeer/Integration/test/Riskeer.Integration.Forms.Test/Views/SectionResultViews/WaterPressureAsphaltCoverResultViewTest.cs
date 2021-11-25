@@ -74,10 +74,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResult,
                     WaterPressureAsphaltCoverSectionResultRow,
                     WaterPressureAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
@@ -191,14 +191,14 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
 
         [TestFixture]
         public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            WaterPressureAsphaltCoverResultView,
+            WaterPressureAsphaltCoverResultViewOld,
             WaterPressureAsphaltCoverFailureMechanism,
             WaterPressureAsphaltCoverFailureMechanismSectionResult,
             WaterPressureAsphaltCoverSectionResultRow>
         {
-            protected override WaterPressureAsphaltCoverResultView CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)
+            protected override WaterPressureAsphaltCoverResultViewOld CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             {
-                return new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults,
+                return new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
                                                                failureMechanism);
             }
         }
@@ -209,10 +209,10 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             return control;
         }
 
-        private WaterPressureAsphaltCoverResultView ShowFailureMechanismResultsView(
+        private WaterPressureAsphaltCoverResultViewOld ShowFailureMechanismResultsView(
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new WaterPressureAsphaltCoverResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
                                                                                      failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverSlipOffOutwardsResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverSlipOffOutwardsResultViewOld));
         }
 
         [TearDown]
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverSlipOffOutwardsResultView(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverSlipOffOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverSlipOffOutwardsResultView>(view);
+            Assert.IsInstanceOf<GrassCoverSlipOffOutwardsResultViewOld>(view);
         }
     }
 }

@@ -85,10 +85,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResult,
                     StabilityPointStructuresFailureMechanismSectionResultRow,
                     StabilityPointStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
@@ -106,7 +106,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -273,15 +273,15 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
         [TestFixture]
         public class StabilityPointStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            StabilityPointStructuresFailureMechanismResultView,
+            StabilityPointStructuresFailureMechanismResultViewOld,
             StabilityPointStructuresFailureMechanism,
             StabilityPointStructuresFailureMechanismSectionResult,
             StabilityPointStructuresFailureMechanismSectionResultRow,
             StructuresCalculation<StabilityPointStructuresInput>>
         {
-            protected override StabilityPointStructuresFailureMechanismResultView CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)
+            protected override StabilityPointStructuresFailureMechanismResultViewOld CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)
             {
-                return new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+                return new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                               failureMechanism,
                                                                               new AssessmentSectionStub());
             }
@@ -292,9 +292,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             }
         }
 
-        private StabilityPointStructuresFailureMechanismResultView ShowFailureMechanismResultsView(StabilityPointStructuresFailureMechanism failureMechanism)
+        private StabilityPointStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
                                                                                                     failureMechanism,
                                                                                                     new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
