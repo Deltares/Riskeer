@@ -80,7 +80,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
@@ -100,7 +100,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
@@ -122,7 +122,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -228,7 +228,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
@@ -260,7 +260,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
@@ -290,7 +290,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -376,7 +376,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
@@ -407,7 +407,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
@@ -438,7 +438,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -549,7 +549,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -582,7 +582,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
@@ -612,7 +612,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
@@ -641,7 +641,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
@@ -727,7 +727,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
@@ -766,7 +766,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
@@ -805,7 +805,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
@@ -836,7 +836,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
@@ -870,7 +870,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
@@ -904,7 +904,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
@@ -938,7 +938,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 if (useManualAssembly)
                 {
                     calculator.ThrowExceptionOnCalculate = true;
@@ -1037,7 +1037,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
@@ -1072,7 +1072,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
@@ -1107,7 +1107,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
@@ -1195,7 +1195,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call

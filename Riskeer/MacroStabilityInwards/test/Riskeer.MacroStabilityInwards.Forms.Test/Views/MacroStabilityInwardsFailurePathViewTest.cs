@@ -212,7 +212,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyOutput = expectedDetailedAssembly;
@@ -458,7 +458,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
@@ -548,7 +548,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;
@@ -615,7 +615,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyOutput = originalDetailedAssembly;

@@ -43,7 +43,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCalculatorTest
+    public class FailureMechanismSectionAssemblyCalculatorOldTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -54,10 +54,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             mocks.ReplayAll();
 
             // Call
-            var calculator = new FailureMechanismSectionAssemblyCalculator(kernelFactory);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorOld(kernelFactory);
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
+            Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculatorOld>(calculator);
             mocks.VerifyAll();
         }
 
@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionAssemblyCalculator(null);
+            TestDelegate call = () => new FailureMechanismSectionAssemblyCalculatorOld(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -126,7 +126,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentResultType) 99);
@@ -151,7 +151,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleSimpleAssessment(assessmentResult);
@@ -174,7 +174,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentResultType>());
@@ -196,7 +196,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentResultType>());
@@ -219,7 +219,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentResultType>());
@@ -242,7 +242,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentResultType>());
@@ -264,7 +264,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment((SimpleAssessmentValidityOnlyResultType) 99);
@@ -289,7 +289,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleSimpleAssessment(assessmentResult);
@@ -312,7 +312,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>());
@@ -334,7 +334,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>());
@@ -357,7 +357,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>());
@@ -380,7 +380,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleSimpleAssessment(random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>());
@@ -406,7 +406,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment((DetailedAssessmentResultType) 99);
@@ -431,7 +431,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(detailedAssessmentResult);
@@ -455,7 +455,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(detailedAssessmentResult);
@@ -479,7 +479,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleDetailedAssessment(
@@ -504,7 +504,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -529,7 +529,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -553,7 +553,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -587,7 +587,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(
@@ -623,7 +623,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(
@@ -653,7 +653,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
@@ -678,7 +678,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -704,7 +704,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -730,7 +730,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -756,7 +756,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -794,7 +794,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(
@@ -832,7 +832,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(
@@ -862,7 +862,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
@@ -889,7 +889,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -917,7 +917,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -945,7 +945,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -973,7 +973,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1009,7 +1009,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(
@@ -1047,7 +1047,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(
@@ -1078,7 +1078,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleDetailedAssessment(
@@ -1104,7 +1104,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1131,7 +1131,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1158,7 +1158,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1185,7 +1185,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1219,7 +1219,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleDetailedAssessment(detailedAssessmentResultForFactorizedSignalingNorm,
@@ -1255,7 +1255,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1283,7 +1283,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleDetailedAssessment(
@@ -1311,7 +1311,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1339,7 +1339,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleDetailedAssessment(
@@ -1387,7 +1387,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment((TailorMadeAssessmentResultType) 99);
@@ -1412,7 +1412,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
@@ -1436,7 +1436,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
@@ -1460,7 +1460,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleTailorMadeAssessment(
@@ -1485,7 +1485,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1510,7 +1510,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1534,7 +1534,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1571,7 +1571,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, normativeNorm, n, failureMechanismContribution);
@@ -1603,7 +1603,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability,
@@ -1631,7 +1631,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
@@ -1657,7 +1657,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1685,7 +1685,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1713,7 +1713,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1741,7 +1741,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1775,7 +1775,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, assemblyCategoriesInput);
@@ -1807,7 +1807,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
@@ -1835,7 +1835,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
@@ -1860,7 +1860,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1886,7 +1886,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1912,7 +1912,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1938,7 +1938,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -1974,7 +1974,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, n, assemblyCategoriesInput);
@@ -2008,7 +2008,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
@@ -2038,7 +2038,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleTailorMadeAssessment(
@@ -2064,7 +2064,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -2091,7 +2091,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -2118,7 +2118,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -2144,7 +2144,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment((TailorMadeAssessmentCategoryGroupResultType) 99);
@@ -2169,7 +2169,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleTailorMadeAssessment(categoryGroupResult);
@@ -2194,7 +2194,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleTailorMadeAssessment(
@@ -2218,7 +2218,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -2242,7 +2242,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -2266,7 +2266,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleTailorMadeAssessment(
@@ -2295,7 +2295,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2322,7 +2322,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleCombined(simpleAssembly);
@@ -2347,7 +2347,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleCombined(
@@ -2371,7 +2371,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2396,7 +2396,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2421,7 +2421,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2446,7 +2446,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2477,7 +2477,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
@@ -2502,7 +2502,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleCombined(
@@ -2528,7 +2528,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2555,7 +2555,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2582,7 +2582,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2607,7 +2607,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined((FailureMechanismSectionAssemblyCategoryGroup) 99);
@@ -2632,7 +2632,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleCombined(simpleAssembly);
@@ -2656,7 +2656,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup group = calculator.AssembleCombined(
@@ -2681,7 +2681,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2706,7 +2706,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2731,7 +2731,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2755,7 +2755,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined((FailureMechanismSectionAssemblyCategoryGroup) 99,
@@ -2782,7 +2782,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleCombined(simpleAssembly, tailorMadeAssembly);
@@ -2806,7 +2806,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup group = calculator.AssembleCombined(
@@ -2832,7 +2832,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2858,7 +2858,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2884,7 +2884,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -2910,7 +2910,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined((FailureMechanismSectionAssemblyCategoryGroup) 99,
@@ -2939,7 +2939,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
@@ -2963,7 +2963,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup group = calculator.AssembleCombined(
@@ -2990,7 +2990,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -3017,7 +3017,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -3044,7 +3044,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
@@ -3093,7 +3093,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleManual(probability, assemblyCategoriesInput);
@@ -3124,7 +3124,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleManual(double.NaN, assemblyCategoriesInput);
@@ -3150,7 +3150,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleManual(random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3172,7 +3172,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleManual(random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3195,7 +3195,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleManual(random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3218,7 +3218,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleManual(random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3252,7 +3252,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleManual(
@@ -3288,7 +3288,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 calculator.AssembleManual(double.NaN, n, assemblyCategoriesInput);
@@ -3315,7 +3315,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 FailureMechanismSectionAssembly assembly = calculator.AssembleManual(random.NextDouble(), random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3337,7 +3337,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 kernel.FailureMechanismSectionDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability((EFmSectionCategory) 99,
                                                                                                                              random.NextDouble());
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleManual(random.NextDouble(), random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3360,7 +3360,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleManual(random.NextDouble(), random.NextDouble(), CreateAssemblyCategoriesInput());
@@ -3383,7 +3383,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyKernelStubOld kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyCalculatorOld(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleManual(random.NextDouble(), random.NextDouble(), CreateAssemblyCategoriesInput());

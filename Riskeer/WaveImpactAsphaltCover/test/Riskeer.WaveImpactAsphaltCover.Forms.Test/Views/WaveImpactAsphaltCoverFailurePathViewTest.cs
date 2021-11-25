@@ -191,7 +191,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyGroupOutput = expectedDetailedAssemblyCategory;
@@ -428,7 +428,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
@@ -501,7 +501,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
@@ -568,7 +568,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
                 calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;

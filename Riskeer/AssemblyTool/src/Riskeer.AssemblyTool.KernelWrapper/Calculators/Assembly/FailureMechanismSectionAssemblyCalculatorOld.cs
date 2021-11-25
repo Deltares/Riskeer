@@ -38,16 +38,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// <summary>
     /// Class representing a failure mechanism section assembly calculator.
     /// </summary>
-    public class FailureMechanismSectionAssemblyCalculator : IFailureMechanismSectionAssemblyCalculator
+    public class FailureMechanismSectionAssemblyCalculatorOld : IFailureMechanismSectionAssemblyCalculatorOld
     {
         private readonly IAssemblyToolKernelFactoryOld factory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyCalculator"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyCalculatorOld"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
+        public FailureMechanismSectionAssemblyCalculatorOld(IAssemblyToolKernelFactoryOld factory)
         {
             if (factory == null)
             {

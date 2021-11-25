@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         public TestAssemblyToolCalculatorFactory()
         {
             LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
-            LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorStub();
+            LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorOldStub();
             LastCreatedFailureMechanismAssemblyCalculator = new FailureMechanismAssemblyCalculatorStub();
             LastCreatedAssessmentSectionAssemblyCalculator = new AssessmentSectionAssemblyCalculatorStub();
         }
@@ -50,9 +50,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         public AssemblyCategoriesCalculatorStub LastCreatedAssemblyCategoriesCalculator { get; }
 
         /// <summary>
-        /// Gets the last created <see cref="FailureMechanismSectionAssemblyCalculatorStub"/>.
+        /// Gets the last created <see cref="FailureMechanismSectionAssemblyCalculatorOldStub"/>.
         /// </summary>
-        public FailureMechanismSectionAssemblyCalculatorStub LastCreatedFailureMechanismSectionAssemblyCalculator { get; }
+        public FailureMechanismSectionAssemblyCalculatorOldStub LastCreatedFailureMechanismSectionAssemblyCalculator { get; }
 
         /// <summary>
         /// Gets the last created <see cref="FailureMechanismAssemblyCalculatorStub"/>.
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
             return LastCreatedAssemblyCategoriesCalculator;
         }
 
-        public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
+        public IFailureMechanismSectionAssemblyCalculatorOld CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
         {
             return LastCreatedFailureMechanismSectionAssemblyCalculator;
         }

@@ -230,7 +230,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
             }
@@ -251,7 +251,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 var row = (StabilityPointStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(0.1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[combinedAssemblyProbabilityIndex];
                 int initialWidth = dataGridViewCell.OwningColumn.Width;

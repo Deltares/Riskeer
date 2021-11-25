@@ -229,7 +229,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -382,7 +382,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -444,7 +444,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 var row = new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld(result, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
@@ -689,7 +689,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
                 calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
                 calculator.DetailedAssessmentAssemblyOutput = assemblyOutput;

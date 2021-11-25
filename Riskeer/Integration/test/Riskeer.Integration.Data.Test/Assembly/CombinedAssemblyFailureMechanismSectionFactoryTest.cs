@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResultsOld,
                                          sectionCalculator.ManualAssemblyAssemblyOutput.Group,
                                          input.Single());
@@ -233,7 +233,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResultsOld,
                                          sectionCalculator.CombinedAssemblyOutput.Group,
                                          input.Single());
@@ -279,7 +279,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, input.Single().Single().CategoryGroup);
             }
         }

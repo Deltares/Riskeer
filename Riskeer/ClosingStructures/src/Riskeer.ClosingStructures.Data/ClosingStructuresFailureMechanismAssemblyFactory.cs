@@ -60,7 +60,7 @@ namespace Riskeer.ClosingStructures.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator =
+            IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -112,7 +112,7 @@ namespace Riskeer.ClosingStructures.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator =
+            IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -160,7 +160,7 @@ namespace Riskeer.ClosingStructures.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator =
+            IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -215,7 +215,7 @@ namespace Riskeer.ClosingStructures.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator =
+            IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -371,7 +371,7 @@ namespace Riskeer.ClosingStructures.Data
                                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator calculator =
+            IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
             try

@@ -228,7 +228,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -380,7 +380,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -442,7 +442,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 var row = new PipingFailureMechanismSectionResultRowOld(result,
@@ -687,7 +687,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
                 calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
                 calculator.DetailedAssessmentAssemblyOutput = assemblyOutput;

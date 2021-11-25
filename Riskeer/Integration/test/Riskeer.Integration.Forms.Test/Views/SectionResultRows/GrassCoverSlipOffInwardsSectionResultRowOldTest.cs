@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -157,7 +157,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -245,7 +245,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -288,7 +288,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 var row = new GrassCoverSlipOffInwardsSectionResultRowOld(result, ConstructionProperties);
@@ -402,7 +402,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 var assemblyOutput = new FailureMechanismSectionAssembly(0, assemblyCategoryGroup);
                 calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;
                 calculator.DetailedAssessmentAssemblyGroupOutput = assemblyCategoryGroup;

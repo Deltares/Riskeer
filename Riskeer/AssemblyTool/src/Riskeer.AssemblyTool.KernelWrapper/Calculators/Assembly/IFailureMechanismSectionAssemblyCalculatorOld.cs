@@ -30,7 +30,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// <summary>
     /// Interface representing a failure mechanism section assembly calculator.
     /// </summary>
-    public interface IFailureMechanismSectionAssemblyCalculator
+    public interface IFailureMechanismSectionAssemblyCalculatorOld
     {
         /// <summary>
         /// Assembles the simple assessment for the given <paramref name="input"/>.

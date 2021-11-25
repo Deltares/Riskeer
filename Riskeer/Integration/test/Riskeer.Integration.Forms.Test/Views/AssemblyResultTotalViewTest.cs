@@ -645,7 +645,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub failureMechanismCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // When
@@ -679,7 +679,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         private static void AssertFailureMechanismsWithProbabilityCalculatorInput(IFailureMechanism failureMechanism,
-                                                                                  FailureMechanismSectionAssemblyCalculatorStub calculator)
+                                                                                  FailureMechanismSectionAssemblyCalculatorOldStub calculator)
         {
             var piping = failureMechanism as PipingFailureMechanism;
             if (piping != null)

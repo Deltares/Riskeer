@@ -154,7 +154,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyCategoriesInput);
                 Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyNInput);
                 Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
