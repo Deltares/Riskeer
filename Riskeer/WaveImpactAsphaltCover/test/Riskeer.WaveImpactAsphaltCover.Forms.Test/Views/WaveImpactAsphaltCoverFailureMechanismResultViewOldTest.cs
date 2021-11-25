@@ -34,13 +34,13 @@ using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismResultViewTest
+    public class WaveImpactAsphaltCoverFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -76,15 +76,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
-                    GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld,
-                    GrassCoverErosionOutwardsFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
+                    WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld,
+                    WaveImpactAsphaltCoverFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -95,7 +95,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new GrassCoverErosionOutwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new WaveImpactAsphaltCoverFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -180,13 +180,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -203,16 +203,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [TestFixture]
-        public class GrassCoverErosionOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            GrassCoverErosionOutwardsFailureMechanismResultViewOld,
-            GrassCoverErosionOutwardsFailureMechanism,
-            GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
-            GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld>
+        public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            WaveImpactAsphaltCoverFailureMechanismResultViewOld,
+            WaveImpactAsphaltCoverFailureMechanism,
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
+            WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld>
         {
-            protected override GrassCoverErosionOutwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+            protected override WaveImpactAsphaltCoverFailureMechanismResultViewOld CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             {
-                return new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                               failureMechanism);
+                return new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                            failureMechanism);
             }
         }
 
@@ -222,11 +222,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             return control;
         }
 
-        private GrassCoverErosionOutwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private WaveImpactAsphaltCoverFailureMechanismResultViewOld ShowFailureMechanismResultsView(
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                                     failureMechanism);
+            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                                  failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

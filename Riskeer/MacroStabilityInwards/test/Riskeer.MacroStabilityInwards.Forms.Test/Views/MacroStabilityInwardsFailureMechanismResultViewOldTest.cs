@@ -31,19 +31,19 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Forms.Views;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Forms.Views;
 
-namespace Riskeer.StabilityPointStructures.Forms.Test.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismResultViewTest
+    public class MacroStabilityInwardsFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -82,15 +82,15 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            using (var view = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResultOld,
-                    StabilityPointStructuresFailureMechanismSectionResultRowOld,
-                    StabilityPointStructuresFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResultOld,
+                    MacroStabilityInwardsFailureMechanismSectionResultRowOld,
+                    MacroStabilityInwardsFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -103,21 +103,20 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
-
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithMacroStabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new MacroStabilityInwardsFailureMechanism()))
             {
                 // Then
                 DataGridView dataGridView = GetDataGridView();
@@ -176,7 +175,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -195,12 +194,12 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, cells[detailedAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
@@ -214,13 +213,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -241,14 +240,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (StabilityPointStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
+                var row = (MacroStabilityInwardsFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -272,31 +271,31 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [TestFixture]
-        public class StabilityPointStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            StabilityPointStructuresFailureMechanismResultViewOld,
-            StabilityPointStructuresFailureMechanism,
-            StabilityPointStructuresFailureMechanismSectionResultOld,
-            StabilityPointStructuresFailureMechanismSectionResultRowOld,
-            StructuresCalculation<StabilityPointStructuresInput>>
+        public class MacroStabilityInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
+            MacroStabilityInwardsFailureMechanismResultViewOld,
+            MacroStabilityInwardsFailureMechanism,
+            MacroStabilityInwardsFailureMechanismSectionResultOld,
+            MacroStabilityInwardsFailureMechanismSectionResultRowOld,
+            MacroStabilityInwardsCalculationScenario>
         {
-            protected override StabilityPointStructuresFailureMechanismResultViewOld CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)
+            protected override MacroStabilityInwardsFailureMechanismResultViewOld CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
             {
-                return new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                              failureMechanism,
-                                                                              new AssessmentSectionStub());
+                return new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                           failureMechanism,
+                                                                           new AssessmentSectionStub());
             }
 
-            protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
+            protected override MacroStabilityInwardsCalculationScenario CreateCalculation()
             {
-                return new StructuresCalculation<StabilityPointStructuresInput>();
+                return MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             }
         }
 
-        private StabilityPointStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(StabilityPointStructuresFailureMechanism failureMechanism)
+        private MacroStabilityInwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                                    failureMechanism,
-                                                                                                    new AssessmentSectionStub());
+            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                                 failureMechanism,
+                                                                                                 new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

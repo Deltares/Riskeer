@@ -31,18 +31,19 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.Forms.Views;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.Views;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
+namespace Riskeer.HeightStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismResultViewTest
+    public class HeightStructuresFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -81,15 +82,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionInwardsFailureMechanismSectionResultOld,
-                    GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
-                    GrassCoverErosionInwardsFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResultOld,
+                    HeightStructuresFailureMechanismSectionResultRowOld,
+                    HeightStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -102,20 +103,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void GivenFormWithGrassCoverErosionInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithHeightStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new HeightStructuresFailureMechanism()))
             {
                 // Then
                 DataGridView dataGridView = GetDataGridView();
@@ -174,7 +176,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -193,12 +195,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, cells[detailedAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
@@ -212,13 +214,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -239,14 +241,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (GrassCoverErosionInwardsFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
+                var row = (HeightStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -270,31 +272,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [TestFixture]
-        public class GrassCoverErosionInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            GrassCoverErosionInwardsFailureMechanismResultViewOld,
-            GrassCoverErosionInwardsFailureMechanism,
-            GrassCoverErosionInwardsFailureMechanismSectionResultOld,
-            GrassCoverErosionInwardsFailureMechanismSectionResultRowOld,
-            GrassCoverErosionInwardsCalculation>
+        public class HeightStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
+            HeightStructuresFailureMechanismResultViewOld,
+            HeightStructuresFailureMechanism,
+            HeightStructuresFailureMechanismSectionResultOld,
+            HeightStructuresFailureMechanismSectionResultRowOld,
+            StructuresCalculation<HeightStructuresInput>>
         {
-            protected override GrassCoverErosionInwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            protected override HeightStructuresFailureMechanismResultViewOld CreateResultView(HeightStructuresFailureMechanism failureMechanism)
             {
-                return new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                              failureMechanism,
-                                                                              new AssessmentSectionStub());
+                return new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                      failureMechanism,
+                                                                      new AssessmentSectionStub());
             }
 
-            protected override GrassCoverErosionInwardsCalculation CreateCalculation()
+            protected override StructuresCalculation<HeightStructuresInput> CreateCalculation()
             {
-                return new GrassCoverErosionInwardsCalculation();
+                return new StructuresCalculation<HeightStructuresInput>();
             }
         }
 
-        private GrassCoverErosionInwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private HeightStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                                    failureMechanism,
-                                                                                                    new AssessmentSectionStub());
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                            failureMechanism,
+                                                                                            new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -34,13 +34,13 @@ using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.Views;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 
-namespace Riskeer.DuneErosion.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismResultViewTest
+    public class GrassCoverErosionOutwardsFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -76,15 +76,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<DuneErosionFailureMechanismSectionResultOld,
-                    DuneErosionSectionResultRowOld,
-                    DuneErosionFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
+                    GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld,
+                    GrassCoverErosionOutwardsFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -95,7 +95,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new DuneErosionFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new GrassCoverErosionOutwardsFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -141,7 +141,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -160,14 +160,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForLowerLimitNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedLowerLimitNormIndex].Value);
                 Assert.AreEqual(TailorMadeAssessmentCategoryGroupResultType.None, cells[tailorMadeResultIndex].Value);
-                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[combinedAssemblyCategoryGroupIndex].Value);
@@ -180,13 +180,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new DuneErosionFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -203,16 +203,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [TestFixture]
-        public class DuneErosionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            DuneErosionFailureMechanismResultViewOld,
-            DuneErosionFailureMechanism,
-            DuneErosionFailureMechanismSectionResultOld,
-            DuneErosionSectionResultRowOld>
+        public class GrassCoverErosionOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            GrassCoverErosionOutwardsFailureMechanismResultViewOld,
+            GrassCoverErosionOutwardsFailureMechanism,
+            GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
+            GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld>
         {
-            protected override DuneErosionFailureMechanismResultViewOld CreateResultView(DuneErosionFailureMechanism failureMechanism)
+            protected override GrassCoverErosionOutwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             {
-                return new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                 failureMechanism);
+                return new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                               failureMechanism);
             }
         }
 
@@ -222,11 +222,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             return control;
         }
 
-        private DuneErosionFailureMechanismResultViewOld ShowFailureMechanismResultsView(
-            DuneErosionFailureMechanism failureMechanism)
+        private GrassCoverErosionOutwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                       failureMechanism);
+            var failureMechanismResultView = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                                     failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

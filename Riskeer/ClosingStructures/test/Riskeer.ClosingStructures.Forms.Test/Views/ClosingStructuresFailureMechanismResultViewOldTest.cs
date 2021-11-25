@@ -30,21 +30,20 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
-using Riskeer.Piping.Forms.Views;
 
-namespace Riskeer.Piping.Forms.Test.Views
+namespace Riskeer.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingFailureMechanismResultViewTest
+    public class ClosingStructuresFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -83,15 +82,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
-                    PipingFailureMechanismSectionResultRowOld,
-                    PipingFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResultOld,
+                    ClosingStructuresFailureMechanismSectionResultRowOld,
+                    ClosingStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -104,20 +103,21 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void GivenFormWithPipingFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new PipingFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
             {
                 // Then
                 DataGridView dataGridView = GetDataGridView();
@@ -176,7 +176,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -214,13 +214,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -241,14 +241,14 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (PipingFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
+                var row = (ClosingStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -272,31 +272,31 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [TestFixture]
-        public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            PipingFailureMechanismResultViewOld,
-            PipingFailureMechanism,
-            PipingFailureMechanismSectionResultOld,
-            PipingFailureMechanismSectionResultRowOld,
-            SemiProbabilisticPipingCalculationScenario>
+        public class ClosingStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
+            ClosingStructuresFailureMechanismResultViewOld,
+            ClosingStructuresFailureMechanism,
+            ClosingStructuresFailureMechanismSectionResultOld,
+            ClosingStructuresFailureMechanismSectionResultRowOld,
+            StructuresCalculation<ClosingStructuresInput>>
         {
-            protected override PipingFailureMechanismResultViewOld CreateResultView(PipingFailureMechanism failureMechanism)
+            protected override ClosingStructuresFailureMechanismResultViewOld CreateResultView(ClosingStructuresFailureMechanism failureMechanism)
             {
-                return new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                            failureMechanism,
-                                                            new AssessmentSectionStub());
+                return new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                       failureMechanism,
+                                                                       new AssessmentSectionStub());
             }
 
-            protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
+            protected override StructuresCalculation<ClosingStructuresInput> CreateCalculation()
             {
-                return SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
+                return new StructuresCalculation<ClosingStructuresInput>();
             }
         }
 
-        private PipingFailureMechanismResultViewOld ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
+        private ClosingStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(ClosingStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                  failureMechanism,
-                                                                                  new AssessmentSectionStub());
+            var failureMechanismResultView = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                             failureMechanism,
+                                                                                             new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -36,14 +36,15 @@ using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
+using Riskeer.Piping.Forms.Views;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
+namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismResultViewTest
+    public class PipingFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -82,15 +83,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResultOld,
-                    MacroStabilityInwardsFailureMechanismSectionResultRowOld,
-                    MacroStabilityInwardsFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
+                    PipingFailureMechanismSectionResultRowOld,
+                    PipingFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -103,20 +104,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void GivenFormWithMacroStabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithPipingFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new MacroStabilityInwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 // Then
                 DataGridView dataGridView = GetDataGridView();
@@ -175,7 +176,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -213,13 +214,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -240,14 +241,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (MacroStabilityInwardsFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
+                var row = (PipingFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -271,31 +272,31 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [TestFixture]
-        public class MacroStabilityInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            MacroStabilityInwardsFailureMechanismResultViewOld,
-            MacroStabilityInwardsFailureMechanism,
-            MacroStabilityInwardsFailureMechanismSectionResultOld,
-            MacroStabilityInwardsFailureMechanismSectionResultRowOld,
-            MacroStabilityInwardsCalculationScenario>
+        public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
+            PipingFailureMechanismResultViewOld,
+            PipingFailureMechanism,
+            PipingFailureMechanismSectionResultOld,
+            PipingFailureMechanismSectionResultRowOld,
+            SemiProbabilisticPipingCalculationScenario>
         {
-            protected override MacroStabilityInwardsFailureMechanismResultViewOld CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
+            protected override PipingFailureMechanismResultViewOld CreateResultView(PipingFailureMechanism failureMechanism)
             {
-                return new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                           failureMechanism,
-                                                                           new AssessmentSectionStub());
+                return new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                            failureMechanism,
+                                                            new AssessmentSectionStub());
             }
 
-            protected override MacroStabilityInwardsCalculationScenario CreateCalculation()
+            protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
             {
-                return MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
+                return SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
             }
         }
 
-        private MacroStabilityInwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(MacroStabilityInwardsFailureMechanism failureMechanism)
+        private PipingFailureMechanismResultViewOld ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                                 failureMechanism,
-                                                                                                 new AssessmentSectionStub());
+            var failureMechanismResultView = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                  failureMechanism,
+                                                                                  new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

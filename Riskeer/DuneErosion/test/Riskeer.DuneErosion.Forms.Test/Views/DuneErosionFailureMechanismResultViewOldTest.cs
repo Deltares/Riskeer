@@ -34,13 +34,13 @@ using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.Views;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
+namespace Riskeer.DuneErosion.Forms.Test.Views
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailureMechanismResultViewTest
+    public class DuneErosionFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -76,15 +76,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
-                    WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld,
-                    WaveImpactAsphaltCoverFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<DuneErosionFailureMechanismSectionResultOld,
+                    DuneErosionSectionResultRowOld,
+                    DuneErosionFailureMechanism,
                     FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -95,7 +95,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenFormWithFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new WaveImpactAsphaltCoverFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new DuneErosionFailureMechanism()))
             {
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -141,7 +141,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -160,14 +160,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForSignalingNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForLowerLimitNormIndex].Value);
                 Assert.AreEqual(DetailedAssessmentResultType.None, cells[detailedAssessmentResultForFactorizedLowerLimitNormIndex].Value);
                 Assert.AreEqual(TailorMadeAssessmentCategoryGroupResultType.None, cells[tailorMadeResultIndex].Value);
-                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("IIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("Iv", cells[combinedAssemblyCategoryGroupIndex].Value);
@@ -180,13 +180,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var failureMechanism = new DuneErosionFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -203,16 +203,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [TestFixture]
-        public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
-            WaveImpactAsphaltCoverFailureMechanismResultViewOld,
-            WaveImpactAsphaltCoverFailureMechanism,
-            WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
-            WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld>
+        public class DuneErosionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
+            DuneErosionFailureMechanismResultViewOld,
+            DuneErosionFailureMechanism,
+            DuneErosionFailureMechanismSectionResultOld,
+            DuneErosionSectionResultRowOld>
         {
-            protected override WaveImpactAsphaltCoverFailureMechanismResultViewOld CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+            protected override DuneErosionFailureMechanismResultViewOld CreateResultView(DuneErosionFailureMechanism failureMechanism)
             {
-                return new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                            failureMechanism);
+                return new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                 failureMechanism);
             }
         }
 
@@ -222,11 +222,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             return control;
         }
 
-        private WaveImpactAsphaltCoverFailureMechanismResultViewOld ShowFailureMechanismResultsView(
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private DuneErosionFailureMechanismResultViewOld ShowFailureMechanismResultsView(
+            DuneErosionFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                                  failureMechanism);
+            var failureMechanismResultView = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                       failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

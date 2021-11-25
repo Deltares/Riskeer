@@ -42,7 +42,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismResultViewTest
+    public class FailureMechanismResultViewOldTest
     {
         private const string manualAssemblyWarning = "Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.";
         private Form testForm;

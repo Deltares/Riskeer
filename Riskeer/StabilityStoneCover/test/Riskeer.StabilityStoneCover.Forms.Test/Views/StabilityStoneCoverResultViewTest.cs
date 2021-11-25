@@ -40,7 +40,7 @@ using Riskeer.StabilityStoneCover.Forms.Views;
 namespace Riskeer.StabilityStoneCover.Forms.Test.Views
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismResultViewTest
+    public class StabilityStoneCoverFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;

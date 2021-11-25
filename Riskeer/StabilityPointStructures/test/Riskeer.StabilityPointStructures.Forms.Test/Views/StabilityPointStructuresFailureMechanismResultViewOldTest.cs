@@ -30,8 +30,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -39,11 +37,13 @@ using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityPointStructures.Forms.Views;
 
-namespace Riskeer.ClosingStructures.Forms.Test.Views
+namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismResultViewTest
+    public class StabilityPointStructuresFailureMechanismResultViewOldTest
     {
         private const int nameColumnIndex = 0;
         private const int simpleAssessmentResultIndex = 1;
@@ -82,15 +82,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            using (var view = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultViewOld<ClosingStructuresFailureMechanismSectionResultOld,
-                    ClosingStructuresFailureMechanismSectionResultRowOld,
-                    ClosingStructuresFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultViewOld<StabilityPointStructuresFailureMechanismSectionResultOld,
+                    StabilityPointStructuresFailureMechanismSectionResultRowOld,
+                    StabilityPointStructuresFailureMechanism,
                     FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
@@ -103,10 +103,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -114,10 +114,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (ShowFailureMechanismResultsView(new ClosingStructuresFailureMechanism()))
+            using (ShowFailureMechanismResultsView(new StabilityPointStructuresFailureMechanism()))
             {
                 // Then
                 DataGridView dataGridView = GetDataGridView();
@@ -176,7 +176,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
@@ -195,12 +195,12 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(SimpleAssessmentResultType.None, cells[simpleAssessmentResultIndex].Value);
+                Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, cells[simpleAssessmentResultIndex].Value);
                 Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, cells[detailedAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[detailedAssessmentProbabilityIndex].FormattedValue);
                 Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, cells[tailorMadeAssessmentResultIndex].Value);
                 Assert.AreEqual("-", cells[tailorMadeAssessmentProbabilityIndex].FormattedValue);
-                Assert.AreEqual("Iv", cells[simpleAssemblyCategoryGroupIndex].Value);
+                Assert.AreEqual("VIIv", cells[simpleAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[detailedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[tailorMadeAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual("VIv", cells[combinedAssemblyCategoryGroupIndex].Value);
@@ -214,13 +214,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void GivenFailureMechanismResultsViewWithManualAssembly_WhenShown_ThenManualAssemblyUsed()
         {
             // Given
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -241,14 +241,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
-                var row = (ClosingStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
+                var row = (StabilityPointStructuresFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -272,31 +272,31 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [TestFixture]
-        public class ClosingStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
-            ClosingStructuresFailureMechanismResultViewOld,
-            ClosingStructuresFailureMechanism,
-            ClosingStructuresFailureMechanismSectionResultOld,
-            ClosingStructuresFailureMechanismSectionResultRowOld,
-            StructuresCalculation<ClosingStructuresInput>>
+        public class StabilityPointStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
+            StabilityPointStructuresFailureMechanismResultViewOld,
+            StabilityPointStructuresFailureMechanism,
+            StabilityPointStructuresFailureMechanismSectionResultOld,
+            StabilityPointStructuresFailureMechanismSectionResultRowOld,
+            StructuresCalculation<StabilityPointStructuresInput>>
         {
-            protected override ClosingStructuresFailureMechanismResultViewOld CreateResultView(ClosingStructuresFailureMechanism failureMechanism)
+            protected override StabilityPointStructuresFailureMechanismResultViewOld CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)
             {
-                return new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                       failureMechanism,
-                                                                       new AssessmentSectionStub());
+                return new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                              failureMechanism,
+                                                                              new AssessmentSectionStub());
             }
 
-            protected override StructuresCalculation<ClosingStructuresInput> CreateCalculation()
+            protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
             {
-                return new StructuresCalculation<ClosingStructuresInput>();
+                return new StructuresCalculation<StabilityPointStructuresInput>();
             }
         }
 
-        private ClosingStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(ClosingStructuresFailureMechanism failureMechanism)
+        private StabilityPointStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new ClosingStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
-                                                                                             failureMechanism,
-                                                                                             new AssessmentSectionStub());
+            var failureMechanismResultView = new StabilityPointStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                                                                                                    failureMechanism,
+                                                                                                    new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
