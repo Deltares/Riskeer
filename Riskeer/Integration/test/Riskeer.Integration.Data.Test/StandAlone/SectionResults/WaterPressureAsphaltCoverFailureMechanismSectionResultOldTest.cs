@@ -28,7 +28,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultTest
+    public class WaterPressureAsphaltCoverFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -37,13 +37,12 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsFalse(result.UseManualAssembly);
             Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);

@@ -19,15 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Primitives;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Riskeer.Common.Data.Test.FailureMechanism
+namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
-    public class FailureMechanismSectionResultTest
+    public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -36,27 +37,16 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new TestFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
-        }
-
-        [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TestFailureMechanismSectionResultOld(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
-        private class TestFailureMechanismSectionResultOld : FailureMechanismSectionResultOld
-        {
-            public TestFailureMechanismSectionResultOld(FailureMechanismSection section) : base(section) {}
+            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
+            Assert.IsFalse(result.UseManualAssembly);
+            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
     }
 }

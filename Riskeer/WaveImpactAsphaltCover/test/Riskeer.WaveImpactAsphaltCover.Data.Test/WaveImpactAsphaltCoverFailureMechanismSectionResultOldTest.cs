@@ -25,10 +25,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.StabilityStoneCover.Data.Test
+namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismSectionResultTest
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -37,12 +37,12 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
+            var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
-            Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedSignalingNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForSignalingNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);

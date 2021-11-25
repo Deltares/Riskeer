@@ -28,7 +28,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverFailureMechanismSectionResultTest
+    public class TechnicalInnovationFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
+            var result = new TechnicalInnovationFailureMechanismSectionResultOld(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);

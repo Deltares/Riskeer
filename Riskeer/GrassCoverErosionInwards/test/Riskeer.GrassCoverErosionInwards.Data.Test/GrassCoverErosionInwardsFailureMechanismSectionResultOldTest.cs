@@ -26,10 +26,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.StabilityPointStructures.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismSectionResultTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -38,55 +38,57 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(sectionResult);
-            Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, sectionResult.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
-            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
-            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
-            Assert.AreSame(section, sectionResult.Section);
-            Assert.IsFalse(sectionResult.UseManualAssembly);
-            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
+            Assert.AreSame(section, result.Section);
+            Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, result.TailorMadeAssessmentResult);
+            Assert.IsNaN(result.TailorMadeAssessmentProbability);
+            Assert.IsFalse(result.UseManualAssembly);
+            Assert.IsNaN(result.ManualAssemblyProbability);
         }
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(1.1)]
-        [TestCase(-0.1)]
-        public void TailorMadeAssessmentProbability_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void TailorMadeAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => sectionResult.TailorMadeAssessmentProbability = invalidValue;
+            void Call() => result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
-            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 
         [Test]
-        [TestCase(double.NaN)]
         [TestCase(0)]
-        [TestCase(1)]
+        [TestCase(1e-6)]
         [TestCase(0.5)]
-        public void TailorMadeAssessmentProbability_SetValidValue_SetsValue(double validValue)
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void TailorMadeAssessmentProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResultOld(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
-            sectionResult.TailorMadeAssessmentProbability = validValue;
+            result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
-            Assert.AreEqual(validValue, sectionResult.TailorMadeAssessmentProbability);
+            Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
         }
 
         [Test]
@@ -99,7 +101,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             void Call() => result.ManualAssemblyProbability = newValue;
@@ -120,7 +122,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.ManualAssemblyProbability = newValue;

@@ -26,10 +26,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.GrassCoverErosionInwards.Data.Test
+namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultTest
+    public class PipingFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -38,17 +38,17 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
+            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
-            Assert.AreSame(section, result.Section);
-            Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, result.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
-            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, result.TailorMadeAssessmentResult);
-            Assert.IsNaN(result.TailorMadeAssessmentProbability);
-            Assert.IsFalse(result.UseManualAssembly);
-            Assert.IsNaN(result.ManualAssemblyProbability);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(sectionResult);
+            Assert.AreSame(section, sectionResult.Section);
+            Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
+            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
+            Assert.IsFalse(sectionResult.UseManualAssembly);
+            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
         }
 
         [Test]
@@ -61,14 +61,14 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => result.TailorMadeAssessmentProbability = newValue;
+            TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             result.TailorMadeAssessmentProbability = newValue;
@@ -101,14 +101,14 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
-            void Call() => result.ManualAssemblyProbability = newValue;
+            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section);
+            var result = new PipingFailureMechanismSectionResultOld(section);
 
             // Call
             result.ManualAssemblyProbability = newValue;

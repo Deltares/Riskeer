@@ -28,7 +28,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
-    public class MicrostabilityFailureMechanismSectionResultTest
+    public class GrassCoverSlipOffInwardsFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new MicrostabilityFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);

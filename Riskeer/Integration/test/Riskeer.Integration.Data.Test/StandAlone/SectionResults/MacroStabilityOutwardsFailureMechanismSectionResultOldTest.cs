@@ -25,11 +25,12 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
+using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultTest
+    public class MacroStabilityOutwardsFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -38,17 +39,58 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionResult = new PipingFailureMechanismSectionResultOld(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(sectionResult);
-            Assert.AreSame(section, sectionResult.Section);
-            Assert.AreEqual(SimpleAssessmentResultType.None, sectionResult.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
-            Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
-            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
-            Assert.IsFalse(sectionResult.UseManualAssembly);
-            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
+            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
+            Assert.AreSame(section, result.Section);
+            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, result.DetailedAssessmentResult);
+            Assert.IsNaN(result.DetailedAssessmentProbability);
+            Assert.AreEqual(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, result.TailorMadeAssessmentResult);
+            Assert.IsNaN(result.TailorMadeAssessmentProbability);
+            Assert.IsFalse(result.UseManualAssembly);
+            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void DetailedAssessmentProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
+
+            // Call
+            TestDelegate test = () => result.DetailedAssessmentProbability = newValue;
+
+            // Assert
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void DetailedAssessmentProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
+
+            // Call
+            result.DetailedAssessmentProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.DetailedAssessmentProbability);
         }
 
         [Test]
@@ -61,7 +103,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResultOld(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
@@ -82,53 +124,13 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResultOld(section);
+            var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
             // Call
             result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
             Assert.AreEqual(newValue, result.TailorMadeAssessmentProbability);
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(-20)]
-        [TestCase(-1e-6)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(12)]
-        public void ManualAssemblyProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResultOld(section);
-
-            // Call
-            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
-
-            // Assert
-            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1e-6)]
-        [TestCase(0.5)]
-        [TestCase(1 - 1e-6)]
-        [TestCase(1)]
-        [TestCase(double.NaN)]
-        public void ManualAssemblyProbability_ValidValue_NewValueSet(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResultOld(section);
-
-            // Call
-            result.ManualAssemblyProbability = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.ManualAssemblyProbability);
         }
     }
 }

@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 
-namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
+namespace Riskeer.StabilityStoneCover.Data.Test
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsFailureMechanismSectionResultTest
+    public class StabilityStoneCoverFailureMechanismSectionResultOldTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -37,16 +37,20 @@ namespace Riskeer.Integration.Data.Test.StandAlone.SectionResults
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section);
+            var result = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
             Assert.AreSame(section, result.Section);
-            Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
-            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResult);
-            Assert.AreEqual(TailorMadeAssessmentResultType.None, result.TailorMadeAssessmentResult);
+            Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, result.SimpleAssessmentResult);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedSignalingNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForSignalingNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForLowerLimitNorm);
+            Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+            Assert.AreEqual(TailorMadeAssessmentCategoryGroupResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsFalse(result.UseManualAssembly);
-            Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
     }
 }
