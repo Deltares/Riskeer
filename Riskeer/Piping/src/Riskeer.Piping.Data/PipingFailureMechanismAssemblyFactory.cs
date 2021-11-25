@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to assemble the 
         /// simple assembly results for.</param>
-:D        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on the <paramref name="failureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResult"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyOld"/>
