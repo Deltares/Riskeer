@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
-      <Reference Include="Assembly.Kernel">
-          <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
+      <Reference Include="Assembly.Kernel.Old">
           <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.Old.dll</HintPath>
       </Reference>
       <Reference Include="Assembly.Kernel, Version=20.1.1.0, Culture=neutral, PublicKeyToken=null">

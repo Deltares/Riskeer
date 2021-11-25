@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
     /// <code>
     /// using(new AssemblyToolKernelFactoryConfig())
     /// {
-    ///     var testFactory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactoryOld.Instance;
+    ///     var testFactory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
     /// 
     ///     // Perform tests with testFactory
     /// }

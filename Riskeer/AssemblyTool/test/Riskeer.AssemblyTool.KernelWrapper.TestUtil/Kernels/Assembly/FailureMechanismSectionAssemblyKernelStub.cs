@@ -46,12 +46,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets the initial probability of the profile for the failure path section.
         /// </summary>
-        public Probability InitialProbabilityProfile { get; private set; }
+        public Probability InitialProfileProbability { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the section for the failure path section.
         /// </summary>
-        public Probability InitialProbabilitySection { get; private set; }
+        public Probability InitialSectionProbability { get; private set; }
 
         /// <summary>
         /// Gets an indicator whether the section needs refinement or not.
@@ -61,12 +61,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets the initial probability of the profile for the failure path section.
         /// </summary>
-        public Probability RefinedProbabilityProfile { get; private set; }
+        public Probability RefinedProfileProbability { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the section for the failure path section.
         /// </summary>
-        public Probability RefinedProbabilitySection { get; private set; }
+        public Probability RefinedSectionProbability { get; private set; }
 
         /// <summary>
         /// Gets the collection of categories.
@@ -100,12 +100,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             Calculated = true;
 
             IsRelevant = isRelevant;
-            InitialProbabilityProfile = probabilityInitialMechanismProfile;
-            InitialProbabilitySection = probabilityInitialMechanismSection;
+            InitialProfileProbability = probabilityInitialMechanismProfile;
+            InitialSectionProbability = probabilityInitialMechanismSection;
 
             NeedsRefinement = needsRefinement;
-            RefinedProbabilityProfile = refinedProbabilityProfile;
-            RefinedProbabilitySection = refinedProbabilitySection;
+            RefinedProfileProbability = refinedProbabilityProfile;
+            RefinedSectionProbability = refinedProbabilitySection;
 
             Categories = categories;
 
