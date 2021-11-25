@@ -50,7 +50,7 @@ using Riskeer.Piping.Forms.Views;
 namespace Riskeer.Piping.Forms.Test.Views
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultRowTest
+    public class PipingFailureMechanismSectionResultRowOldTest
     {
         private static PipingFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
             new PipingFailureMechanismSectionResultRowOld.ConstructionProperties

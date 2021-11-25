@@ -48,7 +48,7 @@ using Riskeer.MacroStabilityInwards.Forms.Views;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionResultRowTest
+    public class MacroStabilityInwardsFailureMechanismSectionResultRowOldTest
     {
         private static MacroStabilityInwardsFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
             new MacroStabilityInwardsFailureMechanismSectionResultRowOld.ConstructionProperties

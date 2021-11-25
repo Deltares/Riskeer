@@ -49,7 +49,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismSectionResultRowTest
+    public class ClosingStructuresFailureMechanismSectionResultRowOldTest
     {
         private static ClosingStructuresFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
             new ClosingStructuresFailureMechanismSectionResultRowOld.ConstructionProperties

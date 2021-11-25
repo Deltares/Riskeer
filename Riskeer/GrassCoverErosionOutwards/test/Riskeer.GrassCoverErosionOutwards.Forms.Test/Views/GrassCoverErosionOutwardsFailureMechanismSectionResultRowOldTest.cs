@@ -38,19 +38,19 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
-using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.Views;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 
-namespace Riskeer.DuneErosion.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 {
     [TestFixture]
-    public class DuneErosionSectionResultRowTest
+    public class GrassCoverErosionOutwardsFailureMechanismSectionResultRowOldTest
     {
-        private static DuneErosionSectionResultRowOld.ConstructionProperties ConstructionProperties
+        private static GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties
         {
             get
             {
-                return new DuneErosionSectionResultRowOld.ConstructionProperties
+                return new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld.ConstructionProperties
                 {
                     SimpleAssessmentResultIndex = 1,
                     DetailedAssessmentResultForFactorizedSignalingNormIndex = 2,
@@ -69,58 +69,46 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
-
-            // Call
-            TestDelegate call = () => new DuneErosionSectionResultRowOld(result, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("constructionProperties", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var result = new DuneErosionFailureMechanismSectionResultOld(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            // Call
-            var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<DuneErosionFailureMechanismSectionResultOld>>(row);
-            Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
-            Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
-            Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
-            Assert.AreEqual(result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
-            Assert.AreEqual(result.DetailedAssessmentResultForLowerLimitNorm, row.DetailedAssessmentResultForLowerLimitNorm);
-            Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-            Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
-            Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
-            Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
-                            row.ManualAssemblyCategoryGroup);
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismSectionResultRowOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>>(row);
+                Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
+                Assert.AreEqual(result.DetailedAssessmentResultForFactorizedSignalingNorm, row.DetailedAssessmentResultForFactorizedSignalingNorm);
+                Assert.AreEqual(result.DetailedAssessmentResultForSignalingNorm, row.DetailedAssessmentResultForSignalingNorm);
+                Assert.AreEqual(result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
+                Assert.AreEqual(result.DetailedAssessmentResultForLowerLimitNorm, row.DetailedAssessmentResultForLowerLimitNorm);
+                Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
+                Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
+                Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
+                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
+                                row.ManualAssemblyCategoryGroup);
 
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(12, columnStateDefinitions.Count);
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(12, columnStateDefinitions.Count);
 
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SimpleAssessmentResultIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForSignalingNormIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForLowerLimitNormIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.TailorMadeAssessmentResultIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SimpleAssemblyCategoryGroupIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssemblyCategoryGroupIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CombinedAssemblyCategoryGroupIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ManualAssemblyCategoryGroupIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SimpleAssessmentResultIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForFactorizedSignalingNormIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForSignalingNormIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForMechanismSpecificLowerLimitNormIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForLowerLimitNormIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssessmentResultForFactorizedLowerLimitNormIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.TailorMadeAssessmentResultIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SimpleAssemblyCategoryGroupIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.DetailedAssemblyCategoryGroupIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.TailorMadeAssemblyCategoryGroupIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.CombinedAssemblyCategoryGroupIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ManualAssemblyCategoryGroupIndex);
+            }
         }
 
         [Test]
@@ -130,7 +118,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -144,7 +132,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
                 // Call
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
                                 row.SimpleAssemblyCategoryGroup);
@@ -162,7 +150,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -171,7 +159,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -194,14 +182,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             bool newValue = !result.UseManualAssembly;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.IsFalse(result.UseManualAssembly);
@@ -228,12 +216,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyCategoryGroup = newValue;
@@ -251,7 +239,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Given
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -264,7 +252,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 calculator.TailorMadeAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
                 calculator.CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -278,7 +266,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable;
+                row.SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther;
 
                 // Then
                 string expectedAssemblyDisplayName = FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(FailureMechanismSectionAssemblyCategoryGroup.None);
@@ -294,7 +282,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -302,7 +290,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -315,7 +303,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.Applicable;
+                row.SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SimpleAssemblyCategoryGroupIndex].ErrorText);
@@ -328,15 +316,16 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         #region Column States
 
         [Test]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.None, true)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, true)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, false)]
-        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentValidityOnlyResultType simpleAssessmentResult,
+        [TestCase(SimpleAssessmentResultType.None, true)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, true)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable, false)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, false)]
+        public void Constructor_WithSimpleAssessmentResultSet_ExpectedColumnStates(SimpleAssessmentResultType simpleAssessmentResult,
                                                                                    bool cellsEnabled)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section)
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -344,7 +333,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -371,7 +360,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section)
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section)
             {
                 UseManualAssembly = useManualAssembly
             };
@@ -379,7 +368,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -423,7 +412,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -435,7 +424,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -465,15 +454,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+            var newValue = random.NextEnumValue<SimpleAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -497,12 +486,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedSignalingNorm = newValue;
@@ -526,12 +515,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForSignalingNorm = newValue;
@@ -555,12 +544,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = newValue;
@@ -584,12 +573,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForLowerLimitNorm = newValue;
@@ -613,12 +602,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<DetailedAssessmentResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResultForFactorizedLowerLimitNorm = newValue;
@@ -642,12 +631,12 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var newValue = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new DuneErosionFailureMechanismSectionResultOld(section);
+            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
+                var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;

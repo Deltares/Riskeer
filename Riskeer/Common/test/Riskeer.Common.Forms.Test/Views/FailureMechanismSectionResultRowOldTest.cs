@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismSectionResultRowTest
+    public class FailureMechanismSectionResultRowOldTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()

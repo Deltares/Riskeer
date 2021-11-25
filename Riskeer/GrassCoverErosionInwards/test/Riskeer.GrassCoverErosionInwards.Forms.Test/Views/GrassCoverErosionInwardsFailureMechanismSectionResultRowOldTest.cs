@@ -48,7 +48,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.Views;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultRowTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultRowOldTest
     {
         private static GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ConstructionProperties ConstructionProperties =>
             new GrassCoverErosionInwardsFailureMechanismSectionResultRowOld.ConstructionProperties
