@@ -510,4 +510,13 @@ opbarsten
   <data name="PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic" xml:space="preserve">
     <value>probabilistisch</value>
   </data>
+  <data name="Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName" xml:space="preserve">
+    <value>Berekeningen voor geselecteerd vak en type toets</value>
+  </data>
+  <data name="ScenarioConfigurationType_SemiProbabilistic_DisplayName" xml:space="preserve">
+    <value>Semi-probabilistische toets</value>
+  </data>
+  <data name="ScenarioConfigurationType_Probabilistic_DisplayName" xml:space="preserve">
+    <value>Probabilistische toets</value>
+  </data>
 </root>

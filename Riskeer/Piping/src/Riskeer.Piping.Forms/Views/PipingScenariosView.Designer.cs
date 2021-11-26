@@ -184,7 +184,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonProbabilistic.AutoSize = true;
             this.radioButtonProbabilistic.TabIndex = 1;
             this.radioButtonProbabilistic.TabStop = true;
-            this.radioButtonProbabilistic.Text = "Probabilistische toets";
+            this.radioButtonProbabilistic.Text = global::Riskeer.Piping.Forms.Properties.Resources.ScenarioConfigurationType_Probabilistic_DisplayName;
             this.radioButtonProbabilistic.UseVisualStyleBackColor = true;
             this.radioButtonProbabilistic.Checked = false;
             this.radioButtonProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
@@ -197,7 +197,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonSemiProbabilistic.AutoSize = true;
             this.radioButtonSemiProbabilistic.TabIndex = 0;
             this.radioButtonSemiProbabilistic.TabStop = true;
-            this.radioButtonSemiProbabilistic.Text = "Semi-probabilistische toets";
+            this.radioButtonSemiProbabilistic.Text = global::Riskeer.Piping.Forms.Properties.Resources.ScenarioConfigurationType_SemiProbabilistic_DisplayName;
             this.radioButtonSemiProbabilistic.UseVisualStyleBackColor = true;
             this.radioButtonSemiProbabilistic.Checked = true;
             this.radioButtonSemiProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
@@ -209,7 +209,7 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations.Name = "labelCalculations";
             this.labelCalculations.Size = new System.Drawing.Size(182, 13);
             this.labelCalculations.TabIndex = 0;
-            this.labelCalculations.Text = "Berekeningen voor geselecteerd vak en type toets";
+            this.labelCalculations.Text = global::Riskeer.Piping.Forms.Properties.Resources.Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName;
             // 
             // dataGridViewControl
             // 

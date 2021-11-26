@@ -82,6 +82,16 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekeningen voor geselecteerd vak en type toets.
+        /// </summary>
+        public static string Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayName {
+            get {
+                return ResourceManager.GetString("Calculations_per_FailureMechanismSection_And_ScenarioConfigurationType_DisplayNam" +
+                        "e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vakinformatie.
         /// </summary>
         public static string Categories_FailureMechanismSection {
@@ -1184,6 +1194,24 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string ProbabilisticSectionSpecificOutput_DisplayName {
             get {
                 return ResourceManager.GetString("ProbabilisticSectionSpecificOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Probabilistische toets.
+        /// </summary>
+        public static string ScenarioConfigurationType_Probabilistic_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioConfigurationType_Probabilistic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische toets.
+        /// </summary>
+        public static string ScenarioConfigurationType_SemiProbabilistic_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioConfigurationType_SemiProbabilistic_DisplayName", resourceCulture);
             }
         }
         
