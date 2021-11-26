@@ -263,8 +263,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsFalse(failureMechanismSectionAssemblyKernel.Calculated);
 
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
-                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                var innerException = exception.InnerException as AssemblyException;
+                Assert.IsNotNull(innerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);
             }
         }
 
