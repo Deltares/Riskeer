@@ -215,10 +215,18 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateVisibility()
         {
-            radioButtonsPanel.Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
-            dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
-            dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
-            dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
+            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                                                                                        .First(sc => sc.Section == selectedFailureMechanismSection);
+            
+            bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
+            bool semiProbabilisticColumnsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                                                   || perFailureMechanismSection
+                                                   && scenarioConfigurationTypeForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            
+            radioButtonsPanel.Visible = perFailureMechanismSection;
+            dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = semiProbabilisticColumnsVisible;
+            dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticColumnsVisible;
+            dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticColumnsVisible;
         }
 
         private void UpdateDataGridViewDataSource()

@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -230,15 +231,23 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
-        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
-        public void Constructor_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool semiProbabilisticColumnShouldBeVisible)
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, false)]
+        public void Constructor_FailureMechanismWithSections_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
+                                                                                              PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationPerFailureMechanismSectionType,
+                                                                                              bool semiProbabilisticColumnsShouldBeVisible)
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism
             {
                 ScenarioConfigurationType = scenarioConfigurationType
             };
+            ConfigureFailureMechanism(failureMechanism);
+            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ForEachElementDo(sc => sc.ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType);
 
             // Call
             ShowPipingScenariosView(failureMechanism);
@@ -255,9 +264,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[failureProbabilityPipingColumnIndex].HeaderText);
             Assert.AreEqual("Faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionFailureProbabilityPipingColumnIndex].HeaderText);
 
-            Assert.AreEqual(semiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
-            Assert.AreEqual(semiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
-            Assert.AreEqual(semiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnsShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnsShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnsShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
         }
 
         [Test]
@@ -600,7 +609,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
 
-        private void ShowFullyConfiguredPipingScenariosView(PipingFailureMechanism failureMechanism)
+        private void ConfigureFailureMechanism(PipingFailureMechanism failureMechanism)
         {
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
@@ -680,6 +689,11 @@ namespace Riskeer.Piping.Forms.Test.Views
                     Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024)
                 }
             });
+        }
+
+        private void ShowFullyConfiguredPipingScenariosView(PipingFailureMechanism failureMechanism)
+        {
+            ConfigureFailureMechanism(failureMechanism);
 
             ShowPipingScenariosView(failureMechanism);
         }
