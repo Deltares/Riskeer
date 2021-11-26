@@ -30,6 +30,7 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -44,6 +45,7 @@ using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Test.Views
 {
@@ -228,6 +230,35 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
             Assert.AreEqual("Probabilistische toets", radioButtonProbabilistic.Text);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
+        public void Constructor_WarningIconAndTooltipCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool warningIconShouldBeVisible)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
+            // Call
+            PipingScenariosView view = ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var warningIcon = (PictureBox) new ControlTester("warningIcon").TheObject;
+            TestHelper.AssertImagesAreEqual(CoreGuiResources.warning.ToBitmap(), warningIcon.BackgroundImage);
+            Assert.AreEqual(ImageLayout.Center, warningIcon.BackgroundImageLayout);
+            Assert.AreEqual(warningIconShouldBeVisible, warningIcon.Visible);
+
+            var toolTip = TypeUtils.GetField<ToolTip>(view, "toolTip");
+            Assert.AreEqual("De variant 'Per vak instelbaar' vereist een onderbouwing dat de gekozen mix van probabilistisch en semi-probabilistisch getoetste vakken niet tot een te optimistisch (onveilig) rekenresultaat op het trajectniveau leidt.",
+                            toolTip.GetToolTip(warningIcon));
+            Assert.AreEqual(5000, toolTip.AutoPopDelay);
+            Assert.AreEqual(100, toolTip.InitialDelay);
+            Assert.AreEqual(100, toolTip.ReshowDelay);
         }
 
         [Test]
@@ -727,7 +758,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             listBox.SelectedItem = listBox.Items[1];
-            
+
             // Precondition
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
@@ -812,14 +843,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 failureMechanismSection3
             });
             ShowPipingScenariosView(failureMechanism);
-            
+
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            
+
             // Precondition
             Assert.AreEqual("Section 1 (semi-probabilistisch)", listBox.Items[0].ToString());
             Assert.AreEqual("Section 2 (semi-probabilistisch)", listBox.Items[1].ToString());
             Assert.AreEqual("Section 3 (semi-probabilistisch)", listBox.Items[2].ToString());
-            
+
             // When
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1);
             scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
@@ -996,12 +1027,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
         }
 
-        private void ShowPipingScenariosView(PipingFailureMechanism failureMechanism)
+        private PipingScenariosView ShowPipingScenariosView(PipingFailureMechanism failureMechanism)
         {
             var pipingScenarioView = new PipingScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(pipingScenarioView);
             testForm.Show();
+
+            return pipingScenarioView;
         }
     }
 }

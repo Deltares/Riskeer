@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -152,7 +152,7 @@ namespace Riskeer.Piping.Forms.Views
             selectConfigurationTypeComboBoxUpdating = false;
             selectConfigurationTypeComboBox.EndUpdate();
         }
-        
+
         private void InitializeWarningIcon()
         {
             warningIcon.BackgroundImage = CoreGuiResources.warning.ToBitmap();
@@ -234,21 +234,16 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateVisibility()
         {
-            bool perFailureMechanismSemiProbabilistic;
-            if (selectedFailureMechanismSection != null)
-            {
-                perFailureMechanismSemiProbabilistic = selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
-            }
-            else
-            {
-                perFailureMechanismSemiProbabilistic = radioButtonSemiProbabilistic.Checked;
-            }
+            bool perFailureMechanismSemiProbabilistic = selectedFailureMechanismSection != null
+                                                            ? selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+                                                            : radioButtonSemiProbabilistic.Checked;
 
             bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
             bool semiProbabilisticColumnsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
                                                    || perFailureMechanismSection && perFailureMechanismSemiProbabilistic;
 
             radioButtonsPanel.Visible = perFailureMechanismSection;
+            warningIcon.Visible = perFailureMechanismSection;
             dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = semiProbabilisticColumnsVisible;
             dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticColumnsVisible;
             dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = semiProbabilisticColumnsVisible;
@@ -277,7 +272,7 @@ namespace Riskeer.Piping.Forms.Views
                         section, failureMechanism,
                         failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
                                         .First(sc => sc.Section == section))).ToArray();
-                
+
                 listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
                 listBox.SelectedItem = selectedFailureMechanismSection != null
                                            ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
