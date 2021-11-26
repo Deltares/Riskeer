@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
@@ -35,6 +37,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="signalingNorm">The signaling norm to assemble with.</param>
         /// <param name="input">The <see cref="FailureMechanismSectionAssemblyInput"/> to assemble with.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleFailureMechanismSection(double lowerLimitNorm,
                                                                         double signalingNorm,
                                                                         FailureMechanismSectionAssemblyInput input);
