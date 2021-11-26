@@ -217,7 +217,7 @@ namespace Riskeer.Piping.Forms.Views
         private void UpdateVisibility()
         {
             bool perFailureMechanismSemiProbabilistic;
-            if (selectedFailureMechanismSection != null)
+            if (scenarioConfigurationTypeForSection != null)
             {
                 perFailureMechanismSemiProbabilistic = scenarioConfigurationTypeForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
             }
@@ -325,7 +325,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void RadioButton_OnCheckedChanged(object sender, EventArgs e)
         {
-            if (selectedFailureMechanismSection != null)
+            if (scenarioConfigurationTypeForSection != null)
             {
                 scenarioConfigurationTypeForSection.ScenarioConfigurationType = radioButtonSemiProbabilistic.Checked
                                                                                     ? PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
