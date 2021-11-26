@@ -31,22 +31,23 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
     public class FailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_WithParameters_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var result = new TestFailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(result);
-            Assert.AreSame(section, result.Section);
-            Assert.IsTrue(result.IsRelevant);
+            Assert.IsInstanceOf<Observable>(sectionResult);
+            Assert.AreSame(section, sectionResult.Section);
+            Assert.IsTrue(sectionResult.IsRelevant);
+            Assert.AreEqual(InitialFailureMechanismResultType.Adopt, sectionResult.InitialFailureMechanismResult);
         }
 
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
+        public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new TestFailureMechanismSectionResult(null);

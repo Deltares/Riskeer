@@ -43,6 +43,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             Section = section;
             IsRelevant = true;
+            InitialFailureMechanismResult = InitialFailureMechanismResultType.Adopt;
         }
 
         /// <summary>
@@ -54,5 +55,10 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets or sets whether the section is relevant.
         /// </summary>
         public bool IsRelevant { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the initial failure mechanism result.
+        /// </summary>
+        public InitialFailureMechanismResultType InitialFailureMechanismResult { get; set; }
     }
 }
