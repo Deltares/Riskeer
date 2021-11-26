@@ -36,9 +36,12 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.calculationConfigurationTypeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.selectScenarioConfigurationTypeLabel = new System.Windows.Forms.Label();
             this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.infoIcon = new System.Windows.Forms.PictureBox();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.label = new System.Windows.Forms.Label();
@@ -51,6 +54,7 @@ namespace Riskeer.Piping.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.infoIcon)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -67,6 +71,7 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationConfigurationTypeTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.calculationConfigurationTypeTableLayoutPanel.Controls.Add(this.selectScenarioConfigurationTypeLabel, 0, 0);
             this.calculationConfigurationTypeTableLayoutPanel.Controls.Add(this.selectConfigurationTypeComboBox, 1, 0);
+            this.calculationConfigurationTypeTableLayoutPanel.Controls.Add(this.infoIcon, 2, 0);
             this.calculationConfigurationTypeTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.calculationConfigurationTypeTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.calculationConfigurationTypeTableLayoutPanel.Name = "calculationConfigurationTypeTableLayoutPanel";
@@ -97,6 +102,23 @@ namespace Riskeer.Piping.Forms.Views
             this.selectConfigurationTypeComboBox.TabIndex = 3;
             this.selectConfigurationTypeComboBox.Margin = new System.Windows.Forms.Padding(7);
             this.selectConfigurationTypeComboBox.SelectedIndexChanged += SelectConfigurationTypeComboBox_OnSelectedIndexChanged;
+            // 
+            // toolTip
+            // 
+            this.toolTip.AutoPopDelay = 5000;
+            this.toolTip.InitialDelay = 100;
+            this.toolTip.ReshowDelay = 100;
+            // 
+            // infoIcon
+            // 
+            this.infoIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.infoIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.infoIcon.Location = new System.Drawing.Point(0, 7);
+            this.infoIcon.Margin = new System.Windows.Forms.Padding(7);
+            this.infoIcon.Name = "infoIcon";
+            this.infoIcon.Size = new System.Drawing.Size(16, 16);
+            this.infoIcon.TabIndex = 0;
+            this.infoIcon.TabStop = false;
             // 
             // splitContainer
             // 
@@ -231,6 +253,7 @@ namespace Riskeer.Piping.Forms.Views
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.infoIcon)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
@@ -252,6 +275,8 @@ namespace Riskeer.Piping.Forms.Views
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.ComboBox selectConfigurationTypeComboBox;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.PictureBox infoIcon;
         private System.Windows.Forms.Panel radioButtonsPanel;
         private System.Windows.Forms.RadioButton radioButtonProbabilistic;
         private System.Windows.Forms.RadioButton radioButtonSemiProbabilistic;

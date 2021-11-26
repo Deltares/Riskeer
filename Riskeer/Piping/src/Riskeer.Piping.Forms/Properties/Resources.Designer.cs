@@ -957,6 +957,16 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De variant &apos;Per vak instelbaar&apos; vereist een onderbouwing dat de gekozen mix van probabilistisch en semi-probabilistisch getoetste vakken niet tot een te optimistisch (onveilig) rekenresultaat op het trajectniveau leidt..
+        /// </summary>
+        public static string PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip {
+            get {
+                return ResourceManager.GetString("PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolT" +
+                        "ip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to probabilistisch.
         /// </summary>
         public static string PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic {

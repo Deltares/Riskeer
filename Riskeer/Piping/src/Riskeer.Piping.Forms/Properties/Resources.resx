@@ -519,4 +519,7 @@ opbarsten
   <data name="ScenarioConfigurationType_Probabilistic_DisplayName" xml:space="preserve">
     <value>Probabilistische toets</value>
   </data>
+  <data name="PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip" xml:space="preserve">
+    <value>De variant 'Per vak instelbaar' vereist een onderbouwing dat de gekozen mix van probabilistisch en semi-probabilistisch getoetste vakken niet tot een te optimistisch (onveilig) rekenresultaat op het trajectniveau leidt.</value>
+  </data>
 </root>

@@ -35,6 +35,7 @@ using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.Properties;
+using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
@@ -100,6 +101,7 @@ namespace Riskeer.Piping.Forms.Views
             InitializeComponent();
 
             InitializeCombobox();
+            InitializeInfoIcon();
 
             checkedRadioButton = radioButtonSemiProbabilistic;
 
@@ -149,6 +151,12 @@ namespace Riskeer.Piping.Forms.Views
             selectConfigurationTypeComboBox.SelectedValue = failureMechanism.ScenarioConfigurationType;
             selectConfigurationTypeComboBoxUpdating = false;
             selectConfigurationTypeComboBox.EndUpdate();
+        }
+        
+        private void InitializeInfoIcon()
+        {
+            infoIcon.BackgroundImage = CoreGuiResources.warning.ToBitmap();
+            toolTip.SetToolTip(infoIcon, Resources.PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip);
         }
 
         private void InitializeObservers()
