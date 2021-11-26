@@ -45,8 +45,8 @@ namespace Riskeer.Piping.Forms.Views
             this.listBox = new System.Windows.Forms.ListBox();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.radioButtonsPanel = new System.Windows.Forms.Panel();
-            this.radioButtonSemiProbabilistic = new System.Windows.Forms.RadioButton();
             this.radioButtonProbabilistic = new System.Windows.Forms.RadioButton();
+            this.radioButtonSemiProbabilistic = new System.Windows.Forms.RadioButton();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
@@ -176,19 +176,6 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonsPanel.Size = new System.Drawing.Size(200, 30);
             this.radioButtonsPanel.TabIndex = 0;
             // 
-            // radioButtonSemiProbabilistic
-            // 
-            this.radioButtonSemiProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
-            this.radioButtonSemiProbabilistic.Location = new System.Drawing.Point(0, 0);
-            this.radioButtonSemiProbabilistic.Name = "radioButtonSemiProbabilistic";
-            this.radioButtonSemiProbabilistic.AutoSize = true;
-            this.radioButtonSemiProbabilistic.TabIndex = 0;
-            this.radioButtonSemiProbabilistic.TabStop = true;
-            this.radioButtonSemiProbabilistic.Text = "Semi-probabilistische toets";
-            this.radioButtonSemiProbabilistic.UseVisualStyleBackColor = true;
-            this.radioButtonSemiProbabilistic.Checked = true;
-            this.radioButtonSemiProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
-            // 
             // radioButtonProbabilistic
             // 
             this.radioButtonProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
@@ -201,6 +188,19 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonProbabilistic.UseVisualStyleBackColor = true;
             this.radioButtonProbabilistic.Checked = false;
             this.radioButtonProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
+            // 
+            // radioButtonSemiProbabilistic
+            // 
+            this.radioButtonSemiProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButtonSemiProbabilistic.Location = new System.Drawing.Point(0, 0);
+            this.radioButtonSemiProbabilistic.Name = "radioButtonSemiProbabilistic";
+            this.radioButtonSemiProbabilistic.AutoSize = true;
+            this.radioButtonSemiProbabilistic.TabIndex = 0;
+            this.radioButtonSemiProbabilistic.TabStop = true;
+            this.radioButtonSemiProbabilistic.Text = "Semi-probabilistische toets";
+            this.radioButtonSemiProbabilistic.UseVisualStyleBackColor = true;
+            this.radioButtonSemiProbabilistic.Checked = true;
+            this.radioButtonSemiProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
             // 
             // labelCalculations
             // 
@@ -253,7 +253,7 @@ namespace Riskeer.Piping.Forms.Views
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.ComboBox selectConfigurationTypeComboBox;
         private System.Windows.Forms.Panel radioButtonsPanel;
-        private System.Windows.Forms.RadioButton radioButtonSemiProbabilistic;
         private System.Windows.Forms.RadioButton radioButtonProbabilistic;
+        private System.Windows.Forms.RadioButton radioButtonSemiProbabilistic;
     }
 }
