@@ -22,6 +22,7 @@
 using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
@@ -81,8 +82,22 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         {
             get
             {
-                return Section.Name;
+                string name = Section.Name;
+                
+                if (failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection)
+                {
+                    name += $" ({GetScenarioConfigurationTypeDisplayName()})";
+                }
+
+                return name;
             }
+        }
+
+        private string GetScenarioConfigurationTypeDisplayName()
+        {
+            return ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+                       ? Resources.PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_SemiProbabilistic
+                       : Resources.PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic;
         }
     }
 }

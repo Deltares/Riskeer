@@ -947,6 +947,26 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to probabilistisch.
+        /// </summary>
+        public static string PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic {
+            get {
+                return ResourceManager.GetString("PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeD" +
+                        "isplayName_Probabilistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to semi-probabilistisch.
+        /// </summary>
+        public static string PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_SemiProbabilistic {
+            get {
+                return ResourceManager.GetString("PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeD" +
+                        "isplayName_SemiProbabilistic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kans op
         ///heave
         ///[1/jaar].

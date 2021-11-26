@@ -504,4 +504,10 @@ opbarsten
   <data name="PipingMapDataFactory_CreateProbabilisticCalculationsMapData_Probabilistis_Calculations" xml:space="preserve">
     <value>Probabilistische berekeningen</value>
   </data>
+  <data name="PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_SemiProbabilistic" xml:space="preserve">
+    <value>semi-probabilistisch</value>
+  </data>
+  <data name="PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic" xml:space="preserve">
+    <value>probabilistisch</value>
+  </data>
 </root>

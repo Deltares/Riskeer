@@ -88,18 +88,51 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void DisplayName_Always_ReturnsExpectedName()
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic)]
+        public void DisplayName_FailureMechanismScenarioConfigurationTypeNotPerSection_ReturnsExpectedName(PipingScenarioConfigurationType scenarioConfigurationType)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
             var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section);
-            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, new PipingFailureMechanism(), scenarioConfiguration);
+
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, pipingFailureMechanism, scenarioConfiguration);
 
             // Call
             string displayName = viewModel.DisplayName;
 
             // Assert
             Assert.AreEqual(section.Name, displayName);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "semi-probabilistisch")]
+        [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "probabilistisch")]
+        public void DisplayName_FailureMechanismScenarioConfigurationTypePerSection_ReturnsExpectedName(
+            PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationType, string displayNameSuffix)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var pipingFailureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+            };
+            var scenarioConfiguration = new PipingScenarioConfigurationPerFailureMechanismSection(section)
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
+            var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, pipingFailureMechanism, scenarioConfiguration);
+
+            // Call
+            string displayName = viewModel.DisplayName;
+
+            // Assert
+            Assert.AreEqual($"{section.Name} ({displayNameSuffix})", displayName);
         }
     }
 }
