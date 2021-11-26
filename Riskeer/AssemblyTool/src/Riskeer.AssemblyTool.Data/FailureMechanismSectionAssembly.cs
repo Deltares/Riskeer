@@ -32,16 +32,16 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="profileProbability">The probability of the failure mechanism section, expressed for profile</param>
         /// <param name="sectionProbability">The probability of the failure mechanism section, expressed for the section.</param>
         /// <param name="n">The length effect of the failure mechanism section.</param>
-        /// <param name="interpretationCategory">The <see cref="FailureMechanismSectionInterpretationCategory"/>.</param>
+        /// <param name="assemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/>.</param>
         public FailureMechanismSectionAssembly(double profileProbability,
                                                double sectionProbability,
                                                double n,
-                                               FailureMechanismSectionInterpretationCategory interpretationCategory)
+                                               FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             ProfileProbability = profileProbability;
             SectionProbability = sectionProbability;
             N = n;
-            InterpretationCategory = interpretationCategory;
+            AssemblyGroup = assemblyGroup;
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace Riskeer.AssemblyTool.Data
         public double N { get; }
 
         /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionInterpretationCategory"/>.
+        /// Gets the <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
-        public FailureMechanismSectionInterpretationCategory InterpretationCategory { get; }
+        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
     }
 }

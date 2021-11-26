@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
     /// Creates <see cref="FailureMechanismSectionAssembly"/> instances and
-    /// <see cref="FailureMechanismSectionInterpretationCategory"/> values.
+    /// <see cref="FailureMechanismSectionAssemblyGroup"/> values.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyCreator
     {
@@ -53,11 +53,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             return new FailureMechanismSectionAssembly(result.ProbabilityProfile.Value,
                                                        result.ProbabilitySection.Value,
                                                        result.NSection,
-                                                       CreateFailureMechanismSectionInterpretationCategory(result.InterpretationCategory));
+                                                       CreateFailureMechanismSectionAssemblyGroup(result.InterpretationCategory));
         }
 
         /// <summary>
-        /// Converts a <see cref="EInterpretationCategory"/> into a <see cref="FailureMechanismSectionInterpretationCategory"/>.
+        /// Converts a <see cref="EInterpretationCategory"/> into a <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionInterpretationCategory CreateFailureMechanismSectionInterpretationCategory(EInterpretationCategory category)
+        public static FailureMechanismSectionAssemblyGroup CreateFailureMechanismSectionAssemblyGroup(EInterpretationCategory category)
         {
             if (!Enum.IsDefined(typeof(EInterpretationCategory), category))
             {
@@ -77,27 +77,27 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             switch (category)
             {
                 case EInterpretationCategory.ND:
-                    return FailureMechanismSectionInterpretationCategory.ND;
+                    return FailureMechanismSectionAssemblyGroup.ND;
                 case EInterpretationCategory.III:
-                    return FailureMechanismSectionInterpretationCategory.III;
+                    return FailureMechanismSectionAssemblyGroup.III;
                 case EInterpretationCategory.II:
-                    return FailureMechanismSectionInterpretationCategory.II;
+                    return FailureMechanismSectionAssemblyGroup.II;
                 case EInterpretationCategory.I:
-                    return FailureMechanismSectionInterpretationCategory.I;
+                    return FailureMechanismSectionAssemblyGroup.I;
                 case EInterpretationCategory.ZeroPlus:
-                    return FailureMechanismSectionInterpretationCategory.ZeroPlus;
+                    return FailureMechanismSectionAssemblyGroup.ZeroPlus;
                 case EInterpretationCategory.Zero:
-                    return FailureMechanismSectionInterpretationCategory.Zero;
+                    return FailureMechanismSectionAssemblyGroup.Zero;
                 case EInterpretationCategory.IMin:
-                    return FailureMechanismSectionInterpretationCategory.IMin;
+                    return FailureMechanismSectionAssemblyGroup.IMin;
                 case EInterpretationCategory.IIMin:
-                    return FailureMechanismSectionInterpretationCategory.IIMin;
+                    return FailureMechanismSectionAssemblyGroup.IIMin;
                 case EInterpretationCategory.IIIMin:
-                    return FailureMechanismSectionInterpretationCategory.IIIMin;
+                    return FailureMechanismSectionAssemblyGroup.IIIMin;
                 case EInterpretationCategory.D:
-                    return FailureMechanismSectionInterpretationCategory.D;
+                    return FailureMechanismSectionAssemblyGroup.D;
                 case EInterpretationCategory.Gr:
-                    return FailureMechanismSectionInterpretationCategory.Gr;
+                    return FailureMechanismSectionAssemblyGroup.Gr;
                 default:
                     throw new NotSupportedException();
             }

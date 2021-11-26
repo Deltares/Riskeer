@@ -26,43 +26,43 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionInterpretationCategoryTest : EnumValuesTestFixture<FailureMechanismSectionInterpretationCategory, int>
+    public class FailureMechanismSectionAssemblyGroupTest : EnumValuesTestFixture<FailureMechanismSectionAssemblyGroup, int>
     {
-        protected override IDictionary<FailureMechanismSectionInterpretationCategory, int> ExpectedValueForEnumValues =>
-            new Dictionary<FailureMechanismSectionInterpretationCategory, int>
+        protected override IDictionary<FailureMechanismSectionAssemblyGroup, int> ExpectedValueForEnumValues =>
+            new Dictionary<FailureMechanismSectionAssemblyGroup, int>
             {
                 {
-                    FailureMechanismSectionInterpretationCategory.ND, 1
+                    FailureMechanismSectionAssemblyGroup.ND, 1
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.III, 2
+                    FailureMechanismSectionAssemblyGroup.III, 2
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.II, 3
+                    FailureMechanismSectionAssemblyGroup.II, 3
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.I, 4
+                    FailureMechanismSectionAssemblyGroup.I, 4
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.ZeroPlus, 5
+                    FailureMechanismSectionAssemblyGroup.ZeroPlus, 5
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.Zero, 6
+                    FailureMechanismSectionAssemblyGroup.Zero, 6
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.IMin, 7
+                    FailureMechanismSectionAssemblyGroup.IMin, 7
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.IIMin, 8
+                    FailureMechanismSectionAssemblyGroup.IIMin, 8
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.IIIMin, 9
+                    FailureMechanismSectionAssemblyGroup.IIIMin, 9
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.D, 10
+                    FailureMechanismSectionAssemblyGroup.D, 10
                 },
                 {
-                    FailureMechanismSectionInterpretationCategory.Gr, 11
+                    FailureMechanismSectionAssemblyGroup.Gr, 11
                 }
             };
     }

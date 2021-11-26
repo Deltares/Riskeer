@@ -22,9 +22,9 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Enum defining the interpretation categories for a failure mechanism section.
+    /// Enum defining the assembly categories for a failure mechanism section.
     /// </summary>
-    public enum FailureMechanismSectionInterpretationCategory
+    public enum FailureMechanismSectionAssemblyGroup
     {
         /// <summary>
         /// Represents the interpretation category ND (Not Dominant) for a failure mechanism section.

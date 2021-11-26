@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCaseSource(nameof(GetValidCategoryConversions))]
         public void CreateFailureMechanismSectionAssembly_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly(
             EInterpretationCategory category,
-            FailureMechanismSectionInterpretationCategory expectedCategory)
+            FailureMechanismSectionAssemblyGroup expectedCategory)
         {
             // Setup
             var random = new Random(21);
@@ -89,14 +89,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(profileProbability, createdAssembly.ProfileProbability);
             Assert.AreEqual(sectionProbability, createdAssembly.SectionProbability);
             Assert.AreEqual(result.NSection, createdAssembly.N);
-            Assert.AreEqual(expectedCategory, createdAssembly.InterpretationCategory);
+            Assert.AreEqual(expectedCategory, createdAssembly.AssemblyGroup);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionInterpretationCategory_InvalidCategory_ThrowsInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyGroup_InvalidCategory_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionInterpretationCategory((EInterpretationCategory) 99);
+            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyGroup((EInterpretationCategory) 99);
 
             // Assert
             var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
@@ -105,12 +105,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
         [Test]
         [TestCaseSource(nameof(GetValidCategoryConversions))]
-        public void CreateFailureMechanismSectionInterpretationCategory_ValidCategory_ReturnsExpectedValue(
+        public void CreateFailureMechanismSectionAssemblyGroup_ValidCategory_ReturnsExpectedValue(
             EInterpretationCategory category,
-            FailureMechanismSectionInterpretationCategory expectedCategory)
+            FailureMechanismSectionAssemblyGroup expectedCategory)
         {
             // Call
-            FailureMechanismSectionInterpretationCategory createdCategory = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionInterpretationCategory(category);
+            FailureMechanismSectionAssemblyGroup createdCategory = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyGroup(category);
 
             // Assert
             Assert.AreEqual(expectedCategory, createdCategory);
@@ -118,17 +118,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
         private static IEnumerable<TestCaseData> GetValidCategoryConversions()
         {
-            yield return new TestCaseData(EInterpretationCategory.ND, FailureMechanismSectionInterpretationCategory.ND);
-            yield return new TestCaseData(EInterpretationCategory.III, FailureMechanismSectionInterpretationCategory.III);
-            yield return new TestCaseData(EInterpretationCategory.II, FailureMechanismSectionInterpretationCategory.II);
-            yield return new TestCaseData(EInterpretationCategory.I, FailureMechanismSectionInterpretationCategory.I);
-            yield return new TestCaseData(EInterpretationCategory.ZeroPlus, FailureMechanismSectionInterpretationCategory.ZeroPlus);
-            yield return new TestCaseData(EInterpretationCategory.Zero, FailureMechanismSectionInterpretationCategory.Zero);
-            yield return new TestCaseData(EInterpretationCategory.IMin, FailureMechanismSectionInterpretationCategory.IMin);
-            yield return new TestCaseData(EInterpretationCategory.IIMin, FailureMechanismSectionInterpretationCategory.IIMin);
-            yield return new TestCaseData(EInterpretationCategory.IIIMin, FailureMechanismSectionInterpretationCategory.IIIMin);
-            yield return new TestCaseData(EInterpretationCategory.D, FailureMechanismSectionInterpretationCategory.D);
-            yield return new TestCaseData(EInterpretationCategory.Gr, FailureMechanismSectionInterpretationCategory.Gr);
+            yield return new TestCaseData(EInterpretationCategory.ND, FailureMechanismSectionAssemblyGroup.ND);
+            yield return new TestCaseData(EInterpretationCategory.III, FailureMechanismSectionAssemblyGroup.III);
+            yield return new TestCaseData(EInterpretationCategory.II, FailureMechanismSectionAssemblyGroup.II);
+            yield return new TestCaseData(EInterpretationCategory.I, FailureMechanismSectionAssemblyGroup.I);
+            yield return new TestCaseData(EInterpretationCategory.ZeroPlus, FailureMechanismSectionAssemblyGroup.ZeroPlus);
+            yield return new TestCaseData(EInterpretationCategory.Zero, FailureMechanismSectionAssemblyGroup.Zero);
+            yield return new TestCaseData(EInterpretationCategory.IMin, FailureMechanismSectionAssemblyGroup.IMin);
+            yield return new TestCaseData(EInterpretationCategory.IIMin, FailureMechanismSectionAssemblyGroup.IIMin);
+            yield return new TestCaseData(EInterpretationCategory.IIIMin, FailureMechanismSectionAssemblyGroup.IIIMin);
+            yield return new TestCaseData(EInterpretationCategory.D, FailureMechanismSectionAssemblyGroup.D);
+            yield return new TestCaseData(EInterpretationCategory.Gr, FailureMechanismSectionAssemblyGroup.Gr);
         }
     }
 }
