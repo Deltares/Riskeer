@@ -59,6 +59,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private IEnumerable<IPipingScenarioRow> scenarioRows;
         private bool selectConfigurationTypeComboBoxUpdating;
+        private FailureMechanismSection selectedFailureMechanismSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosView"/>.
@@ -222,13 +223,13 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
+            if (selectedFailureMechanismSection == null)
             {
                 dataGridViewControl.SetDataSource(null);
                 return;
             }
 
-            scenarioRows = GetScenarioRows(failureMechanismSection);
+            scenarioRows = GetScenarioRows();
             dataGridViewControl.SetDataSource(scenarioRows);
         }
 
@@ -245,6 +246,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
+            selectedFailureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
             UpdateDataGridViewDataSource();
         }
 
@@ -254,19 +256,19 @@ namespace Riskeer.Piping.Forms.Views
             dataGridViewControl.RefreshDataGridView();
         }
 
-        private IEnumerable<IPipingScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
+        private IEnumerable<IPipingScenarioRow> GetScenarioRows()
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(selectedFailureMechanismSection.Points);
 
             return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                       ? GetSemiProbabilisticPipingScenarioRows(failureMechanismSection, lineSegments)
+                       ? GetSemiProbabilisticPipingScenarioRows(lineSegments)
                        : GetProbabilisticPipingScenarioRows(lineSegments);
         }
 
-        private IEnumerable<IPipingScenarioRow> GetSemiProbabilisticPipingScenarioRows(FailureMechanismSection failureMechanismSection, IEnumerable<Segment2D> lineSegments)
+        private IEnumerable<IPipingScenarioRow> GetSemiProbabilisticPipingScenarioRows(IEnumerable<Segment2D> lineSegments)
         {
             return GetScenarios<SemiProbabilisticPipingCalculationScenario>(lineSegments)
-                   .Select(pc => new SemiProbabilisticPipingScenarioRow(pc, failureMechanism, failureMechanismSection, assessmentSection))
+                   .Select(pc => new SemiProbabilisticPipingScenarioRow(pc, failureMechanism, selectedFailureMechanismSection, assessmentSection))
                    .ToList();
         }
 
