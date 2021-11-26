@@ -46,6 +46,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsTrue(sectionResult.IsRelevant);
             Assert.AreEqual(InitialFailureMechanismResultType.Adopt, sectionResult.InitialFailureMechanismResult);
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.IsFalse(sectionResult.FurtherAnalysisNeeded);
+            Assert.IsNaN(sectionResult.RefinedSectionProbability);
         }
 
         [Test]
@@ -97,6 +99,46 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.AreEqual(newValue, result.ManualInitialFailureMechanismResultSectionProbability);
+        }
+        
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void RefinedSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new TestFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => result.RefinedSectionProbability = newValue;
+
+            // Assert
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void RefinedSectionProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new TestFailureMechanismSectionResult(section);
+
+            // Call
+            result.RefinedSectionProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.RefinedSectionProbability);
         }
 
         private class TestFailureMechanismSectionResult : FailureMechanismSectionResult

@@ -32,6 +32,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     public abstract class FailureMechanismSectionResult : Observable
     {
         private double manualInitialFailureMechanismResultSectionProbability;
+        private double refinedSectionProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResult"/>.
@@ -49,6 +50,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             IsRelevant = true;
             InitialFailureMechanismResult = InitialFailureMechanismResultType.Adopt;
             ManualInitialFailureMechanismResultSectionProbability = double.NaN;
+            RefinedSectionProbability = double.NaN;
         }
 
         /// <summary>
@@ -79,6 +81,27 @@ namespace Riskeer.Common.Data.FailureMechanism
                                                       Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 manualInitialFailureMechanismResultSectionProbability = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether further analysis is needed.
+        /// </summary>
+        public bool FurtherAnalysisNeeded { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the value of the refined probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double RefinedSectionProbability
+        {
+            get => refinedSectionProbability;
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                refinedSectionProbability = value;
             }
         }
     }
