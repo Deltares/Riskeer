@@ -264,14 +264,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             ShowPipingScenariosView(failureMechanism);
 
             var comboBox = (ComboBox) new ComboBoxTester("selectConfigurationTypeComboBox").TheObject;
-            
+
             // Precondition
             Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
-            
+
             // When
             var newValue = new Random(21).NextEnumValue<PipingScenarioConfigurationType>();
             comboBox.SelectedValue = newValue;
-            
+
             // Then
             Assert.AreEqual(newValue, failureMechanism.ScenarioConfigurationType);
         }
@@ -349,19 +349,19 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), listBox.SelectedItem);
 
-            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                .Select(r => r.DataBoundItem)
-                                                                .Cast<PipingScenarioRow>()
-                                                                .ToArray();
+            IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                 .Select(r => r.DataBoundItem)
+                                                                 .Cast<IPipingScenarioRow>()
+                                                                 .ToArray();
 
             // When
             listBox.SelectedItem = failureMechanism.Sections.Last();
 
             // Then
-            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                          .Select(r => r.DataBoundItem)
-                                                          .Cast<PipingScenarioRow>()
-                                                          .ToArray();
+            IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                           .Select(r => r.DataBoundItem)
+                                                           .Cast<IPipingScenarioRow>()
+                                                           .ToArray();
 
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
@@ -420,19 +420,19 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                .Select(r => r.DataBoundItem)
-                                                                .Cast<PipingScenarioRow>()
-                                                                .ToArray();
+            IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                 .Select(r => r.DataBoundItem)
+                                                                 .Cast<IPipingScenarioRow>()
+                                                                 .ToArray();
 
             // When
             failureMechanism.NotifyObservers();
 
             // Then
-            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                          .Select(r => r.DataBoundItem)
-                                                          .Cast<PipingScenarioRow>()
-                                                          .ToArray();
+            IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                           .Select(r => r.DataBoundItem)
+                                                           .Cast<IPipingScenarioRow>()
+                                                           .ToArray();
 
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
@@ -446,19 +446,19 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                .Select(r => r.DataBoundItem)
-                                                                .Cast<PipingScenarioRow>()
-                                                                .ToArray();
+            IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                 .Select(r => r.DataBoundItem)
+                                                                 .Cast<IPipingScenarioRow>()
+                                                                 .ToArray();
 
             // When
             failureMechanism.CalculationsGroup.NotifyObservers();
 
             // Then
-            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                          .Select(r => r.DataBoundItem)
-                                                          .Cast<PipingScenarioRow>()
-                                                          .ToArray();
+            IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                           .Select(r => r.DataBoundItem)
+                                                           .Cast<IPipingScenarioRow>()
+                                                           .ToArray();
 
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
@@ -492,10 +492,10 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-            PipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                                .Select(r => r.DataBoundItem)
-                                                                .Cast<PipingScenarioRow>()
-                                                                .ToArray();
+            IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                                 .Select(r => r.DataBoundItem)
+                                                                 .Cast<IPipingScenarioRow>()
+                                                                 .ToArray();
 
             SemiProbabilisticPipingCalculationScenario calculation = failureMechanism.CalculationsGroup.GetCalculations()
                                                                                      .Cast<SemiProbabilisticPipingCalculationScenario>()
@@ -505,10 +505,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             calculation.InputParameters.NotifyObservers();
 
             // Then
-            PipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
-                                                          .Select(r => r.DataBoundItem)
-                                                          .Cast<PipingScenarioRow>()
-                                                          .ToArray();
+            IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                           .Select(r => r.DataBoundItem)
+                                                           .Cast<IPipingScenarioRow>()
+                                                           .ToArray();
 
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }

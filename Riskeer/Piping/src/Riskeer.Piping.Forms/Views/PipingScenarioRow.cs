@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,110 +21,29 @@
 
 using System;
 using System.ComponentModel;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="SemiProbabilisticPipingCalculationScenario"/> in the <see cref="PipingScenariosView"/>.
+    /// Base class that represents a row of <typeparamref name="TCalculationScenario"/> in the <see cref="PipingScenariosView"/>.
     /// </summary>
-    public class PipingScenarioRow : ScenarioRow<SemiProbabilisticPipingCalculationScenario>
+    /// <typeparam name="TCalculationScenario">The type of the calculation scenario.</typeparam>
+    public abstract class PipingScenarioRow<TCalculationScenario> : ScenarioRow<TCalculationScenario>, IPipingScenarioRow
+        where TCalculationScenario : class, IPipingCalculationScenario<PipingInput>
     {
-        private readonly PipingFailureMechanism failureMechanism;
-        private readonly FailureMechanismSection failureMechanismSection;
-        private readonly IAssessmentSection assessmentSection;
-        private DerivedSemiProbabilisticPipingOutput derivedOutput;
-
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationRow"/>.
+        /// Creates a new instance of <see cref="PipingScenarioRow{TCalculationScenario}"/>.
         /// </summary>
-        /// <param name="calculationScenario">The <see cref="SemiProbabilisticPipingCalculationScenario"/> this row contains.</param>
-        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
-        /// <param name="failureMechanismSection">The failure mechanism section that the calculation belongs to.</param>
-        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal PipingScenarioRow(SemiProbabilisticPipingCalculationScenario calculationScenario,
-                                   PipingFailureMechanism failureMechanism,
-                                   FailureMechanismSection failureMechanismSection,
-                                   IAssessmentSection assessmentSection)
-            : base(calculationScenario)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
+        /// <param name="calculationScenario">The calculation scenario this row contains.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/>
+        /// is <c>null</c>.</exception>
+        protected PipingScenarioRow(TCalculationScenario calculationScenario)
+            : base(calculationScenario) {}
 
-            if (failureMechanismSection == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSection));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.failureMechanismSection = failureMechanismSection;
-            this.assessmentSection = assessmentSection;
-
-            CreateDerivedOutput();
-        }
-
-        public override double FailureProbability => derivedOutput?.PipingProbability ?? double.NaN;
-
-        /// <summary>
-        /// Gets the failure probability of uplift sub failure mechanism of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
-        /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double FailureProbabilityUplift => derivedOutput?.UpliftProbability ?? double.NaN;
-
-        /// <summary>
-        /// Gets the failure probability of heave sub failure mechanism of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double FailureProbabilityHeave => derivedOutput?.HeaveProbability ?? double.NaN;
-
-        /// <summary>
-        /// Gets the failure probability of sellmeijer sub failure mechanism of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double FailureProbabilitySellmeijer => derivedOutput?.SellmeijerProbability ?? double.NaN;
-
-        /// <summary>
-        /// Gets the section failure probability of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double SectionFailureProbability
-        {
-            get
-            {
-                if (derivedOutput != null)
-                {
-                    return derivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                               failureMechanismSection.Length);
-                }
-
-                return double.NaN;
-            }
-        }
-
-        public override void Update()
-        {
-            CreateDerivedOutput();
-        }
-
-        private void CreateDerivedOutput()
-        {
-            derivedOutput = CalculationScenario.HasOutput
-                                ? DerivedSemiProbabilisticPipingOutputFactory.Create(CalculationScenario.Output, assessmentSection.FailureMechanismContribution.Norm)
-                                : null;
-        }
+        public abstract double SectionFailureProbability { get; }
     }
 }
