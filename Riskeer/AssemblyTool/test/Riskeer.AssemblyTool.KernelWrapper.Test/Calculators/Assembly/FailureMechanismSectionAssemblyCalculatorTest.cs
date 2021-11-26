@@ -159,7 +159,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssembly result = calculator.AssembleFailureMechanismSection(lowerLimitNorm, signalingNorm, input);
+                FailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(lowerLimitNorm, signalingNorm, input);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);

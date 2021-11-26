@@ -55,9 +55,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssembly AssembleFailureMechanismSection(double lowerLimitNorm,
-                                                                               double signalingNorm,
-                                                                               FailureMechanismSectionAssemblyInput input)
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(double lowerLimitNorm,
+                                                                                     double signalingNorm,
+                                                                                     FailureMechanismSectionAssemblyInput input)
         {
             if (input == null)
             {
@@ -80,7 +80,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                                                  CreateProbability(input.RefinedSectionProbability),
                                                                                                  categories);
 
-                return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssembly(output);
+                return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(output);
             }
             catch (AssemblyException e)
             {

@@ -36,12 +36,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="lowerLimitNorm">The lower limit norm to assemble with.</param>
         /// <param name="signalingNorm">The signaling norm to assemble with.</param>
         /// <param name="input">The <see cref="FailureMechanismSectionAssemblyInput"/> to assemble with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        FailureMechanismSectionAssembly AssembleFailureMechanismSection(double lowerLimitNorm,
-                                                                        double signalingNorm,
-                                                                        FailureMechanismSectionAssemblyInput input);
+        FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(double lowerLimitNorm,
+                                                                              double signalingNorm,
+                                                                              FailureMechanismSectionAssemblyInput input);
     }
 }

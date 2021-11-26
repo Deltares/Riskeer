@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyTest
+    public class FailureMechanismSectionAssemblyResultTest
     {
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
@@ -39,10 +39,10 @@ namespace Riskeer.AssemblyTool.Data.Test
             var interpretationCategory = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
 
             // Call
-            var assembly = new FailureMechanismSectionAssembly(profileProbability,
-                                                               sectionProbability,
-                                                               n,
-                                                               interpretationCategory);
+            var assembly = new FailureMechanismSectionAssemblyResult(profileProbability,
+                                                                     sectionProbability,
+                                                                     n,
+                                                                     interpretationCategory);
 
             // Assert
             Assert.AreEqual(profileProbability, assembly.ProfileProbability);

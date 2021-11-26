@@ -36,10 +36,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class FailureMechanismSectionAssemblyCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismSectionAssembly_ResultNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssembly(null);
+            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(null);
 
             // Assert
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
@@ -48,7 +48,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssembly_WithInvalidResult_ThrowsInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyResult_WithInvalidResult_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var random = new Random(21);
@@ -60,7 +60,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                               (EInterpretationCategory) 99);
 
             // Call
-            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssembly(result);
+            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
         [Test]
         [TestCaseSource(nameof(GetValidCategoryConversions))]
-        public void CreateFailureMechanismSectionAssembly_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly(
+        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly(
             EInterpretationCategory category,
             FailureMechanismSectionAssemblyGroup expectedCategory)
         {
@@ -83,13 +83,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                               category);
 
             // Call
-            FailureMechanismSectionAssembly createdAssembly = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssembly(result);
+            FailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
-            Assert.AreEqual(profileProbability, createdAssembly.ProfileProbability);
-            Assert.AreEqual(sectionProbability, createdAssembly.SectionProbability);
-            Assert.AreEqual(result.NSection, createdAssembly.N);
-            Assert.AreEqual(expectedCategory, createdAssembly.AssemblyGroup);
+            Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
+            Assert.AreEqual(sectionProbability, createdAssemblyResult.SectionProbability);
+            Assert.AreEqual(result.NSection, createdAssemblyResult.N);
+            Assert.AreEqual(expectedCategory, createdAssemblyResult.AssemblyGroup);
         }
 
         [Test]

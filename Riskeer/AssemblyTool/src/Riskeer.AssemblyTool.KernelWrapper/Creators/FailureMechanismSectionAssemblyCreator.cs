@@ -28,32 +28,32 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="FailureMechanismSectionAssembly"/> instances and
+    /// Creates <see cref="FailureMechanismSectionAssemblyResult"/> instances and
     /// <see cref="FailureMechanismSectionAssemblyGroup"/> values.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyCreator
     {
         /// <summary>
-        /// Converts a <see cref="FailurePathSectionAssemblyResult"/> into a <see cref="FailureMechanismSectionAssembly"/>.
+        /// Converts a <see cref="FailurePathSectionAssemblyResult"/> into a <see cref="FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="result">The <see cref="FailurePathSectionAssemblyResult"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssembly"/> based on <paramref name="result"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssembly CreateFailureMechanismSectionAssembly(FailurePathSectionAssemblyResult result)
+        public static FailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(FailurePathSectionAssemblyResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssembly(result.ProbabilityProfile.Value,
-                                                       result.ProbabilitySection.Value,
-                                                       result.NSection,
-                                                       CreateFailureMechanismSectionAssemblyGroup(result.InterpretationCategory));
+            return new FailureMechanismSectionAssemblyResult(result.ProbabilityProfile.Value,
+                                                             result.ProbabilitySection.Value,
+                                                             result.NSection,
+                                                             CreateFailureMechanismSectionAssemblyGroup(result.InterpretationCategory));
         }
 
         /// <summary>

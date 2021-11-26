@@ -22,21 +22,21 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Assembly for a failure mechanism section.
+    /// Assembly result of a failure mechanism section.
     /// </summary>
-    public class FailureMechanismSectionAssembly
+    public class FailureMechanismSectionAssemblyResult
     {
         /// <summary>
-        /// Instantiates a <see cref="FailureMechanismSectionAssembly"/>.
+        /// Instantiates a <see cref="FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="profileProbability">The probability of the failure mechanism section, expressed for profile</param>
         /// <param name="sectionProbability">The probability of the failure mechanism section, expressed for the section.</param>
         /// <param name="n">The length effect of the failure mechanism section.</param>
         /// <param name="assemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/>.</param>
-        public FailureMechanismSectionAssembly(double profileProbability,
-                                               double sectionProbability,
-                                               double n,
-                                               FailureMechanismSectionAssemblyGroup assemblyGroup)
+        public FailureMechanismSectionAssemblyResult(double profileProbability,
+                                                     double sectionProbability,
+                                                     double n,
+                                                     FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             ProfileProbability = profileProbability;
             SectionProbability = sectionProbability;
