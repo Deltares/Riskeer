@@ -967,6 +967,15 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type toets:.
+        /// </summary>
+        public static string PipingScenariosView_ScenarioConfigurationType_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingScenariosView_ScenarioConfigurationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to probabilistisch.
         /// </summary>
         public static string PipingScenariosViewFailureMechanismSectionViewModel_GetScenarioConfigurationTypeDisplayName_Probabilistic {
