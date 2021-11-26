@@ -111,18 +111,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid {
+        internal static string AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m]..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive {
+        internal static string AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive", resourceCulture);
             }
         }
         
@@ -132,6 +132,33 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_DoesNotComplyAfterComply {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_DoesNotComplyAfterComply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_EmptyResultsList {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_EmptyResultsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De lengte van een berekende deelvak kon niet goed worden bepaald..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid", resourceCulture);
             }
         }
         
@@ -150,24 +177,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_FailureProbabilityOutOfRange {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureProbabilityOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_FmSectionLengthInvalid {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FmSectionLengthInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De lengte van een berekende deelvak kon niet goed worden bepaald..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_FmSectionSectionStartEndInvalid {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FmSectionSectionStartEndInvalid", resourceCulture);
             }
         }
         
@@ -240,6 +249,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_PlowDsnAbovePlow {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_PlowDsnAbovePlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De faalkans per vak moet groter of gelijk zijn aan de faalkans per doorsnede..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability", resourceCulture);
             }
         }
         

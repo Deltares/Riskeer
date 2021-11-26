@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Assembly.Kernel.Old.Exceptions;
+using Assembly.Kernel.Exceptions;
 using Riskeer.AssemblyTool.KernelWrapper.Properties;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
@@ -31,7 +31,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Class that creates to localized error messages for the assembly tool.
     /// </summary>
-    public static class AssemblyErrorMessageCreatorOld
+    public static class AssemblyErrorMessageCreator
     {
         /// <summary>
         /// Creates a localized string based on the contents of <paramref name="errorMessages"/>.
@@ -80,49 +80,27 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 
             switch (assemblyError)
             {
-                case EAssemblyErrors.SignallingLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_SignalingLimitOutOfRange;
-                case EAssemblyErrors.LowerLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_LowerLimitOutOfRange;
-                case EAssemblyErrors.FailurePropbabilityMarginOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange;
                 case EAssemblyErrors.LengthEffectFactorOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange;
                 case EAssemblyErrors.SectionLengthOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_SectionLengthOutOfRange;
                 case EAssemblyErrors.SignallingLimitAboveLowerLimit:
                     return Resources.AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit;
-                case EAssemblyErrors.PsigDsnAbovePsig:
-                    return Resources.AssemblyErrorMessageCreator_PsigDsnAbovePsig;
-                case EAssemblyErrors.PlowDsnAbovePlow:
-                    return Resources.AssemblyErrorMessageCreator_PlowDsnAbovePlow;
                 case EAssemblyErrors.LowerLimitIsAboveUpperLimit:
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
-                case EAssemblyErrors.CategoryLowerLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange;
-                case EAssemblyErrors.CategoryUpperLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange;
-                case EAssemblyErrors.TranslateAssessmentInvalidInput:
-                    return Resources.AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput;
                 case EAssemblyErrors.ValueMayNotBeNull:
                     return Resources.AssemblyErrorMessageCreator_ValueMayNotBeNull;
-                case EAssemblyErrors.CategoryNotAllowed:
-                    return Resources.AssemblyErrorMessageCreator_CategoryNotAllowed;
-                case EAssemblyErrors.DoesNotComplyAfterComply:
-                    return Resources.AssemblyErrorMessageCreator_DoesNotComplyAfterComply;
-                case EAssemblyErrors.FmSectionLengthInvalid:
+                case EAssemblyErrors.FailurePathSectionLengthInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid;
-                case EAssemblyErrors.FmSectionSectionStartEndInvalid:
+                case EAssemblyErrors.FailurePathSectionSectionStartEndInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid;
                 case EAssemblyErrors.FailureProbabilityOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_FailureProbabilityOutOfRange;
                 case EAssemblyErrors.InputNotTheSameType:
                     return Resources.AssemblyErrorMessageCreator_InputNotTheSameType;
-                case EAssemblyErrors.FailureMechanismAssemblerInputInvalid:
-                    return Resources.AssemblyErrorMessageCreator_NoSectionsImported;
-                case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
+                case EAssemblyErrors.CommonFailurePathSectionsInvalid:
                     return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid;
-                case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
+                case EAssemblyErrors.CommonFailurePathSectionsNotConsecutive:
                     return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_RequestedPointOutOfRange;
@@ -130,6 +108,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_SectionsWithoutCategory;
                 case EAssemblyErrors.InvalidCategoryLimits:
                     return Resources.AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits;
+                case EAssemblyErrors.EmptyResultsList:
+                    return Resources.AssemblyErrorMessageCreator_EmptyResultsList;
+                case EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability:
+                    return Resources.AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability;
                 default:
                     throw new NotSupportedException();
             }
