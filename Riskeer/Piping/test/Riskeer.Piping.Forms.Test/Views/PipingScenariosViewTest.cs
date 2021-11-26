@@ -203,6 +203,33 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
+        public void Constructor_RadioButtonsCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool radioButtonsShouldBeVisible)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var radioButtonsPanel = (Panel) new PanelTester("radioButtonsPanel").TheObject;
+            Assert.AreEqual(radioButtonsShouldBeVisible, radioButtonsPanel.Visible);
+
+            var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
+            Assert.AreEqual("Semi-probabilistische toets", radioButtonSemiProbabilistic.Text);
+            Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
+            var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
+            Assert.AreEqual("Probabilistische toets", radioButtonProbabilistic.Text);
+            Assert.IsFalse(radioButtonProbabilistic.Checked);
+        }
+
+        [Test]
         [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
         [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
         public void Constructor_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool semiProbabilisticColumnShouldBeVisible)

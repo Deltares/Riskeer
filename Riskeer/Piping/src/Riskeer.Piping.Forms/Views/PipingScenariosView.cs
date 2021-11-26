@@ -101,7 +101,9 @@ namespace Riskeer.Piping.Forms.Views
             InitializeDataGridView();
 
             UpdateSectionsListBox();
-            UpdateDataGridView();
+            UpdateDataGridViewDataSource();
+
+            UpdateVisibility();
         }
 
         public object Data
@@ -161,8 +163,8 @@ namespace Riskeer.Piping.Forms.Views
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
-                                                                                                                 pcg.Children.OfType<IPipingCalculationScenario<PipingInput>>()
-                                                                                                                    .Select(c => c.InputParameters)))
+                                                                                                pcg.Children.OfType<IPipingCalculationScenario<PipingInput>>()
+                                                                                                   .Select(c => c.InputParameters)))
             {
                 Observable = calculationGroup
             };
@@ -210,13 +212,12 @@ namespace Riskeer.Piping.Forms.Views
             );
         }
 
-        private void UpdateDataGridView()
+        private void UpdateVisibility()
         {
+            radioButtonsPanel.Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
             dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
             dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
             dataGridViewControl.GetColumnFromIndex(failureProbabilitySellmeijerColumnIndex).Visible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
-
-            UpdateDataGridViewDataSource();
         }
 
         private void UpdateDataGridViewDataSource()
@@ -292,7 +293,8 @@ namespace Riskeer.Piping.Forms.Views
             }
 
             failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
-            UpdateDataGridView();
+            UpdateVisibility();
+            UpdateDataGridViewDataSource();
         }
     }
 }
