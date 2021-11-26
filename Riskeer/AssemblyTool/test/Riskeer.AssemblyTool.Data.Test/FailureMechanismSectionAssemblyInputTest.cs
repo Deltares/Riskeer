@@ -27,9 +27,9 @@ namespace Riskeer.AssemblyTool.Data.Test
 
             // Assert
             Assert.AreEqual(isRelevant, input.IsRelevant);
-            Assert.AreEqual(profileProbability, input.ProfileProbability);
-            Assert.AreEqual(sectionProbability, input.SectionProbability);
-            Assert.AreEqual(needsRefinement, input.NeedsRefinement);
+            Assert.AreEqual(profileProbability, input.InitialProfileProbability);
+            Assert.AreEqual(sectionProbability, input.InitialSectionProbability);
+            Assert.AreEqual(needsRefinement, input.FurtherAnalysisNeeded);
             Assert.AreEqual(refinedProfileProbability, input.RefinedProfileProbability);
             Assert.AreEqual(refinedSectionProbability, input.RefinedSectionProbability);
         }

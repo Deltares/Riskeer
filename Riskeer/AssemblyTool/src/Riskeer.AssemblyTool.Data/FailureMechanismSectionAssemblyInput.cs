@@ -9,20 +9,20 @@
         /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyInput"/>.
         /// </summary>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
-        /// <param name="profileProbability">The probability for the profile.</param>
-        /// <param name="sectionProbability">The probability for the section.</param>
-        /// <param name="needsRefinement">The indicator whether the section needs refinement.</param>
+        /// <param name="initialProfileProbability">The initial probability for the profile.</param>
+        /// <param name="initialSectionProbability">The initial probability for the section.</param>
+        /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         public FailureMechanismSectionAssemblyInput(bool isRelevant,
-                                                    double profileProbability, double sectionProbability,
-                                                    bool needsRefinement,
+                                                    double initialProfileProbability, double initialSectionProbability,
+                                                    bool furtherAnalysisNeeded,
                                                     double refinedProfileProbability, double refinedSectionProbability)
         {
             IsRelevant = isRelevant;
-            ProfileProbability = profileProbability;
-            SectionProbability = sectionProbability;
-            NeedsRefinement = needsRefinement;
+            InitialProfileProbability = initialProfileProbability;
+            InitialSectionProbability = initialSectionProbability;
+            FurtherAnalysisNeeded = furtherAnalysisNeeded;
             RefinedProfileProbability = refinedProfileProbability;
             RefinedSectionProbability = refinedSectionProbability;
         }
@@ -35,17 +35,17 @@
         /// <summary>
         /// Gets the probability for the profile.
         /// </summary>
-        public double ProfileProbability { get; }
+        public double InitialProfileProbability { get; }
 
         /// <summary>
         /// Gets the probability for the section.
         /// </summary>
-        public double SectionProbability { get; }
+        public double InitialSectionProbability { get; }
 
         /// <summary>
         /// Gets the indicator whether the section needs refinement.
         /// </summary>
-        public bool NeedsRefinement { get; }
+        public bool FurtherAnalysisNeeded { get; }
 
         /// <summary>
         /// Gets the refined probability for the profile.

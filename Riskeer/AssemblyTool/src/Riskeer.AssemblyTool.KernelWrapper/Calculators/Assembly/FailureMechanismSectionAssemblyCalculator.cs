@@ -73,9 +73,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
                 FailurePathSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(input.IsRelevant,
-                                                                                                 CreateProbability(input.ProfileProbability),
-                                                                                                 CreateProbability(input.SectionProbability),
-                                                                                                 input.NeedsRefinement,
+                                                                                                 CreateProbability(input.InitialProfileProbability),
+                                                                                                 CreateProbability(input.InitialSectionProbability),
+                                                                                                 input.FurtherAnalysisNeeded,
                                                                                                  CreateProbability(input.RefinedProfileProbability),
                                                                                                  CreateProbability(input.RefinedSectionProbability),
                                                                                                  categories);

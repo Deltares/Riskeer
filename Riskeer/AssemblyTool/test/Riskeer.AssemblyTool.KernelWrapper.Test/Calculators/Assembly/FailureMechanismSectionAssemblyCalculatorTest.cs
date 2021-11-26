@@ -127,9 +127,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 Assert.AreSame(categoryLimits, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(input.IsRelevant, failureMechanismSectionAssemblyKernel.IsRelevant);
-                Assert.AreEqual(input.ProfileProbability, failureMechanismSectionAssemblyKernel.InitialProfileProbability);
-                Assert.AreEqual(input.SectionProbability, failureMechanismSectionAssemblyKernel.InitialSectionProbability);
-                Assert.AreEqual(input.NeedsRefinement, failureMechanismSectionAssemblyKernel.NeedsRefinement);
+                Assert.AreEqual(input.InitialProfileProbability, failureMechanismSectionAssemblyKernel.InitialProfileProbability);
+                Assert.AreEqual(input.InitialSectionProbability, failureMechanismSectionAssemblyKernel.InitialSectionProbability);
+                Assert.AreEqual(input.FurtherAnalysisNeeded, failureMechanismSectionAssemblyKernel.NeedsRefinement);
                 Assert.AreEqual(input.RefinedProfileProbability, failureMechanismSectionAssemblyKernel.RefinedProfileProbability);
                 Assert.AreEqual(input.RefinedSectionProbability, failureMechanismSectionAssemblyKernel.RefinedSectionProbability);
             }
