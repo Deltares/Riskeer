@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Exceptions
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCalculatorExceptionTest
-        : CustomExceptionDesignGuidelinesTestFixture<FailureMechanismAssemblyCalculatorException, Exception> {}
+    public class AssessmentSectionAssemblyCalculatorExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<AssessmentSectionAssemblyCalculatorException, Exception> {}
 }

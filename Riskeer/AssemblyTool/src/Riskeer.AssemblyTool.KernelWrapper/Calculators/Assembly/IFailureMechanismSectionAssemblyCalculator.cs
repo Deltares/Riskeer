@@ -21,7 +21,6 @@
 
 using System;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {

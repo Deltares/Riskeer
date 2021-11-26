@@ -22,38 +22,38 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
-    /// The exception that is thrown when an error occurs while performing a failure mechanism section assembly.
+    /// The exception that is thrown when an error occurs while performing a failure mechanism assembly.
     /// </summary>
     [Serializable]
-    public class FailureMechanismSectionAssemblyCalculatorException : Exception
+    public class FailureMechanismAssemblyCalculatorException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssemblyCalculatorException"/> class.
+        /// Initializes a new instance of the <see cref="FailureMechanismAssemblyCalculatorException"/> class.
         /// </summary>
-        public FailureMechanismSectionAssemblyCalculatorException() {}
+        public FailureMechanismAssemblyCalculatorException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssemblyCalculatorException"/> class
+        /// Initializes a new instance of the <see cref="FailureMechanismAssemblyCalculatorException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public FailureMechanismSectionAssemblyCalculatorException(string message) : base(message) {}
+        public FailureMechanismAssemblyCalculatorException(string message) : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismSectionAssemblyCalculatorException"/> class
+        /// Initializes a new instance of the <see cref="FailureMechanismAssemblyCalculatorException"/> class
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public FailureMechanismSectionAssemblyCalculatorException(string message, Exception inner) : base(message, inner) {}
+        public FailureMechanismAssemblyCalculatorException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="FailureMechanismSectionAssemblyCalculatorException"/> with
+        /// Initializes a new instance of <see cref="FailureMechanismAssemblyCalculatorException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected FailureMechanismSectionAssemblyCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected FailureMechanismAssemblyCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

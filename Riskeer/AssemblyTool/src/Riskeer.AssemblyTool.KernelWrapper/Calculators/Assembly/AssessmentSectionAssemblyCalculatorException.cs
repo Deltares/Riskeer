@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Exceptions
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing an assessment section assembly.
