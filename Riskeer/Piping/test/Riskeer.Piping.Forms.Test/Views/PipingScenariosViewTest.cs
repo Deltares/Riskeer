@@ -557,9 +557,9 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                                  .Cast<IPipingScenarioRow>()
                                                                  .ToArray();
 
-            SemiProbabilisticPipingCalculationScenario calculation = failureMechanism.CalculationsGroup.GetCalculations()
-                                                                                     .Cast<SemiProbabilisticPipingCalculationScenario>()
-                                                                                     .First();
+            IPipingCalculationScenario<PipingInput> calculation = failureMechanism.CalculationsGroup.GetCalculations()
+                                                                                  .Cast<IPipingCalculationScenario<PipingInput>>()
+                                                                                  .First();
 
             // When
             calculation.InputParameters.NotifyObservers();

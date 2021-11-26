@@ -54,8 +54,8 @@ namespace Riskeer.Piping.Forms.Views
 
         private Observer failureMechanismObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario> calculationObserver;
-        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingInput> calculationInputObserver;
+        private RecursiveObserver<CalculationGroup, IPipingCalculationScenario<PipingInput>> calculationObserver;
+        private RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
 
         private IEnumerable<IPipingScenarioRow> scenarioRows;
         private bool selectConfigurationTypeComboBoxUpdating;
@@ -154,14 +154,14 @@ namespace Riskeer.Piping.Forms.Views
                 Observable = calculationGroup
             };
 
-            calculationObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, IPipingCalculationScenario<PipingInput>>(UpdateScenarioRows, pcg => pcg.Children)
             {
                 Observable = calculationGroup
             };
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
-                                                                                                                 pcg.Children.OfType<SemiProbabilisticPipingCalculationScenario>()
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
+                                                                                                                 pcg.Children.OfType<IPipingCalculationScenario<PipingInput>>()
                                                                                                                     .Select(c => c.InputParameters)))
             {
                 Observable = calculationGroup
