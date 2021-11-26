@@ -209,7 +209,7 @@ namespace Riskeer.Piping.Forms.Views
             this.labelCalculations.Name = "labelCalculations";
             this.labelCalculations.Size = new System.Drawing.Size(182, 13);
             this.labelCalculations.TabIndex = 0;
-            this.labelCalculations.Text = "Berekeningen voor geselecteerd vak";
+            this.labelCalculations.Text = "Berekeningen voor geselecteerd vak en type toets";
             // 
             // dataGridViewControl
             // 
