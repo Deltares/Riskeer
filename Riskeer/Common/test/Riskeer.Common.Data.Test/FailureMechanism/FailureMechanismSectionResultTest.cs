@@ -42,6 +42,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<Observable>(result);
             Assert.AreSame(section, result.Section);
+            Assert.IsTrue(result.IsRelevant);
         }
 
         [Test]

@@ -42,11 +42,17 @@ namespace Riskeer.Common.Data.FailureMechanism
             }
 
             Section = section;
+            IsRelevant = true;
         }
 
         /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; }
+        
+        /// <summary>
+        /// Gets or sets whether the section is relevant.
+        /// </summary>
+        public bool IsRelevant { get; set; }
     }
 }
