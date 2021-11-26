@@ -68,11 +68,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (AssemblyException e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -97,11 +97,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (AssemblyException e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
     }

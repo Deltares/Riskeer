@@ -65,11 +65,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -86,11 +86,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -108,11 +108,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -131,11 +131,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
     }

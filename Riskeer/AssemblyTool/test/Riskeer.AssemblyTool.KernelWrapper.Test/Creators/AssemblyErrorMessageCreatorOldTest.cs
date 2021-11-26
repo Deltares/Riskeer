@@ -30,13 +30,13 @@ using Riskeer.AssemblyTool.KernelWrapper.Creators;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyErrorMessageCreatorTest
+    public class AssemblyErrorMessageCreatorOldTest
     {
         [Test]
         public void CreateErrorMessage_ErrorMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssemblyErrorMessageCreator.CreateErrorMessage(null);
+            TestDelegate test = () => AssemblyErrorMessageCreatorOld.CreateErrorMessage(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -47,7 +47,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateErrorMessage_InvalidAssemblyError_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+            TestDelegate test = () => AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, (EAssemblyErrors) 9999)
             });
@@ -86,7 +86,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call
-            string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+            string errorMessage = AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, assemblyError)
             });
@@ -99,7 +99,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateErrorMessage_MultipleAssemblyErrors_ReturnsExpectedErrorMessage()
         {
             // Call
-            string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+            string errorMessage = AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryNotAllowed),
                 new AssemblyErrorMessage(string.Empty, EAssemblyErrors.FailureProbabilityOutOfRange)
@@ -114,7 +114,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateErrorMessage_NoAssemblyErrors_ReturnsEmptyErrorMessage()
         {
             // Call
-            string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(Enumerable.Empty<AssemblyErrorMessage>());
+            string errorMessage = AssemblyErrorMessageCreatorOld.CreateErrorMessage(Enumerable.Empty<AssemblyErrorMessage>());
 
             // Assert
             Assert.IsEmpty(errorMessage);
@@ -124,7 +124,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateGenericErrorMessage_Always_ReturnsExpectedErrorMessage()
         {
             // Call
-            string errorMessage = AssemblyErrorMessageCreator.CreateGenericErrorMessage();
+            string errorMessage = AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage();
 
             // Assert
             Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het assembleren.", errorMessage);

@@ -31,7 +31,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Class that creates to localized error messages for the assembly tool.
     /// </summary>
-    public static class AssemblyErrorMessageCreator
+    public static class AssemblyErrorMessageCreatorOld
     {
         /// <summary>
         /// Creates a localized string based on the contents of <paramref name="errorMessages"/>.

@@ -138,7 +138,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -164,7 +164,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
                 {
                     new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
                 }), exception.Message);
@@ -238,7 +238,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -261,7 +261,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
                 {
                     new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
                 }), exception.Message);
@@ -335,7 +335,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -358,7 +358,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
                 {
                     new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
                 }), exception.Message);
@@ -442,7 +442,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -468,7 +468,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
                 {
                     new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
                 }), exception.Message);

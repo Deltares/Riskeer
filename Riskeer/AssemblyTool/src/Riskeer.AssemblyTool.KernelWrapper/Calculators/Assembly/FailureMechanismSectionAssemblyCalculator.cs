@@ -85,11 +85,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             catch (AssemblyException e)
             {
                 // TODO: Add method besides the AssemblyErrorMessageCreator
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
             catch (Exception e)
             {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
 
