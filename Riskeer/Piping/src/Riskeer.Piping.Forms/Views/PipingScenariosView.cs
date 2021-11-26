@@ -62,6 +62,8 @@ namespace Riskeer.Piping.Forms.Views
         private FailureMechanismSection selectedFailureMechanismSection;
         private PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection;
 
+        private RadioButton checkedRadioButton;
+
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosView"/>.
         /// </summary>
@@ -99,6 +101,8 @@ namespace Riskeer.Piping.Forms.Views
 
             InitializeCombobox();
 
+            checkedRadioButton = radioButtonSemiProbabilistic;
+            
             InitializeListBox();
             InitializeDataGridView();
 
@@ -325,15 +329,23 @@ namespace Riskeer.Piping.Forms.Views
 
         private void RadioButton_OnCheckedChanged(object sender, EventArgs e)
         {
+            var newCheckedRadioButton = (RadioButton) sender;
+            if (checkedRadioButton == newCheckedRadioButton)
+            {
+                return;
+            }
+            
             if (scenarioConfigurationTypeForSection != null)
             {
-                scenarioConfigurationTypeForSection.ScenarioConfigurationType = radioButtonSemiProbabilistic.Checked
+                scenarioConfigurationTypeForSection.ScenarioConfigurationType = newCheckedRadioButton == radioButtonSemiProbabilistic
                                                                                     ? PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
                                                                                     : PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+                scenarioConfigurationTypeForSection.NotifyObservers();
             }
             
             UpdateVisibility();
             UpdateDataGridViewDataSource();
+            checkedRadioButton = newCheckedRadioButton;
         }
     }
 }

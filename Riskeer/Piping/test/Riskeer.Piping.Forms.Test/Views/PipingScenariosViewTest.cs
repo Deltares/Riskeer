@@ -405,18 +405,26 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenarioViewWithSections_WhenSelectingRadioButton_ThenDataGridViewUpdated()
+        public void GivenPipingScenarioViewWithSections_WhenSelectingRadioButton_ThenDataSetAndNotified()
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+            
             var failureMechanism = new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
             };
             ShowFullyConfiguredPipingScenariosView(failureMechanism);
 
+            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First();
+            scenarioConfigurationPerFailureMechanismSection.Attach(observer);
+            
             // Precondition
             Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic,
-                            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType);
+                            scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType);
 
             // When
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
@@ -424,7 +432,8 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic,
-                            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType);
+                            scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType);
+            mocks.VerifyAll();
         }
 
         [Test]

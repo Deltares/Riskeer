@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Piping.Data
@@ -27,7 +28,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// This class holds the information of the scenario configuration of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class PipingScenarioConfigurationPerFailureMechanismSection
+    public class PipingScenarioConfigurationPerFailureMechanismSection : Observable
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenarioConfigurationPerFailureMechanismSection"/>.
