@@ -30,10 +30,10 @@ using Core.Common.Util;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -59,8 +59,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private IEnumerable<IPipingScenarioRow> scenarioRows;
         private bool selectConfigurationTypeComboBoxUpdating;
-        private FailureMechanismSection selectedFailureMechanismSection;
-        private PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection;
+        private PipingScenariosViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
 
         private RadioButton checkedRadioButton;
         private bool updatingFailureMechanism;
@@ -103,7 +102,7 @@ namespace Riskeer.Piping.Forms.Views
             InitializeCombobox();
 
             checkedRadioButton = radioButtonSemiProbabilistic;
-            
+
             InitializeListBox();
             InitializeDataGridView();
 
@@ -185,7 +184,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeListBox()
         {
-            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            listBox.DisplayMember = nameof(PipingScenariosViewFailureMechanismSectionViewModel.DisplayName);
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 
@@ -228,9 +227,9 @@ namespace Riskeer.Piping.Forms.Views
         private void UpdateVisibility()
         {
             bool perFailureMechanismSemiProbabilistic;
-            if (scenarioConfigurationTypeForSection != null)
+            if (selectedFailureMechanismSection != null)
             {
-                perFailureMechanismSemiProbabilistic = scenarioConfigurationTypeForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+                perFailureMechanismSemiProbabilistic = selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
             }
             else
             {
@@ -265,22 +264,27 @@ namespace Riskeer.Piping.Forms.Views
 
             if (failureMechanism.Sections.Any())
             {
-                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = failureMechanism.Sections.First();
+                object[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(section => new PipingScenariosViewFailureMechanismSectionViewModel(
+                                                                                                  section, failureMechanism,
+                                                                                                  failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                                                                                  .First(sc => sc.Section == section)))
+                                                                             .Cast<object>()
+                                                                             .ToArray();
+                listBox.Items.AddRange(failureMechanismSectionViewModels);
+                listBox.SelectedItem = failureMechanismSectionViewModels.First();
             }
         }
 
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
-            selectedFailureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
-            scenarioConfigurationTypeForSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First(sc => sc.Section == selectedFailureMechanismSection);
+            selectedFailureMechanismSection = listBox.SelectedItem as PipingScenariosViewFailureMechanismSectionViewModel;
             UpdateRadioButtons();
             UpdateDataGridViewDataSource();
         }
 
         private void UpdateRadioButtons()
         {
-            bool semiProbabilisticChecked = scenarioConfigurationTypeForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            bool semiProbabilisticChecked = selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
             radioButtonSemiProbabilistic.Checked = semiProbabilisticChecked;
             radioButtonProbabilistic.Checked = !semiProbabilisticChecked;
         }
@@ -293,7 +297,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private IEnumerable<IPipingScenarioRow> GetScenarioRows()
         {
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(selectedFailureMechanismSection.Points);
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(selectedFailureMechanismSection.Section.Points);
 
             return failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
                        ? GetSemiProbabilisticPipingScenarioRows(lineSegments)
@@ -303,7 +307,7 @@ namespace Riskeer.Piping.Forms.Views
         private IEnumerable<IPipingScenarioRow> GetSemiProbabilisticPipingScenarioRows(IEnumerable<Segment2D> lineSegments)
         {
             return GetScenarios<SemiProbabilisticPipingCalculationScenario>(lineSegments)
-                   .Select(pc => new SemiProbabilisticPipingScenarioRow(pc, failureMechanism, selectedFailureMechanismSection, assessmentSection))
+                   .Select(pc => new SemiProbabilisticPipingScenarioRow(pc, failureMechanism, selectedFailureMechanismSection.Section, assessmentSection))
                    .ToList();
         }
 
@@ -333,7 +337,7 @@ namespace Riskeer.Piping.Forms.Views
             failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
             failureMechanism.NotifyObservers();
             updatingFailureMechanism = false;
-            
+
             UpdateVisibility();
             UpdateDataGridViewDataSource();
         }
@@ -345,15 +349,15 @@ namespace Riskeer.Piping.Forms.Views
             {
                 return;
             }
-            
-            if (scenarioConfigurationTypeForSection != null)
+
+            if (selectedFailureMechanismSection.ScenarioConfigurationPerSection != null)
             {
-                scenarioConfigurationTypeForSection.ScenarioConfigurationType = newCheckedRadioButton == radioButtonSemiProbabilistic
-                                                                                    ? PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
-                                                                                    : PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
-                scenarioConfigurationTypeForSection.NotifyObservers();
+                selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType = newCheckedRadioButton == radioButtonSemiProbabilistic
+                                                                                                                ? PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+                                                                                                                : PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+                selectedFailureMechanismSection.ScenarioConfigurationPerSection.NotifyObservers();
             }
-            
+
             UpdateVisibility();
             UpdateDataGridViewDataSource();
             checkedRadioButton = newCheckedRadioButton;

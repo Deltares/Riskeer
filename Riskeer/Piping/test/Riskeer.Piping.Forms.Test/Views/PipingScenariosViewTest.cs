@@ -41,6 +41,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
 
@@ -171,12 +172,12 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            Assert.AreEqual(nameof(FailureMechanismSection.Name), listBox.DisplayMember);
+            Assert.AreEqual(nameof(PipingScenariosViewFailureMechanismSectionViewModel.DisplayName), listBox.DisplayMember);
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
+            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).Section);
+            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).Section);
+            Assert.AreSame(failureMechanismSection3, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).Section);
+            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
         }
 
         [Test]
@@ -345,10 +346,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-            
+
             var failureMechanism = new PipingFailureMechanism();
             ShowPipingScenariosView(failureMechanism);
-            
+
             failureMechanism.Attach(observer);
 
             // Precondition
@@ -420,7 +421,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-            
+
             var failureMechanism = new PipingFailureMechanism
             {
                 ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
@@ -429,7 +430,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First();
             scenarioConfigurationPerFailureMechanismSection.Attach(observer);
-            
+
             // Precondition
             Assert.AreEqual(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic,
                             scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType);
@@ -570,7 +571,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
             ConfigureFailureMechanism(failureMechanism);
             failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Last().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
-            
+
             ShowPipingScenariosView(failureMechanism);
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -579,7 +580,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
 
             // Precondition
-            Assert.AreSame(failureMechanism.Sections.First(), listBox.SelectedItem);
+            Assert.AreSame(failureMechanism.Sections.First(), ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
             Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
             Assert.IsFalse(radioButtonProbabilistic.Checked);
 
@@ -589,12 +590,12 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                                  .ToArray();
 
             // When
-            listBox.SelectedItem = failureMechanism.Sections.Last();
+            listBox.SelectedItem = listBox.Items[listBox.Items.Count - 1];
 
             // Then
             Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
             Assert.IsTrue(radioButtonProbabilistic.Checked);
-            
+
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                            .Select(r => r.DataBoundItem)
                                                            .Cast<IPipingScenarioRow>()
@@ -642,10 +643,10 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
+            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).Section);
+            Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).Section);
+            Assert.AreSame(failureMechanismSection3, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[2]).Section);
+            Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.SelectedItem).Section);
         }
 
         [Test]
