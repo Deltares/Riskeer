@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -44,6 +45,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsTrue(sectionResult.IsRelevant);
             Assert.AreEqual(InitialFailureMechanismResultType.Adopt, sectionResult.InitialFailureMechanismResult);
+            Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
         }
 
         [Test]
@@ -55,6 +57,46 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("section", exception.ParamName);
+        }
+        
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualInitialFailureMechanismResultSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new TestFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => result.ManualInitialFailureMechanismResultSectionProbability = newValue;
+
+            // Assert
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void ManualInitialFailureMechanismResultSectionProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new TestFailureMechanismSectionResult(section);
+
+            // Call
+            result.ManualInitialFailureMechanismResultSectionProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.ManualInitialFailureMechanismResultSectionProbability);
         }
 
         private class TestFailureMechanismSectionResult : FailureMechanismSectionResult

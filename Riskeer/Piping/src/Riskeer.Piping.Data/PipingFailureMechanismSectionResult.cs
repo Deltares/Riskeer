@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data
 {
@@ -29,11 +32,32 @@ namespace Riskeer.Piping.Data
     /// </summary>
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        private double manualInitialFailureMechanismResultProfileProbability;
+
         /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         public PipingFailureMechanismSectionResult(FailureMechanismSection section)
-            : base(section) {}
+            : base(section)
+        {
+            ManualInitialFailureMechanismResultProfileProbability = double.NaN;
+        }
+        
+        /// <summary>
+        /// Gets or sets the value of the manual initial failure mechanism result per profile as a probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double ManualInitialFailureMechanismResultProfileProbability
+        {
+            get => manualInitialFailureMechanismResultProfileProbability;
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                manualInitialFailureMechanismResultProfileProbability = value;
+            }
+        }
     }
 }
