@@ -203,10 +203,18 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_DataGridViewCorrectlyInitialized()
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
+        public void Constructor_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType, bool semiProbabilisticColumnShouldBeVisible)
         {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
             // Call
-            ShowPipingScenariosView(new PipingFailureMechanism());
+            ShowPipingScenariosView(failureMechanism);
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -219,6 +227,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Kans op\r\nterugschrijdende erosie\r\n[1/jaar]", dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].HeaderText);
             Assert.AreEqual("Faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[failureProbabilityPipingColumnIndex].HeaderText);
             Assert.AreEqual("Faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionFailureProbabilityPipingColumnIndex].HeaderText);
+
+            Assert.AreEqual(semiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
         }
 
         [Test]
@@ -274,6 +286,54 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newValue, failureMechanism.ScenarioConfigurationType);
+        }
+
+        [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationType.Probabilistic)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationType.SemiProbabilistic)]
+        public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataGridViewUpdated(PipingScenarioConfigurationType initialScenarioConfigurationType,
+                                                                                                PipingScenarioConfigurationType newScenarioConfigurationType)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = initialScenarioConfigurationType
+            };
+            ShowPipingScenariosView(failureMechanism);
+
+            var comboBox = (ComboBox) new ComboBoxTester("selectConfigurationTypeComboBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Type initialRowType = initialScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                                      ? typeof(SemiProbabilisticPipingScenarioRow)
+                                      : typeof(ProbabilisticPipingScenarioRow);
+            foreach (object row in dataGridView.Rows.Cast<DataGridViewRow>().Select(r => r.DataBoundItem))
+            {
+                Assert.IsInstanceOf(initialRowType, row);
+            }
+
+            bool initialSemiProbabilisticColumnShouldBeVisible = initialScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
+            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
+            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
+            Assert.AreEqual(initialSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
+
+            // When
+            comboBox.SelectedValue = newScenarioConfigurationType;
+
+            // Then
+            Type updatedRowType = newScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                                      ? typeof(SemiProbabilisticPipingScenarioRow)
+                                      : typeof(ProbabilisticPipingScenarioRow);
+            foreach (object row in dataGridView.Rows.Cast<DataGridViewRow>().Select(r => r.DataBoundItem))
+            {
+                Assert.IsInstanceOf(updatedRowType, row);
+            }
+
+            bool updatedSemiProbabilisticColumnShouldBeVisible = newScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic;
+            Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
+            Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
+            Assert.AreEqual(updatedSemiProbabilisticColumnShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
         }
 
         [Test]
