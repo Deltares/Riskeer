@@ -338,11 +338,18 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataSet()
+        public void GivenPipingScenarioView_WhenSelectingItemInComboBox_ThenDataSetAndObserversNotified()
         {
             // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+            
             var failureMechanism = new PipingFailureMechanism();
             ShowPipingScenariosView(failureMechanism);
+            
+            failureMechanism.Attach(observer);
 
             // Precondition
             Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
@@ -354,6 +361,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Then
             Assert.AreEqual(newValue, failureMechanism.ScenarioConfigurationType);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -405,7 +413,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenarioViewWithSections_WhenSelectingRadioButton_ThenDataSetAndNotified()
+        public void GivenPipingScenarioViewWithSections_WhenSelectingRadioButton_ThenDataSetAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();

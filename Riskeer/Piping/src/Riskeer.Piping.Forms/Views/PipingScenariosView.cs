@@ -63,6 +63,7 @@ namespace Riskeer.Piping.Forms.Views
         private PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection;
 
         private RadioButton checkedRadioButton;
+        private bool updatingFailureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosView"/>.
@@ -152,7 +153,13 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            failureMechanismObserver = new Observer(() =>
+            {
+                if (!updatingFailureMechanism)
+                {
+                    UpdateSectionsListBox();
+                }
+            })
             {
                 Observable = failureMechanism
             };
@@ -322,7 +329,11 @@ namespace Riskeer.Piping.Forms.Views
                 return;
             }
 
+            updatingFailureMechanism = true;
             failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
+            failureMechanism.NotifyObservers();
+            updatingFailureMechanism = false;
+            
             UpdateVisibility();
             UpdateDataGridViewDataSource();
         }
