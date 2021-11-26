@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Sets the resulting probability.
         /// </summary>
-        public Probability ProbabilityResult { get; private set; }
+        public Probability ProbabilityResult { private get; set; }
 
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
