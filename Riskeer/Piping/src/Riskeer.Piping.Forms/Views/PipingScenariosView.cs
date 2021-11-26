@@ -62,7 +62,6 @@ namespace Riskeer.Piping.Forms.Views
         private PipingScenariosViewFailureMechanismSectionViewModel selectedFailureMechanismSection;
 
         private RadioButton checkedRadioButton;
-        private bool updatingFailureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingScenariosView"/>.
@@ -152,13 +151,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeObservers()
         {
-            failureMechanismObserver = new Observer(() =>
-            {
-                if (!updatingFailureMechanism)
-                {
-                    UpdateSectionsListBox();
-                }
-            })
+            failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {
                 Observable = failureMechanism
             };
@@ -264,14 +257,17 @@ namespace Riskeer.Piping.Forms.Views
 
             if (failureMechanism.Sections.Any())
             {
-                object[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(section => new PipingScenariosViewFailureMechanismSectionViewModel(
-                                                                                                  section, failureMechanism,
-                                                                                                  failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
-                                                                                                                  .First(sc => sc.Section == section)))
-                                                                             .Cast<object>()
-                                                                             .ToArray();
-                listBox.Items.AddRange(failureMechanismSectionViewModels);
-                listBox.SelectedItem = failureMechanismSectionViewModels.First();
+                PipingScenariosViewFailureMechanismSectionViewModel[] failureMechanismSectionViewModels = failureMechanism.Sections.Select(
+                    section => new PipingScenariosViewFailureMechanismSectionViewModel(
+                        section, failureMechanism,
+                        failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                        .First(sc => sc.Section == section))).ToArray();
+                
+                listBox.Items.AddRange(failureMechanismSectionViewModels.Cast<object>().ToArray());
+                listBox.SelectedItem = selectedFailureMechanismSection != null
+                                           ? failureMechanismSectionViewModels.FirstOrDefault(vm => vm.Section == selectedFailureMechanismSection.Section)
+                                             ?? failureMechanismSectionViewModels.First()
+                                           : failureMechanismSectionViewModels.First();
             }
         }
 
@@ -333,10 +329,8 @@ namespace Riskeer.Piping.Forms.Views
                 return;
             }
 
-            updatingFailureMechanism = true;
             failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) selectConfigurationTypeComboBox.SelectedValue;
             failureMechanism.NotifyObservers();
-            updatingFailureMechanism = false;
 
             UpdateVisibility();
             UpdateDataGridViewDataSource();
