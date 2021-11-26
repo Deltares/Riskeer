@@ -116,6 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.AreEqual(failurePathN, kernel.LenghtEffectFactor);
+                Assert.IsFalse(kernel.PartialAssembly);
                 AssertFailurePathSectionAssemblyResults(sectionAssemblyResults, kernel.FailurePathSectionAssemblyResults);
             }
         }

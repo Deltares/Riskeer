@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 
@@ -29,6 +30,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// </summary>
     public interface IFailurePathAssemblyCalculator
     {
+        /// <summary>
+        /// Assembles a failure path based on the input.
+        /// </summary>
+        /// <param name="failurePathN">The length effect factor 'N' for an entire failure path.</param>
+        /// <param name="sectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
+        /// <returns>A probability representing the assembly result of the failure path.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
+        /// <exception cref="FailurePathAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
         double Assemble(double failurePathN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
     }
 }
