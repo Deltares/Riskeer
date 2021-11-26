@@ -547,17 +547,24 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingScenariosView_WhenSelectingDifferentItemInSectionsListBox_ThenDataGridViewUpdated()
+        public void GivenPipingScenariosView_WhenSelectingDifferentItemInSectionsListBox_ThenRadioButtonsAndDataGridViewUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
-            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+            ConfigureFailureMechanism(failureMechanism);
+            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Last().ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            
+            ShowPipingScenariosView(failureMechanism);
 
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var radioButtonSemiProbabilistic = (RadioButton) new RadioButtonTester("radioButtonSemiProbabilistic").TheObject;
+            var radioButtonProbabilistic = (RadioButton) new RadioButtonTester("radioButtonProbabilistic").TheObject;
 
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), listBox.SelectedItem);
+            Assert.IsTrue(radioButtonSemiProbabilistic.Checked);
+            Assert.IsFalse(radioButtonProbabilistic.Checked);
 
             IPipingScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                                  .Select(r => r.DataBoundItem)
@@ -568,6 +575,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             listBox.SelectedItem = failureMechanism.Sections.Last();
 
             // Then
+            Assert.IsFalse(radioButtonSemiProbabilistic.Checked);
+            Assert.IsTrue(radioButtonProbabilistic.Checked);
+            
             IPipingScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                            .Select(r => r.DataBoundItem)
                                                            .Cast<IPipingScenarioRow>()
