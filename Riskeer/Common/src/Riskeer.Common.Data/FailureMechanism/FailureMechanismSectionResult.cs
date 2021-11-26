@@ -57,12 +57,12 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; }
-        
+
         /// <summary>
         /// Gets or sets whether the section is relevant.
         /// </summary>
         public bool IsRelevant { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the initial failure mechanism result.
         /// </summary>
@@ -88,9 +88,9 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets or sets whether further analysis is needed.
         /// </summary>
         public bool FurtherAnalysisNeeded { get; set; }
-        
+
         /// <summary>
-        /// Gets or sets the value of the refined probability.
+        /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double RefinedSectionProbability

@@ -60,7 +60,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("section", exception.ParamName);
         }
-        
+
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(-20)]
@@ -100,7 +100,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreEqual(newValue, result.ManualInitialFailureMechanismResultSectionProbability);
         }
-        
+
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(-20)]

@@ -33,6 +33,7 @@ namespace Riskeer.Piping.Data
     public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double manualInitialFailureMechanismResultProfileProbability;
+        private double refinedProfileProbability;
 
         /// <inheritdoc />
         /// <summary>
@@ -42,8 +43,10 @@ namespace Riskeer.Piping.Data
             : base(section)
         {
             ManualInitialFailureMechanismResultProfileProbability = double.NaN;
+            ProbabilityRefinementType = ProbabilityRefinementType.Section;
+            RefinedProfileProbability = double.NaN;
         }
-        
+
         /// <summary>
         /// Gets or sets the value of the manual initial failure mechanism result per profile as a probability.
         /// </summary>
@@ -57,6 +60,27 @@ namespace Riskeer.Piping.Data
                                                       RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 manualInitialFailureMechanismResultProfileProbability = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the probability refinement type.
+        /// </summary>
+        public ProbabilityRefinementType ProbabilityRefinementType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the refined probability per profile.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        public double RefinedProfileProbability
+        {
+            get => refinedProfileProbability;
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                refinedProfileProbability = value;
             }
         }
     }

@@ -39,6 +39,7 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(ProbabilityRefinementType.Section, sectionResult.ProbabilityRefinementType);
         }
 
         [Test]
@@ -79,6 +80,46 @@ namespace Riskeer.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(newValue, result.ManualInitialFailureMechanismResultProfileProbability);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void RefinedProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => result.RefinedProfileProbability = newValue;
+
+            // Assert
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void RefinedProfileProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            result.RefinedProfileProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.RefinedProfileProbability);
         }
     }
 }
