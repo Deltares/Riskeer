@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -172,7 +172,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            Assert.AreEqual(nameof(PipingScenariosViewFailureMechanismSectionViewModel.DisplayName), listBox.DisplayMember);
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanismSection1, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[0]).Section);
             Assert.AreSame(failureMechanismSection2, ((PipingScenariosViewFailureMechanismSectionViewModel) listBox.Items[1]).Section);

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -177,7 +177,6 @@ namespace Riskeer.Piping.Forms.Views
 
         private void InitializeListBox()
         {
-            listBox.DisplayMember = nameof(PipingScenariosViewFailureMechanismSectionViewModel.DisplayName);
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 

@@ -75,22 +75,16 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// </summary>
         public PipingScenarioConfigurationPerFailureMechanismSection ScenarioConfigurationPerSection { get; }
 
-        /// <summary>
-        /// Gets the display name.
-        /// </summary>
-        public string DisplayName
+        public override string ToString()
         {
-            get
-            {
-                string name = Section.Name;
+            string name = Section.Name;
                 
-                if (failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection)
-                {
-                    name += $" ({GetScenarioConfigurationTypeDisplayName()})";
-                }
-
-                return name;
+            if (failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection)
+            {
+                name += $" ({GetScenarioConfigurationTypeDisplayName()})";
             }
+
+            return name;
         }
 
         private string GetScenarioConfigurationTypeDisplayName()

@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         [Test]
         [TestCase(PipingScenarioConfigurationType.SemiProbabilistic)]
         [TestCase(PipingScenarioConfigurationType.Probabilistic)]
-        public void DisplayName_FailureMechanismScenarioConfigurationTypeNotPerSection_ReturnsExpectedName(PipingScenarioConfigurationType scenarioConfigurationType)
+        public void ToString_FailureMechanismScenarioConfigurationTypeNotPerSection_ReturnsExpectedName(PipingScenarioConfigurationType scenarioConfigurationType)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -103,16 +103,16 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, pipingFailureMechanism, scenarioConfiguration);
 
             // Call
-            string displayName = viewModel.DisplayName;
+            var toString = viewModel.ToString();
 
             // Assert
-            Assert.AreEqual(section.Name, displayName);
+            Assert.AreEqual(section.Name, toString);
         }
 
         [Test]
         [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "semi-probabilistisch")]
         [TestCase(PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "probabilistisch")]
-        public void DisplayName_FailureMechanismScenarioConfigurationTypePerSection_ReturnsExpectedName(
+        public void ToString_FailureMechanismScenarioConfigurationTypePerSection_ReturnsExpectedName(
             PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationType, string displayNameSuffix)
         {
             // Setup
@@ -129,10 +129,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var viewModel = new PipingScenariosViewFailureMechanismSectionViewModel(section, pipingFailureMechanism, scenarioConfiguration);
 
             // Call
-            string displayName = viewModel.DisplayName;
+            var toString = viewModel.ToString();
 
             // Assert
-            Assert.AreEqual($"{section.Name} ({displayNameSuffix})", displayName);
+            Assert.AreEqual($"{section.Name} ({displayNameSuffix})", toString);
         }
     }
 }
