@@ -19,32 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util.Attributes;
-using Riskeer.Piping.Data.Properties;
-
-namespace Riskeer.Piping.Data
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Specifies the types of the scenario configurations.
+    /// Specifies the types of the initial failure mechanism result.
     /// </summary>
-    public enum PipingScenarioConfigurationType
+    public enum InitialFailureMechanismResultType
     {
         /// <summary>
-        /// The semi probabilistic scenario configuration type.
+        /// Adopt the result from the failure mechanism.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SemiProbabilistic_DisplayName))]
-        SemiProbabilistic = 1,
+        Adopt = 1,
         
         /// <summary>
-        /// The probabilistic scenario configuration type.
+        /// Manually fill in the result.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistic_DisplayName))]
-        Probabilistic = 2,
+        Manual = 2,
         
         /// <summary>
-        /// The per failure mechanism section scenario configuration type.
+        /// There is no failure probability for this result.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingScenarioConfigurationType_PerFailureMechanismSection_DisplayName))]
-        PerFailureMechanismSection = 3
+        NoFailureProbability = 3
     }
 }
