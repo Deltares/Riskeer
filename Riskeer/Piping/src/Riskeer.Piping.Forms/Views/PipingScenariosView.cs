@@ -314,5 +314,20 @@ namespace Riskeer.Piping.Forms.Views
             UpdateVisibility();
             UpdateDataGridViewDataSource();
         }
+
+        private void RadioButton_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (selectedFailureMechanismSection != null)
+            {
+                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                                                                                            .First(sc => sc.Section == selectedFailureMechanismSection);
+                scenarioConfigurationTypeForSection.ScenarioConfigurationType = radioButtonSemiProbabilistic.Checked
+                                                                                    ? PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
+                                                                                    : PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            }
+            
+            UpdateVisibility();
+            UpdateDataGridViewDataSource();
+        }
     }
 }

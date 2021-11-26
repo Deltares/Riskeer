@@ -187,6 +187,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonSemiProbabilistic.Text = "Semi-probabilistische toets";
             this.radioButtonSemiProbabilistic.UseVisualStyleBackColor = true;
             this.radioButtonSemiProbabilistic.Checked = true;
+            this.radioButtonSemiProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
             // 
             // radioButtonProbabilistic
             // 
@@ -199,6 +200,7 @@ namespace Riskeer.Piping.Forms.Views
             this.radioButtonProbabilistic.Text = "Probabilistische toets";
             this.radioButtonProbabilistic.UseVisualStyleBackColor = true;
             this.radioButtonProbabilistic.Checked = false;
+            this.radioButtonProbabilistic.CheckedChanged += RadioButton_OnCheckedChanged;
             // 
             // labelCalculations
             // 
