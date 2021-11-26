@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Forms.Views
             InitializeComponent();
 
             InitializeCombobox();
-            InitializeInfoIcon();
+            InitializeWarningIcon();
 
             checkedRadioButton = radioButtonSemiProbabilistic;
 
@@ -153,10 +153,10 @@ namespace Riskeer.Piping.Forms.Views
             selectConfigurationTypeComboBox.EndUpdate();
         }
         
-        private void InitializeInfoIcon()
+        private void InitializeWarningIcon()
         {
-            infoIcon.BackgroundImage = CoreGuiResources.warning.ToBitmap();
-            toolTip.SetToolTip(infoIcon, Resources.PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip);
+            warningIcon.BackgroundImage = CoreGuiResources.warning.ToBitmap();
+            toolTip.SetToolTip(warningIcon, Resources.PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip);
         }
 
         private void InitializeObservers()
