@@ -270,6 +270,39 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, true)]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, false)]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, true)]
+        public void Constructor_FailureMechanismWithoutSections_DataGridViewCorrectlyInitialized(PipingScenarioConfigurationType scenarioConfigurationType,
+                                                                                                 bool semiProbabilisticColumnsShouldBeVisible)
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
+
+            // Call
+            ShowPipingScenariosView(failureMechanism);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            Assert.AreEqual(8, dataGridView.ColumnCount);
+            Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
+            Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Kans op\r\nopbarsten\r\n[1/jaar]", dataGridView.Columns[failureProbabilityUpliftColumnIndex].HeaderText);
+            Assert.AreEqual("Kans op\r\nheave\r\n[1/jaar]", dataGridView.Columns[failureProbabilityHeaveColumnIndex].HeaderText);
+            Assert.AreEqual("Kans op\r\nterugschrijdende erosie\r\n[1/jaar]", dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[failureProbabilityPipingColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionFailureProbabilityPipingColumnIndex].HeaderText);
+
+            Assert.AreEqual(semiProbabilisticColumnsShouldBeVisible, dataGridView.Columns[failureProbabilityUpliftColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnsShouldBeVisible, dataGridView.Columns[failureProbabilityHeaveColumnIndex].Visible);
+            Assert.AreEqual(semiProbabilisticColumnsShouldBeVisible, dataGridView.Columns[failureProbabilitySellmeijerColumnIndex].Visible);
+        }
+
+        [Test]
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call

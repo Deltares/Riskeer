@@ -215,14 +215,22 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateVisibility()
         {
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
-                                                                                                                        .First(sc => sc.Section == selectedFailureMechanismSection);
-            
+            bool perFailureMechanismSemiProbabilistic;
+            if (selectedFailureMechanismSection != null)
+            {
+                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationTypeForSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                                                                                                            .First(sc => sc.Section == selectedFailureMechanismSection);
+                perFailureMechanismSemiProbabilistic = scenarioConfigurationTypeForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+            }
+            else
+            {
+                perFailureMechanismSemiProbabilistic = radioButtonSemiProbabilistic.Checked;
+            }
+
             bool perFailureMechanismSection = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection;
             bool semiProbabilisticColumnsVisible = failureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                                                   || perFailureMechanismSection
-                                                   && scenarioConfigurationTypeForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
-            
+                                                   || perFailureMechanismSection && perFailureMechanismSemiProbabilistic;
+
             radioButtonsPanel.Visible = perFailureMechanismSection;
             dataGridViewControl.GetColumnFromIndex(failureProbabilityUpliftColumnIndex).Visible = semiProbabilisticColumnsVisible;
             dataGridViewControl.GetColumnFromIndex(failureProbabilityHeaveColumnIndex).Visible = semiProbabilisticColumnsVisible;
