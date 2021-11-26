@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -53,6 +53,7 @@ namespace Riskeer.Piping.Forms.Views
         private CalculationGroup calculationGroup;
 
         private Observer failureMechanismObserver;
+        private RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSectionObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, IPipingCalculationScenario<PipingInput>> calculationObserver;
         private RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
@@ -120,6 +121,7 @@ namespace Riskeer.Piping.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
+            scenarioConfigurationsPerFailureMechanismSectionObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
@@ -154,6 +156,12 @@ namespace Riskeer.Piping.Forms.Views
             failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {
                 Observable = failureMechanism
+            };
+
+            scenarioConfigurationsPerFailureMechanismSectionObserver = new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
+                UpdateSectionsListBox, section => section)
+            {
+                Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             };
 
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)

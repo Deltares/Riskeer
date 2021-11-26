@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -780,6 +780,55 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                            .ToArray();
 
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        [Test]
+        public void GivenPipingScenariosView_WhenPipingScenarioConfigurationPerFailureMechanismSection_ThenSectionsListBoxCorrectlyUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = PipingScenarioConfigurationType.PerFailureMechanismSection
+            };
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+            ShowPipingScenariosView(failureMechanism);
+            
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            
+            // Precondition
+            Assert.AreEqual("Section 1 (semi-probabilistisch)", listBox.Items[0].ToString());
+            Assert.AreEqual("Section 2 (semi-probabilistisch)", listBox.Items[1].ToString());
+            Assert.AreEqual("Section 3 (semi-probabilistisch)", listBox.Items[2].ToString());
+            
+            // When
+            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.ElementAt(1);
+            scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType = PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic;
+            scenarioConfigurationPerFailureMechanismSection.NotifyObservers();
+
+            // Then
+            Assert.AreEqual("Section 1 (semi-probabilistisch)", listBox.Items[0].ToString());
+            Assert.AreEqual("Section 2 (probabilistisch)", listBox.Items[1].ToString());
+            Assert.AreEqual("Section 3 (semi-probabilistisch)", listBox.Items[2].ToString());
         }
 
         [Test]
