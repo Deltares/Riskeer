@@ -188,7 +188,7 @@ namespace Core.Gui.Forms.Log
 
             if (messagesDataGridView.Rows.Count > 0)
             {
-                messagesDataGridView.CurrentCell = messagesDataGridView.Rows[0].Cells[0];
+                messagesDataGridView.CurrentCell = messagesDataGridView.Rows[0].Cells[2];
             }
         }
 

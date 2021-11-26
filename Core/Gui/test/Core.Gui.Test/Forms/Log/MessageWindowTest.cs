@@ -79,7 +79,7 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        public void GivenMessageWindow_WhenMultipleMessagesAdded_ThenFirstColumnOnFirstRowIsSelected()
+        public void GivenMessageWindow_WhenMultipleMessagesAdded_ThenThirdColumnOnFirstRowIsSelected()
         {
             // Given
             using (var form = new Form())
@@ -89,7 +89,7 @@ namespace Core.Gui.Test.Forms.Log
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
-                Level topLeftCellValue = Level.Info;
+                const string selectedCellValue = "DetailedInfoMessage";
 
                 // Precondition
                 Assert.IsNull(dataGridView.CurrentCell);
@@ -97,15 +97,15 @@ namespace Core.Gui.Test.Forms.Log
                 // When
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "DetailedWarnMessage");
                 messageWindow.AddMessage(Level.Error, new DateTime(), "DetailedErrorMessage");
-                messageWindow.AddMessage(topLeftCellValue, new DateTime(), "DetailedInfoMessage");
+                messageWindow.AddMessage(Level.Info, new DateTime(), selectedCellValue);
                 messageWindow.Refresh();
 
                 // Then
                 Assert.IsNotNull(dataGridView.CurrentCell);
 
-                DataGridViewCell topLeftCell = dataGridView.Rows[0].Cells[0];
-                Assert.AreSame(topLeftCell, dataGridView.CurrentCell);
-                Assert.AreEqual(topLeftCellValue.ToString(), dataGridView.CurrentCell.Value);
+                DataGridViewCell selectedCell = dataGridView.Rows[0].Cells[2];
+                Assert.AreSame(selectedCell, dataGridView.CurrentCell);
+                Assert.AreEqual(selectedCellValue, dataGridView.CurrentCell.Value);
             }
         }
 
@@ -419,9 +419,9 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        public void ButtonCopy_Click_CopiesContentToClipboard()
+        public void GivenMessageWindowWithCellSelected_WhenClickButtonCopy_ThenCopiesContentToClipboard()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             using (new ClipboardConfig())
             using (MessageWindow messageWindow = ShowMessageWindow(null))
@@ -432,12 +432,40 @@ namespace Core.Gui.Test.Forms.Log
                 messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
                 messageWindow.Refresh();
 
+                // When
                 var button = new ToolStripButtonTester("buttonCopy");
-
-                // Call
                 button.Click();
 
-                // Assert
+                // Then
+                IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
+                Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
+                var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
+                Assert.AreEqual("message", actualContent);
+            }
+        }
+
+        [Test]
+        public void GivenMessageWindowWithRowSelected_WhenClickButtonCopy_ThenCopiesContentToClipboard()
+        {
+            // Given
+            using (var form = new Form())
+            using (new ClipboardConfig())
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
+                messageWindow.Refresh();
+
+                var dataGridView = (DataGridView) new ControlTester("messagesDataGridView").TheObject;
+                dataGridView.Rows[0].Selected = true;
+
+                // When
+                var button = new ToolStripButtonTester("buttonCopy");
+                button.Click();
+
+                // Then
                 IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
                 Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
                 var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
@@ -446,9 +474,9 @@ namespace Core.Gui.Test.Forms.Log
         }
 
         [Test]
-        public void ButtonCopy_MessagesSelectedOnKeyDownEvent_CopiesContentToClipboard()
+        public void GivenMessageWindowWithCellSelected_WhenCtrlCPressed_ThenCopiesContentToClipboard()
         {
-            // Setup
+            // Given
             using (var form = new Form())
             using (new ClipboardConfig())
             using (MessageWindow messageWindow = ShowMessageWindow(null))
@@ -462,17 +490,48 @@ namespace Core.Gui.Test.Forms.Log
                 var gridView = new ControlTester("messagesDataGridView");
                 const Keys keyData = Keys.Control | Keys.C;
 
-                // Call
+                // When
                 gridView.FireEvent("KeyDown", new KeyEventArgs(keyData));
 
-                // Assert
+                // Then
+                IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
+                Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
+                var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
+                Assert.AreEqual("message", actualContent);
+            }
+        }
+
+        [Test]
+        public void GivenMessageWindowWithRowSelected_WhenCtrlCPressed_ThenCopiesContentToClipboard()
+        {
+            // Given
+            using (var form = new Form())
+            using (new ClipboardConfig())
+            using (MessageWindow messageWindow = ShowMessageWindow(null))
+            {
+                form.Controls.Add(messageWindow);
+                form.Show();
+
+                messageWindow.AddMessage(Level.Warn, new DateTime(), "message");
+                messageWindow.Refresh();
+
+                var dataGridViewControl = new ControlTester("messagesDataGridView");
+                var dataGridView = (DataGridView) dataGridViewControl.TheObject;
+                dataGridView.Rows[0].Selected = true;
+
+                const Keys keyData = Keys.Control | Keys.C;
+
+                // When
+                dataGridViewControl.FireEvent("KeyDown", new KeyEventArgs(keyData));
+
+                // Then
                 IDataObject actualDataObject = ClipboardProvider.Clipboard.GetDataObject();
                 Assert.IsTrue(actualDataObject != null && actualDataObject.GetDataPresent(DataFormats.Text));
                 var actualContent = (string) actualDataObject.GetData(DataFormats.Text);
                 Assert.AreEqual("WARN\tmessage\t00:00:00", actualContent);
             }
         }
-        
+
         [Test]
         public void ButtonShowInfo_ButtonUnchecked_FiltersInfoMessages()
         {

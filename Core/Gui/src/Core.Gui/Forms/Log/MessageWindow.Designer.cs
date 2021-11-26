@@ -201,7 +201,6 @@ namespace Core.Gui.Forms.Log
             this.messagesDataGridView.ReadOnly = true;
             this.messagesDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.messagesDataGridView.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.MessagesDataGridViewCellMouseDoubleClick);
             this.messagesDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessagesDataGridViewKeyDown);
             // 
