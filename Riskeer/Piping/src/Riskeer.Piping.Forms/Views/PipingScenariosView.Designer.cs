@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -38,21 +38,25 @@ namespace Riskeer.Piping.Forms.Views
         {
             this.calculationConfigurationTypeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.selectScenarioConfigurationTypeLabel = new System.Windows.Forms.Label();
+            this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.label = new System.Windows.Forms.Label();
             this.listBox = new System.Windows.Forms.ListBox();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
+            this.radioButtonsPanel = new System.Windows.Forms.Panel();
+            this.radioButtonSemiProbabilistic = new System.Windows.Forms.RadioButton();
+            this.radioButtonProbabilistic = new System.Windows.Forms.RadioButton();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.selectConfigurationTypeComboBox = new System.Windows.Forms.ComboBox();
             this.calculationConfigurationTypeTableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
+            this.radioButtonsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // calculationConfigurationTypeTableLayoutPanel
@@ -149,16 +153,52 @@ namespace Riskeer.Piping.Forms.Views
             // 
             this.tableLayoutPanelDataGrid.ColumnCount = 1;
             this.tableLayoutPanelDataGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 1);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.radioButtonsPanel, 0, 0);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 1);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 2);
             this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
-            this.tableLayoutPanelDataGrid.RowCount = 2;
+            this.tableLayoutPanelDataGrid.RowCount = 3;
+            this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelDataGrid.Size = new System.Drawing.Size(108, 150);
             this.tableLayoutPanelDataGrid.TabIndex = 0;
+            // 
+            // radioButtonsPanel
+            // 
+            this.radioButtonsPanel.Controls.Add(this.radioButtonProbabilistic);
+            this.radioButtonsPanel.Controls.Add(this.radioButtonSemiProbabilistic);
+            this.radioButtonsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButtonsPanel.Location = new System.Drawing.Point(3, 3);
+            this.radioButtonsPanel.Name = "radioButtonsPanel";
+            this.radioButtonsPanel.Size = new System.Drawing.Size(200, 30);
+            this.radioButtonsPanel.TabIndex = 0;
+            // 
+            // radioButtonSemiProbabilistic
+            // 
+            this.radioButtonSemiProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButtonSemiProbabilistic.Location = new System.Drawing.Point(0, 0);
+            this.radioButtonSemiProbabilistic.Name = "radioButtonSemiProbabilistic";
+            this.radioButtonSemiProbabilistic.AutoSize = true;
+            this.radioButtonSemiProbabilistic.TabIndex = 0;
+            this.radioButtonSemiProbabilistic.TabStop = true;
+            this.radioButtonSemiProbabilistic.Text = "Semi-probabilistische toets";
+            this.radioButtonSemiProbabilistic.UseVisualStyleBackColor = true;
+            this.radioButtonSemiProbabilistic.Checked = true;
+            // 
+            // radioButtonProbabilistic
+            // 
+            this.radioButtonProbabilistic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.radioButtonProbabilistic.Location = new System.Drawing.Point(0, 0);
+            this.radioButtonProbabilistic.Name = "radioButtonProbabilistic";
+            this.radioButtonProbabilistic.AutoSize = true;
+            this.radioButtonProbabilistic.TabIndex = 1;
+            this.radioButtonProbabilistic.TabStop = true;
+            this.radioButtonProbabilistic.Text = "Probabilistische toets";
+            this.radioButtonProbabilistic.UseVisualStyleBackColor = true;
+            this.radioButtonProbabilistic.Checked = false;
             // 
             // labelCalculations
             // 
@@ -188,14 +228,14 @@ namespace Riskeer.Piping.Forms.Views
             this.calculationConfigurationTypeTableLayoutPanel.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
+            this.radioButtonsPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -210,5 +250,8 @@ namespace Riskeer.Piping.Forms.Views
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.ComboBox selectConfigurationTypeComboBox;
+        private System.Windows.Forms.Panel radioButtonsPanel;
+        private System.Windows.Forms.RadioButton radioButtonSemiProbabilistic;
+        private System.Windows.Forms.RadioButton radioButtonProbabilistic;
     }
 }
