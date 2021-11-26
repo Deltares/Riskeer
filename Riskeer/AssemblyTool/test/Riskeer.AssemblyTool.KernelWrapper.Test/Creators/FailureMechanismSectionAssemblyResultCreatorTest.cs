@@ -33,13 +33,13 @@ using Riskeer.AssemblyTool.KernelWrapper.Creators;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCreatorTest
+    public class FailureMechanismSectionAssemblyResultCreatorTest
     {
         [Test]
         public void CreateFailureMechanismSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(null);
+            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(null);
 
             // Assert
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
@@ -60,7 +60,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                               (EInterpretationCategory) 99);
 
             // Call
-            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
@@ -83,7 +83,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                               category);
 
             // Call
-            FailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            FailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
@@ -96,7 +96,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyGroup_InvalidCategory_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            void Call() => FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyGroup((EInterpretationCategory) 99);
+            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup((EInterpretationCategory) 99);
 
             // Assert
             var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
@@ -110,7 +110,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismSectionAssemblyGroup expectedCategory)
         {
             // Call
-            FailureMechanismSectionAssemblyGroup createdCategory = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyGroup(category);
+            FailureMechanismSectionAssemblyGroup createdCategory = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup(category);
 
             // Assert
             Assert.AreEqual(expectedCategory, createdCategory);

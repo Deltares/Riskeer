@@ -167,7 +167,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 Assert.AreEqual(kernelResult.ProbabilityProfile, result.ProfileProbability);
                 Assert.AreEqual(kernelResult.ProbabilitySection, result.SectionProbability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyGroup(kernelResult.InterpretationCategory),
+                Assert.AreEqual(FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup(kernelResult.InterpretationCategory),
                                 result.AssemblyGroup);
             }
         }

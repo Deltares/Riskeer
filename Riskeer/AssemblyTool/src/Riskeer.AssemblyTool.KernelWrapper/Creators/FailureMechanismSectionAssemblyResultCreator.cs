@@ -31,7 +31,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// Creates <see cref="FailureMechanismSectionAssemblyResult"/> instances and
     /// <see cref="FailureMechanismSectionAssemblyGroup"/> values.
     /// </summary>
-    internal static class FailureMechanismSectionAssemblyCreator
+    internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
         /// Converts a <see cref="FailurePathSectionAssemblyResult"/> into a <see cref="FailureMechanismSectionAssemblyResult"/>.

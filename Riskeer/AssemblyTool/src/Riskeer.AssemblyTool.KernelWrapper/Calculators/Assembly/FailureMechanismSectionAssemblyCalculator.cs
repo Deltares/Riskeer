@@ -80,7 +80,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                                                  CreateProbability(input.RefinedSectionProbability),
                                                                                                  categories);
 
-                return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyResult(output);
+                return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
             }
             catch (AssemblyException e)
             {
@@ -88,7 +88,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
 
