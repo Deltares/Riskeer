@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<PipingFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<PipingFailureMechanismSectionResultOld, PipingFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Piping", failureMechanism.Name);
             Assert.AreEqual("STPH", failureMechanism.Code);
             Assert.AreEqual(2, failureMechanism.Group);
@@ -56,6 +56,7 @@ namespace Riskeer.Piping.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
 
             Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
             CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);

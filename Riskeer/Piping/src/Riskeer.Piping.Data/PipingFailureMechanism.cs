@@ -32,9 +32,10 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResultOld>
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResultOld, PipingFailureMechanismSectionResult>
     {
-        private readonly ObservableList<PipingFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<PipingFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<PipingFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
 
         /// <summary>
@@ -52,7 +53,8 @@ namespace Riskeer.Piping.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResults = new ObservableList<PipingFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<PipingFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<PipingFailureMechanismSectionResult>();
 
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
             scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
@@ -94,18 +96,20 @@ namespace Riskeer.Piping.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResultsOld => sectionResults;
+        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<PipingFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new PipingFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new PipingFailureMechanismSectionResultOld(section));
             scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
             scenarioConfigurationsPerFailureMechanismSection.Clear();
         }
     }
