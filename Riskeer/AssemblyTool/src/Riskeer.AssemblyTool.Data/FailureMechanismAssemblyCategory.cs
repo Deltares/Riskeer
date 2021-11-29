@@ -24,7 +24,7 @@ namespace Riskeer.AssemblyTool.Data
     /// <summary>
     /// Assembly category for a failure mechanism.
     /// </summary>
-    public class FailureMechanismAssemblyCategory : AssemblyCategory
+    public class FailureMechanismAssemblyCategory : AssemblyGroupLimits
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategory"/>.

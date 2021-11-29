@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             var category = new FailureMechanismAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
 
             // Assert
-            Assert.IsInstanceOf<AssemblyCategory>(category);
+            Assert.IsInstanceOf<AssemblyGroupLimits>(category);
             Assert.AreEqual(lowerBoundary, category.LowerBoundary);
             Assert.AreEqual(upperBoundary, category.UpperBoundary);
             Assert.AreEqual(categoryType, category.Group);

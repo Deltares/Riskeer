@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
-                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] categories =
+                Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup>[] categories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
-                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] categories =
+                Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup>[] categories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     CreateAssessmentSectionAssemblyCategory()
                 });
 
-                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] newCategories =
+                Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup>[] newCategories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
-                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] categories =
+                Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup>[] categories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(categories.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
-                    Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup> category = categories[i];
+                    Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup> category = categories[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
                     Assert.AreEqual(category.Item3, rowCells[categoryGroupColumnIndex].Value);
@@ -173,15 +173,15 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup> CreateAssessmentSectionAssemblyCategory()
+        private static Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup> CreateAssessmentSectionAssemblyCategory()
         {
             var random = new Random(39);
-            return new Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>(new TestAssemblyCategory(random.NextDouble(), random.NextDouble()),
-                                                                                 Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                                                                                 random.NextEnumValue<TestAssemblyCategoryGroup>());
+            return new Tuple<AssemblyGroupLimits, Color, TestAssemblyCategoryGroup>(new TestAssemblyCategory(random.NextDouble(), random.NextDouble()),
+                                                                                    Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                                                                                    random.NextEnumValue<TestAssemblyCategoryGroup>());
         }
 
-        private class TestAssemblyCategory : AssemblyCategory
+        private class TestAssemblyCategory : AssemblyGroupLimits
         {
             public TestAssemblyCategory(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}

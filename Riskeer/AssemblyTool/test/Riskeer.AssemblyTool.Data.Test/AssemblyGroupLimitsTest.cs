@@ -19,28 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.AssemblyTool.Data
+using System;
+using NUnit.Framework;
+
+namespace Riskeer.AssemblyTool.Data.Test
 {
-    /// <summary>
-    /// Assembly category for assessment section.
-    /// </summary>
-    public class AssessmentSectionAssemblyCategory : AssemblyGroupLimits
+    [TestFixture]
+    public class AssemblyGroupLimitsTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategory"/>.
-        /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the category.</param>
-        /// <param name="upperBoundary">The upper boundary of the category.</param>
-        /// <param name="group">The group of the category.</param>
-        public AssessmentSectionAssemblyCategory(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryGroup group)
-            : base(lowerBoundary, upperBoundary)
+        [Test]
+        public void Constructor_ExpectedValues()
         {
-            Group = group;
+            var random = new Random(11);
+
+            double lowerBoundary = random.NextDouble();
+            double upperBoundary = random.NextDouble();
+
+            // Call
+            var category = new SimpleGroupLimits(lowerBoundary, upperBoundary);
+
+            // Assert
+            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
+            Assert.AreEqual(upperBoundary, category.UpperBoundary);
         }
 
-        /// <summary>
-        /// Gets the group of the assembly category.
-        /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup Group { get; }
+        private class SimpleGroupLimits : AssemblyGroupLimits
+        {
+            public SimpleGroupLimits(double lowerBoundary, double upperBoundary)
+                : base(lowerBoundary, upperBoundary) {}
+        }
     }
 }

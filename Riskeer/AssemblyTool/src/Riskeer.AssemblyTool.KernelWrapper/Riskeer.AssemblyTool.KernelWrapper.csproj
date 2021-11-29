@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
-    <Reference Include="Assembly.Kernel.Old">
-      <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.Old.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly.Kernel">
-      <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="System"/>
-    <Reference Include="System.Core"/>
+      <Reference Include="Assembly.Kernel.Old">
+          <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.Old.dll</HintPath>
+      </Reference>
+      <Reference Include="Assembly.Kernel">
+          <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
+      </Reference>
+      <Reference Include="System"/>
+      <Reference Include="System.Core"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -19,13 +19,15 @@
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
     <ProjectReference Include="..\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Update="Properties\Resources.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+        </Compile>
+        <Compile Remove="Calculators\Categories\IAssemblyCategoriesCalculatorOld.cs"/>
+        <Compile Remove="Calculators\Categories\AssemblyCategoriesCalculatorOld.cs"/>
+    </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

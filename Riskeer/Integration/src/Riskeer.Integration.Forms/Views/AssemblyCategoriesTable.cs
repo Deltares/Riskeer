@@ -30,7 +30,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class defines a table in which properties of <see cref="AssemblyCategory"/> instances are displayed.
+    /// This class defines a table in which properties of <see cref="AssemblyGroupLimits"/> instances are displayed.
     /// </summary>
     /// <typeparam name="T">The type of the enum to display in the table rows.</typeparam>
     public class AssemblyCategoriesTable<T> : DataGridViewControl
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Forms.Views
         /// are shown in the table.
         /// </summary>
         /// <param name="categories">The collection of <see cref="Tuple{T, T, T}"/>.</param>
-        public void SetData(IEnumerable<Tuple<AssemblyCategory, Color, T>> categories)
+        public void SetData(IEnumerable<Tuple<AssemblyGroupLimits, Color, T>> categories)
         {
             SetDataSource(categories?.Select(category => new AssemblyCategoryRow<T>(category.Item1, category.Item2, category.Item3)).ToArray());
         }

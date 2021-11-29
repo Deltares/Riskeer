@@ -30,7 +30,7 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="AssemblyCategory"/> instances.
+    /// Creates <see cref="AssemblyGroupLimits"/> instances.
     /// </summary>
     internal static class AssemblyCategoryCreator
     {

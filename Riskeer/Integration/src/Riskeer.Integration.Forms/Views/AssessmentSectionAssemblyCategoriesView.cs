@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Forms.Views
                 AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
                                                  FailureMechanismContribution.SignalingNorm,
                                                  FailureMechanismContribution.LowerLimitNorm)
-                                             .Select(category => new Tuple<AssemblyCategory, Color, AssessmentSectionAssemblyCategoryGroup>(
+                                             .Select(category => new Tuple<AssemblyGroupLimits, Color, AssessmentSectionAssemblyCategoryGroup>(
                                                          category,
                                                          AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group),
                                                          category.Group)).ToArray());

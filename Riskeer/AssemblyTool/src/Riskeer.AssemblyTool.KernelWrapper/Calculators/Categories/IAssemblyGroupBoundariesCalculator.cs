@@ -19,34 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-
-namespace Riskeer.AssemblyTool.Data.Test
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
-    [TestFixture]
-    public class AssemblyCategoryTest
-    {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            var random = new Random(11);
-
-            double lowerBoundary = random.NextDouble();
-            double upperBoundary = random.NextDouble();
-
-            // Call
-            var category = new SimpleCategory(lowerBoundary, upperBoundary);
-
-            // Assert
-            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
-            Assert.AreEqual(upperBoundary, category.UpperBoundary);
-        }
-
-        private class SimpleCategory : AssemblyCategory
-        {
-            public SimpleCategory(double lowerBoundary, double upperBoundary)
-                : base(lowerBoundary, upperBoundary) {}
-        }
-    }
+    /// <summary>
+    /// Interface representing an assembly group limits calculator.
+    /// </summary>
+    public interface IAssemblyGroupBoundariesCalculator {}
 }
