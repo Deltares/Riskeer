@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     public class MicrostabilityFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<MicrostabilityFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(MicrostabilityFailureMechanismSectionResultOld origin, MicrostabilityFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(MicrostabilityFailureMechanismSectionResultOld origin, MicrostabilityFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

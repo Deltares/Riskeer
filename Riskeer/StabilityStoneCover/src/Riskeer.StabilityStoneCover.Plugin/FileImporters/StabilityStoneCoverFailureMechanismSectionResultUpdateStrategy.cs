@@ -32,7 +32,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.FileImporters
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<StabilityStoneCoverFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(StabilityStoneCoverFailureMechanismSectionResultOld origin, StabilityStoneCoverFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(StabilityStoneCoverFailureMechanismSectionResultOld origin, StabilityStoneCoverFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

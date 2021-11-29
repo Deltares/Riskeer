@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld origin, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld origin, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

@@ -31,7 +31,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<GrassCoverErosionInwardsFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(GrassCoverErosionInwardsFailureMechanismSectionResultOld origin, GrassCoverErosionInwardsFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(GrassCoverErosionInwardsFailureMechanismSectionResultOld origin, GrassCoverErosionInwardsFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

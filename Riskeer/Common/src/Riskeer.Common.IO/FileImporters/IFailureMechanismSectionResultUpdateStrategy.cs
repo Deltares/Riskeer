@@ -39,6 +39,6 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="origin">The object to get the data from that will be put on <paramref name="target"/>.</param>
         /// <param name="target">The object to update with data from <paramref name="origin"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        void UpdateSectionResult(T origin, T target);
+        void UpdateSectionResultOld(T origin, T target);
     }
 }

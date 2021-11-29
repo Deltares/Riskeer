@@ -32,7 +32,7 @@ namespace Riskeer.DuneErosion.Plugin.FileImporters
     public class DuneErosionFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(DuneErosionFailureMechanismSectionResultOld origin, DuneErosionFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(DuneErosionFailureMechanismSectionResultOld origin, DuneErosionFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

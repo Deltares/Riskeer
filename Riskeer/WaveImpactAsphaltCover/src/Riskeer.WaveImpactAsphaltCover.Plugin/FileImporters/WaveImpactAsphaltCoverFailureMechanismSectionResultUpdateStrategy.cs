@@ -32,7 +32,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(WaveImpactAsphaltCoverFailureMechanismSectionResultOld origin, WaveImpactAsphaltCoverFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(WaveImpactAsphaltCoverFailureMechanismSectionResultOld origin, WaveImpactAsphaltCoverFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

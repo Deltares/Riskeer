@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(MacroStabilityInwardsFailureMechanismSectionResultOld origin, MacroStabilityInwardsFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(MacroStabilityInwardsFailureMechanismSectionResultOld origin, MacroStabilityInwardsFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

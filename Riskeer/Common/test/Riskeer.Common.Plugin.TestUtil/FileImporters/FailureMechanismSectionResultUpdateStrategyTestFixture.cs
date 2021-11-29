@@ -52,7 +52,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(null, CreateEmptySectionResult());
+            TestDelegate test = () => strategy.UpdateSectionResultOld(null, CreateEmptySectionResult());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -66,7 +66,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Call
-            TestDelegate test = () => strategy.UpdateSectionResult(CreateEmptySectionResult(), null);
+            TestDelegate test = () => strategy.UpdateSectionResultOld(CreateEmptySectionResult(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
             TSectionResult targetResult = CreateEmptySectionResult();
 
             // Call
-            strategy.UpdateSectionResult(originResult, targetResult);
+            strategy.UpdateSectionResultOld(originResult, targetResult);
 
             // Assert
             AssertSectionResult(originResult, targetResult);

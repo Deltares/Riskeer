@@ -32,7 +32,7 @@ namespace Riskeer.ClosingStructures.Plugin.FileImporters
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(ClosingStructuresFailureMechanismSectionResultOld origin, ClosingStructuresFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(ClosingStructuresFailureMechanismSectionResultOld origin, ClosingStructuresFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

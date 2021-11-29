@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(WaterPressureAsphaltCoverFailureMechanismSectionResultOld origin, WaterPressureAsphaltCoverFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(WaterPressureAsphaltCoverFailureMechanismSectionResultOld origin, WaterPressureAsphaltCoverFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

@@ -283,7 +283,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             public FailureMechanismSectionResultOld Origin { get; private set; }
             public FailureMechanismSectionResultOld Target { get; private set; }
 
-            public void UpdateSectionResult(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
+            public void UpdateSectionResultOld(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
             {
                 Updated = true;
                 Origin = origin;

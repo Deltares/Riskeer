@@ -32,7 +32,7 @@ namespace Riskeer.HeightStructures.Plugin.FileImporters
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(HeightStructuresFailureMechanismSectionResultOld origin, HeightStructuresFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(HeightStructuresFailureMechanismSectionResultOld origin, HeightStructuresFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

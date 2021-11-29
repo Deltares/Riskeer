@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld origin, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld origin, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

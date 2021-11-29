@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     public class PipingStructureFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<PipingStructureFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(PipingStructureFailureMechanismSectionResultOld origin, PipingStructureFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(PipingStructureFailureMechanismSectionResultOld origin, PipingStructureFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

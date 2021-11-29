@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     public class TechnicalInnovationFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<TechnicalInnovationFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(TechnicalInnovationFailureMechanismSectionResultOld origin, TechnicalInnovationFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(TechnicalInnovationFailureMechanismSectionResultOld origin, TechnicalInnovationFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

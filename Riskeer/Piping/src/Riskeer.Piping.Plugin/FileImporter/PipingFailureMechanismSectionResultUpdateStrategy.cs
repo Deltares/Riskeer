@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
     /// </summary>
     public class PipingFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<PipingFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(PipingFailureMechanismSectionResultOld origin, PipingFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(PipingFailureMechanismSectionResultOld origin, PipingFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

@@ -32,7 +32,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResultOld>
     {
-        public void UpdateSectionResult(StabilityPointStructuresFailureMechanismSectionResultOld origin, StabilityPointStructuresFailureMechanismSectionResultOld target)
+        public void UpdateSectionResultOld(StabilityPointStructuresFailureMechanismSectionResultOld origin, StabilityPointStructuresFailureMechanismSectionResultOld target)
         {
             if (origin == null)
             {

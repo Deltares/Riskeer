@@ -94,7 +94,7 @@ namespace Riskeer.Common.IO.FileImporters
 
                 if (equalSection != null)
                 {
-                    sectionResultUpdateStrategy.UpdateSectionResult(equalSection, sectionResult);
+                    sectionResultUpdateStrategy.UpdateSectionResultOld(equalSection, sectionResult);
                 }
             }
 
