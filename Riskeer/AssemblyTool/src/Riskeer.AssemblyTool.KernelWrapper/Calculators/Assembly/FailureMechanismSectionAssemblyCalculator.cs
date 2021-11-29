@@ -54,8 +54,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(double lowerLimitNorm,
-                                                                                     double signalingNorm,
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(double signalingNorm,
+                                                                                     double lowerLimitNorm,
                                                                                      FailureMechanismSectionAssemblyInput input)
         {
             if (input == null)
