@@ -109,7 +109,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var assessmentSection = new AssessmentSectionStub();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
@@ -149,7 +149,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
             failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;

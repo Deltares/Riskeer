@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             });
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             sectionResult.UseManualAssembly = true;
 
             // When
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then

@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;

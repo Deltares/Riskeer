@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                                                                                                               assessmentSection,
                                                                                                               () => new Random(39).NextDouble());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var view = (FailureMechanismAssemblyCategoriesView) info.CreateInstance(failureMechanismAssemblyCategoriesContext);

@@ -132,7 +132,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -164,7 +164,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -199,7 +199,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             bool newValue = !result.UseManualAssembly;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -231,7 +231,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -253,7 +253,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -296,7 +296,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -341,7 +341,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
@@ -376,7 +376,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 UseManualAssembly = useManualAssembly
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
@@ -425,7 +425,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -471,7 +471,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -500,7 +500,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -529,7 +529,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -558,7 +558,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -587,7 +587,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -616,7 +616,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 
@@ -645,7 +645,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var result = new DuneErosionFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new DuneErosionSectionResultRowOld(result, ConstructionProperties);
 

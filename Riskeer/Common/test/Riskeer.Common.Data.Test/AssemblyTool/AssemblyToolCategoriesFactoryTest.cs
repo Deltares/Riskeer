@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateAssessmentSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -169,7 +169,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateFailureMechanismAssemblyCategoriesWithN_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -194,7 +194,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double lowerLimitNorm = random.NextDouble();
             double failureProbabilityMarginFactor = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -222,7 +222,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double lowerLimitNorm = random.NextDouble();
             double failureProbabilityMarginFactor = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -247,7 +247,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateFailureMechanismAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -273,7 +273,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -303,7 +303,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -329,7 +329,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -354,7 +354,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -380,7 +380,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -405,7 +405,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateGeotechnicalFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;

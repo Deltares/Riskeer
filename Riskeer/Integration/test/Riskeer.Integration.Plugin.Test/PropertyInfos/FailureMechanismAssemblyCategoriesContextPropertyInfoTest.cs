@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection,
                                                                         () => 0);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;

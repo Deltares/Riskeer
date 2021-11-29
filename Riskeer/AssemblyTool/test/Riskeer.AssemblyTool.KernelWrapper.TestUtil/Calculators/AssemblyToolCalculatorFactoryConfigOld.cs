@@ -32,7 +32,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
     /// <example>
     /// The following is an example for how to use this class:
     /// <code>
-    /// using(new AssemblyToolCalculatorFactoryConfig())
+    /// using(new AssemblyToolCalculatorFactoryConfigOld())
     /// {
     ///     var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
     /// 
@@ -40,16 +40,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
     /// }
     /// </code>
     /// </example>
-    public class AssemblyToolCalculatorFactoryConfig : IDisposable
+    public class AssemblyToolCalculatorFactoryConfigOld : IDisposable
     {
         private readonly IAssemblyToolCalculatorFactoryOld previousFactory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyToolCalculatorFactoryConfig"/>.
+        /// Creates a new instance of <see cref="AssemblyToolCalculatorFactoryConfigOld"/>.
         /// Sets a <see cref="TestAssemblyToolCalculatorFactoryOld"/> to 
         /// <see cref="AssemblyToolCalculatorFactoryOld.Instance"/>
         /// </summary>
-        public AssemblyToolCalculatorFactoryConfig()
+        public AssemblyToolCalculatorFactoryConfigOld()
         {
             previousFactory = AssemblyToolCalculatorFactoryOld.Instance;
             AssemblyToolCalculatorFactoryOld.Instance = new TestAssemblyToolCalculatorFactoryOld();

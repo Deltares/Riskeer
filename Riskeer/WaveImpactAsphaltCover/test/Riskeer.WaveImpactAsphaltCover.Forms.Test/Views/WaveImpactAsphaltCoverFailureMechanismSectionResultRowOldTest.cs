@@ -90,7 +90,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
@@ -135,7 +135,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -167,7 +167,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -202,7 +202,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
 
             bool newValue = !result.UseManualAssembly;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -234,7 +234,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -256,7 +256,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -299,7 +299,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -345,7 +345,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
@@ -380,7 +380,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 UseManualAssembly = useManualAssembly
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
@@ -429,7 +429,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -475,7 +475,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -504,7 +504,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -533,7 +533,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -562,7 +562,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -591,7 +591,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -620,7 +620,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -649,7 +649,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var result = new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaveImpactAsphaltCoverFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 

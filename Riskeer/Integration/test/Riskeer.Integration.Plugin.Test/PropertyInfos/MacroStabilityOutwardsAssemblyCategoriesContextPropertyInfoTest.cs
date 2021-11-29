@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var context = new MacroStabilityOutwardsAssemblyCategoriesContext(failureMechanism, assessmentSection,
                                                                               () => 0);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 IObjectProperties objectProperties = info.CreateInstance(context);

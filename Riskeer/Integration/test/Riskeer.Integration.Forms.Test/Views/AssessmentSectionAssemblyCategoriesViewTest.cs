@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
             {
                 // Assert
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;

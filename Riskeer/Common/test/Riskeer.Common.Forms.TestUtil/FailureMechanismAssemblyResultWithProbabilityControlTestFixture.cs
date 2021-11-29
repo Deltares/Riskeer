@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.TestUtil
             });
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Assert
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.TestUtil
             // Given
             var failureMechanism = new TFailureMechanism();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
@@ -121,7 +121,7 @@ namespace Riskeer.Common.Forms.TestUtil
             // Given
             var failureMechanism = new TFailureMechanism();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
@@ -148,7 +148,7 @@ namespace Riskeer.Common.Forms.TestUtil
             // Given
             var failureMechanism = new TFailureMechanism();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
@@ -181,7 +181,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
@@ -210,7 +210,7 @@ namespace Riskeer.Common.Forms.TestUtil
             TCalculation calculation = CreateCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
@@ -239,7 +239,7 @@ namespace Riskeer.Common.Forms.TestUtil
             TCalculation calculation = CreateCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition

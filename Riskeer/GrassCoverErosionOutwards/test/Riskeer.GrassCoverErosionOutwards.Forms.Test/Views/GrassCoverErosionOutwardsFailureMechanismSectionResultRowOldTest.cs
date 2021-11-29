@@ -75,7 +75,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
@@ -120,7 +120,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -152,7 +152,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -187,7 +187,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
 
             bool newValue = !result.UseManualAssembly;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -219,7 +219,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -241,7 +241,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -284,7 +284,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -330,7 +330,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
@@ -365,7 +365,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 UseManualAssembly = useManualAssembly
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
@@ -414,7 +414,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -460,7 +460,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -489,7 +489,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -518,7 +518,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -547,7 +547,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -576,7 +576,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -605,7 +605,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 
@@ -634,7 +634,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRowOld(result, ConstructionProperties);
 

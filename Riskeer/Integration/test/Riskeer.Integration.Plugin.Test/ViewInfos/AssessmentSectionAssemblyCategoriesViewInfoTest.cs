@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var context = new NormContext(assessmentSection.FailureMechanismContribution, assessmentSection);
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var view = (AssessmentSectionAssemblyCategoriesView) info.CreateInstance(context);
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (var view = new AssessmentSectionAssemblyCategoriesView(assessmentSection.FailureMechanismContribution))
             {
                 // Call
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection2 = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (var view = new AssessmentSectionAssemblyCategoriesView(assessmentSection1.FailureMechanismContribution))
             {
                 // Call

@@ -148,7 +148,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             });
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Assert
@@ -192,7 +192,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             sectionResult.UseManualAssembly = true;
 
             // When
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then

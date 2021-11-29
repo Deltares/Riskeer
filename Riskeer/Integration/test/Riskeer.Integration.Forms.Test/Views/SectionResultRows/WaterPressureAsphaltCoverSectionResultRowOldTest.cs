@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             bool newValue = !result.UseManualAssembly;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
 
@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -272,7 +272,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -316,7 +316,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
@@ -341,7 +341,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 UseManualAssembly = useManualAssembly
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
@@ -378,7 +378,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -423,7 +423,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
 
@@ -452,7 +452,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new WaterPressureAsphaltCoverSectionResultRowOld(result, ConstructionProperties);
 

@@ -183,7 +183,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             });
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -225,7 +225,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             sectionResult.UseManualAssembly = true;
 
             // When
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then
@@ -244,7 +244,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var failureMechanism = new ClosingStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();

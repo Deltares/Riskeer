@@ -93,7 +93,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -149,7 +149,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 Action call = () => exporter.Export();
@@ -169,7 +169,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -196,7 +196,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 fileDisposeHelper.LockFiles();
 

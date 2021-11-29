@@ -89,7 +89,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.TechnicalInnovation, random.Next(1, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -147,7 +147,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // When
                 ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);

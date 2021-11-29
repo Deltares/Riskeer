@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -237,7 +237,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
 
             bool newValue = !result.UseManualAssembly;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -314,7 +314,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -342,7 +342,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -398,7 +398,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -454,7 +454,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
@@ -495,7 +495,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 DetailedAssessmentResult = detailedAssessmentResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
@@ -534,7 +534,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
@@ -568,7 +568,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 UseManualAssembly = useManualAssembly
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
@@ -625,7 +625,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -678,7 +678,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -711,7 +711,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -746,7 +746,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -778,7 +778,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -812,7 +812,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -847,7 +847,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);
@@ -879,7 +879,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultRows
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityOutwardsFailureMechanismSectionResultOld(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var row = new MacroStabilityOutwardsSectionResultRowOld(result, failureMechanism, assessmentSection,
                                                                      ConstructionProperties);

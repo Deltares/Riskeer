@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_ThenExpectedCellsVisible()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_ThenExpectedAssessmentSectionAssemblyResultsVisible()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowAssemblyResultTotalView())
             {
                 // Then
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenAssessmentSectionAssemblyResultsUpdatedToNewValues()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowAssemblyResultTotalView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -275,7 +275,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResultsThrowsException_ThenAssessmentSectionAssemblyResultsClearedAndErrorSet()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowAssemblyResultTotalView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -304,7 +304,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalViewAndErrorOnAssemblyResult_WhenRefreshingAssemblyResultsWithoutException_ThenAssessmentSectionAssemblyResultsSetAndErrorCleared()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             var random = new Random(21);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
@@ -520,7 +520,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenDataGridViewDataSourceUpdated()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -610,7 +610,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenAssemblyResultTotalViewAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenWarningAndPaddingSet()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
             {
                 AssessmentSection assessmentSection = view.AssessmentSection;
@@ -642,7 +642,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                                                                             IFailureMechanism relevantFailureMechanism)
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -664,7 +664,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                                                                                IFailureMechanism relevantFailureMechanism)
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;

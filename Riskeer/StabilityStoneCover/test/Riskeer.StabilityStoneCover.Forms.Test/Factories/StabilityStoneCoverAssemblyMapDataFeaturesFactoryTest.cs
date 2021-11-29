@@ -57,7 +57,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -92,7 +92,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -126,7 +126,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -160,7 +160,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Factories
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(0, 10));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;

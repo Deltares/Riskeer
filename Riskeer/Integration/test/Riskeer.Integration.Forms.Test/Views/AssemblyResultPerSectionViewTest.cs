@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (var view = new AssemblyResultPerSectionView(assessmentSection))
             {
                 testForm.Controls.Add(view);
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowAssemblyResultPerSectionView())
             {
                 // Then
@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionWithReferenceLine_ExpectedValues()
         {
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             bool readOnly, string errorText, CellStyle style)
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowAssemblyResultPerSectionView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -262,7 +262,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 assessmentSection.NotifyObservers();
@@ -290,7 +290,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -346,7 +346,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var calculation = new TestHeightStructuresCalculationScenario();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -374,7 +374,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -412,7 +412,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
@@ -491,7 +491,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenWarningPaddingSet()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView())
             {
                 AssessmentSection assessmentSection = view.AssessmentSection;
@@ -519,7 +519,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenAssemblyResultPerSectionViewWithError_WhenNotified_ThenWarningAndPaddingSet()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;

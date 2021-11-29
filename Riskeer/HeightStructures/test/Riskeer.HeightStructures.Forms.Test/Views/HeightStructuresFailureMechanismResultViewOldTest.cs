@@ -183,7 +183,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             });
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -225,7 +225,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             sectionResult.UseManualAssembly = true;
 
             // When
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then
@@ -244,7 +244,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            using (new AssemblyToolCalculatorFactoryConfigOld())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
