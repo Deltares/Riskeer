@@ -33,12 +33,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         HeightStructuresFailureMechanismSectionResultUpdateStrategy, HeightStructuresFailureMechanismSectionResultOld>
     {
-        protected override HeightStructuresFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override HeightStructuresFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override HeightStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override HeightStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             var random = new Random(39);
             return new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())

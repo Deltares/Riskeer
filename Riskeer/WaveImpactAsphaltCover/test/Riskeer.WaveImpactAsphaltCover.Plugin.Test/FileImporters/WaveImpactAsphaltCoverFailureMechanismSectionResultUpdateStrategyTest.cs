@@ -33,12 +33,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.FileImporters
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
     {
-        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override WaveImpactAsphaltCoverFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

@@ -33,12 +33,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
     public class GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy, GrassCoverErosionInwardsFailureMechanismSectionResultOld>
     {
-        protected override GrassCoverErosionInwardsFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override GrassCoverErosionInwardsFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override GrassCoverErosionInwardsFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             var random = new Random(39);
             return new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())

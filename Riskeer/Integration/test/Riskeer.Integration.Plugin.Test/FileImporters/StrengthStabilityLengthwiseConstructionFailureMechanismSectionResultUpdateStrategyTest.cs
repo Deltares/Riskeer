@@ -32,12 +32,12 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
     public class StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultUpdateStrategy, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
     {
-        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

@@ -33,12 +33,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
     public class DuneErosionFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         DuneErosionFailureMechanismSectionResultUpdateStrategy, DuneErosionFailureMechanismSectionResultOld>
     {
-        protected override DuneErosionFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override DuneErosionFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new DuneErosionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override DuneErosionFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override DuneErosionFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new DuneErosionFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

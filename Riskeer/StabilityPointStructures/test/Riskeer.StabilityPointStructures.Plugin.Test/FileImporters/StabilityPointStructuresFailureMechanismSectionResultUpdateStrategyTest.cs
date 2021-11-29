@@ -33,12 +33,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy, StabilityPointStructuresFailureMechanismSectionResultOld>
     {
-        protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             var random = new Random(39);
             return new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())

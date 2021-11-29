@@ -32,12 +32,12 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
     public class PipingStructureFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         PipingStructureFailureMechanismSectionResultUpdateStrategy, PipingStructureFailureMechanismSectionResultOld>
     {
-        protected override PipingStructureFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override PipingStructureFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override PipingStructureFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override PipingStructureFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new PipingStructureFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

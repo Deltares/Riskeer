@@ -33,12 +33,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy, StabilityStoneCoverFailureMechanismSectionResultOld>
     {
-        protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new StabilityStoneCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

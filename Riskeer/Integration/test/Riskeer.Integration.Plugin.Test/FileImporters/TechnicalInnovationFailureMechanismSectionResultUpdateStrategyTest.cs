@@ -32,12 +32,12 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
     public class TechnicalInnovationFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         TechnicalInnovationFailureMechanismSectionResultUpdateStrategy, TechnicalInnovationFailureMechanismSectionResultOld>
     {
-        protected override TechnicalInnovationFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override TechnicalInnovationFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new TechnicalInnovationFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override TechnicalInnovationFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override TechnicalInnovationFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new TechnicalInnovationFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

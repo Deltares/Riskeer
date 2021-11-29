@@ -33,12 +33,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy, MacroStabilityInwardsFailureMechanismSectionResultOld>
     {
-        protected override MacroStabilityInwardsFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override MacroStabilityInwardsFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override MacroStabilityInwardsFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override MacroStabilityInwardsFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             var random = new Random(39);
             return new MacroStabilityInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())

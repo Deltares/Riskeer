@@ -32,12 +32,12 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
     {
-        protected override WaterPressureAsphaltCoverFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override WaterPressureAsphaltCoverFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override WaterPressureAsphaltCoverFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override WaterPressureAsphaltCoverFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

@@ -33,12 +33,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
     public class PipingFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         PipingFailureMechanismSectionResultUpdateStrategy, PipingFailureMechanismSectionResultOld>
     {
-        protected override PipingFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override PipingFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override PipingFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override PipingFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             var random = new Random(39);
             return new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())

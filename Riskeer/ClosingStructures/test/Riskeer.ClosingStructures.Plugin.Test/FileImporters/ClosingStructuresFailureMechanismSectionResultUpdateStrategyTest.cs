@@ -33,12 +33,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         ClosingStructuresFailureMechanismSectionResultUpdateStrategy, ClosingStructuresFailureMechanismSectionResultOld>
     {
-        protected override ClosingStructuresFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override ClosingStructuresFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override ClosingStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override ClosingStructuresFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             var random = new Random(39);
             return new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())

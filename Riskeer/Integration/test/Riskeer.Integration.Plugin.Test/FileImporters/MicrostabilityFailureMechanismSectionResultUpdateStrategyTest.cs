@@ -32,12 +32,12 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
     public class MicrostabilityFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         MicrostabilityFailureMechanismSectionResultUpdateStrategy, MicrostabilityFailureMechanismSectionResultOld>
     {
-        protected override MicrostabilityFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override MicrostabilityFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override MicrostabilityFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override MicrostabilityFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

@@ -46,13 +46,13 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
         }
 
         [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        public void UpdateSectionResultOld_OriginNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new TUpdateStrategy();
 
             // Call
-            TestDelegate test = () => strategy.UpdateSectionResultOld(null, CreateEmptySectionResult());
+            TestDelegate test = () => strategy.UpdateSectionResultOld(null, CreateEmptySectionResultOld());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -60,13 +60,13 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
         }
 
         [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
+        public void UpdateSectionResultOld_TargetNull_ThrowsArgumentNullException()
         {
             // Setup
             var strategy = new TUpdateStrategy();
 
             // Call
-            TestDelegate test = () => strategy.UpdateSectionResultOld(CreateEmptySectionResult(), null);
+            TestDelegate test = () => strategy.UpdateSectionResultOld(CreateEmptySectionResultOld(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -74,12 +74,12 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
         }
 
         [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
+        public void UpdateSectionResultOld_WithData_UpdatesTargetSectionResult()
         {
             // Setup
             var strategy = new TUpdateStrategy();
-            TSectionResult originResult = CreateConfiguredSectionResult();
-            TSectionResult targetResult = CreateEmptySectionResult();
+            TSectionResult originResult = CreateConfiguredSectionResultOld();
+            TSectionResult targetResult = CreateEmptySectionResultOld();
 
             // Call
             strategy.UpdateSectionResultOld(originResult, targetResult);
@@ -93,13 +93,13 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
         /// Creates an empty instance of <typeparamref name="TSectionResult"/>.
         /// </summary>
         /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
-        protected abstract TSectionResult CreateEmptySectionResult();
+        protected abstract TSectionResult CreateEmptySectionResultOld();
 
         /// <summary>
         /// Creates a configured instance of <typeparamref name="TSectionResult"/>.
         /// </summary>
         /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
-        protected abstract TSectionResult CreateConfiguredSectionResult();
+        protected abstract TSectionResult CreateConfiguredSectionResultOld();
 
         /// <summary>
         /// Asserts whether <paramref name="originResult"/> and

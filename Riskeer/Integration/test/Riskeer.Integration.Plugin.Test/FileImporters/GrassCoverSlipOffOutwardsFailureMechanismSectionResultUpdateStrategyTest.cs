@@ -32,12 +32,12 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
     public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
         GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>
     {
-        protected override GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld CreateEmptySectionResult()
+        protected override GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
             return new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld CreateConfiguredSectionResult()
+        protected override GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld CreateConfiguredSectionResultOld()
         {
             return new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
