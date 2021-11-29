@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
+using System;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
-    /// <summary>
-    /// Interface representing an assembly group limits calculator.
-    /// </summary>
-    public interface IAssemblyGroupBoundariesCalculator {}
+    [TestFixture]
+    public class AssemblyGroupLimitsCalculatorExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<AssemblyGroupLimitsCalculatorException, Exception> {}
 }
