@@ -140,6 +140,8 @@ namespace Riskeer.Piping.Data.Test
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
             Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
             Assert.AreEqual(1, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
             Assert.AreSame(section, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().Section);
         }
@@ -164,6 +166,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
             Assert.AreEqual(2, failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Count());
 
             // Call
@@ -171,6 +174,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
         }
     }
