@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call

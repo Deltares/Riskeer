@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 CombinedFailureMechanismSectionAssembly[] failureMechanismSectionAssembly =
                 {
@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 

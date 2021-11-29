@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.IsEmpty(errorProvider.GetError(assemblyControl));
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 failureMechanism.NotifyObservers();
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 failureMechanism.NotifyObservers();
@@ -150,7 +150,7 @@ namespace Riskeer.Common.Forms.TestUtil
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
@@ -191,7 +191,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
                 failureMechanism.SectionResultsOld.Single().NotifyObservers();
@@ -220,7 +220,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
                 calculation.NotifyObservers();
@@ -249,7 +249,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
                 calculation.InputParameters.NotifyObservers();

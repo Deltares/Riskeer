@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
@@ -256,7 +256,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertAssemblyResultControl(failureMechanismsWithoutProbabilityControlName, "IIIt");
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
                 calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.IIt);
@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertAssemblyResultControl(failureMechanismsWithoutProbabilityControlName, "IIIt");
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
@@ -306,7 +306,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
@@ -347,7 +347,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -644,7 +644,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub failureMechanismCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
@@ -666,7 +666,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // When

@@ -28,20 +28,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
     /// <summary>
     /// Factory which creates calculators for performing assembly tool calculations.
     /// </summary>
-    public class AssemblyToolCalculatorFactory : IAssemblyToolCalculatorFactory
+    public class AssemblyToolCalculatorFactoryOld : IAssemblyToolCalculatorFactoryOld
     {
-        private static IAssemblyToolCalculatorFactory instance;
+        private static IAssemblyToolCalculatorFactoryOld instance;
 
-        private AssemblyToolCalculatorFactory() {}
+        private AssemblyToolCalculatorFactoryOld() {}
 
         /// <summary>
-        /// Gets or sets an instance of <see cref="IAssemblyToolCalculatorFactory"/>.
+        /// Gets or sets an instance of <see cref="IAssemblyToolCalculatorFactoryOld"/>.
         /// </summary>
-        public static IAssemblyToolCalculatorFactory Instance
+        public static IAssemblyToolCalculatorFactoryOld Instance
         {
             get
             {
-                return instance ?? (instance = new AssemblyToolCalculatorFactory());
+                return instance ?? (instance = new AssemblyToolCalculatorFactoryOld());
             }
             internal set
             {

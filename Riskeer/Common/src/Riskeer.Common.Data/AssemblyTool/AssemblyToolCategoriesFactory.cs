@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
         {
-            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double failureMechanismContribution,
             double n)
         {
-            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -101,7 +101,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double lowerLimitNorm,
             double failureProbabilityMarginFactor)
         {
-            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -132,7 +132,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double failureMechanismContribution,
             double n)
         {
-            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
 
             try
@@ -161,7 +161,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             double failureMechanismContribution,
             double n)
         {
-            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyCategoriesCalculator(
+            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
 
             try

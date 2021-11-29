@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> tableControl = GetCategoriesTable(view);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
 
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
                 Assert.AreEqual(calculator.AssessmentSectionCategoriesOutput.Count(), tableControl.Rows.Count);
             }
@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> categoriesTable = GetCategoriesTable(view);

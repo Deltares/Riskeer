@@ -25,9 +25,9 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
 {
     /// <summary>
-    /// This class can be used to set a temporary <see cref="TestAssemblyToolCalculatorFactory"/> 
-    /// for <see cref="AssemblyToolCalculatorFactory.Instance"/> while testing. 
-    /// Disposing an instance of this class will revert the <see cref="AssemblyToolCalculatorFactory.Instance"/>.
+    /// This class can be used to set a temporary <see cref="TestAssemblyToolCalculatorFactoryOld"/> 
+    /// for <see cref="AssemblyToolCalculatorFactoryOld.Instance"/> while testing. 
+    /// Disposing an instance of this class will revert the <see cref="AssemblyToolCalculatorFactoryOld.Instance"/>.
     /// </summary>
     /// <example>
     /// The following is an example for how to use this class:
@@ -42,22 +42,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
     /// </example>
     public class AssemblyToolCalculatorFactoryConfig : IDisposable
     {
-        private readonly IAssemblyToolCalculatorFactory previousFactory;
+        private readonly IAssemblyToolCalculatorFactoryOld previousFactory;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyToolCalculatorFactoryConfig"/>.
-        /// Sets a <see cref="TestAssemblyToolCalculatorFactory"/> to 
-        /// <see cref="AssemblyToolCalculatorFactory.Instance"/>
+        /// Sets a <see cref="TestAssemblyToolCalculatorFactoryOld"/> to 
+        /// <see cref="AssemblyToolCalculatorFactoryOld.Instance"/>
         /// </summary>
         public AssemblyToolCalculatorFactoryConfig()
         {
-            previousFactory = AssemblyToolCalculatorFactory.Instance;
-            AssemblyToolCalculatorFactory.Instance = new TestAssemblyToolCalculatorFactory();
+            previousFactory = AssemblyToolCalculatorFactoryOld.Instance;
+            AssemblyToolCalculatorFactoryOld.Instance = new TestAssemblyToolCalculatorFactoryOld();
         }
 
         /// <summary>
-        /// Reverts the <see cref="AssemblyToolCalculatorFactory.Instance"/> to the value
-        /// it had at time of construction of the <see cref="AssemblyToolCalculatorFactory"/>.
+        /// Reverts the <see cref="AssemblyToolCalculatorFactoryOld.Instance"/> to the value
+        /// it had at time of construction of the <see cref="AssemblyToolCalculatorFactoryOld"/>.
         /// </summary>
         public void Dispose()
         {
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         {
             if (disposing)
             {
-                AssemblyToolCalculatorFactory.Instance = previousFactory;
+                AssemblyToolCalculatorFactoryOld.Instance = previousFactory;
             }
         }
     }

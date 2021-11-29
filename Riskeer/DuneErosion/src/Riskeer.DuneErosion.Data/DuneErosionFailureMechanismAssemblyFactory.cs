@@ -55,7 +55,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -87,7 +87,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -123,7 +123,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -155,7 +155,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -230,7 +230,7 @@ namespace Riskeer.DuneErosion.Data
                 IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
                     failureMechanism.SectionResultsOld.Select(result => GetSectionAssemblyCategoryGroup(result, useManual)).ToArray();
 
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 IFailureMechanismAssemblyCalculator calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 

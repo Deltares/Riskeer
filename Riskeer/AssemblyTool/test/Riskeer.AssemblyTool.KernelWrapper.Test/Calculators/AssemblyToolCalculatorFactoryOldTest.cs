@@ -30,27 +30,27 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
 {
     [TestFixture]
-    public class AssemblyToolCalculatorFactoryTest
+    public class AssemblyToolCalculatorFactoryOldTest
     {
         [Test]
         public void Instance_Always_ReturnsAnInstance()
         {
             // Call
-            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
 
             // Assert
-            Assert.IsInstanceOf<AssemblyToolCalculatorFactory>(factory);
+            Assert.IsInstanceOf<AssemblyToolCalculatorFactoryOld>(factory);
         }
 
         [Test]
         public void Instance_WhenSetToNull_ReturnsNewInstance()
         {
             // Setup
-            IAssemblyToolCalculatorFactory firstFactory = AssemblyToolCalculatorFactory.Instance;
-            AssemblyToolCalculatorFactory.Instance = null;
+            IAssemblyToolCalculatorFactoryOld firstFactory = AssemblyToolCalculatorFactoryOld.Instance;
+            AssemblyToolCalculatorFactoryOld.Instance = null;
 
             // Call
-            IAssemblyToolCalculatorFactory secondFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld secondFactory = AssemblyToolCalculatorFactoryOld.Instance;
 
             // Assert
             Assert.AreNotSame(firstFactory, secondFactory);
@@ -60,11 +60,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         public void Instance_WhenSetToInstance_ReturnsThatInstance()
         {
             // Setup
-            var firstFactory = new TestAssemblyToolCalculatorFactory();
-            AssemblyToolCalculatorFactory.Instance = firstFactory;
+            var firstFactory = new TestAssemblyToolCalculatorFactoryOld();
+            AssemblyToolCalculatorFactoryOld.Instance = firstFactory;
 
             // Call
-            IAssemblyToolCalculatorFactory secondFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld secondFactory = AssemblyToolCalculatorFactoryOld.Instance;
 
             // Assert
             Assert.AreSame(firstFactory, secondFactory);
@@ -74,7 +74,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         public void CreateAssemblyCategoriesCalculator_WithKernelFactory_ReturnsAssemblyCategoriesCalculator()
         {
             // Setup
-            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
 
             using (new AssemblyToolKernelFactoryConfigOld())
             {
@@ -91,7 +91,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssemblyCalculator()
         {
             // Setup
-            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
 
             using (new AssemblyToolKernelFactoryConfigOld())
             {
@@ -108,7 +108,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismAssemblyCalculator()
         {
             // Setup
-            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
 
             using (new AssemblyToolKernelFactoryConfigOld())
             {
@@ -125,7 +125,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsAssessmentSectionAssemblyCalculator()
         {
             // Setup
-            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
 
             using (new AssemblyToolKernelFactoryConfigOld())
             {

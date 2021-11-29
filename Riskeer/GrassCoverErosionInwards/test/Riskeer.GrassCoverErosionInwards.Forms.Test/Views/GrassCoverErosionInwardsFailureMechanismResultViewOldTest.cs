@@ -227,7 +227,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 Assert.AreSame(sectionCalculator.ManualAssemblyAssemblyOutput, calculator.FailureMechanismSectionAssemblies.Single());
@@ -248,7 +248,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
                 var row = (GrassCoverErosionInwardsFailureMechanismSectionResultRowOld) dataGridView.Rows[0].DataBoundItem;
 
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(0.1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[combinedAssemblyProbabilityIndex];

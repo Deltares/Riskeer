@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.IsEmpty(errorProvider.GetError(assemblyControl));
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 failureMechanism.NotifyObservers();
@@ -126,7 +126,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual("IIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
                 failureMechanism.NotifyObservers();
@@ -144,7 +144,7 @@ namespace Riskeer.Common.Forms.TestUtil
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
@@ -183,7 +183,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual("IIt", assemblyGroupLabel.Text);
 
                 // When
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyCategoryGroupOutput = FailureMechanismAssemblyCategoryGroup.VIt;
                 failureMechanism.SectionResultsOld.Single().NotifyObservers();

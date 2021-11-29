@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Data.Assembly
 
             try
             {
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Data.Assembly
 
             try
             {
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -140,7 +140,7 @@ namespace Riskeer.Integration.Data.Assembly
 
             try
             {
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Data.Assembly
 
             try
             {
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 

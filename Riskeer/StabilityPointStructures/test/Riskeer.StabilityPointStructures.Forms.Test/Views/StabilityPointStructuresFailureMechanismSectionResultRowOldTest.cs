@@ -226,7 +226,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
@@ -276,7 +276,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(
                     random.NextDouble(),
@@ -336,7 +336,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
@@ -685,7 +685,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 var assemblyOutput = new FailureMechanismSectionAssemblyOld(0, assemblyCategoryGroup);
                 calculator.SimpleAssessmentAssemblyOutput = assemblyOutput;

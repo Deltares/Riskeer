@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -111,7 +111,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -216,7 +216,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -307,7 +307,7 @@ namespace Riskeer.Piping.Data
 
             try
             {
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
                 IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies = failureMechanism.SectionResultsOld
                                                                                                     .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
@@ -375,7 +375,7 @@ namespace Riskeer.Piping.Data
                                                                                    PipingFailureMechanism failureMechanism,
                                                                                    AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 

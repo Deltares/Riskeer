@@ -31,12 +31,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
     /// <summary>
     /// Factory which creates assembly tool calculator stubs for testing purposes.
     /// </summary>
-    public class TestAssemblyToolCalculatorFactory : IAssemblyToolCalculatorFactory
+    public class TestAssemblyToolCalculatorFactoryOld : IAssemblyToolCalculatorFactoryOld
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestAssemblyToolCalculatorFactory"/>.
+        /// Creates a new instance of <see cref="TestAssemblyToolCalculatorFactoryOld"/>.
         /// </summary>
-        public TestAssemblyToolCalculatorFactory()
+        public TestAssemblyToolCalculatorFactoryOld()
         {
             LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
             LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorOldStub();

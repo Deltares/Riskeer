@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
     /// <summary>
     /// Interface for a factory which creates calculators for performing assembly tool calculations.
     /// </summary>
-    public interface IAssemblyToolCalculatorFactory
+    public interface IAssemblyToolCalculatorFactoryOld
     {
         /// <summary>
         /// Creates an assembly categories calculator.

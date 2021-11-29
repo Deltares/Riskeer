@@ -196,7 +196,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 Assert.AreEqual(categoryGroup, calculator.FailureMechanismSectionCategories.Single());
             }

@@ -61,7 +61,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.SimpleAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
@@ -114,7 +114,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
@@ -168,7 +168,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),
@@ -222,7 +222,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssemblyOld(random.NextDouble(),

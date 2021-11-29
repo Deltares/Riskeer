@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -158,7 +158,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
             IFailureMechanismSectionAssemblyCalculatorOld calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
@@ -320,7 +320,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                                                                                                             assessmentSection,
                                                                                                             useManual)).ToArray();
 
-                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
                 IFailureMechanismAssemblyCalculator calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 

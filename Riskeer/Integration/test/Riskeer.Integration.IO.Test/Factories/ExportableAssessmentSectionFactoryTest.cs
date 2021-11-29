@@ -91,7 +91,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
@@ -153,7 +153,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
 
                 // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyCategoriesInput);
                 Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyNInput);
