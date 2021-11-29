@@ -143,7 +143,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
@@ -222,7 +222,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedAssemblyOutput.Probability, exportableFailureMechanismAssemblyResult.Probability);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
-            Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
+            Assert.AreEqual(failureMechanism.SectionResultsOld.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
         }
 
         #endregion
@@ -323,7 +323,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedAssemblyOutput, exportableFailureMechanismAssemblyResult.AssemblyCategory);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
-            Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
+            Assert.AreEqual(failureMechanism.SectionResultsOld.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
         }
 
         #endregion

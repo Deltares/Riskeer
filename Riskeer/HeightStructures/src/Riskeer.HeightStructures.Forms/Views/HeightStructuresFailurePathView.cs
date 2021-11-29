@@ -106,7 +106,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>,
                 HeightStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

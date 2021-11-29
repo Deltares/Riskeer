@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards
         internal static FailureMechanismEntity Create(this GrassCoverSlipOffInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentSlidingInwards, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

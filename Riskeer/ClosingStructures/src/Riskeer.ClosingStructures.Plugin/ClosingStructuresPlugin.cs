@@ -312,7 +312,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object dataToCloseFor)
@@ -474,7 +474,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                    failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

@@ -293,7 +293,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         #endregion
@@ -399,7 +399,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResults, failureMechanism),
+                    failureMechanism.SectionResultsOld, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };
         }

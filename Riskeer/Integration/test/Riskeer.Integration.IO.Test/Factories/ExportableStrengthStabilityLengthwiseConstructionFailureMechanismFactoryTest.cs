@@ -155,7 +155,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

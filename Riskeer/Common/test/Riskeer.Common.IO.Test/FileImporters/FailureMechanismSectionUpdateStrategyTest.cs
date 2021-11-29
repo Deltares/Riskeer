@@ -148,7 +148,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 failureMechanismSection2
             }, sourcePath);
 
-            IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults = failureMechanism.SectionResults;
+            IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults = failureMechanism.SectionResultsOld;
             FailureMechanismSectionResultOld oldSectionResult = failureMechanismSectionResults.First();
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
@@ -182,7 +182,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResults
+                failureMechanism.SectionResultsOld
             }, affectedObjects);
         }
 
@@ -256,7 +256,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResults
+                failureMechanism.SectionResultsOld
             }, affectedObjects);
         }
 

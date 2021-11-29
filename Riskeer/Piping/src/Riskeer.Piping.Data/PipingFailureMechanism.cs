@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResults => sectionResults;
+        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResultsOld => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

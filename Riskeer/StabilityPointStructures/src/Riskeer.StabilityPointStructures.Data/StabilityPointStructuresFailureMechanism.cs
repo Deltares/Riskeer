@@ -83,7 +83,7 @@ namespace Riskeer.StabilityPointStructures.Data
             }
         }
 
-        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

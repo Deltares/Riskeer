@@ -99,7 +99,7 @@ namespace Riskeer.Integration.IO.Factories
             IAssessmentSection assessmentSection)
         {
             IDictionary<ClosingStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
             StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>().ToArray();
 

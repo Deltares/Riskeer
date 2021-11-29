@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Forms.Views
 
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

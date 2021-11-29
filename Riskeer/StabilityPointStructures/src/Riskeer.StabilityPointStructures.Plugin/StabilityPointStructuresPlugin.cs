@@ -310,7 +310,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         private static bool CloseScenariosViewForData(StabilityPointStructuresScenariosView view, object dataToCloseFor)
@@ -472,7 +472,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                    failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

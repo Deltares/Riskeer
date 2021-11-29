@@ -147,7 +147,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = true;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

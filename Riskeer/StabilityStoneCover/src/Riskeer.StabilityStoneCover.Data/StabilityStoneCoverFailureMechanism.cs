@@ -76,7 +76,7 @@ namespace Riskeer.StabilityStoneCover.Data
             }
         }
 
-        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

@@ -76,7 +76,7 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            T[] oldSectionResults = failureMechanism.SectionResults.ToArray();
+            T[] oldSectionResults = failureMechanism.SectionResultsOld.ToArray();
 
             try
             {
@@ -87,7 +87,7 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new UpdateDataException(e.Message, e);
             }
 
-            foreach (T sectionResult in failureMechanism.SectionResults)
+            foreach (T sectionResult in failureMechanism.SectionResultsOld)
             {
                 T equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
                                                                           && item.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
@@ -101,7 +101,7 @@ namespace Riskeer.Common.IO.FileImporters
             return new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResults
+                failureMechanism.SectionResultsOld
             };
         }
 

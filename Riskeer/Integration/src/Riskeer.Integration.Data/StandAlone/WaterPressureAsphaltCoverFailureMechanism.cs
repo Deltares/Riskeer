@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

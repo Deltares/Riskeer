@@ -334,7 +334,7 @@ namespace Riskeer.HeightStructures.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object dataToCloseFor)
@@ -479,7 +479,7 @@ namespace Riskeer.HeightStructures.Plugin
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                    failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

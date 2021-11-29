@@ -99,7 +99,7 @@ namespace Riskeer.Integration.IO.Factories
             IAssessmentSection assessmentSection)
         {
             IDictionary<PipingFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
             IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculationScenarios = failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>();
 

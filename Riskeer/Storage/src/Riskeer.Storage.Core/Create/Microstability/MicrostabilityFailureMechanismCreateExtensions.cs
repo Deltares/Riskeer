@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.Microstability
         internal static FailureMechanismEntity Create(this MicrostabilityFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.Microstability, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

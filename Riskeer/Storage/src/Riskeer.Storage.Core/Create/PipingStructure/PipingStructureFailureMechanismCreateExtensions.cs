@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
         internal static FailureMechanismEntity Create(this PipingStructureFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.PipingAtStructure, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             return entity;
         }

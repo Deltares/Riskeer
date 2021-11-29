@@ -155,7 +155,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new TechnicalInnovationFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            TechnicalInnovationFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            TechnicalInnovationFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

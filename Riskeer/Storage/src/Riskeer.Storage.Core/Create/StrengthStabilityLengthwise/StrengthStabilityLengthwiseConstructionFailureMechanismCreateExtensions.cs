@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
         internal static FailureMechanismEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

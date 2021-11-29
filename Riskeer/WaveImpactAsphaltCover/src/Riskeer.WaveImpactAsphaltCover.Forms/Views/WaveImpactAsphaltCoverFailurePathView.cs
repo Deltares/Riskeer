@@ -106,7 +106,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>,
                 WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

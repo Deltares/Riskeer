@@ -292,7 +292,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         #endregion
@@ -400,7 +400,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     failureMechanism, assessmentSection, () => failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(
                         assessmentSection.ReferenceLine.Length)),
                 new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResults, failureMechanism),
+                    failureMechanism.SectionResultsOld, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };
         }

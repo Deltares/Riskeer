@@ -79,7 +79,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<DuneErosionFailureMechanismSectionResultOld,
@@ -186,7 +186,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -211,7 +211,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             protected override DuneErosionFailureMechanismResultViewOld CreateResultView(DuneErosionFailureMechanism failureMechanism)
             {
-                return new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                return new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                  failureMechanism);
             }
         }
@@ -225,7 +225,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private DuneErosionFailureMechanismResultViewOld ShowFailureMechanismResultsView(
             DuneErosionFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                        failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

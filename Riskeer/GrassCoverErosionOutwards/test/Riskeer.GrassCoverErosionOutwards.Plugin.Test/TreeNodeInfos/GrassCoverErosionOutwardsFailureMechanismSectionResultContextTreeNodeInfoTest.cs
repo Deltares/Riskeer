@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism);
 
             // Call
             string text = info.Text(context);

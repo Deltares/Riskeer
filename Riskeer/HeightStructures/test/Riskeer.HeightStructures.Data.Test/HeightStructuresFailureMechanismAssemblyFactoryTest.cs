@@ -1061,7 +1061,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1096,7 +1096,7 @@ namespace Riskeer.HeightStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

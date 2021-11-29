@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
                                                                                                                            mechanism);
             using (plugin)
             {

@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

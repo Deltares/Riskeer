@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
             AddEntitiesForStabilityPointStructures(mechanism.StabilityPointStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

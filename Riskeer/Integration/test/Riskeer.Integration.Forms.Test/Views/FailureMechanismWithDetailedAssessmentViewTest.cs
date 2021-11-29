@@ -690,7 +690,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     new MapFeature(Enumerable.Empty<MapGeometry>()),
                     new MapFeature(Enumerable.Empty<MapGeometry>())
                 };
-                failureMechanism.SectionResults.First().NotifyObservers();
+                failureMechanism.SectionResultsOld.First().NotifyObservers();
 
                 // Then
                 CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);

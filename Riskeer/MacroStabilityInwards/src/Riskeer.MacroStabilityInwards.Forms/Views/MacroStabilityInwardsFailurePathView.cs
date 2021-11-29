@@ -104,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld>, MacroStabilityInwardsFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

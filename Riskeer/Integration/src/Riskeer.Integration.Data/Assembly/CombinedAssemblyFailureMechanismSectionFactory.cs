@@ -72,126 +72,126 @@ namespace Riskeer.Integration.Data.Assembly
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             if (failureMechanisms.Contains(pipingFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(pipingFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(pipingFailureMechanism.SectionResultsOld,
                                                   assessmentSection, PipingAssemblyFunc, useManual));
             }
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             if (failureMechanisms.Contains(grassCoverErosionInwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(grassCoverErosionInwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(grassCoverErosionInwardsFailureMechanism.SectionResultsOld,
                                                   assessmentSection, GrassCoverErosionInwardsAssemblyFunc, useManual));
             }
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             if (failureMechanisms.Contains(macroStabilityInwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(macroStabilityInwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(macroStabilityInwardsFailureMechanism.SectionResultsOld,
                                                   assessmentSection, MacroStabilityInwardsAssemblyFunc, useManual));
             }
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             if (failureMechanisms.Contains(macroStabilityOutwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResultsOld,
                                                   assessmentSection, MacroStabilityOutwardsAssemblyFunc, useManual));
             }
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             if (failureMechanisms.Contains(microstabilityFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(microstabilityFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(microstabilityFailureMechanism.SectionResultsOld,
                                                   MicrostabilityAssemblyFunc, useManual));
             }
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             if (failureMechanisms.Contains(stabilityStoneCoverFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(stabilityStoneCoverFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(stabilityStoneCoverFailureMechanism.SectionResultsOld,
                                                   StabilityStoneCoverAssemblyFunc, useManual));
             }
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             if (failureMechanisms.Contains(waveImpactAsphaltCoverFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(waveImpactAsphaltCoverFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(waveImpactAsphaltCoverFailureMechanism.SectionResultsOld,
                                                   WaveImpactAsphaltCoverAssemblyFunc, useManual));
             }
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             if (failureMechanisms.Contains(waterPressureAsphaltCoverFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(waterPressureAsphaltCoverFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(waterPressureAsphaltCoverFailureMechanism.SectionResultsOld,
                                                   WaterPressureAsphaltCoverAssemblyFunc, useManual));
             }
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             if (failureMechanisms.Contains(grassCoverErosionOutwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(grassCoverErosionOutwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(grassCoverErosionOutwardsFailureMechanism.SectionResultsOld,
                                                   GrassCoverErosionOutwardsAssemblyFunc, useManual));
             }
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             if (failureMechanisms.Contains(grassCoverSlipOffOutwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(grassCoverSlipOffOutwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld,
                                                   GrassCoverSlipOffOutwardsAssemblyFunc, useManual));
             }
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             if (failureMechanisms.Contains(grassCoverSlipOffInwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(grassCoverSlipOffInwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld,
                                                   GrassCoverSlipOffInwardsAssemblyFunc, useManual));
             }
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             if (failureMechanisms.Contains(heightStructuresFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(heightStructuresFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(heightStructuresFailureMechanism.SectionResultsOld,
                                                   assessmentSection, HeightStructuresAssemblyFunc, useManual));
             }
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             if (failureMechanisms.Contains(closingStructuresFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(closingStructuresFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(closingStructuresFailureMechanism.SectionResultsOld,
                                                   assessmentSection, ClosingStructuresAssemblyFunc, useManual));
             }
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             if (failureMechanisms.Contains(pipingStructureFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(pipingStructureFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(pipingStructureFailureMechanism.SectionResultsOld,
                                                   PipingStructureAssemblyFunc, useManual));
             }
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             if (failureMechanisms.Contains(stabilityPointStructuresFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(stabilityPointStructuresFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(stabilityPointStructuresFailureMechanism.SectionResultsOld,
                                                   assessmentSection, StabilityPointStructuresAssemblyFunc, useManual));
             }
 
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             if (failureMechanisms.Contains(strengthStabilityLengthwiseConstructionFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResultsOld,
                                                   StrengthStabilityLengthwiseConstructionAssemblyFunc, useManual));
             }
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             if (failureMechanisms.Contains(duneErosionFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResultsOld,
                                                   DuneErosionAssemblyFunc, useManual));
             }
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             if (failureMechanisms.Contains(technicalInnovationFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(technicalInnovationFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(technicalInnovationFailureMechanism.SectionResultsOld,
                                                   TechnicalInnovationAssemblyFunc, useManual));
             }
 

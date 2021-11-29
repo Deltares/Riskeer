@@ -1129,7 +1129,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1164,7 +1164,7 @@ namespace Riskeer.Piping.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

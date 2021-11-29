@@ -68,14 +68,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld,
                                                                                                                      failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResults, viewData);
+            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new TechnicalInnovationFailureMechanism();
 
-            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TechnicalInnovationResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
             var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld,
                 failureMechanism);
 
             // Call

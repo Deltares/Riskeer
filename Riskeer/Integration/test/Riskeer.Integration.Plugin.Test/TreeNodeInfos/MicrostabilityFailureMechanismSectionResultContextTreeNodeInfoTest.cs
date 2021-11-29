@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
                                                                                                                 mechanism);
             using (plugin)
             {

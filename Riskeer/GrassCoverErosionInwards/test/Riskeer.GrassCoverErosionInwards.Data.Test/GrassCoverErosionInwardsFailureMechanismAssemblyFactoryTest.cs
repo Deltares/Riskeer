@@ -1001,7 +1001,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1036,7 +1036,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

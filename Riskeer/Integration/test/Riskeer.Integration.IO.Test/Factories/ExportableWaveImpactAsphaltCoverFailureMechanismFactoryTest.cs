@@ -154,7 +154,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

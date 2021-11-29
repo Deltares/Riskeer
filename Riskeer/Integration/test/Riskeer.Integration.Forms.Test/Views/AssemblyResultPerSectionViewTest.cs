@@ -408,7 +408,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = assessmentSection.MacroStabilityInwards.SectionResultsOld.First();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 
@@ -435,7 +435,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
 
             // When
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -461,7 +461,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                                             .Cast<IHasSectionResults<FailureMechanismSectionResultOld>>())
             {
                 FailureMechanismTestHelper.AddSectionsBasedOnReferenceLine(assessmentSection.ReferenceLine, failureMechanism, 1);
-                failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+                failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
             }
 
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -497,7 +497,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssessmentSection assessmentSection = view.AssessmentSection;
                 PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                failureMechanism.SectionResults.Single().UseManualAssembly = true;
+                failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
                 assessmentSection.NotifyObservers();
 
                 // Precondition
@@ -530,7 +530,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     AssessmentSection assessmentSection = view.AssessmentSection;
                     PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                     FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                    failureMechanism.SectionResults.Single().UseManualAssembly = true;
+                    failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
 
                     // Precondition
                     ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();

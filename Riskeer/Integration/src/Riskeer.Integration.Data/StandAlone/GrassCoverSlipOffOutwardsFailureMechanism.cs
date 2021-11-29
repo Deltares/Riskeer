@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

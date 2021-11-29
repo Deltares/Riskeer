@@ -315,7 +315,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
             try
             {
                 IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                    failureMechanism.SectionResults.Select(sectionResult => GetSectionAssemblyCategoryGroup(sectionResult,
+                    failureMechanism.SectionResultsOld.Select(sectionResult => GetSectionAssemblyCategoryGroup(sectionResult,
                                                                                                             failureMechanism,
                                                                                                             assessmentSection,
                                                                                                             useManual)).ToArray();

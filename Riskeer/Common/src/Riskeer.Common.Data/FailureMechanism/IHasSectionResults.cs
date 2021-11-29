@@ -33,6 +33,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResultOld"/>.
         /// </summary>
-        IObservableEnumerable<T> SectionResults { get; }
+        IObservableEnumerable<T> SectionResultsOld { get; }
     }
 }

@@ -1125,7 +1125,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1160,7 +1160,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

@@ -64,8 +64,8 @@ namespace Riskeer.DuneErosion.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
+            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
+            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
         }
 
         [Test]
@@ -87,13 +87,13 @@ namespace Riskeer.DuneErosion.Data.Test
             });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]

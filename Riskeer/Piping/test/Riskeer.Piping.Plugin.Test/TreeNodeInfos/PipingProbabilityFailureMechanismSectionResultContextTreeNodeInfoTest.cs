@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new PipingFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);

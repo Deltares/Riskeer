@@ -583,7 +583,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             double probability = new Random(39).NextDouble();
             sectionResult.ManualAssemblyProbability = probability;
@@ -609,7 +609,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             double probability = new Random(39).NextDouble();
             sectionResult.ManualAssemblyProbability = probability;
@@ -639,7 +639,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
 
@@ -664,7 +664,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             failureMechanism.InAssembly = true;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.Vv;
 
@@ -863,7 +863,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             double probability = new Random(39).NextDouble();
             sectionResult.ManualAssemblyProbability = probability;
@@ -888,7 +888,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
 
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             double probability = new Random(39).NextDouble();
             sectionResult.ManualAssemblyProbability = probability;
@@ -994,7 +994,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResultOld
         {
-            return failureMechanism.SectionResults.Single();
+            return failureMechanism.SectionResultsOld.Single();
         }
 
         #endregion

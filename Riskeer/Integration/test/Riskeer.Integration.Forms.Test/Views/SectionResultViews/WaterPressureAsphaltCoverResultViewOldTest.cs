@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaterPressureAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -198,7 +198,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         {
             protected override WaterPressureAsphaltCoverResultViewOld CreateResultView(WaterPressureAsphaltCoverFailureMechanism failureMechanism)
             {
-                return new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
+                return new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResultsOld,
                                                                failureMechanism);
             }
         }
@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         private WaterPressureAsphaltCoverResultViewOld ShowFailureMechanismResultsView(
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new WaterPressureAsphaltCoverResultViewOld(failureMechanism.SectionResultsOld,
                                                                                      failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

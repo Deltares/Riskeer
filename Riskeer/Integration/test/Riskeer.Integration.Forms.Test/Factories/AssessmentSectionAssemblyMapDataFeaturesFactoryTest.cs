@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = assessmentSection.MacroStabilityInwards.SectionResults.First();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = assessmentSection.MacroStabilityInwards.SectionResultsOld.First();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = random.NextDouble();
 

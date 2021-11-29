@@ -50,7 +50,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public override IEnumerable<ICalculation> Calculations { get; }
 
-        public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

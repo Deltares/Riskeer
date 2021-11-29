@@ -91,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism, assessmentSection);
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);

@@ -953,98 +953,98 @@ namespace Riskeer.Integration.Service.Test
             // the return result, no ToArray() should be called before these assertions:
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(pipingFailureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SurfaceLines);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.DikeProfiles);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ClosingStructures);
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.HeightStructures);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.StabilityPointStructures);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResultsOld);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.SectionResultsOld);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResultsOld);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResultsOld);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResultsOld);
         }
 
         [Test]
@@ -1673,7 +1673,7 @@ namespace Riskeer.Integration.Service.Test
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
-            CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.StochasticSoilModels);
@@ -1681,91 +1681,91 @@ namespace Riskeer.Integration.Service.Test
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             CollectionAssert.Contains(changedObjects, grassCoverErosionInwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, grassCoverErosionInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, grassCoverErosionInwardsFailureMechanism.DikeProfiles);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(changedObjects, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism);
-            CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism);
-            CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(changedObjects, stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism);
-            CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.ClosingStructures);
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism);
-            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.HeightStructures);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism);
-            CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(changedObjects, stabilityPointStructuresFailureMechanism.StabilityPointStructures);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism);
-            CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism.SectionResultsOld);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism.SectionResultsOld);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism);
-            CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism.SectionResultsOld);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism);
-            CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffInwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, grassCoverSlipOffInwardsFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
             CollectionAssert.Contains(changedObjects, stabilityLengthwiseConstructionFailureMechanism);
-            CollectionAssert.Contains(changedObjects, stabilityLengthwiseConstructionFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, stabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
-            CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResultsOld);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism);
-            CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism.SectionResults);
+            CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism.SectionResultsOld);
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
@@ -1992,7 +1992,7 @@ namespace Riskeer.Integration.Service.Test
                 yield return section;
             }
 
-            foreach (FailureMechanismSectionResultOld sectionResult in failureMechanism.SectionResults)
+            foreach (FailureMechanismSectionResultOld sectionResult in failureMechanism.SectionResultsOld)
             {
                 yield return sectionResult;
             }

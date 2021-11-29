@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         internal static FailureMechanismEntity Create(this GrassCoverErosionOutwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);

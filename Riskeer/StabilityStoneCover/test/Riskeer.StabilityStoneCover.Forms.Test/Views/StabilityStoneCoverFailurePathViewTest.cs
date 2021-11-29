@@ -605,7 +605,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 calculator.DetailedAssessmentAssemblyGroupOutput = updatedDetailedAssemblyCategory;
                 calculator.TailorMadeAssemblyCategoryOutput = updatedTailorMadeAssemblyCategory;
                 calculator.CombinedAssemblyCategoryOutput = updatedCombinedAssemblyCategory;
-                failureMechanism.SectionResults.First().NotifyObservers();
+                failureMechanism.SectionResultsOld.First().NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly.Group,

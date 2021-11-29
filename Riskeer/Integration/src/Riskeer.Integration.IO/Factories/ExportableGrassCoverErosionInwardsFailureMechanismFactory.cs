@@ -98,7 +98,7 @@ namespace Riskeer.Integration.IO.Factories
             IAssessmentSection assessmentSection)
         {
             IDictionary<GrassCoverErosionInwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>();
 

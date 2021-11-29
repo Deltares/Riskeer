@@ -79,7 +79,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<GrassCoverErosionOutwardsFailureMechanismSectionResultOld,
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -211,7 +211,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         {
             protected override GrassCoverErosionOutwardsFailureMechanismResultViewOld CreateResultView(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             {
-                return new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                return new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                failureMechanism);
             }
         }
@@ -225,7 +225,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         private GrassCoverErosionOutwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                                      failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

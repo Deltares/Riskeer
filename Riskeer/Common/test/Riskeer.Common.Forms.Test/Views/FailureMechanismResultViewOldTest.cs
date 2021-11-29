@@ -75,7 +75,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (var view = new TestFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TestFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -153,7 +153,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (var view = new TestFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new TestFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -362,7 +362,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
 
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -386,7 +386,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
 
             using (TestFailureMechanismResultViewOld view = ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -439,7 +439,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
 
             using (TestFailureMechanismResultViewOld view = ShowFailureMechanismResultsView(failureMechanism))
             {
@@ -618,7 +618,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private TestFailureMechanismResultViewOld ShowFailureMechanismResultsView(TestFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new TestFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism);
+            var failureMechanismResultView = new TestFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

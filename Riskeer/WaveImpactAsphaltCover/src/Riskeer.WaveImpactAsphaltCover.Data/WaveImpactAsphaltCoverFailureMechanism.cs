@@ -83,7 +83,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             }
         }
 
-        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

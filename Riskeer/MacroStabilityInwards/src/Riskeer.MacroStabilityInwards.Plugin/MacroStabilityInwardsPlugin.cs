@@ -478,7 +478,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         private static bool CloseCalculationsViewForData(MacroStabilityInwardsCalculationsView view, object dataToCloseFor)
@@ -704,7 +704,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                               assessmentSection,
                                                               () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResultOld>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

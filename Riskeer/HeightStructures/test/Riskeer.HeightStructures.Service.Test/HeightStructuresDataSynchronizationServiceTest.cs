@@ -462,7 +462,7 @@ namespace Riskeer.HeightStructures.Service.Test
             HeightStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                              .Concat(failureMechanism.SectionResults)
+                                                              .Concat(failureMechanism.SectionResultsOld)
                                                               .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
                                                               .Concat(failureMechanism.HeightStructures)
@@ -475,7 +475,7 @@ namespace Riskeer.HeightStructures.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
@@ -483,7 +483,7 @@ namespace Riskeer.HeightStructures.Service.Test
             IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(5, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
-            CollectionAssert.Contains(array, failureMechanism.SectionResults);
+            CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(array, failureMechanism.HeightStructures);

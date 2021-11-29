@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Forms.Views
 
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResultOld>, PipingFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

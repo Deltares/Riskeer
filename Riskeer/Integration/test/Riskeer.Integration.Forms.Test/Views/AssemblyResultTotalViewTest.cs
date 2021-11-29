@@ -558,7 +558,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
 
             // When
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
@@ -581,7 +581,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
@@ -616,7 +616,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssessmentSection assessmentSection = view.AssessmentSection;
                 PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                failureMechanism.SectionResults.Single().UseManualAssembly = true;
+                failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
                 assessmentSection.NotifyObservers();
 
                 // Precondition
@@ -836,7 +836,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResultOld
         {
-            return failureMechanism.SectionResults.Single();
+            return failureMechanism.SectionResultsOld.Single();
         }
 
         #endregion

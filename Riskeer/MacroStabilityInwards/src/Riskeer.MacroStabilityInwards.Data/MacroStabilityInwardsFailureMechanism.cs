@@ -87,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             }
         }
 
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

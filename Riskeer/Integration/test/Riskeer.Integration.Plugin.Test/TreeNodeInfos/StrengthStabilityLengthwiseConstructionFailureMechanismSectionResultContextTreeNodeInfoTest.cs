@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var mechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>(
-                mechanism.SectionResults,
+                mechanism.SectionResultsOld,
                 mechanism);
             using (plugin)
             {

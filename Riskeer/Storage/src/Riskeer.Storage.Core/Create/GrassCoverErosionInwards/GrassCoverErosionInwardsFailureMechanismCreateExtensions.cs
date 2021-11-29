@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
             AddEntitiesForGeneralInput(mechanism, entity);
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

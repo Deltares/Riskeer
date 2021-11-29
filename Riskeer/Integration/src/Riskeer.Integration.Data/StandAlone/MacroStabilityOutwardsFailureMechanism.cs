@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

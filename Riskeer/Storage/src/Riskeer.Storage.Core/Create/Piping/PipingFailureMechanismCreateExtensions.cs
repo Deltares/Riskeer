@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create.Piping
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 

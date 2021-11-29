@@ -85,7 +85,7 @@ namespace Riskeer.HeightStructures.Data
             }
         }
 
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

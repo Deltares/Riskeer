@@ -147,7 +147,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.VIIv;
 

@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
             try
             {
                 IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                    failureMechanism.SectionResults.Select(result => GetSectionAssemblyCategoryGroup(result, useManual)).ToArray();
+                    failureMechanism.SectionResultsOld.Select(result => GetSectionAssemblyCategoryGroup(result, useManual)).ToArray();
 
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 IFailureMechanismAssemblyCalculator calculator =

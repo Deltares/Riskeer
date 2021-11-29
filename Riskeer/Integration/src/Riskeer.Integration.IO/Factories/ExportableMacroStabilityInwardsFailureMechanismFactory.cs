@@ -98,7 +98,7 @@ namespace Riskeer.Integration.IO.Factories
             IAssessmentSection assessmentSection)
         {
             IDictionary<MacroStabilityInwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
+                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
             IEnumerable<MacroStabilityInwardsCalculationScenario> macroStabilityInwardsCalculationScenarios =
                 failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>();

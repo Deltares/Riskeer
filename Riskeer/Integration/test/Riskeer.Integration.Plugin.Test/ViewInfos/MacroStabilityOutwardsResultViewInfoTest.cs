@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld,
                                                                                                                                    failureMechanism,
                                                                                                                                    assessmentSection);
 
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResults, viewData);
+            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
             mocks.VerifyAll();
         }
 
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, otherAssessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, otherAssessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -156,7 +156,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
             var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld,
                 failureMechanism,
                 assessmentSection);
 

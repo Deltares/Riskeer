@@ -92,7 +92,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism);
 
             // Call
             string text = info.Text(context);

@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Data.TestUtil
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
             int sectionsCount = sections.Count();
             Assert.AreEqual(2, sectionsCount);
-            Assert.AreEqual(sectionsCount, failureMechanism.SectionResults.Count());
+            Assert.AreEqual(sectionsCount, failureMechanism.SectionResultsOld.Count());
             Assert.AreEqual("path/to/sections", failureMechanism.FailureMechanismSectionSourcePath);
         }
 

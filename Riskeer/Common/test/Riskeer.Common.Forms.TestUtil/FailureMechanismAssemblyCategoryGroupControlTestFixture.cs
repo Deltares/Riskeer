@@ -186,7 +186,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyCategoryGroupOutput = FailureMechanismAssemblyCategoryGroup.VIt;
-                failureMechanism.SectionResults.Single().NotifyObservers();
+                failureMechanism.SectionResultsOld.Single().NotifyObservers();
 
                 // Then
                 Assert.AreEqual("VIt", assemblyGroupLabel.Text);

@@ -608,7 +608,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -634,7 +634,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 

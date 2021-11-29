@@ -569,7 +569,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
                 calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
                 calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                failureMechanism.SectionResults.First().NotifyObservers();
+                failureMechanism.SectionResultsOld.First().NotifyObservers();
 
                 // Then
                 MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,

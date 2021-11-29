@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>,
                 GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

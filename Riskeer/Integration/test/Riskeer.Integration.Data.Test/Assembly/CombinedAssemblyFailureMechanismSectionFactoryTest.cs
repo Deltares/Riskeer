@@ -92,24 +92,24 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Assert
                 Assert.AreEqual(18, inputs.Count());
 
-                AssertSections(assessmentSection.Piping.SectionResults, inputs.ElementAt(0));
-                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults, inputs.ElementAt(1));
-                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults, inputs.ElementAt(2));
-                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults, inputs.ElementAt(3));
-                AssertSections(assessmentSection.Microstability.SectionResults, inputs.ElementAt(4));
-                AssertSections(assessmentSection.StabilityStoneCover.SectionResults, inputs.ElementAt(5));
-                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResults, inputs.ElementAt(6));
-                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResults, inputs.ElementAt(7));
-                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResults, inputs.ElementAt(8));
-                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, inputs.ElementAt(9));
-                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResults, inputs.ElementAt(10));
-                AssertSections(assessmentSection.HeightStructures.SectionResults, inputs.ElementAt(11));
-                AssertSections(assessmentSection.ClosingStructures.SectionResults, inputs.ElementAt(12));
-                AssertSections(assessmentSection.PipingStructure.SectionResults, inputs.ElementAt(13));
-                AssertSections(assessmentSection.StabilityPointStructures.SectionResults, inputs.ElementAt(14));
-                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults, inputs.ElementAt(15));
-                AssertSections(assessmentSection.DuneErosion.SectionResults, inputs.ElementAt(16));
-                AssertSections(assessmentSection.TechnicalInnovation.SectionResults, inputs.ElementAt(17));
+                AssertSections(assessmentSection.Piping.SectionResultsOld, inputs.ElementAt(0));
+                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResultsOld, inputs.ElementAt(1));
+                AssertSections(assessmentSection.MacroStabilityInwards.SectionResultsOld, inputs.ElementAt(2));
+                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResultsOld, inputs.ElementAt(3));
+                AssertSections(assessmentSection.Microstability.SectionResultsOld, inputs.ElementAt(4));
+                AssertSections(assessmentSection.StabilityStoneCover.SectionResultsOld, inputs.ElementAt(5));
+                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResultsOld, inputs.ElementAt(6));
+                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResultsOld, inputs.ElementAt(7));
+                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResultsOld, inputs.ElementAt(8));
+                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResultsOld, inputs.ElementAt(9));
+                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResultsOld, inputs.ElementAt(10));
+                AssertSections(assessmentSection.HeightStructures.SectionResultsOld, inputs.ElementAt(11));
+                AssertSections(assessmentSection.ClosingStructures.SectionResultsOld, inputs.ElementAt(12));
+                AssertSections(assessmentSection.PipingStructure.SectionResultsOld, inputs.ElementAt(13));
+                AssertSections(assessmentSection.StabilityPointStructures.SectionResultsOld, inputs.ElementAt(14));
+                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResultsOld, inputs.ElementAt(15));
+                AssertSections(assessmentSection.DuneErosion.SectionResultsOld, inputs.ElementAt(16));
+                AssertSections(assessmentSection.TechnicalInnovation.SectionResultsOld, inputs.ElementAt(17));
             }
         }
 
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     }, new Random(39).NextBoolean());
 
                 // Assert
-                AssertSections(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResults, inputs.Single());
+                AssertSections(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResultsOld, inputs.Single());
             }
         }
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResults,
+                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResultsOld,
                                          sectionCalculator.ManualAssemblyAssemblyOutput.Group,
                                          input.Single());
             }
@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Then
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResults,
+                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld>) failureMechanismInAssembly).SectionResultsOld,
                                          sectionCalculator.CombinedAssemblyOutput.Group,
                                          input.Single());
             }
@@ -290,7 +290,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var duneErosion = failureMechanism as DuneErosionFailureMechanism;
             if (duneErosion != null)
             {
-                AssertSectionsWithResult(duneErosion.SectionResults,
+                AssertSectionsWithResult(duneErosion.SectionResultsOld,
                                          GetFailureMechanismSectionResult(duneErosion).ManualAssemblyCategoryGroup,
                                          actualInput.Single());
                 return;
@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var grassCoverErosionOutwards = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
             if (grassCoverErosionOutwards != null)
             {
-                AssertSectionsWithResult(grassCoverErosionOutwards.SectionResults,
+                AssertSectionsWithResult(grassCoverErosionOutwards.SectionResultsOld,
                                          GetFailureMechanismSectionResult(grassCoverErosionOutwards).ManualAssemblyCategoryGroup,
                                          actualInput.Single());
                 return;
@@ -308,7 +308,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var stabilityStoneCover = failureMechanism as StabilityStoneCoverFailureMechanism;
             if (stabilityStoneCover != null)
             {
-                AssertSectionsWithResult(stabilityStoneCover.SectionResults,
+                AssertSectionsWithResult(stabilityStoneCover.SectionResultsOld,
                                          GetFailureMechanismSectionResult(stabilityStoneCover).ManualAssemblyCategoryGroup,
                                          actualInput.Single());
                 return;
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var waveImpactAsphaltCover = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
             if (waveImpactAsphaltCover != null)
             {
-                AssertSectionsWithResult(waveImpactAsphaltCover.SectionResults,
+                AssertSectionsWithResult(waveImpactAsphaltCover.SectionResultsOld,
                                          GetFailureMechanismSectionResult(waveImpactAsphaltCover).ManualAssemblyCategoryGroup,
                                          actualInput.Single());
                 return;
@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var grassCoverSlipOffInwards = failureMechanism as GrassCoverSlipOffInwardsFailureMechanism;
             if (grassCoverSlipOffInwards != null)
             {
-                AssertSectionsWithResult(grassCoverSlipOffInwards.SectionResults,
+                AssertSectionsWithResult(grassCoverSlipOffInwards.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(grassCoverSlipOffInwards).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -335,7 +335,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var grassCoverSlipOffOutwards = failureMechanism as GrassCoverSlipOffOutwardsFailureMechanism;
             if (grassCoverSlipOffOutwards != null)
             {
-                AssertSectionsWithResult(grassCoverSlipOffOutwards.SectionResults,
+                AssertSectionsWithResult(grassCoverSlipOffOutwards.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(grassCoverSlipOffOutwards).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var pipingStructure = failureMechanism as PipingStructureFailureMechanism;
             if (pipingStructure != null)
             {
-                AssertSectionsWithResult(pipingStructure.SectionResults,
+                AssertSectionsWithResult(pipingStructure.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(pipingStructure).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -353,7 +353,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
             if (strengthStabilityLengthwiseConstruction != null)
             {
-                AssertSectionsWithResult(strengthStabilityLengthwiseConstruction.SectionResults,
+                AssertSectionsWithResult(strengthStabilityLengthwiseConstruction.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(strengthStabilityLengthwiseConstruction).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -362,7 +362,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
             if (technicalInnovation != null)
             {
-                AssertSectionsWithResult(technicalInnovation.SectionResults,
+                AssertSectionsWithResult(technicalInnovation.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(technicalInnovation).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -371,7 +371,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var microStability = failureMechanism as MicrostabilityFailureMechanism;
             if (microStability != null)
             {
-                AssertSectionsWithResult(microStability.SectionResults,
+                AssertSectionsWithResult(microStability.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(microStability).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -380,7 +380,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var macroStabilityOutwards = failureMechanism as MacroStabilityOutwardsFailureMechanism;
             if (macroStabilityOutwards != null)
             {
-                AssertSectionsWithResult(macroStabilityOutwards.SectionResults,
+                AssertSectionsWithResult(macroStabilityOutwards.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(macroStabilityOutwards).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -389,7 +389,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
             if (waterPressureAsphaltCover != null)
             {
-                AssertSectionsWithResult(waterPressureAsphaltCover.SectionResults,
+                AssertSectionsWithResult(waterPressureAsphaltCover.SectionResultsOld,
                                          ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(waterPressureAsphaltCover).ManualAssemblyCategoryGroup),
                                          actualInput.Single());
                 return;
@@ -400,7 +400,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResultOld
         {
-            return failureMechanism.SectionResults.Single();
+            return failureMechanism.SectionResultsOld.Single();
         }
 
         #endregion

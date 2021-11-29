@@ -366,7 +366,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = hasManualAssembly;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
 
             // When
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
@@ -394,7 +394,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 PipingFailureMechanism failureMechanism = assessmentSection.Piping;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                failureMechanism.SectionResults.Single().UseManualAssembly = true;
+                failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
                 failureMechanism.NotifyObservers();
 
                 // Then 
@@ -410,7 +410,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
             PipingFailureMechanism failureMechanism = assessmentSection.Piping;
             FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResults.Single().UseManualAssembly = true;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
 
             using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
             {
@@ -421,7 +421,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertWarningPanel(warningPanel);
 
                 // When
-                failureMechanism.SectionResults.Single().UseManualAssembly = false;
+                failureMechanism.SectionResultsOld.Single().UseManualAssembly = false;
                 failureMechanism.NotifyObservers();
 
                 // Then 

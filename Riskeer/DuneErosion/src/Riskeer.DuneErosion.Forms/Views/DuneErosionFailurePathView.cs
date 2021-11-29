@@ -81,7 +81,7 @@ namespace Riskeer.DuneErosion.Forms.Views
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>,
                 DuneErosionFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

@@ -296,7 +296,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         #endregion
@@ -404,7 +404,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResults, failureMechanism),
+                    failureMechanism.SectionResultsOld, failureMechanism),
                 failureMechanism.InAssemblyOutputComments
             };
         }

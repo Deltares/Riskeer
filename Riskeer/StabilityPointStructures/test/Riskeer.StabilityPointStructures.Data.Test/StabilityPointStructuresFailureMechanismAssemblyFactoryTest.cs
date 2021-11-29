@@ -1060,7 +1060,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1095,7 +1095,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StabilityPointStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

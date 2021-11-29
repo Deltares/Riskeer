@@ -85,7 +85,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            using (var view = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<HeightStructuresFailureMechanismSectionResultOld,
@@ -106,7 +106,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -220,7 +220,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            HeightStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -281,7 +281,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         {
             protected override HeightStructuresFailureMechanismResultViewOld CreateResultView(HeightStructuresFailureMechanism failureMechanism)
             {
-                return new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                return new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                       failureMechanism,
                                                                       new AssessmentSectionStub());
             }
@@ -294,7 +294,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         private HeightStructuresFailureMechanismResultViewOld ShowFailureMechanismResultsView(HeightStructuresFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new HeightStructuresFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                             failureMechanism,
                                                                                             new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

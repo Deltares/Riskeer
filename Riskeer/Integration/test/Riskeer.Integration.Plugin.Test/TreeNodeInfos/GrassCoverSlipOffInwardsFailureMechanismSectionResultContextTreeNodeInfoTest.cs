@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
                                                                                                                           mechanism);
             using (plugin)
             {

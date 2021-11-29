@@ -403,7 +403,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Precondition
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
             Assert.AreEqual(2, group.Children.Count);
-            MacroStabilityInwardsFailureMechanismSectionResultOld[] sectionResults = macroStabilityInwardsFailureMechanism.SectionResults.ToArray();
+            MacroStabilityInwardsFailureMechanismSectionResultOld[] sectionResults = macroStabilityInwardsFailureMechanism.SectionResultsOld.ToArray();
             CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(macroStabilityInwardsFailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()), elementToBeRemoved);
 
             // Call

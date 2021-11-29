@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(mechanism.SectionResults,
+            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
                                                                                                                                    mechanism,
                                                                                                                                    assessmentSection);
 

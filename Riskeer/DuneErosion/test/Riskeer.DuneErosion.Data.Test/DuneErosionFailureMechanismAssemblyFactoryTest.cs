@@ -605,7 +605,7 @@ namespace Riskeer.DuneErosion.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -631,7 +631,7 @@ namespace Riskeer.DuneErosion.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            DuneErosionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 

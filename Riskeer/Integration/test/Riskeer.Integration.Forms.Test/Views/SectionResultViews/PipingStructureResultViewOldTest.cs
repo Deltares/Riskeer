@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new PipingStructureFailureMechanism();
 
             // Call
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingStructureFailureMechanismSectionResultOld,
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingStructureFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         {
             protected override PipingStructureResultViewOld CreateResultView(PipingStructureFailureMechanism failureMechanism)
             {
-                return new PipingStructureResultViewOld(failureMechanism.SectionResults,
+                return new PipingStructureResultViewOld(failureMechanism.SectionResultsOld,
                                                      failureMechanism);
             }
         }
@@ -222,7 +222,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         private PipingStructureResultViewOld ShowFailureMechanismResultsView(
             PipingStructureFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new PipingStructureResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld,
                                                                            failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

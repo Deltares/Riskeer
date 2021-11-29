@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
                 var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(
-                    assessmentSection.MacroStabilityInwards.SectionResults,
+                    assessmentSection.MacroStabilityInwards.SectionResultsOld,
                     assessmentSection.MacroStabilityInwards,
                     assessmentSection);
                 form.Controls.Add(failureMechanismResultView);

@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityOutwardsFailureMechanismSectionResultOld,
@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.Iv;
             sectionResult.UseManualAssembly = true;
 
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         {
             protected override MacroStabilityOutwardsResultViewOld CreateResultView(MacroStabilityOutwardsFailureMechanism failureMechanism)
             {
-                return new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults,
+                return new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld,
                                                             failureMechanism,
                                                             new AssessmentSectionStub());
             }
@@ -255,7 +255,7 @@ namespace Riskeer.Integration.Forms.Test.Views.SectionResultViews
         private MacroStabilityOutwardsResultViewOld ShowFailureMechanismResultsView(
             MacroStabilityOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld,
                                                                                   failureMechanism,
                                                                                   new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

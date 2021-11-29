@@ -68,7 +68,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(failureMechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld,
                                                                                                              failureMechanism);
             mocks.ReplayAll();
 
@@ -76,7 +76,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResults, viewData);
+            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
             mocks.VerifyAll();
         }
 
@@ -101,7 +101,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -127,7 +127,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -152,7 +152,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -169,7 +169,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -185,7 +185,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new DuneErosionFailureMechanism());
@@ -205,7 +205,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -226,7 +226,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var context = new DuneErosionFailurePathContext(new DuneErosionFailureMechanism(), assessmentSection);
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new DuneErosionFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -243,7 +243,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld,
                 failureMechanism);
 
             // Call

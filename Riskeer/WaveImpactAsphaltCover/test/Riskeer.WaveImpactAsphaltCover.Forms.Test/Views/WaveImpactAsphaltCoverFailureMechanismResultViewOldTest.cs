@@ -79,7 +79,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
@@ -186,7 +186,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             const FailureMechanismSectionAssemblyCategoryGroup categoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIIv;
             sectionResult.ManualAssemblyCategoryGroup = categoryGroup;
             sectionResult.UseManualAssembly = true;
@@ -211,7 +211,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         {
             protected override WaveImpactAsphaltCoverFailureMechanismResultViewOld CreateResultView(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
             {
-                return new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                return new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                             failureMechanism);
             }
         }
@@ -225,7 +225,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
         private WaveImpactAsphaltCoverFailureMechanismResultViewOld ShowFailureMechanismResultsView(
             WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                                   failureMechanism);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

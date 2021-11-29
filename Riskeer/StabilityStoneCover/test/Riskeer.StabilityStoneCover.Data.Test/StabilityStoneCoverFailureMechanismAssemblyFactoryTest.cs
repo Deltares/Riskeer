@@ -605,7 +605,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            StabilityStoneCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StabilityStoneCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -631,7 +631,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            StabilityStoneCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            StabilityStoneCoverFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.IIv;
 

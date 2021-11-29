@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection(false);
             IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism = getFailureMechanismFunc(assessmentSection);
             failureMechanism.InAssembly = inAssembly;
-            failureMechanism.SectionResults.Single().UseManualAssembly = true;
+            failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection);

@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
         internal static FailureMechanismEntity Create(this WaterPressureAsphaltCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaterOverpressureAsphaltRevetment, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

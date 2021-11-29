@@ -614,7 +614,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -641,7 +641,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.IIv;
 

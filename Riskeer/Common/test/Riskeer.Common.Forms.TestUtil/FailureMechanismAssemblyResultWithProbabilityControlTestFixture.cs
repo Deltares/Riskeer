@@ -194,7 +194,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
-                failureMechanism.SectionResults.Single().NotifyObservers();
+                failureMechanism.SectionResultsOld.Single().NotifyObservers();
 
                 // Then
                 Assert.AreEqual("1/2", assemblyProbabilityLabel.Text);

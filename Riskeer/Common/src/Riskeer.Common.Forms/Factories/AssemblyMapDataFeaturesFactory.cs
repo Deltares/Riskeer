@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.Factories
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssembly> getAssemblyFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResultOld
         {
-            foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
+            foreach (TSectionResult sectionResult in failureMechanism.SectionResultsOld)
             {
                 MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
 
@@ -126,7 +126,7 @@ namespace Riskeer.Common.Forms.Factories
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyCategoryGroupFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResultOld
         {
-            foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
+            foreach (TSectionResult sectionResult in failureMechanism.SectionResultsOld)
             {
                 MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
 

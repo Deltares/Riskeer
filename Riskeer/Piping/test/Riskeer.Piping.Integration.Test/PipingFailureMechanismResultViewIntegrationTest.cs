@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
                 var failureMechanismResultView = new PipingFailureMechanismResultViewOld(
-                    assessmentSection.Piping.SectionResults,
+                    assessmentSection.Piping.SectionResultsOld,
                     assessmentSection.Piping,
                     assessmentSection);
                 form.Controls.Add(failureMechanismResultView);

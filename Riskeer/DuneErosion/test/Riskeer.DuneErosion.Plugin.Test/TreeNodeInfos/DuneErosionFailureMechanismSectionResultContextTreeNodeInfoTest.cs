@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism);
 
             // Call
             string text = info.Text(context);

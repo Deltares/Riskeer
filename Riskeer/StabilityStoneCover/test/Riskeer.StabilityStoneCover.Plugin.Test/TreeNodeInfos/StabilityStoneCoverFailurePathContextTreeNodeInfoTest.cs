@@ -157,7 +157,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
 
             var inAssemblyOutputComments = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);

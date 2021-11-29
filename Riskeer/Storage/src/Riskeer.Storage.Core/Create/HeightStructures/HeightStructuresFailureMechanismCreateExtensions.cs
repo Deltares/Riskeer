@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
             AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
         }

@@ -161,7 +161,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var inAssemblyOutputComments = (Comment) outputsFolder.Contents.ElementAt(3);

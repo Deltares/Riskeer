@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

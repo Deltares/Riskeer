@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

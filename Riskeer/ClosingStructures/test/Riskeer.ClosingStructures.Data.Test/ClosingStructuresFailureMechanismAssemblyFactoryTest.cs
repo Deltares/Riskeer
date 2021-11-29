@@ -1061,7 +1061,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
@@ -1096,7 +1096,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            ClosingStructuresFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 

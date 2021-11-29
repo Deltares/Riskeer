@@ -144,7 +144,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_WithManualAssemblyResult_LogsWarning));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.Piping.SectionResults.First().UseManualAssembly = true;
+            assessmentSection.Piping.SectionResultsOld.First().UseManualAssembly = true;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 

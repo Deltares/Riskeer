@@ -69,14 +69,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld,
                 failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResults, viewData);
+            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
         }
 
         [Test]
@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -126,7 +126,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -152,7 +152,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -170,7 +170,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -186,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
@@ -206,7 +206,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -230,7 +230,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism))
+            using (var view = new GrassCoverErosionOutwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -248,7 +248,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld,
                 failureMechanism);
 
             // Call

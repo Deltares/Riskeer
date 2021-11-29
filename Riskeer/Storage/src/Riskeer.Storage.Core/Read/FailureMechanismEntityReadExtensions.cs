@@ -175,7 +175,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (PipingSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                PipingFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                PipingFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -242,7 +242,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverErosionInwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                GrassCoverErosionInwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result, collector);
             }
@@ -290,7 +290,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (HeightStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                HeightStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                HeightStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -353,7 +353,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -384,7 +384,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.TechnicalInnovationSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                TechnicalInnovationFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                TechnicalInnovationFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -415,7 +415,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                WaterPressureAsphaltCoverFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                WaterPressureAsphaltCoverFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -458,7 +458,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (ClosingStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                ClosingStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                ClosingStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -563,7 +563,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (MacroStabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MacroStabilityInwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                MacroStabilityInwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -623,7 +623,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (MacroStabilityOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityOutwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MacroStabilityOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                MacroStabilityOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -661,7 +661,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                WaveImpactAsphaltCoverFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                WaveImpactAsphaltCoverFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -726,7 +726,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverErosionOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                GrassCoverErosionOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -772,7 +772,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverSlipOffInwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                GrassCoverSlipOffInwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -803,7 +803,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -834,7 +834,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (MicrostabilitySectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MicrostabilitySectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                MicrostabilityFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                MicrostabilityFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -883,7 +883,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (PipingStructureSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                PipingStructureFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                PipingStructureFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -922,7 +922,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (DuneErosionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                DuneErosionFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                DuneErosionFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -993,7 +993,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StabilityStoneCoverFailureMechanismSectionResultOld result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                StabilityStoneCoverFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
@@ -1054,7 +1054,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (StabilityPointStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StabilityPointStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResults
+                StabilityPointStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld
                                                                                                .Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);

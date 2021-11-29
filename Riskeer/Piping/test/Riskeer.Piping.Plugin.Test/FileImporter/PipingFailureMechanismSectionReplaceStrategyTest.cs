@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld,
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             }, affectedObjects);
         }

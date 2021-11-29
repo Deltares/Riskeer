@@ -78,7 +78,7 @@ namespace Riskeer.DuneErosion.Data
             }
         }
 
-        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

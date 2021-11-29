@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             }
         }
 
-        public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

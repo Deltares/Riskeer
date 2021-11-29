@@ -106,7 +106,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>,
                 ClosingStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

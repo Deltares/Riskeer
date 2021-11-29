@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return failureMechanism.SectionResults.Any(sr => sr.UseManualAssembly);
+            return failureMechanism.SectionResultsOld.Any(sr => sr.UseManualAssembly);
         }
     }
 }

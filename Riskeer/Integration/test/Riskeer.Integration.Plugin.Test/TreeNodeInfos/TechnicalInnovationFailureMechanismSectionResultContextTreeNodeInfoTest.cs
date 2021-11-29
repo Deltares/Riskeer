@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new TechnicalInnovationFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
                                                                                                                      mechanism);
             using (plugin)
             {

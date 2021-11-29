@@ -831,8 +831,8 @@ namespace Riskeer.Integration.Service
 
             if (failureMechanism is IHasSectionResults<FailureMechanismSectionResultOld> failureMechanismWithSectionResults)
             {
-                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
-                changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
+                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResultsOld);
+                changedObjects.Add(failureMechanismWithSectionResults.SectionResultsOld);
             }
 
             failureMechanism.ClearAllSections();

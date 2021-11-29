@@ -78,7 +78,7 @@ namespace Riskeer.Integration.IO.Factories
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResultsOld),
                 failureMechanismCode,
                 failureMechanismGroup);
         }

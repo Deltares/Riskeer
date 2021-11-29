@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.Test
             // Setup
             var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.AddSections(failureMechanism, 2);
-            failureMechanism.SectionResults.First().UseManualAssembly = true;
+            failureMechanism.SectionResultsOld.First().UseManualAssembly = true;
 
             // Call
             bool hasManualAssemblyResults = HasSectionResultsHelper.HasManualAssemblyResults(failureMechanism);

@@ -604,7 +604,7 @@ namespace Riskeer.Piping.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
         }
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
@@ -887,7 +887,7 @@ namespace Riskeer.Piping.Plugin
                                                               assessmentSection,
                                                               () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

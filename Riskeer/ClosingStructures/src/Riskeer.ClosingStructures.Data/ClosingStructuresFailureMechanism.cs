@@ -83,7 +83,7 @@ namespace Riskeer.ClosingStructures.Data
             }
         }
 
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResults
+        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResultsOld
         {
             get
             {

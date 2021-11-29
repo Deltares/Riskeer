@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<PipingFailureMechanismSectionResultOld,
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new PipingFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -281,7 +281,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             protected override PipingFailureMechanismResultViewOld CreateResultView(PipingFailureMechanism failureMechanism)
             {
-                return new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                return new PipingFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                             failureMechanism,
                                                             new AssessmentSectionStub());
             }
@@ -294,7 +294,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private PipingFailureMechanismResultViewOld ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new PipingFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                   failureMechanism,
                                                                                   new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

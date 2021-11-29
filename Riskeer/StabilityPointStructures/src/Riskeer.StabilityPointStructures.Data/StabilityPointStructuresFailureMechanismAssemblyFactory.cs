@@ -305,7 +305,7 @@ namespace Riskeer.StabilityPointStructures.Data
             {
                 IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-                IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResults
+                IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResultsOld
                                                                                                  .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
                                                                                                  .ToArray();
 

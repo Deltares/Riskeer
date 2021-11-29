@@ -106,7 +106,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             sectionResultObserver = new RecursiveObserver<IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld>,
                 StabilityPointStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
             {
-                Observable = FailureMechanism.SectionResults
+                Observable = FailureMechanism.SectionResultsOld
             };
         }
 

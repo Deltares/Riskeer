@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mechanism = new PipingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(mechanism.SectionResults,
+            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
                                                                                                                  mechanism);
             using (plugin)
             {

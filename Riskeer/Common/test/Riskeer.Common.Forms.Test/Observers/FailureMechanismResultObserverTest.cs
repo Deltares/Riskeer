@@ -95,7 +95,7 @@ namespace Riskeer.Common.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-                failureMechanism.SectionResults.NotifyObservers();
+                failureMechanism.SectionResultsOld.NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();
@@ -122,7 +122,7 @@ namespace Riskeer.Common.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-                failureMechanism.SectionResults.Single().NotifyObservers();
+                failureMechanism.SectionResultsOld.Single().NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();

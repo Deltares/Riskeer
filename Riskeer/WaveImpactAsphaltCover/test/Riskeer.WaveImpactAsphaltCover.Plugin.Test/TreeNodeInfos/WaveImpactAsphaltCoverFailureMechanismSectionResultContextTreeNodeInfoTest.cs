@@ -89,7 +89,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(mechanism.SectionResults, mechanism);
+            var context = new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism);
 
             // Call
             string text = info.Text(context);

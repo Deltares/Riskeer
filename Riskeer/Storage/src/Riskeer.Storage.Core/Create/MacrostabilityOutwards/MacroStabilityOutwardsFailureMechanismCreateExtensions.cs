@@ -42,7 +42,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards
         internal static FailureMechanismEntity Create(this MacroStabilityOutwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.MacroStabilityOutwards, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
 
             return entity;

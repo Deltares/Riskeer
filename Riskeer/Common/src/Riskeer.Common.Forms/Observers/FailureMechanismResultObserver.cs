@@ -58,14 +58,14 @@ namespace Riskeer.Common.Forms.Observers
 
             failureMechanismSectionResultObserver = new Observer(NotifyObservers)
             {
-                Observable = failureMechanism.SectionResults
+                Observable = failureMechanism.SectionResultsOld
             };
 
             failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
                 NotifyObservers,
                 sr => sr)
             {
-                Observable = failureMechanism.SectionResults
+                Observable = failureMechanism.SectionResultsOld
             };
         }
 

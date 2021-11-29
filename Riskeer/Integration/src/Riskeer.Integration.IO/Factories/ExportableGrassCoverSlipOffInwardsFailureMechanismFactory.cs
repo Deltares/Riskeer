@@ -77,7 +77,7 @@ namespace Riskeer.Integration.IO.Factories
             FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResultsOld),
                 failureMechanismCode,
                 failureMechanismGroup);
         }

@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            using (var view = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, assessmentSection))
+            using (var view = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultViewOld<MacroStabilityInwardsFailureMechanismSectionResultOld,
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults, failureMechanism, null);
+            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, null);
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
@@ -219,7 +219,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResults.Single();
+            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
             sectionResult.UseManualAssembly = true;
 
@@ -280,7 +280,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             protected override MacroStabilityInwardsFailureMechanismResultViewOld CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
             {
-                return new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+                return new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                            failureMechanism,
                                                                            new AssessmentSectionStub());
             }
@@ -293,7 +293,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         private MacroStabilityInwardsFailureMechanismResultViewOld ShowFailureMechanismResultsView(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResults,
+            var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultViewOld(failureMechanism.SectionResultsOld,
                                                                                                  failureMechanism,
                                                                                                  new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);

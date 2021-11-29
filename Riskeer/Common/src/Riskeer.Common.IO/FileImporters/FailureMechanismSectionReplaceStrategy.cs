@@ -79,7 +79,7 @@ namespace Riskeer.Common.IO.FileImporters
 
             if (failurePath is IHasSectionResults<FailureMechanismSectionResultOld> hasSectionResults)
             {
-                affectedObjects.Add(hasSectionResults.SectionResults);
+                affectedObjects.Add(hasSectionResults.SectionResultsOld);
             }
 
             return affectedObjects;
