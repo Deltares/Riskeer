@@ -37,6 +37,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
     [TestFixture]
     public class FailureMechanismSectionUpdateStrategyTest
     {
+        #region single type
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -151,8 +153,197 @@ namespace Riskeer.Common.IO.Test.FileImporters
             IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults = failureMechanism.SectionResultsOld;
             FailureMechanismSectionResultOld oldSectionResult = failureMechanismSectionResults.First();
 
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
+
+            FailureMechanismSection[] sections =
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 5.0)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(5.0, 5.0),
+                    new Point2D(15.0, 15.0)
+                })
+            };
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
+            Assert.AreEqual(2, failureMechanismSections.Count());
+            CollectionAssert.AreEqual(sections, failureMechanismSections);
+            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.OriginOld);
+            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.TargetOld);
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                failureMechanism,
+                failureMechanism.SectionResultsOld
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedData_WithInvalidSections_ThrowsUpdateDataException()
+        {
+            // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 5.0)
+            });
+            FailureMechanismSection failureMechanismSection2 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(10.0, 10.0),
+                new Point2D(15.0, 15.0)
+            });
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
+
+            FailureMechanismSection[] sections =
+            {
+                failureMechanismSection1,
+                failureMechanismSection2
+            };
+
+            // Call
+            void Call() => failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
+
+            // Assert
+            var exception = Assert.Throws<UpdateDataException>(Call);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            Assert.IsFalse(sectionResultUpdateStrategy.UpdatedOld);
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedData_WithEmptyData_ClearsSectionsAndUpdatesPathAndReturnsAffectedObjects()
+        {
+            // Setup
+            const string oldSourcePath = "old/path";
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, oldSourcePath);
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(
+                failureMechanism, sectionResultUpdateStrategy);
+
+            // Precondition
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
+            Assert.AreEqual(1, failureMechanismSections.Count());
+            Assert.AreEqual(oldSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(
+                Enumerable.Empty<FailureMechanismSection>(), sourcePath);
+
+            // Assert
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.IsEmpty(failureMechanismSections);
+            Assert.IsFalse(sectionResultUpdateStrategy.UpdatedOld);
+            CollectionAssert.AreEqual(new IObservable[]
+            {
+                failureMechanism,
+                failureMechanism.SectionResultsOld
+            }, affectedObjects);
+        }
+
+        [Test]
+        public void DoPostUpdateActions_Always_ReturnsEmptyCollection()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(
+                failureMechanism, sectionResultUpdateStrategy);
+
+            // Call
+            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.DoPostUpdateActions();
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedObjects);
+        }
+
+        private class TestUpdateFailureMechanismSectionResultUpdateStrategyOld : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>
+        {
+            public bool UpdatedOld { get; private set; }
+            public FailureMechanismSectionResultOld OriginOld { get; private set; }
+            public FailureMechanismSectionResultOld TargetOld { get; private set; }
+
+            public void UpdateSectionResultOld(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
+            {
+                UpdatedOld = true;
+                OriginOld = origin;
+                TargetOld = target;
+            }
+        }
+
+        #endregion
+
+        #region two types
+
+        [Test]
+        public void ConstructorWithOldAndNew_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>>();
+            mocks.ReplayAll();
+
+            // Call
+            var importer = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>(
+                failureMechanism, sectionResultUpdateStrategy);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>>(importer);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void UpdateSectionsWithImportedDataWithOldAndNew_WithValidData_SetsSectionsToFailureMechanismAndCopiesPropertiesOfEqualSectionsAndReturnsAffectedObjects()
+        {
+            // Setup
+            string sourcePath = TestHelper.GetScratchPadPath();
+
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 5.0)
+            });
+            FailureMechanismSection failureMechanismSection2 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(5.0, 5.0),
+                new Point2D(10.0, 10.0)
+            });
+            failureMechanism.SetSections(new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2
+            }, sourcePath);
+
+            IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
+            FailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
+
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>(
+                failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
             {
@@ -182,113 +373,23 @@ namespace Riskeer.Common.IO.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld
+                failureMechanism.SectionResultsOld,
+                failureMechanism.SectionResults
             }, affectedObjects);
         }
 
-        [Test]
-        public void UpdateSectionsWithImportedData_WithInvalidSections_ThrowsUpdateDataException()
+        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : TestUpdateFailureMechanismSectionResultUpdateStrategyOld, IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
         {
-            // Setup
-            string sourcePath = TestHelper.GetScratchPadPath();
+            public FailureMechanismSectionResult Origin { get; private set; }
+            public FailureMechanismSectionResult Target { get; private set; }
 
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            public void UpdateSectionResult(FailureMechanismSectionResult origin, FailureMechanismSectionResult target)
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 5.0)
-            });
-            FailureMechanismSection failureMechanismSection2 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(10.0, 10.0),
-                new Point2D(15.0, 15.0)
-            });
-
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
-
-            FailureMechanismSection[] sections =
-            {
-                failureMechanismSection1,
-                failureMechanismSection2
-            };
-
-            // Call
-            void Call() => failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
-
-            // Assert
-            var exception = Assert.Throws<UpdateDataException>(Call);
-            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
-            Assert.AreEqual(exception.InnerException.Message, exception.Message);
-            Assert.IsFalse(sectionResultUpdateStrategy.Updated);
-        }
-
-        [Test]
-        public void UpdateSectionsWithImportedData_WithEmptyData_ClearsSectionsAndUpdatesPathAndReturnsAffectedObjects()
-        {
-            // Setup
-            const string oldSourcePath = "old/path";
-            string sourcePath = TestHelper.GetScratchPadPath();
-
-            var failureMechanism = new TestFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, oldSourcePath);
-
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(
-                failureMechanism, sectionResultUpdateStrategy);
-
-            // Precondition
-            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
-            Assert.AreEqual(1, failureMechanismSections.Count());
-            Assert.AreEqual(oldSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(
-                Enumerable.Empty<FailureMechanismSection>(), sourcePath);
-
-            // Assert
-            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsEmpty(failureMechanismSections);
-            Assert.IsFalse(sectionResultUpdateStrategy.Updated);
-            CollectionAssert.AreEqual(new IObservable[]
-            {
-                failureMechanism,
-                failureMechanism.SectionResultsOld
-            }, affectedObjects);
-        }
-
-        [Test]
-        public void DoPostUpdateActions_Always_ReturnsEmptyCollection()
-        {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(
-                failureMechanism, sectionResultUpdateStrategy);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.DoPostUpdateActions();
-
-            // Assert
-            CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>
-        {
-            public bool Updated { get; private set; }
-            public FailureMechanismSectionResultOld Origin { get; private set; }
-            public FailureMechanismSectionResultOld Target { get; private set; }
-
-            public void UpdateSectionResultOld(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
-            {
-                Updated = true;
                 Origin = origin;
                 Target = target;
             }
         }
+
+        #endregion
     }
 }

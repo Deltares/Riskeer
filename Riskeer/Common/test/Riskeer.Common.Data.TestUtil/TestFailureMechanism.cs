@@ -26,11 +26,12 @@ using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.TestUtil
 {
-    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld>
+    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
-        private readonly ObservableList<FailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<FailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<FailureMechanismSectionResult> sectionResults;
 
         public TestFailureMechanism()
             : this(defaultName, defaultCode) {}
@@ -44,28 +45,27 @@ namespace Riskeer.Common.Data.TestUtil
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
             : base(name, code, 1)
         {
-            sectionResults = new ObservableList<FailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<FailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<FailureMechanismSectionResult>();
             Calculations = calculations;
         }
 
         public override IEnumerable<ICalculation> Calculations { get; }
 
-        public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new TestFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new TestFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new TestFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
+            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }
