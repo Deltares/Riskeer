@@ -82,7 +82,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismSectionAssemblyCalculator(kernelFactory);
 
             // Call
-            void Call() => calculator.AssembleFailureMechanismSection(random.NextDouble(), random.NextDouble(), null);
+            void Call() => calculator.AssembleFailureMechanismSection(null);
 
             // Assert
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
@@ -94,11 +94,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_WithValidInput_InputCorrectlySendToKernel()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
             const double signalingNorm = 0.0001;
+            const double lowerLimitNorm = 0.001;
 
             var random = new Random(21);
-            var input = new FailureMechanismSectionAssemblyInput(random.NextBoolean(),
+            var input = new FailureMechanismSectionAssemblyInput(signalingNorm, lowerLimitNorm,
+                                                                 random.NextBoolean(),
                                                                  random.NextDouble(), random.NextDouble(),
                                                                  random.NextBoolean(),
                                                                  random.NextDouble(), random.NextDouble());
@@ -117,7 +118,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                calculator.AssembleFailureMechanismSection(signalingNorm, lowerLimitNorm, input);
+                calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
@@ -158,7 +159,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(signalingNorm, lowerLimitNorm, input);
+                FailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
@@ -196,7 +197,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleFailureMechanismSection(signalingNorm, lowerLimitNorm, input);
+                void Call() => calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
@@ -227,7 +228,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleFailureMechanismSection(signalingNorm, lowerLimitNorm, input);
+                void Call() => calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
@@ -258,7 +259,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleFailureMechanismSection(signalingNorm, lowerLimitNorm, input);
+                void Call() => calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
@@ -272,8 +273,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
         private static FailureMechanismSectionAssemblyInput CreateFailureMechanismSectionAssemblyInput()
         {
+            const double lowerLimitNorm = 0.001;
+            const double signalingNorm = 0.0001;
+            
             var random = new Random(21);
-            return new FailureMechanismSectionAssemblyInput(random.NextBoolean(),
+            return new FailureMechanismSectionAssemblyInput(signalingNorm, lowerLimitNorm,
+                                                            random.NextBoolean(),
                                                             random.NextDouble(), random.NextDouble(),
                                                             random.NextBoolean(),
                                                             random.NextDouble(), random.NextDouble());

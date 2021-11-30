@@ -54,9 +54,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(double signalingNorm,
-                                                                                     double lowerLimitNorm,
-                                                                                     FailureMechanismSectionAssemblyInput input)
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (input == null)
             {
@@ -67,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
-                    new AssessmentSection(CreateProbability(signalingNorm), CreateProbability(lowerLimitNorm)));
+                    new AssessmentSection(CreateProbability(input.SignalingNorm), CreateProbability(input.LowerLimitNorm)));
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 

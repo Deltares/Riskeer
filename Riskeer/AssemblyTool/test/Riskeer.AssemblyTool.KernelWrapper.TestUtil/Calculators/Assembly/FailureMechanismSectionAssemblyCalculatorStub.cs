@@ -55,16 +55,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResultOutput { get; set; }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(double signalingNorm, double lowerLimitNorm,
-                                                                                     FailureMechanismSectionAssemblyInput input)
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            SignalingNorm = signalingNorm;
-            LowerLimitNorm = lowerLimitNorm;
             FailureMechanismSectionAssemblyInput = input;
 
             return FailureMechanismSectionAssemblyResultOutput ??
