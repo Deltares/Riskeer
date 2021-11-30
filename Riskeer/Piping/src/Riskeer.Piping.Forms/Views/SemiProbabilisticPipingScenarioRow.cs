@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Forms.Views
         private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationRow"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingScenarioRow"/>.
         /// </summary>
         /// <param name="calculationScenario">The <see cref="SemiProbabilisticPipingCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>

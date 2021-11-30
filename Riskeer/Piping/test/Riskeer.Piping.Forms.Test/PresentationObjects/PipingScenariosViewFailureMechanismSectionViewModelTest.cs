@@ -34,10 +34,12 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_FailureMechanismSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
             // Call
             void Call() => new PipingScenariosViewFailureMechanismSectionViewModel(
-                null, new PipingFailureMechanism(), new PipingScenarioConfigurationPerFailureMechanismSection(
-                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                null, new PipingFailureMechanism(), new PipingScenarioConfigurationPerFailureMechanismSection(section));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
