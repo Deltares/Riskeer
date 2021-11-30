@@ -31,16 +31,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismSectionAssemblyCalculatorStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
-        /// Gets the signaling norm that is used in the calculation.
-        /// </summary>
-        public double SignalingNorm { get; private set; }
-
-        /// <summary>
-        /// Gets the lower limit norm that is used in the calculation.
-        /// </summary>
-        public double LowerLimitNorm { get; private set; }
-
-        /// <summary>
         /// Gets the <see cref="FailureMechanismSectionAssemblyInput"/> that is used in the calculation.
         /// </summary>
         public FailureMechanismSectionAssemblyInput FailureMechanismSectionAssemblyInput { get; private set; }
