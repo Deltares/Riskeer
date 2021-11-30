@@ -83,11 +83,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyGroupLimitsCalculator calculator = factory.CreateAssemblyGroupLimitsCalculatorCalculator(
+                IAssemblyGroupLimitsCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
                     AssemblyToolKernelFactory.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyGroupLimitsCalculator>(calculator);
+                Assert.IsInstanceOf<AssemblyGroupBoundariesCalculator>(calculator);
             }
         }
 

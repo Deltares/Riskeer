@@ -29,7 +29,7 @@ using Riskeer.Common.Forms.TypeConverters;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row displaying the properties of a <see cref="AssemblyGroupLimits"/>.
+    /// This class represents a row displaying the properties of a <see cref="AssemblyGroupBoundaries"/>.
     /// </summary>
     /// <typeparam name="T">The type of the enum to display.</typeparam>
     internal class AssemblyCategoryRow<T>
@@ -38,12 +38,12 @@ namespace Riskeer.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyCategoryRow{T}"/>.
         /// </summary>
-        /// <param name="assemblyCategory">The <see cref="AssemblyGroupLimits"/> to use.</param>
+        /// <param name="assemblyCategory">The <see cref="AssemblyGroupBoundaries"/> to use.</param>
         /// <param name="assemblyColor">The <see cref="Color"/> belonging to this category.</param>
         /// <param name="assemblyCategoryGroup">The category group of this category.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assemblyCategory"/>
         /// is <c>null</c>.</exception>
-        public AssemblyCategoryRow(AssemblyGroupLimits assemblyCategory,
+        public AssemblyCategoryRow(AssemblyGroupBoundaries assemblyCategory,
                                    Color assemblyColor,
                                    T assemblyCategoryGroup)
         {

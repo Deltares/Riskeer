@@ -36,7 +36,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
     public class AssemblyToolGroupLimitsFactoryTest
     {
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(11);
@@ -46,10 +46,10 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyGroupLimitsCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupLimitsCalculator;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
 
                 // Call
-                AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CalculatorRan_ReturnsOutput()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CalculatorRan_ReturnsOutput()
         {
             // Setup
             var random = new Random(11);
@@ -68,22 +68,22 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyGroupLimitsCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupLimitsCalculator;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyGroupLimits[] output =
-                    AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm)
+                FailureMechanismSectionAssemblyGroupBoundaries[] output =
+                    AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm)
                                                   .ToArray();
 
                 // Assert
-                FailureMechanismSectionAssemblyGroupLimits[] calculatorOutput = calculator.FailureMechanismSectionAssemblyGroupLimitsOutput.ToArray();
+                FailureMechanismSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.FailureMechanismSectionAssemblyGroupLimitsOutput.ToArray();
 
                 int expectedNrOfOutputs = calculatorOutput.Length;
                 Assert.AreEqual(expectedNrOfOutputs, output.Length);
                 for (var i = 0; i < expectedNrOfOutputs; i++)
                 {
-                    FailureMechanismSectionAssemblyGroupLimits expectedOutput = calculatorOutput[i];
-                    FailureMechanismSectionAssemblyGroupLimits actualOutput = calculatorOutput[i];
+                    FailureMechanismSectionAssemblyGroupBoundaries expectedOutput = calculatorOutput[i];
+                    FailureMechanismSectionAssemblyGroupBoundaries actualOutput = calculatorOutput[i];
 
                     Assert.AreEqual(expectedOutput.Group, actualOutput.Group);
                     Assert.AreEqual(expectedOutput.LowerBoundary, actualOutput.LowerBoundary);
@@ -93,17 +93,17 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyGroupLimitsCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupLimitsCalculator;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupLimits(0, 0);
+                void Call() => AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

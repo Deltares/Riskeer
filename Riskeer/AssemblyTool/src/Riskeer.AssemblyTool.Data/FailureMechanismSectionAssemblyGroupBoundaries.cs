@@ -22,29 +22,25 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Assembly category base.
+    /// Class that holds the limits for a <see cref="FailureMechanismSectionAssemblyGroup"/>
     /// </summary>
-    public abstract class AssemblyGroupLimits
+    public class FailureMechanismSectionAssemblyGroupBoundaries : AssemblyGroupBoundaries
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyGroupLimits"/>.
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyCategory"/>.
         /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the category.</param>
-        /// <param name="upperBoundary">The upper boundary of the category.</param>
-        protected AssemblyGroupLimits(double lowerBoundary, double upperBoundary)
+        /// <param name="group">The group of the failure mechanism section assembly.</param>
+        /// <param name="lowerBoundary">The lower boundary of the assembly group.</param>
+        /// <param name="upperBoundary">The upper boundary of the assembly group.</param>
+        public FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup group, double lowerBoundary, double upperBoundary)
+            : base(lowerBoundary, upperBoundary)
         {
-            LowerBoundary = lowerBoundary;
-            UpperBoundary = upperBoundary;
+            Group = group;
         }
 
         /// <summary>
-        /// Gets the lower boundary of the assembly group.
+        /// Gets the <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
-        public double LowerBoundary { get; }
-
-        /// <summary>
-        /// Gets the upper boundary of the assembly group.
-        /// </summary>
-        public double UpperBoundary { get; }
+        public FailureMechanismSectionAssemblyGroup Group { get; }
     }
 }

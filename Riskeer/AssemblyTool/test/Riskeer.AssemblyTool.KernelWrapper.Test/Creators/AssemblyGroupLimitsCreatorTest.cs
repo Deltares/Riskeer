@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismSectionAssemblyGroupLimits> result =
+            IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> result =
                 AssemblyGroupLimitsCreator.CreateFailureMechanismSectionAssemblyGroupLimits(categories);
 
             // Assert

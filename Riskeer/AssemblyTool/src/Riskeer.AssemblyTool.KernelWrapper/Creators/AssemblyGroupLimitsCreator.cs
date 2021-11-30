@@ -29,7 +29,7 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="AssemblyGroupLimits"/> instances.
+    /// Creates <see cref="AssemblyGroupBoundaries"/> instances.
     /// </summary>
     internal static class AssemblyGroupLimitsCreator
     {
@@ -39,14 +39,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// </summary>
         /// <param name="categories">The <see cref="CategoriesList{TCategory}"/> with
         /// <see cref="Assembly.Kernel.Model.Categories.InterpretationCategory"/> to create the result for.</param>
-        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupLimits"/>
+        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
         /// with information taken from the <paramref name="categories"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
         /// contains an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
         /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<FailureMechanismSectionAssemblyGroupLimits> CreateFailureMechanismSectionAssemblyGroupLimits(
+        public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupLimits(
             CategoriesList<InterpretationCategory> categories)
         {
             if (categories == null)
@@ -58,9 +58,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                              .ToArray();
         }
 
-        private static FailureMechanismSectionAssemblyGroupLimits CreateFailureMechanismSectionAssemblyGroupLimits(InterpretationCategory category)
+        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupLimits(InterpretationCategory category)
         {
-            return new FailureMechanismSectionAssemblyGroupLimits(
+            return new FailureMechanismSectionAssemblyGroupBoundaries(
                 FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup(category.Category),
                 category.LowerLimit,
                 category.UpperLimit);

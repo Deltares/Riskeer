@@ -33,9 +33,9 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Class representing an assembly group limits calculator.
+    /// Class representing an assembly group boundaries calculator.
     /// </summary>
-    public class AssemblyGroupLimitsCalculator : IAssemblyGroupLimitsCalculator
+    public class AssemblyGroupBoundariesCalculator : IAssemblyGroupLimitsCalculator
     {
         private readonly IAssemblyToolKernelFactory factory;
 
@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        public AssemblyGroupLimitsCalculator(IAssemblyToolKernelFactory factory)
+        public AssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)
             {
@@ -54,7 +54,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             this.factory = factory;
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyGroupLimits> CalculateFailureMechanismSectionAssemblyGroupLimits(
+        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CalculateFailureMechanismSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm)
         {
             try

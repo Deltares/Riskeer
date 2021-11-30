@@ -38,17 +38,17 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
-        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupLimits"/>.</returns>
+        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the assembly group limits.</exception>
-        public static IEnumerable<FailureMechanismSectionAssemblyGroupLimits> CreateFailureMechanismSectionAssemblyGroupLimits(
+        public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm)
         {
-            IAssemblyGroupLimitsCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyGroupLimitsCalculatorCalculator(
+            IAssemblyGroupLimitsCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyGroupBoundariesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.CalculateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                return calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
             }
             catch (AssemblyCategoriesCalculatorException e)
             {

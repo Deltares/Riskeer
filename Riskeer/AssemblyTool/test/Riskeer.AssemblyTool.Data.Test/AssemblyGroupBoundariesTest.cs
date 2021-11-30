@@ -25,7 +25,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssemblyGroupLimitsTest
+    public class AssemblyGroupBoundariesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -36,16 +36,16 @@ namespace Riskeer.AssemblyTool.Data.Test
             double upperBoundary = random.NextDouble();
 
             // Call
-            var category = new SimpleGroupLimits(lowerBoundary, upperBoundary);
+            var category = new SimpleGroupBoundaries(lowerBoundary, upperBoundary);
 
             // Assert
             Assert.AreEqual(lowerBoundary, category.LowerBoundary);
             Assert.AreEqual(upperBoundary, category.UpperBoundary);
         }
 
-        private class SimpleGroupLimits : AssemblyGroupLimits
+        private class SimpleGroupBoundaries : AssemblyGroupBoundaries
         {
-            public SimpleGroupLimits(double lowerBoundary, double upperBoundary)
+            public SimpleGroupBoundaries(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}
         }
     }

@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             mocks.ReplayAll();
 
             // Call
-            var calculator = new AssemblyGroupLimitsCalculator(factory);
+            var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
             // Assert
             Assert.IsInstanceOf<IAssemblyGroupLimitsCalculator>(calculator);
@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssemblyGroupLimitsCalculator(null);
+            void Call() => new AssemblyGroupBoundariesCalculator(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,10 +82,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
-                var calculator = new AssemblyGroupLimitsCalculator(factory);
+                var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                calculator.CalculateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
@@ -108,11 +108,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
-                var calculator = new AssemblyGroupLimitsCalculator(factory);
+                var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                IEnumerable<FailureMechanismSectionAssemblyGroupLimits> result =
-                    calculator.CalculateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> result =
+                    calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
@@ -138,10 +138,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 });
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
-                var calculator = new AssemblyGroupLimitsCalculator(factory);
+                var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyGroupLimitsCalculatorException>(Call);
@@ -165,10 +165,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
                 categoryLimitsKernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new AssemblyGroupLimitsCalculator(factory);
+                var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.IsFalse(categoryLimitsKernel.Calculated);
@@ -192,10 +192,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
                 categoryLimitsKernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new AssemblyGroupLimitsCalculator(factory);
+                var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupLimits(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.IsFalse(categoryLimitsKernel.Calculated);

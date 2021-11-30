@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 nameof(AssemblyCategoryRow<TestAssemblyCategoryGroup>.UpperBoundary));
         }
 
-        private class TestAssemblyCategory : AssemblyGroupLimits
+        private class TestAssemblyCategory : AssemblyGroupBoundaries
         {
             public TestAssemblyCategory(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}

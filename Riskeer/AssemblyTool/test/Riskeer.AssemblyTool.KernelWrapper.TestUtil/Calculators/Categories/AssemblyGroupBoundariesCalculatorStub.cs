@@ -27,9 +27,9 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
     /// <summary>
-    /// Assembly group limits calculator stub for testing purposes.
+    /// Assembly group boundaries calculator stub for testing purposes.
     /// </summary>
-    public class AssemblyGroupLimitsCalculatorStub : IAssemblyGroupLimitsCalculator
+    public class AssemblyGroupBoundariesCalculatorStub : IAssemblyGroupLimitsCalculator
     {
         /// <summary>
         /// Gets the signaling norm that is used in the calculation.
@@ -49,10 +49,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// <summary>
         /// Gets or sets the output of the <see cref="FailureMechanismSectionAssemblyGroupLimitsOutput"/> calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyGroupLimits> FailureMechanismSectionAssemblyGroupLimitsOutput { get; set; }
+        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> FailureMechanismSectionAssemblyGroupLimitsOutput { get; set; }
 
-        public IEnumerable<FailureMechanismSectionAssemblyGroupLimits> CalculateFailureMechanismSectionAssemblyGroupLimits(double signalingNorm,
-                                                                                                                           double lowerLimitNorm)
+        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CalculateFailureMechanismSectionAssemblyGroupBoundaries(double signalingNorm,
+                                                                                                                                   double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -65,9 +65,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             return FailureMechanismSectionAssemblyGroupLimitsOutput ??
                    (FailureMechanismSectionAssemblyGroupLimitsOutput = new[]
                        {
-                           new FailureMechanismSectionAssemblyGroupLimits(FailureMechanismSectionAssemblyGroup.I, 1, 2),
-                           new FailureMechanismSectionAssemblyGroupLimits(FailureMechanismSectionAssemblyGroup.II, 2.01, 3),
-                           new FailureMechanismSectionAssemblyGroupLimits(FailureMechanismSectionAssemblyGroup.III, 3.01, 4)
+                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.I, 1, 2),
+                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.II, 2.01, 3),
+                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.III, 3.01, 4)
                        });
         }
     }

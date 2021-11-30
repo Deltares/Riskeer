@@ -25,19 +25,19 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Interface representing an assembly group limits calculator.
+    /// Interface representing an assembly group boundaries calculator.
     /// </summary>
     public interface IAssemblyGroupLimitsCalculator
     {
         /// <summary>
-        /// Performs the calculation to get a collection of assembly group limits for a failure mechanism section,
+        /// Performs the calculation to get a collection of assembly group boundaries for a failure mechanism section.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
-        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupLimits"/>.</returns>
+        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssemblyGroupLimitsCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
-        IEnumerable<FailureMechanismSectionAssemblyGroupLimits> CalculateFailureMechanismSectionAssemblyGroupLimits(
+        IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CalculateFailureMechanismSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm);
     }
 }

@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             failureMechanismSectionAssemblyCategoriesTable.SetData(
                 getFailureMechanismSectionAssemblyCategoriesFunc().Select(
-                    category => new Tuple<AssemblyGroupLimits, Color, FailureMechanismSectionAssemblyCategoryGroup>(
+                    category => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyCategoryGroup>(
                         category,
                         AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(category.Group),
                         category.Group)).ToArray());

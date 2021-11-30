@@ -38,10 +38,10 @@ namespace Riskeer.AssemblyTool.Data.Test
             double upperBoundary = random.NextDouble();
 
             // Call
-            var boundaries = new FailureMechanismSectionAssemblyGroupLimits(group, lowerBoundary, upperBoundary);
+            var boundaries = new FailureMechanismSectionAssemblyGroupBoundaries(group, lowerBoundary, upperBoundary);
 
             // Assert
-            Assert.IsInstanceOf<AssemblyGroupLimits>(boundaries);
+            Assert.IsInstanceOf<AssemblyGroupBoundaries>(boundaries);
             Assert.AreEqual(lowerBoundary, boundaries.LowerBoundary);
             Assert.AreEqual(upperBoundary, boundaries.UpperBoundary);
         }

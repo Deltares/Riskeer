@@ -38,11 +38,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// </summary>
         /// <param name="original">The original <see cref="CategoriesList{TCategory}"/> with
         /// <see cref="InterpretationCategory"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyGroupLimits"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
         public static void AssertFailureMechanismSectionAssemblyGroupLimits(CategoriesList<InterpretationCategory> original,
-                                                                            IEnumerable<FailureMechanismSectionAssemblyGroupLimits> actual)
+                                                                            IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> actual)
         {
             int expectedNrOfCategories = original.Categories.Length;
             Assert.AreEqual(expectedNrOfCategories, actual.Count());
@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             for (int i = 0; i < expectedNrOfCategories; i++)
             {
                 InterpretationCategory originalItem = original.Categories.ElementAt(i);
-                FailureMechanismSectionAssemblyGroupLimits actualItem = actual.ElementAt(i);
+                FailureMechanismSectionAssemblyGroupBoundaries actualItem = actual.ElementAt(i);
 
                 Assert.AreEqual(GetAssemblyGroup(originalItem.Category), actualItem.Group);
                 ProbabilityAssert.AreEqual(actualItem.LowerBoundary, originalItem.LowerLimit);

@@ -24,7 +24,7 @@ namespace Riskeer.AssemblyTool.Data
     /// <summary>
     /// Assembly category for assessment section.
     /// </summary>
-    public class AssessmentSectionAssemblyCategory : AssemblyGroupLimits
+    public class AssessmentSectionAssemblyCategory : AssemblyGroupBoundaries
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategory"/>.

@@ -38,15 +38,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public TestAssemblyToolCalculatorFactory()
         {
-            LastCreatedAssemblyGroupLimitsCalculator = new AssemblyGroupLimitsCalculatorStub();
+            LastCreatedAssemblyGroupBoundariesCalculator = new AssemblyGroupBoundariesCalculatorStub();
             LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorStub();
             LastCreatedFailurePathAssemblyCalculator = new FailurePathAssemblyCalculatorStub();
         }
 
         /// <summary>
-        /// Gets the last created <see cref="AssemblyGroupLimitsCalculatorStub"/>.
+        /// Gets the last created <see cref="AssemblyGroupBoundariesCalculatorStub"/>.
         /// </summary>
-        public AssemblyGroupLimitsCalculatorStub LastCreatedAssemblyGroupLimitsCalculator { get; }
+        public AssemblyGroupBoundariesCalculatorStub LastCreatedAssemblyGroupBoundariesCalculator { get; }
 
         /// <summary>
         /// Gets the last created <see cref="FailureMechanismSectionAssemblyCalculatorStub"/>.
@@ -58,9 +58,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public FailurePathAssemblyCalculatorStub LastCreatedFailurePathAssemblyCalculator { get; }
 
-        public IAssemblyGroupLimitsCalculator CreateAssemblyGroupLimitsCalculatorCalculator(IAssemblyToolKernelFactory factory)
+        public IAssemblyGroupLimitsCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
-            return LastCreatedAssemblyGroupLimitsCalculator;
+            return LastCreatedAssemblyGroupBoundariesCalculator;
         }
 
         public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)

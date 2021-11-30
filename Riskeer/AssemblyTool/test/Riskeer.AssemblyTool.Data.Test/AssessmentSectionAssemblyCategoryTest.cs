@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
 
             // Assert
-            Assert.IsInstanceOf<AssemblyGroupLimits>(category);
+            Assert.IsInstanceOf<AssemblyGroupBoundaries>(category);
             Assert.AreEqual(lowerBoundary, category.LowerBoundary);
             Assert.AreEqual(upperBoundary, category.UpperBoundary);
             Assert.AreEqual(categoryType, category.Group);
