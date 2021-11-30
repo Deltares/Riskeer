@@ -354,7 +354,7 @@ namespace Riskeer.Piping.Forms.Views
                 return;
             }
 
-            if (selectedFailureMechanismSection.ScenarioConfigurationPerSection != null)
+            if (selectedFailureMechanismSection?.ScenarioConfigurationPerSection != null)
             {
                 selectedFailureMechanismSection.ScenarioConfigurationPerSection.ScenarioConfigurationType = newCheckedRadioButton == radioButtonSemiProbabilistic
                                                                                                                 ? PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic
