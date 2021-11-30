@@ -73,8 +73,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_InputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var random = new Random(21);
-
             var mocks = new MockRepository();
             var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
             mocks.ReplayAll();
@@ -139,9 +137,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_KernelWithCompleteOutput_ReturnsExpectedFailureMechanismSectionAssembly()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
-
             var random = new Random(21);
             FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
             using (new AssemblyToolKernelFactoryConfig())
@@ -176,9 +171,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_KernelWithInvalidOutput_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
-
             var random = new Random(21);
             FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
 
@@ -212,9 +204,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_KernelThrowsException_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
-
             FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -243,9 +232,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_KernelThrowsAssemblyException_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
-
             FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -275,7 +261,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             const double lowerLimitNorm = 0.001;
             const double signalingNorm = 0.0001;
-            
+
             var random = new Random(21);
             return new FailureMechanismSectionAssemblyInput(signalingNorm, lowerLimitNorm,
                                                             random.NextBoolean(),
