@@ -39,9 +39,9 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
     public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
-        where TSectionResult : FailureMechanismSectionResultOld
-        where TSectionResultRow : FailureMechanismSectionResultRowOld<TSectionResult>
-        where TFailureMechanism : IHasSectionResults<TSectionResult>
+        where TSectionResult : FailureMechanismSectionResult
+        where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
+        where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
         private readonly Observer failureMechanismObserver;
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Views
         private bool rowUpdating;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultViewOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Views
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultViewOld{TSectionResult,TSectionResultRow,TFailureMechanism,TAssemblyResultControl}"/>.
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.
         /// </summary>
         /// <param name="sectionResult">The <typeparamref name="TSectionResult"/> for which to create a
         /// display object.</param>
