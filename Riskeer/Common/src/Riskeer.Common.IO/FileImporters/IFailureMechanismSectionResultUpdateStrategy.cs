@@ -41,4 +41,24 @@ namespace Riskeer.Common.IO.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         void UpdateSectionResultOld(T origin, T target);
     }
+
+    /// <summary>
+    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResult"/> derivatives
+    /// with data from another instance.
+    /// </summary>
+    /// <typeparam name="TOld">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
+    /// <typeparam name="TNew">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
+    public interface IFailureMechanismSectionResultUpdateStrategy<in TOld, in TNew> : IFailureMechanismSectionResultUpdateStrategy<TOld>
+        where TOld : FailureMechanismSectionResultOld
+        where TNew : FailureMechanismSectionResult
+    {
+        /// <summary>
+        /// Updates the <paramref name="target"/> object with the registered result
+        /// from the <paramref name="origin"/>.
+        /// </summary>
+        /// <param name="origin">The object to get the data from that will be put on <paramref name="target"/>.</param>
+        /// <param name="target">The object to update with data from <paramref name="origin"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        void UpdateSectionResult(TNew origin, TNew target);
+    }
 }
