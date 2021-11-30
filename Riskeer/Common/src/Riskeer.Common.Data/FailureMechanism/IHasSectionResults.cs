@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
-    /// <typeparam name="TOld">The olt type of the section results.</typeparam>
+    /// <typeparam name="TOld">The old type of the section results.</typeparam>
     /// <typeparam name="T">The type of the section results.</typeparam>
     public interface IHasSectionResults<out TOld, out T> : IHasSectionResults<TOld>
         where TOld : FailureMechanismSectionResultOld

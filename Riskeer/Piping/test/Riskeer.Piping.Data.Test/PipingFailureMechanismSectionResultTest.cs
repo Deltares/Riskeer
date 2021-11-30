@@ -33,8 +33,11 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            
             // Call
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);

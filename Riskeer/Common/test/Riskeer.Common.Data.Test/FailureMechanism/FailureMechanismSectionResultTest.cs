@@ -32,6 +32,17 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
     public class FailureMechanismSectionResultTest
     {
         [Test]
+        public void Constructor_SectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestFailureMechanismSectionResult(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -48,17 +59,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.IsFalse(sectionResult.FurtherAnalysisNeeded);
             Assert.IsNaN(sectionResult.RefinedSectionProbability);
-        }
-
-        [Test]
-        public void Constructor_SectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new TestFailureMechanismSectionResult(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
