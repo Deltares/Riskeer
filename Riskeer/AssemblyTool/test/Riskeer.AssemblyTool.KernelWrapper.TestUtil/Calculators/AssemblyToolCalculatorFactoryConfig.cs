@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
     /// }
     /// </code>
     /// </example>
-    public class AssemblyToolCalculatorFactoryConfig
+    public class AssemblyToolCalculatorFactoryConfig : IDisposable
     {
         private readonly IAssemblyToolCalculatorFactory previousFactory;
 
