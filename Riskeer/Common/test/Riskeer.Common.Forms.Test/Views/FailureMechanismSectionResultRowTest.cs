@@ -30,27 +30,27 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismSectionResultRowOldTest
+    public class FailureMechanismSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
+        public void Constructor_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestFailureMechanismSectionResultRowOld(null);
+            void Call() => new TestFailureMechanismSectionResultRow(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_WithParameters_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResultOld();
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
-            var row = new TestFailureMechanismSectionResultRowOld(sectionResult);
+            var row = new TestFailureMechanismSectionResultRow(sectionResult);
 
             // Assert
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
@@ -67,10 +67,10 @@ namespace Riskeer.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            TestFailureMechanismSectionResultOld sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResultOld();
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
             sectionResult.Attach(observer);
 
-            var row = new TestFailureMechanismSectionResultRowOld(sectionResult);
+            var row = new TestFailureMechanismSectionResultRow(sectionResult);
             var rowUpdated = false;
             row.RowUpdated += (sender, args) => rowUpdated = true;
 
@@ -90,9 +90,9 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanismSectionResultRowOld : FailureMechanismSectionResultRowOld<TestFailureMechanismSectionResultOld>
+        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
         {
-            public TestFailureMechanismSectionResultRowOld(TestFailureMechanismSectionResultOld sectionResult) : base(sectionResult) {}
+            public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
             public bool Updated { get; private set; }
 

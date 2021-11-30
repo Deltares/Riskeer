@@ -44,7 +44,7 @@ namespace Riskeer.Common.Util.Test
         {
             // Setup
             TestFailureMechanismSectionResultOld failureMechanismSectionResult =
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResultOld();
 
             // Call
             TestDelegate test = () => new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Util.Test
         {
             // Setup
             TestFailureMechanismSectionResultOld failureMechanismSectionResult =
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResultOld();
 
             // Call
             TestDelegate test = () => new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Util.Test
         {
             // Setup
             TestFailureMechanismSectionResultOld failureMechanismSectionResult =
-                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+                FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResultOld();
 
             // Call
             var sectionResultWithCalculationAssignment = new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
