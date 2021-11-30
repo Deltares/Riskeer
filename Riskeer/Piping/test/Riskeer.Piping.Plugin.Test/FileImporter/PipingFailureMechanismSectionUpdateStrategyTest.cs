@@ -48,7 +48,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new PipingFailureMechanism(), new PipingFailureMechanismSectionResultUpdateStrategy());
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld>>(updateStrategy);
+            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld, PipingFailureMechanismSectionResult>>(updateStrategy);
         }
 
         [Test]
@@ -74,6 +74,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             {
                 failureMechanism,
                 failureMechanism.SectionResultsOld,
+                failureMechanism.SectionResults,
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             }, affectedObjects);
         }
@@ -113,6 +114,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             {
                 failureMechanism,
                 failureMechanism.SectionResultsOld,
+                failureMechanism.SectionResults,
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             }, affectedObjects);
         }

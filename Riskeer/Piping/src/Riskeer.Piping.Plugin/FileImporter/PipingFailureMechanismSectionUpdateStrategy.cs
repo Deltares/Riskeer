@@ -34,7 +34,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update
     /// piping failure mechanism sections with imported failure mechanism sections.
     /// </summary>
-    public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld>
+    public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld, PipingFailureMechanismSectionResult>
     {
         private readonly PipingFailureMechanism failureMechanism;
 
