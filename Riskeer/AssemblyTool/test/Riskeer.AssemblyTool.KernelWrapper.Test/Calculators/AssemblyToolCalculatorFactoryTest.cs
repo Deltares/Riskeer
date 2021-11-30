@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyGroupLimitsCalculatorCalculator_WithKernelFactory_ReturnsAssemblyCategoriesCalculator()
+        public void CreateAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsAssemblyCategoriesCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -83,7 +83,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyGroupLimitsCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
+                IAssemblyGroupBoundariesCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
                     AssemblyToolKernelFactory.Instance);
 
                 // Assert

@@ -29,9 +29,9 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Class for asserting assembly group limits.
+    /// Class for asserting assembly group boundaries.
     /// </summary>
-    public static class AssemblyGroupLimitsAssert
+    public static class AssemblyGroupBoundariesAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
@@ -41,8 +41,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertFailureMechanismSectionAssemblyGroupLimits(CategoriesList<InterpretationCategory> original,
-                                                                            IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> actual)
+        public static void AssertFailureMechanismSectionAssemblyGroupBoundaries(CategoriesList<InterpretationCategory> original,
+                                                                                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> actual)
         {
             int expectedNrOfCategories = original.Categories.Length;
             Assert.AreEqual(expectedNrOfCategories, actual.Count());

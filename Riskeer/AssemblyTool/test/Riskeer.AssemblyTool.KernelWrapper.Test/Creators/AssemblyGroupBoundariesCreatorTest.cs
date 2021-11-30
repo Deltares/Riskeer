@@ -33,13 +33,13 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyGroupLimitsCreatorTest
+    public class AssemblyGroupBoundariesCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismSectionAssemblyGroupLimits_CategoriesNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyGroupLimitsCreator.CreateFailureMechanismSectionAssemblyGroupLimits(null);
+            TestDelegate call = () => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -47,7 +47,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyGroupLimits_WithCategories_ReturnFailureMechanismAssemblyCategoryResult()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_WithCategories_ReturnFailureMechanismAssemblyCategoryResult()
         {
             // Setup
             var random = new Random(11);
@@ -62,14 +62,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> result =
-                AssemblyGroupLimitsCreator.CreateFailureMechanismSectionAssemblyGroupLimits(categories);
+                AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(categories);
 
             // Assert
-            AssemblyGroupLimitsAssert.AssertFailureMechanismSectionAssemblyGroupLimits(categories, result);
+            AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(categories, result);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyGroupLimits_CategoryWithInvalidInterpretationCategory_ThrowsInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CategoryWithInvalidInterpretationCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var categories = new CategoriesList<InterpretationCategory>(new[]
@@ -78,7 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssemblyGroupLimitsCreator.CreateFailureMechanismSectionAssemblyGroupLimits(categories);
+            TestDelegate test = () => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(categories);
 
             // Assert
             var exceptionMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";

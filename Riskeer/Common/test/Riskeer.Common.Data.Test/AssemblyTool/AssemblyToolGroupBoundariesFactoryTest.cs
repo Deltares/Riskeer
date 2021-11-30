@@ -33,7 +33,7 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class AssemblyToolGroupLimitsFactoryTest
+    public class AssemblyToolGroupBoundariesFactoryTest
     {
         [Test]
         public void CreateFailureMechanismSectionAssemblyGroupBoundaries_WithInput_SetsInputOnCalculator()
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
 
                 // Call
-                AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -72,11 +72,11 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Call
                 FailureMechanismSectionAssemblyGroupBoundaries[] output =
-                    AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm)
-                                                  .ToArray();
+                    AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm)
+                                                      .ToArray();
 
                 // Assert
-                FailureMechanismSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.FailureMechanismSectionAssemblyGroupLimitsOutput.ToArray();
+                FailureMechanismSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ToArray();
 
                 int expectedNrOfOutputs = calculatorOutput.Length;
                 Assert.AreEqual(expectedNrOfOutputs, output.Length);
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssemblyToolGroupLimitsFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(0, 0);
+                void Call() => AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
     /// <summary>
     /// Assembly group boundaries calculator stub for testing purposes.
     /// </summary>
-    public class AssemblyGroupBoundariesCalculatorStub : IAssemblyGroupLimitsCalculator
+    public class AssemblyGroupBoundariesCalculatorStub : IAssemblyGroupBoundariesCalculator
     {
         /// <summary>
         /// Gets the signaling norm that is used in the calculation.
@@ -47,9 +47,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="FailureMechanismSectionAssemblyGroupLimitsOutput"/> calculation.
+        /// Gets or sets the output of the <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/> calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> FailureMechanismSectionAssemblyGroupLimitsOutput { get; set; }
+        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> FailureMechanismSectionAssemblyGroupBoundariesOutput { get; set; }
 
         public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CalculateFailureMechanismSectionAssemblyGroupBoundaries(double signalingNorm,
                                                                                                                                    double lowerLimitNorm)
@@ -62,8 +62,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             SignalingNorm = signalingNorm;
             LowerLimitNorm = lowerLimitNorm;
 
-            return FailureMechanismSectionAssemblyGroupLimitsOutput ??
-                   (FailureMechanismSectionAssemblyGroupLimitsOutput = new[]
+            return FailureMechanismSectionAssemblyGroupBoundariesOutput ??
+                   (FailureMechanismSectionAssemblyGroupBoundariesOutput = new[]
                        {
                            new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.I, 1, 2),
                            new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.II, 2.01, 3),

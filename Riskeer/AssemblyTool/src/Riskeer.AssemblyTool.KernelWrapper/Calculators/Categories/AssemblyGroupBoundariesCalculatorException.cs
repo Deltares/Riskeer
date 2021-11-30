@@ -25,35 +25,35 @@ using System.Runtime.Serialization;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Exception that is thrown when an error occurs while performing an assembly group limits calculation.
+    /// Exception that is thrown when an error occurs while performing an assembly group boundaries calculation.
     /// </summary>
     [Serializable]
-    public class AssemblyGroupLimitsCalculatorException : Exception
+    public class AssemblyGroupBoundariesCalculatorException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyGroupLimitsCalculatorException"/> class.
+        /// Initializes a new instance of the <see cref="AssemblyGroupBoundariesCalculatorException"/> class.
         /// </summary>
-        public AssemblyGroupLimitsCalculatorException() {}
+        public AssemblyGroupBoundariesCalculatorException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyGroupLimitsCalculatorException"/> class 
+        /// Initializes a new instance of the <see cref="AssemblyGroupBoundariesCalculatorException"/> class 
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
-        public AssemblyGroupLimitsCalculatorException(string message)
+        public AssemblyGroupBoundariesCalculatorException(string message)
             : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyGroupLimitsCalculatorException"/> class with a specified error message 
+        /// Initializes a new instance of the <see cref="AssemblyGroupBoundariesCalculatorException"/> class with a specified error message 
         /// and a reference to the inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
         /// or <c>null</c> if no inner exception is specified.</param>
-        public AssemblyGroupLimitsCalculatorException(string message, Exception innerException) : base(message, innerException) {}
+        public AssemblyGroupBoundariesCalculatorException(string message, Exception innerException) : base(message, innerException) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="AssemblyGroupLimitsCalculatorException"/> with
+        /// Initializes a new instance of <see cref="AssemblyGroupBoundariesCalculatorException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected AssemblyGroupLimitsCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected AssemblyGroupBoundariesCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

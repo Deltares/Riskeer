@@ -39,7 +39,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
     [TestFixture]
-    public class AssemblyGroupLimitsCalculatorTest
+    public class AssemblyGroupBoundariesCalculatorTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var calculator = new AssemblyGroupBoundariesCalculator(factory);
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyGroupLimitsCalculator>(calculator);
+            Assert.IsInstanceOf<IAssemblyGroupBoundariesCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionAssemblyGroupLimits_WithValidInput_InputCorrectlySendToKernel()
+        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_WithValidInput_InputCorrectlySendToKernel()
         {
             // Setup
             const double lowerLimitNorm = 0.001;
@@ -95,7 +95,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionAssemblyGroupLimits_KernelWithCompleteOutput_ReturnsExpectedFailureMechanismSectionAssembly()
+        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelWithCompleteOutput_ReturnsExpectedFailureMechanismSectionAssembly()
         {
             // Setup
             const double lowerLimitNorm = 0.001;
@@ -117,12 +117,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
 
-                AssemblyGroupLimitsAssert.AssertFailureMechanismSectionAssemblyGroupLimits(categoryLimits, result);
+                AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(categoryLimits, result);
             }
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionAssemblyGroupLimits_KernelWithInCompleteOutput_ThrowsAssemblyGroupLimitsCalculatorException()
+        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelWithInCompleteOutput_ThrowsAssemblyGroupBoundariesCalculatorException()
         {
             // Setup
             const double lowerLimitNorm = 0.001;
@@ -144,7 +144,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyGroupLimitsCalculatorException>(Call);
+                var exception = Assert.Throws<AssemblyGroupBoundariesCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
 
@@ -153,7 +153,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionAssemblyGroupLimits_KernelThrowsException_ThrowsAssemblyGroupLimitsCalculatorException()
+        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelThrowsException_ThrowsAssemblyGroupBoundariesCalculatorException()
         {
             // Setup
             const double lowerLimitNorm = 0.001;
@@ -173,14 +173,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 Assert.IsFalse(categoryLimitsKernel.Calculated);
 
-                var exception = Assert.Throws<AssemblyGroupLimitsCalculatorException>(Call);
+                var exception = Assert.Throws<AssemblyGroupBoundariesCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionAssemblyGroupLimits_KernelThrowsAssemblyException_ThrowsAssemblyGroupLimitsCalculatorException()
+        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelThrowsAssemblyException_ThrowsAssemblyGroupBoundariesCalculatorException()
         {
             // Setup
             const double lowerLimitNorm = 0.001;
@@ -200,7 +200,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 Assert.IsFalse(categoryLimitsKernel.Calculated);
 
-                var exception = Assert.Throws<AssemblyGroupLimitsCalculatorException>(Call);
+                var exception = Assert.Throws<AssemblyGroupBoundariesCalculatorException>(Call);
                 var innerException = exception.InnerException as AssemblyException;
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);

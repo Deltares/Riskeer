@@ -29,21 +29,21 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for calculating the assembly tool group limits.
+    /// Factory for calculating the assembly tool group boundaries.
     /// </summary>
-    public static class AssemblyToolGroupLimitsFactory
+    public static class AssemblyToolGroupBoundariesFactory
     {
         /// <summary>
-        /// Creates the failure mechanism section assembly group limits.
+        /// Creates the failure mechanism section assembly group boundaries.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the assembly group limits.</exception>
+        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the assembly group boundaries.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm)
         {
-            IAssemblyGroupLimitsCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyGroupBoundariesCalculator(
+            IAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyGroupBoundariesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try

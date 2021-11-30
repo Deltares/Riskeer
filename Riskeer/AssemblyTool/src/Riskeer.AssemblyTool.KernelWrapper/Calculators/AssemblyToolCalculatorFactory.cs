@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
             internal set => instance = value;
         }
 
-        public IAssemblyGroupLimitsCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public IAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
             return new AssemblyGroupBoundariesCalculator(factory);
         }

@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public FailurePathAssemblyCalculatorStub LastCreatedFailurePathAssemblyCalculator { get; }
 
-        public IAssemblyGroupLimitsCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public IAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedAssemblyGroupBoundariesCalculator;
         }

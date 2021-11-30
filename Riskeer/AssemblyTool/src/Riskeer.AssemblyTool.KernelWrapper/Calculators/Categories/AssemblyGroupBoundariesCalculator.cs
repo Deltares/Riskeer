@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
     /// <summary>
     /// Class representing an assembly group boundaries calculator.
     /// </summary>
-    public class AssemblyGroupBoundariesCalculator : IAssemblyGroupLimitsCalculator
+    public class AssemblyGroupBoundariesCalculator : IAssemblyGroupBoundariesCalculator
     {
         private readonly IAssemblyToolKernelFactory factory;
 
@@ -63,15 +63,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
                 CategoriesList<InterpretationCategory> output = kernel.CalculateInterpretationCategoryLimitsWbi03(
                     new AssessmentSection(new Probability(signalingNorm), new Probability(lowerLimitNorm)));
 
-                return AssemblyGroupLimitsCreator.CreateFailureMechanismSectionAssemblyGroupLimits(output);
+                return AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(output);
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyGroupLimitsCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+                throw new AssemblyGroupBoundariesCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssemblyGroupLimitsCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+                throw new AssemblyGroupBoundariesCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
     }

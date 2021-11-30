@@ -31,7 +31,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Creates <see cref="AssemblyGroupBoundaries"/> instances.
     /// </summary>
-    internal static class AssemblyGroupLimitsCreator
+    internal static class AssemblyGroupBoundariesCreator
     {
         /// <summary>
         /// Creates a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>
@@ -46,7 +46,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// contains an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
         /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupLimits(
+        public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
             CategoriesList<InterpretationCategory> categories)
         {
             if (categories == null)
@@ -54,11 +54,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(categories));
             }
 
-            return categories.Categories.Select(CreateFailureMechanismSectionAssemblyGroupLimits)
+            return categories.Categories.Select(CreateFailureMechanismSectionAssemblyGroupBoundaries)
                              .ToArray();
         }
 
-        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupLimits(InterpretationCategory category)
+        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(InterpretationCategory category)
         {
             return new FailureMechanismSectionAssemblyGroupBoundaries(
                 FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup(category.Category),
