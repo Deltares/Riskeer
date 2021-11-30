@@ -829,10 +829,16 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResultOld> failureMechanismWithSectionResults)
+            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResultOld> failureMechanismWithSectionResultsOld)
             {
-                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResultsOld);
-                changedObjects.Add(failureMechanismWithSectionResults.SectionResultsOld);
+                removedObjects.AddRange(failureMechanismWithSectionResultsOld.SectionResultsOld);
+                changedObjects.Add(failureMechanismWithSectionResultsOld.SectionResultsOld);
+            }
+
+            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult> failureMechanismWithSectionResults)
+            {
+                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
+                changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
             }
 
             failureMechanism.ClearAllSections();

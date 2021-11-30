@@ -1669,11 +1669,12 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(60, changedObjects.Length);
+            Assert.AreEqual(61, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, pipingFailureMechanism.SectionResults);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism.StochasticSoilModels);
@@ -1774,21 +1775,21 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityInwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityOutwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Microstability));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.MacroStabilityOutwards));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.Microstability));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityStoneCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaveImpactAsphaltCover));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaterPressureAsphaltCover));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.WaterPressureAsphaltCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionOutwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverSlipOffOutwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverSlipOffInwards));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.GrassCoverSlipOffOutwards));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.GrassCoverSlipOffInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.HeightStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.ClosingStructures));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StrengthStabilityLengthwiseConstruction));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.TechnicalInnovation));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.StrengthStabilityLengthwiseConstruction));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.DuneErosion));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.TechnicalInnovation));
             return expectedRemovedObjects;
         }
 
@@ -1822,7 +1823,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<MacroStabilityInwardsFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1845,7 +1846,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<GrassCoverErosionInwardsFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1863,7 +1864,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityStoneCoverFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<StabilityStoneCoverFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1881,7 +1882,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<WaveImpactAsphaltCoverFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1899,7 +1900,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<GrassCoverErosionOutwardsFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1917,7 +1918,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(HeightStructuresFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<HeightStructuresFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1940,7 +1941,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(ClosingStructuresFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<ClosingStructuresFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1963,7 +1964,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<StabilityPointStructuresFailureMechanism>(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
@@ -1984,7 +1985,7 @@ namespace Riskeer.Integration.Service.Test
             }
         }
 
-        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLineOld<T>(T failureMechanism)
             where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
@@ -1993,6 +1994,20 @@ namespace Riskeer.Integration.Service.Test
             }
 
             foreach (FailureMechanismSectionResultOld sectionResult in failureMechanism.SectionResultsOld)
+            {
+                yield return sectionResult;
+            }
+        }
+
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
+            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
+        {
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
+            {
+                yield return failureMechanismObject;
+            }
+
+            foreach (FailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
             {
                 yield return sectionResult;
             }
