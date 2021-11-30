@@ -204,11 +204,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(60, observables.Length);
+            Assert.AreEqual(61, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(observables, pipingFailureMechanism);
             CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResultsOld);
@@ -389,7 +390,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 197;
+            const int expectedNumberOfRemovedInstances = 199;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -413,7 +414,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void DoPostUpdateActions_CalledSecondTimeAfterUpdateAndUpdateCycle_DoNothing()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 197;
+            const int expectedNumberOfRemovedInstances = 199;
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
