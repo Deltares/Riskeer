@@ -38,14 +38,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<IFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            var context = new FailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(sectionResults, failureMechanism);
+            var context = new FailureMechanismSectionResultContext<IFailureMechanismSectionResult>(sectionResults, failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<IObservableEnumerable<FailureMechanismSectionResultOld>>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<IObservableEnumerable<IFailureMechanismSectionResult>>>(context);
             Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             mocks.VerifyAll();
@@ -56,14 +56,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<IFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(sectionResults, null);
+            void Call() => new FailureMechanismSectionResultContext<IFailureMechanismSectionResult>(sectionResults, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }

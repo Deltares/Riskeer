@@ -37,16 +37,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<IFailureMechanismSectionResult>>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(
-                sectionResults, failureMechanism, null);
+            void Call() => new ProbabilityFailureMechanismSectionResultContext<IFailureMechanismSectionResult>(sectionResults, failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -58,15 +57,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResultOld>>();
+            var sectionResults = mocks.Stub<IObservableEnumerable<IFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            var context = new ProbabilityFailureMechanismSectionResultContext<FailureMechanismSectionResultOld>(
+            var context = new ProbabilityFailureMechanismSectionResultContext<IFailureMechanismSectionResult>(
                 sectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultContext<FailureMechanismSectionResultOld>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<IFailureMechanismSectionResult>>(context);
             Assert.AreSame(sectionResults, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
