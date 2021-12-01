@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -86,7 +87,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
                 GeneralInput =
                 {
                     WaterVolumetricWeight = random.NextRoundedDouble(0, 20)
-                }
+                },
+                ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationType>()
             };
             var registry = new PersistenceRegistry();
 
@@ -109,6 +111,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(failureMechanism.GeneralInput.WaterVolumetricWeight.Value, failureMechanismMetaEntity.WaterVolumetricWeight);
             Assert.AreEqual(failureMechanism.SurfaceLines.SourcePath, failureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
             Assert.AreEqual(failureMechanism.StochasticSoilModels.SourcePath, failureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.ScenarioConfigurationType), failureMechanismMetaEntity.PipingScenarioConfigurationType);
         }
 
         [Test]
@@ -211,8 +214,12 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
+            ICollection<FailureMechanismSectionEntity> failureMechanismSectionEntities = entity.FailureMechanismSectionEntities;
+            Assert.AreEqual(1, failureMechanismSectionEntities.Count);
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities)
+                                                              .Count());
+            Assert.AreEqual(1, failureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities)
+                                                              .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 

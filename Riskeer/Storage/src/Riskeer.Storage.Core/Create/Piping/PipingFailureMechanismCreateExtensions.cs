@@ -49,6 +49,8 @@ namespace Riskeer.Storage.Core.Create.Piping
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
             AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForPipingScenarioConfigurationPerFailureMechanismSection(mechanism.ScenarioConfigurationsPerFailureMechanismSection,
+                                                                                registry);
 
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
@@ -67,6 +69,18 @@ namespace Riskeer.Storage.Core.Create.Piping
             }
         }
 
+        private static void AddEntitiesForPipingScenarioConfigurationPerFailureMechanismSection(
+            IEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurations,
+            PersistenceRegistry registry)
+        {
+            foreach (PipingScenarioConfigurationPerFailureMechanismSection configuration in scenarioConfigurations)
+            {
+                PipingScenarioConfigurationPerFailureMechanismSectionEntity configurationPerFailureMechanismSectionEntity = configuration.Create();
+                FailureMechanismSectionEntity section = registry.Get(configuration.Section);
+                section.PipingScenarioConfigurationPerFailureMechanismSectionEntities.Add(configurationPerFailureMechanismSectionEntity);
+            }
+        }
+
         private static void AddEntitiesForFailureMechanismMeta(PipingFailureMechanism mechanism, FailureMechanismEntity entity)
         {
             var metaEntity = new PipingFailureMechanismMetaEntity
@@ -74,7 +88,8 @@ namespace Riskeer.Storage.Core.Create.Piping
                 A = mechanism.PipingProbabilityAssessmentInput.A,
                 WaterVolumetricWeight = mechanism.GeneralInput.WaterVolumetricWeight,
                 StochasticSoilModelCollectionSourcePath = mechanism.StochasticSoilModels.SourcePath.DeepClone(),
-                SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone()
+                SurfaceLineCollectionSourcePath = mechanism.SurfaceLines.SourcePath.DeepClone(),
+                PipingScenarioConfigurationType = Convert.ToByte(mechanism.ScenarioConfigurationType)
             };
 
             entity.PipingFailureMechanismMetaEntities.Add(metaEntity);
