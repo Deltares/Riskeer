@@ -27,8 +27,9 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingProbabilityAssessmentInput"/>
-    /// and a <see cref="GeneralPipingInput"/> based on the <see cref="PipingFailureMechanismMetaEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="PipingProbabilityAssessmentInput"/>,
+    /// a <see cref="GeneralPipingInput"/> or a <see cref="PipingFailureMechanism"/> based on the
+    /// <see cref="PipingFailureMechanismMetaEntity"/>.
     /// </summary>
     internal static class PipingFailureMechanismMetaEntityReadExtensions
     {
@@ -79,6 +80,30 @@ namespace Riskeer.Storage.Core.Read.Piping
             }
 
             generalPipingInput.WaterVolumetricWeight = (RoundedDouble) entity.WaterVolumetricWeight;
+        }
+
+        /// <summary>
+        /// Read the <see cref="PipingFailureMechanismMetaEntity"/> and use the information to update the
+        /// <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="PipingFailureMechanismMetaEntity"/> to use to update the
+        /// <paramref name="failureMechanism"/>.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to be updated.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal static void ReadFailureMechanismValues(this PipingFailureMechanismMetaEntity entity,
+                                                        PipingFailureMechanism failureMechanism)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            failureMechanism.ScenarioConfigurationType = (PipingScenarioConfigurationType) entity.PipingScenarioConfigurationType;
         }
     }
 }

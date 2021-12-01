@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
@@ -38,10 +39,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var input = new PipingProbabilityAssessmentInput();
 
             // Call
-            TestDelegate test = () => ((PipingFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
+            void Call() => ((PipingFailureMechanismMetaEntity) null).ReadProbabilityAssessmentInput(input);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -52,10 +53,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingFailureMechanismMetaEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadProbabilityAssessmentInput(null);
+            void Call() => entity.ReadProbabilityAssessmentInput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
         }
 
@@ -83,10 +84,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var input = new GeneralPipingInput();
 
             // Call
-            TestDelegate test = () => ((PipingFailureMechanismMetaEntity) null).ReadGeneralPipingInput(input);
+            void Call() => ((PipingFailureMechanismMetaEntity) null).ReadGeneralPipingInput(input);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -97,10 +98,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingFailureMechanismMetaEntity();
 
             // Call
-            TestDelegate test = () => entity.ReadGeneralPipingInput(null);
+            void Call() => entity.ReadGeneralPipingInput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalPipingInput", exception.ParamName);
         }
 
@@ -119,6 +120,51 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
 
             // Assert
             Assert.AreEqual(entity.WaterVolumetricWeight, inputToUpdate.WaterVolumetricWeight, inputToUpdate.WaterVolumetricWeight.GetAccuracy());
+        }
+
+        [Test]
+        public void ReadFailureMechanismValues_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((PipingFailureMechanismMetaEntity) null).ReadFailureMechanismValues(new PipingFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadFailureMechanismValues_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new PipingFailureMechanismMetaEntity();
+
+            // Call
+            void Call() => entity.ReadFailureMechanismValues(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadFailureMechanismValues_ValidParameters_SetPipingProbabilityAssessmentInputProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            var configurationType = random.NextEnumValue<PipingScenarioConfigurationType>();
+
+            var failureMechanismToUpdate = new PipingFailureMechanism();
+            var entity = new PipingFailureMechanismMetaEntity
+            {
+                PipingScenarioConfigurationType = Convert.ToByte(configurationType)
+            };
+
+            // Call
+            entity.ReadFailureMechanismValues(failureMechanismToUpdate);
+
+            // Assert
+            Assert.AreEqual(configurationType, failureMechanismToUpdate.ScenarioConfigurationType);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Riskeer.Piping.Data
         public FailureMechanismSection Section { get; }
 
         /// <summary>
-        /// Gets the scenario configuration.
+        /// Gets or sets the scenario configuration.
         /// </summary>
         public PipingScenarioConfigurationPerFailureMechanismSectionType ScenarioConfigurationType { get; set; }
     }
