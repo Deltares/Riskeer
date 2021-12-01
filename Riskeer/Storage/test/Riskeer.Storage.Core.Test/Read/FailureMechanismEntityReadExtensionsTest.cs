@@ -425,6 +425,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(31);
             bool inAssembly = random.NextBoolean();
+            PipingScenarioConfigurationType pipingScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationType>();
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
@@ -438,7 +439,8 @@ namespace Riskeer.Storage.Core.Test.Read
                     new PipingFailureMechanismMetaEntity
                     {
                         A = random.NextDouble(),
-                        WaterVolumetricWeight = random.NextDouble()
+                        WaterVolumetricWeight = random.NextDouble(),
+                        PipingScenarioConfigurationType = Convert.ToByte(pipingScenarioConfigurationType)
                     }
                 }
             };
@@ -463,6 +465,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(pipingFailureMechanismMetaEntity.A, failureMechanism.PipingProbabilityAssessmentInput.A);
             Assert.AreEqual(pipingFailureMechanismMetaEntity.WaterVolumetricWeight, failureMechanism.GeneralInput.WaterVolumetricWeight,
                             failureMechanism.GeneralInput.WaterVolumetricWeight.GetAccuracy());
+            Assert.AreEqual(pipingScenarioConfigurationType, failureMechanism.ScenarioConfigurationType);
 
             Assert.IsNull(pipingFailureMechanismMetaEntity.StochasticSoilModelCollectionSourcePath);
             Assert.IsNull(pipingFailureMechanismMetaEntity.SurfaceLineCollectionSourcePath);
@@ -644,7 +647,12 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
+            var pipingScenarioConfigurationPerFailureMechanismSectionEntity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
             failureMechanismSectionEntity.PipingSectionResultEntities.Add(pipingSectionResultEntity);
+            failureMechanismSectionEntity.PipingScenarioConfigurationPerFailureMechanismSectionEntities.Add(pipingScenarioConfigurationPerFailureMechanismSectionEntity);
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,

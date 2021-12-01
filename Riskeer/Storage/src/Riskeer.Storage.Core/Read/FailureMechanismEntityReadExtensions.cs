@@ -142,6 +142,7 @@ namespace Riskeer.Storage.Core.Read
             PipingFailureMechanismMetaEntity metaEntity = entity.PipingFailureMechanismMetaEntities.Single();
             metaEntity.ReadProbabilityAssessmentInput(failureMechanism.PipingProbabilityAssessmentInput);
             metaEntity.ReadGeneralPipingInput(failureMechanism.GeneralInput);
+            metaEntity.ReadFailureMechanismValues(failureMechanism);
 
             string stochasticSoilModelCollectionSourcePath = metaEntity.StochasticSoilModelCollectionSourcePath;
             if (stochasticSoilModelCollectionSourcePath != null)
@@ -164,6 +165,7 @@ namespace Riskeer.Storage.Core.Read
             }
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
+            entity.ReadPipingScenarioConfigurationPerFailureMechanismSection(failureMechanism, collector);
 
             ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
@@ -178,6 +180,19 @@ namespace Riskeer.Storage.Core.Read
                 PipingFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
+            }
+        }
+
+        private static void ReadPipingScenarioConfigurationPerFailureMechanismSection(this FailureMechanismEntity entity,
+                                                                                      PipingFailureMechanism failureMechanism,
+                                                                                      ReadConversionCollector collector)
+        {
+            foreach (PipingScenarioConfigurationPerFailureMechanismSectionEntity sectionConfigurationEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities))
+            {
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionConfigurationEntity.FailureMechanismSectionEntity);
+                PipingScenarioConfigurationPerFailureMechanismSection configuration = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionConfigurationEntity.Read(configuration);
             }
         }
 
@@ -1055,7 +1070,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 StabilityPointStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld
-                                                                                               .Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                                                                                                  .Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
