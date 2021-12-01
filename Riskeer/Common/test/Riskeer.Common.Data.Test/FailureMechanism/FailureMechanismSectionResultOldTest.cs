@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -39,7 +40,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var result = new TestFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultOld>(result);
+            Assert.IsInstanceOf<IFailureMechanismSectionResult>(result);
+            Assert.IsInstanceOf<Observable>(result);
             Assert.AreSame(section, result.Section);
         }
 

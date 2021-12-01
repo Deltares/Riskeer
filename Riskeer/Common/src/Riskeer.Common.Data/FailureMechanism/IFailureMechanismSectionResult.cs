@@ -19,39 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base;
-
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Base class for classes that hold information of the result of the <see cref="FailureMechanismSection"/>.
+    /// Interface for describing classes that hold information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public abstract class FailureMechanismSectionResultOld : Observable, IFailureMechanismSectionResult
+    public interface IFailureMechanismSectionResult
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionResultOld"/>.
-        /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        protected FailureMechanismSectionResultOld(FailureMechanismSection section)
-        {
-            if (section == null)
-            {
-                throw new ArgumentNullException(nameof(section));
-            }
-
-            Section = section;
-        }
-
         /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
-        public FailureMechanismSection Section { get; }
-
-        /// <summary>
-        /// Gets or sets the indicator whether the combined assembly should be overwritten.
-        /// </summary>
-        public bool UseManualAssembly { get; set; }
+        FailureMechanismSection Section { get; }
     }
 }
