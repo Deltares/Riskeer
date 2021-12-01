@@ -258,14 +258,14 @@ namespace Riskeer.Piping.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResultOld>,
-                IObservableEnumerable<PipingFailureMechanismSectionResultOld>,
-                PipingFailureMechanismResultViewOld>(() => Gui)
+                ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
+                IObservableEnumerable<PipingFailureMechanismSectionResult>,
+                PipingFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new PipingFailureMechanismResultViewOld(
+                CreateInstance = context => new PipingFailureMechanismResultView(
                     context.WrappedData,
                     (PipingFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection)
@@ -588,7 +588,7 @@ namespace Riskeer.Piping.Plugin
                        : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as PipingFailureMechanism;
 
@@ -604,7 +604,7 @@ namespace Riskeer.Piping.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object dataToCloseFor)
