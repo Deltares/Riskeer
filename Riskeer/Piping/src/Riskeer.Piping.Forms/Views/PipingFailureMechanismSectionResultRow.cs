@@ -21,7 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 
@@ -71,9 +74,118 @@ namespace Riskeer.Piping.Forms.Views
             this.assessmentSection = assessmentSection;
         }
 
-        
-        public override void Update()
+        /// <summary>
+        /// Gets or sets whether the section is relevant.
+        /// </summary>
+        public bool IsRelevant
         {
+            get => SectionResult.IsRelevant;
+            set
+            {
+                SectionResult.IsRelevant = value;
+                UpdateInternalData();
+            }
         }
+
+        /// <summary>
+        /// Gets or sets the initial failure mechanism result.
+        /// </summary>
+        public InitialFailureMechanismResultType InitialFailureMechanismResult
+        {
+            get => SectionResult.InitialFailureMechanismResult;
+            set
+            {
+                SectionResult.InitialFailureMechanismResult = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the manual initial failure mechanism result per profile as a probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ManualInitialFailureMechanismResultProfileProbability
+        {
+            get => SectionResult.ManualInitialFailureMechanismResultProfileProbability;
+            set
+            {
+                SectionResult.ManualInitialFailureMechanismResultProfileProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ManualInitialFailureMechanismResultSectionProbability
+        {
+            get => SectionResult.ManualInitialFailureMechanismResultSectionProbability;
+            set
+            {
+                SectionResult.ManualInitialFailureMechanismResultSectionProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether further analysis is needed.
+        /// </summary>
+        public bool FurtherAnalysisNeeded
+        {
+            get => SectionResult.FurtherAnalysisNeeded;
+            set
+            {
+                SectionResult.FurtherAnalysisNeeded = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the probability refinement type.
+        /// </summary>
+        public ProbabilityRefinementType ProbabilityRefinementType
+        {
+            get => SectionResult.ProbabilityRefinementType;
+            set
+            {
+                SectionResult.ProbabilityRefinementType = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the refined probability per profile.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double RefinedProfileProbability
+        {
+            get => SectionResult.RefinedProfileProbability;
+            set
+            {
+                SectionResult.RefinedProfileProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of the refined probability per failure mechanism section.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double RefinedSectionProbability
+        {
+            get => SectionResult.RefinedSectionProbability;
+            set
+            {
+                SectionResult.RefinedSectionProbability = value;
+                UpdateInternalData();
+            }
+        }
+
+        public override void Update() {}
     }
 }
