@@ -48,6 +48,7 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsSectionResultEntities = new HashSet<MacroStabilityInwardsSectionResultEntity>();
             MacroStabilityOutwardsSectionResultEntities = new HashSet<MacroStabilityOutwardsSectionResultEntity>();
             MicrostabilitySectionResultEntities = new HashSet<MicrostabilitySectionResultEntity>();
+            PipingScenarioConfigurationPerFailureMechanismSectionEntities = new HashSet<PipingScenarioConfigurationPerFailureMechanismSectionEntity>();
             PipingSectionResultEntities = new HashSet<PipingSectionResultEntity>();
             PipingStructureSectionResultEntities = new HashSet<PipingStructureSectionResultEntity>();
             StabilityPointStructuresSectionResultEntities = new HashSet<StabilityPointStructuresSectionResultEntity>();
@@ -93,6 +94,9 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PipingScenarioConfigurationPerFailureMechanismSectionEntity> PipingScenarioConfigurationPerFailureMechanismSectionEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }

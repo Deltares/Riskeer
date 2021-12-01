@@ -30,16 +30,12 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class PipingFailureMechanismMetaEntity
+    public class PipingScenarioConfigurationPerFailureMechanismSectionEntity
     {
-        public long PipingFailureMechanismMetaEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public double A { get; set; }
-        public double WaterVolumetricWeight { get; set; }
-        public string StochasticSoilModelCollectionSourcePath { get; set; }
-        public string SurfaceLineCollectionSourcePath { get; set; }
-        public byte PipingScenarioConfigurationType { get; set; }
+        public long PipingScenarioConfigurationPerFailureMechanismSectionEntityId { get; set; }
+        public long FailureMechanismSectionEntityId { get; set; }
+        public byte PipingScenarioConfigurationPerFailureMechanismSectionType { get; set; }
 
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

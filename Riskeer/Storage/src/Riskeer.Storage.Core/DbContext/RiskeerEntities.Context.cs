@@ -97,6 +97,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
+        public virtual DbSet<PipingScenarioConfigurationPerFailureMechanismSectionEntity> PipingScenarioConfigurationPerFailureMechanismSectionEntities { get; set; }
         public virtual DbSet<PipingSectionResultEntity> PipingSectionResultEntities { get; set; }
         public virtual DbSet<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
         public virtual DbSet<PipingSoilProfileEntity> PipingSoilProfileEntities { get; set; }
