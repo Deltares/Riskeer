@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -169,6 +169,109 @@ namespace Riskeer.Common.Forms.Builders
                 Resources.FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName);
         }
 
+        #endregion
+
+        #region Further Analysis
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing whether further analysis
+        /// is needed for the section result. 
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddFurtherAnalysisNeededColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddCheckBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName);
+        }
+        
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="ProbabilityRefinementType"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddProbabilityRefinementTypeColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> dataSource = CreateEnumDisplayWrappers<ProbabilityRefinementType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_ProbabilityRefinementType_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<ProbabilityRefinementType>.Value),
+                nameof(EnumDisplayWrapper<ProbabilityRefinementType>.DisplayName));
+        }
+        
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the refined probability per profile.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddRefinedProfileProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_RefinedProfileProbability_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the refined probability per section.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddRefinedSectionProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_RefinedSectionProbability_DisplayName);
+        }
+        
         #endregion
 
         #region Assessment

@@ -321,6 +321,210 @@ namespace Riskeer.Common.Forms.Test.Builders
 
         #endregion
 
+        #region Further Analysis
+
+        [Test]
+        public void AddFurtherAnalysisNeededColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddFurtherAnalysisNeededColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddFurtherAnalysisNeededColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Is vervolganalyse nodig", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddProbabilityRefinementTypeColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddProbabilityRefinementTypeColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddProbabilityRefinementTypeColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Aanscherpen faalkans", columnData.HeaderText);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+
+                IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<ProbabilityRefinementType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ProbabilityRefinementType>[]) columnData.DataSource);
+            }
+        }
+
+        [Test]
+        public void AddRefinedProfileProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddRefinedProfileProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddRefinedProfileProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Aangescherpte faalkans per doorsnede\r\n[1/jaar]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddRefinedSectionProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddRefinedSectionProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddRefinedSectionProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Aangescherpte faalkans per vak\r\n[1/jaar]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        #endregion
+
         #region Simple Assessment
 
         [Test]

@@ -1820,6 +1820,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is vervolganalyse nodig.
+        /// </summary>
+        public static string FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NVT - Niet Van Toepassing
         ///WVT - Wel Van Toepassing
         ///FV - Faalkans Verwaarloosbaar
@@ -1883,6 +1892,35 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_ManualAssembly_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_ManualAssembly_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanscherpen faalkans.
+        /// </summary>
+        public static string FailureMechanismResultView_ProbabilityRefinementType_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_ProbabilityRefinementType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aangescherpte faalkans per doorsnede
+        ///[1/jaar].
+        /// </summary>
+        public static string FailureMechanismResultView_RefinedProfileProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_RefinedProfileProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aangescherpte faalkans per vak
+        ///[1/jaar].
+        /// </summary>
+        public static string FailureMechanismResultView_RefinedSectionProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_RefinedSectionProbability_DisplayName", resourceCulture);
             }
         }
         

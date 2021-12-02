@@ -1602,4 +1602,18 @@ scenario
     <value>Faalkans initieel faalmechanisme per vak
 [1/jaar]</value>
   </data>
+  <data name="FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName" xml:space="preserve">
+    <value>Is vervolganalyse nodig</value>
+  </data>
+  <data name="FailureMechanismResultView_ProbabilityRefinementType_DisplayName" xml:space="preserve">
+    <value>Aanscherpen faalkans</value>
+  </data>
+  <data name="FailureMechanismResultView_RefinedProfileProbability_DisplayName" xml:space="preserve">
+    <value>Aangescherpte faalkans per doorsnede
+[1/jaar]</value>
+  </data>
+  <data name="FailureMechanismResultView_RefinedSectionProbability_DisplayName" xml:space="preserve">
+    <value>Aangescherpte faalkans per vak
+[1/jaar]</value>
+  </data>
 </root>
