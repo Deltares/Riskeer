@@ -21,9 +21,11 @@
 
 using System;
 using System.Windows.Forms;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.Views;
@@ -33,6 +35,16 @@ namespace Riskeer.Piping.Forms.Test.Views
     [TestFixture]
     public class PipingFailureMechanismResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int isRelevantIndex = 1;
+        private const int initialFailureMechanismResultIndex = 2;
+        private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
+        private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
+        private const int furtherAnalysisNeededIndex = 5;
+        private const int probabilityRefinementTypeIndex = 6;
+        private const int refinedProfileProbabilityIndex = 7;
+        private const int refinedSectionProbabilityIndex = 8;
+        private const int columnCount = 9;
         private Form testForm;
 
         [SetUp]
@@ -83,6 +95,68 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFormWithPipingFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        {
+            // Given
+            using (ShowFailureMechanismResultsView(new PipingFailureMechanism()))
+            {
+                // Then
+                DataGridView dataGridView = GetDataGridView();
+
+                Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isRelevantIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[initialFailureMechanismResultIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[furtherAnalysisNeededIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[probabilityRefinementTypeIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedProfileProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedSectionProbabilityIndex]);
+
+                Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
+                Assert.AreEqual("Resultaat initieel faalmechanisme", dataGridView.Columns[initialFailureMechanismResultIndex].HeaderText);
+                Assert.AreEqual("Faalkans initieel faalmechanisme per doorsnede\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].HeaderText);
+                Assert.AreEqual("Faalkans initieel faalmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
+                Assert.AreEqual("Is vervolganalyse nodig", dataGridView.Columns[furtherAnalysisNeededIndex].HeaderText);
+                Assert.AreEqual("Aanscherpen faalkans", dataGridView.Columns[probabilityRefinementTypeIndex].HeaderText);
+                Assert.AreEqual("Aangescherpte faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[refinedProfileProbabilityIndex].HeaderText);
+                Assert.AreEqual("Aangescherpte faalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
+
+                Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[isRelevantIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[furtherAnalysisNeededIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[probabilityRefinementTypeIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[refinedProfileProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[refinedSectionProbabilityIndex].ReadOnly);
+
+                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+            }
+        }
+
+        private static DataGridView GetDataGridView()
+        {
+            return (DataGridView) new ControlTester("dataGridView").TheObject;
+        }
+
+        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
+        {
+            var failureMechanismResultView = new PipingFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                                  failureMechanism,
+                                                                                  new AssessmentSectionStub());
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
     }
 }
