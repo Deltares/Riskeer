@@ -27,7 +27,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class InitialFailureMechanismResultTypeTest : EnumValuesTestFixture<InitialFailureMechanismResultType, int>
+    public class InitialFailureMechanismResultTypeTest : EnumWithResourcesDisplayNameTestFixture<InitialFailureMechanismResultType>
     {
         protected override IDictionary<InitialFailureMechanismResultType, int> ExpectedValueForEnumValues =>
             new Dictionary<InitialFailureMechanismResultType, int>
@@ -40,6 +40,20 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 },
                 {
                     InitialFailureMechanismResultType.NoFailureProbability, 3
+                }
+            };
+
+        protected override IDictionary<InitialFailureMechanismResultType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<InitialFailureMechanismResultType, string>
+            {
+                {
+                    InitialFailureMechanismResultType.Adopt, "Overnemen"
+                },
+                {
+                    InitialFailureMechanismResultType.Manual, "Handmatig invullen"
+                },
+                {
+                    InitialFailureMechanismResultType.NoFailureProbability, "Geen faalkans"
                 }
             };
     }

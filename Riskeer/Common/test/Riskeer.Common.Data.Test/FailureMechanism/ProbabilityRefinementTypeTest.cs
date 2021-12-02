@@ -27,7 +27,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class ProbabilityRefinementTypeTest : EnumValuesTestFixture<ProbabilityRefinementType, int>
+    public class ProbabilityRefinementTypeTest : EnumWithResourcesDisplayNameTestFixture<ProbabilityRefinementType>
     {
         protected override IDictionary<ProbabilityRefinementType, int> ExpectedValueForEnumValues =>
             new Dictionary<ProbabilityRefinementType, int>
@@ -40,6 +40,20 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 },
                 {
                     ProbabilityRefinementType.Both, 3
+                }
+            };
+
+        protected override IDictionary<ProbabilityRefinementType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<ProbabilityRefinementType, string>
+            {
+                {
+                    ProbabilityRefinementType.Profile, "Per doorsnede"
+                },
+                {
+                    ProbabilityRefinementType.Section, "Per vak"
+                },
+                {
+                    ProbabilityRefinementType.Both, "Beide"
                 }
             };
     }

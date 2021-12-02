@@ -393,4 +393,22 @@
   <data name="TargetProbability_Value_must_be_in_range" xml:space="preserve">
     <value>De waarde van de doelkans moet groter zijn dan 0 en kleiner dan of gelijk aan 0,1.</value>
   </data>
+  <data name="InitialFailureMechanismResultType_Adopt_DisplayName" xml:space="preserve">
+    <value>Overnemen</value>
+  </data>
+  <data name="InitialFailureMechanismResultType_Manual_DisplayName" xml:space="preserve">
+    <value>Handmatig invullen</value>
+  </data>
+  <data name="InitialFailureMechanismResultType_NoFailureProbability_DisplayName" xml:space="preserve">
+    <value>Geen faalkans</value>
+  </data>
+  <data name="ProbabilityRefinementType_Profile_DisplayName" xml:space="preserve">
+    <value>Per doorsnede</value>
+  </data>
+  <data name="ProbabilityRefinementType_Section_DisplayName" xml:space="preserve">
+    <value>Per vak</value>
+  </data>
+  <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
+    <value>Beide</value>
+  </data>
 </root>

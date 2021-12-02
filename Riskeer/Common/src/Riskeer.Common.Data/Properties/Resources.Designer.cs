@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -537,6 +537,33 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Overnemen.
+        /// </summary>
+        public static string InitialFailureMechanismResultType_Adopt_DisplayName {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultType_Adopt_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handmatig invullen.
+        /// </summary>
+        public static string InitialFailureMechanismResultType_Manual_DisplayName {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultType_Manual_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen faalkans.
+        /// </summary>
+        public static string InitialFailureMechanismResultType_NoFailureProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultType_NoFailureProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gemiddelde moet groter zijn dan 0..
         /// </summary>
         public static string LogNormalDistribution_Mean_must_be_greater_than_zero {
@@ -697,6 +724,33 @@ namespace Riskeer.Common.Data.Properties {
         public static string ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_ {
             get {
                 return ResourceManager.GetString("ProbabilityAssessmentInput_A_Value_must_be_in_Range_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beide.
+        /// </summary>
+        public static string ProbabilityRefinementType_Both_DisplayName {
+            get {
+                return ResourceManager.GetString("ProbabilityRefinementType_Both_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Per doorsnede.
+        /// </summary>
+        public static string ProbabilityRefinementType_Profile_DisplayName {
+            get {
+                return ResourceManager.GetString("ProbabilityRefinementType_Profile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Per vak.
+        /// </summary>
+        public static string ProbabilityRefinementType_Section_DisplayName {
+            get {
+                return ResourceManager.GetString("ProbabilityRefinementType_Section_DisplayName", resourceCulture);
             }
         }
         
