@@ -117,7 +117,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[useManualAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[manualAssemblyCategoryGroupIndex]);
 
-                Assert.AreEqual("Vak", dataGridView.Columns[nameColumnIndex].HeaderText);
+                Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Eenvoudige toets", dataGridView.Columns[simpleAssessmentResultIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens Iv", dataGridView.Columns[detailedAssessmentResultForFactorizedSignalingNormIndex].HeaderText);
                 Assert.AreEqual("Gedetailleerde toets\r\nper vak\r\ncategoriegrens IIv", dataGridView.Columns[detailedAssessmentResultForSignalingNormIndex].HeaderText);

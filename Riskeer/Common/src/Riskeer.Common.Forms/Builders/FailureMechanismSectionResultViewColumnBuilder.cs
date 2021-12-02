@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.Section_DisplayName,
+                Resources.FailureMechanismSection_Name_DisplayName,
                 true);
         }
 

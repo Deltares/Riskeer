@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Vak", columnData.HeaderText);
+                Assert.AreEqual("Vaknaam", columnData.HeaderText);
                 Assert.IsTrue(columnData.ReadOnly);
             }
         }
