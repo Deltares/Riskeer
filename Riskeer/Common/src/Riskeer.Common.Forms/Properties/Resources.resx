@@ -1591,4 +1591,15 @@ scenario
   <data name="FailureMechanismResultView_IsRelevant_DisplayName" xml:space="preserve">
     <value>Is relevant</value>
   </data>
+  <data name="FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName" xml:space="preserve">
+    <value>Resultaat initieel faalmechanisme</value>
+  </data>
+  <data name="FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName" xml:space="preserve">
+    <value>Faalkans initieel faalmechanisme per doorsnede
+[1/jaar]</value>
+  </data>
+  <data name="FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName" xml:space="preserve">
+    <value>Faalkans initieel faalmechanisme per vak
+[1/jaar]</value>
+  </data>
 </root>

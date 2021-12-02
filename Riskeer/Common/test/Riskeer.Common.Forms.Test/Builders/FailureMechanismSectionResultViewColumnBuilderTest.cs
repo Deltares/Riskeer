@@ -28,6 +28,7 @@ using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Forms;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Primitives;
 
@@ -164,6 +165,161 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(expectedWrapper.DisplayName, actualWrapper.DisplayName);
             }
         }
+
+        #region Initial Failure Mechanism Result
+
+        [Test]
+        public void AddInitialFailureMechanismResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Resultaat initieel faalmechanisme", columnData.HeaderText);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+
+                IEnumerable<EnumDisplayWrapper<InitialFailureMechanismResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<InitialFailureMechanismResultType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<InitialFailureMechanismResultType>[]) columnData.DataSource);
+            }
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultProfileProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultProfileProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultProfileProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Faalkans initieel faalmechanisme per doorsnede\r\n[1/jaar]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultSectionProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultSectionProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddInitialFailureMechanismResultSectionProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Faalkans initieel faalmechanisme per vak\r\n[1/jaar]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        #endregion
 
         #region Simple Assessment
 

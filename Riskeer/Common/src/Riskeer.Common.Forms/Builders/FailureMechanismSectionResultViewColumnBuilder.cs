@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Riskeer.AssemblyTool.Forms;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Primitives;
 
@@ -90,6 +91,85 @@ namespace Riskeer.Common.Forms.Builders
                        .Select(e => new EnumDisplayWrapper<T>(e))
                        .ToArray();
         }
+
+        #region Initial Failure Mechanism Result
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="InitialFailureMechanismResultType"/>.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddInitialFailureMechanismResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<InitialFailureMechanismResultType>> dataSource = CreateEnumDisplayWrappers<InitialFailureMechanismResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<InitialFailureMechanismResultType>.Value),
+                nameof(EnumDisplayWrapper<InitialFailureMechanismResultType>.DisplayName));
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the initial failure mechanism result probability per profile.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddInitialFailureMechanismResultProfileProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName);
+        }
+
+        /// <summary>
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing the initial failure mechanism result probability per section.
+        /// </summary>
+        /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
+        /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static void AddInitialFailureMechanismResultSectionProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        {
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            dataGridViewControl.AddTextBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName);
+        }
+
+        #endregion
 
         #region Assessment
 

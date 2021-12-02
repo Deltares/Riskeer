@@ -1837,6 +1837,37 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkans initieel faalmechanisme per doorsnede
+        ///[1/jaar].
+        /// </summary>
+        public static string FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_Displa" +
+                        "yName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans initieel faalmechanisme per vak
+        ///[1/jaar].
+        /// </summary>
+        public static string FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_Displa" +
+                        "yName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resultaat initieel faalmechanisme.
+        /// </summary>
+        public static string FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is relevant.
         /// </summary>
         public static string FailureMechanismResultView_IsRelevant_DisplayName {
