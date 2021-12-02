@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1833,6 +1833,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_InfoToolTip {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_InfoToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is relevant.
+        /// </summary>
+        public static string FailureMechanismResultView_IsRelevant_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_IsRelevant_DisplayName", resourceCulture);
             }
         }
         

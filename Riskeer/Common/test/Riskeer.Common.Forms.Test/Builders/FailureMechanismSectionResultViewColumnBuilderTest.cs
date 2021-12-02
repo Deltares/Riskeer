@@ -42,10 +42,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         public void AddSectionNameColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(null, "property");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dataGridViewControl", exception.ParamName);
         }
 
@@ -53,10 +53,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         public void AddSectionNameColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(new DataGridViewControl(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dataPropertyName", exception.ParamName);
         }
 
@@ -84,6 +84,55 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
                 Assert.AreEqual("Vak", columnData.HeaderText);
                 Assert.IsTrue(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddIsRelevantColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddIsRelevantColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddIsRelevantColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Is relevant", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
             }
         }
 

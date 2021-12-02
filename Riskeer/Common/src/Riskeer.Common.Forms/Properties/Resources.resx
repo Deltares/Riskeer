@@ -1588,4 +1588,7 @@ scenario
     <value>Faalkans per vak
 [1/jaar]</value>
   </data>
+  <data name="FailureMechanismResultView_IsRelevant_DisplayName" xml:space="preserve">
+    <value>Is relevant</value>
+  </data>
 </root>
