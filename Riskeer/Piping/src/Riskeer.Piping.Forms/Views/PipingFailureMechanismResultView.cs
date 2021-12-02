@@ -109,11 +109,11 @@ namespace Riskeer.Piping.Forms.Views
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.ManualInitialFailureMechanismResultProfileProbability));
+                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.ManualInitialFailureMechanismResultSectionProbability));
+                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(
                 DataGridViewControl,

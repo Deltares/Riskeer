@@ -126,17 +126,17 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.IsRelevant, row.IsRelevant);
             Assert.AreEqual(result.InitialFailureMechanismResult, row.InitialFailureMechanismResult);
-            Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.InitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
             Assert.AreEqual(result.ProbabilityRefinementType, row.ProbabilityRefinementType);
             Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
             Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(PipingFailureMechanismSectionResultRow.ManualInitialFailureMechanismResultProfileProbability));
+                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                nameof(PipingFailureMechanismSectionResultRow.ManualInitialFailureMechanismResultSectionProbability));
+                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.RefinedProfileProbability));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -166,10 +166,10 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [TestCaseSource(nameof(GetValidProbabilities))]
-        public void ManualInitialFailureMechanismResultProfileProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
+        public void InitialFailureMechanismResultProfileProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
         {
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.ManualInitialFailureMechanismResultProfileProbability = newValue,
+                row => row.InitialFailureMechanismResultProfileProbability = newValue,
                 result => result.ManualInitialFailureMechanismResultProfileProbability,
                 newValue);
         }
@@ -177,17 +177,17 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         [SetCulture("nl-NL")]
         [TestCaseSource(nameof(GetInvalidProbabilities))]
-        public void ManualInitialFailureMechanismResultProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        public void InitialFailureMechanismResultProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
-            ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.ManualInitialFailureMechanismResultProfileProbability = value);
+            ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.InitialFailureMechanismResultProfileProbability = value);
         }
 
         [Test]
         [TestCaseSource(nameof(GetValidProbabilities))]
-        public void ManualInitialFailureMechanismResultSectionProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
+        public void InitialFailureMechanismResultSectionProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
         {
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.ManualInitialFailureMechanismResultSectionProbability = newValue,
+                row => row.InitialFailureMechanismResultSectionProbability = newValue,
                 result => result.ManualInitialFailureMechanismResultSectionProbability,
                 newValue);
         }
@@ -195,9 +195,9 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         [SetCulture("nl-NL")]
         [TestCaseSource(nameof(GetInvalidProbabilities))]
-        public void ManualInitialFailureMechanismResultSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
+        public void InitialFailureMechanismResultSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
-            ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.ManualInitialFailureMechanismResultSectionProbability = value);
+            ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.InitialFailureMechanismResultSectionProbability = value);
         }
 
         [Test]
@@ -253,7 +253,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCaseSource(nameof(GetInvalidProbabilities))]
         public void RefinedSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
-            ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.ManualInitialFailureMechanismResultSectionProbability = value);
+            ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.RefinedSectionProbability = value);
         }
 
         private static void Property_SetNewValue_NotifyObserversAndPropertyChanged<T>(

@@ -101,11 +101,11 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the manual initial failure mechanism result per profile as a probability.
+        /// Gets or sets the value of the initial failure mechanism result per profile as a probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double ManualInitialFailureMechanismResultProfileProbability
+        public double InitialFailureMechanismResultProfileProbability
         {
             get => SectionResult.ManualInitialFailureMechanismResultProfileProbability;
             set
@@ -116,11 +116,11 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
+        /// Gets or sets the value of the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double ManualInitialFailureMechanismResultSectionProbability
+        public double InitialFailureMechanismResultSectionProbability
         {
             get => SectionResult.ManualInitialFailureMechanismResultSectionProbability;
             set
