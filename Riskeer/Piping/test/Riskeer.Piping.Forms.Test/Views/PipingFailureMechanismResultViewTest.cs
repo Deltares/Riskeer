@@ -25,6 +25,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
@@ -140,6 +141,39 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+
+            // Call
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                DataGridView dataGridView = GetDataGridView();
+
+                // Assert
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
+
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(columnCount, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(true, cells[isRelevantIndex].Value);
+                Assert.AreEqual(InitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultIndex].Value);
+                Assert.AreEqual("-", cells[initialFailureMechanismResultProfileProbabilityIndex].FormattedValue);
+                Assert.AreEqual("-", cells[initialFailureMechanismResultSectionProbabilityIndex].FormattedValue);
+                Assert.AreEqual(false, cells[furtherAnalysisNeededIndex].FormattedValue);
+                Assert.AreEqual(ProbabilityRefinementType.Section, cells[probabilityRefinementTypeIndex].Value);
+                Assert.AreEqual("-", cells[refinedProfileProbabilityIndex].FormattedValue);
+                Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
             }
         }
 
