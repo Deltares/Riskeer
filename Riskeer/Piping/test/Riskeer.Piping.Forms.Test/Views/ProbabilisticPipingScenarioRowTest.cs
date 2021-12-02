@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -56,8 +57,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new ProbabilisticPipingScenarioRow(calculation);
 
             // Assert
-            Assert.AreEqual(calculation.Output.ProfileSpecificOutput.Reliability, row.FailureProbability);
-            Assert.AreEqual(calculation.Output.SectionSpecificOutput.Reliability, row.SectionFailureProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(calculation.Output.ProfileSpecificOutput.Reliability), row.FailureProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(calculation.Output.SectionSpecificOutput.Reliability), row.SectionFailureProbability);
         }
 
         [Test]
@@ -89,8 +90,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             calculation.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints();
 
             // Then
-            Assert.AreEqual(calculation.Output.ProfileSpecificOutput.Reliability, row.FailureProbability);
-            Assert.AreEqual(calculation.Output.SectionSpecificOutput.Reliability, row.SectionFailureProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(calculation.Output.ProfileSpecificOutput.Reliability), row.FailureProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(calculation.Output.SectionSpecificOutput.Reliability), row.SectionFailureProbability);
         }
 
         [Test]
@@ -104,8 +105,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new ProbabilisticPipingScenarioRow(calculation);
 
             // Precondition
-            Assert.AreEqual(calculation.Output.ProfileSpecificOutput.Reliability, row.FailureProbability);
-            Assert.AreEqual(calculation.Output.SectionSpecificOutput.Reliability, row.SectionFailureProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(calculation.Output.ProfileSpecificOutput.Reliability), row.FailureProbability);
+            Assert.AreEqual(StatisticsConverter.ReliabilityToProbability(calculation.Output.SectionSpecificOutput.Reliability), row.SectionFailureProbability);
 
             // When
             calculation.Output = null;

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Util;
 using Riskeer.Piping.Data.Probabilistic;
 
 namespace Riskeer.Piping.Forms.Views
@@ -37,25 +38,15 @@ namespace Riskeer.Piping.Forms.Views
         internal ProbabilisticPipingScenarioRow(ProbabilisticPipingCalculationScenario calculationScenario)
             : base(calculationScenario) {}
 
-        public override double FailureProbability
-        {
-            get
-            {
-                return CalculationScenario.HasOutput
-                           ? CalculationScenario.Output.ProfileSpecificOutput.Reliability
-                           : double.NaN;
-            }
-        }
+        public override double FailureProbability =>
+            CalculationScenario.HasOutput
+                ? StatisticsConverter.ReliabilityToProbability(CalculationScenario.Output.ProfileSpecificOutput.Reliability)
+                : double.NaN;
 
-        public override double SectionFailureProbability
-        {
-            get
-            {
-                return CalculationScenario.HasOutput
-                           ? CalculationScenario.Output.SectionSpecificOutput.Reliability
-                           : double.NaN;
-            }
-        }
+        public override double SectionFailureProbability =>
+            CalculationScenario.HasOutput
+                ? StatisticsConverter.ReliabilityToProbability(CalculationScenario.Output.SectionSpecificOutput.Reliability)
+                : double.NaN;
 
         public override void Update() {}
     }
