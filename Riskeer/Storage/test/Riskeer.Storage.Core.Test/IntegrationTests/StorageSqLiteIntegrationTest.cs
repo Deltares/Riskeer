@@ -1185,6 +1185,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedFailureMechanism,
                                                          PipingFailureMechanism actualFailureMechanism)
         {
+            Assert.AreEqual(expectedFailureMechanism.ScenarioConfigurationType, actualFailureMechanism.ScenarioConfigurationType);
             AssertPipingProbabilityAssessmentInput(expectedFailureMechanism.PipingProbabilityAssessmentInput, actualFailureMechanism.PipingProbabilityAssessmentInput);
             AssertPipingStochasticSoilModels(expectedFailureMechanism.StochasticSoilModels, actualFailureMechanism.StochasticSoilModels);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
@@ -1193,6 +1194,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
                                      actualFailureMechanism.SurfaceLines,
                                      AssertPipingSurfaceLine);
+            AssertCollectionAndItems(expectedFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection,
+                                     actualFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection,
+                                     AssertPipingScenarioConfigurationPerFailureMechanismSection);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -1243,6 +1247,20 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertComments(expectedPipingCalculation.Comments, actualPipingCalculation.Comments);
 
             AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
+        }
+
+        private static void AssertPipingScenarioConfigurationPerFailureMechanismSection(
+            PipingScenarioConfigurationPerFailureMechanismSection expectedConfiguration,
+            PipingScenarioConfigurationPerFailureMechanismSection actualConfiguration)
+        {
+            AssertFailureMechanismSections(new[]
+            {
+                expectedConfiguration.Section
+            }, new[]
+            {
+                actualConfiguration.Section
+            });
+            Assert.AreEqual(expectedConfiguration.ScenarioConfigurationType, actualConfiguration.ScenarioConfigurationType);
         }
 
         private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)

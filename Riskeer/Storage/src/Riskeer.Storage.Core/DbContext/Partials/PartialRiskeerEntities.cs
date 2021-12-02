@@ -112,6 +112,7 @@ namespace Riskeer.Storage.Core.DbContext
             PipingCharacteristicPointEntities.Load();
             PipingFailureMechanismMetaEntities.Load();
             PipingSectionResultEntities.Load();
+            PipingScenarioConfigurationPerFailureMechanismSectionEntities.Load();
             PipingSoilLayerEntities.Load();
             PipingSoilProfileEntities.Load();
             PipingStructureFailureMechanismMetaEntities.Load();

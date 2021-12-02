@@ -138,6 +138,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
             SetSections(pipingFailureMechanism);
             SetSectionResults(pipingFailureMechanism.SectionResultsOld);
+            SetSectionConfigurations(pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
@@ -1239,6 +1240,15 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
             }
         }
+
+        private static void SetSectionConfigurations(IEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> sectionConfigurations)
+        {
+            var random = new Random(21);
+            foreach (PipingScenarioConfigurationPerFailureMechanismSection sectionConfiguration in sectionConfigurations)
+            {
+                sectionConfiguration.ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
+            }
+        } 
 
         private static PipingSurfaceLine GetSurfaceLine()
         {
