@@ -419,10 +419,10 @@ namespace Riskeer.Piping.Data.Test
         #region Semi-probabilistic
 
         [Test]
-        public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
+            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetInitialFailureMechanismResultProbability(
                 null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert
@@ -431,14 +431,14 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_CalculationScenariosNull_ThrowsArgumentNullException()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, 0.1);
+            void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null, 0.1);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -446,7 +446,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -477,28 +477,28 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 0.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculations, 0.1);
 
             // Assert
-            Assert.AreEqual(4.2467174336864661e-7, detailedAssessmentProbability);
+            Assert.AreEqual(4.2467174336864661e-7, initialFailureMechanismResultProbability);
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert
-            Assert.IsNaN(detailedAssessmentProbability);
+            Assert.IsNaN(initialFailureMechanismResultProbability);
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_NoRelevantScenarios_ReturnsNaN()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_NoRelevantScenarios_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -510,14 +510,14 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, 0.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, 0.1);
 
             // Assert
-            Assert.IsNaN(detailedAssessmentProbability);
+            Assert.IsNaN(initialFailureMechanismResultProbability);
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_ScenarioNotCalculated_ReturnsNaN()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_ScenarioNotCalculated_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -527,17 +527,17 @@ namespace Riskeer.Piping.Data.Test
                 SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(new[]
             {
                 pipingCalculationScenario
             }, 0.1);
 
             // Assert
-            Assert.IsNaN(detailedAssessmentProbability);
+            Assert.IsNaN(initialFailureMechanismResultProbability);
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -565,17 +565,17 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, 0.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculations, 0.1);
 
             // Assert
-            Assert.IsNaN(detailedAssessmentProbability);
+            Assert.IsNaN(initialFailureMechanismResultProbability);
         }
 
         [Test]
         [TestCase(0.0, 0.0)]
         [TestCase(0.0, 0.5)]
         [TestCase(0.3, 0.7 + 1e-5)]
-        public void GetDetailedAssessmentProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -589,14 +589,14 @@ namespace Riskeer.Piping.Data.Test
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
+            double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(new[]
             {
                 pipingCalculationScenarioA,
                 pipingCalculationScenarioB
             }, 0.1);
 
             // Assert
-            Assert.IsNaN(detailedAssessmentProbability);
+            Assert.IsNaN(initialFailureMechanismResultProbability);
         }
 
         #endregion

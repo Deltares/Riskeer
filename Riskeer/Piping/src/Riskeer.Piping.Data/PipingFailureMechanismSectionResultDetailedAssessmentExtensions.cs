@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data
     public static class PipingFailureMechanismSectionResultDetailedAssessmentExtensions
     {
         /// <summary>
-        /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
+        /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
@@ -47,8 +47,8 @@ namespace Riskeer.Piping.Data
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetInitialFailureMechanismResultProbability(this PipingFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<ProbabilisticPipingCalculationScenario> calculationScenarios,
-                                                              Func<ProbabilisticPipingCalculationScenario, IPartialProbabilisticPipingOutput> getOutputFunc)
+                                                                         IEnumerable<ProbabilisticPipingCalculationScenario> calculationScenarios,
+                                                                         Func<ProbabilisticPipingCalculationScenario, IPartialProbabilisticPipingOutput> getOutputFunc)
         {
             if (sectionResult == null)
             {
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Data
         }
 
         /// <summary>
-        /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
+        /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
         /// <param name="calculationScenarios">All semi probabilistic calculation scenarios in the failure mechanism.</param>
@@ -87,9 +87,9 @@ namespace Riskeer.Piping.Data
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
-                                                              double norm)
+        public static double GetInitialFailureMechanismResultProbability(this PipingFailureMechanismSectionResult sectionResult,
+                                                                         IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
+                                                                         double norm)
         {
             if (sectionResult == null)
             {
