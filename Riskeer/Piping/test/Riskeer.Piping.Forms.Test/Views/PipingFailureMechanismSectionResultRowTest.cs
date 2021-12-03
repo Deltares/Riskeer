@@ -126,8 +126,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.IsRelevant, row.IsRelevant);
             Assert.AreEqual(result.InitialFailureMechanismResult, row.InitialFailureMechanismResult);
-            Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.InitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(0.43485793401079542, row.InitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(0.43543774458947654, row.InitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
             Assert.AreEqual(result.ProbabilityRefinementType, row.ProbabilityRefinementType);
             Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -143,6 +143,46 @@ namespace Riskeer.Piping.Forms.Test.Views
                 nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
             mocks.VerifyAll();
         }
+
+        [Test]
+        [TestCase(InitialFailureMechanismResultType.Manual)]
+        [TestCase(InitialFailureMechanismResultType.NoFailureProbability)]
+        public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(InitialFailureMechanismResultType newValue)
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
+            {
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
+            };
+
+            var row = new PipingFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, assessmentSection);
+
+            // Precondition
+            Assert.AreEqual(0.43485793401079542, row.InitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(0.43543774458947654, row.InitialFailureMechanismResultSectionProbability);
+
+            // When
+            row.InitialFailureMechanismResult = newValue;
+
+            // Then
+            Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.InitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
+            mocks.VerifyAll();
+        }
+
+        #region Registration
 
         [Test]
         public void IsRelevant_SetNewValue_NotifyObserversAndPropertyChanged()
@@ -302,7 +342,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
-            var row = new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<IPipingCalculationScenario<PipingInput>>(),
+            var row = new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                                                  failureMechanism, assessmentSection);
 
             // Call
@@ -313,7 +353,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll();
         }
-        
+
         private static IEnumerable<TestCaseData> GetValidProbabilities()
         {
             yield return new TestCaseData(0);
@@ -330,5 +370,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             yield return new TestCaseData(1 + 1e-6);
             yield return new TestCaseData(12);
         }
+
+        #endregion
     }
 }
