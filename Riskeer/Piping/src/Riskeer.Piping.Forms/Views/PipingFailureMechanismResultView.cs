@@ -65,15 +65,17 @@ namespace Riskeer.Piping.Forms.Views
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                   .Select(c => c.InputParameters)));
+                                                   .OfType<IPipingCalculationScenario<PipingInput>>()
+                                                   .Select(c => c.InputParameters)))
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
-                c => c.Children);
-
-            CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
-            calculationInputObserver.Observable = observableGroup;
-            calculationGroupObserver.Observable = observableGroup;
+                c => c.Children)
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
         }
 
         protected override void Dispose(bool disposing)

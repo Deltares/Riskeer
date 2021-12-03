@@ -29,6 +29,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Forms.Test.Views
@@ -174,6 +175,60 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(ProbabilityRefinementType.Section, cells[probabilityRefinementTypeIndex].Value);
                 Assert.AreEqual("-", cells[refinedProfileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
+            }
+        }
+
+        [Test]
+        public void GivenPipingFailureMechanismResultView_WhenCalculationUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+
+            var calculationScenario = new TestPipingCalculationScenario();
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                // When
+                calculationScenario.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+            }
+        }
+
+        [Test]
+        public void GivenPipingFailureMechanismResultView_WhenCalculationInputUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+
+            var calculationScenario = new TestPipingCalculationScenario();
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                // When
+                calculationScenario.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
             }
         }
 
