@@ -36,13 +36,13 @@ using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultDetailedAssessmentExtensionsTest
+    public class PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensionsTest
     {
         [Test]
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetTotalContribution<IPipingCalculationScenario<PipingInput>>(
+            void Call() => PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetTotalContribution<IPipingCalculationScenario<PipingInput>>(
                 null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>());
 
             // Assert
@@ -137,7 +137,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetCalculationScenarios<IPipingCalculationScenario<PipingInput>>(
+            void Call() => PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetCalculationScenarios<IPipingCalculationScenario<PipingInput>>(
                 null, Enumerable.Empty<IPipingCalculationScenario<PipingInput>>());
 
             // Assert
@@ -256,7 +256,7 @@ namespace Riskeer.Piping.Data.Test
         public void ProbabilisticGetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetInitialFailureMechanismResultProbability(
+            void Call() => PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
                 null, Enumerable.Empty<ProbabilisticPipingCalculationScenario>(), scenario => null);
 
             // Assert
@@ -459,7 +459,7 @@ namespace Riskeer.Piping.Data.Test
         public void SemiProbabilisticGetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetInitialFailureMechanismResultProbability(
+            void Call() => PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
                 null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert

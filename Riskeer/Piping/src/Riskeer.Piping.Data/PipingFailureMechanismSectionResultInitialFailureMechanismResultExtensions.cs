@@ -32,9 +32,9 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the piping failure mechanism.
+    /// Extension methods for obtaining initial failure mechanism result probabilities from output for an assessment of the piping failure mechanism.
     /// </summary>
-    public static class PipingFailureMechanismSectionResultDetailedAssessmentExtensions
+    public static class PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions
     {
         /// <summary>
         /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
