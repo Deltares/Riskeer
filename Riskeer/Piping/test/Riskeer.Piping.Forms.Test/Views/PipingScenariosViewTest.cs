@@ -40,6 +40,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -334,7 +335,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        public void PipingScenarioView_SemiProbabilisticCalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
             ShowFullyConfiguredPipingScenariosView(new PipingFailureMechanism());
@@ -366,6 +367,47 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4), cells[failureProbabilityPipingColumnIndex].FormattedValue);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(2.44140625e-4), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void PipingScenarioView_ProbabilisticCalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = PipingScenarioConfigurationType.Probabilistic
+            };
+
+            // Call
+            ShowFullyConfiguredPipingScenariosView(failureMechanism);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(8, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 3", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(null, cells[failureProbabilityUpliftColumnIndex].Value);
+            Assert.AreEqual(null, cells[failureProbabilityHeaveColumnIndex].Value);
+            Assert.AreEqual(null, cells[failureProbabilitySellmeijerColumnIndex].Value);
+            Assert.AreEqual("-", cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(8, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 4", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(null, cells[failureProbabilityUpliftColumnIndex].Value);
+            Assert.AreEqual(null, cells[failureProbabilityHeaveColumnIndex].Value);
+            Assert.AreEqual(null, cells[failureProbabilitySellmeijerColumnIndex].Value);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), cells[failureProbabilityPipingColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.25), cells[sectionFailureProbabilityPipingColumnIndex].FormattedValue);
         }
 
         [Test]
@@ -978,7 +1020,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 })
             });
 
-            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            failureMechanism.CalculationsGroup.Children.AddRange(new IPipingCalculationScenario<PipingInput>[]
             {
                 new SemiProbabilisticPipingCalculationScenario
                 {
@@ -1016,6 +1058,43 @@ namespace Riskeer.Piping.Forms.Test.Views
                         ExitPointL = (RoundedDouble) 8.8888
                     },
                     Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024)
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 3",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine1,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 1.1111
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 2.2222
+                        },
+                        EntryPointL = (RoundedDouble) 3.3333,
+                        ExitPointL = (RoundedDouble) 4.4444
+                    }
+                },
+                new ProbabilisticPipingCalculationScenario
+                {
+                    Name = "Calculation 4",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine2,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 5.5555
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 6.6666
+                        },
+                        EntryPointL = (RoundedDouble) 7.7777,
+                        ExitPointL = (RoundedDouble) 8.8888
+                    },
+                    Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutputWithoutIllustrationPoints()
                 }
             });
         }
