@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Util;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data
@@ -38,7 +40,48 @@ namespace Riskeer.Piping.Data
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
-        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
+        /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
+        /// <param name="getOutputFunc">The func to get the output from a calculation scenario.</param>
+        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
+        /// are no relevant calculations, when not all relevant calculations are performed or when the
+        /// contribution of the relevant calculations don't add up to 1.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static double GetInitialFailureMechanismResultProbability(this PipingFailureMechanismSectionResult sectionResult,
+                                                              IEnumerable<ProbabilisticPipingCalculationScenario> calculationScenarios,
+                                                              Func<ProbabilisticPipingCalculationScenario, IPartialProbabilisticPipingOutput> getOutputFunc)
+        {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            if (getOutputFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getOutputFunc));
+            }
+
+            ProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios<ProbabilisticPipingCalculationScenario>(
+                                                                                          calculationScenarios)
+                                                                                      .ToArray();
+
+            if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
+            {
+                return double.NaN;
+            }
+
+            return relevantScenarios.Sum(scenario => StatisticsConverter.ReliabilityToProbability(getOutputFunc(scenario).Reliability) * (double) scenario.Contribution);
+        }
+
+        /// <summary>
+        /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
+        /// </summary>
+        /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
+        /// <param name="calculationScenarios">All semi probabilistic calculation scenarios in the failure mechanism.</param>
         /// <param name="norm">The norm to assess for.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
@@ -58,7 +101,9 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            SemiProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
+            SemiProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios<SemiProbabilisticPipingCalculationScenario>(
+                                                                                              calculationScenarios)
+                                                                                          .ToArray();
 
             if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
@@ -84,7 +129,7 @@ namespace Riskeer.Piping.Data
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult sectionResult,
-                                                         IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios)
+                                                         IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios)
         {
             if (sectionResult == null)
             {
@@ -97,7 +142,7 @@ namespace Riskeer.Piping.Data
             }
 
             return (RoundedDouble) sectionResult
-                                   .GetCalculationScenarios(calculationScenarios)
+                                   .GetCalculationScenarios<IPipingCalculationScenario<PipingInput>>(calculationScenarios)
                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
@@ -106,11 +151,13 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the relevant scenarios for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to get the relevant scenarios from.</param>
+        /// <typeparam name="T">The type of the calculation scenarios.</typeparam>
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<SemiProbabilisticPipingCalculationScenario> GetCalculationScenarios(
+        public static IEnumerable<T> GetCalculationScenarios<T>(
             this PipingFailureMechanismSectionResult sectionResult,
-            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios)
+            IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios)
+            where T : IPipingCalculationScenario<PipingInput>
         {
             if (sectionResult == null)
             {
@@ -124,8 +171,8 @@ namespace Riskeer.Piping.Data
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(sectionResult.Section.Points);
 
-            return calculationScenarios
-                .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+            return calculationScenarios.OfType<T>()
+                                       .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
     }
 }
