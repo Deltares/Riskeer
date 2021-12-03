@@ -30,8 +30,8 @@ namespace Riskeer.AssemblyTool.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
             var random = new Random(11);
-
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 

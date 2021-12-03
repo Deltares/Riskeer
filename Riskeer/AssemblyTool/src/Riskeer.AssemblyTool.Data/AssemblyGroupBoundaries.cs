@@ -22,7 +22,7 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Assembly category base.
+    /// Base class for holding data of the assembly group boundaries.
     /// </summary>
     public abstract class AssemblyGroupBoundaries
     {
