@@ -80,6 +80,9 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanismSection(reader, sourceFilePath);
+
+                    AssertPipingFailureMechanism(reader, sourceFilePath);
+                    AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -107,7 +110,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
                 "AND NEW.[CalculationsInputComments] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
-            
+
             reader.AssertReturnedDataIsValid(validateFailureMechanism);
         }
 
@@ -287,6 +290,46 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() = 0 " +
                 "FROM [DuneLocationCalculationOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        private static void AssertPipingFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingFailureMechanismMetaEntity " +
+                ") " +
+                "FROM PipingFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingFailureMechanismMetaEntity OLD USING(PipingFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[A] = OLD.[A] " +
+                "AND NEW.[WaterVolumetricWeight] = OLD.[WaterVolumetricWeight] " +
+                "AND NEW.[StochasticSoilModelCollectionSourcePath] IS OLD.[StochasticSoilModelCollectionSourcePath] " +
+                "AND NEW.[SurfaceLineCollectionSourcePath] IS OLD.[SurfaceLineCollectionSourcePath] " +
+                "AND NEW.[PipingScenarioConfigurationType] = 1; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismMetaEntity);
+        }
+
+        private static void AssertPipingScenarioConfigurationPerFailureMechanismSection(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validatePipingScenarioConfigurationPerFailureMechanismSectionEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "JOIN SOURCEPROJECT.FailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
+                "WHERE FailureMechanismType = 1 " +
+                ") " +
+                "FROM PipingScenarioConfigurationPerFailureMechanismSectionEntity NEW " +
+                "WHERE NEW.[PipingScenarioConfigurationPerFailureMechanismSectionType] = 1;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validatePipingScenarioConfigurationPerFailureMechanismSectionEntity);
         }
 
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)

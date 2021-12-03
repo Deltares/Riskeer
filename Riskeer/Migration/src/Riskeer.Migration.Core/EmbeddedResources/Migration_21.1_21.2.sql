@@ -235,7 +235,35 @@ INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity SELECT * FROM [SOUR
 INSERT INTO MacroStabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
-INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
+
+INSERT INTO PipingFailureMechanismMetaEntity (
+    [PipingFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [A],
+    [WaterVolumetricWeight],
+    [StochasticSoilModelCollectionSourcePath],
+    [SurfaceLineCollectionSourcePath],
+    [PipingScenarioConfigurationType])
+SELECT
+    [PipingFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [A],
+    [WaterVolumetricWeight],
+    [StochasticSoilModelCollectionSourcePath],
+    [SurfaceLineCollectionSourcePath],
+    1
+FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
+
+INSERT INTO PipingScenarioConfigurationPerFailureMechanismSectionEntity (
+    [FailureMechanismSectionEntityId],
+    [PipingScenarioConfigurationPerFailureMechanismSectionType])
+SELECT 
+    [FailureMechanismSectionEntityId],
+    1
+FROM [SOURCEPROJECT].FailureMechanismEntity
+JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING (FailureMechanismEntityId)
+WHERE FailureMechanismType = 1;
+
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSoilLayerEntity SELECT * FROM [SOURCEPROJECT].PipingSoilLayerEntity;
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
