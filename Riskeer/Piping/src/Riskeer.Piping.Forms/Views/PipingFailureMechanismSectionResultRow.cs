@@ -33,6 +33,14 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
     {
+        private readonly int initialFailureMechanismResultIndex;
+        private readonly int initialFailureMechanismResultProfileProbabilityIndex;
+        private readonly int initialFailureMechanismResultSectionProbabilityIndex;
+        private readonly int furtherAnalysisNeededIndex;
+        private readonly int probabilityRefinementTypeIndex;
+        private readonly int refinedProfileProbabilityIndex;
+        private readonly int refinedSectionProbabilityIndex;
+
         private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
 
         /// <summary>
@@ -171,5 +179,46 @@ namespace Riskeer.Piping.Forms.Views
         }
 
         public override void Update() {}
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="PipingFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Sets the initial failure mechanism result index.
+            /// </summary>
+            public int initialFailureMechanismResultIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the initial failure mechanism result profile probability index.
+            /// </summary>
+            public int initialFailureMechanismResultProfileProbabilityIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the initial failure mechanism result section probability index.
+            /// </summary>
+            public int initialFailureMechanismResultSectionProbabilityIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the further analysis needed index.
+            /// </summary>
+            public int furtherAnalysisNeededIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the probability refinement type index.
+            /// </summary>
+            public int probabilityRefinementTypeIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the refined profile probability index.
+            /// </summary>
+            public int refinedProfileProbabilityIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the refined section probability index.
+            /// </summary>
+            public int refinedSectionProbabilityIndex { internal get; set; }
+        }
     }
 }
