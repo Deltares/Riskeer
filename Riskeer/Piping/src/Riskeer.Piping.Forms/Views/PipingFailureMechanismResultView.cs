@@ -39,6 +39,7 @@ namespace Riskeer.Piping.Forms.Views
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerSectionObserver;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -76,12 +77,20 @@ namespace Riskeer.Piping.Forms.Views
             {
                 Observable = failureMechanism.CalculationsGroup
             };
+
+            scenarioConfigurationsPerSectionObserver = new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
+                UpdateView,
+                sc => sc)
+            {
+                Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+            };
         }
 
         protected override void Dispose(bool disposing)
         {
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
+            scenarioConfigurationsPerSectionObserver.Dispose();
 
             base.Dispose(disposing);
         }

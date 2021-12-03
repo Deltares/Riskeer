@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -179,7 +180,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
+        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -209,7 +210,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationInputUpdatedAndNotifiesObservers_ThenDataGridViewUpdated()
+        public void GivenPipingFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -232,6 +233,33 @@ namespace Riskeer.Piping.Forms.Test.Views
                 
                 // When
                 calculationScenario.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+            }
+        }
+
+        [Test]
+        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                
+                // When
+                failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
