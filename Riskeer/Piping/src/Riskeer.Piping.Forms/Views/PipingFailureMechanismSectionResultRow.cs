@@ -218,18 +218,33 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateColumnStateDefinitions()
         {
-            bool initialFailureMechanismResultNoFailureProbability = InitialFailureMechanismResult == InitialFailureMechanismResultType.NoFailureProbability;
-            
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex], 
-                                             !IsRelevant || initialFailureMechanismResultNoFailureProbability);
-                                              
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex],
-                                             !IsRelevant || initialFailureMechanismResultNoFailureProbability);
+
+            if (!IsRelevant || InitialFailureMechanismResult == InitialFailureMechanismResultType.NoFailureProbability)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
+            }
+            else
+            {
+                bool initialFailureMechanismResultAdopt = InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt;
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex], initialFailureMechanismResultAdopt);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex], initialFailureMechanismResultAdopt);
+            }
+            
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[probabilityRefinementTypeIndex], !IsRelevant || !FurtherAnalysisNeeded);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[refinedProfileProbabilityIndex], !IsRelevant || !FurtherAnalysisNeeded);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[refinedSectionProbabilityIndex], !IsRelevant || !FurtherAnalysisNeeded);
+
+            if (!IsRelevant || !FurtherAnalysisNeeded)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex], ProbabilityRefinementType == ProbabilityRefinementType.Section);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex], ProbabilityRefinementType == ProbabilityRefinementType.Profile);
+            }
         }
 
         /// <summary>
