@@ -36,7 +36,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public TestAssemblyToolKernelFactory()
         {
-            LastCreatedCategoryLimitsKernel = new CategoryLimitsKernelStub();
+            LastCreatedAssemblyCategoryLimitsKernel = new AssemblyCategoryLimitsKernelStub();
             LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStub();
             LastCreatedFailurePathAssemblyKernel = new FailurePathAssemblyKernelStub();
         }
@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// <summary>
         /// Gets the last created category limits kernel.
         /// </summary>
-        public CategoryLimitsKernelStub LastCreatedCategoryLimitsKernel { get; }
+        public AssemblyCategoryLimitsKernelStub LastCreatedAssemblyCategoryLimitsKernel { get; }
 
         /// <summary>
         /// Gets the last created failure mechanism section assembly kernel.
@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
-            return LastCreatedCategoryLimitsKernel;
+            return LastCreatedAssemblyCategoryLimitsKernel;
         }
 
         public IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel()

@@ -78,7 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
+                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
@@ -104,7 +104,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
+                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
@@ -131,7 +131,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
+                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 var categoryLimits = new CategoriesList<InterpretationCategory>(new[]
                 {
                     new InterpretationCategory((EInterpretationCategory) 99, new Probability(0), new Probability(1))
@@ -162,7 +162,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
+                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 categoryLimitsKernel.ThrowExceptionOnCalculate = true;
 
                 var calculator = new AssemblyGroupBoundariesCalculator(factory);
@@ -189,7 +189,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedCategoryLimitsKernel;
+                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 categoryLimitsKernel.ThrowAssemblyExceptionOnCalculate = true;
 
                 var calculator = new AssemblyGroupBoundariesCalculator(factory);

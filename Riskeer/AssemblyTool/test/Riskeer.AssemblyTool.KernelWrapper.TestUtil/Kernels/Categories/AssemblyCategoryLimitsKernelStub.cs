@@ -28,9 +28,9 @@ using Assembly.Kernel.Model.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 {
     /// <summary>
-    /// Category limits kernel stub for testing purposes.
+    /// Assembly category limits kernel stub for testing purposes.
     /// </summary>
-    public class CategoryLimitsKernelStub : ICategoryLimitsCalculator
+    public class AssemblyCategoryLimitsKernelStub : ICategoryLimitsCalculator
     {
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
