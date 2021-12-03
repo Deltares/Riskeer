@@ -39,10 +39,10 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
+        /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
         /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
         /// <param name="getOutputFunc">The func to get the output from a calculation scenario.</param>
-        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
+        /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -82,10 +82,10 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
+        /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
         /// <param name="calculationScenarios">All semi probabilistic calculation scenarios in the failure mechanism.</param>
         /// <param name="norm">The norm to assess for.</param>
-        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
+        /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -114,15 +114,15 @@ namespace Riskeer.Piping.Data
                 return double.NaN;
             }
 
-            double totalDetailedAssessmentProbability = 0;
+            double totalInitialFailureMechanismResult = 0;
             foreach (SemiProbabilisticPipingCalculationScenario scenario in relevantScenarios)
             {
                 DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(scenario.Output, norm);
 
-                totalDetailedAssessmentProbability += derivedOutput.PipingProbability * (double) scenario.Contribution;
+                totalInitialFailureMechanismResult += derivedOutput.PipingProbability * (double) scenario.Contribution;
             }
 
-            return totalDetailedAssessmentProbability;
+            return totalInitialFailureMechanismResult;
         }
 
         /// <summary>

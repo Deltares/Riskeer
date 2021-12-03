@@ -339,11 +339,11 @@ namespace Riskeer.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(
                 Enumerable.Empty<ProbabilisticPipingCalculationScenario>(), scenario => scenario.Output.ProfileSpecificOutput);
 
             // Assert
-            Assert.IsNaN(detailedAssessmentProbability);
+            Assert.IsNaN(initialFailureMechanismResultProbability);
         }
 
         [Test]
