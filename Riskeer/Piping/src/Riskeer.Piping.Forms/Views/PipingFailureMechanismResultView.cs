@@ -24,9 +24,11 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
@@ -97,11 +99,7 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
-            return new PipingFailureMechanismSectionResultRow(
-                sectionResult,
-                new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                    sectionResult, FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
-                    FailureMechanism, assessmentSection));
+            return new PipingFailureMechanismSectionResultRow(sectionResult, CreateCalculateStrategy(sectionResult));
         }
 
         protected override void AddDataGridColumns()
@@ -141,6 +139,48 @@ namespace Riskeer.Piping.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
+        }
+
+        private IPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)
+        {
+            if (FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic)
+            {
+                return CreateSemiProbabilisticCalculateStrategy(sectionResult);
+            }
+
+            if (FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.Probabilistic)
+            {
+                return CreateProbabilisticCalculateStrategy(sectionResult);
+            }
+
+            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = GetScenarioConfigurationForSection(sectionResult);
+
+            if (scenarioConfigurationForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
+            {
+                return CreateSemiProbabilisticCalculateStrategy(sectionResult);
+            }
+
+            return CreateProbabilisticCalculateStrategy(sectionResult);
+        }
+
+        private ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateProbabilisticCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)
+        {
+            return new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
+                sectionResult, FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>());
+        }
+
+        private SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateSemiProbabilisticCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)
+        {
+            return new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
+                sectionResult, FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
+                FailureMechanism, assessmentSection);
+        }
+
+        private PipingScenarioConfigurationPerFailureMechanismSection GetScenarioConfigurationForSection(IFailureMechanismSectionResult sectionResult)
+        {
+            return FailureMechanism.ScenarioConfigurationsPerFailureMechanismSection
+                                   .Single(sc => sc.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
+                                                 && sc.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
         }
     }
 }

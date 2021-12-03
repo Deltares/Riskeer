@@ -30,7 +30,11 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil.Probabilistic;
+using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Forms.Test.Views
@@ -147,14 +151,33 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
+        [TestCase(PipingScenarioConfigurationType.SemiProbabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "1/31")]
+        [TestCase(PipingScenarioConfigurationType.Probabilistic, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "1/4")]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic, "1/31")]
+        [TestCase(PipingScenarioConfigurationType.PerFailureMechanismSection, PipingScenarioConfigurationPerFailureMechanismSectionType.Probabilistic, "1/4")]
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized(
+            PipingScenarioConfigurationType scenarioConfigurationType,
+            PipingScenarioConfigurationPerFailureMechanismSectionType scenarioConfigurationPerFailureMechanismSectionType,
+            string probability)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            
+            var failureMechanism = new PipingFailureMechanism
+            {
+                ScenarioConfigurationType = scenarioConfigurationType
+            };
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+                section
             });
+
+            failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType;
+            
+            failureMechanism.CalculationsGroup.Children.Add(
+                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section));
+            failureMechanism.CalculationsGroup.Children.Add(
+                ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section));
 
             // Call
             using (ShowFailureMechanismResultsView(failureMechanism))
@@ -170,8 +193,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(true, cells[isRelevantIndex].Value);
                 Assert.AreEqual(InitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultIndex].Value);
-                Assert.AreEqual("-", cells[initialFailureMechanismResultProfileProbabilityIndex].FormattedValue);
-                Assert.AreEqual("-", cells[initialFailureMechanismResultSectionProbabilityIndex].FormattedValue);
+                Assert.AreEqual(probability, cells[initialFailureMechanismResultProfileProbabilityIndex].FormattedValue);
+                Assert.AreEqual(probability, cells[initialFailureMechanismResultSectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[furtherAnalysisNeededIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityRefinementType.Section, cells[probabilityRefinementTypeIndex].Value);
                 Assert.AreEqual("-", cells[refinedProfileProbabilityIndex].FormattedValue);
