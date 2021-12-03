@@ -84,12 +84,11 @@ namespace Riskeer.Common.Data.AssemblyTool
                                                                         double refinedProfileProbability, double refinedSectionProbability)
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            return new FailureMechanismSectionAssemblyInput(failureMechanismContribution.SignalingNorm,
-                                                            failureMechanismContribution.LowerLimitNorm,
-                                                            isRelevant,
-                                                            initialProfileProbability, initialSectionProbability,
-                                                            furtherAnalysisNeeded,
-                                                            refinedProfileProbability, refinedSectionProbability);
+            return new FailureMechanismSectionAssemblyInput(failureMechanismContribution.LowerLimitNorm,
+                                                            failureMechanismContribution.SignalingNorm,
+                                                            isRelevant, initialProfileProbability,
+                                                            initialSectionProbability,
+                                                            furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
         }
     }
 }

@@ -96,11 +96,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             const double lowerLimitNorm = 0.001;
 
             var random = new Random(21);
-            var input = new FailureMechanismSectionAssemblyInput(signalingNorm, lowerLimitNorm,
-                                                                 random.NextBoolean(),
-                                                                 random.NextDouble(), random.NextDouble(),
-                                                                 random.NextBoolean(),
-                                                                 random.NextDouble(), random.NextDouble());
+            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm,
+                                                                 signalingNorm,
+                                                                 random.NextBoolean(), random.NextDouble(),
+                                                                 random.NextDouble(),
+                                                                 random.NextBoolean(), random.NextDouble(), random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -263,11 +263,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             const double signalingNorm = 0.0001;
 
             var random = new Random(21);
-            return new FailureMechanismSectionAssemblyInput(signalingNorm, lowerLimitNorm,
-                                                            random.NextBoolean(),
-                                                            random.NextDouble(), random.NextDouble(),
-                                                            random.NextBoolean(),
-                                                            random.NextDouble(), random.NextDouble());
+            return new FailureMechanismSectionAssemblyInput(lowerLimitNorm,
+                                                            signalingNorm,
+                                                            random.NextBoolean(), random.NextDouble(),
+                                                            random.NextDouble(),
+                                                            random.NextBoolean(), random.NextDouble(), random.NextDouble());
         }
 
         private static CategoriesList<InterpretationCategory> CreateCategoryLimits()

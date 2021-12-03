@@ -39,10 +39,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(null);
+            void Call() => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("categories", exception.ParamName);
         }
 
@@ -78,11 +78,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(categories);
+            void Call() => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(categories);
 
             // Assert
             var exceptionMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, exceptionMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, exceptionMessage);
         }
     }
 }
