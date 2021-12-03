@@ -43,6 +43,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
     public class FailureMechanismSectionAssemblyCalculatorTest
     {
         [Test]
+        public void Constructor_FactoryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new FailureMechanismSectionAssemblyCalculator(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("factory", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -56,17 +67,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionAssemblyCalculator>(calculator);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FactoryNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new FailureMechanismSectionAssemblyCalculator(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("factory", exception.ParamName);
         }
 
         [Test]
