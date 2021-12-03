@@ -21,19 +21,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Forms.Test.Views
@@ -42,92 +38,45 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingFailureMechanismSectionResultRowTest
     {
         [Test]
-        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(
-                result, null, new PipingFailureMechanism(), assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculations", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(
-                result, Enumerable.Empty<IPipingCalculationScenario<PipingInput>>(),
-                null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_CalculateProbabilityStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(
-                result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                new PipingFailureMechanism(), null);
+            void Call() => new PipingFailureMechanismSectionResultRow(result, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.AreEqual("calculateProbabilityStrategy", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
+            const double profileProbability = 0.1;
+            const double sectionProbability = 0.2;
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
+            calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
-            SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
-            {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
-            };
-
             // Call
-            var row = new PipingFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, assessmentSection);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.IsRelevant, row.IsRelevant);
             Assert.AreEqual(result.InitialFailureMechanismResult, row.InitialFailureMechanismResult);
-            Assert.AreEqual(0.43485793401079542, row.InitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(0.43543774458947654, row.InitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
             Assert.AreEqual(result.ProbabilityRefinementType, row.ProbabilityRefinementType);
             Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -150,28 +99,23 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(InitialFailureMechanismResultType newValue)
         {
             // Given
-            var failureMechanism = new PipingFailureMechanism();
+            const double profileProbability = 0.1;
+            const double sectionProbability = 0.2;
 
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
+            calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
-            result.Attach(observer);
 
-            SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
-            {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
-            };
-
-            var row = new PipingFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, assessmentSection);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
 
             // Precondition
-            Assert.AreEqual(0.43485793401079542, row.InitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(0.43543774458947654, row.InitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
 
             // When
             row.InitialFailureMechanismResult = newValue;
@@ -302,10 +246,8 @@ namespace Riskeer.Piping.Forms.Test.Views
             T newValue)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -314,12 +256,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
-            {
-                SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section)
-            };
-
-            var row = new PipingFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, assessmentSection);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
 
             // Call
             setPropertyAction(row);
@@ -333,17 +270,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             Action<PipingFailureMechanismSectionResultRow> setPropertyAction)
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
-            var row = new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
-                                                                 failureMechanism, assessmentSection);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
 
             // Call
             void Call() => setPropertyAction(row);

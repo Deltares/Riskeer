@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -37,47 +33,25 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
     {
-        private readonly IEnumerable<IPipingCalculationScenario<PipingInput>> calculations;
-        private readonly PipingFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
-        private double initialFailureMechanismResultProfileProbability;
-        private double initialFailureMechanismResultSectionProbability;
+        private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
-        /// <param name="calculations">All calculations in the failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
-        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
-                                                        IEnumerable<IPipingCalculationScenario<PipingInput>> calculations,
-                                                        PipingFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
+                                                        IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy)
             : base(sectionResult)
         {
-            if (calculations == null)
+            if (calculateProbabilityStrategy == null)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.calculations = calculations;
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-
-            Update();
+            this.calculateProbabilityStrategy = calculateProbabilityStrategy;
         }
 
         /// <summary>
@@ -113,7 +87,9 @@ namespace Riskeer.Piping.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultProfileProbability
         {
-            get => initialFailureMechanismResultProfileProbability;
+            get => SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt
+                       ? calculateProbabilityStrategy.CalculateProfileProbability()
+                       : SectionResult.ManualInitialFailureMechanismResultProfileProbability;
             set
             {
                 SectionResult.ManualInitialFailureMechanismResultProfileProbability = value;
@@ -128,7 +104,9 @@ namespace Riskeer.Piping.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultSectionProbability
         {
-            get => initialFailureMechanismResultSectionProbability;
+            get => SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt
+                       ? calculateProbabilityStrategy.CalculateSectionProbability()
+                       : SectionResult.ManualInitialFailureMechanismResultSectionProbability;
             set
             {
                 SectionResult.ManualInitialFailureMechanismResultSectionProbability = value;
@@ -192,21 +170,6 @@ namespace Riskeer.Piping.Forms.Views
             }
         }
 
-        public override void Update()
-        {
-            if (SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt)
-            {
-                initialFailureMechanismResultProfileProbability = SectionResult.GetDetailedAssessmentProbability(
-                    (IEnumerable<SemiProbabilisticPipingCalculationScenario>) calculations, assessmentSection.FailureMechanismContribution.Norm);
-                initialFailureMechanismResultSectionProbability = initialFailureMechanismResultProfileProbability
-                                                                  * failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                                                                      SectionResult.Section.Length);
-            }
-            else
-            {
-                initialFailureMechanismResultProfileProbability = SectionResult.ManualInitialFailureMechanismResultProfileProbability;
-                initialFailureMechanismResultSectionProbability = SectionResult.ManualInitialFailureMechanismResultSectionProbability;
-            }
-        }
+        public override void Update() {}
     }
 }

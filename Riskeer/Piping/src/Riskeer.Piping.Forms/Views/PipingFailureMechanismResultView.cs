@@ -88,9 +88,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             return new PipingFailureMechanismSectionResultRow(
                 sectionResult,
-                FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
-                FailureMechanism,
-                assessmentSection);
+                new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
+                    sectionResult, FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
+                    FailureMechanism, assessmentSection));
         }
 
         protected override void AddDataGridColumns()
