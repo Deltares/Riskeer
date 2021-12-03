@@ -197,6 +197,9 @@ namespace Riskeer.Piping.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                
                 // When
                 calculationScenario.NotifyObservers();
 
@@ -224,6 +227,9 @@ namespace Riskeer.Piping.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                
                 // When
                 calculationScenario.InputParameters.NotifyObservers();
 

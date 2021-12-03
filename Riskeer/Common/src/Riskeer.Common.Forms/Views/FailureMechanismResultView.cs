@@ -75,7 +75,7 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
 
-            failureMechanismObserver = new Observer(UpdateSectionResultRows)
+            failureMechanismObserver = new Observer(UpdateView)
             {
                 Observable = failureMechanism
             };

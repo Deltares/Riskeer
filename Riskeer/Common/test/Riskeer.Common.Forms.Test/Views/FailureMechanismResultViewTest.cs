@@ -138,7 +138,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -150,18 +150,18 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
-                var invalidated = false;
+                var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
-                dataGridView.Invalidated += (sender, args) => invalidated = true;
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
                 // Precondition
-                Assert.IsFalse(invalidated);
+                Assert.IsFalse(rowsChanged);
 
                 // When
                 view.FailureMechanism.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(invalidated);
+                Assert.IsTrue(rowsChanged);
             }
         }
 
