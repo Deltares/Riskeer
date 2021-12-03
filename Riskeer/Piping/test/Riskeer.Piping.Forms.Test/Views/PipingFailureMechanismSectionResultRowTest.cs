@@ -45,11 +45,31 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, null);
+            void Call() => new PipingFailureMechanismSectionResultRow(result, null, new PipingFailureMechanismSectionResultRow.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculateProbabilityStrategy", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -69,7 +89,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanismSectionResultRow.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
@@ -111,7 +131,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
-            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanismSectionResultRow.ConstructionProperties());
 
             // Precondition
             Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
@@ -256,7 +276,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanismSectionResultRow.ConstructionProperties());
 
             // Call
             setPropertyAction(row);
@@ -277,7 +297,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
-            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy);
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanismSectionResultRow.ConstructionProperties());
 
             // Call
             void Call() => setPropertyAction(row);

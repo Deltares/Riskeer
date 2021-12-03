@@ -39,6 +39,14 @@ namespace Riskeer.Piping.Forms.Views
     public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult,
         PipingFailureMechanismSectionResultRow, PipingFailureMechanism>
     {
+        private const int initialFailureMechanismResultIndex = 2;
+        private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
+        private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
+        private const int furtherAnalysisNeededIndex = 5;
+        private const int probabilityRefinementTypeIndex = 6;
+        private const int refinedProfileProbabilityIndex = 7;
+        private const int refinedSectionProbabilityIndex = 8;
+
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerSectionObserver;
@@ -99,7 +107,18 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
-            return new PipingFailureMechanismSectionResultRow(sectionResult, CreateCalculateStrategy(sectionResult));
+            return new PipingFailureMechanismSectionResultRow(
+                sectionResult, CreateCalculateStrategy(sectionResult),
+                new PipingFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
+                    InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
+                    InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
+                    FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
+                    ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
+                    RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
+                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex
+                });
         }
 
         protected override void AddDataGridColumns()
