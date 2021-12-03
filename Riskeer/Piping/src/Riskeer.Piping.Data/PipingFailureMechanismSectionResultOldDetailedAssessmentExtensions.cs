@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Extension methods for obtaining detailed assessment probabilities from output for an assessment of the piping failure mechanism.
     /// </summary>
-    public static class PipingFailureMechanismSectionResultDetailedAssessmentExtensions
+    public static class PipingFailureMechanismSectionResultOldDetailedAssessmentExtensions
     {
         /// <summary>
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.

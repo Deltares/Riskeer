@@ -34,13 +34,13 @@ using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultDetailedAssessmentExtensionsTest
+    public class PipingFailureMechanismSectionResultOldDetailedAssessmentExtensionsTest
     {
         [Test]
         public void GetDetailedAssessmentProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
+            void Call() => PipingFailureMechanismSectionResultOldDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
                 null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert
