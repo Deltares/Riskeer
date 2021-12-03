@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetTotalContribution(
+            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetTotalContribution<IPipingCalculationScenario<PipingInput>>(
                 null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>());
 
             // Assert
@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Data.Test
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => sectionResult.GetTotalContribution(null);
+            void Call() => sectionResult.GetTotalContribution<IPipingCalculationScenario<PipingInput>>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -66,9 +66,9 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetTotalContribution_WithScenarios_ReturnsTotalRelevantScenarioContribution()
+        public void GivenSectionResultWithScenarios_WhenGetTotalContributionForSemiProbabilistic_ThenReturnsTotalRelevantSemiProbabilisticScenarioContribution()
         {
-            // Setup
+            // Given
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
@@ -81,19 +81,56 @@ namespace Riskeer.Piping.Data.Test
             pipingCalculationScenario2.Contribution = (RoundedDouble) 0.5435;
 
             SemiProbabilisticPipingCalculationScenario pipingCalculationScenario3 = CreateIrrelevantSemiProbabilisticPipingCalculationScenario(section);
+            var pipingCalculationScenario4 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
+            pipingCalculationScenario4.Contribution = (RoundedDouble) 0.1;
 
-            SemiProbabilisticPipingCalculationScenario[] calculationScenarios =
+            IPipingCalculationScenario<PipingInput>[] calculationScenarios =
             {
                 pipingCalculationScenario1,
                 pipingCalculationScenario2,
-                pipingCalculationScenario3
+                pipingCalculationScenario3,
+                pipingCalculationScenario4
             };
 
-            // Call
-            RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
+            // When
+            RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution<SemiProbabilisticPipingCalculationScenario>(calculationScenarios);
 
-            // Assert
+            // Then
             Assert.AreEqual((RoundedDouble) 0.8646, totalContribution);
+        }
+
+        [Test]
+        public void GivenSectionResultWithScenarios_WhenGetTotalContributionForProbabilistic_ThenReturnsTotalRelevantProbabilisticScenarioContribution()
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+
+            var pipingCalculationScenario1 =
+                SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+            pipingCalculationScenario1.Contribution = (RoundedDouble) 0.3211;
+
+            var pipingCalculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
+            pipingCalculationScenario2.Contribution = (RoundedDouble) 0.1;
+
+            var pipingCalculationScenario3 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
+            pipingCalculationScenario3.Contribution = (RoundedDouble) 0.4651;
+
+            ProbabilisticPipingCalculationScenario pipingCalculationScenario4 = CreateIrrelevantProbabilisticPipingCalculationScenario(section);
+
+            IPipingCalculationScenario<PipingInput>[] calculationScenarios =
+            {
+                pipingCalculationScenario1,
+                pipingCalculationScenario2,
+                pipingCalculationScenario3,
+                pipingCalculationScenario4
+            };
+
+            // When
+            RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution<ProbabilisticPipingCalculationScenario>(calculationScenarios);
+
+            // Then
+            Assert.AreEqual((RoundedDouble) 0.5651, totalContribution);
         }
 
         [Test]

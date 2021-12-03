@@ -69,7 +69,9 @@ namespace Riskeer.Piping.Data
                                                                                           calculationScenarios)
                                                                                       .ToArray();
 
-            if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
+            if (relevantScenarios.Length == 0
+                || !relevantScenarios.All(s => s.HasOutput)
+                || Math.Abs(sectionResult.GetTotalContribution<ProbabilisticPipingCalculationScenario>(relevantScenarios) - 1.0) > 1e-6)
             {
                 return double.NaN;
             }
@@ -105,7 +107,9 @@ namespace Riskeer.Piping.Data
                                                                                               calculationScenarios)
                                                                                           .ToArray();
 
-            if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
+            if (relevantScenarios.Length == 0
+                || !relevantScenarios.All(s => s.HasOutput)
+                || Math.Abs(sectionResult.GetTotalContribution<SemiProbabilisticPipingCalculationScenario>(relevantScenarios) - 1.0) > 1e-6)
             {
                 return double.NaN;
             }
@@ -126,10 +130,12 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the total contribution for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
+        /// <typeparam name="T">The type of the calculation scenarios.</typeparam>
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult sectionResult,
-                                                         IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios)
+        public static RoundedDouble GetTotalContribution<T>(this PipingFailureMechanismSectionResult sectionResult,
+                                                            IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios)
+            where T : IPipingCalculationScenario<PipingInput>
         {
             if (sectionResult == null)
             {
@@ -141,9 +147,9 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            return (RoundedDouble) sectionResult
-                                   .GetCalculationScenarios<IPipingCalculationScenario<PipingInput>>(calculationScenarios)
-                                   .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+            return (RoundedDouble) sectionResult.GetCalculationScenarios<T>(calculationScenarios)
+                                                .Cast<ICalculationScenario>()
+                                                .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
 
         /// <summary>
