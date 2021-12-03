@@ -21,7 +21,9 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
@@ -76,6 +78,21 @@ namespace Riskeer.Piping.Forms.Views
             probabilityRefinementTypeIndex = constructionProperties.ProbabilityRefinementTypeIndex;
             refinedProfileProbabilityIndex = constructionProperties.RefinedProfileProbabilityIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
+            
+            CreateColumnStateDefinitions();
+
+            Update();
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(probabilityRefinementTypeIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(refinedProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
         }
 
         /// <summary>
@@ -194,7 +211,26 @@ namespace Riskeer.Piping.Forms.Views
             }
         }
 
-        public override void Update() {}
+        public override void Update()
+        {
+            UpdateColumnStateDefinitions();
+        }
+
+        private void UpdateColumnStateDefinitions()
+        {
+            bool initialFailureMechanismResultNoFailureProbability = InitialFailureMechanismResult == InitialFailureMechanismResultType.NoFailureProbability;
+            
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex], 
+                                             !IsRelevant || initialFailureMechanismResultNoFailureProbability);
+                                              
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex],
+                                             !IsRelevant || initialFailureMechanismResultNoFailureProbability);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[probabilityRefinementTypeIndex], !IsRelevant || !FurtherAnalysisNeeded);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[refinedProfileProbabilityIndex], !IsRelevant || !FurtherAnalysisNeeded);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[refinedSectionProbabilityIndex], !IsRelevant || !FurtherAnalysisNeeded);
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="PipingFailureMechanismSectionResultRow"/>.
