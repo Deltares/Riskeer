@@ -387,6 +387,15 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;afgeleid&gt;.
+        /// </summary>
+        public static string PipingFailureMechanismSectionResultRow_Derived_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingFailureMechanismSectionResultRow_Derived_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
         public static string PipingInput_DampingFactorExit_Description {

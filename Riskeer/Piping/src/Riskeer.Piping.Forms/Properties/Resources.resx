@@ -525,4 +525,7 @@ opbarsten
   <data name="PipingScenariosView_ScenarioConfigurationType_DisplayName" xml:space="preserve">
     <value>Type toets:</value>
   </data>
+  <data name="PipingFailureMechanismSectionResultRow_Derived_DisplayName" xml:space="preserve">
+    <value>&lt;afgeleid&gt;</value>
+  </data>
 </root>

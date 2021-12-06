@@ -27,6 +27,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Forms.Properties;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -78,21 +79,10 @@ namespace Riskeer.Piping.Forms.Views
             probabilityRefinementTypeIndex = constructionProperties.ProbabilityRefinementTypeIndex;
             refinedProfileProbabilityIndex = constructionProperties.RefinedProfileProbabilityIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
-            
+
             CreateColumnStateDefinitions();
 
             Update();
-        }
-
-        private void CreateColumnStateDefinitions()
-        {
-            ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(initialFailureMechanismResultProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(probabilityRefinementTypeIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(refinedProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
         }
 
         /// <summary>
@@ -186,12 +176,14 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double RefinedProfileProbability
+        public object RefinedProfileProbability
         {
-            get => SectionResult.RefinedProfileProbability;
+            get => ProbabilityRefinementType == ProbabilityRefinementType.Section
+                       ? (object) Resources.PipingFailureMechanismSectionResultRow_Derived_DisplayName
+                       : SectionResult.RefinedProfileProbability;
             set
             {
-                SectionResult.RefinedProfileProbability = value;
+                SectionResult.RefinedProfileProbability = (double) value;
                 UpdateInternalData();
             }
         }
@@ -201,12 +193,14 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double RefinedSectionProbability
+        public object RefinedSectionProbability
         {
-            get => SectionResult.RefinedSectionProbability;
+            get => ProbabilityRefinementType == ProbabilityRefinementType.Profile
+                       ? (object) Resources.PipingFailureMechanismSectionResultRow_Derived_DisplayName
+                       : SectionResult.RefinedSectionProbability;
             set
             {
-                SectionResult.RefinedSectionProbability = value;
+                SectionResult.RefinedSectionProbability = (double) value;
                 UpdateInternalData();
             }
         }
@@ -214,6 +208,17 @@ namespace Riskeer.Piping.Forms.Views
         public override void Update()
         {
             UpdateColumnStateDefinitions();
+        }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(probabilityRefinementTypeIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(refinedProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
         }
 
         private void UpdateColumnStateDefinitions()
@@ -231,7 +236,7 @@ namespace Riskeer.Piping.Forms.Views
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex], initialFailureMechanismResultAdopt);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex], initialFailureMechanismResultAdopt);
             }
-            
+
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[probabilityRefinementTypeIndex], !IsRelevant || !FurtherAnalysisNeeded);
 

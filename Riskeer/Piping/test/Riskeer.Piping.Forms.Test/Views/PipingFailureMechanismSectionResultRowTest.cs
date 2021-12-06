@@ -100,7 +100,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new PipingFailureMechanismSectionResult(section)
+            {
+                ProbabilityRefinementType = ProbabilityRefinementType.Both
+            };
 
             // Call
             var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, ConstructionProperties);
@@ -124,10 +127,10 @@ namespace Riskeer.Piping.Forms.Test.Views
                 nameof(PipingFailureMechanismSectionResultRow.RefinedProfileProbability));
             TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                 nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
-            
+
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(7, columnStateDefinitions.Count);
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
@@ -168,6 +171,37 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Then
             Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.InitialFailureMechanismResultProfileProbability);
             Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(ProbabilityRefinementType.Profile, double.NaN, "<afgeleid>")]
+        [TestCase(ProbabilityRefinementType.Section, "<afgeleid>", double.NaN)]
+        public void GivenRowWithProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(ProbabilityRefinementType newValue, object newProfileValue, object newSectionValue)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section)
+            {
+                ProbabilityRefinementType = ProbabilityRefinementType.Both
+            };
+
+            var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, ConstructionProperties);
+
+            // Precondition
+            Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
+            Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
+
+            // When
+            row.ProbabilityRefinementType = newValue;
+
+            // Then
+            Assert.AreEqual(newProfileValue, row.RefinedProfileProbability);
+            Assert.AreEqual(newSectionValue, row.RefinedSectionProbability);
             mocks.VerifyAll();
         }
 
@@ -351,7 +385,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         #endregion
-        
+
         #region Column States
 
         [Test]
@@ -363,7 +397,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section)
             {
@@ -372,13 +406,13 @@ namespace Riskeer.Piping.Forms.Test.Views
                 InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
                 ProbabilityRefinementType = ProbabilityRefinementType.Both
             };
-            
+
             // Call
             var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, ConstructionProperties);
-            
+
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultIndex], isRelevant);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
@@ -393,10 +427,10 @@ namespace Riskeer.Piping.Forms.Test.Views
                 columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], isRelevant);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
-            
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(InitialFailureMechanismResultType.Adopt, true, true)]
         [TestCase(InitialFailureMechanismResultType.Manual, true, false)]
@@ -408,27 +442,27 @@ namespace Riskeer.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section)
             {
                 InitialFailureMechanismResult = initialFailureMechanismResultType
             };
-            
+
             // Call
             var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, ConstructionProperties);
-            
+
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex], isEnabled, isReadOnly);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isEnabled, isReadOnly);
-            
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -438,30 +472,30 @@ namespace Riskeer.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section)
             {
                 FurtherAnalysisNeeded = furtherAnalysisNeeded,
                 ProbabilityRefinementType = ProbabilityRefinementType.Both
             };
-            
+
             // Call
             var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, ConstructionProperties);
-            
+
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.ProbabilityRefinementTypeIndex], furtherAnalysisNeeded);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], furtherAnalysisNeeded);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], furtherAnalysisNeeded);
-            
+
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(ProbabilityRefinementType.Both, false, false)]
         [TestCase(ProbabilityRefinementType.Profile, false, true)]
@@ -474,25 +508,25 @@ namespace Riskeer.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section)
             {
                 FurtherAnalysisNeeded = true,
                 ProbabilityRefinementType = probabilityRefinementType
             };
-            
+
             // Call
             var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, ConstructionProperties);
-            
+
             // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], true, profileProbabilityIsReadOnly);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                 columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], true, sectionProbabilityIsReadOnly);
-            
+
             mocks.VerifyAll();
         }
 
