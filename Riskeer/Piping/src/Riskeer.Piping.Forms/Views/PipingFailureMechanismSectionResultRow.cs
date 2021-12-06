@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
@@ -45,6 +46,8 @@ namespace Riskeer.Piping.Forms.Views
         private readonly int refinedSectionProbabilityIndex;
 
         private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
+        private readonly PipingFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
@@ -52,11 +55,15 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
+        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="PipingFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
                                                         IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
+                                                        PipingFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection,
                                                         ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -65,12 +72,24 @@ namespace Riskeer.Piping.Forms.Views
                 throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
             this.calculateProbabilityStrategy = calculateProbabilityStrategy;
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
 
             initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
             initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;

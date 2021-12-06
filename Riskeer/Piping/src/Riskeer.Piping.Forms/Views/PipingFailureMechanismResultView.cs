@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Forms.Views
         protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
             return new PipingFailureMechanismSectionResultRow(
-                sectionResult, CreateCalculateStrategy(sectionResult),
+                sectionResult, CreateCalculateStrategy(sectionResult), FailureMechanism, assessmentSection,
                 new PipingFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
