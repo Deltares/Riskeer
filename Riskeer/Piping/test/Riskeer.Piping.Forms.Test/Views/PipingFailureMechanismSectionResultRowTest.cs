@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 RefinedSectionProbabilityIndex = 8,
                 ProfileProbabilityIndex = 9,
                 SectionProbabilityIndex = 10,
-                ResultingSectionNIndex = 11,
+                SectionNIndex = 11,
                 AssemblyGroupIndex = 12
             };
 
@@ -198,7 +198,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ProbabilityRefinementTypeIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ResultingSectionNIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionNIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
             }
 
@@ -232,7 +232,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.ResultingSectionN);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup.ToString(), row.AssemblyGroup);
             }
 
@@ -526,7 +526,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex], true, true);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.ResultingSectionNIndex], true, true);
+                    columnStateDefinitions[ConstructionProperties.SectionNIndex], true, true);
             }
 
             mocks.VerifyAll();

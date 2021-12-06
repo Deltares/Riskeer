@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -51,7 +52,11 @@ namespace Riskeer.Piping.Forms.Test.Views
         private const int probabilityRefinementTypeIndex = 6;
         private const int refinedProfileProbabilityIndex = 7;
         private const int refinedSectionProbabilityIndex = 8;
-        private const int columnCount = 9;
+        private const int profileProbabilityIndex = 9;
+        private const int sectionProbabilityIndex = 10;
+        private const int sectionNIndex = 11;
+        private const int assemblyGroupIndex = 12;
+        private const int columnCount = 13;
         private Form testForm;
 
         [SetUp]
@@ -124,6 +129,10 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[probabilityRefinementTypeIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedProfileProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedSectionProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[profileProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[sectionProbabilityIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[sectionNIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assemblyGroupIndex]);
 
                 Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
@@ -134,6 +143,10 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual("Aanscherpen faalkans", dataGridView.Columns[probabilityRefinementTypeIndex].HeaderText);
                 Assert.AreEqual("Aangescherpte faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[refinedProfileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Aangescherpte faalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
+                Assert.AreEqual("Rekenwaarde faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[profileProbabilityIndex].HeaderText);
+                Assert.AreEqual("Rekenwaarde faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
+                Assert.AreEqual("Rekenwaarde Nvak\r\n[-]", dataGridView.Columns[sectionNIndex].HeaderText);
+                Assert.AreEqual("Duidingsklasse", dataGridView.Columns[assemblyGroupIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[isRelevantIndex].ReadOnly);
@@ -144,6 +157,10 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsFalse(dataGridView.Columns[probabilityRefinementTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedProfileProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedSectionProbabilityIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[profileProbabilityIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[sectionNIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
 
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
@@ -180,6 +197,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section));
 
             // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -197,8 +215,12 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(probability, cells[initialFailureMechanismResultSectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[furtherAnalysisNeededIndex].FormattedValue);
                 Assert.AreEqual(ProbabilityRefinementType.Section, cells[probabilityRefinementTypeIndex].Value);
-                Assert.AreEqual("-", cells[refinedProfileProbabilityIndex].FormattedValue);
+                Assert.AreEqual("<afgeleid>", cells[refinedProfileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
+                Assert.AreEqual("1/100", cells[profileProbabilityIndex].FormattedValue);
+                Assert.AreEqual("1/10", cells[sectionProbabilityIndex].FormattedValue);
+                Assert.AreEqual("10", cells[sectionNIndex].FormattedValue);
+                Assert.AreEqual("I", cells[assemblyGroupIndex].FormattedValue);
             }
         }
 

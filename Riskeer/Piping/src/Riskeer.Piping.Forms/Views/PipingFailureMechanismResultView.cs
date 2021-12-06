@@ -46,6 +46,10 @@ namespace Riskeer.Piping.Forms.Views
         private const int probabilityRefinementTypeIndex = 6;
         private const int refinedProfileProbabilityIndex = 7;
         private const int refinedSectionProbabilityIndex = 8;
+        private const int profileProbabilityIndex = 9;
+        private const int sectionProbabilityIndex = 10;
+        private const int sectionNIndex = 11;
+        private const int assemblyGroupIndex = 12;
 
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
@@ -117,7 +121,11 @@ namespace Riskeer.Piping.Forms.Views
                     FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
                     ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
                     RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
-                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex
+                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
+                    ProfileProbabilityIndex = profileProbabilityIndex,
+                    SectionProbabilityIndex = sectionProbabilityIndex,
+                    SectionNIndex = sectionNIndex,
+                    AssemblyGroupIndex = assemblyGroupIndex
                 });
         }
 
@@ -158,6 +166,22 @@ namespace Riskeer.Piping.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
+            
+            FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.ProfileProbability));
+            
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.SectionProbability));
+            
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.SectionN));
+            
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
+                DataGridViewControl,
+                nameof(PipingFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
         private IPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)

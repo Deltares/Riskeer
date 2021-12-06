@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Forms.Views
         private readonly int refinedSectionProbabilityIndex;
         private readonly int profileProbabilityIndex;
         private readonly int sectionProbabilityIndex;
-        private readonly int resultingSectionNIndex;
+        private readonly int sectionNIndex;
         private readonly int assemblyGroupIndex;
 
         private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Forms.Views
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
             profileProbabilityIndex = constructionProperties.ProfileProbabilityIndex;
             sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
-            resultingSectionNIndex = constructionProperties.ResultingSectionNIndex;
+            sectionNIndex = constructionProperties.SectionNIndex;
             assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
 
             CreateColumnStateDefinitions();
@@ -250,9 +250,9 @@ namespace Riskeer.Piping.Forms.Views
         public double SectionProbability { get; private set; }
 
         /// <summary>
-        /// Gets the resulting section N.
+        /// Gets the section N.
         /// </summary>
-        public double ResultingSectionN { get; private set; }
+        public double SectionN { get; private set; }
 
         /// <summary>
         /// Gets the assembly group.
@@ -288,14 +288,14 @@ namespace Riskeer.Piping.Forms.Views
                     initialFailureMechanismResultSectionProbabilityIndex, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
                 ProfileProbability = result.ProfileProbability;
                 SectionProbability = result.SectionProbability;
-                ResultingSectionN = result.N;
+                SectionN = result.N;
                 assemblyGroup = result.AssemblyGroup;
             }
             catch (AssemblyException e)
             {
                 ProfileProbability = double.NaN;
                 SectionProbability = double.NaN;
-                ResultingSectionN = double.NaN;
+                SectionN = double.NaN;
                 assemblyGroup = FailureMechanismSectionAssemblyGroup.D;
             }
         }
@@ -311,7 +311,7 @@ namespace Riskeer.Piping.Forms.Views
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(profileProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(sectionProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-            ColumnStateDefinitions.Add(resultingSectionNIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(sectionNIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(assemblyGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
@@ -397,9 +397,9 @@ namespace Riskeer.Piping.Forms.Views
             public int SectionProbabilityIndex { internal get; set; }
             
             /// <summary>
-            /// Sets the resulting section N index.
+            /// Sets the section N index.
             /// </summary>
-            public int ResultingSectionNIndex { internal get; set; }
+            public int SectionNIndex { internal get; set; }
             
             /// <summary>
             /// Sets the assembly group index.
