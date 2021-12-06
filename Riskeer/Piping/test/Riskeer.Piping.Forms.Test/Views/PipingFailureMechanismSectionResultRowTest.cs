@@ -33,6 +33,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -465,9 +466,9 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         #endregion
-        
+
         #region Assembly
-        
+
         [Test]
         public void Constructor_AssemblyRan_ReturnCategoryGroups()
         {
@@ -495,12 +496,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup.ToString(), row.AssemblyGroup);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(
+                                    calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup),
+                                row.AssemblyGroup);
             }
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
         {
@@ -527,12 +530,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup.ToString(), row.AssemblyGroup);
-                
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(
+                                    calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup),
+                                row.AssemblyGroup);
+
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
                 row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
-                
+
                 // Then
                 Assert.AreEqual(double.NaN, row.ProfileProbability);
                 Assert.AreEqual(double.NaN, row.SectionProbability);
@@ -542,7 +547,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenShowError()
         {
@@ -567,11 +572,11 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
-                
+
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
                 row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
-                
+
                 // Then
                 const string expectedErrorText = "Message";
 
@@ -583,7 +588,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenNoErrorShown()
         {
@@ -611,11 +616,11 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
-                
+
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
                 row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
-                
+
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
@@ -625,7 +630,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         #endregion
 
         #region Column States

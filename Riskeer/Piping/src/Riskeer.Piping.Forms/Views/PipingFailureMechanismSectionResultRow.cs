@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Views
         private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-        private FailureMechanismSectionAssemblyGroup? assemblyGroup;
+        private FailureMechanismSectionAssemblyGroup assemblyGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
@@ -257,7 +257,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => assemblyGroup.ToString();
+        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(assemblyGroup);
 
         public override void Update()
         {
@@ -310,7 +310,7 @@ namespace Riskeer.Piping.Forms.Views
                 ProfileProbability = double.NaN;
                 SectionProbability = double.NaN;
                 SectionN = 1;
-                assemblyGroup = null;
+                assemblyGroup = FailureMechanismSectionAssemblyGroup.Gr;
 
                 ColumnStateDefinitions[profileProbabilityIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
