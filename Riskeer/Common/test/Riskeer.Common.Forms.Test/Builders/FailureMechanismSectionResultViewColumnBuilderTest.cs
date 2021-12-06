@@ -525,6 +525,208 @@ namespace Riskeer.Common.Forms.Test.Builders
 
         #endregion
 
+        #region Assembly
+
+        [Test]
+        public void AddProfileProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddProfileProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddProfileProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Rekenwaarde faalkans per doorsnede\r\n[1/jaar]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddSectionProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddSectionProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddSectionProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Rekenwaarde faalkans per vak\r\n[1/jaar]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddSectionNColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddSectionNColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddSectionNColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Rekenwaarde Nvak\r\n[-]", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void AddAssemblyGroupColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(null, "property");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void AddAssemblyGroupColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(new DataGridViewControl(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dataPropertyName", exception.ParamName);
+        }
+
+        [Test]
+        public void AddAssemblyGroupColumn_WithParameters_AddsColumnToDataGridViewControl()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                // Call
+                FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(control, dataPropertyName);
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.ColumnCount);
+
+                var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
+                Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
+                Assert.AreEqual("Duidingsklasse", columnData.HeaderText);
+                Assert.IsFalse(columnData.ReadOnly);
+            }
+        }
+
+        #endregion
+
+        #region Old
+
         #region Simple Assessment
 
         [Test]
@@ -1791,6 +1993,8 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual("Toetsoordeel\r\nhandmatig", columnData.HeaderText);
             }
         }
+
+        #endregion
 
         #endregion
     }

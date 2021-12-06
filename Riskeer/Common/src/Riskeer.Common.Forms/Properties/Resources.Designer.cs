@@ -1663,6 +1663,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duidingsklasse.
+        /// </summary>
+        public static string FailureMechanismResultView_AssemblyGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_AssemblyGroup_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Toetsoordeel
         ///gecombineerd.
         /// </summary>
@@ -1905,6 +1914,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde faalkans per doorsnede
+        ///[1/jaar].
+        /// </summary>
+        public static string FailureMechanismResultView_ProfileProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_ProfileProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aangescherpte faalkans per doorsnede
         ///[1/jaar].
         /// </summary>
@@ -1921,6 +1940,26 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_RefinedSectionProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_RefinedSectionProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde Nvak
+        ///[-].
+        /// </summary>
+        public static string FailureMechanismResultView_SectionN_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_SectionN_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde faalkans per vak
+        ///[1/jaar].
+        /// </summary>
+        public static string FailureMechanismResultView_SectionProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_SectionProbability_DisplayName", resourceCulture);
             }
         }
         

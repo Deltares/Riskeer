@@ -1616,4 +1616,19 @@ scenario
     <value>Aangescherpte faalkans per vak
 [1/jaar]</value>
   </data>
+  <data name="FailureMechanismResultView_ProfileProbability_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde faalkans per doorsnede
+[1/jaar]</value>
+  </data>
+  <data name="FailureMechanismResultView_SectionProbability_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde faalkans per vak
+[1/jaar]</value>
+  </data>
+  <data name="FailureMechanismResultView_SectionN_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde Nvak
+[-]</value>
+  </data>
+  <data name="FailureMechanismResultView_AssemblyGroup_DisplayName" xml:space="preserve">
+    <value>Duidingsklasse</value>
+  </data>
 </root>
