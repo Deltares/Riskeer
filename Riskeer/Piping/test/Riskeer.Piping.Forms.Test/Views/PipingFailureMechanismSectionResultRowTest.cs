@@ -206,40 +206,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssemblyRan_ReturnCategoryGroups()
-        {
-            // Setup
-            var random = new Random(39);
-            var failureMechanism = new PipingFailureMechanism();
-
-            var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new PipingFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
-
-                // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, failureMechanism, new AssessmentSectionStub(), ConstructionProperties);
-
-                // Assert
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup.ToString(), row.AssemblyGroup);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(InitialFailureMechanismResultType.Manual)]
         [TestCase(InitialFailureMechanismResultType.NoFailureProbability)]
         public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(InitialFailureMechanismResultType newValue)
@@ -498,6 +464,168 @@ namespace Riskeer.Piping.Forms.Test.Views
             yield return new TestCaseData(12);
         }
 
+        #endregion
+        
+        #region Assembly
+        
+        [Test]
+        public void Constructor_AssemblyRan_ReturnCategoryGroups()
+        {
+            // Setup
+            var random = new Random(39);
+
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
+                // Call
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+
+                // Assert
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup.ToString(), row.AssemblyGroup);
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
+        {
+            // Given
+            var random = new Random(39);
+
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+
+                // Precondition
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup.ToString(), row.AssemblyGroup);
+                
+                // When
+                calculator.ThrowExceptionOnCalculate = true;
+                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+                
+                // Then
+                Assert.AreEqual(double.NaN, row.ProfileProbability);
+                Assert.AreEqual(double.NaN, row.SectionProbability);
+                Assert.AreEqual(double.NaN, row.SectionN);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.D.ToString(), row.AssemblyGroup);
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenShowError()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+
+                // Precondition
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+                
+                // When
+                calculator.ThrowExceptionOnCalculate = true;
+                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+                
+                // Then
+                const string expectedErrorText = "Message";
+
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenNoErrorShown()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+
+                // Precondition
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                const string expectedErrorText = "Message";
+
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+                
+                // When
+                calculator.ThrowExceptionOnCalculate = false;
+                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+                
+                // Then
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+            }
+
+            mocks.VerifyAll();
+        }
+        
         #endregion
 
         #region Column States

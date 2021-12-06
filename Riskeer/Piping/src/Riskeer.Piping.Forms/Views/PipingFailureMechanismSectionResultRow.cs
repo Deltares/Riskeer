@@ -267,6 +267,20 @@ namespace Riskeer.Piping.Forms.Views
 
         private void UpdateDerivedData()
         {
+            ResetErrorTexts();
+            TryGetAssemblyResult();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[profileProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[sectionNIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[assemblyGroupIndex].ErrorText = string.Empty;
+        }
+
+        private void TryGetAssemblyResult()
+        {
             double refinedProfileProbability = SectionResult.RefinedProfileProbability;
             double refinedSectionProbability = SectionResult.RefinedSectionProbability;
             double sectionN = failureMechanism.PipingProbabilityAssessmentInput.GetN(SectionResult.Section.Length);
@@ -297,6 +311,11 @@ namespace Riskeer.Piping.Forms.Views
                 SectionProbability = double.NaN;
                 SectionN = double.NaN;
                 assemblyGroup = FailureMechanismSectionAssemblyGroup.D;
+
+                ColumnStateDefinitions[profileProbabilityIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[sectionNIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[assemblyGroupIndex].ErrorText = e.Message;
             }
         }
 
@@ -390,17 +409,17 @@ namespace Riskeer.Piping.Forms.Views
             /// Sets the profile probability index.
             /// </summary>
             public int ProfileProbabilityIndex { internal get; set; }
-            
+
             /// <summary>
             /// Sets the section probability index.
             /// </summary>
             public int SectionProbabilityIndex { internal get; set; }
-            
+
             /// <summary>
             /// Sets the section N index.
             /// </summary>
             public int SectionNIndex { internal get; set; }
-            
+
             /// <summary>
             /// Sets the assembly group index.
             /// </summary>
