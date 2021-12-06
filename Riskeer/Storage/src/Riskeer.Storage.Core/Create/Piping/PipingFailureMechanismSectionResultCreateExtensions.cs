@@ -26,18 +26,18 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingFailureMechanismSectionResultOld"/> related to creating a 
+    /// Extension methods for <see cref="PipingFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="PipingSectionResultEntity"/>.
     /// </summary>
     internal static class PipingFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="PipingSectionResultEntity"/> based on the information of the <see cref="PipingFailureMechanismSectionResultOld"/>.
+        /// Creates a <see cref="PipingSectionResultEntity"/> based on the information of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="PipingSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static PipingSectionResultEntity Create(this PipingFailureMechanismSectionResultOld result)
+        internal static PipingSectionResultEntity Create(this PipingFailureMechanismSectionResult result)
         {
             if (result == null)
             {
@@ -46,12 +46,14 @@ namespace Riskeer.Storage.Core.Create.Piping
 
             var pipingSectionResultEntity = new PipingSectionResultEntity
             {
-                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
-                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
-                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
-                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
-                ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
+                IsRelevant = Convert.ToByte(result.IsRelevant),
+                InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),
+                ManualInitialFailureMechanismResultProfileProbability = result.ManualInitialFailureMechanismResultProfileProbability.ToNaNAsNull(),
+                ManualInitialFailureMechanismResultSectionProbability = result.ManualInitialFailureMechanismResultSectionProbability.ToNaNAsNull(),
+                FurtherAnalysisNeeded = Convert.ToByte(result.FurtherAnalysisNeeded),
+                ProbabilityRefinementType = Convert.ToByte(result.ProbabilityRefinementType),
+                RefinedProfileProbability = result.RefinedProfileProbability.ToNaNAsNull(),
+                RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
             };
 
             return pipingSectionResultEntity;

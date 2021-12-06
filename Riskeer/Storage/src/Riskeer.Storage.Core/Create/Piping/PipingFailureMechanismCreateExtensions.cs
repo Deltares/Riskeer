@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Create.Piping
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForStochasticSoilModels(mechanism, registry, entity);
             AddEntitiesForSurfaceLines(mechanism, registry, entity);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForPipingScenarioConfigurationPerFailureMechanismSection(mechanism.ScenarioConfigurationsPerFailureMechanismSection,
                                                                                 registry);
 
@@ -58,10 +58,10 @@ namespace Riskeer.Storage.Core.Create.Piping
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<PipingFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (PipingFailureMechanismSectionResultOld pipingFailureMechanismSectionResult in sectionResults)
+            foreach (PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult in sectionResults)
             {
                 PipingSectionResultEntity pipingSectionResultEntity = pipingFailureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(pipingFailureMechanismSectionResult.Section);
