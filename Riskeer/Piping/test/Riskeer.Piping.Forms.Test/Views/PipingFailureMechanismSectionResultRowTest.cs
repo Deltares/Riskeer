@@ -536,8 +536,8 @@ namespace Riskeer.Piping.Forms.Test.Views
                 // Then
                 Assert.AreEqual(double.NaN, row.ProfileProbability);
                 Assert.AreEqual(double.NaN, row.SectionProbability);
-                Assert.AreEqual(double.NaN, row.SectionN);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.D.ToString(), row.AssemblyGroup);
+                Assert.AreEqual(1, row.SectionN);
+                Assert.AreEqual(string.Empty, row.AssemblyGroup);
             }
 
             mocks.VerifyAll();
