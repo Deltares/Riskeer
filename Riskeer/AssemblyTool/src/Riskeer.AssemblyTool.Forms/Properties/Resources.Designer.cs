@@ -98,5 +98,104 @@ namespace Riskeer.AssemblyTool.Forms.Properties {
                 return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_D_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_D_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_GR_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_GR_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +I.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_I_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_I_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +II.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_II_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_II_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +III.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_III_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_III_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -III.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -II.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_IIMin_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_IIMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -I.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_IMin_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_IMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ND.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_ND_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_ND_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_Zero_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_Zero_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to +0.
+        /// </summary>
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_ZeroPlus_DisplayName {
+            get {
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_ZeroPlus_DisplayName", resourceCulture);
+            }
+        }
     }
 }
