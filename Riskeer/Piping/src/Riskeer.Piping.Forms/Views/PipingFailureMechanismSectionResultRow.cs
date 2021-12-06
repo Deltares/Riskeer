@@ -285,7 +285,7 @@ namespace Riskeer.Piping.Forms.Views
             {
                 FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                     assessmentSection, IsRelevant, InitialFailureMechanismResultProfileProbability,
-                    initialFailureMechanismResultSectionProbabilityIndex, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+                    InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
                 ProfileProbability = result.ProfileProbability;
                 SectionProbability = result.SectionProbability;
                 SectionN = result.N;
