@@ -48,6 +48,10 @@ namespace Riskeer.Piping.Forms.Views
         private readonly int probabilityRefinementTypeIndex;
         private readonly int refinedProfileProbabilityIndex;
         private readonly int refinedSectionProbabilityIndex;
+        private readonly int profileProbabilityIndex;
+        private readonly int sectionProbabilityIndex;
+        private readonly int resultingSectionNIndex;
+        private readonly int assemblyGroupIndex;
 
         private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly PipingFailureMechanism failureMechanism;
@@ -103,6 +107,10 @@ namespace Riskeer.Piping.Forms.Views
             probabilityRefinementTypeIndex = constructionProperties.ProbabilityRefinementTypeIndex;
             refinedProfileProbabilityIndex = constructionProperties.RefinedProfileProbabilityIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
+            profileProbabilityIndex = constructionProperties.ProfileProbabilityIndex;
+            sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
+            resultingSectionNIndex = constructionProperties.ResultingSectionNIndex;
+            assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
 
             CreateColumnStateDefinitions();
 
@@ -301,6 +309,10 @@ namespace Riskeer.Piping.Forms.Views
             ColumnStateDefinitions.Add(probabilityRefinementTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(profileProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(sectionProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(resultingSectionNIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(assemblyGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void UpdateColumnStateDefinitions()
@@ -373,6 +385,26 @@ namespace Riskeer.Piping.Forms.Views
             /// Sets the refined section probability index.
             /// </summary>
             public int RefinedSectionProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the profile probability index.
+            /// </summary>
+            public int ProfileProbabilityIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the section probability index.
+            /// </summary>
+            public int SectionProbabilityIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the resulting section N index.
+            /// </summary>
+            public int ResultingSectionNIndex { internal get; set; }
+            
+            /// <summary>
+            /// Sets the assembly group index.
+            /// </summary>
+            public int AssemblyGroupIndex { internal get; set; }
         }
     }
 }
