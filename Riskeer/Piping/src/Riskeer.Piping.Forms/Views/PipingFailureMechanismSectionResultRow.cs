@@ -22,8 +22,12 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -48,6 +52,7 @@ namespace Riskeer.Piping.Forms.Views
         private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private FailureMechanismSectionAssemblyGroup assemblyGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
@@ -224,9 +229,67 @@ namespace Riskeer.Piping.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets the profile probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ProfileProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the section probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double SectionProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the resulting section N.
+        /// </summary>
+        public double ResultingSectionN { get; private set; }
+
+        /// <summary>
+        /// Gets the assembly group.
+        /// </summary>
+        public string AssemblyGroup => assemblyGroup.ToString();
+
         public override void Update()
         {
+            UpdateDerivedData();
             UpdateColumnStateDefinitions();
+        }
+
+        private void UpdateDerivedData()
+        {
+            double refinedProfileProbability = SectionResult.RefinedProfileProbability;
+            double refinedSectionProbability = SectionResult.RefinedSectionProbability;
+            double sectionN = failureMechanism.PipingProbabilityAssessmentInput.GetN(SectionResult.Section.Length);
+
+            if (ProbabilityRefinementType == ProbabilityRefinementType.Profile)
+            {
+                refinedSectionProbability = SectionResult.RefinedProfileProbability * sectionN;
+            }
+
+            if (ProbabilityRefinementType == ProbabilityRefinementType.Section)
+            {
+                refinedProfileProbability = SectionResult.RefinedSectionProbability / sectionN;
+            }
+
+            try
+            {
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
+                    assessmentSection, IsRelevant, InitialFailureMechanismResultProfileProbability,
+                    initialFailureMechanismResultSectionProbabilityIndex, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+                ProfileProbability = result.ProfileProbability;
+                SectionProbability = result.SectionProbability;
+                ResultingSectionN = result.N;
+                assemblyGroup = result.AssemblyGroup;
+            }
+            catch (AssemblyException e)
+            {
+                ProfileProbability = double.NaN;
+                SectionProbability = double.NaN;
+                ResultingSectionN = double.NaN;
+                assemblyGroup = FailureMechanismSectionAssemblyGroup.D;
+            }
         }
 
         private void CreateColumnStateDefinitions()
