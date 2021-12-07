@@ -35,13 +35,13 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class FailureMechanismSectionResultRowHelperTest
+    public class FailureMechanismSectionResultRowHelperOldTest
     {
         [Test]
         public void GetDetailedAssessmentProbabilityError_RelevantScenariosNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError<ICalculationScenario>(
+            void Call() => FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError<ICalculationScenario>(
                 null, scenarios => double.NaN, scenarios => double.NaN);
 
             // Assert
@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void GetDetailedAssessmentProbabilityError_GetTotalContributionFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            void Call() => FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 new ICalculationScenario[0], null, scenarios => double.NaN);
 
             // Assert
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void GetDetailedAssessmentProbabilityError_GetDetailedAssessmentProbabilityFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            void Call() => FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 new ICalculationScenario[0], scenarios => double.NaN, null);
 
             // Assert
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var random = new Random(21);
 
             // Call
-            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            string errorMessage = FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 new ICalculationScenario[0], scenarios => random.NextDouble(), scenarios => random.NextDouble());
 
             // Assert
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            string errorMessage = FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 calculationScenarios, scenarios => random.NextDouble(0, 0.99), scenarios => random.NextDouble());
 
             // Assert
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            string errorMessage = FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 calculationScenarios, scenarios => 1, scenarios => random.NextDouble());
 
             // Assert
@@ -149,7 +149,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            string errorMessage = FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 calculationScenarios, scenarios => 1, scenarios => double.NaN);
 
             // Assert
@@ -172,7 +172,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+            string errorMessage = FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                 calculationScenarios, scenarios => 1, scenarios => random.NextDouble());
 
             // Assert
@@ -188,7 +188,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             SimpleAssessmentResultType simpleAssessmentResult, bool expectedSufficiency)
         {
             // Call
-            bool isSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
+            bool isSufficient = FailureMechanismSectionResultRowHelperOld.SimpleAssessmentIsSufficient(simpleAssessmentResult);
 
             // Assert
             Assert.AreEqual(expectedSufficiency, isSufficient);
@@ -202,7 +202,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult, bool expectedSufficiency)
         {
             // Call
-            bool isSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(simpleAssessmentResult);
+            bool isSufficient = FailureMechanismSectionResultRowHelperOld.SimpleAssessmentIsSufficient(simpleAssessmentResult);
 
             // Assert
             Assert.AreEqual(expectedSufficiency, isSufficient);
@@ -215,7 +215,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult, bool expectedIsProbability)
         {
             // Call
-            bool isProbability = FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(detailedAssessmentResult);
+            bool isProbability = FailureMechanismSectionResultRowHelperOld.DetailedAssessmentResultIsProbability(detailedAssessmentResult);
 
             // Assert
             Assert.AreEqual(expectedIsProbability, isProbability);
@@ -230,7 +230,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult, bool expectedIsProbability)
         {
             // Call
-            bool isProbability = FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(tailorMadeAssessmentResult);
+            bool isProbability = FailureMechanismSectionResultRowHelperOld.TailorMadeAssessmentResultIsProbability(tailorMadeAssessmentResult);
 
             // Assert
             Assert.AreEqual(expectedIsProbability, isProbability);
@@ -247,7 +247,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult, bool expectedIsProbability)
         {
             // Call
-            bool isProbability = FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(tailorMadeAssessmentResult);
+            bool isProbability = FailureMechanismSectionResultRowHelperOld.TailorMadeAssessmentResultIsProbability(tailorMadeAssessmentResult);
 
             // Assert
             Assert.AreEqual(expectedIsProbability, isProbability);
@@ -257,7 +257,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void SetAssemblyCategoryGroupStyle_DataGridViewColumnStateDefinitionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(
+            void Call() => FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(
                 null, new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Assert
@@ -275,7 +275,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            void Call() => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(
+            void Call() => FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(
                 columnStateDefinition, (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
@@ -292,7 +292,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var columnStateDefinition = new DataGridViewColumnStateDefinition();
 
             // Call
-            FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(columnStateDefinition, assemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(columnStateDefinition, assemblyCategoryGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, columnStateDefinition.Style.BackgroundColor);

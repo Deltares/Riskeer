@@ -259,15 +259,15 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         private void UpdateDetailedAssessmentProbabilityError()
         {
-            if (FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
-                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+            if (FailureMechanismSectionResultRowHelperOld.SimpleAssessmentIsSufficient(SimpleAssessmentResult)
+                || !FailureMechanismSectionResultRowHelperOld.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
                 || UseManualAssembly)
             {
                 ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = string.Empty;
             }
             else
             {
-                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelperOld.GetDetailedAssessmentProbabilityError(
                     SectionResult.GetCalculationScenarios(calculationScenarios).ToArray(),
                     scenarios => SectionResult.GetTotalContribution(scenarios),
                     scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios));
@@ -375,13 +375,13 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         private void UpdateColumnDefinitionStates()
         {
-            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelper.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
+            bool simpleAssessmentSufficient = FailureMechanismSectionResultRowHelperOld.SimpleAssessmentIsSufficient(SimpleAssessmentResult);
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
                                              simpleAssessmentSufficient || UseManualAssembly);
             if (simpleAssessmentSufficient
-                || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
+                || !FailureMechanismSectionResultRowHelperOld.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
                 || UseManualAssembly)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[detailedAssessmentProbabilityIndex]);
@@ -395,7 +395,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                                              simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
                                              simpleAssessmentSufficient
-                                             || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
+                                             || !FailureMechanismSectionResultRowHelperOld.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
                                              || UseManualAssembly);
 
             if (UseManualAssembly)
@@ -408,13 +408,13 @@ namespace Riskeer.HeightStructures.Forms.Views
             }
             else
             {
-                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
+                FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[simpleAssemblyCategoryGroupIndex],
                                                                                      simpleAssemblyCategoryGroup);
-                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex],
+                FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[detailedAssemblyCategoryGroupIndex],
                                                                                      detailedAssemblyCategoryGroup);
-                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
+                FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[tailorMadeAssemblyCategoryGroupIndex],
                                                                                      tailorMadeAssemblyCategoryGroup);
-                FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
+                FailureMechanismSectionResultRowHelperOld.SetAssemblyCategoryGroupStyle(ColumnStateDefinitions[combinedAssemblyCategoryGroupIndex],
                                                                                      combinedAssemblyCategoryGroup);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[combinedAssemblyProbabilityIndex], true);
             }
