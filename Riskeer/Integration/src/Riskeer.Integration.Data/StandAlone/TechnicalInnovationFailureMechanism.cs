@@ -32,7 +32,8 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Technical Innovations failure mechanism.
     /// </summary>
-    public class TechnicalInnovationFailureMechanism : FailureMechanismBase, IHasSectionResults<TechnicalInnovationFailureMechanismSectionResultOld>
+    public class TechnicalInnovationFailureMechanism : FailureMechanismBase, IHasSectionResults<TechnicalInnovationFailureMechanismSectionResultOld>,
+                                                       IHasGeneralInput
     {
         private readonly ObservableList<TechnicalInnovationFailureMechanismSectionResultOld> sectionResults;
 
@@ -45,7 +46,10 @@ namespace Riskeer.Integration.Data.StandAlone
                    4)
         {
             sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResultOld>();
+            GeneralInput = new GeneralInput();
         }
+
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
         {

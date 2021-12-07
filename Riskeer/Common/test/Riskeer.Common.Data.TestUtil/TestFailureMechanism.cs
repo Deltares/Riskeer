@@ -26,7 +26,8 @@ using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.TestUtil
 {
-    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
+    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>,
+                                        IHasGeneralInput
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
@@ -48,7 +49,10 @@ namespace Riskeer.Common.Data.TestUtil
             sectionResultsOld = new ObservableList<FailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<FailureMechanismSectionResult>();
             Calculations = calculations;
+            GeneralInput = new GeneralInput();
         }
+
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations { get; }
 

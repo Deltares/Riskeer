@@ -41,10 +41,12 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Grasbekleding afschuiven binnentalud", failureMechanism.Name);
             Assert.AreEqual("GABI", failureMechanism.Code);
             Assert.AreEqual(4, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
         }
 
         [Test]

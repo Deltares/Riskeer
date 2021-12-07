@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -45,11 +46,19 @@ namespace Riskeer.Integration.Data.FailurePath
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
+            N = new RoundedDouble(2, 1);
             Input = new SpecificFailurePathInput();
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
         }
+
+        /// <summary>
+        /// Gets the input that applies to the specific failure path.
+        /// </summary>
+        public SpecificFailurePathInput Input { get; }
+
+        public RoundedDouble N { get; set; }
 
         public string Name { get; set; }
 
@@ -76,11 +85,6 @@ namespace Riskeer.Integration.Data.FailurePath
         public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
-        
-        /// <summary>
-        /// Gets the input that applies to the specific failure path.
-        /// </summary>
-        public SpecificFailurePathInput Input { get;  }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

@@ -33,7 +33,8 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Strength and Stability of Lengthwise Constructions failure mechanism.
     /// </summary>
     public class StrengthStabilityLengthwiseConstructionFailureMechanism : FailureMechanismBase,
-                                                                           IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>
+                                                                           IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>,
+                                                                           IHasGeneralInput
     {
         private readonly ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> sectionResults;
 
@@ -46,7 +47,10 @@ namespace Riskeer.Integration.Data.StandAlone
                    4)
         {
             sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
+            GeneralInput = new GeneralInput();
         }
+
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
         {

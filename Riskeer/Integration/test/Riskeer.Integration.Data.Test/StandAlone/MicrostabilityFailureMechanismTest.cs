@@ -41,10 +41,12 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<IHasSectionResults<MicrostabilityFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Microstabiliteit", failureMechanism.Name);
             Assert.AreEqual("STMI", failureMechanism.Code);
             Assert.AreEqual(4, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
         }
 
         [Test]

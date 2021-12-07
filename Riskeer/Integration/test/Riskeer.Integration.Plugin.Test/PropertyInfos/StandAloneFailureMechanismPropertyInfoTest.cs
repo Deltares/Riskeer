@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(IFailurePathContext<IFailureMechanism>), info.DataType);
+            Assert.AreEqual(typeof(IFailurePathContext<IHasGeneralInput>), info.DataType);
             Assert.AreEqual(typeof(StandAloneFailurePathProperties), info.PropertyObjectType);
         }
 
@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IHasGeneralInput>();
             mocks.ReplayAll();
 
             var context = new TestFailureMechanismContext(failureMechanism, assessmentSection);
@@ -78,9 +78,9 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        private class TestFailureMechanismContext : FailureMechanismContext<IHasGeneralInput>
         {
-            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
+            public TestFailureMechanismContext(IHasGeneralInput wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
         }
     }
 }

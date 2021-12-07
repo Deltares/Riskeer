@@ -33,7 +33,8 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Grass Cover Slip Off Outwards failure mechanism.
     /// </summary>
     public class GrassCoverSlipOffOutwardsFailureMechanism : FailureMechanismBase,
-                                                             IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>
+                                                             IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>,
+                                                             IHasGeneralInput
     {
         private readonly ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> sectionResults;
 
@@ -44,7 +45,10 @@ namespace Riskeer.Integration.Data.StandAlone
             : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
+            GeneralInput = new GeneralInput();
         }
+
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
         {

@@ -32,7 +32,8 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Microstability failure mechanism.
     /// </summary>
-    public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResultOld>
+    public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResultOld>,
+                                                  IHasGeneralInput
     {
         private readonly ObservableList<MicrostabilityFailureMechanismSectionResultOld> sectionResults;
 
@@ -43,7 +44,10 @@ namespace Riskeer.Integration.Data.StandAlone
             : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<MicrostabilityFailureMechanismSectionResultOld>();
+            GeneralInput = new GeneralInput();
         }
+
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
         {

@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
-            yield return new PropertyInfo<IFailurePathContext<IFailureMechanism>, StandAloneFailurePathProperties>
+            yield return new PropertyInfo<IFailurePathContext<IHasGeneralInput>, StandAloneFailurePathProperties>
             {
                 CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData, context.Parent)
             };

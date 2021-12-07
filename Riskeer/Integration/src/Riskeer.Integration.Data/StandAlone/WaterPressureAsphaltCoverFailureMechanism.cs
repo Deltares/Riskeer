@@ -33,7 +33,8 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Water Pressure on Asphalt failure mechanism.
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase,
-                                                             IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
+                                                             IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>,
+                                                             IHasGeneralInput
     {
         private readonly ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> sectionResults;
 
@@ -44,7 +45,10 @@ namespace Riskeer.Integration.Data.StandAlone
             : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
+            GeneralInput = new GeneralInput();
         }
+
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
         {

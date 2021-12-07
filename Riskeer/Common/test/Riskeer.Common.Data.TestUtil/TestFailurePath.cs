@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -43,10 +44,13 @@ namespace Riskeer.Common.Data.TestUtil
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
+            N = new RoundedDouble(2, 1.5);
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
         }
+
+        public RoundedDouble N { get; set; }
 
         public string Name { get; }
 
