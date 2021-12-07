@@ -67,7 +67,9 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<GrassCoverErosionOutwardsSectionResultEntity> GrassCoverErosionOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<GrassCoverErosionOutwardsWaveConditionsOutputEntity> GrassCoverErosionOutwardsWaveConditionsOutputEntities { get; set; }
+        public virtual DbSet<GrassCoverSlipOffInwardsFailureMechanismMetaEntity> GrassCoverSlipOffInwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<GrassCoverSlipOffInwardsSectionResultEntity> GrassCoverSlipOffInwardsSectionResultEntities { get; set; }
+        public virtual DbSet<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity> GrassCoverSlipOffOutwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<GrassCoverSlipOffOutwardsSectionResultEntity> GrassCoverSlipOffOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<HeightStructureEntity> HeightStructureEntities { get; set; }
         public virtual DbSet<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
@@ -94,6 +96,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
         public virtual DbSet<MacroStabilityOutwardsFailureMechanismMetaEntity> MacroStabilityOutwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<MacroStabilityOutwardsSectionResultEntity> MacroStabilityOutwardsSectionResultEntities { get; set; }
+        public virtual DbSet<MicrostabilityOutwardsFailureMechanismMetaEntity> MicrostabilityOutwardsFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
         public virtual DbSet<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
@@ -121,14 +124,17 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<StabilityStoneCoverWaveConditionsOutputEntity> StabilityStoneCoverWaveConditionsOutputEntities { get; set; }
         public virtual DbSet<StochastEntity> StochastEntities { get; set; }
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
+        public virtual DbSet<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity> StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
         public virtual DbSet<SubMechanismIllustrationPointEntity> SubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
         public virtual DbSet<SurfaceLineEntity> SurfaceLineEntities { get; set; }
+        public virtual DbSet<TechnicalInnovationFailureMechanismMetaEntity> TechnicalInnovationFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
         public virtual DbSet<TopLevelFaultTreeIllustrationPointEntity> TopLevelFaultTreeIllustrationPointEntities { get; set; }
         public virtual DbSet<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<VersionEntity> VersionEntities { get; set; }
+        public virtual DbSet<WaterPressureAsphaltCoverFailureMechanismMetaEntity> WaterPressureAsphaltCoverFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverFailureMechanismMetaEntity> WaveImpactAsphaltCoverFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
