@@ -259,8 +259,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
 
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.Piping.SectionResultsOld,
-                actualAssessmentSection.Piping.SectionResultsOld);
+                expectedAssessmentSection.Piping.SectionResults,
+                actualAssessmentSection.Piping.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.GrassCoverErosionInwards.SectionResultsOld,
                 actualAssessmentSection.GrassCoverErosionInwards.SectionResultsOld);
@@ -1200,19 +1200,21 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResultOld> expectedSectionResults,
-            IEnumerable<PipingFailureMechanismSectionResultOld> actualSectionResults)
+            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
                                      (expectedItem, actualItem) =>
                                      {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
+                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
+                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
+                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
+                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
+                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
                                      });
         }
 
