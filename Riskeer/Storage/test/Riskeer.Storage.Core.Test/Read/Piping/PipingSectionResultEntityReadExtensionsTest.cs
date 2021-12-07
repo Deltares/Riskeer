@@ -22,8 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.Piping;
@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         {
             // Call
             TestDelegate call = () => ((PipingSectionResultEntity) null).Read(
-                new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -64,35 +64,42 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         {
             // Setup
             var random = new Random(21);
-            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-            double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssembly = random.NextBoolean();
-            double manualAssemblyProbability = random.NextDouble();
+            bool isRelevant = random.NextBoolean();
+            var initialFailureMechanismResultType = random.NextEnumValue<InitialFailureMechanismResultType>();
+            double manualProfileProbability = random.NextDouble();
+            double manualSectionProbability = random.NextDouble();
+
+            bool furtherAnalysisNeeded = random.NextBoolean();
+            var probabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
+            double refinedProfileProbability = random.NextDouble();
+            double refinedSectionProbability = random.NextDouble();
 
             var entity = new PipingSectionResultEntity
             {
-                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
-                DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
-                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssembly = Convert.ToByte(useManualAssembly),
-                ManualAssemblyProbability = manualAssemblyProbability
+                IsRelevant = Convert.ToByte(isRelevant),
+                InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
+                ManualInitialFailureMechanismResultProfileProbability = manualProfileProbability,
+                ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
+                FurtherAnalysisNeeded = Convert.ToByte(furtherAnalysisNeeded),
+                ProbabilityRefinementType = Convert.ToByte(probabilityRefinementType),
+                RefinedProfileProbability = refinedProfileProbability,
+                RefinedSectionProbability = refinedSectionProbability
             };
 
-            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
-            Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
-            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
-            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
-            Assert.AreEqual(manualAssemblyProbability, sectionResult.ManualAssemblyProbability, 1e-6);
+            Assert.AreEqual(isRelevant, sectionResult.IsRelevant);
+            Assert.AreEqual(initialFailureMechanismResultType, sectionResult.InitialFailureMechanismResult);
+            Assert.AreEqual(manualProfileProbability, sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(manualSectionProbability, sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(furtherAnalysisNeeded, sectionResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(probabilityRefinementType, sectionResult.ProbabilityRefinementType);
+            Assert.AreEqual(refinedProfileProbability, sectionResult.RefinedProfileProbability);
+            Assert.AreEqual(refinedSectionProbability, sectionResult.RefinedSectionProbability);
         }
 
         [Test]
@@ -100,14 +107,16 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         {
             // Setup
             var entity = new PipingSectionResultEntity();
-            var sectionResult = new PipingFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
-            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
+            Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.IsNaN(sectionResult.RefinedProfileProbability);
+            Assert.IsNaN(sectionResult.RefinedSectionProbability);
         }
     }
 }
