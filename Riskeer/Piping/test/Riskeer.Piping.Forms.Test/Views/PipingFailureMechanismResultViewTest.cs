@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual("1/100", cells[profileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("1/10", cells[sectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual("10", cells[sectionNIndex].FormattedValue);
-                Assert.AreEqual("I", cells[assemblyGroupIndex].FormattedValue);
+                Assert.AreEqual("+I", cells[assemblyGroupIndex].FormattedValue);
             }
         }
 
