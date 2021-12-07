@@ -264,7 +264,30 @@ FROM [SOURCEPROJECT].FailureMechanismEntity
 JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING (FailureMechanismEntityId)
 WHERE FailureMechanismType = 1;
 
-INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;
+INSERT INTO PipingSectionResultEntity (
+    [PipingSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [ProbabilityRefinementType],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+) 
+SELECT
+    [PipingSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    2,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].PipingSectionResultEntity;
 INSERT INTO PipingSoilLayerEntity SELECT * FROM [SOURCEPROJECT].PipingSoilLayerEntity;
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
 INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingStochasticSoilProfileEntity;
