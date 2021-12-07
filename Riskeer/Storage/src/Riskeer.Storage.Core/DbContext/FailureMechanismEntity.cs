@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.DbContext
             HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
             MacroStabilityInwardsFailureMechanismMetaEntities = new HashSet<MacroStabilityInwardsFailureMechanismMetaEntity>();
             MacroStabilityOutwardsFailureMechanismMetaEntities = new HashSet<MacroStabilityOutwardsFailureMechanismMetaEntity>();
-            MicrostabilityOutwardsFailureMechanismMetaEntities = new HashSet<MicrostabilityOutwardsFailureMechanismMetaEntity>();
+            MicrostabilityFailureMechanismMetaEntities = new HashSet<MicrostabilityFailureMechanismMetaEntity>();
             PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
             PipingStructureFailureMechanismMetaEntities = new HashSet<PipingStructureFailureMechanismMetaEntity>();
             StabilityPointStructureEntities = new HashSet<StabilityPointStructureEntity>();
@@ -124,7 +124,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<MacroStabilityOutwardsFailureMechanismMetaEntity> MacroStabilityOutwardsFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MicrostabilityOutwardsFailureMechanismMetaEntity> MicrostabilityOutwardsFailureMechanismMetaEntities { get; set; }
+        public virtual ICollection<MicrostabilityFailureMechanismMetaEntity> MicrostabilityFailureMechanismMetaEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
