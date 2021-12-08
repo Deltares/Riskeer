@@ -42,6 +42,7 @@ namespace Riskeer.Storage.Core.Create.TechnicalInnovation
         internal static FailureMechanismEntity Create(this TechnicalInnovationFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.TechnicalInnovations, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
@@ -57,6 +58,14 @@ namespace Riskeer.Storage.Core.Create.TechnicalInnovation
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.TechnicalInnovationSectionResultEntities.Add(sectionResultEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(TechnicalInnovationFailureMechanism mechanism, FailureMechanismEntity entity)
+        {
+            entity.TechnicalInnovationFailureMechanismMetaEntities.Add(new TechnicalInnovationFailureMechanismMetaEntity
+            {
+                N = mechanism.GeneralInput.N
+            });
         }
     }
 }

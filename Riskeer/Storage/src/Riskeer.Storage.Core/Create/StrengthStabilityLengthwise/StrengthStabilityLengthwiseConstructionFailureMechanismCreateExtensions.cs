@@ -42,6 +42,7 @@ namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
         internal static FailureMechanismEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityParallelConstruction, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
@@ -57,6 +58,14 @@ namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.StrengthStabilityLengthwiseConstructionSectionResultEntities.Add(sectionResultEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, FailureMechanismEntity entity)
+        {
+            entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Add(new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
+            {
+                N = mechanism.GeneralInput.N
+            });
         }
     }
 }

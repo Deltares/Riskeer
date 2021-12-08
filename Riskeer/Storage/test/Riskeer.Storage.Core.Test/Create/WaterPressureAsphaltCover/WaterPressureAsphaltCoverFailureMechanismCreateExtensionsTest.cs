@@ -41,10 +41,10 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            void Call() => failureMechanism.Create(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("registry", paramName);
         }
 
@@ -72,6 +72,10 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
                 CalculationsInputComments =
                 {
                     Body = "Some calculation text"
+                },
+                GeneralInput =
+                {
+                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -87,6 +91,9 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
+
+            WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
         [Test]

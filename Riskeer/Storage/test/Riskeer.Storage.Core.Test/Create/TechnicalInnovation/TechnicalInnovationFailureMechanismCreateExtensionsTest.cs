@@ -41,10 +41,10 @@ namespace Riskeer.Storage.Core.Test.Create.TechnicalInnovation
             var failureMechanism = new TechnicalInnovationFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.Create(null);
+            void Call() => failureMechanism.Create(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("registry", paramName);
         }
 
@@ -72,6 +72,10 @@ namespace Riskeer.Storage.Core.Test.Create.TechnicalInnovation
                 CalculationsInputComments =
                 {
                     Body = "Some calculation comments"
+                },
+                GeneralInput =
+                {
+                    N = new Random().NextRoundedDouble(1, 20)
                 }
             };
             var registry = new PersistenceRegistry();
@@ -87,6 +91,9 @@ namespace Riskeer.Storage.Core.Test.Create.TechnicalInnovation
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
+
+            TechnicalInnovationFailureMechanismMetaEntity metaEntity = entity.TechnicalInnovationFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
         [Test]
