@@ -84,6 +84,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingFailureMechanism(reader, sourceFilePath);
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
                     AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
+                    
+                    AssertMicrostabilityFailureMechanismMetaEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -894,6 +896,28 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateFailureMechamismSectionResults);
+        }
+
+        #endregion
+
+        #region Microstability
+
+        private static void AssertMicrostabilityFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (" +
+                "SELECT COUNT()" +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "WHERE FailureMechanismType = 14" +
+                ") " +
+                "FROM MicrostabilityFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
+                "WHERE OLD.[FailureMechanismType] = 14 " +
+                "AND NEW.[N] = 1;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
         }
 
         #endregion
