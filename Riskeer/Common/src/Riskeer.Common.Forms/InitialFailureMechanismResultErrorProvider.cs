@@ -87,22 +87,22 @@ namespace Riskeer.Common.Forms
 
             if (relevantScenarios.Length == 0)
             {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_No_relevant_calculation_scenarios_present;
+                return Resources.InitialFailureMechanismResultErrorProvider_No_relevant_calculation_scenarios_present;
             }
 
             if (Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+                return Resources.InitialFailureMechanismResultErrorProvider_Scenario_contribution_for_this_section_not_100;
             }
 
             if (!relevantScenarios.All(s => s.HasOutput))
             {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_relevant_calculation_scenarios_have_been_executed;
+                return Resources.InitialFailureMechanismResultErrorProvider_Not_all_relevant_calculation_scenarios_have_been_executed;
             }
 
             if (double.IsNaN(getProbabilityFunc()))
             {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_scenarios_must_have_valid_output;
+                return Resources.InitialFailureMechanismResultErrorProvider_All_relevant_calculation_scenarios_must_have_valid_output;
             }
 
             return string.Empty;

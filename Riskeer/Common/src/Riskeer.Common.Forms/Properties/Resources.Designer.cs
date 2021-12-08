@@ -1693,46 +1693,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_scenarios_must_have_valid_output {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_sc" +
-                        "enarios_must_have_valid_output", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_No_relevant_calculation_scenarios_present {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_No_relevant_calculation_sce" +
-                        "narios_present", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_relevant_calculation_scenarios_have_been_executed {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_relevant_calculatio" +
-                        "n_scenarios_have_been_executed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De bijdragen van de maatgevende scenario&apos;s voor dit vak moeten opgeteld gelijk zijn aan 100%..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100 {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_t" +
-                        "his_section_not_100", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetsoordeel
         ///gedetailleerde toets per vak.
         /// </summary>
@@ -2767,6 +2727,46 @@ namespace Riskeer.Common.Forms.Properties {
         public static string IllustrationPointsTableControl_CalculatedReliability_DisplayName {
             get {
                 return ResourceManager.GetString("IllustrationPointsTableControl_CalculatedReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben..
+        /// </summary>
+        public static string InitialFailureMechanismResultErrorProvider_All_relevant_calculation_scenarios_must_have_valid_output {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultErrorProvider_All_relevant_calculation_scenarios_mus" +
+                        "t_have_valid_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd..
+        /// </summary>
+        public static string InitialFailureMechanismResultErrorProvider_No_relevant_calculation_scenarios_present {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultErrorProvider_No_relevant_calculation_scenarios_pres" +
+                        "ent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn..
+        /// </summary>
+        public static string InitialFailureMechanismResultErrorProvider_Not_all_relevant_calculation_scenarios_have_been_executed {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultErrorProvider_Not_all_relevant_calculation_scenarios" +
+                        "_have_been_executed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De bijdragen van de maatgevende scenario&apos;s voor dit vak moeten opgeteld gelijk zijn aan 100%..
+        /// </summary>
+        public static string InitialFailureMechanismResultErrorProvider_Scenario_contribution_for_this_section_not_100 {
+            get {
+                return ResourceManager.GetString("InitialFailureMechanismResultErrorProvider_Scenario_contribution_for_this_section" +
+                        "_not_100", resourceCulture);
             }
         }
         
