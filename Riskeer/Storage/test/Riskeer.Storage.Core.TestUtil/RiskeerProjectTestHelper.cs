@@ -198,6 +198,8 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSections(pipingStructureFailureMechanism);
             SetSectionResults(pipingStructureFailureMechanism.SectionResultsOld);
 
+            MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
+            microstabilityFailureMechanism.GeneralInput.N = (RoundedDouble) 2.0;
             SetSections(assessmentSection.Microstability);
             SetSectionResults(assessmentSection.Microstability.SectionResultsOld);
             SetSections(assessmentSection.WaterPressureAsphaltCover);

@@ -974,7 +974,7 @@ namespace Riskeer.Storage.Core.Test.Read
             bool grassRevetmentSlidingInwardsInAssembly = random.NextBoolean();
             bool technicalInnovationsInAssembly = random.NextBoolean();
 
-            FailureMechanismEntity microstability = CreateFailureMechanismEntity(
+            FailureMechanismEntity microstability = CreateMicrostabilityFailureMechanismEntity(
                 microstabilityInAssembly,
                 FailureMechanismType.Microstability);
             FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
@@ -1264,6 +1264,27 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyOutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
                 NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString()),
                 CalculationsInputComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString())
+            };
+        }
+        
+        private static FailureMechanismEntity CreateMicrostabilityFailureMechanismEntity(bool inAssembly,
+                                                                           FailureMechanismType failureMechanismType)
+        {
+            return new FailureMechanismEntity
+            {
+                FailureMechanismType = (short) failureMechanismType,
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = string.Concat("InputComment", failureMechanismType.ToString()),
+                InAssemblyOutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
+                NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString()),
+                CalculationsInputComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString()),
+                MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>
+                {
+                    new MicrostabilityFailureMechanismMetaEntity
+                    {
+                        N = 1.0
+                    }
+                }
             };
         }
 
