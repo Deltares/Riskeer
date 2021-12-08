@@ -42,6 +42,7 @@ namespace Riskeer.Storage.Core.Create.Microstability
         internal static FailureMechanismEntity Create(this MicrostabilityFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.Microstability, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
 
             return entity;
@@ -57,6 +58,14 @@ namespace Riskeer.Storage.Core.Create.Microstability
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.MicrostabilitySectionResultEntities.Add(sectionResultEntity);
             }
+        }
+        
+        private static void AddEntitiesForFailureMechanismMeta(MicrostabilityFailureMechanism mechanism, FailureMechanismEntity entity)
+        {
+            entity.MicrostabilityFailureMechanismMetaEntities.Add(new MicrostabilityFailureMechanismMetaEntity
+            {
+                N = mechanism.GeneralInput.N
+            });
         }
     }
 }

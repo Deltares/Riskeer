@@ -45,6 +45,7 @@ using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.MacroStabilityOutwards;
+using Riskeer.Storage.Core.Read.Microstability;
 using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.PipingStructure;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
@@ -840,6 +841,7 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadMicrostabilityMechanismSectionResults(failureMechanism, collector);
+            entity.ReadMicrostabilityGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadMicrostabilityMechanismSectionResults(this FailureMechanismEntity entity,
@@ -853,6 +855,12 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+        
+        private static void ReadMicrostabilityGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
+        {
+            GeneralInput generalMicrostabilityInput = entity.MicrostabilityFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = generalMicrostabilityInput.N;
         }
 
         #endregion
