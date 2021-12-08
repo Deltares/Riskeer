@@ -22,7 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
-using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.Views
 {

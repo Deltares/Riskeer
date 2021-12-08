@@ -26,6 +26,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;

@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Forms.Merge
 {

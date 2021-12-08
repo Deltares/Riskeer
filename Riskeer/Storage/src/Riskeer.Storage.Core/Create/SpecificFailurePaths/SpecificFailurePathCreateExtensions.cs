@@ -21,8 +21,8 @@
 
 using System;
 using Core.Common.Util.Extensions;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
 
