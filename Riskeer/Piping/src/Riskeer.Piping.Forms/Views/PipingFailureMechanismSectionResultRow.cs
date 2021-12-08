@@ -274,6 +274,18 @@ namespace Riskeer.Piping.Forms.Views
         {
             UpdateDerivedData();
             UpdateColumnStateDefinitions();
+            UpdateInitialFailureMechanismResultErrors();
+        }
+
+        private void UpdateInitialFailureMechanismResultErrors()
+        {
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt)
+            {
+                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
+                    calculateProbabilityStrategy.CalculateProfileProbability);
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
+                    calculateProbabilityStrategy.CalculateSectionProbability);
+            }
         }
 
         private void UpdateDerivedData()
@@ -284,6 +296,8 @@ namespace Riskeer.Piping.Forms.Views
 
         private void ResetErrorTexts()
         {
+            ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[profileProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionNIndex].ErrorText = string.Empty;
