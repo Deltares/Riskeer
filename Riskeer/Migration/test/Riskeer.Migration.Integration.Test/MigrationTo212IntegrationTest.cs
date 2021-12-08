@@ -85,7 +85,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
                     AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
                     
-                    AssertMicrostabilityFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -900,24 +900,29 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
-        #region Microstability
-
-        private static void AssertMicrostabilityFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        #region StandAlone
+        
+        private static void AssertStandAloneFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateFailureMechanismEntity =
+            string validateFailureMechanismMetaEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = (" +
                 "SELECT COUNT()" +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
-                "WHERE FailureMechanismType = 14" +
+                "WHERE FailureMechanismType = {0}" +
                 ") " +
-                "FROM MicrostabilityFailureMechanismMetaEntity NEW " +
+                "FROM {1} NEW " +
                 "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
-                "WHERE OLD.[FailureMechanismType] = 14 " +
+                "WHERE OLD.[FailureMechanismType] = {0} " +
                 "AND NEW.[N] = 1;" +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "16", "GrassCoverSlipOffInwardsFailureMechanismMetaEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "5", "GrassCoverSlipOffOutwardsFailureMechanismMetaEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "14", "MicrostabilityFailureMechanismMetaEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "17", "StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "18", "TechnicalInnovationFailureMechanismMetaEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "15", "WaterPressureAsphaltCoverFailureMechanismMetaEntity"));
         }
 
         #endregion

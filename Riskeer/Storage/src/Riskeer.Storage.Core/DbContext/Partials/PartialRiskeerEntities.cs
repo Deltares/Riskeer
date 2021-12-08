@@ -75,7 +75,9 @@ namespace Riskeer.Storage.Core.DbContext
             GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Load();
             GrassCoverErosionOutwardsWaveConditionsOutputEntities.Load();
             GrassCoverSlipOffInwardsSectionResultEntities.Load();
+            GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Load();
             GrassCoverSlipOffOutwardsSectionResultEntities.Load();
+            GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Load();
             HeightStructureEntities.Load();
             HeightStructuresCalculationEntities.Load();
             HeightStructuresFailureMechanismMetaEntities.Load();
@@ -130,9 +132,12 @@ namespace Riskeer.Storage.Core.DbContext
             StabilityStoneCoverWaveConditionsOutputEntities.Load();
             StochasticSoilModelEntities.Load();
             StrengthStabilityLengthwiseConstructionSectionResultEntities.Load();
+            StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Load();
             SurfaceLineEntities.Load();
             TechnicalInnovationSectionResultEntities.Load();
+            TechnicalInnovationFailureMechanismMetaEntities.Load();
             WaterPressureAsphaltCoverSectionResultEntities.Load();
+            WaterPressureAsphaltCoverFailureMechanismMetaEntities.Load();
             WaveImpactAsphaltCoverFailureMechanismMetaEntities.Load();
             WaveImpactAsphaltCoverSectionResultEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Load();
