@@ -136,15 +136,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 Assert.AreEqual("Vaknaam", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Is relevant", dataGridView.Columns[isRelevantIndex].HeaderText);
-                Assert.AreEqual("Resultaat initieel faalmechanisme", dataGridView.Columns[initialFailureMechanismResultIndex].HeaderText);
-                Assert.AreEqual("Faalkans initieel faalmechanisme per doorsnede\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].HeaderText);
-                Assert.AreEqual("Faalkans initieel faalmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
+                Assert.AreEqual("Resultaat initieel mechanisme", dataGridView.Columns[initialFailureMechanismResultIndex].HeaderText);
+                Assert.AreEqual("Faalkans initieel\r\nmechanisme per doorsnede\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].HeaderText);
+                Assert.AreEqual("Faalkans initieel\r\nmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Is vervolganalyse nodig", dataGridView.Columns[furtherAnalysisNeededIndex].HeaderText);
                 Assert.AreEqual("Aanscherpen faalkans", dataGridView.Columns[probabilityRefinementTypeIndex].HeaderText);
-                Assert.AreEqual("Aangescherpte faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[refinedProfileProbabilityIndex].HeaderText);
-                Assert.AreEqual("Aangescherpte faalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Rekenwaarde faalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[profileProbabilityIndex].HeaderText);
-                Assert.AreEqual("Rekenwaarde faalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
+                Assert.AreEqual("Aangescherpte\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[refinedProfileProbabilityIndex].HeaderText);
+                Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
+                Assert.AreEqual("Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[profileProbabilityIndex].HeaderText);
+                Assert.AreEqual("Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Rekenwaarde Nvak\r\n[-]", dataGridView.Columns[sectionNIndex].HeaderText);
                 Assert.AreEqual("Duidingsklasse", dataGridView.Columns[assemblyGroupIndex].HeaderText);
 

@@ -1815,7 +1815,8 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans initieel faalmechanisme per doorsnede
+        ///   Looks up a localized string similar to Faalkans initieel
+        ///mechanisme per doorsnede
         ///[1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName {
@@ -1826,7 +1827,8 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans initieel faalmechanisme per vak
+        ///   Looks up a localized string similar to Faalkans initieel
+        ///mechanisme per vak
         ///[1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName {
@@ -1837,7 +1839,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resultaat initieel faalmechanisme.
+        ///   Looks up a localized string similar to Resultaat initieel mechanisme.
         /// </summary>
         public static string FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName {
             get {
@@ -1874,7 +1876,8 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde faalkans per doorsnede
+        ///   Looks up a localized string similar to Rekenwaarde
+        ///faalkans per doorsnede
         ///[1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_ProfileProbability_DisplayName {
@@ -1884,7 +1887,8 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aangescherpte faalkans per doorsnede
+        ///   Looks up a localized string similar to Aangescherpte
+        ///faalkans per doorsnede
         ///[1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_RefinedProfileProbability_DisplayName {
@@ -1894,7 +1898,8 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aangescherpte faalkans per vak
+        ///   Looks up a localized string similar to Aangescherpte
+        ///faalkans per vak
         ///[1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_RefinedSectionProbability_DisplayName {
@@ -1914,7 +1919,8 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde faalkans per vak
+        ///   Looks up a localized string similar to Rekenwaarde
+        ///faalkans per vak
         ///[1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_SectionProbability_DisplayName {

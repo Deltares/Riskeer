@@ -212,7 +212,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Resultaat initieel faalmechanisme", columnData.HeaderText);
+                Assert.AreEqual("Resultaat initieel mechanisme", columnData.HeaderText);
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
@@ -265,7 +265,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Faalkans initieel faalmechanisme per doorsnede\r\n[1/jaar]", columnData.HeaderText);
+                Assert.AreEqual("Faalkans initieel\r\nmechanisme per doorsnede\r\n[1/jaar]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }
@@ -314,7 +314,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Faalkans initieel faalmechanisme per vak\r\n[1/jaar]", columnData.HeaderText);
+                Assert.AreEqual("Faalkans initieel\r\nmechanisme per vak\r\n[1/jaar]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }
@@ -469,7 +469,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Aangescherpte faalkans per doorsnede\r\n[1/jaar]", columnData.HeaderText);
+                Assert.AreEqual("Aangescherpte\r\nfaalkans per doorsnede\r\n[1/jaar]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }
@@ -518,7 +518,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Aangescherpte faalkans per vak\r\n[1/jaar]", columnData.HeaderText);
+                Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }
@@ -571,7 +571,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Rekenwaarde faalkans per doorsnede\r\n[1/jaar]", columnData.HeaderText);
+                Assert.AreEqual("Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }
@@ -620,7 +620,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Rekenwaarde faalkans per vak\r\n[1/jaar]", columnData.HeaderText);
+                Assert.AreEqual("Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1592,14 +1592,16 @@ scenario
     <value>Is relevant</value>
   </data>
   <data name="FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName" xml:space="preserve">
-    <value>Resultaat initieel faalmechanisme</value>
+    <value>Resultaat initieel mechanisme</value>
   </data>
   <data name="FailureMechanismResultView_InitialFailureMechanismResultProfileProbability_DisplayName" xml:space="preserve">
-    <value>Faalkans initieel faalmechanisme per doorsnede
+    <value>Faalkans initieel
+mechanisme per doorsnede
 [1/jaar]</value>
   </data>
   <data name="FailureMechanismResultView_InitialFailureMechanismResultSectionProbability_DisplayName" xml:space="preserve">
-    <value>Faalkans initieel faalmechanisme per vak
+    <value>Faalkans initieel
+mechanisme per vak
 [1/jaar]</value>
   </data>
   <data name="FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName" xml:space="preserve">
@@ -1609,19 +1611,23 @@ scenario
     <value>Aanscherpen faalkans</value>
   </data>
   <data name="FailureMechanismResultView_RefinedProfileProbability_DisplayName" xml:space="preserve">
-    <value>Aangescherpte faalkans per doorsnede
+    <value>Aangescherpte
+faalkans per doorsnede
 [1/jaar]</value>
   </data>
   <data name="FailureMechanismResultView_RefinedSectionProbability_DisplayName" xml:space="preserve">
-    <value>Aangescherpte faalkans per vak
+    <value>Aangescherpte
+faalkans per vak
 [1/jaar]</value>
   </data>
   <data name="FailureMechanismResultView_ProfileProbability_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde faalkans per doorsnede
+    <value>Rekenwaarde
+faalkans per doorsnede
 [1/jaar]</value>
   </data>
   <data name="FailureMechanismResultView_SectionProbability_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde faalkans per vak
+    <value>Rekenwaarde
+faalkans per vak
 [1/jaar]</value>
   </data>
   <data name="FailureMechanismResultView_SectionN_DisplayName" xml:space="preserve">
