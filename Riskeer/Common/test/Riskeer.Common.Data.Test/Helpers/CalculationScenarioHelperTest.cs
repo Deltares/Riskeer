@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Helpers;
 using Riskeer.Common.Data.TestUtil;
 
@@ -64,6 +65,41 @@ namespace Riskeer.Common.Data.Test.Helpers
 
             // Assert
             Assert.DoesNotThrow(Call);
+        }
+
+        [Test]
+        public void GetTotalContribution_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => CalculationScenarioHelper.GetTotalContribution<ICalculationScenario>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_WithCalculationScenarios_ReturnsTotalContribution()
+        {
+            // Setup
+            var calculationScenario1 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) 0.4323
+            };
+            var calculationScenario2 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) 0.1226
+            };
+
+            // Call
+            RoundedDouble totalContribution = CalculationScenarioHelper.GetTotalContribution(new[]
+            {
+                calculationScenario1,
+                calculationScenario2
+            });
+
+            // Assert
+            Assert.AreEqual((RoundedDouble) 0.5549, totalContribution);
         }
     }
 }

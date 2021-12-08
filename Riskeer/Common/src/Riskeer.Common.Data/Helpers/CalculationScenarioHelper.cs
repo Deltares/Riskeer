@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Properties;
@@ -52,6 +53,25 @@ namespace Riskeer.Common.Data.Helpers
             {
                 throw new ArgumentOutOfRangeException(null, Resources.Contribution_must_be_in_range);
             }
+        }
+
+        /// <summary>
+        /// Gets the total contribution of all given calculation scenarios.
+        /// </summary>
+        /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
+        /// <typeparam name="T">The type of the calculation scenarios.</typeparam>
+        /// <returns>The total contribution of all relevant calculation scenarios.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenarios"/> is <c>null</c>.</exception>
+        public static RoundedDouble GetTotalContribution<T>(T[] calculationScenarios)
+            where T : ICalculationScenario
+        {
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            return (RoundedDouble) calculationScenarios.Cast<ICalculationScenario>()
+                                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
     }
 }
