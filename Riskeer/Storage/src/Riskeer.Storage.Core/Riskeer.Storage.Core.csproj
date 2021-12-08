@@ -85,13 +85,6 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Read\GrassCoverSlipOffInwards" />
-      <Folder Include="Read\GrassCoverSlipOffOutwards" />
-      <Folder Include="Read\StrengthStabilityLengthwiseConstruction" />
-      <Folder Include="Read\TechnicalInnovation" />
-      <Folder Include="Read\WaterPressureAsphaltCover" />
-    </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\lib\net46\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\*&quot;" />
         <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net46\x64\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\System.Data.SQLite.Core-1.0.109.2\x64\*&quot;" />

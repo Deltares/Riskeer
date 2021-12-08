@@ -24,23 +24,23 @@ using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.Microstability
+namespace Riskeer.Storage.Core.Read.StrengthStabilityLengthwiseConstruction
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralInput"/>
-    /// based on the <see cref="MicrostabilityFailureMechanismMetaEntity"/>.
+    /// based on the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"/>.
     /// </summary>
-    internal static class MicrostabilityFailureMechanismMetaEntityReadExtensions
+    internal static class StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="MicrostabilityFailureMechanismMetaEntity"/> and use the information to
+        /// Read the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"/> and use the information to
         /// construct a <see cref="GeneralInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MicrostabilityFailureMechanismMetaEntity"/> to create
+        /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"/> to create
         /// <see cref="GeneralInput"/> for.</param>
         /// <returns>A new <see cref="GeneralInput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static GeneralInput Read(this MicrostabilityFailureMechanismMetaEntity entity)
+        internal static GeneralInput Read(this StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity entity)
         {
             if (entity == null)
             {
