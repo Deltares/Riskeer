@@ -30,6 +30,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -636,8 +637,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
 
                 // Then
-                AssertFailureMechanismSectionAssemblyResult(new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Gr),
-                                                            row.AssemblyResult);
+                AssertFailureMechanismSectionAssemblyResult(new DefaultFailureMechanismSectionAssemblyResult(), row.AssemblyResult);
             }
 
             mocks.VerifyAll();

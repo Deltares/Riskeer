@@ -329,9 +329,7 @@ namespace Riskeer.Piping.Forms.Views
             }
             catch (AssemblyException e)
             {
-                AssemblyResult = new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN,
-                                                                           FailureMechanismSectionAssemblyGroup.Gr);
-
+                AssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
                 ColumnStateDefinitions[profileProbabilityIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[sectionNIndex].ErrorText = e.Message;
