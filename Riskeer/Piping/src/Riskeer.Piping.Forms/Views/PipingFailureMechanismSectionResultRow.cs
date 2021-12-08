@@ -58,7 +58,6 @@ namespace Riskeer.Piping.Forms.Views
         private readonly IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-        private FailureMechanismSectionAssemblyGroup assemblyGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
@@ -252,23 +251,23 @@ namespace Riskeer.Piping.Forms.Views
         /// Gets the profile probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double ProfileProbability { get; private set; }
+        public double ProfileProbability => AssemblyResult.ProfileProbability;
 
         /// <summary>
         /// Gets the section probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double SectionProbability { get; private set; }
+        public double SectionProbability => AssemblyResult.SectionProbability;
 
         /// <summary>
         /// Gets the section N.
         /// </summary>
-        public double SectionN { get; private set; }
+        public double SectionN => AssemblyResult.N;
 
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(assemblyGroup);
+        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
 
         public override void Update()
         {
@@ -287,6 +286,8 @@ namespace Riskeer.Piping.Forms.Views
                     calculateProbabilityStrategy.CalculateSectionProbability);
             }
         }
+
+        public override FailureMechanismSectionAssemblyResult AssemblyResult { get; protected set; }
 
         private void UpdateDerivedData()
         {
@@ -322,20 +323,14 @@ namespace Riskeer.Piping.Forms.Views
 
             try
             {
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
+                AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                     assessmentSection, IsRelevant, InitialFailureMechanismResultProfileProbability,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
-                ProfileProbability = result.ProfileProbability;
-                SectionProbability = result.SectionProbability;
-                SectionN = result.N;
-                assemblyGroup = result.AssemblyGroup;
             }
             catch (AssemblyException e)
             {
-                ProfileProbability = double.NaN;
-                SectionProbability = double.NaN;
-                SectionN = 1;
-                assemblyGroup = FailureMechanismSectionAssemblyGroup.Gr;
+                AssemblyResult = new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN,
+                                                                           FailureMechanismSectionAssemblyGroup.Gr);
 
                 ColumnStateDefinitions[profileProbabilityIndex].ErrorText = e.Message;
                 ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
@@ -343,7 +338,7 @@ namespace Riskeer.Piping.Forms.Views
                 ColumnStateDefinitions[assemblyGroupIndex].ErrorText = e.Message;
             }
         }
-
+        
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());

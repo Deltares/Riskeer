@@ -590,11 +590,14 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(
-                                    calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup),
+                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
+                FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
+                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, rowAssemblyResult);
+
+                Assert.AreEqual(rowAssemblyResult.ProfileProbability, row.ProfileProbability);
+                Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(rowAssemblyResult.N, row.SectionN);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
                                 row.AssemblyGroup);
             }
 
@@ -625,22 +628,16 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.N, row.SectionN);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(
-                                    calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup),
-                                row.AssemblyGroup);
+                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
+                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, row.AssemblyResult);
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
                 row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
 
                 // Then
-                Assert.AreEqual(double.NaN, row.ProfileProbability);
-                Assert.AreEqual(double.NaN, row.SectionProbability);
-                Assert.AreEqual(1, row.SectionN);
-                Assert.AreEqual(string.Empty, row.AssemblyGroup);
+                AssertFailureMechanismSectionAssemblyResult(new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Gr),
+                                                            row.AssemblyResult);
             }
 
             mocks.VerifyAll();
@@ -729,6 +726,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+
+        private static void AssertFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
+                                                                        FailureMechanismSectionAssemblyResult actual)
+        {
+            Assert.AreEqual(expected.N, actual.N);
+            Assert.AreEqual(expected.SectionProbability, actual.SectionProbability);
+            Assert.AreEqual(expected.ProfileProbability, actual.ProfileProbability);
+            Assert.AreEqual(expected.AssemblyGroup, actual.AssemblyGroup);
         }
 
         #endregion
