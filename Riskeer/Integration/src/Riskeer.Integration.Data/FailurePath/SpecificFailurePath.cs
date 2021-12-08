@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Properties;
 
 namespace Riskeer.Integration.Data.FailurePath
@@ -51,6 +52,8 @@ namespace Riskeer.Integration.Data.FailurePath
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
+
+            AssemblyResult = new FailurePathAssemblyResult();
         }
 
         /// <summary>
@@ -69,6 +72,8 @@ namespace Riskeer.Integration.Data.FailurePath
                 return sectionCollection;
             }
         }
+
+        public FailurePathAssemblyResult AssemblyResult { get; }
 
         public string FailureMechanismSectionSourcePath
         {

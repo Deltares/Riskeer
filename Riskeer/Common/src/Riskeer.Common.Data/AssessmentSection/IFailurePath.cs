@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.AssessmentSection
 {
@@ -66,6 +67,11 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// a representative result.
         /// </summary>
         IEnumerable<FailureMechanismSection> Sections { get; }
+
+        /// <summary>
+        /// Gets the assembly result of the failure path.
+        /// </summary>
+        FailurePathAssemblyResult AssemblyResult { get; }
 
         /// <summary>
         /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.

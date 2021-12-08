@@ -25,6 +25,7 @@ using System.Globalization;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
@@ -66,6 +67,8 @@ namespace Riskeer.Common.Data.FailureMechanism
             NotInAssemblyComments = new Comment();
 
             CalculationsInputComments = new Comment();
+
+            AssemblyResult = new FailurePathAssemblyResult();
         }
 
         public double Contribution
@@ -91,10 +94,12 @@ namespace Riskeer.Common.Data.FailureMechanism
         public int Group { get; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
-        
+
         public Comment CalculationsInputComments { get; }
 
         public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
+
+        public FailurePathAssemblyResult AssemblyResult { get; }
 
         public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
 

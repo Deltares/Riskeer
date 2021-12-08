@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.TestUtil
 {
@@ -48,6 +49,7 @@ namespace Riskeer.Common.Data.TestUtil
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
+            AssemblyResult = new FailurePathAssemblyResult();
         }
 
         public RoundedDouble N { get; set; }
@@ -61,6 +63,8 @@ namespace Riskeer.Common.Data.TestUtil
                 return sectionCollection;
             }
         }
+
+        public FailurePathAssemblyResult AssemblyResult { get; }
 
         public string FailureMechanismSectionSourcePath
         {
