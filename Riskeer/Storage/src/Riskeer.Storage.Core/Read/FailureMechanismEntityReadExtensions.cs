@@ -42,6 +42,8 @@ using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.DuneErosion;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
+using Riskeer.Storage.Core.Read.GrassCoverSlipOffInwards;
+using Riskeer.Storage.Core.Read.GrassCoverSlipOffOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.MacroStabilityOutwards;
@@ -50,6 +52,9 @@ using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.PipingStructure;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
+using Riskeer.Storage.Core.Read.StrengthStabilityLengthwiseConstruction;
+using Riskeer.Storage.Core.Read.TechnicalInnovation;
+using Riskeer.Storage.Core.Read.WaterPressureAsphaltCover;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -360,6 +365,7 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(failureMechanism, collector);
+            entity.ReadStrengthStabilityLengthwiseConstructionGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(this FailureMechanismEntity entity,
@@ -373,6 +379,12 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadStrengthStabilityLengthwiseConstructionGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
+        {
+            GeneralInput entityGeneralInput = entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = entityGeneralInput.N;
         }
 
         #endregion
@@ -391,6 +403,7 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadTechnicalInnovationMechanismSectionResults(failureMechanism, collector);
+            entity.ReadTechnicalInnovationGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadTechnicalInnovationMechanismSectionResults(this FailureMechanismEntity entity,
@@ -404,6 +417,12 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadTechnicalInnovationGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
+        {
+            GeneralInput entityGeneralInput = entity.TechnicalInnovationFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = entityGeneralInput.N;
         }
 
         #endregion
@@ -422,6 +441,7 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadWaterPressureAsphaltCoverMechanismSectionResults(failureMechanism, collector);
+            entity.ReadWaterPressureAsphaltCoverGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadWaterPressureAsphaltCoverMechanismSectionResults(this FailureMechanismEntity entity,
@@ -435,6 +455,12 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadWaterPressureAsphaltCoverGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
+        {
+            GeneralInput entityGeneralInput = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = entityGeneralInput.N;
         }
 
         #endregion
@@ -779,6 +805,7 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGrassCoverSlipOffInwardsMechanismSectionResults(failureMechanism, collector);
+            entity.ReadGrassCoverSlipOffInwardsGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadGrassCoverSlipOffInwardsMechanismSectionResults(this FailureMechanismEntity entity,
@@ -792,6 +819,12 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadGrassCoverSlipOffInwardsGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
+        {
+            GeneralInput entityGeneralInput = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = entityGeneralInput.N;
         }
 
         #endregion
@@ -810,6 +843,7 @@ namespace Riskeer.Storage.Core.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadGrassCoverSlipOffOutwardsMechanismSectionResults(failureMechanism, collector);
+            entity.ReadGrassCoverSlipOffOutwardsGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadGrassCoverSlipOffOutwardsMechanismSectionResults(this FailureMechanismEntity entity,
@@ -823,6 +857,12 @@ namespace Riskeer.Storage.Core.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadGrassCoverSlipOffOutwardsGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
+        {
+            GeneralInput entityGeneralInput = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = entityGeneralInput.N;
         }
 
         #endregion
@@ -856,11 +896,11 @@ namespace Riskeer.Storage.Core.Read
                 sectionResultEntity.Read(result);
             }
         }
-        
+
         private static void ReadMicrostabilityGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput generalMicrostabilityInput = entity.MicrostabilityFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = generalMicrostabilityInput.N;
+            GeneralInput entityGeneralInput = entity.MicrostabilityFailureMechanismMetaEntities.Single().Read();
+            generalInput.N = entityGeneralInput.N;
         }
 
         #endregion
