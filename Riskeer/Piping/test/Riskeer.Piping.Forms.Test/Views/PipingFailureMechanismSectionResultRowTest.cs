@@ -33,6 +33,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -66,6 +67,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -73,7 +75,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, null, new PipingFailureMechanism(), assessmentSection, ConstructionProperties);
+            void Call() => new PipingFailureMechanismSectionResultRow(result, null, errorProvider, new PipingFailureMechanism(), assessmentSection, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,7 +84,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_InitialFailureMechanismResultErrorProviderNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -94,7 +96,29 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, null, assessmentSection, ConstructionProperties);
+            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, null, new PipingFailureMechanism(), assessmentSection, ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("initialFailureMechanismResultErrorProvider", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new PipingFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, null, assessmentSection, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -108,13 +132,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), null, ConstructionProperties);
+            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), null, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -128,6 +153,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -135,7 +161,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), assessmentSection, null);
+            void Call() => new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -154,6 +180,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -165,7 +192,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
@@ -219,6 +246,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -226,7 +254,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
@@ -251,6 +279,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -261,7 +290,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -400,6 +429,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -410,7 +440,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Call
                 setPropertyAction(row);
@@ -428,6 +458,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -435,7 +466,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Call
                 void Call() => setPropertyAction(row);
@@ -477,6 +508,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -490,7 +522,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                     random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
@@ -512,6 +544,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -524,7 +557,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
                     random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyResultOutput.ProfileProbability, row.ProfileProbability);
@@ -554,6 +587,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -564,7 +598,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -595,6 +629,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -606,7 +641,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -641,6 +676,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -649,7 +685,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -673,6 +709,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -687,7 +724,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -721,6 +758,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -732,7 +770,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -754,6 +792,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -766,7 +805,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -793,6 +832,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -805,7 +845,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
+                var row = new PipingFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, new PipingFailureMechanism(), new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
