@@ -78,4 +78,11 @@
       <Version>1.0.109</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Read\GrassCoverSlipOffInwards" />
+    <Folder Include="Read\GrassCoverSlipOffOutwards" />
+    <Folder Include="Read\StrengthStabilityLengthwiseConstruction" />
+    <Folder Include="Read\TechnicalInnovation" />
+    <Folder Include="Read\WaterPressureAsphaltCover" />
+  </ItemGroup>
 </Project>
