@@ -12,10 +12,10 @@ namespace Riskeer.Storage.Core.Read
     internal static class StandAloneFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="MicrostabilityFailureMechanismMetaEntity"/> and use the information to
+        /// Read the <see cref="IStandAloneFailureMechanismMetaEntity"/> and use the information to
         /// update the <see cref="GeneralInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MicrostabilityFailureMechanismMetaEntity"/> to update
+        /// <param name="entity">The <see cref="IStandAloneFailureMechanismMetaEntity"/> to update
         /// <see cref="GeneralInput"/> for.</param>
         /// <param name="generalInput">The <see cref="GeneralInput"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
