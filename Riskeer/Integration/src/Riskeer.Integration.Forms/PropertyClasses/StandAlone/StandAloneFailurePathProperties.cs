@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
@@ -35,13 +36,14 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
     /// <summary>
     /// Failure path related ViewModel of <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StandAloneFailurePathProperties : ObjectProperties<IFailureMechanism>
+    public class StandAloneFailurePathProperties : ObjectProperties<IHasGeneralInput>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int inAssemblyPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -51,7 +53,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StandAloneFailurePathProperties(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public StandAloneFailurePathProperties(IHasGeneralInput failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -68,6 +70,28 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             Data = failureMechanism;
         }
 
+        #region Length effect parameters
+
+        [DynamicVisible]
+        [PropertyOrder(nPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
+        public RoundedDouble N
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -76,7 +100,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName);
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(N).Equals(propertyName);
         }
 
         #region General

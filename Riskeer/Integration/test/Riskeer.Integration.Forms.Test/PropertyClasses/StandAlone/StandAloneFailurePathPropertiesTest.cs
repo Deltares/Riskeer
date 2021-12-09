@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
@@ -42,6 +43,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int inAssemblyPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -52,10 +54,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new StandAloneFailurePathProperties(null, assessmentSection);
+            void Call() => new StandAloneFailurePathProperties(null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
             mocks.VerifyAll();
         }
@@ -64,10 +66,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StandAloneFailurePathProperties(new TestFailureMechanism(), null);
+            void Call() => new StandAloneFailurePathProperties(new TestFailureMechanism(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
 
@@ -99,13 +101,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<IHasGeneralInput>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual($"Overig ({otherContribution})", properties.Contribution);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
             mocks.VerifyAll();
         }
 
@@ -127,9 +130,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             // Assert
             const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -165,6 +169,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
+
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+
             mocks.VerifyAll();
         }
 
@@ -186,9 +197,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
+            const string lengthEffectCategory = "Lengte-effect parameters";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -217,6 +229,63 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
+
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex - 1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
+                                                                            lengthEffectCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(0.0)]
+        [TestCase(-1.0)]
+        [TestCase(-20.0)]
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IHasGeneralInput>();
+            failureMechanism.Stub(fm => fm.GeneralInput).Return(new GeneralInput());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call
+            void Call() => properties.N = (RoundedDouble) newN;
+
+            // Assert
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(1.0)]
+        [TestCase(10.0)]
+        [TestCase(20.0)]
+        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.StrictMock<IHasGeneralInput>();
+            failureMechanism.Expect(fm => fm.NotifyObservers());
+            failureMechanism.Stub(fm => fm.GeneralInput).Return(new GeneralInput());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call
+            properties.N = (RoundedDouble) newN;
+
+            // Assert
+            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
             mocks.VerifyAll();
         }
 
@@ -243,6 +312,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
             mocks.VerifyAll();
