@@ -977,62 +977,62 @@ namespace Riskeer.Storage.Core.Test.Read
             FailureMechanismEntity microstability = CreateFailureMechanismEntity(
                 microstabilityInAssembly,
                 FailureMechanismType.Microstability);
-            microstability.MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>()
+            microstability.MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>
             {
                 new MicrostabilityFailureMechanismMetaEntity
                 {
                     N = 1.0
                 }
             };
-            
+
             FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
                 strengthAndStabilityParallelConstructionInAssembly,
                 FailureMechanismType.StrengthAndStabilityParallelConstruction);
-            strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new List<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity>()
+            strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new List<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity>
             {
                 new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
                 {
                     N = 2.0
                 }
-            };       
-            
+            };
+
             FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
                 waterOverpressureAsphaltRevetmentInAssembly,
                 FailureMechanismType.WaterOverpressureAsphaltRevetment);
-            waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new List<WaterPressureAsphaltCoverFailureMechanismMetaEntity>()
+            waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new List<WaterPressureAsphaltCoverFailureMechanismMetaEntity>
             {
                 new WaterPressureAsphaltCoverFailureMechanismMetaEntity
                 {
                     N = 3.0
                 }
-            };            
-            
+            };
+
             FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
                 grassRevetmentSlidingOutwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingOutwards);
-            grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>()
+            grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>
             {
                 new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
                 {
                     N = 4.0
                 }
             };
-            
+
             FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
                 grassRevetmentSlidingInwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingInwards);
-            grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>()
+            grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>
             {
                 new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
                 {
                     N = 5.0
                 }
             };
-            
+
             FailureMechanismEntity technicalInnovation = CreateFailureMechanismEntity(
                 technicalInnovationsInAssembly,
                 FailureMechanismType.TechnicalInnovations);
-            technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities = new List<TechnicalInnovationFailureMechanismMetaEntity>()
+            technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities = new List<TechnicalInnovationFailureMechanismMetaEntity>
             {
                 new TechnicalInnovationFailureMechanismMetaEntity
                 {
@@ -1060,36 +1060,47 @@ namespace Riskeer.Storage.Core.Test.Read
                                         microstability.NotInAssemblyComments,
                                         microstability.CalculationsInputComments,
                                         section.Microstability);
+            Assert.AreEqual(microstability.MicrostabilityFailureMechanismMetaEntities.Single().N, section.Microstability.GeneralInput.N);
+
             AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
                                         strengthAndStabilityParallelConstruction.InAssemblyInputComments,
                                         strengthAndStabilityParallelConstruction.InAssemblyOutputComments,
                                         strengthAndStabilityParallelConstruction.NotInAssemblyComments,
                                         strengthAndStabilityParallelConstruction.CalculationsInputComments,
                                         section.StrengthStabilityLengthwiseConstruction);
+            Assert.AreEqual(strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().N, section.StrengthStabilityLengthwiseConstruction.GeneralInput.N);
+
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
                                         waterOverpressureAsphaltRevetment.InAssemblyInputComments,
                                         waterOverpressureAsphaltRevetment.InAssemblyOutputComments,
                                         waterOverpressureAsphaltRevetment.NotInAssemblyComments,
                                         waterOverpressureAsphaltRevetment.CalculationsInputComments,
                                         section.WaterPressureAsphaltCover);
+            Assert.AreEqual(waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().N, section.WaterPressureAsphaltCover.GeneralInput.N);
+
             AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
                                         grassRevetmentSlidingOutwards.InAssemblyInputComments,
                                         grassRevetmentSlidingOutwards.InAssemblyOutputComments,
                                         grassRevetmentSlidingOutwards.NotInAssemblyComments,
                                         grassRevetmentSlidingOutwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffOutwards);
+            Assert.AreEqual(grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().N, section.GrassCoverSlipOffOutwards.GeneralInput.N);
+
             AssertFailureMechanismEqual(grassRevetmentSlidingInwardsInAssembly,
                                         grassRevetmentSlidingInwards.InAssemblyInputComments,
                                         grassRevetmentSlidingInwards.InAssemblyOutputComments,
                                         grassRevetmentSlidingInwards.NotInAssemblyComments,
                                         grassRevetmentSlidingInwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffInwards);
+            Assert.AreEqual(grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N, section.GrassCoverSlipOffInwards.GeneralInput.N);
+
             AssertFailureMechanismEqual(technicalInnovationsInAssembly,
                                         technicalInnovation.InAssemblyInputComments,
                                         technicalInnovation.InAssemblyOutputComments,
                                         technicalInnovation.NotInAssemblyComments,
                                         technicalInnovation.CalculationsInputComments,
                                         section.TechnicalInnovation);
+            Assert.AreEqual(technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities.Single().N, section.TechnicalInnovation.GeneralInput.N);
         }
 
         [Test]
@@ -1313,7 +1324,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 CalculationsInputComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString())
             };
         }
-        
+
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
                                                         string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
                                                         string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
