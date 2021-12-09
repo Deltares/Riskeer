@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Data.Probability;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+
 namespace Riskeer.Common.Data.FailurePath
 {
     /// <summary>
@@ -26,6 +29,8 @@ namespace Riskeer.Common.Data.FailurePath
     /// </summary>
     public class FailurePathAssemblyResult
     {
+        private double manualFailurePathAssemblyProbability;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailurePathAssemblyResult"/>
         /// </summary>
@@ -43,6 +48,16 @@ namespace Riskeer.Common.Data.FailurePath
         /// <summary>
         /// Gets or sets the probability of a failure path assembly.
         /// </summary>
-        public double ManualFailurePathAssemblyProbability { get; set; }
+        public double ManualFailurePathAssemblyProbability
+        {
+            get => manualFailurePathAssemblyProbability;
+            set
+            {
+                ProbabilityHelper.ValidateProbability(value, null,
+                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      true);
+                manualFailurePathAssemblyProbability = value;
+            }
+        }
     }
 }
