@@ -974,24 +974,71 @@ namespace Riskeer.Storage.Core.Test.Read
             bool grassRevetmentSlidingInwardsInAssembly = random.NextBoolean();
             bool technicalInnovationsInAssembly = random.NextBoolean();
 
-            FailureMechanismEntity microstability = CreateMicrostabilityFailureMechanismEntity(
+            FailureMechanismEntity microstability = CreateFailureMechanismEntity(
                 microstabilityInAssembly,
                 FailureMechanismType.Microstability);
+            microstability.MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>()
+            {
+                new MicrostabilityFailureMechanismMetaEntity
+                {
+                    N = 1.0
+                }
+            };
+            
             FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
                 strengthAndStabilityParallelConstructionInAssembly,
                 FailureMechanismType.StrengthAndStabilityParallelConstruction);
+            strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new List<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity>()
+            {
+                new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
+                {
+                    N = 2.0
+                }
+            };       
+            
             FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
                 waterOverpressureAsphaltRevetmentInAssembly,
                 FailureMechanismType.WaterOverpressureAsphaltRevetment);
+            waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new List<WaterPressureAsphaltCoverFailureMechanismMetaEntity>()
+            {
+                new WaterPressureAsphaltCoverFailureMechanismMetaEntity
+                {
+                    N = 3.0
+                }
+            };            
+            
             FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
                 grassRevetmentSlidingOutwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingOutwards);
+            grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>()
+            {
+                new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
+                {
+                    N = 4.0
+                }
+            };
+            
             FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
                 grassRevetmentSlidingInwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingInwards);
+            grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>()
+            {
+                new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
+                {
+                    N = 5.0
+                }
+            };
+            
             FailureMechanismEntity technicalInnovation = CreateFailureMechanismEntity(
                 technicalInnovationsInAssembly,
                 FailureMechanismType.TechnicalInnovations);
+            technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities = new List<TechnicalInnovationFailureMechanismMetaEntity>()
+            {
+                new TechnicalInnovationFailureMechanismMetaEntity
+                {
+                    N = 6.0
+                }
+            };
 
             entity.FailureMechanismEntities.Add(microstability);
             entity.FailureMechanismEntities.Add(strengthAndStabilityParallelConstruction);
@@ -1267,27 +1314,6 @@ namespace Riskeer.Storage.Core.Test.Read
             };
         }
         
-        private static FailureMechanismEntity CreateMicrostabilityFailureMechanismEntity(bool inAssembly,
-                                                                           FailureMechanismType failureMechanismType)
-        {
-            return new FailureMechanismEntity
-            {
-                FailureMechanismType = (short) failureMechanismType,
-                InAssembly = Convert.ToByte(inAssembly),
-                InAssemblyInputComments = string.Concat("InputComment", failureMechanismType.ToString()),
-                InAssemblyOutputComments = string.Concat("OutputComment", failureMechanismType.ToString()),
-                NotInAssemblyComments = string.Concat("NotInAssemblyText", failureMechanismType.ToString()),
-                CalculationsInputComments = string.Concat("CalculationsCommentText", failureMechanismType.ToString()),
-                MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>
-                {
-                    new MicrostabilityFailureMechanismMetaEntity
-                    {
-                        N = 1.0
-                    }
-                }
-            };
-        }
-
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
                                                         string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
                                                         string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
