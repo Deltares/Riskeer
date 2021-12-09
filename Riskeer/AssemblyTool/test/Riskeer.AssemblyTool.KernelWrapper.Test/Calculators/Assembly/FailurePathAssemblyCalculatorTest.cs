@@ -170,7 +170,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
 
-                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
+                var exception = Assert.Throws<FailurePathAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
@@ -196,7 +196,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
 
-                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
+                var exception = Assert.Throws<FailurePathAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
@@ -222,7 +222,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
 
-                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
+                var exception = Assert.Throws<FailurePathAssemblyCalculatorException>(Call);
                 var innerException = exception.InnerException as AssemblyException;
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);
