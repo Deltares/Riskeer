@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((IHasNProperty) null).Read(new GeneralInput());
+            void Call() => ((IStandAloneFailureMechanismMetaEntity) null).Read(new GeneralInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var entity = mocks.Stub<IHasNProperty>();
+            var entity = mocks.Stub<IStandAloneFailureMechanismMetaEntity>();
             mocks.ReplayAll();
 
             // Call
@@ -66,7 +66,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var entity = mocks.Stub<IHasNProperty>();
+            var entity = mocks.Stub<IStandAloneFailureMechanismMetaEntity>();
             entity.N = 4.0;
             mocks.ReplayAll();
 

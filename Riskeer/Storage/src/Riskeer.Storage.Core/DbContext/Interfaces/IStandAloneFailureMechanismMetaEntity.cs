@@ -22,12 +22,12 @@
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Interface for an output entity that represents structures output.
+    /// Interface for a standalone failure mechanism meta entity.
     /// </summary>
-    public interface IHasNProperty
+    public interface IStandAloneFailureMechanismMetaEntity
     {
         /// <summary>
-        /// Gets or sets the reliability of the failure mechanism.
+        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         double N { get; set; }
     }

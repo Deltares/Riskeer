@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Partial implementation of <see cref="WaterPressureAsphaltCoverFailureMechanismMetaEntity"/> that implements 
-    /// <see cref="IHasNProperty"/>.
+    /// <see cref="IStandAloneFailureMechanismMetaEntity"/>.
     /// </summary>
-    public partial class WaterPressureAsphaltCoverFailureMechanismMetaEntity : IHasNProperty {}
+    public partial class WaterPressureAsphaltCoverFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity {}
 }

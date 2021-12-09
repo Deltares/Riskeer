@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Partial implementation of <see cref="TechnicalInnovationFailureMechanismMetaEntity"/> that implements 
-    /// <see cref="IHasNProperty"/>.
+    /// <see cref="IStandAloneFailureMechanismMetaEntity"/>.
     /// </summary>
-    public partial class TechnicalInnovationFailureMechanismMetaEntity : IHasNProperty {}
+    public partial class TechnicalInnovationFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity {}
 }

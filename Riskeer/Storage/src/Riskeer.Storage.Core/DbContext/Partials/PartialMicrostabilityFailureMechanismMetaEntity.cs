@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Partial implementation of <see cref="MicrostabilityFailureMechanismMetaEntity"/> that implements 
-    /// <see cref="IHasNProperty"/>.
+    /// <see cref="IStandAloneFailureMechanismMetaEntity"/>.
     /// </summary>
-    public partial class MicrostabilityFailureMechanismMetaEntity : IHasNProperty {}
+    public partial class MicrostabilityFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity {}
 }

@@ -7,7 +7,7 @@ namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralInput"/>
-    /// based on the <see cref="IHasNProperty"/>.
+    /// based on the <see cref="IStandAloneFailureMechanismMetaEntity"/>.
     /// </summary>
     internal static class StandAloneFailureMechanismMetaEntityReadExtensions
     {
@@ -19,7 +19,7 @@ namespace Riskeer.Storage.Core.Read
         /// <see cref="GeneralInput"/> for.</param>
         /// <param name="generalInput">The <see cref="GeneralInput"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this IHasNProperty entity, GeneralInput generalInput)
+        internal static void Read(this IStandAloneFailureMechanismMetaEntity entity, GeneralInput generalInput)
         {
             if (entity == null)
             {

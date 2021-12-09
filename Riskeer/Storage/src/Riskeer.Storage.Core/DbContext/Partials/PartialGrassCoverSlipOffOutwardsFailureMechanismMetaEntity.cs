@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// Partial implementation of <see cref="GrassCoverSlipOffOutwardsFailureMechanismMetaEntity"/> that implements 
-    /// <see cref="IHasNProperty"/>.
+    /// <see cref="IStandAloneFailureMechanismMetaEntity"/>.
     /// </summary>
-    public partial class GrassCoverSlipOffOutwardsFailureMechanismMetaEntity : IHasNProperty {}
+    public partial class GrassCoverSlipOffOutwardsFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity {}
 }
