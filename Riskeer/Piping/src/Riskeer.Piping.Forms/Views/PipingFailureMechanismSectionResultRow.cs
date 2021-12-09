@@ -262,6 +262,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Gets the section N.
         /// </summary>
+        [TypeConverter(typeof(NoValueDoubleConverter))]
         public double SectionN => AssemblyResult.N;
 
         /// <summary>

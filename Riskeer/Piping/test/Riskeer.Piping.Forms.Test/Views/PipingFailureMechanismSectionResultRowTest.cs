@@ -215,6 +215,12 @@ namespace Riskeer.Piping.Forms.Test.Views
                     nameof(PipingFailureMechanismSectionResultRow.RefinedProfileProbability));
                 TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.ProfileProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.SectionProbability));
+                TestHelper.AssertTypeConverter<PipingFailureMechanismSectionResultRow, NoValueDoubleConverter>(
+                    nameof(PipingFailureMechanismSectionResultRow.SectionN));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(11, columnStateDefinitions.Count);
