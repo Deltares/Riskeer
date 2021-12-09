@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.Helpers
     /// <summary>
     /// Helper class for determining the colors belonging to various assembly groups.
     /// </summary>
-    public class AssemblyGroupColorHelper
+    public static class AssemblyGroupColorHelper
     {
         /// <summary>
         /// Gets the color for a failure mechanism section assembly group.
