@@ -112,6 +112,276 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(filePath, failureMechanism.FailureMechanismSectionSourcePath);
         }
 
+        #region Microstability
+
+        [Test]
+        public void ReadAsMicrostabilityFailureMechanism_WithPropertiesSet_SetsMicrostabilityFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                MicrostabilityFailureMechanismMetaEntities = new[]
+                {
+                    new MicrostabilityFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new MicrostabilityFailureMechanism();
+
+            // Call
+            entity.ReadAsMicrostabilityFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            MicrostabilityFailureMechanismMetaEntity metaEntity = entity.MicrostabilityFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
+
+        #region WaterPressureAsphaltCover
+
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithPropertiesSet_SetsWaterPressureAsphaltCoverFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                WaterPressureAsphaltCoverFailureMechanismMetaEntities = new[]
+                {
+                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
+
+        #region GrassCoverSlipOffInwards
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffInwardsFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new[]
+                {
+                    new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
+
+        #region GrassCoverSlipOffOutwards
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffOutwardsFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new[]
+                {
+                    new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            GrassCoverSlipOffOutwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
+
+        #region StrengthAndStabilityParallelConstruction
+
+        [Test]
+        public void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism_WithPropertiesSet_SetsStrengthAndStabilityParallelConstructionFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new[]
+                {
+                    new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+
+            // Call
+            entity.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity metaEntity = entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
+
+        #region TechnicalInnovation
+
+        [Test]
+        public void ReadAsTechnicalInnovationFailureMechanism_WithPropertiesSet_SetsTechnicalInnovationFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                TechnicalInnovationFailureMechanismMetaEntities = new[]
+                {
+                    new TechnicalInnovationFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TechnicalInnovationFailureMechanism();
+
+            // Call
+            entity.ReadAsTechnicalInnovationFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            TechnicalInnovationFailureMechanismMetaEntity metaEntity = entity.TechnicalInnovationFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        #endregion
+
         private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
         {
             var dummyPoints = new[]
