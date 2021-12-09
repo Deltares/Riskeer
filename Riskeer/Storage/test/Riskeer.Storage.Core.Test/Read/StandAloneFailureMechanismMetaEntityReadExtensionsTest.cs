@@ -20,23 +20,23 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.WaterPressureAsphaltCover;
+using Riskeer.Storage.Core.Read;
 
-namespace Riskeer.Storage.Core.Test.Read.WaterPressureAsphaltCover
+namespace Riskeer.Storage.Core.Test.Read
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverFailureMechanismMetaEntityReadExtensionsTest
+    public class StandAloneFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((WaterPressureAsphaltCoverFailureMechanismMetaEntity) null).Read();
+            void Call() => ((IHasNProperty) null).Read(new GeneralInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -44,19 +44,41 @@ namespace Riskeer.Storage.Core.Test.Read.WaterPressureAsphaltCover
         }
 
         [Test]
-        public void Read_Always_ReturnGeneralInput()
+        public void Read_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-            {
-                N = new Random(39).NextRoundedDouble(1.0, 20.0)
-            };
+            var mocks = new MockRepository();
+            var entity = mocks.Stub<IHasNProperty>();
+            mocks.ReplayAll();
 
             // Call
-            GeneralInput generalInput = entity.Read();
+            void Call() => entity.Read(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Read_Always_SetsGeneralInput()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var entity = mocks.Stub<IHasNProperty>();
+            entity.N = 4.0;
+            mocks.ReplayAll();
+
+            var generalInput = new GeneralInput();
+
+            // Call
+            entity.Read(generalInput);
 
             // Assert
             Assert.AreEqual(entity.N, generalInput.N, generalInput.N.GetAccuracy());
+
+            mocks.VerifyAll();
         }
     }
 }

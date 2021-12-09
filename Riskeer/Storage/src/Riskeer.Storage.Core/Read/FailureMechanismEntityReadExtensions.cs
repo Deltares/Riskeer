@@ -42,19 +42,13 @@ using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.DuneErosion;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
-using Riskeer.Storage.Core.Read.GrassCoverSlipOffInwards;
-using Riskeer.Storage.Core.Read.GrassCoverSlipOffOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 using Riskeer.Storage.Core.Read.MacroStabilityOutwards;
-using Riskeer.Storage.Core.Read.Microstability;
 using Riskeer.Storage.Core.Read.Piping;
 using Riskeer.Storage.Core.Read.PipingStructure;
 using Riskeer.Storage.Core.Read.StabilityPointStructures;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
-using Riskeer.Storage.Core.Read.StrengthStabilityLengthwiseConstruction;
-using Riskeer.Storage.Core.Read.TechnicalInnovation;
-using Riskeer.Storage.Core.Read.WaterPressureAsphaltCover;
 using Riskeer.Storage.Core.Read.WaveImpactAsphaltCover;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -383,8 +377,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadStrengthStabilityLengthwiseConstructionGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput entityGeneralInput = entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = entityGeneralInput.N;
+            entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
@@ -421,8 +414,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadTechnicalInnovationGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput entityGeneralInput = entity.TechnicalInnovationFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = entityGeneralInput.N;
+            entity.TechnicalInnovationFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
@@ -459,8 +451,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadWaterPressureAsphaltCoverGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput entityGeneralInput = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = entityGeneralInput.N;
+            entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
@@ -823,8 +814,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadGrassCoverSlipOffInwardsGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput entityGeneralInput = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = entityGeneralInput.N;
+            entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
@@ -861,8 +851,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadGrassCoverSlipOffOutwardsGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput entityGeneralInput = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = entityGeneralInput.N;
+            entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
@@ -899,8 +888,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadMicrostabilityGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
         {
-            GeneralInput entityGeneralInput = entity.MicrostabilityFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = entityGeneralInput.N;
+            entity.MicrostabilityFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion

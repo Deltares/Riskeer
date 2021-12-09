@@ -30,12 +30,12 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
+    public partial class GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
     {
         public long GrassCoverSlipOffOutwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-        public double N { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public double N { get; set; }
     }
 }
