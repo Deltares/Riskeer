@@ -27,19 +27,15 @@ namespace Riskeer.Piping.Data
     public interface IPipingFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         /// <summary>
-        /// Calculates the probability per profile.
+        /// Calculates the initial failure mechanism result probability per profile.
         /// </summary>
-        /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
-        /// are no relevant calculations, when not all relevant calculations are performed or when the
-        /// contribution of the relevant calculations don't add up to 1.</returns>
+        /// <returns>The calculated initial failure mechanism result probability per profile.</returns>
         double CalculateProfileProbability();
 
         /// <summary>
-        /// Calculates the probability per section.
+        /// Calculates the initial failure mechanism result probability per section.
         /// </summary>
-        /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
-        /// are no relevant calculations, when not all relevant calculations are performed or when the
-        /// contribution of the relevant calculations don't add up to 1.</returns>
+        /// <returns>The calculated initial failure mechanism result probability per section.</returns>
         double CalculateSectionProbability();
     }
 }
