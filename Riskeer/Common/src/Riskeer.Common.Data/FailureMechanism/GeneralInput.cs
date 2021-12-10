@@ -25,6 +25,9 @@ using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
+    /// <summary>
+    /// The general input parameters.
+    /// </summary>
     public class GeneralInput
     {
         private const int numberOfDecimalPlacesN = 2;
@@ -34,11 +37,19 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         private RoundedDouble n;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GeneralInput"/> class.
+        /// </summary>
         public GeneralInput()
         {
             n = new RoundedDouble(numberOfDecimalPlacesN, 1.0);
         }
 
+        /// <summary>
+        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/>
+        /// is not in the [1.0, 20.0] interval.</exception>
         public RoundedDouble N
         {
             get
