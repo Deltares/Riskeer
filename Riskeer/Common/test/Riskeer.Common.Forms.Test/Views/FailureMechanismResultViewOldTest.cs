@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(assemblyResultLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, assemblyResultLabel.Dock);
                 Assert.AreEqual(ContentAlignment.MiddleLeft, assemblyResultLabel.TextAlign);
-                Assert.AreEqual("Toetsoordeel voor dit toetsspoor:", assemblyResultLabel.Text);
+                Assert.AreEqual("Gecombineerde faalkans (1/jaar)", assemblyResultLabel.Text);
 
                 Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(2, 0));
 

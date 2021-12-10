@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Riskeer.Common.Forms.Views
 {
     partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism>
@@ -39,23 +41,30 @@ namespace Riskeer.Common.Forms.Views
             this.components = new System.ComponentModel.Container();
             this.TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.failureMechanismAssemblyLabel = new System.Windows.Forms.Label();
+            this.probabilityResultTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.failurePathAssemblyProbabilityTextBox = new System.Windows.Forms.TextBox();
             this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.TableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // TableLayoutPanel
             // 
-            this.TableLayoutPanel.ColumnCount = 3;
-            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.TableLayoutPanel.ColumnCount = 4;
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 363F));
             this.TableLayoutPanel.Controls.Add(this.failureMechanismAssemblyLabel, 0, 0);
+            this.TableLayoutPanel.Controls.Add(this.probabilityResultTypeComboBox, 1, 0);
+            this.TableLayoutPanel.Controls.Add(this.failurePathAssemblyProbabilityTextBox, 2, 0);
             this.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanel.Location = new System.Drawing.Point(0, 42);
             this.TableLayoutPanel.Name = "TableLayoutPanel";
             this.TableLayoutPanel.RowCount = 1;
             this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TableLayoutPanel.Size = new System.Drawing.Size(764, 30);
+            this.TableLayoutPanel.Size = new System.Drawing.Size(764, 40);
             this.TableLayoutPanel.TabIndex = 1;
             // 
             // failureMechanismAssemblyLabel
@@ -64,22 +73,50 @@ namespace Riskeer.Common.Forms.Views
             this.failureMechanismAssemblyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismAssemblyLabel.Location = new System.Drawing.Point(3, 0);
             this.failureMechanismAssemblyLabel.Name = "failureMechanismAssemblyLabel";
-            this.failureMechanismAssemblyLabel.Size = new System.Drawing.Size(197, 30);
+            this.failureMechanismAssemblyLabel.Size = new System.Drawing.Size(162, 40);
             this.failureMechanismAssemblyLabel.TabIndex = 2;
             this.failureMechanismAssemblyLabel.Text = global::Riskeer.Common.Forms.Properties.Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;
             this.failureMechanismAssemblyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // probabilityResultTypeComboBox
+            // 
+            this.probabilityResultTypeComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.probabilityResultTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.probabilityResultTypeComboBox.FormattingEnabled = true;
+            this.probabilityResultTypeComboBox.Location = new System.Drawing.Point(171, 10);
+            this.probabilityResultTypeComboBox.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
+            this.probabilityResultTypeComboBox.Name = "probabilityResultTypeComboBox";
+            this.probabilityResultTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.probabilityResultTypeComboBox.TabIndex = 3;
+            this.probabilityResultTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ProbabilityResultTypeComboBoxSelectedIndexChanged);
+            // 
+            // failurePathAssemblyProbabilityTextBox
+            // 
+            this.failurePathAssemblyProbabilityTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.failurePathAssemblyProbabilityTextBox.Location = new System.Drawing.Point(298, 10);
+            this.failurePathAssemblyProbabilityTextBox.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
+            this.failurePathAssemblyProbabilityTextBox.Name = "failurePathAssemblyProbabilityTextBox";
+            this.failurePathAssemblyProbabilityTextBox.Size = new System.Drawing.Size(100, 20);
+            this.failurePathAssemblyProbabilityTextBox.KeyDown += new KeyEventHandler(this.FailurePathAssemblyProbabilityTextBoxKeyDown);
+            this.failurePathAssemblyProbabilityTextBox.TabIndex = 4;
+            // 
             // DataGridViewControl
             // 
             this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewControl.Location = new System.Drawing.Point(0, 30);
+            this.DataGridViewControl.Location = new System.Drawing.Point(0, 0);
             this.DataGridViewControl.MultiSelect = true;
             this.DataGridViewControl.Name = "DataGridViewControl";
             this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.DataGridViewControl.Size = new System.Drawing.Size(764, 52);
+            this.DataGridViewControl.Size = new System.Drawing.Size(764, 42);
             this.DataGridViewControl.TabIndex = 0;
             // 
-            // FailureMechanismResultViewOld
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
+            // 
+            // FailureMechanismResultView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -87,10 +124,12 @@ namespace Riskeer.Common.Forms.Views
             this.AutoScrollMinSize = new System.Drawing.Size(500, 0);
             this.Controls.Add(this.DataGridViewControl);
             this.Controls.Add(this.TableLayoutPanel);
-            this.Name = "FailureMechanismResultViewOld";
+            this.errorProvider.SetIconPadding(this, 10);
+            this.Name = "FailureMechanismResultView";
             this.Size = new System.Drawing.Size(764, 82);
             this.TableLayoutPanel.ResumeLayout(false);
             this.TableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -100,5 +139,8 @@ namespace Riskeer.Common.Forms.Views
         protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
         protected System.Windows.Forms.TableLayoutPanel TableLayoutPanel;
         private System.Windows.Forms.Label failureMechanismAssemblyLabel;
+        private System.Windows.Forms.ComboBox probabilityResultTypeComboBox;
+        private System.Windows.Forms.TextBox failurePathAssemblyProbabilityTextBox;
+        private ErrorProvider errorProvider;
     }
 }

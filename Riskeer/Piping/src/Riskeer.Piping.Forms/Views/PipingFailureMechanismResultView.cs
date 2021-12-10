@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Views;
@@ -100,6 +101,11 @@ namespace Riskeer.Piping.Forms.Views
             {
                 Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             };
+        }
+
+        protected override double GetN()
+        {
+            return FailureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
         }
 
         protected override void Dispose(bool disposing)

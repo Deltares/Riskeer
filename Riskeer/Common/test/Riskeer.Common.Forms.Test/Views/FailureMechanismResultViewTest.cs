@@ -100,14 +100,14 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(2, view.Controls.Count);
 
                 var tableLayoutPanel = (TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject;
-                Assert.AreEqual(3, tableLayoutPanel.ColumnCount);
+                Assert.AreEqual(4, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanel.RowCount);
 
                 var assemblyResultLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 0);
                 Assert.IsTrue(assemblyResultLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, assemblyResultLabel.Dock);
                 Assert.AreEqual(ContentAlignment.MiddleLeft, assemblyResultLabel.TextAlign);
-                Assert.AreEqual("Toetsoordeel voor dit toetsspoor:", assemblyResultLabel.Text);
+                Assert.AreEqual("Gecombineerde faalkans (1/jaar)", assemblyResultLabel.Text);
 
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
@@ -435,6 +435,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionResult sectionResult)
             {
                 return new TestRow(sectionResult);
+            }
+
+            public double N { private get; set; }
+
+            protected override double GetN()
+            {
+                return N;
             }
 
             protected override void AddDataGridColumns()

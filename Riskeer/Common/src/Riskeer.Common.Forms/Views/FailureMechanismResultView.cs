@@ -21,13 +21,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.Util;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -38,7 +45,7 @@ namespace Riskeer.Common.Forms.Views
     /// <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.</typeparam>
     /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
-    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
+    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView, INotifyPropertyChanged
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
@@ -50,6 +57,10 @@ namespace Riskeer.Common.Forms.Views
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
+        private double failurePathAssemblyProbability;
+
+        private bool probabilityResultTypeComboBoxUpdating;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.
@@ -91,12 +102,31 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = failureMechanismSectionResults
             };
+
+            InitializeComboBox();
+            InitializeTextBox();
         }
 
         /// <summary>
         /// Gets the failure mechanism.
         /// </summary>
         public TFailureMechanism FailureMechanism { get; }
+
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double FailurePathAssemblyProbability
+        {
+            get => failurePathAssemblyProbability;
+            set
+            {
+                if (IsManualAssembly())
+                {
+                    FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability = value;
+                }
+
+                failurePathAssemblyProbability = value;
+                OnPropertyChanged(nameof(FailurePathAssemblyProbability));
+            }
+        }
 
         public object Data { get; set; }
 
@@ -118,6 +148,12 @@ namespace Riskeer.Common.Forms.Views
         /// display object.</param>
         /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
         protected abstract TSectionResultRow CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
+
+        /// <summary>
+        /// Gets the length effect factor 'N'.
+        /// </summary>
+        /// <returns>A <see cref="double"/> representing the length effect factor 'N'.</returns>
+        protected abstract double GetN();
 
         protected override void Dispose(bool disposing)
         {
@@ -148,6 +184,8 @@ namespace Riskeer.Common.Forms.Views
         protected void UpdateView()
         {
             UpdateDataGridViewDataSource();
+            UpdateFailurePathAssemblyControls();
+            UpdateAssemblyData();
         }
 
         /// <summary>
@@ -156,6 +194,51 @@ namespace Riskeer.Common.Forms.Views
         protected virtual void RefreshDataGrid()
         {
             DataGridViewControl.RefreshDataGridView(false);
+        }
+
+        private void InitializeComboBox()
+        {
+            IEnumerable<EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>> dataSource =
+                Enum.GetValues(typeof(FailurePathAssemblyProbabilityResultType))
+                    .Cast<FailurePathAssemblyProbabilityResultType>()
+                    .Select(e => new EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>(e))
+                    .ToArray();
+
+            probabilityResultTypeComboBox.BeginUpdate();
+
+            probabilityResultTypeComboBoxUpdating = true;
+            probabilityResultTypeComboBox.DataSource = dataSource;
+            probabilityResultTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.Value);
+            probabilityResultTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.DisplayName);
+            probabilityResultTypeComboBox.SelectedItem = FailureMechanism.AssemblyResult.ProbabilityResultType;
+            probabilityResultTypeComboBoxUpdating = false;
+
+            probabilityResultTypeComboBox.EndUpdate();
+        }
+
+        private void InitializeTextBox()
+        {
+            Binding failurePathAssemblyProbabilityBinding = failurePathAssemblyProbabilityTextBox.DataBindings.Add(nameof(TextBox.Text), this,
+                                                                                                                   nameof(FailurePathAssemblyProbability),
+                                                                                                                   true,
+                                                                                                                   DataSourceUpdateMode.OnValidation);
+            failurePathAssemblyProbabilityBinding.BindingComplete += FailurePathAssemblyProbabilityTextBoxBindingBindingComplete;
+        }
+
+        private void UpdateFailurePathAssemblyControls()
+        {
+            failurePathAssemblyProbabilityTextBox.Enabled = IsManualAssembly();
+            failurePathAssemblyProbabilityTextBox.ReadOnly = !IsManualAssembly();
+            failurePathAssemblyProbabilityTextBox.Refresh();
+        }
+
+        private void UpdateAssemblyData()
+        {
+            ClearErrorMessage();
+
+            FailurePathAssemblyProbability = IsManualAssembly()
+                                                 ? FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability
+                                                 : TryGetFailurePathAssemblyProbability();
         }
 
         /// <summary>
@@ -198,6 +281,7 @@ namespace Riskeer.Common.Forms.Views
         {
             rowUpdating = true;
             RefreshDataGrid();
+            UpdateAssemblyData();
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
@@ -214,6 +298,81 @@ namespace Riskeer.Common.Forms.Views
 
             sectionResultRows.ForEachElementDo(row => row.Update());
             DataGridViewControl.RefreshDataGridView();
+
+            UpdateAssemblyData();
+        }
+
+        private double TryGetFailurePathAssemblyProbability()
+        {
+            try
+            {
+                return FailurePathAssemblyResultFactory.AssemblyFailurePath(GetN(), sectionResultRows.Select(r => r.AssemblyResult));
+            }
+            catch (AssemblyException e)
+            {
+                SetErrorMessage(e.Message);
+                return double.NaN;
+            }
+        }
+
+        private void ProbabilityResultTypeComboBoxSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (probabilityResultTypeComboBoxUpdating || probabilityResultTypeComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            FailureMechanism.AssemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
+
+            ClearErrorMessage();
+            UpdateAssemblyData();
+            UpdateFailurePathAssemblyControls();
+        }
+
+        private void FailurePathAssemblyProbabilityTextBoxBindingBindingComplete(object sender, BindingCompleteEventArgs e)
+        {
+            if (IsManualAssembly())
+            {
+                if (e.BindingCompleteState != BindingCompleteState.Success)
+                {
+                    SetErrorMessage(e.ErrorText);
+                    FailurePathAssemblyProbability = double.NaN;
+                }
+                else if (e.BindingCompleteState == BindingCompleteState.Success)
+                {
+                    ClearErrorMessage();
+                }
+            }
+        }
+
+        private void FailurePathAssemblyProbabilityTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                failureMechanismAssemblyLabel.Focus(); // Focus on different component to commit value
+                e.Handled = true;
+            }
+        }
+
+        private bool IsManualAssembly()
+        {
+            return FailureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual;
+        }
+
+        private void SetErrorMessage(string errorMessage)
+        {
+            errorProvider.SetIconPadding(failurePathAssemblyProbabilityTextBox, 5);
+            errorProvider.SetError(failurePathAssemblyProbabilityTextBox, errorMessage);
+        }
+
+        private void ClearErrorMessage()
+        {
+            errorProvider.SetError(failurePathAssemblyProbabilityTextBox, string.Empty);
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
