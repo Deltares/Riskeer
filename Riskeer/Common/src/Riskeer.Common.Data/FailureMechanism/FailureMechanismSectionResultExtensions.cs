@@ -37,13 +37,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="sectionResult">The section result to get the relevant scenarios for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to get the relevant scenarios from.</param>
-        /// <param name="intersectionFunc">The func to determine whether a scenario is belonging to the given <paramref name="sectionResult"/>.</param>
+        /// <param name="intersectionFunc">The function to determine whether a scenario is belonging to the given <paramref name="sectionResult"/>.</param>
         /// <typeparam name="T">The type of the calculation scenarios.</typeparam>
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<T> GetCalculationScenarios<T>(this FailureMechanismSectionResult sectionResult,
-                                                                IEnumerable<ICalculationScenario> calculationScenarios,
-                                                                Func<T, IEnumerable<Segment2D>, bool> intersectionFunc)
+        public static IEnumerable<T> GetRelevantCalculationScenarios<T>(this FailureMechanismSectionResult sectionResult,
+                                                                        IEnumerable<ICalculationScenario> calculationScenarios,
+                                                                        Func<T, IEnumerable<Segment2D>, bool> intersectionFunc)
             where T : ICalculationScenario
         {
             if (sectionResult == null)
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(sectionResult.Section.Points);
 
-            return calculationScenarios.OfType<T>().Where(pc => pc.IsRelevant && intersectionFunc(pc, lineSegments));
+            return calculationScenarios.OfType<T>().Where(scenario => scenario.IsRelevant && intersectionFunc(scenario, lineSegments));
         }
     }
 }

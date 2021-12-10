@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Forms.Views
         /// Creates a new instance of <see cref="AssemblyResultCategoriesView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <param name="getAssemblyCategoriesFunc">The func to get the assembly categories from.</param>
+        /// <param name="getAssemblyCategoriesFunc">The function to get the assembly categories from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssemblyResultCategoriesView(AssessmentSection assessmentSection,
                                             Func<IEnumerable<FailureMechanismAssemblyCategory>> getAssemblyCategoriesFunc)

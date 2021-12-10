@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Data
         /// </summary>
         /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
         /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
-        /// <param name="getOutputFunc">The func to get the output from a calculation scenario.</param>
+        /// <param name="getOutputFunc">The function to get the output from a calculation scenario.</param>
         /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(getOutputFunc));
             }
 
-            ProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios<ProbabilisticPipingCalculationScenario>(
+            ProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<ProbabilisticPipingCalculationScenario>(
                                                                                           calculationScenarios,
                                                                                           (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                                       .ToArray();
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            SemiProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios<SemiProbabilisticPipingCalculationScenario>(
+            SemiProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<SemiProbabilisticPipingCalculationScenario>(
                                                                                               calculationScenarios,
                                                                                               (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                                           .ToArray();

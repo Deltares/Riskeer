@@ -33,10 +33,10 @@ namespace Riskeer.Common.Data.Test
     public class FailureMechanismSectionResultExtensionsTest
     {
         [Test]
-        public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
+        public void GetRelevantCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultExtensions.GetCalculationScenarios<ICalculationScenario>(
+            void Call() => FailureMechanismSectionResultExtensions.GetRelevantCalculationScenarios<ICalculationScenario>(
                 null, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Assert
@@ -45,14 +45,14 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarios_CalculationScenariosNull_ThrowsArgumentNullException()
+        public void GetRelevantCalculationScenarios_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => sectionResult.GetCalculationScenarios<ICalculationScenario>(null, (scenario, segments) => false);
+            void Call() => sectionResult.GetRelevantCalculationScenarios<ICalculationScenario>(null, (scenario, segments) => false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -60,14 +60,14 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarios_IntersectionFuncNull_ThrowsArgumentNullException()
+        public void GetRelevantCalculationScenarios_IntersectionFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => sectionResult.GetCalculationScenarios<ICalculationScenario>(Enumerable.Empty<ICalculationScenario>(), null);
+            void Call() => sectionResult.GetRelevantCalculationScenarios<ICalculationScenario>(Enumerable.Empty<ICalculationScenario>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarios_WithRelevantAndIrrelevantScenariosOfDifferentTypes_ReturnsRelevantCalculationScenarios()
+        public void GetRelevantCalculationScenarios_WithRelevantAndIrrelevantScenariosOfDifferentTypes_ReturnsRelevantCalculationScenarios()
         {
             // Setup
             var mocks = new MockRepository();
@@ -104,7 +104,7 @@ namespace Riskeer.Common.Data.Test
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            IEnumerable<ICalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios<TestCalculationScenario>(
+            IEnumerable<ICalculationScenario> relevantScenarios = sectionResult.GetRelevantCalculationScenarios<TestCalculationScenario>(
                 calculationScenarios, (scenario, segments) => true);
 
             // Assert
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarios_WithoutScenarioIntersectingSection_ReturnsNoCalculationScenarios()
+        public void GetRelevantCalculationScenarios_WithoutScenarioIntersectingSection_ReturnsNoCalculationScenarios()
         {
             // Setup
             var mocks = new MockRepository();
@@ -142,7 +142,7 @@ namespace Riskeer.Common.Data.Test
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            IEnumerable<ICalculationScenario> relevantScenarios = sectionResult.GetCalculationScenarios<TestCalculationScenario>(
+            IEnumerable<ICalculationScenario> relevantScenarios = sectionResult.GetRelevantCalculationScenarios<TestCalculationScenario>(
                 calculationScenarios, (scenario, segments) => false);
 
             // Assert

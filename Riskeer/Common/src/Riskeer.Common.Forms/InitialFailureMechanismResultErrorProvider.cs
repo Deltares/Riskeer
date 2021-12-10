@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms
         /// </summary>
         /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> to validate for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to validate.</param>
-        /// <param name="intersectionFunc">The func to determine whether a scenario is belonging
+        /// <param name="intersectionFunc">The function to determine whether a scenario is belonging
         /// to the given <paramref name="sectionResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public InitialFailureMechanismResultErrorProvider(FailureMechanismSectionResult sectionResult,
@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms
                 throw new ArgumentNullException(nameof(getProbabilityFunc));
             }
 
-            T[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios, intersectionFunc).ToArray();
+            T[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).ToArray();
 
             if (relevantScenarios.Length == 0)
             {
