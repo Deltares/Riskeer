@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 
@@ -106,8 +105,6 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 Updated = true;
             }
-
-            public override FailureMechanismSectionAssemblyResult AssemblyResult { get; protected set; }
         }
     }
 }

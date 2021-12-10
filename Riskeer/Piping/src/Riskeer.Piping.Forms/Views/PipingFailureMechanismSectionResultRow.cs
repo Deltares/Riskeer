@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -287,9 +286,7 @@ namespace Riskeer.Piping.Forms.Views
                     calculateProbabilityStrategy.CalculateSectionProbability);
             }
         }
-
-        public override FailureMechanismSectionAssemblyResult AssemblyResult { get; protected set; }
-
+        
         private void UpdateDerivedData()
         {
             ResetErrorTexts();

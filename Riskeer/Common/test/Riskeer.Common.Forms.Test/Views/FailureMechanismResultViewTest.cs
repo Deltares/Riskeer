@@ -29,7 +29,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -481,8 +480,6 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 Updated = true;
             }
-
-            public override FailureMechanismSectionAssemblyResult AssemblyResult { get; protected set; }
         }
     }
 }
