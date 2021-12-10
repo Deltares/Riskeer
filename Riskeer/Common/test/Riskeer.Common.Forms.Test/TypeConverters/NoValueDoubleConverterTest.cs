@@ -42,6 +42,32 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
+        public void CanConvertFrom_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new NoValueDoubleConverter();
+
+            // Call
+            bool canConvertFromString = converter.CanConvertFrom(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertFromString);
+        }
+
+        [Test]
+        public void CanConvertFrom_OtherThanString_ReturnFalse()
+        {
+            // Setup
+            var converter = new NoValueDoubleConverter();
+
+            // Call
+            bool canConvertFromString = converter.CanConvertFrom(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertFromString);
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase("     ")]
         [TestCase("-")]
