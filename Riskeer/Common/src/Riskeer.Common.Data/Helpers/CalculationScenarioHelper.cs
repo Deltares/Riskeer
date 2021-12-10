@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.Helpers
         /// <summary>
         /// Gets the total contribution of all given calculation scenarios.
         /// </summary>
-        /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
+        /// <param name="calculationScenarios">The collection of calculation scenarios to get the total contribution for.</param>
         /// <typeparam name="T">The type of the calculation scenarios.</typeparam>
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenarios"/> is <c>null</c>.</exception>
@@ -70,8 +70,7 @@ namespace Riskeer.Common.Data.Helpers
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            return (RoundedDouble) calculationScenarios.Cast<ICalculationScenario>()
-                                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+            return (RoundedDouble) calculationScenarios.Aggregate<T, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
     }
 }
