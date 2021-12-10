@@ -29,10 +29,10 @@ namespace Riskeer.Common.Forms
     public interface IInitialFailureMechanismResultErrorProvider
     {
         /// <summary>
-        /// Gets the probability validation errors.
+        /// Gets the probability validation error.
         /// </summary>
         /// <param name="getProbabilityFunc">The function to get the probability to validate.</param>
-        /// <returns>Error messages when the validation fails;
+        /// <returns>An error message when the validation fails;
         /// or <see cref="string.Empty"/> when there are no errors.</returns>
         string GetProbabilityValidationError(Func<double> getProbabilityFunc);
     }
