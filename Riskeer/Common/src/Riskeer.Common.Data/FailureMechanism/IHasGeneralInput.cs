@@ -21,14 +21,8 @@
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
-    /// <summary>
-    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanism.GeneralInput"/> objects.
-    /// </summary>
     public interface IHasGeneralInput : IFailureMechanism
     {
-        /// <summary>
-        /// Gets the <see cref="FailureMechanism.GeneralInput"/>.
-        /// </summary>
         GeneralInput GeneralInput { get; }
     }
 }
