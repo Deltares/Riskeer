@@ -30,7 +30,7 @@ namespace Riskeer.Common.Forms.Helpers
     /// <summary>
     /// Helper class for displaying <see cref="FailureMechanismSectionAssemblyGroup"/>.
     /// </summary>
-    public static class FailureMechanismSectionAssemblyGroupHelper
+    public static class FailureMechanismSectionAssemblyGroupDisplayHelper
     {
         /// <summary>
         /// Gets the display name of the given <paramref name="assemblyGroup"/>.
@@ -43,13 +43,6 @@ namespace Riskeer.Common.Forms.Helpers
         /// is a valid value, but unsupported.</exception>
         public static string GetAssemblyGroupDisplayName(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyGroup), assemblyGroup))
-            {
-                throw new InvalidEnumArgumentException(nameof(assemblyGroup),
-                                                       (int) assemblyGroup,
-                                                       typeof(FailureMechanismSectionAssemblyGroup));
-            }
-
             DisplayFailureMechanismSectionAssemblyGroup displayAssemblyGroup = DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(
                 assemblyGroup);
 

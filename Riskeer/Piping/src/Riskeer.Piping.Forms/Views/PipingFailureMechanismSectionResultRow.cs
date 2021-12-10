@@ -267,7 +267,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
+        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
 
         public override void Update()
         {

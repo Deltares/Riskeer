@@ -605,7 +605,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(rowAssemblyResult.ProfileProbability, row.ProfileProbability);
                 Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
                 Assert.AreEqual(rowAssemblyResult.N, row.SectionN);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
                                 row.AssemblyGroup);
             }
 

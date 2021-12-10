@@ -28,13 +28,13 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyGroupHelperTest
+    public class FailureMechanismSectionAssemblyGroupDisplayHelperTest
     {
         [Test]
         public void GetAssemblyGroupDisplayName_InvalidValue_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            void Call() => FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName((FailureMechanismSectionAssemblyGroup) 99);
+            void Call() => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName((FailureMechanismSectionAssemblyGroup) 99);
 
             // Assert
             var expectedMessage = $"The value of argument 'assemblyGroup' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                                                                               string expectedDisplayName)
         {
             // Call
-            string displayName = FailureMechanismSectionAssemblyGroupHelper.GetAssemblyGroupDisplayName(categoryGroup);
+            string displayName = FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(categoryGroup);
 
             // Assert
             Assert.AreEqual(expectedDisplayName, displayName);
