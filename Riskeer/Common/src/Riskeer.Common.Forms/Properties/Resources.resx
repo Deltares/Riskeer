@@ -1620,17 +1620,17 @@ faalkans per doorsnede
 faalkans per vak
 [1/jaar]</value>
   </data>
-  <data name="FailureMechanismResultView_ProfileProbability_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_AssemblyProfileProbability_DisplayName" xml:space="preserve">
     <value>Rekenwaarde
 faalkans per doorsnede
 [1/jaar]</value>
   </data>
-  <data name="FailureMechanismResultView_SectionProbability_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_AssemblySectionProbability_DisplayName" xml:space="preserve">
     <value>Rekenwaarde
 faalkans per vak
 [1/jaar]</value>
   </data>
-  <data name="FailureMechanismResultView_SectionN_DisplayName" xml:space="preserve">
+  <data name="FailureMechanismResultView_AssemblySectionN_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Nvak
 [-]</value>
   </data>

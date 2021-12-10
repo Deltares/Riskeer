@@ -282,7 +282,7 @@ namespace Riskeer.Common.Forms.Builders
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddProfileProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddAssemblyProfileProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -296,7 +296,7 @@ namespace Riskeer.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_ProfileProbability_DisplayName);
+                Resources.FailureMechanismResultView_AssemblyProfileProbability_DisplayName);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace Riskeer.Common.Forms.Builders
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddSectionProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddAssemblySectionProbabilityColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -319,7 +319,7 @@ namespace Riskeer.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_SectionProbability_DisplayName);
+                Resources.FailureMechanismResultView_AssemblySectionProbability_DisplayName);
         }
 
         /// <summary>
@@ -328,7 +328,7 @@ namespace Riskeer.Common.Forms.Builders
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddSectionNColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddAssemblySectionNColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -342,7 +342,7 @@ namespace Riskeer.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_SectionN_DisplayName);
+                Resources.FailureMechanismResultView_AssemblySectionN_DisplayName);
         }
 
         /// <summary>

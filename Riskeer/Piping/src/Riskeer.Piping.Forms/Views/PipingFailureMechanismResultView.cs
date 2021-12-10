@@ -179,15 +179,15 @@ namespace Riskeer.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
             
-            FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.ProfileProbability));
             
-            FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.SectionProbability));
             
-            FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.SectionN));
             

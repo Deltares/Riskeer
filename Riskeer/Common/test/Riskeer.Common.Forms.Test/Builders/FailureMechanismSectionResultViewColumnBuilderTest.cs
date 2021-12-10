@@ -528,10 +528,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         #region Assembly
 
         [Test]
-        public void AddProfileProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddAssemblyProfileProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -539,10 +539,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddProfileProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddAssemblyProfileProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -550,7 +550,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddProfileProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddAssemblyProfileProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -564,7 +564,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddProfileProbabilityColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -577,10 +577,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSectionProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddAssemblySectionProbabilityColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -588,10 +588,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSectionProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddAssemblySectionProbabilityColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -599,7 +599,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSectionProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddAssemblySectionProbabilityColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -613,7 +613,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddSectionProbabilityColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -626,10 +626,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSectionNColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddAssemblySectionNColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -637,10 +637,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSectionNColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddAssemblySectionNColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -648,7 +648,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddSectionNColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddAssemblySectionNColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -662,7 +662,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddSectionNColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
