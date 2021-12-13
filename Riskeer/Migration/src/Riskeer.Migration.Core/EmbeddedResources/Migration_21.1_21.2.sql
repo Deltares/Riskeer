@@ -177,7 +177,7 @@ SELECT
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffInwardsFailureMechanismMetaEntity (
-[FailureMechanismEntityId],
+    [FailureMechanismEntityId],
     [N])
 SELECT
     [FailureMechanismEntityId],
@@ -186,7 +186,7 @@ FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 16;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsFailureMechanismMetaEntity (
-[FailureMechanismEntityId],
+    [FailureMechanismEntityId],
     [N])
 SELECT
     [FailureMechanismEntityId],
@@ -384,7 +384,7 @@ INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity (
-[FailureMechanismEntityId],
+    [FailureMechanismEntityId],
     [N])
 SELECT
     [FailureMechanismEntityId],
@@ -396,7 +396,7 @@ INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPRO
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO TechnicalInnovationFailureMechanismMetaEntity (
-[FailureMechanismEntityId],
+    [FailureMechanismEntityId],
     [N])
 SELECT
     [FailureMechanismEntityId],
@@ -418,7 +418,7 @@ SELECT
 FROM [SOURCEPROJECT].VersionEntity;
 INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
 INSERT INTO WaterPressureAsphaltCoverFailureMechanismMetaEntity (
-[FailureMechanismEntityId],
+    [FailureMechanismEntityId],
     [N])
 SELECT
     [FailureMechanismEntityId],
