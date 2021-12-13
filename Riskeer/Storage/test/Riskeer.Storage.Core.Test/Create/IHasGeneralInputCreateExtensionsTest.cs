@@ -22,8 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 
@@ -36,11 +35,13 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_WithAllData_SetsMetaEntityProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasGeneralInput>();
-            mocks.ReplayAll();
-
-            failureMechanism.GeneralInput.N = new Random().NextRoundedDouble(1, 20);
+            var failureMechanism = new TestFailureMechanism
+            {
+                GeneralInput =
+                {
+                    N = new Random().NextRoundedDouble(1, 20)
+                }
+            };
 
             // Call
             var metaEntity = failureMechanism.Create<TestFailureMechanismMetaEntity>();
@@ -48,8 +49,6 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.IsInstanceOf<IStandAloneFailureMechanismMetaEntity>(metaEntity);
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
-
-            mocks.VerifyAll();
         }
 
         private class TestFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity
