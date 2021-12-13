@@ -33,11 +33,13 @@ namespace Riskeer.Storage.Core.Test.Create
     public class IHasGeneralInputCreateExtensionsTest
     {
         [Test]
-        public void Create_Always_ReturnsExpectedMetaEntity()
+        public void Create_WithAllData_SetsMetaEntityProperties()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IHasGeneralInput>();
+            mocks.ReplayAll();
+
             failureMechanism.GeneralInput.N = new Random().NextRoundedDouble(1, 20);
 
             // Call
@@ -46,6 +48,8 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.IsInstanceOf<IStandAloneFailureMechanismMetaEntity>(metaEntity);
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
+
+            mocks.VerifyAll();
         }
 
         private class TestFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity

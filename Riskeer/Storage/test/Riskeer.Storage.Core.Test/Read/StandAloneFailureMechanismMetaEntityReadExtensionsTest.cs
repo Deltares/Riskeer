@@ -62,14 +62,14 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_Always_SetsGeneralInput()
+        public void Read_WithAllData_SetsGeneralInputProperties()
         {
             // Setup
             var mocks = new MockRepository();
             var entity = mocks.Stub<IStandAloneFailureMechanismMetaEntity>();
-            entity.N = 4.0;
             mocks.ReplayAll();
 
+            entity.N = 4.0;
             var generalInput = new GeneralInput();
 
             // Call

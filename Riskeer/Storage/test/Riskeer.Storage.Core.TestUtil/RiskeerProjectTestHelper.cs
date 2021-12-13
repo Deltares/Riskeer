@@ -199,20 +199,36 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(pipingStructureFailureMechanism.SectionResultsOld);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
-            microstabilityFailureMechanism.GeneralInput.N = (RoundedDouble) 2.0;
-            SetSections(assessmentSection.Microstability);
-            SetSectionResults(assessmentSection.Microstability.SectionResultsOld);
-            SetSections(assessmentSection.WaterPressureAsphaltCover);
-            SetSectionResults(assessmentSection.WaterPressureAsphaltCover.SectionResultsOld);
-            SetSections(assessmentSection.GrassCoverSlipOffInwards);
-            SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResultsOld);
-            SetSections(assessmentSection.GrassCoverSlipOffOutwards);
-            SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResultsOld);
-            SetSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
-            SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResultsOld);
+            microstabilityFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetSections(microstabilityFailureMechanism);
+            SetSectionResults(microstabilityFailureMechanism.SectionResultsOld);
+
+            WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
+            waterPressureAsphaltCoverFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetSections(waterPressureAsphaltCoverFailureMechanism);
+            SetSectionResults(waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
+
+            GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
+            grassCoverSlipOffInwardsFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetSections(grassCoverSlipOffInwardsFailureMechanism);
+            SetSectionResults(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
+
+            GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
+            grassCoverSlipOffOutwardsFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetSections(grassCoverSlipOffOutwardsFailureMechanism);
+            SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
+
+            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
+            strengthStabilityLengthwiseConstructionFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetSections(strengthStabilityLengthwiseConstructionFailureMechanism);
+            SetSectionResults(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
+
             SetSectionResults(assessmentSection.DuneErosion.SectionResultsOld);
-            SetSections(assessmentSection.TechnicalInnovation);
-            SetSectionResults(assessmentSection.TechnicalInnovation.SectionResultsOld);
+
+            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
+            technicalInnovationFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetSections(technicalInnovationFailureMechanism);
+            SetSectionResults(technicalInnovationFailureMechanism.SectionResultsOld);
 
             assessmentSection.GetFailureMechanisms().ForEachElementDo(SetComments);
 
@@ -1254,7 +1270,7 @@ namespace Riskeer.Storage.Core.TestUtil
             {
                 sectionConfiguration.ScenarioConfigurationType = random.NextEnumValue<PipingScenarioConfigurationPerFailureMechanismSectionType>();
             }
-        } 
+        }
 
         private static PipingSurfaceLine GetSurfaceLine()
         {
@@ -1269,11 +1285,11 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point3D(5.8, 6.0, -2.3), // Dike toe at river
                 new Point3D(5.6, 6.0, 3.4),
                 new Point3D(4.2, 6.0, 3.5),
-                new Point3D(4.0, 6.0, 0.5),  // Dike toe at polder
-                new Point3D(3.8, 6.0, 0.5),  // Ditch dike side
-                new Point3D(3.6, 6.0, 0.2),  // Bottom ditch dike side
+                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
                 new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
-                new Point3D(3.2, 6.0, 0.5),  // Ditch polder side
+                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
                 new Point3D(3.0, 6.0, 0.5)
             };
             surfaceLine.SetGeometry(geometryPoints);

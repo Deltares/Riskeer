@@ -1059,48 +1059,48 @@ namespace Riskeer.Storage.Core.Test.Read
                                         microstability.InAssemblyOutputComments,
                                         microstability.NotInAssemblyComments,
                                         microstability.CalculationsInputComments,
-                                        section.Microstability);
-            Assert.AreEqual(microstability.MicrostabilityFailureMechanismMetaEntities.Single().N, section.Microstability.GeneralInput.N);
+                                        section.Microstability,
+                                        microstability.MicrostabilityFailureMechanismMetaEntities.Single().N);
 
             AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
                                         strengthAndStabilityParallelConstruction.InAssemblyInputComments,
                                         strengthAndStabilityParallelConstruction.InAssemblyOutputComments,
                                         strengthAndStabilityParallelConstruction.NotInAssemblyComments,
                                         strengthAndStabilityParallelConstruction.CalculationsInputComments,
-                                        section.StrengthStabilityLengthwiseConstruction);
-            Assert.AreEqual(strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().N, section.StrengthStabilityLengthwiseConstruction.GeneralInput.N);
+                                        section.StrengthStabilityLengthwiseConstruction,
+                                        strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().N);
 
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
                                         waterOverpressureAsphaltRevetment.InAssemblyInputComments,
                                         waterOverpressureAsphaltRevetment.InAssemblyOutputComments,
                                         waterOverpressureAsphaltRevetment.NotInAssemblyComments,
                                         waterOverpressureAsphaltRevetment.CalculationsInputComments,
-                                        section.WaterPressureAsphaltCover);
-            Assert.AreEqual(waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().N, section.WaterPressureAsphaltCover.GeneralInput.N);
+                                        section.WaterPressureAsphaltCover,
+                                        waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().N);
 
             AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
                                         grassRevetmentSlidingOutwards.InAssemblyInputComments,
                                         grassRevetmentSlidingOutwards.InAssemblyOutputComments,
                                         grassRevetmentSlidingOutwards.NotInAssemblyComments,
                                         grassRevetmentSlidingOutwards.CalculationsInputComments,
-                                        section.GrassCoverSlipOffOutwards);
-            Assert.AreEqual(grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().N, section.GrassCoverSlipOffOutwards.GeneralInput.N);
+                                        section.GrassCoverSlipOffOutwards,
+                                        grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().N);
 
             AssertFailureMechanismEqual(grassRevetmentSlidingInwardsInAssembly,
                                         grassRevetmentSlidingInwards.InAssemblyInputComments,
                                         grassRevetmentSlidingInwards.InAssemblyOutputComments,
                                         grassRevetmentSlidingInwards.NotInAssemblyComments,
                                         grassRevetmentSlidingInwards.CalculationsInputComments,
-                                        section.GrassCoverSlipOffInwards);
-            Assert.AreEqual(grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N, section.GrassCoverSlipOffInwards.GeneralInput.N);
+                                        section.GrassCoverSlipOffInwards,
+                                        grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N);
 
             AssertFailureMechanismEqual(technicalInnovationsInAssembly,
                                         technicalInnovation.InAssemblyInputComments,
                                         technicalInnovation.InAssemblyOutputComments,
                                         technicalInnovation.NotInAssemblyComments,
                                         technicalInnovation.CalculationsInputComments,
-                                        section.TechnicalInnovation);
-            Assert.AreEqual(technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities.Single().N, section.TechnicalInnovation.GeneralInput.N);
+                                        section.TechnicalInnovation,
+                                        technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]
@@ -1328,7 +1328,7 @@ namespace Riskeer.Storage.Core.Test.Read
         private static void AssertFailureMechanismEqual(bool expectedInAssembly,
                                                         string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
                                                         string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
-                                                        IFailureMechanism failureMechanism)
+                                                        IHasGeneralInput failureMechanism, double n)
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(expectedInAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
@@ -1336,6 +1336,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.AreEqual(expectedCalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, (RoundedDouble) n);
         }
     }
 }
