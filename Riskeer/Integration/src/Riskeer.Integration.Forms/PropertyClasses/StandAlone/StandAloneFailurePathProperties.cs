@@ -34,7 +34,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// Failure path related ViewModel of <see cref="IFailureMechanism"/> for properties panel.
+    /// Failure path related ViewModel of <see cref="IHasGeneralInput"/> for properties panel.
     /// </summary>
     public class StandAloneFailurePathProperties : ObjectProperties<IHasGeneralInput>
     {
