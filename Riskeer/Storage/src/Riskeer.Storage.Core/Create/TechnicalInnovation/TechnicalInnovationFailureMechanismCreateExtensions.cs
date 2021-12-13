@@ -62,10 +62,7 @@ namespace Riskeer.Storage.Core.Create.TechnicalInnovation
 
         private static void AddEntitiesForFailureMechanismMeta(TechnicalInnovationFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.TechnicalInnovationFailureMechanismMetaEntities.Add(new TechnicalInnovationFailureMechanismMetaEntity
-            {
-                N = mechanism.GeneralInput.N
-            });
+            entity.TechnicalInnovationFailureMechanismMetaEntities.Add(mechanism.Create<TechnicalInnovationFailureMechanismMetaEntity>());
         }
     }
 }

@@ -62,10 +62,7 @@ namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
 
         private static void AddEntitiesForFailureMechanismMeta(WaterPressureAsphaltCoverFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Add(new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-            {
-                N = mechanism.GeneralInput.N
-            });
+            entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Add(mechanism.Create<WaterPressureAsphaltCoverFailureMechanismMetaEntity>());
         }
     }
 }

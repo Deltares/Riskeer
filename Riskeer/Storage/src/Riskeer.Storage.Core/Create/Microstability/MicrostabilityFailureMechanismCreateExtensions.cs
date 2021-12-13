@@ -59,13 +59,10 @@ namespace Riskeer.Storage.Core.Create.Microstability
                 section.MicrostabilitySectionResultEntities.Add(sectionResultEntity);
             }
         }
-        
+
         private static void AddEntitiesForFailureMechanismMeta(MicrostabilityFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.MicrostabilityFailureMechanismMetaEntities.Add(new MicrostabilityFailureMechanismMetaEntity
-            {
-                N = mechanism.GeneralInput.N
-            });
+            entity.MicrostabilityFailureMechanismMetaEntities.Add(mechanism.Create<MicrostabilityFailureMechanismMetaEntity>());
         }
     }
 }

@@ -62,10 +62,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards
 
         private static void AddEntitiesForFailureMechanismMeta(GrassCoverSlipOffOutwardsFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Add(new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
-            {
-                N = mechanism.GeneralInput.N
-            });
+            entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Add(mechanism.Create<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>());
         }
     }
 }
