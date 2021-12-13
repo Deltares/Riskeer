@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
@@ -46,7 +45,6 @@ namespace Riskeer.Integration.Data.FailurePath
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            N = new RoundedDouble(2, 1);
             Input = new SpecificFailurePathInput();
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
@@ -59,8 +57,6 @@ namespace Riskeer.Integration.Data.FailurePath
         /// Gets the input that applies to the specific failure path.
         /// </summary>
         public SpecificFailurePathInput Input { get; }
-
-        public RoundedDouble N { get; set; }
 
         public string Name { get; set; }
 

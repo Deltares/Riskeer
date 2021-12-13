@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         private RoundedDouble n;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GeneralInput"/> class.
+        /// Creates a new instance of <see cref="GeneralInput"/>.
         /// </summary>
         public GeneralInput()
         {

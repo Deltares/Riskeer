@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 
@@ -44,14 +43,14 @@ namespace Riskeer.Common.Data.TestUtil
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            N = new RoundedDouble(2, 1.5);
+            GeneralInput = new GeneralInput();
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
             AssemblyResult = new FailurePathAssemblyResult();
         }
 
-        public RoundedDouble N { get; set; }
+        public GeneralInput GeneralInput { get; }
 
         public string Name { get; }
 
