@@ -25,9 +25,12 @@ using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
@@ -225,7 +228,34 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdated()
+        public void FailureMechanismResultsView_AllDataSet_SetsCorrectInputOnCalculator()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            var failureMechanism = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism, assessmentSection))
+            {
+                // Assert
+                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+
+                double expectedN = failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
+                Assert.AreEqual(expectedN, calculator.FailurePathN);
+            }
+        }
+
+        [Test]
+        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndAssemblyInfoUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -237,20 +267,26 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculationScenario = new TestPipingCalculationScenario();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
-            using (ShowFailureMechanismResultsView(failureMechanism))
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (PipingFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
             {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+                
                 // Precondition
                 Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
                 
                 // When
                 calculationScenario.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
             }
         }
 
@@ -267,20 +303,26 @@ namespace Riskeer.Piping.Forms.Test.Views
             var calculationScenario = new TestPipingCalculationScenario();
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
-            using (ShowFailureMechanismResultsView(failureMechanism))
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (PipingFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
             {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+                
                 // Precondition
                 Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
                 
                 // When
                 calculationScenario.InputParameters.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
             }
         }
 
@@ -294,20 +336,26 @@ namespace Riskeer.Piping.Forms.Test.Views
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
             });
 
-            using (ShowFailureMechanismResultsView(failureMechanism))
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (var view = ShowFailureMechanismResultsView(failureMechanism))
             {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+                
                 // Precondition
                 Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
                 
                 // When
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
             }
         }
 
@@ -318,9 +366,15 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         private PipingFailureMechanismResultView ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism)
         {
+            return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub());
+        }
+
+        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism,
+                                                                                 IAssessmentSection assessmentSection)
+        {
             var failureMechanismResultView = new PipingFailureMechanismResultView(failureMechanism.SectionResults,
                                                                                   failureMechanism,
-                                                                                  new AssessmentSectionStub());
+                                                                                  assessmentSection);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
