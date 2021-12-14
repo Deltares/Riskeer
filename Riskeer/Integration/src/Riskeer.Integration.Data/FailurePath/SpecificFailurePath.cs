@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Data.FailurePath
         }
 
         /// <summary>
-        /// Gets the input that applies to the specific failure path.
+        /// Gets the <see cref="GeneralInput"/>.
         /// </summary>
         public GeneralInput Input { get; }
 

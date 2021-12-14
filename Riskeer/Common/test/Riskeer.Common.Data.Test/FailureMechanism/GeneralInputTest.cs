@@ -40,6 +40,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, generalInput.N, generalInput.N.GetAccuracy());
+            Assert.IsFalse(generalInput.ApplyLengthEffectInSection);
         }
 
         [Test]

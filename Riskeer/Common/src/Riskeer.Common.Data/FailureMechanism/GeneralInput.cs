@@ -68,5 +68,11 @@ namespace Riskeer.Common.Data.FailureMechanism
                 n = newValue;
             }
         }
+        
+        /// <summary>
+        /// Gets or sets whether the length effect should be applied
+        /// in the section.
+        /// </summary>
+        public bool ApplyLengthEffectInSection { get; set; }
     }
 }
