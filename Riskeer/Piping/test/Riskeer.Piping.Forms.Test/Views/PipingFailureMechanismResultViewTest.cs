@@ -116,6 +116,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void GivenFormWithPipingFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(new PipingFailureMechanism()))
             {
                 // Then

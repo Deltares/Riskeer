@@ -103,6 +103,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
@@ -150,6 +151,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const int stringColumnIndex = 1;
 
             // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
             {
                 // Assert
@@ -170,6 +172,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
@@ -194,6 +197,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
             {
                 // Assert
@@ -214,12 +218,12 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
             {
                 sectionResult
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var rowsChanged = false;
@@ -249,6 +253,8 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Given
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -283,6 +289,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var invalidated = false;
@@ -320,6 +327,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -352,6 +360,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -386,6 +395,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult2
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -418,6 +428,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -446,6 +457,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -476,6 +488,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
