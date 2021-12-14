@@ -28,6 +28,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -51,7 +52,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -61,7 +62,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             {
                 InAssembly = random.NextBoolean()
             };
-            
+
             // Call
             var properties = new SpecificFailurePathProperties(failurePath);
 
@@ -69,8 +70,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<SpecificFailurePath>>(properties);
             Assert.AreEqual(failurePath.Name, properties.Name);
             Assert.AreEqual(failurePath.InAssembly, properties.InAssembly);
-            
-            SpecificFailurePathInput input = failurePath.Input;
+
+            GeneralInput input = failurePath.Input;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
         }
@@ -106,14 +107,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-            
+
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
-        }        
-        
+        }
+
         [Test]
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
@@ -144,8 +145,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-        }        
-        
+        }
+
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
@@ -176,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newName, failurePath.Name);
 
-            SpecificFailurePathInput input = failurePath.Input;
+            GeneralInput input = failurePath.Input;
             Assert.AreEqual(newN, input.N, input.N.GetAccuracy());
 
             mocks.VerifyAll();

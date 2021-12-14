@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.Create;
@@ -70,7 +71,7 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             SpecificFailurePathEntity entity = specificFailurePath.Create(registry, order);
 
             // Assert
-            SpecificFailurePathInput expectedInput = specificFailurePath.Input;
+            GeneralInput expectedInput = specificFailurePath.Input;
             Assert.AreEqual(expectedInput.N, entity.N, expectedInput.N.GetAccuracy());
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
 
@@ -98,16 +99,16 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
 
             specificFailurePath.SetSections(new[]
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new []
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(1, 0)
                 }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new []
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(1, 0),
                     new Point2D(2, 0)
-                })                
+                })
             }, specificFailurePathSectionsSourcePath);
 
             var registry = new PersistenceRegistry();

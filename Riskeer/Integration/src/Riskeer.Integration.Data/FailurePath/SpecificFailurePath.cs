@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Data.FailurePath
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            Input = new SpecificFailurePathInput();
+            Input = new GeneralInput();
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Data.FailurePath
         /// <summary>
         /// Gets the input that applies to the specific failure path.
         /// </summary>
-        public SpecificFailurePathInput Input { get; }
+        public GeneralInput Input { get; }
 
         public string Name { get; set; }
 
