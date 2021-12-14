@@ -82,7 +82,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string lengthEffectParameterCategory = "Lengte-effect parameters";
+            const string lengthEffectParameterCategory = "Lengte-effect";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,

@@ -444,7 +444,7 @@ handmatig</value>
     <value>Algemeen</value>
   </data>
   <data name="Categories_LengthEffect" xml:space="preserve">
-    <value>Lengte-effect parameters</value>
+    <value>Lengte-effect</value>
   </data>
   <data name="FailureMechanism_AssessmentResult_DisplayName" xml:space="preserve">
     <value>Resultaat</value>
