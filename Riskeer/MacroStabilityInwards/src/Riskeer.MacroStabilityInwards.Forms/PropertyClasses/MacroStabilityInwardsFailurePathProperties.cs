@@ -44,6 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int bPropertyIndex = 7;
         private const int sectionLengthPropertyIndex = 8;
         private const int nPropertyIndex = 9;
+        private const int applyLengthEffectInSectionPropertyIndex = 10;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -81,7 +82,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
                    || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
         #region General
@@ -182,6 +184,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = data.MacroStabilityInwardsProbabilityAssessmentInput;
                 return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        public bool ApplyLengthEffectInSection
+        {
+            get
+            {
+                return true;
             }
         }
 
