@@ -44,6 +44,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private const int bPropertyIndex = 7;
         private const int sectionLengthPropertyIndex = 8;
         private const int nPropertyIndex = 9;
+        private const int applyLengthEffectInSectionPropertyIndex = 10;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -81,6 +82,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                    || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName)
                    || nameof(N).Equals(propertyName);
         }
 
@@ -182,6 +184,19 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             {
                 PipingProbabilityAssessmentInput probabilityAssessmentInput = data.PipingProbabilityAssessmentInput;
                 return new RoundedDouble(2, probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        public bool ApplyLengthEffectInSection
+        {
+            get
+            {
+                return true;
             }
         }
 

@@ -46,6 +46,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         private const int bPropertyIndex = 6;
         private const int sectionLengthPropertyIndex = 7;
         private const int nPropertyIndex = 8;
+        private const int applySectionLengthInSectionPropertyIndex = 9;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -114,7 +115,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -179,6 +180,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
+                                                                            true);
+            
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
+                                                                            lengthEffectCategory,
+                                                                            "Toepassen lengte-effect binnen vak",
+                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.",
                                                                             true);
 
             mocks.VerifyAll();
@@ -323,6 +331,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 
