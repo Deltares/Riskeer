@@ -42,6 +42,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int cPropertyIndex = 5;
         private const int n2APropertyIndex = 6;
         private const int nPropertyIndex = 7;
+        private const int applySectionLengthInSectionPropertyIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -71,6 +72,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N2A, properties.N2A);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
+            Assert.IsFalse(properties.ApplyLengthEffectInSection);
         }
 
         [Test]
@@ -84,7 +86,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             const string lengthEffectCategory = "Lengte-effect";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -139,6 +141,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
+                                                                            true);
+
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
+                                                                            lengthEffectCategory,
+                                                                            "Toepassen lengte-effect binnen vak",
+                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.",
                                                                             true);
         }
 
@@ -262,6 +271,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.C)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N2A)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

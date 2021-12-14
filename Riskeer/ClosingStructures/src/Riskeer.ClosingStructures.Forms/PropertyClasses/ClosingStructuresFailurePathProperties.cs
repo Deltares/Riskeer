@@ -43,6 +43,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         private const int cPropertyIndex = 6;
         private const int n2APropertyIndex = 7;
         private const int nPropertyIndex = 8;
+        private const int applyLengthEffectInSectionPropertyIndex = 9;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailurePathProperties"/>.
@@ -66,7 +67,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             return nameof(Contribution).Equals(propertyName)
                    || nameof(C).Equals(propertyName)
                    || nameof(N2A).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
         #region General
@@ -153,6 +155,19 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return new RoundedDouble(2, data.GeneralInput.N);
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        public bool ApplyLengthEffectInSection
+        {
+            get
+            {
+                return false;
             }
         }
 
