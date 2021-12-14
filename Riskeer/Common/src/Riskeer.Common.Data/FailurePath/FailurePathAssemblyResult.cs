@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Riskeer.Common.Data.Probability;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -28,7 +29,7 @@ namespace Riskeer.Common.Data.FailurePath
     /// <summary>
     /// Class containing the assembly result of an entire failure path.
     /// </summary>
-    public class FailurePathAssemblyResult
+    public class FailurePathAssemblyResult : Observable
     {
         private double manualFailurePathAssemblyProbability;
 

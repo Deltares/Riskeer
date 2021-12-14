@@ -120,7 +120,9 @@ namespace Riskeer.Common.Forms.Views
             {
                 if (IsManualAssembly())
                 {
-                    FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability = value;
+                    FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+                    assemblyResult.ManualFailurePathAssemblyProbability = value;
+                    assemblyResult.NotifyObservers();
                 }
 
                 failurePathAssemblyProbability = value;
@@ -322,7 +324,9 @@ namespace Riskeer.Common.Forms.Views
                 return;
             }
 
-            FailureMechanism.AssemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
+            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
+            assemblyResult.NotifyObservers();
             
             UpdateAssemblyData();
             UpdateFailurePathAssemblyControls();

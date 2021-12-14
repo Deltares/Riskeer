@@ -804,7 +804,8 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver())
+                    .Repeat.Twice();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism
@@ -814,7 +815,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
                 }
             };
-            failureMechanism.Attach(observer);
+            failureMechanism.AssemblyResult.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
@@ -908,7 +909,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            observer.Expect(o => o.UpdateObserver())
+                    .Repeat.Twice();
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism
@@ -919,7 +921,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     ManualFailurePathAssemblyProbability = manualProbability
                 }
             };
-            failureMechanism.Attach(observer);
+            failureMechanism.AssemblyResult.Attach(observer);
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
             {
@@ -967,7 +969,6 @@ namespace Riskeer.Common.Forms.Test.Views
                     ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
                 }
             };
-            failureMechanism.Attach(observer);
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
             {
@@ -979,6 +980,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
                 string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
                 Assert.IsNotEmpty(errorMessage);
+
+                failureMechanism.AssemblyResult.Attach(observer);
 
                 // When
                 textBoxTester.Enter(validValue);

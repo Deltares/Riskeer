@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailurePath;
@@ -36,6 +37,8 @@ namespace Riskeer.Common.Data.Test.FailurePath
             var result = new FailurePathAssemblyResult();
 
             // Assert
+            Assert.IsInstanceOf<Observable>(result);
+            
             Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, result.ProbabilityResultType);
             Assert.IsNaN(result.ManualFailurePathAssemblyProbability);
         }
