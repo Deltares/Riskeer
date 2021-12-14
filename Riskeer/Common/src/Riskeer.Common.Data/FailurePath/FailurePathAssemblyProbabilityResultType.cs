@@ -22,17 +22,17 @@
 namespace Riskeer.Common.Data.FailurePath
 {
     /// <summary>
-    /// Enum indicating the type of probability for a failure path assembly result.
+    /// Specifies the type of probability for a failure path assembly result.
     /// </summary>
     public enum FailurePathAssemblyProbabilityResultType
     {
         /// <summary>
-        /// Indicates an automatically calculated probability.
+        /// The automatically calculated probability type.
         /// </summary>
         Automatic = 1,
 
         /// <summary>
-        /// Indicates a manual probability.
+        /// The manual probability type.
         /// </summary>
         Manual = 2
     }

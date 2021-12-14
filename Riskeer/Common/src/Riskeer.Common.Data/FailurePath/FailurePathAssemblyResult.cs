@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Common.Data.Probability;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -32,7 +33,7 @@ namespace Riskeer.Common.Data.FailurePath
         private double manualFailurePathAssemblyProbability;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailurePathAssemblyResult"/>
+        /// Creates a new instance of <see cref="FailurePathAssemblyResult"/>.
         /// </summary>
         public FailurePathAssemblyResult()
         {
@@ -48,6 +49,7 @@ namespace Riskeer.Common.Data.FailurePath
         /// <summary>
         /// Gets or sets the probability of a failure path assembly.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double ManualFailurePathAssemblyProbability
         {
             get => manualFailurePathAssemblyProbability;
