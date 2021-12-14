@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Riskeer.Common.Data.Properties;
+
 namespace Riskeer.Common.Data.FailurePath
 {
     /// <summary>
@@ -29,11 +32,13 @@ namespace Riskeer.Common.Data.FailurePath
         /// <summary>
         /// The automatically calculated probability type.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName))]
         Automatic = 1,
 
         /// <summary>
         /// The manual probability type.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailurePathAssemblyProbabilityResultTypeManual_DisplayName))]
         Manual = 2
     }
 }

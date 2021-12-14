@@ -402,13 +402,19 @@
   <data name="InitialFailureMechanismResultType_NoFailureProbability_DisplayName" xml:space="preserve">
     <value>Geen faalkans</value>
   </data>
-  <data name="ProbabilityRefinementType_Profile_DisplayName" xml:space="preserve">
+    <data name="ProbabilityRefinementType_Profile_DisplayName" xml:space="preserve">
     <value>Per doorsnede</value>
   </data>
-  <data name="ProbabilityRefinementType_Section_DisplayName" xml:space="preserve">
+    <data name="ProbabilityRefinementType_Section_DisplayName" xml:space="preserve">
     <value>Per vak</value>
   </data>
-  <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
+    <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
     <value>Beide</value>
+  </data>
+    <data name="FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName" xml:space="preserve">
+    <value>Automatisch berekenen</value>
+  </data>
+    <data name="FailurePathAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
+    <value>Handmatig invullen</value>
   </data>
 </root>

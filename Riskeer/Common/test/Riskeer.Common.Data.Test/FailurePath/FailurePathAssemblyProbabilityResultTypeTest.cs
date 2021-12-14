@@ -27,7 +27,7 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Data.Test.FailurePath
 {
     [TestFixture]
-    public class FailurePathAssemblyProbabilityResultTypeTest : EnumValuesTestFixture<FailurePathAssemblyProbabilityResultType, int>
+    public class FailurePathAssemblyProbabilityResultTypeTest : EnumWithResourcesDisplayNameTestFixture<FailurePathAssemblyProbabilityResultType>
     {
         protected override IDictionary<FailurePathAssemblyProbabilityResultType, int> ExpectedValueForEnumValues =>
             new Dictionary<FailurePathAssemblyProbabilityResultType, int>
@@ -37,6 +37,17 @@ namespace Riskeer.Common.Data.Test.FailurePath
                 },
                 {
                     FailurePathAssemblyProbabilityResultType.Manual, 2
+                }
+            };
+
+        protected override IDictionary<FailurePathAssemblyProbabilityResultType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<FailurePathAssemblyProbabilityResultType, string>
+            {
+                {
+                    FailurePathAssemblyProbabilityResultType.Automatic, "Automatisch berekenen"
+                },
+                {
+                    FailurePathAssemblyProbabilityResultType.Manual, "Handmatig invullen"
                 }
             };
     }
