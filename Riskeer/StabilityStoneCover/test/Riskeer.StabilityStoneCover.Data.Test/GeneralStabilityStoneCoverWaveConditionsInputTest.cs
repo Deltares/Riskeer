@@ -57,6 +57,8 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
             Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(4.0, generalInput.N, generalInput.N.GetAccuracy());
+
+            Assert.IsFalse(generalInput.ApplyLengthEffectInSection);
         }
 
         [Test]

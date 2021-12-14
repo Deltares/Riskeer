@@ -55,6 +55,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(1.0, generalWaveImpactWithWaveDirectionWaveConditionsInput.A, generalWaveImpactWithWaveDirectionWaveConditionsInput.A.GetAccuracy());
             Assert.AreEqual(0.67, generalWaveImpactWithWaveDirectionWaveConditionsInput.B, generalWaveImpactWithWaveDirectionWaveConditionsInput.B.GetAccuracy());
             Assert.AreEqual(0.67, generalWaveImpactWithWaveDirectionWaveConditionsInput.C, generalWaveImpactWithWaveDirectionWaveConditionsInput.C.GetAccuracy());
+
+            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
         }
 
         [Test]

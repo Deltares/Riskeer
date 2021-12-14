@@ -64,6 +64,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         }
 
         /// <summary>
+        /// Gets or sets whether the length effect should be applied
+        /// in the section.
+        /// </summary>
+        public bool ApplyLengthEffectInSection { get; set; }
+
+        /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         /// <param name="sectionLength">The length of the assessment section.</param>

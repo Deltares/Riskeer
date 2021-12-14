@@ -102,6 +102,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets whether the length effect should be applied
+        /// in the section.
+        /// </summary>
+        public bool ApplyLengthEffectInSection { get; set; }
+
         #endregion
 
         #region Factors

@@ -39,6 +39,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             // Assert
             Assert.AreEqual(2, generalInput.DeltaL.NumberOfDecimalPlaces);
             Assert.AreEqual(1000.0, generalInput.DeltaL, generalInput.DeltaL.GetAccuracy());
+            Assert.IsFalse(generalInput.ApplyLengthEffectInSection);
         }
 
         [Test]

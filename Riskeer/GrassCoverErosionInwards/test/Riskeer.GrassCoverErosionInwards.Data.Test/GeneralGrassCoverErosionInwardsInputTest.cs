@@ -73,6 +73,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
             Assert.AreEqual(2.0, inputParameters.N, inputParameters.N.GetAccuracy());
+            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
 
             DistributionAssert.AreEqual(fbFactor, inputParameters.FbFactor);
             DistributionAssert.AreEqual(fnFactor, inputParameters.FnFactor);
