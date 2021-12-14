@@ -96,6 +96,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            Assert.IsTrue(properties.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
         }
@@ -181,7 +182,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
-            
+
             PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
                                                                             lengthEffectCategory,

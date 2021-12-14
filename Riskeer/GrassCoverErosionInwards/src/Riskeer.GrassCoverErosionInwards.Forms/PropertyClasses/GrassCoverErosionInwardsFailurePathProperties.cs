@@ -42,6 +42,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int contributionPropertyIndex = 4;
         private const int inAssemblyPropertyIndex = 5;
         private const int nPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 7;
         private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -65,6 +66,27 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
 
             propertyChangeHandler = handler;
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
+        }
+
+        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
+        {
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
+            }
+        }
+
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        {
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
         #region Length effect parameters
@@ -91,27 +113,25 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
         }
 
-        #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
+        [DynamicVisible]
+        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        public bool ApplyLengthEffectInSection
         {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static void NotifyAffectedObjects(IEnumerable<IObservable> affectedObjects)
-        {
-            foreach (IObservable affectedObject in affectedObjects)
+            get
             {
-                affectedObject.NotifyObservers();
+                return data.GeneralInput.ApplyLengthEffectInSection;
+            }
+            set
+            {
+                data.GeneralInput.ApplyLengthEffectInSection = value;
+                data.NotifyObservers();
             }
         }
 
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
-        }
+        #endregion
 
         #region General
 

@@ -44,6 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int contributionPropertyIndex = 3;
         private const int inAssemblyPropertyIndex = 4;
         private const int nPropertyIndex = 5;
+        private const int applySectionLengthInSectionPropertyIndex = 6;
 
         [Test]
         public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
@@ -67,7 +68,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                InAssembly = random.NextBoolean()
+                InAssembly = random.NextBoolean(),
+                GeneralInput =
+                {
+                    ApplyLengthEffectInSection = random.NextBoolean()
+                }
             };
 
             // Call
@@ -86,6 +91,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
+            Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
         }
@@ -108,7 +114,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -153,6 +159,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
+                                                                            lengthEffectCategory,
+                                                                            "Toepassen lengte-effect binnen vak",
+                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
+
             mocks.VerifyAll();
         }
 
@@ -205,6 +218,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -274,6 +289,40 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             Assert.IsTrue(changeHandler.Called);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                GeneralInput =
+                {
+                    ApplyLengthEffectInSection = !applyLengthEffectInSection
+                }
+            };
+
+            failureMechanism.Attach(observer);
+
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
+
+            // Call
+            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+
+            // Assert
+            Assert.AreEqual(applyLengthEffectInSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -286,20 +335,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
 
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssembly = inAssembly
             };
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(grassCoverErosionInwardsFailureMechanism, handler);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
-            
+
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             mocks.VerifyAll();
         }
