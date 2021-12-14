@@ -81,7 +81,7 @@ namespace Riskeer.Piping.Forms.Views
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateView,
+                UpdateInternalViewData,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<IPipingCalculationScenario<PipingInput>>()
                                                    .Select(c => c.InputParameters)))
@@ -89,14 +89,14 @@ namespace Riskeer.Piping.Forms.Views
                 Observable = failureMechanism.CalculationsGroup
             };
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateView,
+                UpdateInternalViewData,
                 c => c.Children)
             {
                 Observable = failureMechanism.CalculationsGroup
             };
 
             scenarioConfigurationsPerSectionObserver = new RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection>(
-                UpdateView,
+                UpdateInternalViewData,
                 sc => sc)
             {
                 Observable = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection

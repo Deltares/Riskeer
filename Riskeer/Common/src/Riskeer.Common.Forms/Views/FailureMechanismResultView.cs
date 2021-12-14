@@ -86,12 +86,12 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
 
-            failureMechanismObserver = new Observer(UpdateView)
+            failureMechanismObserver = new Observer(UpdateInternalViewData)
             {
                 Observable = failureMechanism
             };
 
-            failureMechanismSectionResultObserver = new Observer(UpdateView)
+            failureMechanismSectionResultObserver = new Observer(UpdateInternalViewData)
             {
                 Observable = failureMechanismSectionResults
             };
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Forms.Views
 
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
-            UpdateView();
+            UpdateInternalViewData();
             UpdateFailurePathAssemblyControls();
         }
 
@@ -182,9 +182,9 @@ namespace Riskeer.Common.Forms.Views
         protected abstract void AddDataGridColumns();
 
         /// <summary>
-        /// Updates all controls in the view.
+        /// Updates the internal data in the view.
         /// </summary>
-        protected void UpdateView()
+        protected void UpdateInternalViewData()
         {
             UpdateDataGridViewDataSource();
             UpdateAssemblyData();
