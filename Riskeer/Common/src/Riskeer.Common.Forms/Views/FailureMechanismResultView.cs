@@ -138,6 +138,7 @@ namespace Riskeer.Common.Forms.Views
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
             UpdateView();
+            UpdateFailurePathAssemblyControls();
         }
 
         /// <summary>
@@ -184,7 +185,6 @@ namespace Riskeer.Common.Forms.Views
         protected void UpdateView()
         {
             UpdateDataGridViewDataSource();
-            UpdateFailurePathAssemblyControls();
             UpdateAssemblyData();
         }
 
@@ -210,7 +210,7 @@ namespace Riskeer.Common.Forms.Views
             probabilityResultTypeComboBox.DataSource = dataSource;
             probabilityResultTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.Value);
             probabilityResultTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.DisplayName);
-            probabilityResultTypeComboBox.SelectedItem = FailureMechanism.AssemblyResult.ProbabilityResultType;
+            probabilityResultTypeComboBox.SelectedValue = FailureMechanism.AssemblyResult.ProbabilityResultType;
             probabilityResultTypeComboBoxUpdating = false;
 
             probabilityResultTypeComboBox.EndUpdate();
@@ -323,8 +323,7 @@ namespace Riskeer.Common.Forms.Views
             }
 
             FailureMechanism.AssemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
-
-            ClearErrorMessage();
+            
             UpdateAssemblyData();
             UpdateFailurePathAssemblyControls();
         }
