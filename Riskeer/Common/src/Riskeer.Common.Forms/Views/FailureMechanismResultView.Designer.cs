@@ -86,7 +86,7 @@ namespace Riskeer.Common.Forms.Views
             this.probabilityResultTypeComboBox.Location = new System.Drawing.Point(171, 10);
             this.probabilityResultTypeComboBox.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
             this.probabilityResultTypeComboBox.Name = "probabilityResultTypeComboBox";
-            this.probabilityResultTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.probabilityResultTypeComboBox.Size = new System.Drawing.Size(150, 21);
             this.probabilityResultTypeComboBox.TabIndex = 3;
             this.probabilityResultTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ProbabilityResultTypeComboBoxSelectedIndexChanged);
             // 
