@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 using Ranorex;
 using Ranorex.Core;
@@ -71,7 +72,7 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
             Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 0;
             Delay.SpeedFactor = 0.0;
-            var stepsPathItem = pathToFolder.Split('>').ToList();
+            var stepsPathItem = pathToFolder.ReplacePathAliases().Split('>').ToList();
             
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             var rootNodeInfo = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo;
