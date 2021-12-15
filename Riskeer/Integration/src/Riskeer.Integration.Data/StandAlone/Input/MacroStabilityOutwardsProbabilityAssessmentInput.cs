@@ -34,8 +34,7 @@ namespace Riskeer.Integration.Data.StandAlone.Input
         public MacroStabilityOutwardsProbabilityAssessmentInput() : base(0.033, 50.0) {}
 
         /// <summary>
-        /// Gets or sets whether the length effect should be applied
-        /// in the section.
+        /// Gets or sets whether the length effect should be applied in the section.
         /// </summary>
         public bool ApplyLengthEffectInSection { get; set; }
     }

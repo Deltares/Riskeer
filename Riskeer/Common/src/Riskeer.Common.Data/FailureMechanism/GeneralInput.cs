@@ -70,8 +70,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         }
         
         /// <summary>
-        /// Gets or sets whether the length effect should be applied
-        /// in the section.
+        /// Gets or sets whether the length effect should be applied in the section.
         /// </summary>
         public bool ApplyLengthEffectInSection { get; set; }
     }
