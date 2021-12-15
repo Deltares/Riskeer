@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var assemblyResult = new FailurePathAssemblyResult();
 
             // Call
-            void Call() => ((IHasFailurePathAssemblyResultEntity) null).Read(assemblyResult);
+            void Call() => ((IFailurePathEntity) null).Read(assemblyResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var entity = mocks.Stub<IHasFailurePathAssemblyResultEntity>();
+            var entity = mocks.Stub<IFailurePathEntity>();
             mocks.ReplayAll();
 
             // Call
@@ -73,7 +73,7 @@ namespace Riskeer.Storage.Core.Test.Read
             double probability = random.NextDouble();
 
             var mocks = new MockRepository();
-            var entity = mocks.Stub<IHasFailurePathAssemblyResultEntity>();
+            var entity = mocks.Stub<IFailurePathEntity>();
             mocks.ReplayAll();
 
             entity.FailurePathAssemblyProbabilityResultType = Convert.ToByte(resultType);

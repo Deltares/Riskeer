@@ -19,13 +19,45 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Interface for an entity that contains failure path assembly result
+    /// Interface for an entity that contains failure path information.
     /// </summary>
-    public interface IHasFailurePathAssemblyResultEntity
+    public interface IFailurePathEntity
     {
+        /// <summary>
+        /// Gets or sets an indicator whether the failure path is part of the assembly.
+        /// </summary>
+        byte InAssembly { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source path of the imported collection of failure mechanism sections.
+        /// </summary>
+        string FailureMechanismSectionCollectionSourcePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets the comments associated with the input when it is part of the assembly.
+        /// </summary>
+        string InAssemblyInputComments { get; set; }
+
+        /// <summary>
+        /// Gets or sets the comments associated with the output when it is part of the assembly.
+        /// </summary>
+        string InAssemblyOutputComments { get; set; }
+
+        /// <summary>
+        /// Gets or sets the comments associated when the failure path is set to not be part of the assembly.
+        /// </summary>
+        string NotInAssemblyComments { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of <see cref="FailureMechanismSectionEntity"/>.
+        /// </summary>
+        ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
+        
         /// <summary>
         /// Gets or sets the failure path assembly probability result type.
         /// </summary>

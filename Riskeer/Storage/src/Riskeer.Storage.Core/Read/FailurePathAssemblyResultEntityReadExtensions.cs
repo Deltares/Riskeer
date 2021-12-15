@@ -27,18 +27,18 @@ namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="FailurePathAssemblyResult"/> based on the
-    /// <see cref="IHasFailurePathAssemblyResultEntity"/>
+    /// <see cref="IFailurePathEntity"/>
     /// </summary>
     internal static class FailurePathAssemblyResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IHasFailurePathAssemblyResultEntity"/> and uses the information to update the <see cref="FailurePathAssemblyResult"/>.
+        /// Reads the <see cref="IFailurePathEntity"/> and uses the information to update the <see cref="FailurePathAssemblyResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="IHasFailurePathAssemblyResultEntity"/> to update
+        /// <param name="entity">The <see cref="IFailurePathEntity"/> to update
         /// <see cref="FailurePathAssemblyResult"/> for.</param>
         /// <param name="assemblyResult">The <see cref="FailurePathAssemblyResult"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        internal static void Read(this IHasFailurePathAssemblyResultEntity entity,
+        internal static void Read(this IFailurePathEntity entity,
                                   FailurePathAssemblyResult assemblyResult)
         {
             if (entity == null)
