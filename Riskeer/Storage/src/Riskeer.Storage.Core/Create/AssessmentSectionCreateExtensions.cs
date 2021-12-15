@@ -39,7 +39,6 @@ using Riskeer.Storage.Core.Create.MacroStabilityOutwards;
 using Riskeer.Storage.Core.Create.Microstability;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.Create.PipingStructure;
-using Riskeer.Storage.Core.Create.SpecificFailurePaths;
 using Riskeer.Storage.Core.Create.StabilityPointStructures;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
 using Riskeer.Storage.Core.Create.StrengthStabilityLengthwise;
