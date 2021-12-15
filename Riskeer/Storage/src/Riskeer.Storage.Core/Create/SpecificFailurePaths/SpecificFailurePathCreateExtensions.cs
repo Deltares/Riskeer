@@ -49,6 +49,7 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            FailurePathAssemblyResult assemblyResult = specificFailurePath.AssemblyResult;
             var entity = new SpecificFailurePathEntity
             {
                 Name = specificFailurePath.Name.DeepClone(),
@@ -58,7 +59,9 @@ namespace Riskeer.Storage.Core.Create.SpecificFailurePaths
                 InAssemblyInputComments = specificFailurePath.InAssemblyInputComments.Body.DeepClone(),
                 InAssemblyOutputComments = specificFailurePath.InAssemblyOutputComments.Body.DeepClone(),
                 NotInAssemblyComments = specificFailurePath.NotInAssemblyComments.Body.DeepClone(),
-                FailureMechanismSectionCollectionSourcePath = specificFailurePath.FailureMechanismSectionSourcePath.DeepClone()
+                FailureMechanismSectionCollectionSourcePath = specificFailurePath.FailureMechanismSectionSourcePath.DeepClone(),
+                FailurePathAssemblyProbabilityResultType = Convert.ToByte(assemblyResult.ProbabilityResultType),
+                ManualFailurePathAssemblyProbability = assemblyResult.ManualFailurePathAssemblyProbability.ToNaNAsNull()
             };
             specificFailurePath.AddEntitiesForFailureMechanismSections(registry, entity);
 

@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.Create;
@@ -62,6 +63,11 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
                 Input =
                 {
                     N = random.NextRoundedDouble(1.0, 20.0)
+                },
+                AssemblyResult =
+                {
+                    ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>(),
+                    ManualFailurePathAssemblyProbability = random.NextDouble()
                 }
             };
 
@@ -80,6 +86,27 @@ namespace Riskeer.Storage.Core.Test.Create.SpecificFailurePaths
             Assert.IsNull(entity.InAssemblyInputComments);
             Assert.IsNull(entity.InAssemblyOutputComments);
             Assert.IsNull(entity.NotInAssemblyComments);
+
+            FailurePathAssemblyResult assemblyResult = specificFailurePath.AssemblyResult;
+            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
+            Assert.AreEqual(assemblyResult.ManualFailurePathAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+        }
+
+        [Test]
+        public void Create_WithRegistryAndNaNValues_ReturnsExpectedEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            int order = random.Next();
+            var specificFailurePath = new SpecificFailurePath();
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            SpecificFailurePathEntity entity = specificFailurePath.Create(registry, order);
+
+            // Assert
+            Assert.IsNull(entity.ManualFailurePathAssemblyProbability);
         }
 
         [Test]
