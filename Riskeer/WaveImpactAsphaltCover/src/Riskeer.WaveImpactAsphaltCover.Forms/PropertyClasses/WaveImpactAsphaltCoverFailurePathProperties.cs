@@ -44,6 +44,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private const int sectionLengthPropertyIndex = 6;
         private const int deltaLPropertyIndex = 7;
         private const int nPropertyIndex = 8;
+        private const int applyLengthEffectInSectionPropertyIndex = 9;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -78,7 +79,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             return nameof(Contribution).Equals(propertyName)
                    || nameof(DeltaL).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
         #region General
@@ -165,6 +167,24 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             get
             {
                 return new RoundedDouble(2, data.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length));
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        public bool ApplyLengthEffectInSection
+        {
+            get
+            {
+                return data.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection;
+            }
+            set
+            {
+                data.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection = value;
+                data.NotifyObservers();
             }
         }
 

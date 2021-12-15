@@ -45,19 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         private const int sectionLengthPropertyIndex = 5;
         private const int deltaLPropertyIndex = 6;
         private const int nPropertyIndex = 7;
-        private MockRepository mocks;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            mocks.VerifyAll();
-        }
+        private const int applyLengthEffectInSectionPropertyIndex = 8;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -74,6 +62,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
@@ -81,7 +70,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var random = new Random(21);
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
-                InAssembly = random.NextBoolean()
+                InAssembly = random.NextBoolean(),
+                GeneralWaveImpactAsphaltCoverInput =
+                {
+                    ApplyLengthEffectInSection = random.NextBoolean()
+                }
             };
 
             // Call
@@ -111,12 +104,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(generalWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
                             properties.N,
                             properties.N.GetAccuracy());
+            Assert.AreEqual(generalWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -125,7 +122,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -185,12 +182,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect " +
                                                                             "mee te nemen in de beoordeling (afgerond).",
                                                                             true);
+
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
+                                                                            lengthEffectCategory,
+                                                                            "Toepassen lengte-effect binnen vak",
+                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -235,6 +241,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -245,6 +253,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void DeltaL_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
@@ -262,6 +271,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Assert
             const string expectedMessage = "De waarde voor 'ΔL' moet groter zijn dan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -271,6 +282,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void DeltaL_SetValidValue_UpdateDataAndNotifyObservers(double newN)
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -288,6 +300,42 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                GeneralWaveImpactAsphaltCoverInput =
+                {
+                    ApplyLengthEffectInSection = !applyLengthEffectInSection
+                }
+            };
+
+            failureMechanism.Attach(observer);
+
+            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call
+            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+
+            // Assert
+            Assert.AreEqual(applyLengthEffectInSection,
+                            failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection);
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -296,6 +344,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -315,8 +364,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.DeltaL)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+
+            mocks.VerifyAll();
         }
     }
 }
