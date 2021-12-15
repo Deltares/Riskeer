@@ -45,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int bPropertyIndex = 6;
         private const int sectionLengthPropertyIndex = 7;
         private const int nPropertyIndex = 8;
-        private const int applySectionLengthInSectionPropertyIndex = 9;
+        private const int applyLengthEffectInSectionPropertyIndex = 9;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -185,7 +185,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",

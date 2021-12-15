@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int bPropertyIndex = 6;
         private const int sectionLengthPropertyIndex = 7;
         private const int nPropertyIndex = 8;
-        private const int applySectionLengthInSectionPropertyIndex = 9;
+        private const int applyLengthEffectInSectionPropertyIndex = 9;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -89,7 +89,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var random = new Random(21);
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
             {
-                InAssembly = random.NextBoolean()
+                InAssembly = random.NextBoolean(),
+                MacroStabilityOutwardsProbabilityAssessmentInput =
+                {
+                    ApplyLengthEffectInSection = random.NextBoolean()
+                }
             };
 
             // Call
@@ -204,7 +208,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",

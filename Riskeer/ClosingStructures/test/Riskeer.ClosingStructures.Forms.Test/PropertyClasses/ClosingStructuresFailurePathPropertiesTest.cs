@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         private const int cPropertyIndex = 5;
         private const int n2APropertyIndex = 6;
         private const int nPropertyIndex = 7;
-        private const int applySectionLengthInSectionPropertyIndex = 8;
+        private const int applyLengthEffectInSectionPropertyIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -143,7 +143,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",

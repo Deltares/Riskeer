@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int contributionPropertyIndex = 3;
         private const int inAssemblyPropertyIndex = 4;
         private const int nPropertyIndex = 5;
-        private const int applySectionLengthInSectionPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 6;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",
