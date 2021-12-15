@@ -44,6 +44,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         private const int contributionPropertyIndex = 4;
         private const int inAssemblyPropertyIndex = 5;
         private const int nPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 7;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -70,6 +71,19 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             Data = failureMechanism;
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
+        }
+
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        {
+            return nameof(Contribution).Equals(propertyName)
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
+        }
+
         #region Length effect parameters
 
         [DynamicVisible]
@@ -90,19 +104,25 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             }
         }
 
+        [DynamicVisible]
+        [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        public bool ApplyLengthEffectInSection
+        {
+            get
+            {
+                return data.GeneralInput.ApplyLengthEffectInSection;
+            }
+            set
+            {
+                data.GeneralInput.ApplyLengthEffectInSection = value;
+                data.NotifyObservers();
+            }
+        }
+
         #endregion
-
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
-        }
 
         #region General
 
