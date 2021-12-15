@@ -47,6 +47,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int bPropertyIndex = 6;
         private const int sectionLengthPropertyIndex = 7;
         private const int nPropertyIndex = 8;
+        private const int applySectionLengthInSectionPropertyIndex = 9;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -113,6 +114,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(assessmentSection.ReferenceLine.Length,
                             properties.SectionLength,
                             properties.SectionLength.GetAccuracy());
+            Assert.AreEqual(probabilityAssessmentInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
+
             mocks.VerifyAll();
         }
 
@@ -134,7 +137,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -200,6 +203,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
+
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
+                                                                            lengthEffectCategory,
+                                                                            "Toepassen lengte-effect binnen vak",
+                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
+
             mocks.VerifyAll();
         }
 
@@ -312,6 +322,39 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            {
+                MacroStabilityOutwardsProbabilityAssessmentInput =
+                {
+                    ApplyLengthEffectInSection = !applyLengthEffectInSection
+                }
+            };
+
+            failureMechanism.Attach(observer);
+
+            var properties = new MacroStabilityOutwardsFailurePathProperties(failureMechanism, assessmentSection);
+
+            // Call
+            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+
+            // Assert
+            Assert.AreEqual(applyLengthEffectInSection,
+                            failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.ApplyLengthEffectInSection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
@@ -336,6 +379,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
             mocks.VerifyAll();
