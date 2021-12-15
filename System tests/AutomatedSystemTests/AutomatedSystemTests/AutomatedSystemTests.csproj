@@ -3556,7 +3556,9 @@
       <id>f9b54cc6-cbb7-406e-99ab-c3c41eee8d0e</id>
       <recordtableid>a653ace9-5ee8-4659-932a-53a321bc6e32</recordtableid>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <id>14b2a372-352c-4eee-bc41-d6a7a001dff5</id>
+    </None>
     <None Include="ReportDeltaresStyle\howToEnableMozillaFirefoxToOpenReportStap1Van2.png">
       <id>33bfacb4-10d7-4c99-ab52-0f94bd94b857</id>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

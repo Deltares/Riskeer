@@ -48,7 +48,7 @@ namespace AutomatedSystemTests.Modules.Set_Assign
             	Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item" + treeitemInfo + ".", treeitemInfo);
             	fmObjectAdapter.Click(System.Windows.Forms.MouseButtons.Right);
             	Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item IsRelevant.", treeitemInfo);
-            	repo.ContextMenu.IsRelevant.Click();
+            	repo.ContextMenu.InAssemblage.Click();
             	Report.Log(ReportLevel.Info, "Info", "Relevance set to value: " + fmShouldBeRelevant, treeitemInfo);
             }
             

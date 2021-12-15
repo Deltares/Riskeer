@@ -2973,7 +2973,7 @@
 				<parameters>
 					<param
 					name="substringInFmName"
-					value="Duinwaterkering - Duinafslag">
+					value="Duinafslag">
 					</param>
 					<param
 					name="fmShouldBeRelevant"
@@ -3398,7 +3398,7 @@
 				<parameters>
 					<param
 					name="substringInFmName"
-					value="Duinwaterkering - Duinafslag">
+					value="Duinafslag">
 					</param>
 					<param
 					name="fmShouldBeRelevant"
@@ -5255,7 +5255,7 @@
 						STPH
 					</td>
 					<td>
-						Dijken en dammen - Piping
+						@STPH
 					</td>
 					<td>
 						True
@@ -5272,7 +5272,7 @@
 						GEKB
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+						@GEKB
 					</td>
 					<td>
 						True
@@ -5289,7 +5289,7 @@
 						STBI
 					</td>
 					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
+						@STBI
 					</td>
 					<td>
 						True
@@ -5306,7 +5306,7 @@
 						ZST
 					</td>
 					<td>
-						Dijken en dammen - Stabiliteit steenzetting
+						@ZST
 					</td>
 					<td>
 						False
@@ -5323,7 +5323,7 @@
 						AGK
 					</td>
 					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
+						@AGK
 					</td>
 					<td>
 						False
@@ -5340,7 +5340,7 @@
 						GEBU
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
+						@GEBU
 					</td>
 					<td>
 						False
@@ -5357,7 +5357,7 @@
 						HTKW
 					</td>
 					<td>
-						Kunstwerken - Hoogte kunstwerk
+						@HTKW
 					</td>
 					<td>
 						True
@@ -5374,7 +5374,7 @@
 						BSKW
 					</td>
 					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+						@BSKW
 					</td>
 					<td>
 						True
@@ -5391,7 +5391,7 @@
 						STKWp
 					</td>
 					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
+						@STKWp
 					</td>
 					<td>
 						True
@@ -5408,7 +5408,7 @@
 						DA
 					</td>
 					<td>
-						Duinwaterkering - Duinafslag
+						@DA
 					</td>
 					<td>
 						False

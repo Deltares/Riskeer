@@ -3249,7 +3249,7 @@ namespace AutomatedSystemTests
             /// Creates a new FM_ResultView  folder.
             /// </summary>
             public FM_ResultViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("FM_ResultView", "container[@controlname='FailureMechanismResultView']", parentFolder, 10000, null, true, "9f847d0f-b605-48f5-b38e-9eb9bbefddb9", "")
+                    base("FM_ResultView", "container[@controlname~'FailureMechanismResultView']", parentFolder, 10000, null, true, "9f847d0f-b605-48f5-b38e-9eb9bbefddb9", "")
             {
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder2(this);
                 _assemblywithprob = new AutomatedSystemTestsRepositoryFolders.AssemblyWithProbFolder(this);
@@ -4879,7 +4879,7 @@ namespace AutomatedSystemTests
             /// Creates a new ScenariosView  folder.
             /// </summary>
             public ScenariosViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("ScenariosView", "container[@controlname='ScenariosView']", parentFolder, 30000, null, false, "8d70b984-d778-4632-99c5-59000fa3b167", "")
+                    base("ScenariosView", "container[@controlname~'ScenariosView']", parentFolder, 30000, null, false, "8d70b984-d778-4632-99c5-59000fa3b167", "")
             {
                 _listsectionsnames = new AutomatedSystemTestsRepositoryFolders.ListSectionsNamesFolder(this);
                 _table = new AutomatedSystemTestsRepositoryFolders.TableFolder4(this);
@@ -8177,7 +8177,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _genereercalculationandscenariosInfo;
             RepoItemInfo _genericitemincontextmenuInfo;
             RepoItemInfo _importerenInfo;
-            RepoItemInfo _isrelevantInfo;
+            RepoItemInfo _inassemblageInfo;
             RepoItemInfo _koppelaandatabaseInfo;
             RepoItemInfo _maptoevoegenInfo;
             RepoItemInfo _mapleegmakenInfo;
@@ -8217,7 +8217,7 @@ namespace AutomatedSystemTests
                 _genereercalculationandscenariosInfo = new RepoItemInfo(this, "GenereerCalculationAndScenarios", "menuitem[@accessiblename>'Genereer']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
                 _genericitemincontextmenuInfo = new RepoItemInfo(this, "GenericItemInContextMenu", "menuitem[@accessiblename>$nameOfItem]", 30000, null, "39eb92d8-2056-4218-88eb-8b21c0ab477e");
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
-                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
+                _inassemblageInfo = new RepoItemInfo(this, "InAssemblage", "menuitem[@accessiblename='In assemblage']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
                 _koppelaandatabaseInfo = new RepoItemInfo(this, "KoppelAanDatabase", "menuitem[@accessiblename='Koppel aan database...']", 30000, null, "b67d9db7-c97a-44ee-9cc6-3cac1b3aa092");
                 _maptoevoegenInfo = new RepoItemInfo(this, "MapToevoegen", "menuitem[@accessiblename='Map toevoegen']", 30000, null, "bb08d163-934b-43d2-b55e-ba2f9cd39c14");
                 _mapleegmakenInfo = new RepoItemInfo(this, "MapLeegmaken", "menuitem[@accessiblename='Map leegmaken...']", 30000, null, "ca583eef-300b-420e-8edd-95c3ffd4cb61");
@@ -8622,26 +8622,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The IsRelevant item.
+            /// The InAssemblage item.
             /// </summary>
             [RepositoryItem("561b2d91-62ad-4174-97e3-b9f7420df49a")]
-            public virtual Ranorex.MenuItem IsRelevant
+            public virtual Ranorex.MenuItem InAssemblage
             {
                 get
                 {
-                    return _isrelevantInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                    return _inassemblageInfo.CreateAdapter<Ranorex.MenuItem>(true);
                 }
             }
 
             /// <summary>
-            /// The IsRelevant item info.
+            /// The InAssemblage item info.
             /// </summary>
             [RepositoryItemInfo("561b2d91-62ad-4174-97e3-b9f7420df49a")]
-            public virtual RepoItemInfo IsRelevantInfo
+            public virtual RepoItemInfo InAssemblageInfo
             {
                 get
                 {
-                    return _isrelevantInfo;
+                    return _inassemblageInfo;
                 }
             }
 
