@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
@@ -56,6 +57,8 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             // Setup
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
+            var probabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+
             const string filePath = "failureMechanismSections/File/Path";
             var entity = new SpecificFailurePathEntity
             {
@@ -66,6 +69,8 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Some not in assembly text",
                 FailureMechanismSectionCollectionSourcePath = filePath,
+                FailurePathAssemblyProbabilityResultType = Convert.ToByte(probabilityResultType),
+                ManualFailurePathAssemblyProbability = random.NextDouble(),
                 FailureMechanismSectionEntities =
                 {
                     CreateSimpleFailureMechanismSectionEntity()
@@ -87,6 +92,28 @@ namespace Riskeer.Storage.Core.Test.Read.SpecificFailurePaths
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 
             Assert.AreEqual(entity.N, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
+
+            FailurePathAssemblyResult assemblyResult = specificFailurePath.AssemblyResult;
+            Assert.AreEqual(probabilityResultType, assemblyResult.ProbabilityResultType);
+            Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailurePathAssemblyProbability);
+        }
+
+        [Test]
+        public void Read_EntityWithNullValues_ReturnSpecificFailurePath()
+        {
+            // Setup
+            var entity = new SpecificFailurePathEntity
+            {
+                N = 1.1
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            SpecificFailurePath specificFailurePath = entity.Read(collector);
+
+            // Assert
+            FailurePathAssemblyResult assemblyResult = specificFailurePath.AssemblyResult;
+            Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
         }
 
         [Test]

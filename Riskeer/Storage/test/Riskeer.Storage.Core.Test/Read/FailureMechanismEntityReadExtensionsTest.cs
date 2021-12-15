@@ -31,6 +31,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -60,16 +61,21 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadAsStandAloneFailureMechanism_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool inAssembly)
+        public void ReadCommonFailureMechanismProperties_WithoutSectionsSet_ReturnsNewStandAloneFailureMechanism(bool inAssembly)
         {
             // Setup
+            var random = new Random(21);
+            var assemblyResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+
             var entity = new FailureMechanismEntity
             {
                 InAssembly = Convert.ToByte(inAssembly),
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
                 CalculationsInputComments = "Some calculation text",
-                NotInAssemblyComments = "Really not in assembly"
+                NotInAssemblyComments = "Really not in assembly",
+                FailurePathAssemblyProbabilityResultType = Convert.ToByte(assemblyResultType),
+                ManualFailurePathAssemblyProbability = random.NextDouble()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new TestFailureMechanism();
@@ -86,10 +92,36 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+
+            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            Assert.AreEqual(assemblyResultType, assemblyResult.ProbabilityResultType);
+            Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailurePathAssemblyProbability);
         }
 
         [Test]
-        public void ReadAsStandAloneFailureMechanism_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
+        public void ReadCommonFailureMechanismProperties_WithNullValues_ReturnsNewStandAloneFailureMechanism()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNull(failureMechanism.InAssemblyInputComments.Body);
+            Assert.IsNull(failureMechanism.InAssemblyOutputComments.Body);
+            Assert.IsNull(failureMechanism.NotInAssemblyComments.Body);
+            Assert.IsNull(failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+
+            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+        }
+
+        [Test]
+        public void ReadCommonFailureMechanismProperties_WithSectionsSet_ReturnsNewStandAloneFailureMechanismWithFailureMechanismSections()
         {
             // Setup
             const string filePath = "failureMechanismSections/File/Path";

@@ -71,6 +71,7 @@ namespace Riskeer.Storage.Core.Read.SpecificFailurePaths
 
             entity.ReadFailureMechanismSections(specificFailurePath, collector);
             entity.ReadGeneralInput(specificFailurePath);
+            entity.Read(specificFailurePath.AssemblyResult);
 
             return specificFailurePath;
         }

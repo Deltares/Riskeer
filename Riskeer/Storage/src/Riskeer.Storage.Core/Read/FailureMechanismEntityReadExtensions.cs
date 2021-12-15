@@ -77,6 +77,7 @@ namespace Riskeer.Storage.Core.Read
             failureMechanism.NotInAssemblyComments.Body = entity.NotInAssemblyComments;
 
             entity.ReadFailureMechanismSections(failureMechanism, collector);
+            entity.Read(failureMechanism.AssemblyResult);
         }
 
         private static void ReadFailureMechanismSections(this FailureMechanismEntity entity,
