@@ -41,7 +41,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
         private const int contributionPropertyIndex = 3;
         private const int inAssemblyPropertyIndex = 4;
         private const int nPropertyIndex = 5;
-        private const int applySectionLengthInSectionPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 6;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -129,7 +129,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
 
-            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applyLengthEffectInSectionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",
@@ -233,6 +233,37 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
 
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                GeneralInput =
+                {
+                    ApplyLengthEffectInSection = !applyLengthEffectInSection
+                }
+            };
+
+            failureMechanism.Attach(observer);
+
+            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+
+            // Call
+            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+
+            // Assert
+            Assert.AreEqual(applyLengthEffectInSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
             mocks.VerifyAll();
         }
 
