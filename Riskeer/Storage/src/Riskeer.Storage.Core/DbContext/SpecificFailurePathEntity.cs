@@ -33,7 +33,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class SpecificFailurePathEntity
+    public partial class SpecificFailurePathEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SpecificFailurePathEntity()
