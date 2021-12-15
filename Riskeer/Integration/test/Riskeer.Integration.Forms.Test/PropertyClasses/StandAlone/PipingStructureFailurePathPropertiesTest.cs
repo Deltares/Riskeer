@@ -42,6 +42,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         private const int contributionPropertyIndex = 3;
         private const int inAssemblyPropertyIndex = 4;
         private const int nPropertyIndex = 5;
+        private const int applySectionLengthInSectionPropertyIndex = 6;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -79,6 +80,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.N,
                             properties.N,
                             properties.N.GetAccuracy());
+            Assert.IsFalse(properties.ApplyLengthEffectInSection);
         }
 
         [Test]
@@ -95,7 +97,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -140,6 +142,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             lengthEffectCategory,
                                                                             "N [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling.");
+
+            PropertyDescriptor applySectionLengthInSectionProperty = dynamicProperties[applySectionLengthInSectionPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(applySectionLengthInSectionProperty,
+                                                                            lengthEffectCategory,
+                                                                            "Toepassen lengte-effect binnen vak",
+                                                                            "Geeft aan of het lengte-effect binnen een vak toegepast wordt.",
+                                                                            true);
         }
 
         [Test]
@@ -259,6 +268,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
