@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -276,6 +276,8 @@
           <Property Name="InAssemblyOutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotInAssemblyComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="CalculationsInputComments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="FailurePathAssemblyProbabilityResultType" Type="tinyint" Nullable="false" />
+          <Property Name="ManualFailurePathAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="FailureMechanismFailureMechanismSectionEntity">
           <Key>
@@ -1255,6 +1257,8 @@
           <Property Name="InAssemblyOutputComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="NotInAssemblyComments" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="N" Type="real" Nullable="false" />
+          <Property Name="FailurePathAssemblyProbabilityResultType" Type="tinyint" Nullable="false" />
+          <Property Name="ManualFailurePathAssemblyProbability" Type="real" />
         </EntityType>
         <EntityType Name="SpecificFailurePathFailureMechanismSectionEntity">
           <Key>
@@ -5434,6 +5438,8 @@
           <Property Name="InAssemblyOutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotInAssemblyComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="CalculationsInputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="FailurePathAssemblyProbabilityResultType" Type="Byte" Nullable="false" />
+          <Property Name="ManualFailurePathAssemblyProbability" Type="Double" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ClosingStructureEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructureEntity" />
@@ -6548,6 +6554,8 @@
           <Property Name="InAssemblyOutputComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="NotInAssemblyComments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="N" Type="Double" Nullable="false" />
+          <Property Name="FailurePathAssemblyProbabilityResultType" Type="Byte" Nullable="false" />
+          <Property Name="ManualFailurePathAssemblyProbability" Type="Double" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RiskeerEntitiesModel.FK_SpecificFailurePathEntity_0_0" FromRole="SpecificFailurePathEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.SpecificFailurePathFailureMechanismSectionEntity" FromRole="SpecificFailurePathEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -9078,6 +9086,8 @@
           <EntitySetMapping Name="FailureMechanismEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.FailureMechanismEntity">
               <MappingFragment StoreEntitySet="FailureMechanismEntity">
+                <ScalarProperty Name="ManualFailurePathAssemblyProbability" ColumnName="ManualFailurePathAssemblyProbability" />
+                <ScalarProperty Name="FailurePathAssemblyProbabilityResultType" ColumnName="FailurePathAssemblyProbabilityResultType" />
                 <ScalarProperty Name="CalculationsInputComments" ColumnName="CalculationsInputComments" />
                 <ScalarProperty Name="NotInAssemblyComments" ColumnName="NotInAssemblyComments" />
                 <ScalarProperty Name="InAssemblyOutputComments" ColumnName="InAssemblyOutputComments" />
@@ -10054,6 +10064,8 @@
           <EntitySetMapping Name="SpecificFailurePathEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.SpecificFailurePathEntity">
               <MappingFragment StoreEntitySet="SpecificFailurePathEntity">
+                <ScalarProperty Name="ManualFailurePathAssemblyProbability" ColumnName="ManualFailurePathAssemblyProbability" />
+                <ScalarProperty Name="FailurePathAssemblyProbabilityResultType" ColumnName="FailurePathAssemblyProbabilityResultType" />
                 <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="NotInAssemblyComments" ColumnName="NotInAssemblyComments" />
                 <ScalarProperty Name="InAssemblyOutputComments" ColumnName="InAssemblyOutputComments" />

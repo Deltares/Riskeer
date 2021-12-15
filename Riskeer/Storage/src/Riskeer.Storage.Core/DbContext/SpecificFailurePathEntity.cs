@@ -51,6 +51,8 @@ namespace Riskeer.Storage.Core.DbContext
         public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
         public double N { get; set; }
+        public byte FailurePathAssemblyProbabilityResultType { get; set; }
+        public double? ManualFailurePathAssemblyProbability { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 
