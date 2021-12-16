@@ -53,6 +53,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double N { get; set; }
         public byte FailurePathAssemblyProbabilityResultType { get; set; }
         public double? ManualFailurePathAssemblyProbability { get; set; }
+        public byte ApplyLengthEffectInSection { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
 

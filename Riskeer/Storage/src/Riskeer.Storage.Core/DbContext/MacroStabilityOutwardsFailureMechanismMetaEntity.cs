@@ -35,6 +35,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long MacroStabilityOutwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public double A { get; set; }
+        public byte ApplyLengthEffectInSection { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

@@ -36,6 +36,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long FailureMechanismEntityId { get; set; }
         public double N { get; set; }
         public string DikeProfileCollectionSourcePath { get; set; }
+        public byte ApplyLengthEffectInSection { get; set; }
 
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
