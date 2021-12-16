@@ -292,7 +292,9 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
                 "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
                 "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
-                "AND NEW.[CalculationsInputComments] IS NULL; " +
+                "AND NEW.[CalculationsInputComments] IS NULL " +
+                "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
+                "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateFailureMechanism);

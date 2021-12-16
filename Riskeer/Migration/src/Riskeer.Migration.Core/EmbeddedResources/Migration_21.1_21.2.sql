@@ -67,7 +67,9 @@ INSERT INTO FailureMechanismEntity (
     [InAssemblyInputComments],
     [InAssemblyOutputComments],
     [NotInAssemblyComments],
-    [CalculationsInputComments]
+    [CalculationsInputComments],
+    [FailurePathAssemblyProbabilityResultType],
+    [ManualFailurePathAssemblyProbability]
 ) 
 SELECT
     [FailureMechanismEntityId],
@@ -79,6 +81,8 @@ SELECT
     [InputComments],
     [OutputComments],
     [NotRelevantComments],
+    NULL,
+    1,
     NULL
 FROM [SOURCEPROJECT].FailureMechanismEntity;
 
