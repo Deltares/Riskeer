@@ -199,34 +199,34 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSectionResults(pipingStructureFailureMechanism.SectionResultsOld);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
-            microstabilityFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetGeneralInput(microstabilityFailureMechanism, random.Next());
             SetSections(microstabilityFailureMechanism);
             SetSectionResults(microstabilityFailureMechanism.SectionResultsOld);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
-            waterPressureAsphaltCoverFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetGeneralInput(waterPressureAsphaltCoverFailureMechanism, random.Next());
             SetSections(waterPressureAsphaltCoverFailureMechanism);
             SetSectionResults(waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            grassCoverSlipOffInwardsFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetGeneralInput(grassCoverSlipOffInwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffInwardsFailureMechanism);
             SetSectionResults(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
-            grassCoverSlipOffOutwardsFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetGeneralInput(grassCoverSlipOffOutwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffOutwardsFailureMechanism);
             SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            strengthStabilityLengthwiseConstructionFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetGeneralInput(strengthStabilityLengthwiseConstructionFailureMechanism, random.Next());
             SetSections(strengthStabilityLengthwiseConstructionFailureMechanism);
             SetSectionResults(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
 
             SetSectionResults(assessmentSection.DuneErosion.SectionResultsOld);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            technicalInnovationFailureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
+            SetGeneralInput(technicalInnovationFailureMechanism, random.Next());
             SetSections(technicalInnovationFailureMechanism);
             SetSectionResults(technicalInnovationFailureMechanism.SectionResultsOld);
 
@@ -243,6 +243,12 @@ namespace Riskeer.Storage.Core.TestUtil
                 Description = "description"
             };
             return fullTestProject;
+        }
+
+        private static void SetGeneralInput(IHasGeneralInput failureMechanism, int seed)
+        {
+            var random = new Random(seed);
+            failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
         }
 
         private static void SetHydraulicBoundaryLocationConfigurationSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
