@@ -45,7 +45,14 @@ namespace Riskeer.Piping.Data.Probabilistic
         public RoundedDouble Contribution
         {
             get => contribution;
-            set => contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
+            set
+            {
+                RoundedDouble newValue = value.ToPrecision(CalculationScenarioHelper.ContributionNumberOfDecimalPlaces);
+
+                CalculationScenarioHelper.ValidateScenarioContribution(newValue);
+
+                contribution = newValue;
+            }
         }
     }
 }

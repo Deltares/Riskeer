@@ -49,20 +49,33 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void Contribution_Always_ReturnsSetValue()
+        [TestCaseSource(typeof(CalculationScenarioTestHelper), nameof(CalculationScenarioTestHelper.GetInvalidScenarioContributionValues))]
+        public void Contribution_SetInvalidValue_ThrowArgumentException(double newValue)
         {
             // Setup
-            var random = new Random(21);
-            RoundedDouble contribution = random.NextRoundedDouble();
-
-            var scenario = new ProbabilisticPipingCalculationScenario();
+            var calculationScenario = new ProbabilisticPipingCalculationScenario();
 
             // Call
-            scenario.Contribution = contribution;
+            void Call() => calculationScenario.Contribution = (RoundedDouble) newValue;
 
             // Assert
-            Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(contribution, scenario.Contribution, scenario.Contribution.GetAccuracy());
+            const string expectedMessage = "De waarde voor de bijdrage moet binnen het bereik [0, 100] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(CalculationScenarioTestHelper), nameof(CalculationScenarioTestHelper.GetValidScenarioContributionValues))]
+        public void Contribution_SetValidValue_ValueSet(double newValue)
+        {
+            // Setup
+            var calculationScenario = new ProbabilisticPipingCalculationScenario();
+
+            // Call
+            calculationScenario.Contribution = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(4, calculationScenario.Contribution.NumberOfDecimalPlaces);
+            Assert.AreEqual(newValue, calculationScenario.Contribution, calculationScenario.Contribution.GetAccuracy());
         }
 
         [Test]
