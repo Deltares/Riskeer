@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -102,7 +101,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var properties = new StrengthStabilityLengthwiseConstructionFailurePathProperties(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StrengthStabilityLengthwiseConstructionFailureMechanism>>(properties);
+            Assert.IsInstanceOf<StandAloneFailurePathProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.Group, properties.Group);
