@@ -255,7 +255,11 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(warningIconShouldBeVisible, warningIcon.Visible);
 
             var toolTip = TypeUtils.GetField<ToolTip>(view, "toolTip");
-            Assert.AreEqual("De variant 'Per vak instelbaar' vereist een onderbouwing dat de gekozen mix van probabilistisch en semi-probabilistisch getoetste vakken niet tot een te optimistisch (onveilig) rekenresultaat op het trajectniveau leidt.",
+            string expectedToolTipMessage = $"In het geval van 'Per vak instelbaar' is een onderbouwing nodig,{Environment.NewLine}" +
+                                            $"die aantoont dat de gekozen combinatie van probabilistisch{Environment.NewLine}" +
+                                            $"en semi-probabilistisch getoetste vakken niet leidt tot{Environment.NewLine}" +
+                                            "een te onveilig rekenresultaat op het trajectniveau.";
+            Assert.AreEqual(expectedToolTipMessage,
                             toolTip.GetToolTip(warningIcon));
             Assert.AreEqual(5000, toolTip.AutoPopDelay);
             Assert.AreEqual(100, toolTip.InitialDelay);

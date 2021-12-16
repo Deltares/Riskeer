@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -966,7 +966,10 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De variant &apos;Per vak instelbaar&apos; vereist een onderbouwing dat de gekozen mix van probabilistisch en semi-probabilistisch getoetste vakken niet tot een te optimistisch (onveilig) rekenresultaat op het trajectniveau leidt..
+        ///   Looks up a localized string similar to In het geval van &apos;Per vak instelbaar&apos; is een onderbouwing nodig,
+        ///die aantoont dat de gekozen combinatie van probabilistisch
+        ///en semi-probabilistisch getoetste vakken niet leidt tot
+        ///een te onveilig rekenresultaat op het trajectniveau..
         /// </summary>
         public static string PipingScenariosView_InitializeInfoIcon_ScenarioConfigurationType_PerSection_ToolTip {
             get {
