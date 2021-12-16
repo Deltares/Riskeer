@@ -30,6 +30,13 @@ namespace Riskeer.Storage.Core.Create
     /// </summary>
     internal static class IHasGeneralInputCreateExtensions
     {
+        /// <summary>
+        /// Creates an implementation of <see cref="IStandAloneFailureMechanismMetaEntity"/> based on the information
+        /// of the <see cref="IHasGeneralInput"/>.
+        /// </summary>
+        /// <param name="mechanism">The implementation of <see cref="IHasGeneralInput"/>.</param>
+        /// <typeparam name="TFailureMechanismMetaEntity">The implementation of <see cref="IStandAloneFailureMechanismMetaEntity"/>.</typeparam>
+        /// <returns>A new <see cref="TFailureMechanismMetaEntity"/>.</returns>
         internal static TFailureMechanismMetaEntity Create<TFailureMechanismMetaEntity>(this IHasGeneralInput mechanism)
             where TFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity, new()
         {

@@ -1336,7 +1336,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.AreEqual(expectedCalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, (RoundedDouble) n);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, n, failureMechanism.GeneralInput.N.GetAccuracy());
         }
     }
 }
