@@ -28,7 +28,6 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.SpecificFailurePaths;
 using Riskeer.Storage.Core.Serializers;
 
 namespace Riskeer.Storage.Core.Read
@@ -287,7 +286,7 @@ namespace Riskeer.Storage.Core.Read
                 entity.SpecificFailurePathEntities
                       .OrderBy(e => e.Order);
 
-            assessmentSection.SpecificFailurePaths.AddRange(specificFailurePathEntities.Select(e => e.Read(collector)).ToArray());
+            assessmentSection.SpecificFailurePaths.AddRange(specificFailurePathEntities.Select(e => e.ReadSpecificFailurePath(collector)).ToArray());
         }
     }
 }

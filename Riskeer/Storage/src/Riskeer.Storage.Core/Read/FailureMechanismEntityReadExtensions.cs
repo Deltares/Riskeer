@@ -60,40 +60,6 @@ namespace Riskeer.Storage.Core.Read
     /// </summary>
     internal static class FailureMechanismEntityReadExtensions
     {
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity,
-                                                                  IFailureMechanism failureMechanism,
-                                                                  ReadConversionCollector collector)
-        {
-            failureMechanism.InAssembly = Convert.ToBoolean(entity.InAssembly);
-            failureMechanism.InAssemblyInputComments.Body = entity.InAssemblyInputComments;
-            failureMechanism.InAssemblyOutputComments.Body = entity.InAssemblyOutputComments;
-            failureMechanism.CalculationsInputComments.Body = entity.CalculationsInputComments;
-            failureMechanism.NotInAssemblyComments.Body = entity.NotInAssemblyComments;
-
-            entity.ReadFailureMechanismSections(failureMechanism, collector);
-            entity.Read(failureMechanism.AssemblyResult);
-        }
-
-        private static void ReadFailureMechanismSections(this FailureMechanismEntity entity,
-                                                         IFailureMechanism failureMechanism,
-                                                         ReadConversionCollector collector)
-        {
-            FailureMechanismSection[] readFailureMechanismSections = entity.FailureMechanismSectionEntities
-                                                                           .Select(failureMechanismSectionEntity =>
-                                                                                       failureMechanismSectionEntity.Read(collector))
-                                                                           .ToArray();
-            if (readFailureMechanismSections.Any())
-            {
-                failureMechanism.SetSections(readFailureMechanismSections, entity.FailureMechanismSectionCollectionSourcePath);
-            }
-        }
-
         private static void ReadForeshoreProfiles(this FailureMechanismEntity entity,
                                                   ForeshoreProfileCollection foreshoreProfiles,
                                                   string foreshoreProfileSourcePath,
