@@ -230,7 +230,12 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSections(technicalInnovationFailureMechanism);
             SetSectionResults(technicalInnovationFailureMechanism.SectionResultsOld);
 
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(SetComments);
+            var i = 0;
+            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm =>
+            {
+                SetComments(fm);
+                SetFailurePathAssemblyResults(fm, i++);
+            });
 
             IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
                                                                       .ToArray();
@@ -576,6 +581,14 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
         }
 
+        private static void SetFailurePathAssemblyResults(IFailurePath failurePath, int seed)
+        {
+            var random = new Random(seed);
+            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            assemblyResult.ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+            assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
+        }
+
         #region MacroStabilityOutwards FailureMechanism
 
         private static void ConfigureMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism)
@@ -611,6 +624,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
 
                 SetSections(failurePath);
+                SetFailurePathAssemblyResults(failurePath, i);
                 i++;
             }
         }

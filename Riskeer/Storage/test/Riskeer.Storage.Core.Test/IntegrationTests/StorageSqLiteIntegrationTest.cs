@@ -40,6 +40,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
@@ -423,6 +424,15 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertComments(expectedFailureMechanism.CalculationsInputComments, actualFailureMechanism.CalculationsInputComments);
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
             Assert.AreEqual(expectedFailureMechanism.FailureMechanismSectionSourcePath, actualFailureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertFailurePathAssemblyResult(expectedFailureMechanism.AssemblyResult, actualFailureMechanism.AssemblyResult);
+        }
+
+        private static void AssertFailurePathAssemblyResult(FailurePathAssemblyResult expectedResult,
+                                                            FailurePathAssemblyResult actualResult)
+        {
+            Assert.AreEqual(expectedResult.ProbabilityResultType, actualResult.ProbabilityResultType);
+            Assert.AreEqual(expectedResult.ManualFailurePathAssemblyProbability, actualResult.ManualFailurePathAssemblyProbability);
         }
 
         private static void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections,
@@ -729,6 +739,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertFailureMechanismSections(expected.Sections, actual.Sections);
 
             Assert.AreEqual(expected.Input.N, actual.Input.N);
+
+            AssertFailurePathAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
         }
 
         #endregion
