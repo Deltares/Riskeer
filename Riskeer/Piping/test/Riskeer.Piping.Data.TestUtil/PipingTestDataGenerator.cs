@@ -221,7 +221,6 @@ namespace Riskeer.Piping.Data.TestUtil
         public static ProbabilisticPipingCalculationScenario GetProbabilisticPipingCalculationScenarioWithNaNs()
         {
             var calculation = GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
-            calculation.Contribution = RoundedDouble.NaN;
             calculation.InputParameters.EntryPointL = RoundedDouble.NaN;
             calculation.InputParameters.ExitPointL = RoundedDouble.NaN;
             calculation.InputParameters.PhreaticLevelExit = new NormalDistribution
@@ -280,8 +279,6 @@ namespace Riskeer.Piping.Data.TestUtil
         public static ProbabilisticPipingCalculationScenario GetProbabilisticPipingCalculationScenarioWithInfinities()
         {
             var calculation = GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>();
-            calculation.Contribution = (RoundedDouble) double.PositiveInfinity;
-
             calculation.InputParameters.SurfaceLine.SetGeometry(new[]
             {
                 new Point3D(0, double.NegativeInfinity, 0),
