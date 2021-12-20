@@ -56,7 +56,8 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
             var metaEntity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 N = mechanism.GeneralInput.N,
-                DikeProfileCollectionSourcePath = mechanism.DikeProfiles.SourcePath.DeepClone()
+                DikeProfileCollectionSourcePath = mechanism.DikeProfiles.SourcePath.DeepClone(),
+                ApplyLengthEffectInSection = Convert.ToByte(mechanism.GeneralInput.ApplyLengthEffectInSection)
             };
             entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(metaEntity);
         }
