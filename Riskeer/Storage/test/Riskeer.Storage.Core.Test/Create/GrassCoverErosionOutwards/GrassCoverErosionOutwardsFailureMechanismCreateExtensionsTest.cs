@@ -55,6 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
+            var random = new Random();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 InAssembly = inAssembly,
@@ -76,7 +77,8 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
                 },
                 GeneralInput =
                 {
-                    N = new Random(39).NextRoundedDouble(1, 20)
+                    N = random.NextRoundedDouble(1, 20),
+                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -96,6 +98,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(1, entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Count);
             GrassCoverErosionOutwardsFailureMechanismMetaEntity generalInputEntity = entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, generalInputEntity.N);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection), generalInputEntity.ApplyLengthEffectInSection);
         }
 
         [Test]

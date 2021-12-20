@@ -53,6 +53,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             }
 
             input.N = (RoundedDouble) entity.N;
+            input.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }
     }
 }

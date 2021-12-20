@@ -75,6 +75,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.AreEqual(entity.N, inputToUpdate.N, inputToUpdate.N.GetAccuracy());
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), inputToUpdate.ApplyLengthEffectInSection);
         }
     }
 }
