@@ -5333,22 +5333,22 @@
 						STPH
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping
+						Traject 12-2&gt;@STPH
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
+						Traject 12-2&gt;@STPH&gt;Invoer&gt;Profielschematisaties
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Invoer&gt;Stochastische ondergrondmodellen
+						Traject 12-2&gt;@STPH&gt;Invoer&gt;Stochastische ondergrondmodellen
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject 12-2&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
-						Traject 6-5&gt;Dijken en dammen - Piping&gt;Invoer&gt;Profielschematisaties
+						Traject 6-5&gt;@STPH&gt;Invoer&gt;Profielschematisaties
 					</td>
 					<td>
-						Traject 6-5&gt;Dijken en dammen - Piping
+						Traject 6-5&gt;@STPH
 					</td>
 					<td>
 						1-5
@@ -5362,22 +5362,22 @@
 						STBI
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+						Traject 12-2&gt;@STBI
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Profielschematisaties
+						Traject 12-2&gt;@STBI&gt;Invoer&gt;Profielschematisaties
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Stochastische ondergrondmodellen
+						Traject 12-2&gt;@STBI&gt;Invoer&gt;Stochastische ondergrondmodellen
 					</td>
 					<td>
-						Traject 12-2&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject 12-2&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
-						Traject 6-5&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Invoer&gt;Profielschematisaties
+						Traject 6-5&gt;@STBI&gt;Invoer&gt;Profielschematisaties
 					</td>
 					<td>
-						Traject 6-5&gt;Dijken en dammen - Macrostabiliteit binnenwaarts
+						Traject 6-5&gt;@STBI
 					</td>
 					<td>
 						6-12
