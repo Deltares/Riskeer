@@ -65,7 +65,8 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityOutwards
         {
             var metaEntity = new MacroStabilityOutwardsFailureMechanismMetaEntity
             {
-                A = mechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A
+                A = mechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A,
+                ApplyLengthEffectInSection = Convert.ToByte(mechanism.MacroStabilityOutwardsProbabilityAssessmentInput.ApplyLengthEffectInSection)
             };
 
             entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Add(metaEntity);

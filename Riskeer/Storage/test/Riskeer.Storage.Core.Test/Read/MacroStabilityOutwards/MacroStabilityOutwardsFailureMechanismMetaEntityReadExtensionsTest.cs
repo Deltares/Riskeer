@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Storage.Core.DbContext;
@@ -62,10 +63,12 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityOutwards
         public void ReadProbabilityAssessmentInput_ValidParameters_SetMacroStabilityOutwardsProbabilityAssessmentInputProperties()
         {
             // Setup
+            var random = new Random();
             var inputToUpdate = new MacroStabilityOutwardsProbabilityAssessmentInput();
             var entity = new MacroStabilityOutwardsFailureMechanismMetaEntity
             {
-                A = new Random(31).NextDouble()
+                A = random.NextDouble(),
+                ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean())
             };
 
             // Call
@@ -73,6 +76,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityOutwards
 
             // Assert
             Assert.AreEqual(entity.A, inputToUpdate.A);
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), inputToUpdate.ApplyLengthEffectInSection);
         }
     }
 }

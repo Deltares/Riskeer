@@ -53,6 +53,7 @@ namespace Riskeer.Storage.Core.Read.MacroStabilityOutwards
             }
 
             probabilityAssessmentInput.A = entity.A;
+            probabilityAssessmentInput.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }
     }
 }

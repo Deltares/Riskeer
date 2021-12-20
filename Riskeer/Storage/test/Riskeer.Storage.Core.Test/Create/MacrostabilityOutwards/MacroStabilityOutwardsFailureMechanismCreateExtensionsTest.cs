@@ -70,6 +70,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             CollectionAssert.IsEmpty(entity.StochasticSoilModelEntities);
             MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.ApplyLengthEffectInSection), failureMechanismMetaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]
