@@ -62,8 +62,10 @@ namespace Riskeer.Storage.Core.Create.StrengthStabilityLengthwise
 
         private static void AddEntitiesForFailureMechanismMeta(StrengthStabilityLengthwiseConstructionFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Add(
-                mechanism.Create<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity>());
+            entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Add(new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
+            {
+                N = mechanism.GeneralInput.N
+            });
         }
     }
 }

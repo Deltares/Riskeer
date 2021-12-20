@@ -7,19 +7,19 @@ namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralInput"/>
-    /// based on the <see cref="IStandAloneFailureMechanismMetaEntity"/>.
+    /// based on the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"/>.
     /// </summary>
-    internal static class StandAloneFailureMechanismMetaEntityReadExtensions
+    internal static class StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="IStandAloneFailureMechanismMetaEntity"/> and use the information to
+        /// Read the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"/> and use the information to
         /// update the <see cref="GeneralInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="IStandAloneFailureMechanismMetaEntity"/> to update
+        /// <param name="entity">The <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"/> to update
         /// <see cref="GeneralInput"/> for.</param>
         /// <param name="generalInput">The <see cref="GeneralInput"/> to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this IStandAloneFailureMechanismMetaEntity entity, GeneralInput generalInput)
+        internal static void Read(this StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity entity, GeneralInput generalInput)
         {
             if (entity == null)
             {
@@ -32,7 +32,6 @@ namespace Riskeer.Storage.Core.Read
             }
 
             generalInput.N = (RoundedDouble) entity.N;
-            generalInput.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }
     }
 }

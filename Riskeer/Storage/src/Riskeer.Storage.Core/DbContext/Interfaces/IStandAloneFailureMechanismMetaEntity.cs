@@ -30,5 +30,10 @@ namespace Riskeer.Storage.Core.DbContext
         /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         double N { get; set; }
+
+        /// <summary>
+        /// Gets or sets the whether the length effect should be applies in the section.
+        /// </summary>
+        byte ApplyLengthEffectInSection { get; set; }
     }
 }

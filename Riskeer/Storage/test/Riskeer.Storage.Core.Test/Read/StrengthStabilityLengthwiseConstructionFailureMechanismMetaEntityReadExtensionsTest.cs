@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
@@ -31,13 +29,13 @@ using Riskeer.Storage.Core.Read;
 namespace Riskeer.Storage.Core.Test.Read
 {
     [TestFixture]
-    public class StandAloneFailureMechanismMetaEntityReadExtensionsTest
+    public class StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((IStandAloneFailureMechanismMetaEntity) null).Read(new GeneralInput());
+            void Call() => ((StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity) null).Read(new GeneralInput());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,32 +45,21 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         public void Read_GeneralInputNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStandAloneFailureMechanismMetaEntity>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => entity.Read(null);
+            void Call() => new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity().Read(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("generalInput", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Read_WithAllData_SetsGeneralInputProperties()
         {
             // Setup
-            var random = new Random();
-            var mocks = new MockRepository();
-            var entity = mocks.Stub<IStandAloneFailureMechanismMetaEntity>();
-            mocks.ReplayAll();
+            var entity = new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity();
 
-            entity.N = random.NextDouble(1, 20);
-            entity.ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean());
+            entity.N = 4.0;
             var generalInput = new GeneralInput();
 
             // Call
@@ -80,9 +67,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             Assert.AreEqual(entity.N, generalInput.N, generalInput.N.GetAccuracy());
-            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), generalInput.ApplyLengthEffectInSection);
-
-            mocks.VerifyAll();
         }
     }
 }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
@@ -42,7 +43,8 @@ namespace Riskeer.Storage.Core.Create
         {
             return new TFailureMechanismMetaEntity
             {
-                N = mechanism.GeneralInput.N
+                N = mechanism.GeneralInput.N,
+                ApplyLengthEffectInSection = Convert.ToByte(mechanism.GeneralInput.ApplyLengthEffectInSection)
             };
         }
     }

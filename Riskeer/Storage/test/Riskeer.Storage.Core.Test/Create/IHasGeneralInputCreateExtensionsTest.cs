@@ -35,11 +35,13 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_WithAllData_SetsMetaEntityProperties()
         {
             // Setup
+            var random = new Random();
             var failureMechanism = new TestFailureMechanism
             {
                 GeneralInput =
                 {
-                    N = new Random().NextRoundedDouble(1, 20)
+                    N = random.NextRoundedDouble(1, 20),
+                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
 
@@ -49,11 +51,13 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.IsInstanceOf<IStandAloneFailureMechanismMetaEntity>(metaEntity);
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection), metaEntity.ApplyLengthEffectInSection);
         }
 
         private class TestFailureMechanismMetaEntity : IStandAloneFailureMechanismMetaEntity
         {
             public double N { get; set; }
+            public byte ApplyLengthEffectInSection { get; set; }
         }
     }
 }
