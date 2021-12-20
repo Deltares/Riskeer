@@ -859,10 +859,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
+						Traject&gt;@STPH&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
 						script17b_STPH.risk
@@ -882,10 +882,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
+						Traject&gt;@STPH&gt;Berekeningen&gt;12_2_02500&gt;12_2_02500 Segment_12004_1D1
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
 						script18_STPH1.risk
@@ -905,10 +905,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen&gt;profiel001
+						Traject&gt;@GEKB&gt;Berekeningen&gt;profiel001
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						Traject&gt;@GEKB&gt;Berekeningen
 					</td>
 					<td>
 						script17b_GEKB.risk
@@ -928,10 +928,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
+						Traject&gt;@STBI&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
 						script17b_STBI.risk
@@ -951,10 +951,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
+						Traject&gt;@STBI&gt;Berekeningen&gt;Vak_41-123&gt;Vak_41-123 Vak_41-123_Segment_41009_1D2
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
 						script18_STBI1.risk
@@ -974,10 +974,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen&gt;'Keersluis Cuijk'
+						Traject&gt;@HTKW&gt;Berekeningen&gt;'Keersluis Cuijk'
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Traject&gt;@HTKW&gt;Berekeningen
 					</td>
 					<td>
 						script17b_HTKW.risk
@@ -997,10 +997,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen&gt;'Amersluis'
+						Traject&gt;@BSKW&gt;Berekeningen&gt;'Amersluis'
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Traject&gt;@BSKW&gt;Berekeningen
 					</td>
 					<td>
 						script17b_BSKW.risk
@@ -1020,10 +1020,10 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen&gt;Kunstwerk1
+						Traject&gt;@STKWp&gt;Berekeningen&gt;Kunstwerk1
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Traject&gt;@STKWp&gt;Berekeningen
 					</td>
 					<td>
 						script17b_STKWp.risk
