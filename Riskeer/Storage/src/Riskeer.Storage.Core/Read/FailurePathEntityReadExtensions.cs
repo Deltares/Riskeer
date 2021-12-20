@@ -89,7 +89,8 @@ namespace Riskeer.Storage.Core.Read
                 Name = entity.Name,
                 Input =
                 {
-                    N = (RoundedDouble) entity.N
+                    N = (RoundedDouble) entity.N,
+                    ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
                 }
             };
             entity.ReadCommonFailurePathProperties(specificFailurePath, collector);

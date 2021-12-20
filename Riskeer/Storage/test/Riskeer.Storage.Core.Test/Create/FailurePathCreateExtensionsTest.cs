@@ -189,7 +189,8 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Input =
                 {
-                    N = random.NextRoundedDouble(1, 20)
+                    N = random.NextRoundedDouble(1, 20),
+                    ApplyLengthEffectInSection = random.NextBoolean()
                 },
                 InAssembly = random.NextBoolean(),
                 AssemblyResult =
@@ -207,6 +208,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(failurePath.Input.N, entity.N);
+            Assert.AreEqual(Convert.ToByte(failurePath.Input.ApplyLengthEffectInSection), entity.ApplyLengthEffectInSection);
 
             Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);

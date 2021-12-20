@@ -204,6 +204,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 Name = "Specific failure path name",
                 N = random.NextDouble(1.0, 20.0),
+                ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean()),
                 InAssembly = Convert.ToByte(inAssembly),
                 InAssemblyInputComments = "Some input text",
                 InAssemblyOutputComments = "Some output text",
@@ -230,6 +231,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 
             Assert.AreEqual(entity.N, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), specificFailurePath.Input.ApplyLengthEffectInSection);
         }
 
         [Test]
