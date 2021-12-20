@@ -69,7 +69,7 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
             return stepChild;
         }
         
-        private static string NameOfTreeItem(object treeItemInfo)
+        public static string NameOfTreeItem(object treeItemInfo)
         {
             return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
         }

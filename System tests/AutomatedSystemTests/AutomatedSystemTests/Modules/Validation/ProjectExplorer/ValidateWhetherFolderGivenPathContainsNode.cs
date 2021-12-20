@@ -69,53 +69,28 @@ namespace AutomatedSystemTests.Modules.Validation.ProjectExplorer
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            var stepsPathItem = pathToFolder.ReplacePathAliases().Split('>').ToList();
-            
+            string path = pathToFolder.ReplacePathAliases();
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
             var rootNodeInfo = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo;
-            
-            //var children = rootNode.Children;
-            IList<Ranorex.Unknown> children = (new List<Ranorex.Unknown>(){rootNodeInfo.FindAdapter<Ranorex.Unknown>()});
-            
-            var stepChild = rootNodeInfo.FindAdapter<TreeItem>();
-        	var nameStepChild = NameOfTreeItem(stepChild);
-
-        	for (int i=0; i < stepsPathItem.Count; i++) {
-        			// Find the item corresponding to the step
-        			var step = stepsPathItem[i];
-        			if (children.Count(ch => ch.ToString().Contains(step))==1)
-        				{
-        				Report.Log(ReportLevel.Info, "Information", "Only one occurrence of '" + step + "' found: choosing item containing the string in its name.");
-        				stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
-        			} else	{
-        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing item with this exact name.");
-        				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
-        			}
-        			// Update the children
-        			children = stepChild.Children;
-        			// Expand if intermediate node is collased
-                    //stepChild.Focus();
-                    //stepChild.Expand();
-        			}
-        	stepChild.Focus();
-        	int numberOfChildrenWithNodeName = children.Where(ch => NameOfTreeItem(ch.As<TreeItem>())==nameOfNode).ToList().Count;
-        	if (nodeIsExpectedToBeContained=="true") {
-        	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains one node with name '" + nameOfNode + "'.");
-        	    Validate.IsTrue(numberOfChildrenWithNodeName==1);
-        	    stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(nameOfNode)).As<TreeItem>();
-        	    Report.Screenshot(stepChild.Element);
-        	    } else {
-        	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains no node with name '" + nameOfNode + "'.");
-        	    Validate.IsTrue(numberOfChildrenWithNodeName==0);
-        	}
+            Action<TreeItem> actions = (it=> (it as Adapter).Focus());
+            actions += (it=>ValidateNodeContainsChildWithName(it, nameOfNode, nodeIsExpectedToBeContained=="true"));
+            TreeItemHelpers.FindNodeInTree(path, rootNodeInfo, actions);
+            return;
         }
         
-        private string NameOfTreeItem(object treeItemInfo)
+        private void ValidateNodeContainsChildWithName(TreeItem node, string nameOfChild, bool childIsExpected)
         {
-        	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
+            var children = node.Children;
+            int numberOfChildrenWithExpectedName = children.Where(ch => TreeItemHelpers.NameOfTreeItem(ch.As<TreeItem>())==nameOfChild).ToList().Count;
+            if (childIsExpected) {
+        	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains one node with name '" + nameOfNode + "'.");
+        	    Validate.IsTrue(numberOfChildrenWithExpectedName==1);
+        	    node = children.FirstOrDefault(ch => ch.ToString().Contains(nameOfNode)).As<TreeItem>();
+        	    Report.Screenshot(node.Element);
+        	    } else {
+        	    Report.Log(ReportLevel.Info, "Validating that folder '" + pathToFolder + "' contains no node with name '" + nameOfNode + "'.");
+        	    Validate.IsTrue(numberOfChildrenWithExpectedName==0);
+        	}
         }
     }
 }
