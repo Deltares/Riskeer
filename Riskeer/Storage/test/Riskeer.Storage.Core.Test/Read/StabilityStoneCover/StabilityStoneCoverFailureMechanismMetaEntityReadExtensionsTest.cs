@@ -47,9 +47,11 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         public void Read_Always_ReturnGeneralStabilityStoneCoverWaveConditionsInput()
         {
             // Setup
+            var random = new Random();
             var entity = new StabilityStoneCoverFailureMechanismMetaEntity
             {
-                N = new Random(39).NextRoundedDouble(1.0, 20.0)
+                N = random.NextRoundedDouble(1.0, 20.0),
+                ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean())
             };
 
             // Call
@@ -57,6 +59,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 
             // Assert
             Assert.AreEqual(entity.N, generalInput.N, generalInput.N.GetAccuracy());
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), generalInput.ApplyLengthEffectInSection);
         }
     }
 }

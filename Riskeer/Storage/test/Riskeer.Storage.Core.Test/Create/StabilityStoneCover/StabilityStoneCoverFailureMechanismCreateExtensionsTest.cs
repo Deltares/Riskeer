@@ -55,6 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
+            var random = new Random();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
                 InAssembly = inAssembly,
@@ -76,7 +77,8 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
                 },
                 GeneralInput =
                 {
-                    N = new Random().NextRoundedDouble(1, 20)
+                    N = random.NextRoundedDouble(1, 20),
+                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -92,7 +94,9 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.StabilityStoneCoverFailureMechanismMetaEntities.Single().N);
+            StabilityStoneCoverFailureMechanismMetaEntity failureMechanismMetaEntity = entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismMetaEntity.N);
+            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismMetaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]

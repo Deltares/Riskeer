@@ -49,7 +49,8 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
 
             return new GeneralStabilityStoneCoverWaveConditionsInput
             {
-                N = (RoundedDouble) entity.N
+                N = (RoundedDouble) entity.N,
+                ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
             };
         }
     }
