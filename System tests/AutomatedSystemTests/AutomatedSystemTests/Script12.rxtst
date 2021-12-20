@@ -4003,7 +4003,7 @@
 						X:\script12\01_HTKW_36-2\removed
 					</td>
 					<td>
-						36-2&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
+						36-2&gt;@HTKW&gt;Invoer&gt;Kunstwerken
 					</td>
 					<td>
 						HTkw_traject_36-2.shp
@@ -4024,7 +4024,7 @@
 						8-5
 					</td>
 					<td>
-						8-5&gt;Kunstwerken - Hoogte kunstwerk&gt;Invoer&gt;Kunstwerken
+						8-5&gt;@HTKW&gt;Invoer&gt;Kunstwerken
 					</td>
 				</tr>
 				<tr>
@@ -4050,7 +4050,7 @@
 						X:\script12\02_BSKW_34-1\removed
 					</td>
 					<td>
-						34-1&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Kunstwerken
+						34-1&gt;@BSKW&gt;Invoer&gt;Kunstwerken
 					</td>
 					<td>
 						BSkw_traject_34-1.shp
@@ -4070,7 +4070,7 @@
 						8-6
 					</td>
 					<td>
-						8-6&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Invoer&gt;Kunstwerken
+						8-6&gt;@BSKW&gt;Invoer&gt;Kunstwerken
 					</td>
 				</tr>
 				<tr>
@@ -4096,7 +4096,7 @@
 						X:\script12\03_STKWp_44-2\removed
 					</td>
 					<td>
-						44-2&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Kunstwerken
+						44-2&gt;@STKWp&gt;Invoer&gt;Kunstwerken
 					</td>
 					<td>
 						STkwp_traject_44-2.shp
@@ -4117,7 +4117,7 @@
 						8-7
 					</td>
 					<td>
-						8-7&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Invoer&gt;Kunstwerken
+						8-7&gt;@STKWp&gt;Invoer&gt;Kunstwerken
 					</td>
 				</tr>
 			</table>
