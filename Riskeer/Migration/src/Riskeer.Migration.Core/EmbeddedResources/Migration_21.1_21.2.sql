@@ -114,20 +114,35 @@ INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEP
 INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
-INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
+INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity (
+    [GrassCoverErosionInwardsFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [N],
+    [DikeProfileCollectionSourcePath],
+    [ApplyLengthEffectInSection]
+)
+SELECT
+    [GrassCoverErosionInwardsFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [N],
+    [DikeProfileCollectionSourcePath],
+    0                                                              
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity (
     [GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
     [FailureMechanismEntityId],
     [N],
-    [ForeshoreProfileCollectionSourcePath]
+    [ForeshoreProfileCollectionSourcePath],
+    [ApplyLengthEffectInSection]
 )
 SELECT
     [GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
     [FailureMechanismEntityId],
     [N],
-    [ForeshoreProfileCollectionSourcePath]
+    [ForeshoreProfileCollectionSourcePath],
+    0
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
@@ -182,19 +197,25 @@ FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffInwardsFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
-    [N])
+    [N],
+    [ApplyLengthEffectInSection]    
+)
 SELECT
     [FailureMechanismEntityId],
-    1
+    1,
+    0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 16;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
-    [N])
+    [N],
+    [ApplyLengthEffectInSection]
+)
 SELECT
     [FailureMechanismEntityId],
-    1
+    1,
+    0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 5;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
@@ -251,14 +272,26 @@ INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJ
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsStochasticSoilProfileEntity;
-INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsFailureMechanismMetaEntity;
+INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity (
+    [MacroStabilityOutwardsFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [A],
+    [ApplyLengthEffectInSection])
+SELECT
+    [MacroStabilityOutwardsFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [A],
+    0                                                            
+FROM [SOURCEPROJECT].MacroStabilityOutwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilityFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
-    [N])
+    [N],
+    [ApplyLengthEffectInSection])
 SELECT
     [FailureMechanismEntityId],
-    1
+    1,
+    0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 14;
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
@@ -331,7 +364,20 @@ INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
-INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
+INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
+    [StabilityStoneCoverFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [ForeshoreProfileCollectionSourcePath],
+    [N],
+    [ApplyLengthEffectInSection]                                   
+)
+SELECT
+    [StabilityStoneCoverFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [ForeshoreProfileCollectionSourcePath],
+    [N],
+    0
+FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity (
     [StabilityStoneCoverWaveConditionsCalculationEntityId],
@@ -401,10 +447,13 @@ INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO TechnicalInnovationFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
-    [N])
+    [N],
+    [ApplyLengthEffectInSection]
+)
 SELECT
     [FailureMechanismEntityId],
-    1
+    1,
+    0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 18;
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;

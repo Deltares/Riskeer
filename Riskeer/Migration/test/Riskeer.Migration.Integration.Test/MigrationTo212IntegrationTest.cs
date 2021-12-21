@@ -88,6 +88,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDuneLocationCalculation(reader);
                     AssertDuneLocationCalculationOutput(reader);
 
+                    AssertStrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
                 }
 
@@ -494,7 +495,7 @@ namespace Riskeer.Migration.Integration.Test
 
         #region StandAlone
 
-        private static void AssertStandAloneFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertStrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateFailureMechanismMetaEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -509,10 +510,28 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[N] = 1;" +
                 "DETACH SOURCEPROJECT;";
 
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "17", "StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"));
+        }
+        
+        private static void AssertStandAloneFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (" +
+                "SELECT COUNT()" +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "WHERE FailureMechanismType = {0}" +
+                ") " +
+                "FROM {1} NEW " +
+                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
+                "WHERE OLD.[FailureMechanismType] = {0} " +
+                "AND NEW.[N] = 1 " +
+                "AND NEW.[ApplyLengthEffectInSection] = 1;" +
+                "DETACH SOURCEPROJECT;";
+
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "16", "GrassCoverSlipOffInwardsFailureMechanismMetaEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "5", "GrassCoverSlipOffOutwardsFailureMechanismMetaEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "14", "MicrostabilityFailureMechanismMetaEntity"));
-            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "17", "StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "18", "TechnicalInnovationFailureMechanismMetaEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "15", "WaterPressureAsphaltCoverFailureMechanismMetaEntity"));
         }
