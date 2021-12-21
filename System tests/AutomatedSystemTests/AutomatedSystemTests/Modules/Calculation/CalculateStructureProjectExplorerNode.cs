@@ -63,44 +63,11 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
-            
+            string path = pathToNodeInProjectExplorer.ReplacePathAliases();
             AutomatedSystemTestsRepository myRepository = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
-            
             RepoItemInfo rootNodeProject = myRepository.RiskeerMainWindow.ProjectExplorerPanel.TrajectNode.SelfInfo;
-            //TreeItem nodeTreeItem = GetNodeInProjectExplorerGivenPath(pathToNodeInProjectExplorer, rootNodeProject);
-            TreeItem nodeTreeItem = TreeItemHelpers.FindNodeInTree(pathToNodeInProjectExplorer, rootNodeProject, (ti)=>{});
+            TreeItem nodeTreeItem = TreeItemHelpers.FindNodeInTree(path, rootNodeProject, (ti)=>{});
             structureNode = GetStructureTreeItem(nodeTreeItem);
-        }
-        
-        private TreeItem GetNodeInProjectExplorerGivenPath(string pathItem, RepoItemInfo rootNodeInfo)
-        	{
-        	var stepsPathItem = pathItem.Split('>').ToList();
-        	var children = rootNodeInfo.FindAdapter<TreeItem>().Children;
-        	// start up variable stepChild
-        	TreeItem stepChild = children[0].As<TreeItem>();
-        	
-        	
-        	for (int i=0; i < stepsPathItem.Count; i++) {
-        			// Find the item corresponding to the step
-        			var step = stepsPathItem[i];
-        			if (children.Count(ch => ch.ToString().Contains(step))==1)
-        				{
-        				Report.Log(ReportLevel.Info, "Information", "Only one occurrence of '" + step + "' found: choosing item containing the string in its name.");
-        				stepChild = children.FirstOrDefault(ch => ch.ToString().Contains(step)).As<TreeItem>();
-        			} else	{
-        				Report.Log(ReportLevel.Info, "Information", "Multiple occurrences of '" + step + "' found: choosing item with this exact name.");
-        				stepChild = children.FirstOrDefault(ch => NameOfTreeItem(ch.As<TreeItem>())==step).As<TreeItem>();
-        			}
-        			if (i != stepsPathItem.Count - 1)
-        				{
-        				// Update the children
-        				children = stepChild.Children;
-        	            }
-        	}
-        	return stepChild;
         }
         
         private string NameOfTreeItem(object treeItemInfo)
