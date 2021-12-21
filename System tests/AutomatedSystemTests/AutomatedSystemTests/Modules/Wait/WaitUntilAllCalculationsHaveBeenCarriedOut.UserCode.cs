@@ -38,7 +38,7 @@ namespace AutomatedSystemTests.Modules.Wait
             try {
                 formInfo.WaitForExists(2000);
                 Report.Screenshot(ReportLevel.Info, "User", "", formInfo.FindAdapter<Form>(), false);
-                Report.Log(ReportLevel.Info, "Wait", "(Optional Action)\r\nWaiting 4h to not exist. Associated repository item: 'formInfo'", formInfo, new ActionTimeout(14400000));
+                Report.Info("Waiting 4h to not exist. Associated repository item: 'formInfo'" + formInfo.ToString());
                 formInfo.WaitForNotExists(14400000);
             } catch (Exception) { }
         }
