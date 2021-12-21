@@ -472,13 +472,27 @@ FROM [SOURCEPROJECT].VersionEntity;
 INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
 INSERT INTO WaterPressureAsphaltCoverFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
-    [N])
+    [N],
+    [ApplyLengthEffectInSection])
 SELECT
     [FailureMechanismEntityId],
-    1
+    1,
+    0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 15;
-INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
+INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
+    [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [ForeshoreProfileCollectionSourcePath],
+    [DeltaL],
+    [ApplyLengthEffectInSection])
+SELECT
+    [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
+    [FailureMechanismEntityId],
+    [ForeshoreProfileCollectionSourcePath],
+    [DeltaL],
+    0
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity (
     [WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],

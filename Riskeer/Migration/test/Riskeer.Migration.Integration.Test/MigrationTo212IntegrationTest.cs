@@ -71,12 +71,16 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
                     AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
 
+                    AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsOutput(reader);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsCalculations(reader, sourceFilePath);
 
+                    AssertMacroStabilityOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
+                    
+                    AssertStabilityStoneCoverFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStabilityStoneCoverCalculations(reader, sourceFilePath);
 
                     AssertWaveImpactAsphaltCoverCalculations(reader, sourceFilePath);
@@ -335,6 +339,26 @@ namespace Riskeer.Migration.Integration.Test
 
         #region StabilityStoneCover
 
+        private static void AssertStabilityStoneCoverFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityStoneCoverFailureMechanismMetaEntity " +
+                ") " +
+                "FROM StabilityStoneCoverFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityStoneCoverFailureMechanismMetaEntity OLD USING(StabilityStoneCoverFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath] " +
+                "AND NEW.[N] IS OLD.[N] " +
+                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
+        }
+        
         private static void AssertStabilityStoneCoverCalculations(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateNormBaseQueryFormat =
@@ -526,7 +550,7 @@ namespace Riskeer.Migration.Integration.Test
                 "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
                 "WHERE OLD.[FailureMechanismType] = {0} " +
                 "AND NEW.[N] = 1 " +
-                "AND NEW.[ApplyLengthEffectInSection] = 1;" +
+                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "16", "GrassCoverSlipOffInwardsFailureMechanismMetaEntity"));
@@ -671,6 +695,26 @@ namespace Riskeer.Migration.Integration.Test
 
         # region GrassCoverErosionInwards
 
+        private static void AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM GrassCoverErosionInwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsFailureMechanismMetaEntity OLD USING(GrassCoverErosionInwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[N] IS OLD.[N] " +
+                "AND NEW.[DikeProfileCollectionSourcePath] IS OLD.[DikeProfileCollectionSourcePath] " +
+                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
+        }
+        
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
             const string getNormQuery =
@@ -836,7 +880,8 @@ namespace Riskeer.Migration.Integration.Test
                 "JOIN SOURCEPROJECT.GrassCoverErosionOutwardsFailureMechanismMetaEntity OLD USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId) " +
                 "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
                 "AND NEW.[ForeshoreProfileCollectionSourcePath] IS OLD.[ForeshoreProfileCollectionSourcePath] " +
-                "AND NEW.[N] = OLD.[N];" +
+                "AND NEW.[N] IS OLD.[N] " +
+                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
@@ -913,6 +958,29 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
+        #region MacroStabilityOutwards
+
+        private static void AssertMacroStabilityOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.MacroStabilityOutwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM MacroStabilityOutwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.MacroStabilityOutwardsFailureMechanismMetaEntity OLD USING(MacroStabilityOutwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[A] IS OLD.[A] " +
+                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
+        }
+
+        #endregion
+        
         #region DuneErosion
 
         private static void AssertDuneErosionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)

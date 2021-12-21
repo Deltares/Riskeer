@@ -96,7 +96,8 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
             StabilityStoneCoverFailureMechanismMetaEntity failureMechanismMetaEntity = entity.StabilityStoneCoverFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismMetaEntity.N);
-            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismMetaEntity.ApplyLengthEffectInSection);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection)
+                            , failureMechanismMetaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]
