@@ -36,22 +36,24 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
         /// Read the <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/> and use the information to
         /// construct a <see cref="GeneralWaveImpactAsphaltCoverInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/> to create
+        /// <param name="entity">The <see cref="WaveImpactAsphaltCoverFailureMechanismMetaEntity"/> to update
         /// <see cref="GeneralWaveImpactAsphaltCoverInput"/> for.</param>
-        /// <returns>A new <see cref="GeneralWaveImpactAsphaltCoverInput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static GeneralWaveImpactAsphaltCoverInput Read(this WaveImpactAsphaltCoverFailureMechanismMetaEntity entity)
+        /// <param name="generalInput">The <see cref="GeneralWaveImpactAsphaltCoverInput"/> to update.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal static void Read(this WaveImpactAsphaltCoverFailureMechanismMetaEntity entity, GeneralWaveImpactAsphaltCoverInput generalInput)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-
-            return new GeneralWaveImpactAsphaltCoverInput
+            
+            if (generalInput == null)
             {
-                DeltaL = (RoundedDouble) entity.DeltaL,
-                ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
-            };
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
+            generalInput.DeltaL = (RoundedDouble) entity.DeltaL;
+            generalInput.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }
     }
 }

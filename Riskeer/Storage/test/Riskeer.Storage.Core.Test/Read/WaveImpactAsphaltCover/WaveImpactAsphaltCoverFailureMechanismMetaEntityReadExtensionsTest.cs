@@ -36,26 +36,43 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((WaveImpactAsphaltCoverFailureMechanismMetaEntity) null).Read();
+            void Call() => ((WaveImpactAsphaltCoverFailureMechanismMetaEntity) null)
+                .Read(new GeneralWaveImpactAsphaltCoverInput());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void Read_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new WaveImpactAsphaltCoverFailureMechanismMetaEntity();
+
+            // Call
+            void Call() => entity.Read(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
-        public void Read_Always_ReturnGeneralWaveImpactAsphaltCoverInput()
+        public void Read_WithAllData_SetsGeneralInputProperties()
         {
             // Setup
             var random = new Random();
             var entity = new WaveImpactAsphaltCoverFailureMechanismMetaEntity
             {
-                DeltaL = random.NextRoundedDouble(1.0, 2000.0),
+                DeltaL = random.NextDouble(1, 2000),
                 ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean())
             };
 
+            var generalInput = new GeneralWaveImpactAsphaltCoverInput();
+
             // Call
-            GeneralWaveImpactAsphaltCoverInput generalInput = entity.Read();
+            entity.Read(generalInput);
 
             // Assert
             Assert.AreEqual(entity.DeltaL, generalInput.DeltaL, generalInput.DeltaL.GetAccuracy());

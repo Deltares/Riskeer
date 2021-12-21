@@ -680,9 +680,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadWaveImpactAsphaltCoverGeneralInput(this FailureMechanismEntity entity, GeneralWaveImpactAsphaltCoverInput generalInput)
         {
-            GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().Read();
-            generalInput.DeltaL = generalWaveImpactAsphaltCoverInput.DeltaL;
-            generalInput.ApplyLengthEffectInSection = generalWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection;
+            entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion
