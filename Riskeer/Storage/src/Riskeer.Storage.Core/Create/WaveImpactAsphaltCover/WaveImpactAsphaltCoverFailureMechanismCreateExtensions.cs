@@ -69,7 +69,8 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
             var metaEntity = new WaveImpactAsphaltCoverFailureMechanismMetaEntity
             {
                 ForeshoreProfileCollectionSourcePath = failureMechanism.ForeshoreProfiles.SourcePath.DeepClone(),
-                DeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL
+                DeltaL = failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL,
+                ApplyLengthEffectInSection = Convert.ToByte(failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection)
             };
 
             entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Add(metaEntity);

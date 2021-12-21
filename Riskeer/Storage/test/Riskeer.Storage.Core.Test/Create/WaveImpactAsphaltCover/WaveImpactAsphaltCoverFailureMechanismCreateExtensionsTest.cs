@@ -55,6 +55,7 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool inAssembly)
         {
             // Setup
+            var random = new Random();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 InAssembly = inAssembly,
@@ -76,7 +77,8 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
                 },
                 GeneralWaveImpactAsphaltCoverInput =
                 {
-                    DeltaL = new Random(39).NextRoundedDouble(0.1, 2000.0)
+                    DeltaL = random.NextRoundedDouble(0.1, 2000.0),
+                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -92,8 +94,10 @@ namespace Riskeer.Storage.Core.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-            Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL,
-                            entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().DeltaL);
+            GeneralWaveImpactAsphaltCoverInput generalInput = failureMechanism.GeneralWaveImpactAsphaltCoverInput;
+            WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(generalInput.DeltaL, metaEntity.DeltaL);
+            Assert.AreEqual(Convert.ToByte(generalInput.ApplyLengthEffectInSection), metaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]

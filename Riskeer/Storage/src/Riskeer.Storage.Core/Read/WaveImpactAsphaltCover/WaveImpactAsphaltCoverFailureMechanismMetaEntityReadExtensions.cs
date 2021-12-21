@@ -49,7 +49,8 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
 
             return new GeneralWaveImpactAsphaltCoverInput
             {
-                DeltaL = (RoundedDouble) entity.DeltaL
+                DeltaL = (RoundedDouble) entity.DeltaL,
+                ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
             };
         }
     }

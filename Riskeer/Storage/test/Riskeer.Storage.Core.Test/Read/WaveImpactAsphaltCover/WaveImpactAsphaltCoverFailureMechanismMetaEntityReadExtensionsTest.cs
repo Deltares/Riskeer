@@ -47,9 +47,11 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
         public void Read_Always_ReturnGeneralWaveImpactAsphaltCoverInput()
         {
             // Setup
+            var random = new Random();
             var entity = new WaveImpactAsphaltCoverFailureMechanismMetaEntity
             {
-                DeltaL = new Random(39).NextRoundedDouble(1.0, 2000.0)
+                DeltaL = random.NextRoundedDouble(1.0, 2000.0),
+                ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean())
             };
 
             // Call
@@ -57,6 +59,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
 
             // Assert
             Assert.AreEqual(entity.DeltaL, generalInput.DeltaL, generalInput.DeltaL.GetAccuracy());
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), generalInput.ApplyLengthEffectInSection);
         }
     }
 }
