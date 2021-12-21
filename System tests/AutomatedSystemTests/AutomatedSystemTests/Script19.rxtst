@@ -330,7 +330,7 @@
 				<parameters>
 					<param
 					name="pathCalculationToDuplicate"
-					value="Traject>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen>profiel005">
+					value="Traject>@GEKB>Berekeningen>profiel005">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -386,7 +386,7 @@
 					</param>
 					<param
 					name="pathToCalculationsFolder"
-					value="Traject>Dijken en dammen - Grasbekleding erosie kruin en binnentalud>Berekeningen">
+					value="Traject>@GEKB>Berekeningen">
 					</param>
 					<param
 					name="suffixNewStepPath"

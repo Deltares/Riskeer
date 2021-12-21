@@ -36,6 +36,8 @@ namespace AutomatedSystemTests.Modules.ActionsWithItemsInProjectExplorer
         }
         public void DragAndDropProjectExplorerItemOntoAnotherOne(string pathItemToMove, string pathItemDestination, RepoItemInfo rootNodeInfo)
         {
+            pathItemToMove = pathItemToMove.ReplacePathAliases();
+            pathItemDestination = pathItemDestination.ReplacePathAliases();
             TreeItem treeitemToMove = TreeItemHelpers.FindNodeInTree(pathItemToMove, rootNodeInfo, (ti)=>{});
             TreeItem treeItemDestination = TreeItemHelpers.FindNodeInTree(pathItemDestination, rootNodeInfo, (ti)=>{});
 
