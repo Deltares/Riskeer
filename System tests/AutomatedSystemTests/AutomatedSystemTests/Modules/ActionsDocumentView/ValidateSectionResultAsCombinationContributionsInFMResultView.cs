@@ -68,6 +68,12 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             var headerRow =rows[0];
             int indexColumnSectionName = GetIndex(headerRow, "Vak");
             int indexColumnCombinedProbability = GetIndex(headerRow, "Gedetailleerde toets per vak\r\nfaalkans");
+            if (indexColumnCombinedProbability>0) {
+                Report.Warn("Old Result View Windows. Using column with header containing 'Gedetailleerde toets per vak\r\nfaalkans'");
+            } else {
+                Report.Warn("New Results View. Using column with header containing 'mechanisme per doorsnede'");
+                indexColumnCombinedProbability = GetIndex(headerRow, "mechanisme per doorsnede");
+            }
             rows.RemoveAt(0);
             
             foreach (var dataSection in dataSectionScenariosView) {
@@ -75,7 +81,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 var cellProb = rowSection.Cells[indexColumnCombinedProbability];
                 cellProb.Focus();
                 cellProb.Select();
-                string actualProb = GetAV(cellProb);
+                string actualProb = GetAccessibleValue(cellProb);
                 Report.Info("Validating section: " + rowSection.Cells[indexColumnSectionName]);
                 
                 ValidateSectionResult(dataSection, actualProb);
@@ -85,6 +91,38 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         private void ValidateSectionResult(DataSectionScenariosView data, string actualProb)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+
+            double expectedSumWeightedProbs = GetExpectedSumWeightedProbs(data, currentCulture);
+            string expectedProbNoSeparators = "1/" + ((long) Math.Round(1/expectedSumWeightedProbs)).ToString();
+            
+            string actualProbNoSeparators = actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty);
+            
+            if (expectedProbNoSeparators==actualProbNoSeparators) {
+                Report.Info("Validating if expected probability (" + expectedProbNoSeparators + ") is exactly equal to actual one (" + actualProbNoSeparators + ").");
+                Validate.AreEqual(actualProbNoSeparators, expectedProbNoSeparators);
+            } else {
+                Report.Info("Expected probability (" + expectedProbNoSeparators + "), calculated based on data from Scenarios view, is not exactly equal to actual one (" + actualProbNoSeparators + ").");
+                Report.Info("Validating if they are almost equal (within 0.2 %).");
+                double relativeDeviation = CalculateRelativeDeviation(actualProbNoSeparators, expectedProbNoSeparators);
+                Report.Info("Relative deviation: " + (relativeDeviation * 100).ToString() + "%");
+                Validate.IsTrue(relativeDeviation<0.002);
+            }
+        }
+        
+        private double CalculateRelativeDeviation(string actualProbFraction, string expectedProbFraction)
+        {
+            double actualValue = ProbabilityFractionToDouble(actualProbFraction);
+            double expectedValue = ProbabilityFractionToDouble(expectedProbFraction);
+            return Math.Abs(actualValue-expectedValue) / expectedValue;
+        }
+        
+        private double ProbabilityFractionToDouble(string probabilityFraction)
+        {
+            return 1.0 / Int64.Parse(probabilityFraction.Substring(2, probabilityFraction.Length-2));
+        }
+        
+        private double GetExpectedSumWeightedProbs(DataSectionScenariosView data, System.Globalization.CultureInfo currentCulture)
+        {
             double expectedSumWeightedProbs = 0;
             for (int i = 0; i < data.DataSection.DataScenariosViewList.Count; i++) {
                 var currentCalculation = data.DataSection.DataScenariosViewList[i];
@@ -96,29 +134,15 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                     expectedSumWeightedProbs += currentCalcProbability * currentCalculation.Contribution;
                 }
             }
-            expectedSumWeightedProbs = expectedSumWeightedProbs / 100;
-            long numeratorExpectedProb = (long) Math.Round(1/expectedSumWeightedProbs);
-            string expectedExactProbFraction = "1/" + numeratorExpectedProb.ToString(currentCulture);
-            if (expectedExactProbFraction==actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty)) {
-                Report.Info("Validating if expected probability (" + expectedExactProbFraction + ") is exactly equal to actual one (" + actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty) + ").");
-                Validate.AreEqual(actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty), expectedExactProbFraction);
-            } else {
-                Report.Info("Expected probability (" + expectedExactProbFraction + ") is not exactly equal to actual one (" + actualProb + ").");
-                string actualProbNoSeparators = actualProb.Replace(currentCulture.NumberFormat.NumberGroupSeparator, String.Empty);
-                long actualNumerator = Int64.Parse(actualProbNoSeparators.Substring(2, actualProbNoSeparators.Length-2));
-                double actualSumWeightedProbs = 1.0 / actualNumerator;
-                double relativeDeviation = Math.Abs(actualSumWeightedProbs-expectedSumWeightedProbs) / expectedSumWeightedProbs;
-                Report.Info("Validating if actual probability (" + actualSumWeightedProbs.ToString() + ") and expected probability (" + expectedSumWeightedProbs.ToString() + ") are almost equal (within 0.2 %).");
-                Validate.IsTrue(relativeDeviation<0.002);
-            }
+            return expectedSumWeightedProbs / 100;
         }
         
         private int GetIndex(Row row, string name)
         {
-            return row.Cells.ToList().FindIndex(cl=>GetAV(cl).Contains(name));
+            return row.Cells.ToList().FindIndex(cl=>GetAccessibleValue(cl).Contains(name));
         }
         
-        private string GetAV(Cell cl)
+        private string GetAccessibleValue(Cell cl)
         {
             return cl.Element.GetAttributeValueText("AccessibleValue");
         }
