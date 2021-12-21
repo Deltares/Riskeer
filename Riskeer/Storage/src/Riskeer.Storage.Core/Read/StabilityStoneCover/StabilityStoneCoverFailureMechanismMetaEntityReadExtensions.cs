@@ -34,24 +34,26 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
     {
         /// <summary>
         /// Read the <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/> and use the information to
-        /// construct a <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.
+        /// update the <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/> to create
+        /// <param name="entity">The <see cref="StabilityStoneCoverFailureMechanismMetaEntity"/> to update
         /// <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/> for.</param>
-        /// <returns>A new <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal static GeneralStabilityStoneCoverWaveConditionsInput Read(this StabilityStoneCoverFailureMechanismMetaEntity entity)
+        /// <param name="generalInput">The <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/> to update.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal static void Read(this StabilityStoneCoverFailureMechanismMetaEntity entity, GeneralStabilityStoneCoverWaveConditionsInput generalInput)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new GeneralStabilityStoneCoverWaveConditionsInput
+            if (generalInput == null)
             {
-                N = (RoundedDouble) entity.N,
-                ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
-            };
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+            
+            generalInput.N = (RoundedDouble) entity.N;
+            generalInput.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }
     }
 }

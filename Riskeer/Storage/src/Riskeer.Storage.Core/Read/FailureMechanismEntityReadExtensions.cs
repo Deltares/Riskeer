@@ -682,6 +682,7 @@ namespace Riskeer.Storage.Core.Read
         {
             GeneralWaveImpactAsphaltCoverInput generalWaveImpactAsphaltCoverInput = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single().Read();
             generalInput.DeltaL = generalWaveImpactAsphaltCoverInput.DeltaL;
+            generalInput.ApplyLengthEffectInSection = generalWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection;
         }
 
         #endregion
@@ -1030,8 +1031,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadStabilityStoneCoverGeneralInput(this FailureMechanismEntity entity, GeneralStabilityStoneCoverWaveConditionsInput generalInput)
         {
-            GeneralStabilityStoneCoverWaveConditionsInput generalStabilityPointStructuresInput = entity.StabilityStoneCoverFailureMechanismMetaEntities.Single().Read();
-            generalInput.N = generalStabilityPointStructuresInput.N;
+            entity.StabilityStoneCoverFailureMechanismMetaEntities.Single().Read(generalInput);
         }
 
         #endregion

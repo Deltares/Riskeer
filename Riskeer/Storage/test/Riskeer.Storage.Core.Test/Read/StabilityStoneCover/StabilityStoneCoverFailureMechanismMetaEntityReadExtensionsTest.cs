@@ -36,26 +36,43 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((StabilityStoneCoverFailureMechanismMetaEntity) null).Read();
+            void Call() => ((StabilityStoneCoverFailureMechanismMetaEntity) null)
+                .Read(new GeneralStabilityStoneCoverWaveConditionsInput());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void Read_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new StabilityStoneCoverFailureMechanismMetaEntity();
+
+            // Call
+            void Call() => entity.Read(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
-        public void Read_Always_ReturnGeneralStabilityStoneCoverWaveConditionsInput()
+        public void Read_WithAllData_SetsGeneralInputProperties()
         {
             // Setup
             var random = new Random();
             var entity = new StabilityStoneCoverFailureMechanismMetaEntity
             {
-                N = random.NextRoundedDouble(1.0, 20.0),
+                N = random.NextDouble(1, 20),
                 ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean())
             };
 
+            var generalInput = new GeneralStabilityStoneCoverWaveConditionsInput();
+
             // Call
-            GeneralStabilityStoneCoverWaveConditionsInput generalInput = entity.Read();
+            entity.Read(generalInput);
 
             // Assert
             Assert.AreEqual(entity.N, generalInput.N, generalInput.N.GetAccuracy());
