@@ -3082,7 +3082,7 @@
 						STPH
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
 						script19a_STPH.risk
@@ -3102,7 +3102,7 @@
 						GEKB
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						Traject&gt;@GEKB&gt;Berekeningen
 					</td>
 					<td>
 						script19a_GEKB.risk
@@ -3122,7 +3122,7 @@
 						STBI
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
 						script19a_STBI.risk
@@ -3142,7 +3142,7 @@
 						HTKW
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Traject&gt;@HTKW&gt;Berekeningen
 					</td>
 					<td>
 						script19a_HTKW.risk
@@ -3162,7 +3162,7 @@
 						BSKW
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Traject&gt;@BSKW&gt;Berekeningen
 					</td>
 					<td>
 						script19a_BSKW.risk
@@ -3182,7 +3182,7 @@
 						STKWp
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Traject&gt;@STKWp&gt;Berekeningen
 					</td>
 					<td>
 						script19a_STKWp.risk
@@ -4693,10 +4693,10 @@
 						script20cd_STPH.risk
 					</td>
 					<td>
-						Traject&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;1/3000
+						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/3000
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Piping&gt;Berekeningen
+						Traject&gt;@STPH&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite
@@ -4721,7 +4721,7 @@
 					<td>
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Grasbekleding erosie kruin en binnentalud&gt;Berekeningen
+						Traject&gt;@GEKB&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_IJsselmeer_12-2_v02\hlcd_W_2100.sqlite
@@ -4744,10 +4744,10 @@
 						script20cd_STBI.risk
 					</td>
 					<td>
-						Traject&gt;Hydraulische belastingen&gt;Waterstanden bij norm&gt;1/30000
+						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
 					</td>
 					<td>
-						Traject&gt;Dijken en dammen - Macrostabiliteit binnenwaarts&gt;Berekeningen
+						Traject&gt;@STBI&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Bovenrijn_41-1_v04\hlcd_klimaat.sqlite
@@ -4772,7 +4772,7 @@
 					<td>
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Hoogte kunstwerk&gt;Berekeningen
+						Traject&gt;@HTKW&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Bovenmaas_36-2_v03\hlcd_klimaat.sqlite
@@ -4797,7 +4797,7 @@
 					<td>
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Betrouwbaarheid sluiting kunstwerk&gt;Berekeningen
+						Traject&gt;@BSKW&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Benedenrijn_34-1_v04\hlcd_klimaat.sqlite
@@ -4822,7 +4822,7 @@
 					<td>
 					</td>
 					<td>
-						Traject&gt;Kunstwerken - Sterkte en stabiliteit puntconstructies&gt;Berekeningen
+						Traject&gt;@STKWp&gt;Berekeningen
 					</td>
 					<td>
 						X:\commonData\databases\WBI2017_Markermeer_13-9_13a-1_44-2_v02\hlcd_klimaat.sqlite
