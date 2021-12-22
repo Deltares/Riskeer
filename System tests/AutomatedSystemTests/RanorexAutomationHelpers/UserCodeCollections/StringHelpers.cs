@@ -128,7 +128,15 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 {"@AGK",   "Golfklappen op asfaltbekleding"},
                 {"@GEBU",  "Grasbekleding erosie buitentalud"},
                 {"@DA",    "Duinafslag"},
-                {"@HB", "Hydraulische belastingen"}
+                {"@STBU",  "Dijken en dammen - Macrostabiliteit buitenwaarts"},
+                {"@STMI",  "Dijken en dammen - Microstabiliteit"},
+                {"@AWO",   "Dijken en dammen - Wateroverdruk bij asfaltbekleding"},
+                {"@GABU",  "Dijken en dammen - Grasbekleding afschuiven buitentalud"},
+                {"@GABI",  "Dijken en dammen - Grasbekleding afschuiven binnentalud"},
+                {"@PKW",   "Kunstwerken - Piping bij kunstwerk"},
+                {"@STKWl", "Kunstwerken - Sterkte en stabiliteit langsconstructies"},
+                {"@INN",   "Technische innovaties - Technische innovaties"},
+                {"@HB",    "Hydraulische belastingen"}
             };
             foreach (var item in replacementsPath) {
                 path = path.Replace(item.Key, item.Value);

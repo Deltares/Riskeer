@@ -747,6 +747,9 @@
       <id>b50b2586-092d-4587-8b1d-f86f562a6a14</id>
       <BoundTo>169d05de-10e4-4de8-a1e7-b20d6b35e438</BoundTo>
     </Compile>
+    <Compile Include="Modules\Calculation\ConvertAliasToFullName.cs">
+      <id>356ccc15-ff79-436b-aaad-0bb2537fcd26</id>
+    </Compile>
     <Compile Include="Modules\Calculation\ConvertProbabilityToCurrentCulture.cs">
       <id>d85a287f-9b8d-464e-9122-352f331f9242</id>
     </Compile>

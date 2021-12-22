@@ -545,6 +545,26 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="276787ae-1970-4c9e-a6fd-1cf1da00cb76"
+			name="ConvertAliasToFullName"
+			ref="1830ccce-ba25-4a17-9182-e4be6813a8dd"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="aliasPathToItemWithMap"
+					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
+					variableid="7bb41ca2-188f-49ee-85fe-24f10ab8ac24"
+					variablename="Alias">
+					</var>
+					<var
+					dataname="nameFMView"
+					datasourceid="3eec8671-18d8-4f27-8f6d-678132e31cf2"
+					variableid="2fe226a6-7733-4cbe-af72-d33f051cbf12"
+					variablename="FullName">
+					</var>
+				</databinding>
+			</testmodule>
 			<setup
 			id="27d64edb-f8cd-42b5-bc3a-a0fe87e1ec3e"
 			name="setup">
@@ -856,7 +876,7 @@
 					variablename="string4">
 					</var>
 					<var
-					dataname="pathToItemWithMap"
+					dataname="aliasPathToItemWithMap"
 					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
@@ -2066,32 +2086,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="9df4d37f-59c2-4455-9e85-a2f7db27ee78"
-			name="GetStepFromPath"
-			ref="d0d76556-8eb7-4ec6-a100-deb33de45819"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="nameFMView"
-					datasourceid="3eec8671-18d8-4f27-8f6d-678132e31cf2"
-					variableid="72c1ba24-4090-4cb8-8c20-5a5fe2f7b2da"
-					variablename="stepString">
-					</var>
-					<var
-					dataname="pathToItemWithMap"
-					datasourceid="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
-					variableid="79fe10d1-42c4-4cc5-929d-1adc08c1204a"
-					variablename="fullPath">
-					</var>
-					<var
-					dataname="indexLast"
-					datasourceid="3eec8671-18d8-4f27-8f6d-678132e31cf2"
-					variableid="9265f296-64dd-4f64-a430-82614dfc36ea"
-					variablename="indexStep">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="9dfa3242-e095-4cbf-a560-51f9d320f927"
 			name="VerifyItemPresentInContextMenu"
 			ref="59075182-3627-4f07-a091-1ce36691ee66"
@@ -2430,7 +2424,7 @@
 					variablename="string4">
 					</var>
 					<var
-					dataname="fullNameFP"
+					dataname="aliasFullNameFP"
 					datasourceid="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
@@ -3273,8 +3267,8 @@
 								id="3eec8671-18d8-4f27-8f6d-678132e31cf2"
 								name="ShowMapsSideBySide">
 									<testmodule
-									id="9df4d37f-59c2-4455-9e85-a2f7db27ee78"
-									name="GetStepFromPath">
+									id="276787ae-1970-4c9e-a6fd-1cf1da00cb76"
+									name="ConvertAliasToFullName">
 									</testmodule>
 									<testmodule
 									id="6adb8fa7-c885-4cd5-b3bf-5f8414d859c6"
@@ -4117,7 +4111,7 @@
 					labelItem
 				</column>
 				<column>
-					pathToItemWithMap
+					aliasPathToItemWithMap
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -4128,7 +4122,7 @@
 						labelItem
 					</th>
 					<th>
-						pathToItemWithMap
+						aliasPathToItemWithMap
 					</th>
 				</tr>
 				<tr>
@@ -4136,7 +4130,7 @@
 						STPH
 					</td>
 					<td>
-						Dijken en dammen - Piping
+						@STPH
 					</td>
 				</tr>
 				<tr>
@@ -4144,7 +4138,7 @@
 						GEKB
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+						@GEKB
 					</td>
 				</tr>
 				<tr>
@@ -4152,7 +4146,7 @@
 						STBI
 					</td>
 					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
+						@STBI
 					</td>
 				</tr>
 				<tr>
@@ -4160,7 +4154,7 @@
 						STBU
 					</td>
 					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
+						@STBU
 					</td>
 				</tr>
 				<tr>
@@ -4168,7 +4162,7 @@
 						STMI
 					</td>
 					<td>
-						Dijken en dammen - Microstabiliteit
+						@STMI
 					</td>
 				</tr>
 				<tr>
@@ -4176,7 +4170,7 @@
 						ZST
 					</td>
 					<td>
-						Dijken en dammen - Stabiliteit steenzetting
+						@ZST
 					</td>
 				</tr>
 				<tr>
@@ -4184,7 +4178,7 @@
 						AGK
 					</td>
 					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
+						@AGK
 					</td>
 				</tr>
 				<tr>
@@ -4192,7 +4186,7 @@
 						AWO
 					</td>
 					<td>
-						Dijken en dammen - Wateroverdruk bij asfaltbekleding
+						@AWO
 					</td>
 				</tr>
 				<tr>
@@ -4200,7 +4194,7 @@
 						GEBU
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
+						@GEBU
 					</td>
 				</tr>
 				<tr>
@@ -4208,7 +4202,7 @@
 						GABU
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding afschuiven buitentalud
+						@GABU
 					</td>
 				</tr>
 				<tr>
@@ -4216,7 +4210,7 @@
 						GABI
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding afschuiven binnentalud
+						@GABI
 					</td>
 				</tr>
 				<tr>
@@ -4224,7 +4218,7 @@
 						HTKW
 					</td>
 					<td>
-						Kunstwerken - Hoogte kunstwerk
+						@HTKW
 					</td>
 				</tr>
 				<tr>
@@ -4232,7 +4226,7 @@
 						BSKW
 					</td>
 					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+						@BSKW
 					</td>
 				</tr>
 				<tr>
@@ -4240,7 +4234,7 @@
 						PKW
 					</td>
 					<td>
-						Kunstwerken - Piping bij kunstwerk
+						@PKW
 					</td>
 				</tr>
 				<tr>
@@ -4248,7 +4242,7 @@
 						STKWp
 					</td>
 					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
+						@STKWp
 					</td>
 				</tr>
 				<tr>
@@ -4256,7 +4250,7 @@
 						STKWl
 					</td>
 					<td>
-						Kunstwerken - Sterkte en stabiliteit langsconstructies
+						@STKWl
 					</td>
 				</tr>
 				<tr>
@@ -4264,7 +4258,7 @@
 						DA
 					</td>
 					<td>
-						Duinwaterkering - Duinafslag
+						@DA
 					</td>
 				</tr>
 				<tr>
@@ -4272,7 +4266,7 @@
 						INN
 					</td>
 					<td>
-						Technische innovaties - Technische innovaties
+						@INN
 					</td>
 				</tr>
 			</table>
@@ -5235,7 +5229,7 @@
 					rangeLayersToValidate
 				</column>
 				<column>
-					fullNameFP
+					aliasFullNameFP
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -5252,7 +5246,7 @@
 						rangeLayersToValidate
 					</th>
 					<th>
-						fullNameFP
+						aliasFullNameFP
 					</th>
 				</tr>
 				<tr>
@@ -5266,7 +5260,7 @@
 						3,4,6-16
 					</td>
 					<td>
-						Dijken en dammen - Piping
+						@STPH
 					</td>
 				</tr>
 				<tr>
@@ -5280,7 +5274,7 @@
 						5-16
 					</td>
 					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
+						@STBI
 					</td>
 				</tr>
 				<tr>
@@ -5294,7 +5288,7 @@
 						17-28
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+						@GEKB
 					</td>
 				</tr>
 				<tr>
@@ -5308,7 +5302,7 @@
 						29-40
 					</td>
 					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+						@BSKW
 					</td>
 				</tr>
 				<tr>
@@ -5322,7 +5316,7 @@
 						29-40
 					</td>
 					<td>
-						Kunstwerken - Hoogte kunstwerk
+						@HTKW
 					</td>
 				</tr>
 				<tr>
@@ -5336,7 +5330,7 @@
 						29-40
 					</td>
 					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
+						@STKWp
 					</td>
 				</tr>
 				<tr>
@@ -5350,7 +5344,7 @@
 						41-51
 					</td>
 					<td>
-						Dijken en dammen - Stabiliteit steenzetting
+						@ZST
 					</td>
 				</tr>
 				<tr>
@@ -5364,7 +5358,7 @@
 						41-51
 					</td>
 					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
+						@AGK
 					</td>
 				</tr>
 				<tr>
@@ -5378,7 +5372,7 @@
 						41-51
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
+						@GEBU
 					</td>
 				</tr>
 				<tr>
@@ -5392,7 +5386,7 @@
 						52-60
 					</td>
 					<td>
-						Duinwaterkering - Duinafslag
+						@DA
 					</td>
 				</tr>
 				<tr>
@@ -5406,7 +5400,7 @@
 						52-60
 					</td>
 					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
+						@STBU
 					</td>
 				</tr>
 				<tr>
@@ -5420,7 +5414,7 @@
 						52-60
 					</td>
 					<td>
-						Dijken en dammen - Microstabiliteit
+						@STMI
 					</td>
 				</tr>
 				<tr>
@@ -5434,7 +5428,7 @@
 						52-54,56-60
 					</td>
 					<td>
-						Dijken en dammen - Wateroverdruk bij asfaltbekleding
+						@AWO
 					</td>
 				</tr>
 				<tr>
@@ -5448,7 +5442,7 @@
 						52-60
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding afschuiven buitentalud
+						@GABU
 					</td>
 				</tr>
 				<tr>
@@ -5462,7 +5456,7 @@
 						52-60
 					</td>
 					<td>
-						Dijken en dammen - Grasbekleding afschuiven binnentalud
+						@GABI
 					</td>
 				</tr>
 				<tr>
@@ -5476,7 +5470,7 @@
 						52-60
 					</td>
 					<td>
-						Kunstwerken - Piping bij kunstwerk
+						@PKW
 					</td>
 				</tr>
 				<tr>
@@ -5490,7 +5484,7 @@
 						52-54,56-60
 					</td>
 					<td>
-						Kunstwerken - Sterkte en stabiliteit langsconstructies
+						@STKWl
 					</td>
 				</tr>
 				<tr>
@@ -5504,7 +5498,7 @@
 						52-54,56-60
 					</td>
 					<td>
-						Technische innovaties - Technische innovaties
+						@INN
 					</td>
 				</tr>
 			</table>
