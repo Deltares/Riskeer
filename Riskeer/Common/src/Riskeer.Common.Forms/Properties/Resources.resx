@@ -1733,10 +1733,10 @@ faalkans per vak
     <data name="FailureMechanismResultView_AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>
   </data>
-    <data name="FailurePath_Apply_LengthEffect_In_Section_DisplayName" xml:space="preserve">
+    <data name="FailurePath_ApplyLengthEffectInSection_DisplayName" xml:space="preserve">
     <value>Toepassen lengte-effect binnen vak</value>
   </data>
-    <data name="FailurePath_Apply_LengthEffect_In_Section_Description" xml:space="preserve">
+    <data name="FailurePath_ApplyLengthEffectInSection_Description" xml:space="preserve">
     <value>Geeft aan of het lengte-effect binnen een vak toegepast wordt.</value>
   </data>
 </root>

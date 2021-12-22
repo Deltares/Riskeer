@@ -2135,18 +2135,18 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Geeft aan of het lengte-effect binnen een vak toegepast wordt..
         /// </summary>
-        public static string FailurePath_Apply_LengthEffect_In_Section_Description {
+        public static string FailurePath_ApplyLengthEffectInSection_Description {
             get {
-                return ResourceManager.GetString("FailurePath_Apply_LengthEffect_In_Section_Description", resourceCulture);
+                return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Toepassen lengte-effect binnen vak.
         /// </summary>
-        public static string FailurePath_Apply_LengthEffect_In_Section_DisplayName {
+        public static string FailurePath_ApplyLengthEffectInSection_DisplayName {
             get {
-                return ResourceManager.GetString("FailurePath_Apply_LengthEffect_In_Section_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_DisplayName", resourceCulture);
             }
         }
         

@@ -94,8 +94,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         [DynamicVisible]
         [PropertyOrder(applyLengthEffectInSectionPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Apply_LengthEffect_In_Section_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_ApplyLengthEffectInSection_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_ApplyLengthEffectInSection_Description))]
         public bool ApplyLengthEffectInSection
         {
             get
