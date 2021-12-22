@@ -297,9 +297,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -309,15 +307,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            failureMechanism.GeneralInput.ApplyLengthEffectInSection = !applyLengthEffectInSection;
-
             var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
 
             // Call
-            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+            properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.AreEqual(applyLengthEffectInSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            Assert.IsTrue(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
         }

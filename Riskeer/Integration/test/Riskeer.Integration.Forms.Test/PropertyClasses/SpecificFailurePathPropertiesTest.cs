@@ -223,9 +223,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -233,19 +231,16 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
-            failurePath.Attach(observer);
+            var failureMechanism = new SpecificFailurePath();
+            failureMechanism.Attach(observer);
 
-            failurePath.Input.ApplyLengthEffectInSection = !applyLengthEffectInSection;
-
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailurePathProperties(failureMechanism);
 
             // Call
-            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+            properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.AreEqual(applyLengthEffectInSection, failurePath.Input.ApplyLengthEffectInSection);
-
+            Assert.IsTrue(failureMechanism.Input.ApplyLengthEffectInSection);
             mocks.VerifyAll();
         }
 

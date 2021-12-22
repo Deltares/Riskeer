@@ -305,9 +305,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -316,24 +314,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                GeneralWaveImpactAsphaltCoverInput =
-                {
-                    ApplyLengthEffectInSection = !applyLengthEffectInSection
-                }
-            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             failureMechanism.Attach(observer);
 
             var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
 
             // Call
-            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+            properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.AreEqual(applyLengthEffectInSection,
-                            failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection);
+            Assert.IsTrue(failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
         }

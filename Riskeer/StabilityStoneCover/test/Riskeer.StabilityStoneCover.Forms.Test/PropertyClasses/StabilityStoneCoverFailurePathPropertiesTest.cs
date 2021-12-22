@@ -235,11 +235,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -247,23 +245,17 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                GeneralInput =
-                {
-                    ApplyLengthEffectInSection = !applyLengthEffectInSection
-                }
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             failureMechanism.Attach(observer);
 
             var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
 
             // Call
-            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+            properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.AreEqual(applyLengthEffectInSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            Assert.IsTrue(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
             mocks.VerifyAll();
         }
 

@@ -324,9 +324,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -335,24 +333,17 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
-            {
-                MacroStabilityOutwardsProbabilityAssessmentInput =
-                {
-                    ApplyLengthEffectInSection = !applyLengthEffectInSection
-                }
-            };
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
 
             failureMechanism.Attach(observer);
 
             var properties = new MacroStabilityOutwardsFailurePathProperties(failureMechanism, assessmentSection);
 
             // Call
-            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+            properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.AreEqual(applyLengthEffectInSection,
-                            failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.ApplyLengthEffectInSection);
+            Assert.IsTrue(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.ApplyLengthEffectInSection);
             mocks.VerifyAll();
         }
 

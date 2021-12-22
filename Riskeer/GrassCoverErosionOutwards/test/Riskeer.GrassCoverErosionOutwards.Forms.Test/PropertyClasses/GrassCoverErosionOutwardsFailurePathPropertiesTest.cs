@@ -242,9 +242,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers(bool applyLengthEffectInSection)
+        public void ApplyLengthEffectInSection_SetNewValue_NotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
@@ -252,23 +250,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                GeneralInput =
-                {
-                    ApplyLengthEffectInSection = !applyLengthEffectInSection
-                }
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             failureMechanism.Attach(observer);
 
             var properties = new GrassCoverErosionOutwardsFailurePathProperties(failureMechanism);
 
             // Call
-            properties.ApplyLengthEffectInSection = applyLengthEffectInSection;
+            properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.AreEqual(applyLengthEffectInSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            Assert.IsTrue(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
             mocks.VerifyAll();
         }
 
