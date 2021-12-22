@@ -32,7 +32,7 @@ namespace Riskeer.Storage.Core.DbContext
         double N { get; set; }
 
         /// <summary>
-        /// Gets or sets the whether the length effect should be applies in the section.
+        /// Gets or sets the whether the length effect should be applied in the section.
         /// </summary>
         byte ApplyLengthEffectInSection { get; set; }
     }

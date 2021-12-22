@@ -101,7 +101,8 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
                 },
                 MacroStabilityOutwardsProbabilityAssessmentInput =
                 {
-                    A = random.NextDouble()
+                    A = random.NextDouble(),
+                    ApplyLengthEffectInSection = random.NextBoolean()
                 }
             };
             var registry = new PersistenceRegistry();
@@ -119,6 +120,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityOutwards
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
             MacroStabilityOutwardsFailureMechanismMetaEntity failureMechanismMetaEntity = entity.MacroStabilityOutwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, failureMechanismMetaEntity.A);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.ApplyLengthEffectInSection), failureMechanismMetaEntity.ApplyLengthEffectInSection);
         }
 
         [Test]

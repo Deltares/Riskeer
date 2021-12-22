@@ -64,10 +64,12 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
         public void Read_ValidEntity_ReturnGeneralGrassCoverErosionOutwardsInput()
         {
             // Setup
+            var random = new Random();
             var inputToUpdate = new GeneralGrassCoverErosionOutwardsInput();
             var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
-                N = new Random(21).NextRoundedDouble(1.0, 20.0)
+                N = random.NextRoundedDouble(1.0, 20.0),
+                ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean())
             };
 
             // Call
