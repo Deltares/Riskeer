@@ -433,7 +433,7 @@
 					</param>
 					<param
 					name="pathToCalculationsSTPH"
-					value="Traject 12-2>Dijken en dammen - Piping>Berekeningen">
+					value="Traject 12-2>@STPH>Berekeningen">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1001,12 +1001,6 @@
 					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
 					variableid="75a65d50-6a8f-4582-9f63-7c20d0f1ae9f"
 					variablename="scriptOutputPath">
-					</var>
-					<var
-					dataname="projectFileNameA"
-					datasourceid="9695f33e-c6ae-483e-abae-dde78573e36b"
-					variableid="d40271fe-a08b-44b0-bb48-a991f40e104b"
-					variablename="fileName">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2404,20 +2398,12 @@
 					value="">
 					</param>
 					<param
-					name="projectFileNameA"
-					value="script20a.risk">
+					name="projectToOpenFileName"
+					value="script19a_STPH.risk">
 					</param>
 					<param
 					name="projectFileNameB"
-					value="script20b.risk">
-					</param>
-					<param
-					name="projectFileNameCD"
-					value="script20cd.risk">
-					</param>
-					<param
-					name="projectToOpenFileName"
-					value="script19a.risk">
+					value="script20b_STPH.risk">
 					</param>
 					<param
 					name="extensionRiskeerProjects"
