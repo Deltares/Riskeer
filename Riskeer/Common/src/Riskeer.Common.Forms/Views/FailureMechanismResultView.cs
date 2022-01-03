@@ -258,7 +258,7 @@ namespace Riskeer.Common.Forms.Views
                                 .ToList();
             DataGridViewControl.SetDataSource(sectionResultRows);
 
-            sectionResultRows?.ForEachElementDo(row =>
+            sectionResultRows.ForEachElementDo(row =>
             {
                 row.RowUpdated += RowUpdated;
                 row.RowUpdateDone += RowUpdateDone;

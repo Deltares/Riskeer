@@ -99,7 +99,8 @@ namespace Riskeer.Common.Data.Test.Helpers
             });
 
             // Assert
-            Assert.AreEqual((RoundedDouble) 0.5549, totalContribution);
+            RoundedDouble expectedTotalContribution = calculationScenario1.Contribution + calculationScenario2.Contribution;
+            Assert.AreEqual(expectedTotalContribution, totalContribution);
         }
     }
 }

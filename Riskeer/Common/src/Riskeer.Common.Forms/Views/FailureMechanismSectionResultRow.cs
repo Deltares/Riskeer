@@ -72,8 +72,8 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Updates all data and states for the row.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
+        /// is valid, but unsupported.</exception>
         public abstract void Update();
 
         /// <summary>
