@@ -69,14 +69,9 @@ namespace Riskeer.Piping.Data
                                                                                           (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                                       .ToArray();
 
-            if (relevantScenarios.Length == 0
-                || !relevantScenarios.All(s => s.HasOutput)
-                || Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
-            {
-                return double.NaN;
-            }
-
-            return relevantScenarios.Sum(scenario => StatisticsConverter.ReliabilityToProbability(getOutputFunc(scenario).Reliability) * (double) scenario.Contribution);
+            return ScenariosAreValid(relevantScenarios)
+                       ? relevantScenarios.Sum(scenario => StatisticsConverter.ReliabilityToProbability(getOutputFunc(scenario).Reliability) * (double) scenario.Contribution)
+                       : double.NaN;
         }
 
         /// <summary>
@@ -108,9 +103,7 @@ namespace Riskeer.Piping.Data
                                                                                               (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                                           .ToArray();
 
-            if (relevantScenarios.Length == 0
-                || !relevantScenarios.All(s => s.HasOutput)
-                || Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
+            if (!ScenariosAreValid(relevantScenarios))
             {
                 return double.NaN;
             }
@@ -124,6 +117,14 @@ namespace Riskeer.Piping.Data
             }
 
             return totalInitialFailureMechanismResult;
+        }
+
+        private static bool ScenariosAreValid<T>(T[] relevantScenarios)
+            where T : IPipingCalculationScenario<PipingInput>
+        {
+            return relevantScenarios.Any()
+                   && relevantScenarios.All(s => s.HasOutput)
+                   && !(Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6);
         }
     }
 }
