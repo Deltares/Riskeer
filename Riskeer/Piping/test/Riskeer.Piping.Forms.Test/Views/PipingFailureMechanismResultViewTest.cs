@@ -165,9 +165,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[sectionNIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
-
-                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
-                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
         }
 

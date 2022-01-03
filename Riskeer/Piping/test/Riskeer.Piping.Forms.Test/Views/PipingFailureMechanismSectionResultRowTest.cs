@@ -357,6 +357,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
+            errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
+                         .IgnoreArguments()
+                         .Return("error message");
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

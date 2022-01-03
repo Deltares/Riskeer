@@ -162,6 +162,9 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 Assert.AreEqual("Test", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("TestString", dataGridView.Columns[stringColumnIndex].HeaderText);
+                
+                Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
+                Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
         }
 
