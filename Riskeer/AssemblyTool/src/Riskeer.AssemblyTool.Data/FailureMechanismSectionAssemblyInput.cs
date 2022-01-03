@@ -11,14 +11,14 @@
         /// <param name="lowerLimitNorm">The lower limit norm.</param>
         /// <param name="signalingNorm">The signaling norm.</param>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
+        /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
         /// <param name="initialProfileProbability">The initial probability for the profile.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
-        public FailureMechanismSectionAssemblyInput(double lowerLimitNorm,
-                                                    double signalingNorm,
-                                                    bool isRelevant,
+        public FailureMechanismSectionAssemblyInput(double lowerLimitNorm, double signalingNorm,
+                                                    bool isRelevant, bool hasProbabilitySpecified,
                                                     double initialProfileProbability, double initialSectionProbability,
                                                     bool furtherAnalysisNeeded,
                                                     double refinedProfileProbability, double refinedSectionProbability)
@@ -27,6 +27,7 @@
             SignalingNorm = signalingNorm;
 
             IsRelevant = isRelevant;
+            HasProbabilitySpecified = hasProbabilitySpecified;
             InitialProfileProbability = initialProfileProbability;
             InitialSectionProbability = initialSectionProbability;
             FurtherAnalysisNeeded = furtherAnalysisNeeded;
@@ -48,6 +49,11 @@
         /// Gets the indicator whether the section is relevant.
         /// </summary>
         public bool IsRelevant { get; }
+
+        /// <summary>
+        /// Gets the indicator whether the section has a probability specified.
+        /// </summary>
+        public bool HasProbabilitySpecified { get; }
 
         /// <summary>
         /// Gets the probability for the profile.

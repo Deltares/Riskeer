@@ -15,6 +15,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             double lowerLimitNorm = random.NextDouble();
             double signalingNorm = random.NextDouble();
             bool isRelevant = random.NextBoolean();
+            bool hasProbabilitySpecified = random.NextBoolean();
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
             bool furtherAnalysisNeeded = random.NextBoolean();
@@ -22,17 +23,18 @@ namespace Riskeer.AssemblyTool.Data.Test
             double refinedSectionProbability = random.NextDouble();
 
             // Call
-            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm,
-                                                                 signalingNorm,
-                                                                 isRelevant, profileProbability,
-                                                                 sectionProbability,
-                                                                 furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
+                                                                 isRelevant, hasProbabilitySpecified,
+                                                                 profileProbability, sectionProbability,
+                                                                 furtherAnalysisNeeded,
+                                                                 refinedProfileProbability, refinedSectionProbability);
 
             // Assert
             Assert.AreEqual(signalingNorm, input.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, input.LowerLimitNorm);
             
             Assert.AreEqual(isRelevant, input.IsRelevant);
+            Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);
             Assert.AreEqual(profileProbability, input.InitialProfileProbability);
             Assert.AreEqual(sectionProbability, input.InitialSectionProbability);
             Assert.AreEqual(furtherAnalysisNeeded, input.FurtherAnalysisNeeded);
