@@ -50,10 +50,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void SetAssemblyGroupStyle_InvalidFailureMechanismSectionAssemblyGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var columnStateDefinition = new DataGridViewColumnStateDefinition
-            {
-                Style = new CellStyle(Color.FromKnownColor(KnownColor.Transparent), Color.FromKnownColor(KnownColor.Transparent))
-            };
+            var columnStateDefinition = new DataGridViewColumnStateDefinition();
             const FailureMechanismSectionAssemblyGroup assemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
 
             // Call

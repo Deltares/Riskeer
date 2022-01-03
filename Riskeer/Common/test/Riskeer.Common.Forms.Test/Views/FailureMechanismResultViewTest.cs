@@ -499,14 +499,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 var rowUpdateDone = false;
                 row.RowUpdateDone += (sender, args) => rowUpdateDone = true;
 
-                // Precondition
-                row.UpdateInternal();
-                Assert.IsTrue(rowUpdated);
-                Assert.IsTrue(rowUpdateDone);
-
                 // When
-                rowUpdated = false;
-                rowUpdateDone = false;
                 sectionResults.Remove(sectionResult);
                 sectionResults.NotifyObservers();
 
@@ -603,11 +596,6 @@ namespace Riskeer.Common.Forms.Test.Views
             }
 
             public bool Updated { get; private set; }
-
-            public void UpdateInternal()
-            {
-                UpdateInternalData();
-            }
 
             public override void Update()
             {
