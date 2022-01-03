@@ -322,7 +322,7 @@ namespace Riskeer.Piping.Forms.Views
             try
             {
                 AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    assessmentSection, IsRelevant, InitialFailureMechanismResultProfileProbability,
+                    assessmentSection, IsRelevant, InitialFailureMechanismResult, InitialFailureMechanismResultProfileProbability,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
             }
             catch (AssemblyException e)
