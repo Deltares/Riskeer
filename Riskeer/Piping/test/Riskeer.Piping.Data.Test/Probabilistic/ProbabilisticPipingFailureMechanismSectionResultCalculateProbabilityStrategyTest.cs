@@ -217,15 +217,15 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         [Test]
         [TestCase(0.0, 0.0)]
         [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-5)]
+        [TestCase(0.3, 0.7 + 1e-4)]
         public void CalculateProfileProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contribution1, double contribution2)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
+            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
+            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
             calculationScenario1.Contribution = (RoundedDouble) contribution1;
             calculationScenario2.Contribution = (RoundedDouble) contribution2;
 
@@ -389,15 +389,15 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         [Test]
         [TestCase(0.0, 0.0)]
         [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-5)]
+        [TestCase(0.3, 0.7 + 1e-4)]
         public void CalculateSectionProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contribution1, double contribution2)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
-            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
+            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
+            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
             calculationScenario1.Contribution = (RoundedDouble) contribution1;
             calculationScenario2.Contribution = (RoundedDouble) contribution2;
 
