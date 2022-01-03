@@ -39,9 +39,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Gets an indicator whether the section was relevant or not.
+        /// Gets the <see cref="ESectionInitialMechanismProbabilitySpecification"/>.
         /// </summary>
-        public bool IsRelevant { get; private set; }
+        public ESectionInitialMechanismProbabilitySpecification InitialMechanismProbabilitySpecification { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the profile for the failure path section.
@@ -88,7 +88,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public FailurePathSectionAssemblyResult FailurePathSectionAssemblyResult { private get; set; }
 
-        public FailurePathSectionAssemblyResult TranslateAssessmentResultWbi0A2(bool isRelevant,
+        public FailurePathSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
                                                                                 Probability probabilityInitialMechanismProfile,
                                                                                 Probability probabilityInitialMechanismSection,
                                                                                 bool needsRefinement,
@@ -99,7 +99,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             ThrowException();
             Calculated = true;
 
-            IsRelevant = isRelevant;
+            InitialMechanismProbabilitySpecification = isRelevant;
             ProbabilityInitialMechanismProfile = probabilityInitialMechanismProfile;
             ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
 
