@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -27,6 +28,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {
@@ -40,15 +42,17 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
+        /// <param name="initialFailureMechanismResultType">The <see cref="InitialFailureMechanismResultType"/> of the section.</param>
         /// <param name="initialProfileProbability">The initial probability for the profile.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="initialFailureMechanismResultType"/> is invalid.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
         public static FailureMechanismSectionAssemblyResult AssembleSection(IAssessmentSection assessmentSection,
-                                                                            bool isRelevant,
+                                                                            bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType,
                                                                             double initialProfileProbability, double initialSectionProbability,
                                                                             bool furtherAnalysisNeeded,
                                                                             double refinedProfileProbability, double refinedSectionProbability)
@@ -58,16 +62,21 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (!Enum.IsDefined(typeof(InitialFailureMechanismResultType), initialFailureMechanismResultType))
+            {
+                throw new InvalidEnumArgumentException(nameof(initialFailureMechanismResultType),
+                                                       (int) initialFailureMechanismResultType,
+                                                       typeof(InitialFailureMechanismResultType));
+            }
+
             IFailureMechanismSectionAssemblyCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismSectionAssemblyCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
-                FailureMechanismSectionAssemblyInput input = CreateInput(assessmentSection,
-                                                                         isRelevant,
-                                                                         initialProfileProbability, initialSectionProbability,
-                                                                         furtherAnalysisNeeded,
-                                                                         refinedProfileProbability, refinedSectionProbability);
+                FailureMechanismSectionAssemblyInput input = CreateInput(
+                    assessmentSection, isRelevant, initialFailureMechanismResultType != InitialFailureMechanismResultType.NoFailureProbability,
+                    initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
 
                 return calculator.AssembleFailureMechanismSection(input);
             }
@@ -78,17 +87,17 @@ namespace Riskeer.Common.Data.AssemblyTool
         }
 
         private static FailureMechanismSectionAssemblyInput CreateInput(IAssessmentSection assessmentSection,
-                                                                        bool isRelevant,
+                                                                        bool isRelevant, bool hasProbabilitySpecified,
                                                                         double initialProfileProbability, double initialSectionProbability,
                                                                         bool furtherAnalysisNeeded,
                                                                         double refinedProfileProbability, double refinedSectionProbability)
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            return new FailureMechanismSectionAssemblyInput(failureMechanismContribution.LowerLimitNorm,
-                                                            failureMechanismContribution.SignalingNorm,
-                                                            isRelevant, initialProfileProbability,
-                                                            initialSectionProbability,
-                                                            furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+            return new FailureMechanismSectionAssemblyInput(failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
+                                                            isRelevant, hasProbabilitySpecified,
+                                                            initialProfileProbability, initialSectionProbability,
+                                                            furtherAnalysisNeeded,
+                                                            refinedProfileProbability, refinedSectionProbability);
         }
     }
 }
