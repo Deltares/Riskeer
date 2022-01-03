@@ -89,18 +89,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismSection_WithValidInput_InputCorrectlySendToKernel()
+        [TestCase(false, true, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
+        [TestCase(false, false, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
+        [TestCase(true, true, ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification)]
+        [TestCase(true, false, ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification)]
+        public void AssembleFailureMechanismSection_WithValidInput_InputCorrectlySendToKernel(
+            bool isRelevant, bool hasProbabilitySpecified,
+            ESectionInitialMechanismProbabilitySpecification expectedInitialMechanismProbabilitySpecification)
         {
             // Setup
             const double signalingNorm = 0.0001;
             const double lowerLimitNorm = 0.001;
 
             var random = new Random(21);
-            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm,
-                                                                 signalingNorm,
-                                                                 random.NextBoolean(), random.NextDouble(),
-                                                                 random.NextDouble(),
-                                                                 random.NextBoolean(), random.NextDouble(), random.NextDouble());
+            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
+                                                                 isRelevant, hasProbabilitySpecified, 
+                                                                 random.NextDouble(), random.NextDouble(),
+                                                                 random.NextBoolean(),
+                                                                 random.NextDouble(), random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -109,9 +115,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = new FailurePathSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                                                                              new Probability(random.NextDouble()),
-                                                                                                                              random.NextEnumValue<EInterpretationCategory>());
+                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = new FailurePathSectionAssemblyResult(
+                    new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), random.NextEnumValue<EInterpretationCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -124,7 +129,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignallingLimit);
 
                 Assert.AreSame(categoryLimits, failureMechanismSectionAssemblyKernel.Categories);
-                Assert.AreEqual(input.IsRelevant, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
+                Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
                 Assert.AreEqual(input.InitialProfileProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismProfile);
                 Assert.AreEqual(input.InitialSectionProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismSection);
                 Assert.AreEqual(input.FurtherAnalysisNeeded, failureMechanismSectionAssemblyKernel.NeedsRefinement);
@@ -263,10 +268,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             const double signalingNorm = 0.0001;
 
             var random = new Random(21);
-            return new FailureMechanismSectionAssemblyInput(lowerLimitNorm,
-                                                            signalingNorm,
-                                                            random.NextBoolean(), random.NextDouble(),
-                                                            random.NextDouble(),
+            return new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
+                                                            random.NextBoolean(), random.NextBoolean(),
+                                                            random.NextDouble(), random.NextDouble(),
                                                             random.NextBoolean(), random.NextDouble(), random.NextDouble());
         }
 

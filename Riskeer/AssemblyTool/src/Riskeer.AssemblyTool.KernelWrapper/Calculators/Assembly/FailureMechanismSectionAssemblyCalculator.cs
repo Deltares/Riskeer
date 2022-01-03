@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
-                FailurePathSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(input.IsRelevant,
+                FailurePathSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(GetInitialMechanismProbabilitySpecification(input),
                                                                                                  CreateProbability(input.InitialProfileProbability),
                                                                                                  CreateProbability(input.InitialSectionProbability),
                                                                                                  input.FurtherAnalysisNeeded,
@@ -87,6 +87,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
+        }
+
+        private static ESectionInitialMechanismProbabilitySpecification GetInitialMechanismProbabilitySpecification(FailureMechanismSectionAssemblyInput input)
+        {
+            return !input.IsRelevant
+                       ? ESectionInitialMechanismProbabilitySpecification.NotRelevant
+                       : input.HasProbabilitySpecified
+                           ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification
+                           : ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification;
         }
 
         private static Probability CreateProbability(double value)
