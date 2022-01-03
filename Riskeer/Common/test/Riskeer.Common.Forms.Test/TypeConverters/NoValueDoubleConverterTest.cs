@@ -161,6 +161,24 @@ namespace Riskeer.Common.Forms.Test.TypeConverters
         }
 
         [Test]
+        public void ConvertFrom_Object_ThrowNotSupportedException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<ITypeDescriptorContext>();
+            mocks.ReplayAll();
+
+            var converter = new NoValueDoubleConverter();
+
+            // Call
+            void Call() => converter.ConvertFrom(context, CultureInfo.CurrentCulture, new object());
+
+            // Assert
+            Assert.Throws<NotSupportedException>(Call);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CanConvertTo_ToString_ReturnTrue()
         {
             // Setup
