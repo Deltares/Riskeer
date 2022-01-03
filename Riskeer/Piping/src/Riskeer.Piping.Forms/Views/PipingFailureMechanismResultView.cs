@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Views
         private const int sectionNIndex = 11;
         private const int assemblyGroupIndex = 12;
 
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerSectionObserver;
         private readonly IAssessmentSection assessmentSection;
@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Forms.Views
             this.assessmentSection = assessmentSection;
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateInternalViewData,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<IPipingCalculationScenario<PipingInput>>()
@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            calculationInputObserver.Dispose();
+            calculationInputsObserver.Dispose();
             calculationGroupObserver.Dispose();
             scenarioConfigurationsPerSectionObserver.Dispose();
 
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Forms.Views
         protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
         {
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = GetScenarioConfigurationForSection(sectionResult);
-            
+
             return new PipingFailureMechanismSectionResultRow(
                 sectionResult, CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection),
                 CreateErrorProvider(sectionResult, scenarioConfigurationForSection),
@@ -178,38 +178,30 @@ namespace Riskeer.Piping.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
-            
+
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.ProfileProbability));
-            
+
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.SectionProbability));
-            
+
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.SectionN));
-            
+
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.AssemblyGroup));
         }
-        
+
         private IInitialFailureMechanismResultErrorProvider CreateErrorProvider(FailureMechanismSectionResult sectionResult,
                                                                                 PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
         {
-            IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios;
-            if (FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                || FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
-                && scenarioConfigurationForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
-            {
-                calculationScenarios = FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>();
-            }
-            else
-            {
-                calculationScenarios = FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
-            }
+            IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios = ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
+                                                                                            ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                            : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
 
             return new InitialFailureMechanismResultErrorProvider<IPipingCalculationScenario<PipingInput>>(
                 sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
@@ -218,14 +210,9 @@ namespace Riskeer.Piping.Forms.Views
         private IPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(PipingFailureMechanismSectionResult sectionResult,
                                                                                                          PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
         {
-            if (FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
-                || FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
-                && scenarioConfigurationForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic)
-            {
-                return CreateSemiProbabilisticCalculateStrategy(sectionResult);
-            }
-
-            return CreateProbabilisticCalculateStrategy(sectionResult);
+            return ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
+                       ? (IPipingFailureMechanismSectionResultCalculateProbabilityStrategy) CreateSemiProbabilisticCalculateStrategy(sectionResult)
+                       : CreateProbabilisticCalculateStrategy(sectionResult);
         }
 
         private ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateProbabilisticCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)
@@ -246,6 +233,13 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.ScenarioConfigurationsPerFailureMechanismSection
                                    .Single(sc => sc.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
                                                  && sc.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
+        }
+
+        private bool ScenarioConfigurationTypeIsSemiProbabilistic(PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
+        {
+            return FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
+                   || FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
+                   && scenarioConfigurationForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
         }
     }
 }
