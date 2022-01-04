@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         {
             get
             {
-                return true;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

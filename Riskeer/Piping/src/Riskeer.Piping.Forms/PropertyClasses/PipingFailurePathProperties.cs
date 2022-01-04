@@ -196,7 +196,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return true;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

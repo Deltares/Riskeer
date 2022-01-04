@@ -72,6 +72,11 @@ namespace Riskeer.Piping.Data
 
         #endregion
 
+        /// <summary>
+        /// Gets whether the length effect should be applied in the section.
+        /// </summary>
+        public bool ApplyLengthEffectInSection => true;
+
         #region General parameters (used by multiple calculations)
 
         private static readonly Range<RoundedDouble> waterVolumetricWeightValidityRange = new Range<RoundedDouble>(new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces),
