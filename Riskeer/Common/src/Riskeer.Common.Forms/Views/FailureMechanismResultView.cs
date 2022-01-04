@@ -190,10 +190,7 @@ namespace Riskeer.Common.Forms.Views
             UpdateAssemblyData();
         }
 
-        /// <summary>
-        /// Refreshes the data grid in the view.
-        /// </summary>
-        protected virtual void RefreshDataGrid()
+        private void RefreshDataGrid()
         {
             DataGridViewControl.RefreshDataGridView(false);
         }
@@ -327,7 +324,7 @@ namespace Riskeer.Common.Forms.Views
             FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
             assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
             assemblyResult.NotifyObservers();
-            
+
             UpdateAssemblyData();
             UpdateFailurePathAssemblyControls();
         }
