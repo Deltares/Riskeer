@@ -49,6 +49,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
+        private const int expectedNumberOfRemovedInstances = 201;
+
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -204,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(61, observables.Length);
+            Assert.AreEqual(62, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -306,6 +308,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
@@ -390,8 +393,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void DoPostUpdateActions_AfterUpdatingReferenceLine_CloseViewsForRemovedData()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 199;
-
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))
@@ -414,8 +415,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         public void DoPostUpdateActions_CalledSecondTimeAfterUpdateAndUpdateCycle_DoNothing()
         {
             // Setup
-            const int expectedNumberOfRemovedInstances = 199;
-
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
             viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<object>.Is.NotNull))

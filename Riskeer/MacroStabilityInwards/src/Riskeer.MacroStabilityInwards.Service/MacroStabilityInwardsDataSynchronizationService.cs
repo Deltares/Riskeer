@@ -104,6 +104,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             var changedObjects = new Collection<IObservable>();
             object[] removedObjects = failureMechanism.Sections.OfType<object>()
                                                       .Concat(failureMechanism.SectionResultsOld)
+                                                      .Concat(failureMechanism.SectionResults)
                                                       .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                       .Concat(failureMechanism.StochasticSoilModels)
                                                       .Concat(failureMechanism.SurfaceLines)
@@ -112,6 +113,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResultsOld);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.CalculationsGroup.Children.Clear();
             changedObjects.Add(failureMechanism.CalculationsGroup);

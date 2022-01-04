@@ -156,6 +156,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
                                                               .Concat(failureMechanism.SectionResultsOld)
+                                                              .Concat(failureMechanism.SectionResults)
                                                               .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.StochasticSoilModels)
                                                               .Concat(failureMechanism.SurfaceLines)
@@ -169,14 +170,16 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(5, array.Length);
+            Assert.AreEqual(6, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(array, failureMechanism.SurfaceLines);
