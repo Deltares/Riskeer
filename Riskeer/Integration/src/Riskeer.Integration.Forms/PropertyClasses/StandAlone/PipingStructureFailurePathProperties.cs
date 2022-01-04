@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return false;
+                return data.ApplyLengthEffectInSection;
             }
         }
 

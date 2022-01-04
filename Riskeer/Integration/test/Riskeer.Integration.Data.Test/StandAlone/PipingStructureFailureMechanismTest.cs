@@ -49,6 +49,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             Assert.AreEqual(4, failureMechanism.Group);
             Assert.AreEqual(2, failureMechanism.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, failureMechanism.N, failureMechanism.N.GetAccuracy());
+            Assert.IsFalse(failureMechanism.ApplyLengthEffectInSection);
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }

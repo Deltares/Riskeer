@@ -89,13 +89,7 @@ namespace Riskeer.HeightStructures.Data
         /// <summary>
         /// Gets whether the length effect should be applied in the section.
         /// </summary>
-        public bool ApplyLengthEffectInSection
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool ApplyLengthEffectInSection => false;
 
         /// <summary>
         /// Gets the gravitational acceleration.

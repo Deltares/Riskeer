@@ -79,6 +79,11 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
+        /// <summary>
+        /// Gets whether the length effect should be applied in the section.
+        /// </summary>
+        public bool ApplyLengthEffectInSection => false;
+
         public override IEnumerable<ICalculation> Calculations
         {
             get
