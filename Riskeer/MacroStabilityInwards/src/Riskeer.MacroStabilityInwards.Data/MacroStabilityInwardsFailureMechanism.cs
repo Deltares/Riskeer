@@ -34,12 +34,13 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism,
-                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld>
+                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld, MacroStabilityInwardsFailureMechanismSectionResult>
     {
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
         public MacroStabilityInwardsFailureMechanism()
             : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code, 2)
@@ -53,7 +54,8 @@ namespace Riskeer.MacroStabilityInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -79,31 +81,21 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations();
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld, MacroStabilityInwardsFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Macrostabiliteit binnenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBI", failureMechanism.Code);
             Assert.AreEqual(2, failureMechanism.Group);
@@ -53,6 +53,9 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
             Assert.IsNotNull(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
+            
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]
