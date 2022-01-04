@@ -47,7 +47,10 @@ namespace Riskeer.Integration.Data.StandAlone
                    4)
         {
             sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
-            GeneralInput = new GeneralInput();
+            GeneralInput = new GeneralInput
+            {
+                ApplyLengthEffectInSection = false
+            };
         }
 
         public GeneralInput GeneralInput { get; }
