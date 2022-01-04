@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
     /// from an old <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResultOld>
+        : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResultOld, MacroStabilityInwardsFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(MacroStabilityInwardsFailureMechanismSectionResultOld origin, MacroStabilityInwardsFailureMechanismSectionResultOld target)
         {
@@ -50,6 +50,28 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
             target.TailorMadeAssessmentProbability = origin.TailorMadeAssessmentProbability;
             target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
+        }
+
+        public void UpdateSectionResult(MacroStabilityInwardsFailureMechanismSectionResult origin, MacroStabilityInwardsFailureMechanismSectionResult target)
+        {
+            if (origin == null)
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            target.IsRelevant = origin.IsRelevant;
+            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
+            target.ManualInitialFailureMechanismResultProfileProbability = origin.ManualInitialFailureMechanismResultProfileProbability;
+            target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
+            target.ProbabilityRefinementType = origin.ProbabilityRefinementType;
+            target.RefinedSectionProbability = origin.RefinedSectionProbability;
+            target.RefinedProfileProbability = origin.RefinedProfileProbability;
         }
     }
 }
