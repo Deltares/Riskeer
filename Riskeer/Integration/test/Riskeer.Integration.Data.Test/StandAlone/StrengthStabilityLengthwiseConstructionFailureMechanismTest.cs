@@ -46,9 +46,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             Assert.AreEqual("STKWl", failureMechanism.Code);
             Assert.AreEqual(4, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            GeneralInput generalInput = failureMechanism.GeneralInput;
-            Assert.IsNotNull(generalInput);
-            Assert.IsFalse(generalInput.ApplyLengthEffectInSection);
+            Assert.IsFalse(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
 
         [Test]
