@@ -19,10 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
@@ -35,15 +33,11 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Piping Structure failure mechanism.
     /// </summary>
-    public class PipingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<PipingStructureFailureMechanismSectionResultOld>
+    public class PipingStructureFailureMechanism : FailureMechanismBase,
+                                                   IHasSectionResults<PipingStructureFailureMechanismSectionResultOld>,
+                                                   IHasGeneralInput
     {
-        private const int numberOfDecimalPlacesN = 2;
-
-        private static readonly Range<RoundedDouble> validityRangeN = new Range<RoundedDouble>(new RoundedDouble(numberOfDecimalPlacesN, 1),
-                                                                                               new RoundedDouble(numberOfDecimalPlacesN, 20));
-
         private readonly ObservableList<PipingStructureFailureMechanismSectionResultOld> sectionResults;
-        private RoundedDouble n;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
@@ -52,37 +46,13 @@ namespace Riskeer.Integration.Data.StandAlone
             : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<PipingStructureFailureMechanismSectionResultOld>();
-            n = new RoundedDouble(numberOfDecimalPlacesN, 1.0);
+            GeneralInput = new GeneralInput
+            {
+                ApplyLengthEffectInSection = false
+            };
         }
 
-        /// <summary>
-        /// Gets the 'N' parameter used to factor in the 'length effect'.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of <see cref="N"/>
-        /// is not in the range [1, 20].</exception>
-        public RoundedDouble N
-        {
-            get
-            {
-                return n;
-            }
-            set
-            {
-                RoundedDouble newValue = value.ToPrecision(n.NumberOfDecimalPlaces);
-                if (!validityRangeN.InRange(newValue))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), string.Format(RiskeerCommonDataResources.N_Value_should_be_in_Range_0_,
-                                                                                       validityRangeN));
-                }
-
-                n = newValue;
-            }
-        }
-
-        /// <summary>
-        /// Gets whether the length effect should be applied in the section.
-        /// </summary>
-        public bool ApplyLengthEffectInSection => false;
+        public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
         {

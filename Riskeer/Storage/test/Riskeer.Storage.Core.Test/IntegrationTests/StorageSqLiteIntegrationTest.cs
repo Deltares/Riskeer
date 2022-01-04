@@ -2050,7 +2050,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertPipingStructureFailureMechanism(PipingStructureFailureMechanism expectedFailureMechanism,
                                                                   PipingStructureFailureMechanism actualFailureMechanism)
         {
-            Assert.AreEqual(expectedFailureMechanism.N, actualFailureMechanism.N);
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
         }
 
         private static void AssertFailureMechanismSectionResults(

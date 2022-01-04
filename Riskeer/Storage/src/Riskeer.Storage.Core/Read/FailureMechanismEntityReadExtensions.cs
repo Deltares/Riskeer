@@ -890,7 +890,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadPipingStructureMechanismSectionResults(failureMechanism, collector);
 
-            failureMechanism.N = (RoundedDouble) entity.PipingStructureFailureMechanismMetaEntities.Single().N;
+            failureMechanism.GeneralInput.N = (RoundedDouble) entity.PipingStructureFailureMechanismMetaEntities.Single().N;
         }
 
         private static void ReadPipingStructureMechanismSectionResults(this FailureMechanismEntity entity,

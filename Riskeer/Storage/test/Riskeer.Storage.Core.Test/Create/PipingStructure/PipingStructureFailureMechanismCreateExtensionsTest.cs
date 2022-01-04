@@ -73,7 +73,10 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
                 {
                     Body = "Some calculation text"
                 },
-                N = new Random().NextRoundedDouble(1, 20)
+                GeneralInput =
+                {
+                    N = new Random().NextRoundedDouble(1, 20)
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -88,7 +91,7 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
-            Assert.AreEqual(failureMechanism.N, entity.PipingStructureFailureMechanismMetaEntities.Single().N);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.PipingStructureFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

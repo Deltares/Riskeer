@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
         {
             var metaEntity = new PipingStructureFailureMechanismMetaEntity
             {
-                N = failureMechanism.N
+                N = failureMechanism.GeneralInput.N
             };
 
             entity.PipingStructureFailureMechanismMetaEntities.Add(metaEntity);

@@ -77,10 +77,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.N,
+            Assert.AreEqual(failureMechanism.GeneralInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-            Assert.IsFalse(properties.ApplyLengthEffectInSection);
+            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             properties.N = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(value, failureMechanism.N, failureMechanism.N.GetAccuracy());
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             mocks.VerifyAll();
         }
 

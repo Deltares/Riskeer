@@ -602,7 +602,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void ConfigurePipingStructureFailureMechanism(PipingStructureFailureMechanism pipingStructureFailureMechanism)
         {
-            pipingStructureFailureMechanism.N = (RoundedDouble) 12.5;
+            pipingStructureFailureMechanism.GeneralInput.N = (RoundedDouble) 12.5;
         }
 
         #endregion

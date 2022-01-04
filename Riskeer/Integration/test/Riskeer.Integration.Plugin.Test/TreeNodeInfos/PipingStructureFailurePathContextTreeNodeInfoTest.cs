@@ -179,7 +179,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                Assert.AreEqual(failureMechanism.N, calculator.AssemblyCategoriesInput.N);
+                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
             }
 
             var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>)

@@ -2528,7 +2528,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(nodeData,
                                                               assessmentSection,
-                                                              () => nodeData.N),
+                                                              () => nodeData.GeneralInput.N),
                 new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(
                     nodeData.SectionResultsOld, nodeData, assessmentSection),
                 nodeData.InAssemblyOutputComments

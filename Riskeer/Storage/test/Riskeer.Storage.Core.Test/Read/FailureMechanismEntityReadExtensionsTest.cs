@@ -3218,7 +3218,7 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             PipingStructureFailureMechanismMetaEntity metaEntity = entity.PipingStructureFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.N, failureMechanism.N.GetAccuracy());
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
         [Test]

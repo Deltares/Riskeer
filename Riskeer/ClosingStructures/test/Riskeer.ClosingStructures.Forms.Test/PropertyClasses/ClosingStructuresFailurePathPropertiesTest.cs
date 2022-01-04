@@ -72,7 +72,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N2A, properties.N2A);
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(generalInput.N, properties.N, properties.N.GetAccuracy());
-            Assert.IsFalse(properties.ApplyLengthEffectInSection);
+            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]

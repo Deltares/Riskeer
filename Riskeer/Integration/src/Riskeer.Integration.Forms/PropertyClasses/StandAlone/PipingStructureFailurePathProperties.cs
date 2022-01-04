@@ -81,11 +81,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return data.N;
+                return data.GeneralInput.N;
             }
             set
             {
-                data.N = value;
+                data.GeneralInput.N = value;
                 data.NotifyObservers();
             }
         }
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         {
             get
             {
-                return data.ApplyLengthEffectInSection;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

@@ -956,7 +956,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(notInAssemblyComments, section.PipingStructure.NotInAssemblyComments.Body);
             Assert.IsNull(section.PipingStructure.FailureMechanismSectionSourcePath);
 
-            RoundedDouble actualN = section.PipingStructure.N;
+            RoundedDouble actualN = section.PipingStructure.GeneralInput.N;
             Assert.AreEqual(parameterN, actualN, actualN.GetAccuracy());
         }
 

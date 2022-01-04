@@ -69,7 +69,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-            Assert.IsFalse(properties.ApplyLengthEffectInSection);
+            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]
