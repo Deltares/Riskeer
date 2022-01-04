@@ -94,7 +94,7 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return false;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

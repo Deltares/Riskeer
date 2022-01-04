@@ -53,6 +53,8 @@ namespace Riskeer.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(2, generalHeightStructuresInput.N.NumberOfDecimalPlaces);
             Assert.AreEqual(2.0, generalHeightStructuresInput.N, generalHeightStructuresInput.N.GetAccuracy());
+            
+            Assert.IsFalse(generalHeightStructuresInput.ApplyLengthEffectInSection);
 
             Assert.AreEqual(2, generalHeightStructuresInput.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, generalHeightStructuresInput.GravitationalAcceleration, generalHeightStructuresInput.GravitationalAcceleration.GetAccuracy());
