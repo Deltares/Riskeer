@@ -35,13 +35,14 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            
+
             // Call
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.IsNaN(sectionResult.RefinedProfileProbability);
             Assert.AreEqual(ProbabilityRefinementType.Section, sectionResult.ProbabilityRefinementType);
         }
 
