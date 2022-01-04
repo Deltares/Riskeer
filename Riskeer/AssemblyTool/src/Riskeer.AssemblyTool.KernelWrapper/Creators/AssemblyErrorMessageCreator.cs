@@ -89,6 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.LowerLimitIsAboveUpperLimit:
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
                 case EAssemblyErrors.ValueMayNotBeNull:
+                case EAssemblyErrors.ValueMayNotBeNaN:
                     return Resources.AssemblyErrorMessageCreator_ValueMayNotBeNull;
                 case EAssemblyErrors.FailurePathSectionLengthInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid;
@@ -112,6 +113,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_EmptyResultsList;
                 case EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability:
                     return Resources.AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability;
+                case EAssemblyErrors.ErrorConstructingErrorMessage:
+                    return Resources.AssemblyErrorMessageCreator_ErrorConstructingErrorMessage;
                 default:
                     throw new NotSupportedException();
             }

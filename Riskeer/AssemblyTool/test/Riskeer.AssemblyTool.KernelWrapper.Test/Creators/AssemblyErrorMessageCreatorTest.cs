@@ -74,6 +74,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De categoriegrenzen zijn niet aaneengesloten en spannen niet de volldige faalskansruimte.")]
         [TestCase(EAssemblyErrors.EmptyResultsList, "Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.")]
         [TestCase(EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability, "De faalkans per vak moet groter of gelijk zijn aan de faalkans per doorsnede.")]
+        [TestCase(EAssemblyErrors.ValueMayNotBeNaN, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.ErrorConstructingErrorMessage, "Er is een onverwachte fout opgetreden.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call

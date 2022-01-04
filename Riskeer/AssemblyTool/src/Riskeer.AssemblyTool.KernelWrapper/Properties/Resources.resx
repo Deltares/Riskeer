@@ -201,4 +201,7 @@
   <data name="AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability" xml:space="preserve">
     <value>De faalkans per vak moet groter of gelijk zijn aan de faalkans per doorsnede.</value>
   </data>
+  <data name="AssemblyErrorMessageCreator_ErrorConstructingErrorMessage" xml:space="preserve">
+    <value>Er is een onverwachte fout opgetreden.</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -141,6 +141,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_EmptyResultsList {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_EmptyResultsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_ErrorConstructingErrorMessage {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_ErrorConstructingErrorMessage", resourceCulture);
             }
         }
         
