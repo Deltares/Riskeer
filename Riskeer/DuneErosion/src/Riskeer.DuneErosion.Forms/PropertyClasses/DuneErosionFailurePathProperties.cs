@@ -95,7 +95,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return false;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

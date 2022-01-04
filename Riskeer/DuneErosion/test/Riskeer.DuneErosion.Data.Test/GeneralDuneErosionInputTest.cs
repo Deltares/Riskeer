@@ -39,6 +39,7 @@ namespace Riskeer.DuneErosion.Data.Test
             // Assert
             Assert.AreEqual(2.0, generalInput.N, generalInput.N.GetAccuracy());
             Assert.AreEqual(2, generalInput.N.NumberOfDecimalPlaces);
+            Assert.IsFalse(generalInput.ApplyLengthEffectInSection);
         }
 
         [Test]
