@@ -57,9 +57,11 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_WithAllData_SetsGeneralInputProperties()
         {
             // Setup
-            var entity = new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity();
+            var entity = new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
+            {
+                N = 4.0
+            };
 
-            entity.N = 4.0;
             var generalInput = new GeneralInput();
 
             // Call
