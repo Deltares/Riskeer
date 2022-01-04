@@ -111,6 +111,11 @@ namespace Riskeer.StabilityPointStructures.Data
             }
         }
 
+        /// <summary>
+        /// Gets whether the length effect should be applied in the section.
+        /// </summary>
+        public bool ApplyLengthEffectInSection => false;
+
         #endregion
 
         #region Model factors

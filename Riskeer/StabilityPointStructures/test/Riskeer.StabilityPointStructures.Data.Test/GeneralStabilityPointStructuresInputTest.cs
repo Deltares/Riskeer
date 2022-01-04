@@ -66,6 +66,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
             Assert.AreEqual(3.0, inputParameters.N, inputParameters.N.GetAccuracy());
 
+            Assert.IsFalse(inputParameters.ApplyLengthEffectInSection);
+
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 

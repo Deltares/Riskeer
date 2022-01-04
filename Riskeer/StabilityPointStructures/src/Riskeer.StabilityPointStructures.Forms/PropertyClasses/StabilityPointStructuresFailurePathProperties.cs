@@ -94,7 +94,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         {
             get
             {
-                return false;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 
