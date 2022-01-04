@@ -167,7 +167,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         {
             get
             {
-                return false;
+                return data.GeneralInput.ApplyLengthEffectInSection;
             }
         }
 

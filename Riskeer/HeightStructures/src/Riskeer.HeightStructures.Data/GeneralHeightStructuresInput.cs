@@ -45,8 +45,6 @@ namespace Riskeer.HeightStructures.Data
         {
             n = new RoundedDouble(numberOfDecimalPlacesN, 2.0);
 
-            ApplyLengthEffectInSection = false;
-
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
             ModelFactorOvertoppingFlow = new LogNormalDistribution(3)
@@ -87,11 +85,17 @@ namespace Riskeer.HeightStructures.Data
                 n = newValue;
             }
         }
-        
+
         /// <summary>
         /// Gets whether the length effect should be applied in the section.
         /// </summary>
-        public bool ApplyLengthEffectInSection { get; }
+        public bool ApplyLengthEffectInSection
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gets the gravitational acceleration.
