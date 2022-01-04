@@ -286,7 +286,7 @@ namespace Riskeer.Piping.Forms.Views
                     calculateProbabilityStrategy.CalculateSectionProbability);
             }
         }
-        
+
         private void UpdateDerivedData()
         {
             ResetErrorTexts();
@@ -305,25 +305,13 @@ namespace Riskeer.Piping.Forms.Views
 
         private void TryGetAssemblyResult()
         {
-            double refinedProfileProbability = SectionResult.RefinedProfileProbability;
-            double refinedSectionProbability = SectionResult.RefinedSectionProbability;
-            double sectionN = failureMechanism.PipingProbabilityAssessmentInput.GetN(SectionResult.Section.Length);
-
-            if (ProbabilityRefinementType == ProbabilityRefinementType.Profile)
-            {
-                refinedSectionProbability = SectionResult.RefinedProfileProbability * sectionN;
-            }
-
-            if (ProbabilityRefinementType == ProbabilityRefinementType.Section)
-            {
-                refinedProfileProbability = SectionResult.RefinedSectionProbability / sectionN;
-            }
-
             try
             {
                 AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                     assessmentSection, IsRelevant, InitialFailureMechanismResult, InitialFailureMechanismResultProfileProbability,
-                    InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+                    InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
+                    SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
+                    ProbabilityRefinementType, () => failureMechanism.PipingProbabilityAssessmentInput.GetN(SectionResult.Section.Length));
             }
             catch (AssemblyException e)
             {
@@ -334,7 +322,7 @@ namespace Riskeer.Piping.Forms.Views
                 ColumnStateDefinitions[assemblyGroupIndex].ErrorText = e.Message;
             }
         }
-        
+
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
@@ -379,7 +367,7 @@ namespace Riskeer.Piping.Forms.Views
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex], ProbabilityRefinementType == ProbabilityRefinementType.Section);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex], ProbabilityRefinementType == ProbabilityRefinementType.Profile);
             }
-            
+
             FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.AssemblyGroup);
         }
 

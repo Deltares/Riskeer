@@ -48,18 +48,29 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="initialFailureMechanismResultType"/> is invalid.</exception>
+        /// <param name="probabilityRefinementType">The <see cref="ProbabilityRefinementType"/> of the section.</param>
+        /// <param name="getNFunc">The <see cref="Func{TResult}"/> to get the N of the section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// or <paramref name="getNFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="initialFailureMechanismResultType"/>
+        /// or <paramref name="probabilityRefinementType"/> is invalid.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(IAssessmentSection assessmentSection,
-                                                                            bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType,
-                                                                            double initialProfileProbability, double initialSectionProbability,
-                                                                            bool furtherAnalysisNeeded,
-                                                                            double refinedProfileProbability, double refinedSectionProbability)
+        public static FailureMechanismSectionAssemblyResult AssembleSection(
+            IAssessmentSection assessmentSection,
+            bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType,
+            double initialProfileProbability, double initialSectionProbability,
+            bool furtherAnalysisNeeded,
+            double refinedProfileProbability, double refinedSectionProbability,
+            ProbabilityRefinementType probabilityRefinementType, Func<double> getNFunc)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (getNFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNFunc));
             }
 
             if (!Enum.IsDefined(typeof(InitialFailureMechanismResultType), initialFailureMechanismResultType))
@@ -69,14 +80,22 @@ namespace Riskeer.Common.Data.AssemblyTool
                                                        typeof(InitialFailureMechanismResultType));
             }
 
+            if (!Enum.IsDefined(typeof(ProbabilityRefinementType), probabilityRefinementType))
+            {
+                throw new InvalidEnumArgumentException(nameof(probabilityRefinementType),
+                                                       (int) probabilityRefinementType,
+                                                       typeof(ProbabilityRefinementType));
+            }
+
             IFailureMechanismSectionAssemblyCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismSectionAssemblyCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
                 FailureMechanismSectionAssemblyInput input = CreateInput(
-                    assessmentSection, isRelevant, initialFailureMechanismResultType != InitialFailureMechanismResultType.NoFailureProbability,
-                    initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+                    assessmentSection, isRelevant, initialFailureMechanismResultType,
+                    initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded,
+                    refinedProfileProbability, refinedSectionProbability, probabilityRefinementType, getNFunc);
 
                 return calculator.AssembleFailureMechanismSection(input);
             }
@@ -87,17 +106,31 @@ namespace Riskeer.Common.Data.AssemblyTool
         }
 
         private static FailureMechanismSectionAssemblyInput CreateInput(IAssessmentSection assessmentSection,
-                                                                        bool isRelevant, bool hasProbabilitySpecified,
+                                                                        bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType,
                                                                         double initialProfileProbability, double initialSectionProbability,
                                                                         bool furtherAnalysisNeeded,
-                                                                        double refinedProfileProbability, double refinedSectionProbability)
+                                                                        double refinedProfileProbability, double refinedSectionProbability,
+                                                                        ProbabilityRefinementType probabilityRefinementType, Func<double> getNFunc)
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            return new FailureMechanismSectionAssemblyInput(failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
-                                                            isRelevant, hasProbabilitySpecified,
-                                                            initialProfileProbability, initialSectionProbability,
-                                                            furtherAnalysisNeeded,
-                                                            refinedProfileProbability, refinedSectionProbability);
+            bool hasProbabilitySpecified = initialFailureMechanismResultType != InitialFailureMechanismResultType.NoFailureProbability;
+
+            double sectionN = getNFunc();
+
+            if (probabilityRefinementType == ProbabilityRefinementType.Profile)
+            {
+                refinedSectionProbability = refinedProfileProbability * sectionN;
+            }
+
+            if (probabilityRefinementType == ProbabilityRefinementType.Section)
+            {
+                refinedProfileProbability = refinedSectionProbability / sectionN;
+            }
+
+            return new FailureMechanismSectionAssemblyInput(
+                failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
+                isRelevant, hasProbabilitySpecified, initialProfileProbability, initialSectionProbability,
+                furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
         }
     }
 }
