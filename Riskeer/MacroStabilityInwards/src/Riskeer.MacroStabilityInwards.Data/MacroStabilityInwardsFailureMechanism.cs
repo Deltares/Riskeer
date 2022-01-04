@@ -91,11 +91,13 @@ namespace Riskeer.MacroStabilityInwards.Data
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }
