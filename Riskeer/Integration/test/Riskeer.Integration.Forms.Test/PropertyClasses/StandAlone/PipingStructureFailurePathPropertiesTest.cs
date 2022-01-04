@@ -28,6 +28,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
@@ -76,11 +77,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
+            GeneralInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.GeneralInput.N,
+            Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-            Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
+            Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]

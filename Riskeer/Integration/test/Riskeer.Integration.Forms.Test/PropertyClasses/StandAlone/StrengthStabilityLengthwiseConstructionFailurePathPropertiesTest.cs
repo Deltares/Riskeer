@@ -109,11 +109,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual($"Overig ({otherContribution})", properties.Contribution);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
+            GeneralInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(failureMechanism.GeneralInput.N,
+            Assert.AreEqual(generalInput.N,
                             properties.N,
                             properties.N.GetAccuracy());
-            Assert.IsFalse(properties.ApplyLengthEffectInSection);
+            Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
 
             mocks.VerifyAll();
         }

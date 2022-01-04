@@ -66,8 +66,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
-            Assert.IsFalse(properties.ApplyLengthEffectInSection);
+            GeneralDuneErosionInput generalInput = failureMechanism.GeneralInput;
+            Assert.AreEqual(generalInput.N, properties.N);
+            Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]
