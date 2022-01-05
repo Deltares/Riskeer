@@ -102,5 +102,100 @@ namespace Riskeer.Common.Data.Test.Helpers
             RoundedDouble expectedTotalContribution = calculationScenario1.Contribution + calculationScenario2.Contribution;
             Assert.AreEqual(expectedTotalContribution, totalContribution);
         }
+
+        [Test]
+        public void ScenariosAreValid_ScenariosEmpty_ReturnsFalse()
+        {
+            // Call
+            bool valid = CalculationScenarioHelper.ScenariosAreValid(Array.Empty<ICalculationScenario>());
+            
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void ScenariosAreValid_ScenariosWithoutOutput_ReturnsFalse()
+        {
+            // Setup
+            var calculationScenario1 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) 0.4323,
+                Output = new object()
+            };
+            var calculationScenario2 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) 0.1226
+            };
+            
+            // Call
+            bool valid = CalculationScenarioHelper.ScenariosAreValid(new[]
+            {
+                calculationScenario1,
+                calculationScenario2
+            });
+            
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        [TestCase(0.4323, 0.1226)]
+        [TestCase(0.9000, 0.9000)]
+        [TestCase(1, 0.0001)]
+        [TestCase(0.0001, 0.9998)]
+        public void ScenariosAreValid_ScenariosContributionNotOne_ReturnsFalse(double scenarioContribution1,
+                                                                               double scenarioContribution2)
+        {
+            // Setup
+            var calculationScenario1 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) scenarioContribution1,
+                Output = new object()
+            };
+            var calculationScenario2 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) scenarioContribution2,
+                Output = new object()
+            };
+            
+            // Call
+            bool valid = CalculationScenarioHelper.ScenariosAreValid(new[]
+            {
+                calculationScenario1,
+                calculationScenario2
+            });
+            
+            // Assert
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        [TestCase(1, 0)]
+        [TestCase(0.0001, 0.9999)]
+        public void ScenariosAreValid_ScenariosWithOutputAndContributionOne_ReturnsTrue(double scenarioContribution1,
+                                                                                        double scenarioContribution2)
+        {
+            // Setup
+            var calculationScenario1 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) scenarioContribution1,
+                Output = new object()
+            };
+            var calculationScenario2 = new TestCalculationScenario
+            {
+                Contribution = (RoundedDouble) scenarioContribution2,
+                Output = new object()
+            };
+            
+            // Call
+            bool valid = CalculationScenarioHelper.ScenariosAreValid(new[]
+            {
+                calculationScenario1,
+                calculationScenario2
+            });
+            
+            // Assert
+            Assert.IsTrue(valid);
+        }
     }
 }

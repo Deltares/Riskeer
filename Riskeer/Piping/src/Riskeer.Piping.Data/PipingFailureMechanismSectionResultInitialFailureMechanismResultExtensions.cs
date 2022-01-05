@@ -31,7 +31,8 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Extension methods for obtaining initial failure mechanism result probabilities from output for an assessment of the piping failure mechanism.
+    /// Extension methods for obtaining initial failure mechanism result probabilities
+    /// from output for an assessment of the piping failure mechanism.
     /// </summary>
     public static class PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions
     {
@@ -69,7 +70,7 @@ namespace Riskeer.Piping.Data
                                                                                           (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                                       .ToArray();
 
-            return ScenariosAreValid(relevantScenarios)
+            return CalculationScenarioHelper.ScenariosAreValid(relevantScenarios)
                        ? relevantScenarios.Sum(scenario => StatisticsConverter.ReliabilityToProbability(getOutputFunc(scenario).Reliability) * (double) scenario.Contribution)
                        : double.NaN;
         }
@@ -103,7 +104,7 @@ namespace Riskeer.Piping.Data
                                                                                               (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
                                                                                           .ToArray();
 
-            if (!ScenariosAreValid(relevantScenarios))
+            if (!CalculationScenarioHelper.ScenariosAreValid(relevantScenarios))
             {
                 return double.NaN;
             }
@@ -117,14 +118,6 @@ namespace Riskeer.Piping.Data
             }
 
             return totalInitialFailureMechanismResult;
-        }
-
-        private static bool ScenariosAreValid<T>(T[] relevantScenarios)
-            where T : IPipingCalculationScenario<PipingInput>
-        {
-            return relevantScenarios.Any()
-                   && relevantScenarios.All(s => s.HasOutput)
-                   && Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) <= 1e-6;
         }
     }
 }
