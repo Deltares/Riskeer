@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
@@ -37,6 +38,23 @@ namespace Riskeer.Storage.Core.Test.Create
     public class FailurePathCreateExtensionsTest
     {
         # region FailureMechanism
+
+        [Test]
+        public void CreateForFailureMechanism_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+
+            // Call
+            void Call() => failureMechanism.Create(failureMechanismType, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
 
         [Test]
         public void CreateForFailureMechanism_PropertiesSet_ReturnExpectedEntity()
@@ -177,6 +195,20 @@ namespace Riskeer.Storage.Core.Test.Create
         #endregion
 
         #region FailurePath
+
+        [Test]
+        public void CreateForFailurePath_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failurePath = new SpecificFailurePath();
+
+            // Call
+            void Call() => failurePath.Create(null, 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
 
         [Test]
         public void CreateForFailurePath_PropertiesSet_ReturnExpectedEntity()
