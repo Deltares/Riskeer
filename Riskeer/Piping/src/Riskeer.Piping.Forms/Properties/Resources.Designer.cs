@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -383,15 +383,6 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
             get {
                 return ResourceManager.GetString("PipingCalculationsView_PhreaticLevelExit_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;afgeleid&gt;.
-        /// </summary>
-        public static string PipingFailureMechanismSectionResultRow_Derived_DisplayName {
-            get {
-                return ResourceManager.GetString("PipingFailureMechanismSectionResultRow_Derived_DisplayName", resourceCulture);
             }
         }
         

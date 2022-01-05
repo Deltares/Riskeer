@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -2084,6 +2084,15 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("FailureMechanismSectionResultIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;afgeleid&gt;.
+        /// </summary>
+        public static string FailureMechanismSectionResultRow_Derived_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionResultRow_Derived_DisplayName", resourceCulture);
             }
         }
         

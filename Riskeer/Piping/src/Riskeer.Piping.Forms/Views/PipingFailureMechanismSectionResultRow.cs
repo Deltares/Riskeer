@@ -32,7 +32,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.Properties;
+using CommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Forms.Views
         public object RefinedProfileProbability
         {
             get => ProbabilityRefinementType == ProbabilityRefinementType.Section
-                       ? (object) Resources.PipingFailureMechanismSectionResultRow_Derived_DisplayName
+                       ? (object) CommonFormsResources.FailureMechanismSectionResultRow_Derived_DisplayName
                        : SectionResult.RefinedProfileProbability;
             set
             {
@@ -237,7 +237,7 @@ namespace Riskeer.Piping.Forms.Views
         public object RefinedSectionProbability
         {
             get => ProbabilityRefinementType == ProbabilityRefinementType.Profile
-                       ? (object) Resources.PipingFailureMechanismSectionResultRow_Derived_DisplayName
+                       ? (object) CommonFormsResources.FailureMechanismSectionResultRow_Derived_DisplayName
                        : SectionResult.RefinedSectionProbability;
             set
             {
