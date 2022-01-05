@@ -91,11 +91,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         private static ESectionInitialMechanismProbabilitySpecification GetInitialMechanismProbabilitySpecification(FailureMechanismSectionAssemblyInput input)
         {
-            return !input.IsRelevant
-                       ? ESectionInitialMechanismProbabilitySpecification.NotRelevant
-                       : input.HasProbabilitySpecified
-                           ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification
-                           : ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification;
+            if (!input.IsRelevant)
+            {
+                return ESectionInitialMechanismProbabilitySpecification.NotRelevant;
+            }
+
+            return input.HasProbabilitySpecified 
+                       ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification 
+                       : ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification;
         }
 
         private static Probability CreateProbability(double value)
