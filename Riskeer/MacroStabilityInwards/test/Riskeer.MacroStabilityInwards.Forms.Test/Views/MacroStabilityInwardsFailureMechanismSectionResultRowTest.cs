@@ -41,6 +41,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultRowTest
     {
+        private static MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
+            new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
+            {
+                InitialFailureMechanismResultIndex = 2,
+                InitialFailureMechanismResultProfileProbabilityIndex = 3,
+                InitialFailureMechanismResultSectionProbabilityIndex = 4,
+                FurtherAnalysisNeededIndex = 5,
+                ProbabilityRefinementTypeIndex = 6,
+                RefinedProfileProbabilityIndex = 7,
+                RefinedSectionProbabilityIndex = 8,
+                ProfileProbabilityIndex = 9,
+                SectionProbabilityIndex = 10,
+                SectionNIndex = 11,
+                AssemblyGroupIndex = 12
+            };
+
         [Test]
         public void Constructor_CalculationScenariosNull_ThrowsArgumentNullException()
         {
@@ -49,7 +65,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, new MacroStabilityInwardsFailureMechanism());
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, new MacroStabilityInwardsFailureMechanism(),
+                                                                                     ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,11 +81,28 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), null);
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), null,
+                                                                                     ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
         }
 
         [Test]
@@ -90,7 +124,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism);
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, ConstructionProperties);
 
                 // Assert
                 double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(
@@ -139,7 +173,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism);
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
@@ -174,7 +208,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism);
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -320,7 +354,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), new MacroStabilityInwardsFailureMechanism());
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), ConstructionProperties);
 
                 // Call
                 setPropertyAction(row);
@@ -341,7 +376,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), new MacroStabilityInwardsFailureMechanism());
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), ConstructionProperties);
 
                 // Call
                 void Call() => setPropertyAction(row);

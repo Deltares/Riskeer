@@ -36,6 +36,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<MacroStabilityInwardsFailureMechanismSectionResult>
     {
+        private readonly int initialFailureMechanismResultIndex;
+        private readonly int initialFailureMechanismResultProfileProbabilityIndex;
+        private readonly int initialFailureMechanismResultSectionProbabilityIndex;
+        private readonly int furtherAnalysisNeededIndex;
+        private readonly int probabilityRefinementTypeIndex;
+        private readonly int refinedProfileProbabilityIndex;
+        private readonly int refinedSectionProbabilityIndex;
+        private readonly int profileProbabilityIndex;
+        private readonly int sectionProbabilityIndex;
+        private readonly int sectionNIndex;
+        private readonly int assemblyGroupIndex;
+
         private readonly IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios;
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
 
@@ -46,10 +58,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// the source of this row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
+        /// /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
                                                                      IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
-                                                                     MacroStabilityInwardsFailureMechanism failureMechanism)
+                                                                     MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                     ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (calculationScenarios == null)
@@ -62,8 +77,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
+            
+            initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
+            initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
+            initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
+            furtherAnalysisNeededIndex = constructionProperties.FurtherAnalysisNeededIndex;
+            probabilityRefinementTypeIndex = constructionProperties.ProbabilityRefinementTypeIndex;
+            refinedProfileProbabilityIndex = constructionProperties.RefinedProfileProbabilityIndex;
+            refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
+            profileProbabilityIndex = constructionProperties.ProfileProbabilityIndex;
+            sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
+            sectionNIndex = constructionProperties.SectionNIndex;
+            assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
         }
 
         /// <summary>
@@ -189,6 +221,67 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         public override void Update()
         {
+        }
+        
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Sets the initial failure mechanism result index.
+            /// </summary>
+            public int InitialFailureMechanismResultIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the initial failure mechanism result profile probability index.
+            /// </summary>
+            public int InitialFailureMechanismResultProfileProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the initial failure mechanism result section probability index.
+            /// </summary>
+            public int InitialFailureMechanismResultSectionProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the further analysis needed index.
+            /// </summary>
+            public int FurtherAnalysisNeededIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the probability refinement type index.
+            /// </summary>
+            public int ProbabilityRefinementTypeIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the refined profile probability index.
+            /// </summary>
+            public int RefinedProfileProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the refined section probability index.
+            /// </summary>
+            public int RefinedSectionProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the profile probability index.
+            /// </summary>
+            public int ProfileProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the section probability index.
+            /// </summary>
+            public int SectionProbabilityIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the section N index.
+            /// </summary>
+            public int SectionNIndex { internal get; set; }
+
+            /// <summary>
+            /// Sets the assembly group index.
+            /// </summary>
+            public int AssemblyGroupIndex { internal get; set; }
         }
     }
 }
