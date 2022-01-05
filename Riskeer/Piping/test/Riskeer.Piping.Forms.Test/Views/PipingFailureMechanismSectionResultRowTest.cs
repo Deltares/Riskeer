@@ -35,6 +35,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
@@ -406,7 +407,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetValidProbabilities))]
         public void InitialFailureMechanismResultProfileProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
         {
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
@@ -417,14 +418,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(GetInvalidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetInvalidProbabilities))]
         public void InitialFailureMechanismResultProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.InitialFailureMechanismResultProfileProbability = value);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetValidProbabilities))]
         public void InitialFailureMechanismResultSectionProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
         {
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
@@ -435,7 +436,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(GetInvalidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetInvalidProbabilities))]
         public void InitialFailureMechanismResultSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.InitialFailureMechanismResultSectionProbability = value);
@@ -462,7 +463,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetValidProbabilities))]
         public void RefinedProfileProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
         {
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
@@ -473,14 +474,14 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(GetInvalidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetInvalidProbabilities))]
         public void RefinedProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.RefinedProfileProbability = value);
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetValidProbabilities))]
         public void RefinedSectionProbability_SetNewValue_NotifyObserversAndPropertyChanged(double newValue)
         {
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
@@ -491,7 +492,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCaseSource(nameof(GetInvalidProbabilities))]
+        [TestCaseSource(typeof(ProbabilityTestHelper), nameof(ProbabilityTestHelper.GetInvalidProbabilities))]
         public void RefinedSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double value)
         {
             ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.RefinedSectionProbability = value);
@@ -553,23 +554,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             }
 
             mocks.VerifyAll();
-        }
-
-        private static IEnumerable<TestCaseData> GetValidProbabilities()
-        {
-            yield return new TestCaseData(0);
-            yield return new TestCaseData(1);
-            yield return new TestCaseData(0.5);
-            yield return new TestCaseData(1e-6);
-            yield return new TestCaseData(double.NaN);
-        }
-
-        private static IEnumerable<TestCaseData> GetInvalidProbabilities()
-        {
-            yield return new TestCaseData(-20);
-            yield return new TestCaseData(-1e-6);
-            yield return new TestCaseData(1 + 1e-6);
-            yield return new TestCaseData(12);
         }
 
         #endregion
