@@ -124,7 +124,7 @@ namespace Riskeer.Piping.Data
         {
             return relevantScenarios.Any()
                    && relevantScenarios.All(s => s.HasOutput)
-                   && !(Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6);
+                   && Math.Abs(CalculationScenarioHelper.GetTotalContribution(relevantScenarios) - 1.0) <= 1e-6;
         }
     }
 }
