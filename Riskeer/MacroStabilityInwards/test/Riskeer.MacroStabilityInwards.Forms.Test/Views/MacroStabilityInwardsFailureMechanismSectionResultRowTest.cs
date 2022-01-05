@@ -118,6 +118,77 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        [TestCase(InitialFailureMechanismResultType.Manual)]
+        [TestCase(InitialFailureMechanismResultType.NoFailureProbability)]
+        public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(InitialFailureMechanismResultType newValue)
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
+            {
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
+            };
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            double profileProbability = result.GetInitialFailureMechanismResultProbability(
+                calculationScenarios, failureMechanism.GeneralInput.ModelFactor);
+            double sectionProbability = profileProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(section.Length);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism);
+
+                // Precondition
+                Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
+                Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
+
+                // When
+                row.InitialFailureMechanismResult = newValue;
+
+                // Then
+                Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.InitialFailureMechanismResultProfileProbability);
+                Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
+            }
+        }
+
+        [Test]
+        [TestCase(ProbabilityRefinementType.Profile, double.NaN, "<afgeleid>")]
+        [TestCase(ProbabilityRefinementType.Section, "<afgeleid>", double.NaN)]
+        public void GivenRowWithProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(ProbabilityRefinementType newValue, object newProfileValue, object newSectionValue)
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            {
+                ProbabilityRefinementType = ProbabilityRefinementType.Both
+            };
+
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
+            {
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section)
+            };
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism);
+
+                // Precondition
+                Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
+                Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
+
+                // When
+                row.ProbabilityRefinementType = newValue;
+
+                // Then
+                Assert.AreEqual(newProfileValue, row.RefinedProfileProbability);
+                Assert.AreEqual(newSectionValue, row.RefinedSectionProbability);
+            }
+        }
+
         #region Registration
 
         [Test]
