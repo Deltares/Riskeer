@@ -28,6 +28,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -54,6 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios;
+        private readonly IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider;
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
@@ -63,6 +65,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <param name="sectionResult">The <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
+        /// <param name="initialFailureMechanismResultErrorProvider">The error provider to use for
+        /// the initial failure mechanism result.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
@@ -70,6 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
                                                                      IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
+                                                                     IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
                                                                      MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                      IAssessmentSection assessmentSection,
                                                                      ConstructionProperties constructionProperties)
@@ -78,6 +83,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             if (calculationScenarios == null)
             {
                 throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            if (initialFailureMechanismResultErrorProvider == null)
+            {
+                throw new ArgumentNullException(nameof(initialFailureMechanismResultErrorProvider));
             }
 
             if (failureMechanism == null)
@@ -96,6 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             }
 
             this.calculationScenarios = calculationScenarios;
+            this.initialFailureMechanismResultErrorProvider = initialFailureMechanismResultErrorProvider;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 

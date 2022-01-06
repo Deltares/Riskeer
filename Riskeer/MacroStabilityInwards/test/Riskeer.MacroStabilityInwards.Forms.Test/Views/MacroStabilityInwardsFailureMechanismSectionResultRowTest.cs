@@ -37,6 +37,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
+using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
@@ -70,70 +71,112 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, new MacroStabilityInwardsFailureMechanism(),
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, errorProvider, new MacroStabilityInwardsFailureMechanism(),
                                                                                      new AssessmentSectionStub(), ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_InitialFailureMechanismResultErrorProviderNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     null, new MacroStabilityInwardsFailureMechanism(),
+                                                                                     new AssessmentSectionStub(), ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("initialFailureMechanismResultErrorProvider", exception.ParamName);
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), null,
-                                                                                     new AssessmentSectionStub(), ConstructionProperties);
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     errorProvider, null, new AssessmentSectionStub(), ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                     new MacroStabilityInwardsFailureMechanism(), null, ConstructionProperties);
+                                                                                     errorProvider, new MacroStabilityInwardsFailureMechanism(), null, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                     new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(), null);
+                                                                                     errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                     new AssessmentSectionStub(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
             {
@@ -149,7 +192,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism,
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, errorProvider, failureMechanism,
                                                                                     new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
@@ -197,6 +240,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionNIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -205,6 +250,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(InitialFailureMechanismResultType newValue)
         {
             // Given
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -220,7 +269,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism,
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, errorProvider, failureMechanism,
                                                                                     new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
@@ -234,14 +283,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultProfileProbability, row.InitialFailureMechanismResultProfileProbability);
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         [TestCase(ProbabilityRefinementType.Profile, double.NaN, "<afgeleid>")]
         [TestCase(ProbabilityRefinementType.Section, "<afgeleid>", double.NaN)]
-        public void GivenRowWithProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(ProbabilityRefinementType newValue, object newProfileValue, object newSectionValue)
+        public void GivenRowWithProbabilityRefinementType_WhenValueChanged_ThenInitialProbabilitiesChanged(
+            ProbabilityRefinementType newValue, object newProfileValue, object newSectionValue)
         {
             // Given
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
             {
@@ -256,7 +312,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism,
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, errorProvider, failureMechanism,
                                                                                     new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
@@ -270,6 +326,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(newProfileValue, row.RefinedProfileProbability);
                 Assert.AreEqual(newSectionValue, row.RefinedSectionProbability);
             }
+
+            mocks.VerifyAll();
         }
 
         #region Registration
@@ -393,6 +451,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -404,8 +463,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Call
                 setPropertyAction(row);
@@ -421,14 +480,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Action<MacroStabilityInwardsFailureMechanismSectionResultRow> setPropertyAction)
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Call
                 void Call() => setPropertyAction(row);
@@ -437,6 +500,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             }
+
+            mocks.VerifyAll();
         }
 
         #endregion
@@ -447,6 +512,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_AssemblyRan_ReturnCategoryGroups()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -461,8 +530,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
@@ -475,12 +544,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
                                 row.AssemblyGroup);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
         {
             // Given
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -494,8 +569,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
@@ -508,12 +583,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 // Then
                 AssertFailureMechanismSectionAssemblyResult(new DefaultFailureMechanismSectionAssemblyResult(), row.AssemblyResult);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenShowError()
         {
             // Given
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -523,8 +604,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -545,12 +626,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenNoErrorShown()
         {
             // Given
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -561,8 +648,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 calculator.ThrowExceptionOnCalculate = true;
 
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -583,6 +670,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }
+
+            mocks.VerifyAll();
         }
 
         private static void AssertFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
@@ -602,6 +691,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_Always_ExpectedColumnStates()
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -609,8 +702,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -622,6 +715,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.SectionNIndex], true, true);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -630,6 +725,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithIsRelevant_ExpectedColumnStates(bool isRelevant)
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
             {
@@ -643,8 +742,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -664,6 +763,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -674,6 +775,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                        bool isEnabled, bool isReadOnly)
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
             {
@@ -684,8 +789,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -695,6 +800,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isEnabled, isReadOnly);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -703,6 +810,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithFurtherAnalysisNeeded_ExpectedColumnStates(bool furtherAnalysisNeeded)
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
             {
@@ -714,8 +825,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -727,6 +838,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], furtherAnalysisNeeded);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -738,6 +851,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                                    bool sectionProbabilityIsReadOnly)
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
             {
@@ -749,8 +866,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -760,6 +877,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], true, sectionProbabilityIsReadOnly);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -768,6 +887,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                            Color expectedBackgroundColor)
         {
             // Setup
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
@@ -779,8 +902,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 // Call
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
-                                                                                    ConstructionProperties);
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -788,6 +911,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(
                     columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex], expectedBackgroundColor);
             }
+
+            mocks.VerifyAll();
         }
 
         #endregion
