@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,11 +32,13 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
@@ -176,6 +181,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SectionProbability));
                 TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoValueDoubleConverter>(
                     nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SectionN));
+
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(11, columnStateDefinitions.Count);
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisNeededIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ProbabilityRefinementTypeIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedProfileProbabilityIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.ProbabilityRefinementTypeIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionNIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
             }
         }
 
@@ -457,6 +477,114 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
+        {
+            // Given
+            var random = new Random(39);
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Precondition
+                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
+                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, row.AssemblyResult);
+
+                // When
+                calculator.ThrowExceptionOnCalculate = true;
+                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+
+                // Then
+                AssertFailureMechanismSectionAssemblyResult(new DefaultFailureMechanismSectionAssemblyResult(), row.AssemblyResult);
+            }
+        }
+
+        [Test]
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenShowError()
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Precondition
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+
+                // When
+                calculator.ThrowExceptionOnCalculate = true;
+                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+
+                // Then
+                const string expectedErrorText = "Message";
+
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+            }
+        }
+
+        [Test]
+        public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenNoErrorShown()
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Precondition
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                const string expectedErrorText = "Message";
+
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+
+                // When
+                calculator.ThrowExceptionOnCalculate = false;
+                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+
+                // Then
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+            }
+        }
+
         private static void AssertFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
                                                                         FailureMechanismSectionAssemblyResult actual)
         {
@@ -464,6 +592,202 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(expected.SectionProbability, actual.SectionProbability);
             Assert.AreEqual(expected.ProfileProbability, actual.ProfileProbability);
             Assert.AreEqual(expected.AssemblyGroup, actual.AssemblyGroup);
+        }
+
+        #endregion
+
+        #region Column States
+
+        [Test]
+        public void Constructor_Always_ExpectedColumnStates()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex], true, true);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex], true, true);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.SectionNIndex], true, true);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithIsRelevant_ExpectedColumnStates(bool isRelevant)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            {
+                IsRelevant = isRelevant,
+                FurtherAnalysisNeeded = true,
+                InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
+                ProbabilityRefinementType = ProbabilityRefinementType.Both
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultIndex], isRelevant);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex], isRelevant);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.FurtherAnalysisNeededIndex], isRelevant);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.ProbabilityRefinementTypeIndex], isRelevant);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], isRelevant);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
+            }
+        }
+
+        [Test]
+        [TestCase(InitialFailureMechanismResultType.Adopt, true, true)]
+        [TestCase(InitialFailureMechanismResultType.Manual, true, false)]
+        [TestCase(InitialFailureMechanismResultType.NoFailureProbability, false, true)]
+        public void Constructor_WithInitialFailureMechanismResult_ExpectedColumnStates(InitialFailureMechanismResultType initialFailureMechanismResultType,
+                                                                                       bool isEnabled, bool isReadOnly)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            {
+                InitialFailureMechanismResult = initialFailureMechanismResultType
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex], isEnabled, isReadOnly);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isEnabled, isReadOnly);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithFurtherAnalysisNeeded_ExpectedColumnStates(bool furtherAnalysisNeeded)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            {
+                FurtherAnalysisNeeded = furtherAnalysisNeeded,
+                ProbabilityRefinementType = ProbabilityRefinementType.Both
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.ProbabilityRefinementTypeIndex], furtherAnalysisNeeded);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], furtherAnalysisNeeded);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], furtherAnalysisNeeded);
+            }
+        }
+
+        [Test]
+        [TestCase(ProbabilityRefinementType.Both, false, false)]
+        [TestCase(ProbabilityRefinementType.Profile, false, true)]
+        [TestCase(ProbabilityRefinementType.Section, true, false)]
+        public void Constructor_WithProbabilityRefinementType_ExpectedColumnStates(ProbabilityRefinementType probabilityRefinementType,
+                                                                                   bool profileProbabilityIsReadOnly,
+                                                                                   bool sectionProbabilityIsReadOnly)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            {
+                FurtherAnalysisNeeded = true,
+                ProbabilityRefinementType = probabilityRefinementType
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.RefinedProfileProbabilityIndex], true, profileProbabilityIsReadOnly);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], true, sectionProbabilityIsReadOnly);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
+        public void Constructor_WithAssemblyGroupsSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                           Color expectedBackgroundColor)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup);
+
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(
+                    columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex], expectedBackgroundColor);
+            }
         }
 
         #endregion
