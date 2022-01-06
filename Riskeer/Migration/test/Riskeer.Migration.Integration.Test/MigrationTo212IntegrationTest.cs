@@ -69,7 +69,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertPipingFailureMechanism(reader, sourceFilePath);
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
-                    AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
+                    AssertFailureMechanismSectionResults(reader, sourceFilePath);
 
                     AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
@@ -666,17 +666,17 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validatePipingScenarioConfigurationPerFailureMechanismSectionEntity);
         }
 
-        private static void AssertPipingFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateFailureMechamismSectionResults =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
                 "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.PipingSectionResultEntity " +
+                "FROM SOURCEPROJECT.{0} " +
                 ") " +
-                "FROM PipingSectionResultEntity NEW " +
-                "JOIN SOURCEPROJECT.PipingSectionResultEntity OLD USING(PipingSectionResultEntityId) " +
+                "FROM {0} NEW " +
+                "JOIN SOURCEPROJECT.{0} OLD USING({1}) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
@@ -688,7 +688,8 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateFailureMechamismSectionResults);
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechamismSectionResults, "PipingSectionResultEntity", "PipingSectionResultEntityId"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechamismSectionResults, "MacroStabilityInwardsSectionResultEntity", "MacroStabilityInwardsSectionResultEntityId"));
         }
 
         #endregion

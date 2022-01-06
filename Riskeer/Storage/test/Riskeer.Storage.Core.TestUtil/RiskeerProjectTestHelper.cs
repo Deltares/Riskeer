@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.TestUtil
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             ConfigureMacroStabilityInwardsFailureMechanism(macroStabilityInwardsFailureMechanism, assessmentSection);
             SetSections(macroStabilityInwardsFailureMechanism);
-            SetSectionResults(macroStabilityInwardsFailureMechanism.SectionResultsOld);
+            SetSectionResults(macroStabilityInwardsFailureMechanism.SectionResults);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             ConfigurePipingFailureMechanism(pipingFailureMechanism, assessmentSection);
@@ -1791,17 +1791,19 @@ namespace Riskeer.Storage.Core.TestUtil
             });
         }
 
-        private static void SetSectionResults(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResults)
+        private static void SetSectionResults(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
+            foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyProbability = random.NextDouble();
+                sectionResult.IsRelevant = random.NextBoolean();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<InitialFailureMechanismResultType>();
+                sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
+                sectionResult.ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
+                sectionResult.RefinedProfileProbability = random.NextDouble();
+                sectionResult.RefinedSectionProbability = random.NextDouble();
             }
         }
 

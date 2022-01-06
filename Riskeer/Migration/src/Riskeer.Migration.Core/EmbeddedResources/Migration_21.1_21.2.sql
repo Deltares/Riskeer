@@ -265,7 +265,30 @@ INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPR
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
-INSERT INTO MacroStabilityInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
+INSERT INTO MacroStabilityInwardsSectionResultEntity (
+[MacroStabilityInwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [ProbabilityRefinementType],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [MacroStabilityInwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    2,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerOneDEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileOneDEntity;
