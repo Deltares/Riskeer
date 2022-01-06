@@ -109,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithPipingFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithMacroStabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -235,6 +235,80 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
                 double expectedN = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
                 Assert.AreEqual(expectedN, calculator.FailurePathN);
+            }
+        }
+
+        [Test]
+        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndAssemblyInfoUpdated()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (MacroStabilityInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
+
+                // When
+                calculationScenario.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
+            }
+        }
+
+        [Test]
+        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            MacroStabilityInwardsCalculationScenario calculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (MacroStabilityInwardsFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
+
+                // When
+                calculationScenario.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
             }
         }
 

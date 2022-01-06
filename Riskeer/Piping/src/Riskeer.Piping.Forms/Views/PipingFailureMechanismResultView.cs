@@ -103,11 +103,6 @@ namespace Riskeer.Piping.Forms.Views
             };
         }
 
-        protected override double GetN()
-        {
-            return FailureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
-        }
-
         protected override void Dispose(bool disposing)
         {
             calculationInputsObserver.Dispose();
@@ -115,6 +110,11 @@ namespace Riskeer.Piping.Forms.Views
             scenarioConfigurationsPerSectionObserver.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        protected override double GetN()
+        {
+            return FailureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
         }
 
         protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)

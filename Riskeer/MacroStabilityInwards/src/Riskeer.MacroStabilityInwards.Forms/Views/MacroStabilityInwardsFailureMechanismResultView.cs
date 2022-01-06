@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms;
@@ -51,6 +52,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private const int sectionNIndex = 11;
         private const int assemblyGroupIndex = 12;
 
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -72,6 +75,22 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             }
 
             this.assessmentSection = assessmentSection;
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateInternalViewData,
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                   .Select(c => c.InputParameters)))
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
+                UpdateInternalViewData,
+                c => c.Children)
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
         }
 
         protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
@@ -97,6 +116,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                     SectionNIndex = sectionNIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            calculationInputsObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
         }
 
         protected override double GetN()
