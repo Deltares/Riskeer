@@ -284,8 +284,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.MacroStabilityOutwards.SectionResultsOld,
                 actualAssessmentSection.MacroStabilityOutwards.SectionResultsOld);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.MacroStabilityInwards.SectionResultsOld,
-                actualAssessmentSection.MacroStabilityInwards.SectionResultsOld);
+                expectedAssessmentSection.MacroStabilityInwards.SectionResults,
+                actualAssessmentSection.MacroStabilityInwards.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.WaveImpactAsphaltCover.SectionResultsOld,
                 actualAssessmentSection.WaveImpactAsphaltCover.SectionResultsOld);
@@ -1214,6 +1214,25 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertFailureMechanismSectionResults(
             IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
+                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
+                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
+                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
+                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
+                                     });
+        }
+        
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,

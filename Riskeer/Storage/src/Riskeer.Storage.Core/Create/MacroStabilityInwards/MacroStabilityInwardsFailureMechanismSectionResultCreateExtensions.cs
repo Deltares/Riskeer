@@ -26,19 +26,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
-    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> related to creating a 
+    /// Extension methods for <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="MacroStabilityInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="MacroStabilityInwardsSectionResultEntity"/> based on the information 
-        /// of the <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/>.
+        /// of the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="MacroStabilityInwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResultOld result)
+        internal static MacroStabilityInwardsSectionResultEntity Create(this MacroStabilityInwardsFailureMechanismSectionResult result)
         {
             if (result == null)
             {
@@ -47,12 +47,14 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
 
             var sectionResultEntity = new MacroStabilityInwardsSectionResultEntity
             {
-                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
-                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
-                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
-                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
-                ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
+                IsRelevant = Convert.ToByte(result.IsRelevant),
+                InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),
+                ManualInitialFailureMechanismResultProfileProbability = result.ManualInitialFailureMechanismResultProfileProbability.ToNaNAsNull(),
+                ManualInitialFailureMechanismResultSectionProbability = result.ManualInitialFailureMechanismResultSectionProbability.ToNaNAsNull(),
+                FurtherAnalysisNeeded = Convert.ToByte(result.FurtherAnalysisNeeded),
+                ProbabilityRefinementType = Convert.ToByte(result.ProbabilityRefinementType),
+                RefinedProfileProbability = result.RefinedProfileProbability.ToNaNAsNull(),
+                RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
             };
 
             return sectionResultEntity;
