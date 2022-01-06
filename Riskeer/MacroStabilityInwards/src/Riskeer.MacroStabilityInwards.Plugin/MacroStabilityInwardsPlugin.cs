@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -258,16 +258,15 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResultOld>,
-                IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld>,
-                MacroStabilityInwardsFailureMechanismResultViewOld>(() => Gui)
+                ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>,
+                IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult>,
+                MacroStabilityInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultViewOld(
-                    context.WrappedData,
-                    (MacroStabilityInwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection)
+                CreateInstance = context => new MacroStabilityInwardsFailureMechanismResultView(
+                    context.WrappedData, (MacroStabilityInwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection)
             };
 
             yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationGroupContext, CalculationGroup, MacroStabilityInwardsCalculationsView>(() => Gui)
@@ -454,15 +453,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private static bool CloseFailurePathViewForData(MacroStabilityInwardsFailurePathView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as MacroStabilityInwardsFailureMechanism;
 
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(MacroStabilityInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as MacroStabilityInwardsFailureMechanism;
 
@@ -478,7 +476,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseCalculationsViewForData(MacroStabilityInwardsCalculationsView view, object dataToCloseFor)
