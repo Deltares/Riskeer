@@ -25,11 +25,15 @@ using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
@@ -66,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, new MacroStabilityInwardsFailureMechanism(),
-                                                                                     ConstructionProperties);
+                                                                                     new AssessmentSectionStub(), ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,11 +86,27 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), null,
-                                                                                     ConstructionProperties);
+                                                                                     new AssessmentSectionStub(), ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism(), null, ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -98,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                     new MacroStabilityInwardsFailureMechanism(), null);
+                                                                                     new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -124,7 +144,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, ConstructionProperties);
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism,
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(
@@ -179,7 +200,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, ConstructionProperties);
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism,
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
@@ -214,7 +236,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism, ConstructionProperties);
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, calculationScenarios, failureMechanism,
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -361,7 +384,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), ConstructionProperties);
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
 
                 // Call
                 setPropertyAction(row);
@@ -383,7 +407,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                    new MacroStabilityInwardsFailureMechanism(), ConstructionProperties);
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
 
                 // Call
                 void Call() => setPropertyAction(row);
@@ -392,6 +417,53 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             }
+        }
+
+        #endregion
+
+        #region Assembly
+
+        [Test]
+        public void Constructor_AssemblyRan_ReturnCategoryGroups()
+        {
+            // Setup
+            var random = new Random(39);
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
+                // Call
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    new MacroStabilityInwardsFailureMechanism(), new AssessmentSectionStub(),
+                                                                                    ConstructionProperties);
+
+                // Assert
+                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
+                FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
+                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, rowAssemblyResult);
+
+                Assert.AreEqual(rowAssemblyResult.ProfileProbability, row.ProfileProbability);
+                Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
+                Assert.AreEqual(rowAssemblyResult.N, row.SectionN);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
+                                row.AssemblyGroup);
+            }
+        }
+
+        private static void AssertFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
+                                                                        FailureMechanismSectionAssemblyResult actual)
+        {
+            Assert.AreEqual(expected.N, actual.N);
+            Assert.AreEqual(expected.SectionProbability, actual.SectionProbability);
+            Assert.AreEqual(expected.ProfileProbability, actual.ProfileProbability);
+            Assert.AreEqual(expected.AssemblyGroup, actual.AssemblyGroup);
         }
 
         #endregion

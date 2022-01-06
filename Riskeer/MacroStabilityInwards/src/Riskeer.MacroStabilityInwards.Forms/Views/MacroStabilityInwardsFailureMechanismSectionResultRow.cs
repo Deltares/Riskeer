@@ -22,6 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
@@ -51,6 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private readonly IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios;
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.
@@ -59,12 +63,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// the source of this row.</param>
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
-        /// /// <param name="constructionProperties">The property values required to create an instance of
+        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
                                                                      IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
                                                                      MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection,
                                                                      ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -78,6 +84,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (constructionProperties == null)
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
@@ -85,6 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
 
             initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
             initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
@@ -97,6 +109,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
             sectionNIndex = constructionProperties.SectionNIndex;
             assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
+
+            Update();
         }
 
         /// <summary>
@@ -243,7 +257,35 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// </summary>
         public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
 
-        public override void Update() {}
+        public override void Update()
+        {
+            UpdateDerivedData();
+        }
+        
+        private void UpdateDerivedData()
+        {
+            TryGetAssemblyResult();
+        }
+        
+        private void TryGetAssemblyResult()
+        {
+            try
+            {
+                AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
+                    assessmentSection, IsRelevant, InitialFailureMechanismResult, InitialFailureMechanismResultProfileProbability,
+                    InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
+                    SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
+                    ProbabilityRefinementType, () => failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(SectionResult.Section.Length));
+            }
+            catch (AssemblyException e)
+            {
+                AssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
+                ColumnStateDefinitions[profileProbabilityIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[sectionNIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[assemblyGroupIndex].ErrorText = e.Message;
+            }
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.
