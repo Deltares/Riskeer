@@ -149,6 +149,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.RefinedProfileProbability));
                 TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.RefinedSectionProbability));
+                TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ProfileProbability));
+                TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                    nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SectionProbability));
+                TestHelper.AssertTypeConverter<MacroStabilityInwardsFailureMechanismSectionResultRow, NoValueDoubleConverter>(
+                    nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SectionN));
             }
         }
 

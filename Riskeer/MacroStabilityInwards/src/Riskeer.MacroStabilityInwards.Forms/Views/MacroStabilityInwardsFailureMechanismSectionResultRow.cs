@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
@@ -84,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
-            
+
             initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
             initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
@@ -219,10 +220,31 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             }
         }
 
-        public override void Update()
-        {
-        }
-        
+        /// <summary>
+        /// Gets the profile probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double ProfileProbability => AssemblyResult.ProfileProbability;
+
+        /// <summary>
+        /// Gets the section probability.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double SectionProbability => AssemblyResult.SectionProbability;
+
+        /// <summary>
+        /// Gets the section N.
+        /// </summary>
+        [TypeConverter(typeof(NoValueDoubleConverter))]
+        public double SectionN => AssemblyResult.N;
+
+        /// <summary>
+        /// Gets the assembly group.
+        /// </summary>
+        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
+
+        public override void Update() {}
+
         /// <summary>
         /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
