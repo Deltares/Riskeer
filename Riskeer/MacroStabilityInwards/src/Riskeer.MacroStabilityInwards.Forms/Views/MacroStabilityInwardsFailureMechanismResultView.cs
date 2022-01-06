@@ -20,8 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 
@@ -33,6 +39,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
         MacroStabilityInwardsFailureMechanismSectionResultRow, MacroStabilityInwardsFailureMechanism>
     {
+        private const int initialFailureMechanismResultIndex = 2;
+        private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
+        private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
+        private const int furtherAnalysisNeededIndex = 5;
+        private const int probabilityRefinementTypeIndex = 6;
+        private const int refinedProfileProbabilityIndex = 7;
+        private const int refinedSectionProbabilityIndex = 8;
+        private const int profileProbabilityIndex = 9;
+        private const int sectionProbabilityIndex = 10;
+        private const int sectionNIndex = 11;
+        private const int assemblyGroupIndex = 12;
+
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -58,17 +76,94 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
         {
-            throw new NotImplementedException();
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios = FailureMechanism.Calculations
+                                                                                              .OfType<MacroStabilityInwardsCalculationScenario>()
+                                                                                              .ToArray();
+            return new MacroStabilityInwardsFailureMechanismSectionResultRow(
+                sectionResult, calculationScenarios,
+                CreateErrorProvider(sectionResult, calculationScenarios),
+                FailureMechanism, assessmentSection,
+                new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
+                {
+                    InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
+                    InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
+                    InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
+                    FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
+                    ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
+                    RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
+                    RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
+                    ProfileProbabilityIndex = profileProbabilityIndex,
+                    SectionProbabilityIndex = sectionProbabilityIndex,
+                    SectionNIndex = sectionNIndex,
+                    AssemblyGroupIndex = assemblyGroupIndex
+                });
         }
 
         protected override double GetN()
         {
-            throw new NotImplementedException();
+            return FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
         }
 
         protected override void AddDataGridColumns()
         {
-            throw new NotImplementedException();
+            FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.Name));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.IsRelevant));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.InitialFailureMechanismResult));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ProbabilityRefinementType));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.RefinedProfileProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.RefinedSectionProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ProfileProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SectionProbability));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.SectionN));
+
+            FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
+                DataGridViewControl,
+                nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.AssemblyGroup));
+        }
+
+        private static InitialFailureMechanismResultErrorProvider<MacroStabilityInwardsCalculationScenario> CreateErrorProvider(
+            FailureMechanismSectionResult sectionResult, IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
+        {
+            return new InitialFailureMechanismResultErrorProvider<MacroStabilityInwardsCalculationScenario>(
+                sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
     }
 }
