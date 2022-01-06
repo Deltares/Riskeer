@@ -275,6 +275,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             UpdateDerivedData();
             UpdateColumnStateDefinitions();
+            UpdateInitialFailureMechanismResultErrors();
+        }
+
+        private void UpdateInitialFailureMechanismResultErrors()
+        {
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt)
+            {
+                string errorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
+                    () => SectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor));
+
+                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = errorText;
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = errorText;
+            }
         }
 
         private void UpdateDerivedData()

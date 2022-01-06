@@ -330,6 +330,75 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenRowWithIsRelevantTrueAndInitialFailureMechanismResultAdopt_WhenErrorProviderReturnsError_ThenShowError()
+        {
+            // Given
+            const string errorText = "error";
+            var mocks = new MockRepository();
+            var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
+            errorProvider.Expect(ep => ep.GetProbabilityValidationError(null))
+                         .IgnoreArguments()
+                         .Return(errorText);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
+
+                // Then
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(false, InitialFailureMechanismResultType.Adopt)]
+        [TestCase(true, InitialFailureMechanismResultType.Manual)]
+        [TestCase(true, InitialFailureMechanismResultType.NoFailureProbability)]
+        public void GivenRowWithIsRelevantAndInitialFailureMechanismResult_WhenErrorProviderReturnsError_ThenShowNoError(
+            bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
+            errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
+                         .IgnoreArguments()
+                         .Return("error message");
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section)
+            {
+                IsRelevant = isRelevant,
+                InitialFailureMechanismResult = initialFailureMechanismResultType
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // When
+                var row = new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                    errorProvider, new MacroStabilityInwardsFailureMechanism(),
+                                                                                    new AssessmentSectionStub(), ConstructionProperties);
+
+                // Then
+                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultProfileProbabilityIndex].ErrorText);
+                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
+            }
+
+            mocks.VerifyAll();
+        }
+
         #region Registration
 
         [Test]
@@ -777,6 +846,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
+                         .IgnoreArguments()
+                         .Return(string.Empty);
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
