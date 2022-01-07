@@ -39,7 +39,7 @@ namespace Riskeer.HeightStructures.Data
                                                     ICalculatableFailureMechanism,
                                                     IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld>
     {
-        private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResultsOld;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -47,7 +47,7 @@ namespace Riskeer.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code, 1)
         {
-            sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -89,19 +89,19 @@ namespace Riskeer.HeightStructures.Data
         {
             get
             {
-                return sectionResults;
+                return sectionResultsOld;
             }
         }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
