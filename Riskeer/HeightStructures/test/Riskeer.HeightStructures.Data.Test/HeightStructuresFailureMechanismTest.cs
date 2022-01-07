@@ -43,7 +43,7 @@ namespace Riskeer.HeightStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Hoogte kunstwerk", failureMechanism.Name);
             Assert.AreEqual("HTKW", failureMechanism.Code);
             Assert.AreEqual(1, failureMechanism.Group);
@@ -51,11 +51,13 @@ namespace Riskeer.HeightStructures.Data.Test
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.HeightStructures);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]

@@ -37,9 +37,10 @@ namespace Riskeer.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism,
-                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld>
+                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>
     {
         private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<FailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -47,7 +48,6 @@ namespace Riskeer.HeightStructures.Data
         public HeightStructuresFailureMechanism()
             : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code, 1)
         {
-            sectionResultsOld = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
             CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
@@ -55,6 +55,9 @@ namespace Riskeer.HeightStructures.Data
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
+
+            sectionResultsOld = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<FailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -77,21 +80,11 @@ namespace Riskeer.HeightStructures.Data
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
 
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResultsOld;
-            }
-        }
+        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
