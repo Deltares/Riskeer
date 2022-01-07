@@ -152,7 +152,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>()))
             {
                 // Assert
                 DataGridView dataGridView = GetDataGridView();
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 Assert.AreEqual("Test", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("TestString", dataGridView.Columns[stringColumnIndex].HeaderText);
-                
+
                 Assert.AreEqual(DataGridViewAutoSizeColumnsMode.AllCells, dataGridView.AutoSizeColumnsMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, dataGridView.ColumnHeadersDefaultCellStyle.Alignment);
             }
@@ -220,8 +220,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewUpdatedAndNotifyPropertyChangedEventFired()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
@@ -255,7 +255,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndNotifiesObservers_ThenDataGridViewUpdatedAndNotifyPropertyChangedEventFired()
         {
             // Given
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
@@ -285,9 +285,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidatedAndNotifyPropertyChangedEventFired()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
@@ -323,9 +323,9 @@ namespace Riskeer.Common.Forms.Test.Views
             bool readOnly, string errorText, CellStyle style)
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
@@ -356,9 +356,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenRowUpdatingAndSectionResultNotified_ThenNothingUpdates()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
@@ -389,10 +389,10 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-            TestFailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult2 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult1,
                 sectionResult2
@@ -426,7 +426,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenRowUpdated_ThenColumnDoesNotAutoResize()
         {
             // Given
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
@@ -454,8 +454,8 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnDoesAutoResize()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
@@ -484,9 +484,9 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
         {
             // Given
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 sectionResult
             };
@@ -621,7 +621,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult(),
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
@@ -663,7 +663,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            var sectionResults = new ObservableList<FailureMechanismSectionResult>
             {
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult(),
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()

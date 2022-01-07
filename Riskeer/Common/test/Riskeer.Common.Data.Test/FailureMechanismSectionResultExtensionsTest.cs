@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new TestFailureMechanismSectionResult(section);
+            var sectionResult = new FailureMechanismSectionResult(section);
 
             // Call
             void Call() => sectionResult.GetRelevantCalculationScenarios<ICalculationScenario>(null, (scenario, segments) => false);
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new TestFailureMechanismSectionResult(section);
+            var sectionResult = new FailureMechanismSectionResult(section);
 
             // Call
             void Call() => sectionResult.GetRelevantCalculationScenarios<ICalculationScenario>(Enumerable.Empty<ICalculationScenario>(), null);
@@ -101,7 +101,7 @@ namespace Riskeer.Common.Data.Test
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new TestFailureMechanismSectionResult(section);
+            var sectionResult = new FailureMechanismSectionResult(section);
 
             // Call
             IEnumerable<ICalculationScenario> relevantScenarios = sectionResult.GetRelevantCalculationScenarios<TestCalculationScenario>(
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Data.Test
             };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new TestFailureMechanismSectionResult(section);
+            var sectionResult = new FailureMechanismSectionResult(section);
 
             // Call
             IEnumerable<ICalculationScenario> relevantScenarios = sectionResult.GetRelevantCalculationScenarios<TestCalculationScenario>(

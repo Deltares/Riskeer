@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 
@@ -47,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Setup
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Call
             var row = new TestFailureMechanismSectionResultRow(sectionResult);
@@ -67,7 +68,7 @@ namespace Riskeer.Common.Forms.Test.Views
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+            FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
             sectionResult.Attach(observer);
 
             var row = new TestFailureMechanismSectionResultRow(sectionResult);
@@ -90,9 +91,9 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
+        private class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
         {
-            public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+            public TestFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
             public bool Updated { get; private set; }
 

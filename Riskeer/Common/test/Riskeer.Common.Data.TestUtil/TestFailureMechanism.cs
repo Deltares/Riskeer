@@ -64,7 +64,7 @@ namespace Riskeer.Common.Data.TestUtil
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new TestFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new TestFailureMechanismSectionResult(section));
+            sectionResults.Add(new FailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()

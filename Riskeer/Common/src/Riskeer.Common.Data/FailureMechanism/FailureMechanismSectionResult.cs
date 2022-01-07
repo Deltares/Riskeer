@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// Base class for classes that hold information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public abstract class FailureMechanismSectionResult : Observable, IFailureMechanismSectionResult
+    public class FailureMechanismSectionResult : Observable, IFailureMechanismSectionResult
     {
         private double manualInitialFailureMechanismResultSectionProbability;
         private double refinedSectionProbability;
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        protected FailureMechanismSectionResult(FailureMechanismSection section)
+        public FailureMechanismSectionResult(FailureMechanismSection section)
         {
             if (section == null)
             {
@@ -52,11 +52,6 @@ namespace Riskeer.Common.Data.FailureMechanism
             ManualInitialFailureMechanismResultSectionProbability = double.NaN;
             RefinedSectionProbability = double.NaN;
         }
-
-        /// <summary>
-        /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        public FailureMechanismSection Section { get; }
 
         /// <summary>
         /// Gets or sets whether the section is relevant.
@@ -104,5 +99,10 @@ namespace Riskeer.Common.Data.FailureMechanism
                 refinedSectionProbability = value;
             }
         }
+
+        /// <summary>
+        /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
+        /// </summary>
+        public FailureMechanismSection Section { get; }
     }
 }
