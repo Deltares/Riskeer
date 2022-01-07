@@ -70,7 +70,6 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var initialFailureMechanismResultType = random.NextEnumValue<InitialFailureMechanismResultType>();
             double manualProfileProbability = random.NextDouble();
             double manualSectionProbability = random.NextDouble();
-
             bool furtherAnalysisNeeded = random.NextBoolean();
             var probabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
             double refinedProfileProbability = random.NextDouble();

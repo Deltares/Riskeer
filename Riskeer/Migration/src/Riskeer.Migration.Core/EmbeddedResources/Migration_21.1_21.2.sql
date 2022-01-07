@@ -266,7 +266,7 @@ INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCE
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
 INSERT INTO MacroStabilityInwardsSectionResultEntity (
-[MacroStabilityInwardsSectionResultEntityId],
+    [MacroStabilityInwardsSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
