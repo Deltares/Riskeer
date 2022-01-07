@@ -69,7 +69,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertPipingFailureMechanism(reader, sourceFilePath);
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
-                    AssertFailureMechanismSectionResults(reader, sourceFilePath);
+                    AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
 
                     AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
@@ -91,6 +91,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDuneLocationCalculationCollection(reader);
                     AssertDuneLocationCalculation(reader);
                     AssertDuneLocationCalculationOutput(reader);
+
+                    AssertMacroStabilityInwardsFailureMechanismSectionResults(reader, sourceFilePath);
 
                     AssertStrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
@@ -666,17 +668,17 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validatePipingScenarioConfigurationPerFailureMechanismSectionEntity);
         }
 
-        private static void AssertFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertPipingFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            string validateFailureMechamismSectionResults =
+            string validateFailureMechanismSectionResults =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
                 "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.{0} " +
+                "FROM SOURCEPROJECT.PipingSectionResultEntity " +
                 ") " +
-                "FROM {0} NEW " +
-                "JOIN SOURCEPROJECT.{0} OLD USING({1}) " +
+                "FROM PipingSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingSectionResultEntity OLD USING(PipingSectionResultEntityId) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
@@ -688,8 +690,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechamismSectionResults, "PipingSectionResultEntity", "PipingSectionResultEntityId"));
-            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechamismSectionResults, "MacroStabilityInwardsSectionResultEntity", "MacroStabilityInwardsSectionResultEntityId"));
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
         }
 
         #endregion
@@ -1024,6 +1025,35 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() = 0 " +
                 "FROM [DuneLocationCalculationOutputEntity]; ";
             reader.AssertReturnedDataIsValid(validateOutput);
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards
+
+        private static void AssertMacroStabilityInwardsFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.MacroStabilityInwardsSectionResultEntity " +
+                ") " +
+                "FROM MacroStabilityInwardsSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.MacroStabilityInwardsSectionResultEntity OLD USING(MacroStabilityInwardsSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
+                "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
+                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[ProbabilityRefinementType] = 2 " +
+                "AND NEW.[RefinedSectionProbability] IS NULL " +
+                "AND NEW.[RefinedProfileProbability] IS NULL; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
         }
 
         #endregion
