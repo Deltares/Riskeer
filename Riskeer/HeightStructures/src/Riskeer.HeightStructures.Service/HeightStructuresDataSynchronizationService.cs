@@ -168,6 +168,7 @@ namespace Riskeer.HeightStructures.Service
             var changedObjects = new List<IObservable>();
             object[] removedObjects = failureMechanism.Sections.OfType<object>()
                                                       .Concat(failureMechanism.SectionResultsOld)
+                                                      .Concat(failureMechanism.SectionResults)
                                                       .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                       .Concat(failureMechanism.ForeshoreProfiles)
                                                       .Concat(failureMechanism.HeightStructures)
@@ -176,6 +177,7 @@ namespace Riskeer.HeightStructures.Service
             failureMechanism.ClearAllSections();
             changedObjects.Add(failureMechanism);
             changedObjects.Add(failureMechanism.SectionResultsOld);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.CalculationsGroup.Children.Clear();
             changedObjects.Add(failureMechanism.CalculationsGroup);

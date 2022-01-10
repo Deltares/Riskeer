@@ -90,11 +90,13 @@ namespace Riskeer.HeightStructures.Data
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new FailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }

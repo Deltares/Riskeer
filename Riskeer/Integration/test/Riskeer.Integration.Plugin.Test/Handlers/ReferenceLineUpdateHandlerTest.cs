@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 201;
+        private const int expectedNumberOfRemovedInstances = 203;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(62, observables.Length);
+            Assert.AreEqual(63, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -215,6 +215,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(observables, pipingFailureMechanism);
             CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, pipingFailureMechanism.CalculationsGroup);
@@ -278,8 +279,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.Sections);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.ForeshoreProfiles);
@@ -311,6 +314,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);

@@ -1669,7 +1669,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(62, changedObjects.Length);
+            Assert.AreEqual(63, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1714,6 +1714,7 @@ namespace Riskeer.Integration.Service.Test
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(changedObjects, heightStructuresFailureMechanism.HeightStructures);
@@ -1919,7 +1920,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(HeightStructuresFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<HeightStructuresFailureMechanism>(failureMechanism))
             {
                 yield return failureMechanismObject;
             }

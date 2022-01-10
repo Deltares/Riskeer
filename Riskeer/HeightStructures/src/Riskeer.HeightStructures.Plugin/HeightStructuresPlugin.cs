@@ -138,7 +138,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld>(
+                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>(
                 new HeightStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -853,9 +853,9 @@ namespace Riskeer.HeightStructures.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
-            {
-                calculation
-            }, message))
+                {
+                    calculation
+                }, message))
             {
                 UpdateStructureDerivedCalculationInput(calculation);
             }
