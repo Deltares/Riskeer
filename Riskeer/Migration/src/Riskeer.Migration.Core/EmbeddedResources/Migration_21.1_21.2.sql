@@ -222,7 +222,6 @@ INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureE
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
-INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HeightStructuresSectionResultEntity (
     [HeightStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
