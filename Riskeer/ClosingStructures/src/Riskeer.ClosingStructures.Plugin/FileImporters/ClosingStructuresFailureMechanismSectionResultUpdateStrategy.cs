@@ -21,6 +21,7 @@
 
 using System;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 
 namespace Riskeer.ClosingStructures.Plugin.FileImporters
@@ -30,7 +31,7 @@ namespace Riskeer.ClosingStructures.Plugin.FileImporters
     /// from an old <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResultOld>
+        : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(ClosingStructuresFailureMechanismSectionResultOld origin, ClosingStructuresFailureMechanismSectionResultOld target)
         {
@@ -50,6 +51,25 @@ namespace Riskeer.ClosingStructures.Plugin.FileImporters
             target.TailorMadeAssessmentProbability = origin.TailorMadeAssessmentProbability;
             target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
+        }
+
+        public void UpdateSectionResult(AdoptableFailureMechanismSectionResult origin, AdoptableFailureMechanismSectionResult target)
+        {
+            if (origin == null)
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            target.IsRelevant = origin.IsRelevant;
+            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
+            target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
+            target.RefinedSectionProbability = origin.RefinedSectionProbability;
         }
     }
 }

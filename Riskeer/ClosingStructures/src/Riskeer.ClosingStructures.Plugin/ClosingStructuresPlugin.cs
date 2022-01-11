@@ -265,7 +265,10 @@ namespace Riskeer.ClosingStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                ClosingStructuresFailureMechanismSectionsContext, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResultOld>(
+                ClosingStructuresFailureMechanismSectionsContext,
+                ClosingStructuresFailureMechanism,
+                ClosingStructuresFailureMechanismSectionResultOld,
+                AdoptableFailureMechanismSectionResult>(
                 new ClosingStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
