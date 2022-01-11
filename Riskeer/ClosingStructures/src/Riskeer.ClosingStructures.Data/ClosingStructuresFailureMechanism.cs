@@ -38,9 +38,10 @@ namespace Riskeer.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase,
                                                      ICalculatableFailureMechanism,
-                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld>
+                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
@@ -52,9 +53,11 @@ namespace Riskeer.ClosingStructures.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
+
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResults = new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -75,30 +78,22 @@ namespace Riskeer.ClosingStructures.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
 
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new ClosingStructuresFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
+            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

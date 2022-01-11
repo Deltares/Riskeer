@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
             Assert.AreEqual(1, failureMechanism.Group);
@@ -74,6 +74,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
             Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
         }
@@ -97,12 +98,14 @@ namespace Riskeer.ClosingStructures.Data.Test
             });
 
             // Precondition
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
             Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
