@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a macro stability inwards assessment.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class MacroStabilityInwardsFailureMechanismSectionResult : AdoptableFailureMechanismSectionResult
     {
         private double manualInitialFailureMechanismResultProfileProbability;
         private double refinedProfileProbability;

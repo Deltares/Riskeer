@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
+            Assert.IsInstanceOf<AdoptableFailureMechanismSectionResult>(sectionResult);
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultProfileProbability);
             Assert.IsNaN(sectionResult.RefinedProfileProbability);
             Assert.AreEqual(ProbabilityRefinementType.Section, sectionResult.ProbabilityRefinementType);

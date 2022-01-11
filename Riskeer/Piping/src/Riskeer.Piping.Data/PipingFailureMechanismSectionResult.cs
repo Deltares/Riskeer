@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a piping assessment.
     /// </summary>
-    public class PipingFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class PipingFailureMechanismSectionResult : AdoptableFailureMechanismSectionResult
     {
         private double manualInitialFailureMechanismResultProfileProbability;
         private double refinedProfileProbability;
