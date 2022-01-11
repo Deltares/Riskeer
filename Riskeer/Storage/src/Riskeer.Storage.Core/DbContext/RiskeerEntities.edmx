@@ -663,12 +663,11 @@
           </Key>
           <Property Name="HeightStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="TailorMadeAssessmentProbability" Type="real" />
-          <Property Name="UseManualAssembly" Type="tinyint" Nullable="false" />
-          <Property Name="ManualAssemblyProbability" Type="real" />
+          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="InitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
+          <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
+          <Property Name="RefinedSectionProbability" Type="real" />
         </EntityType>
         <EntityType Name="HydraulicBoundaryDatabaseEntity">
           <Key>
@@ -5911,12 +5910,11 @@
           </Key>
           <Property Name="HeightStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
-          <Property Name="UseManualAssembly" Type="Byte" Nullable="false" />
-          <Property Name="ManualAssemblyProbability" Type="Double" />
+          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="InitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
+          <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
+          <Property Name="RefinedSectionProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0" FromRole="HeightStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="HydraulicBoundaryDatabaseEntity">
@@ -9491,12 +9489,11 @@
           <EntitySetMapping Name="HeightStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.HeightStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="HeightStructuresSectionResultEntity">
-                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
-                <ScalarProperty Name="UseManualAssembly" ColumnName="UseManualAssembly" />
-                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
-                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
-                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
-                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
+                <ScalarProperty Name="RefinedSectionProbability" ColumnName="RefinedSectionProbability" />
+                <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
+                <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
+                <ScalarProperty Name="InitialFailureMechanismResultType" ColumnName="InitialFailureMechanismResultType" />
+                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="HeightStructuresSectionResultEntityId" ColumnName="HeightStructuresSectionResultEntityId" />
               </MappingFragment>
