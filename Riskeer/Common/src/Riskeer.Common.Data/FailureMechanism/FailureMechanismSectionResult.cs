@@ -48,7 +48,6 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             Section = section;
             IsRelevant = true;
-            InitialFailureMechanismResult = InitialFailureMechanismResultType.Adopt;
             ManualInitialFailureMechanismResultSectionProbability = double.NaN;
             RefinedSectionProbability = double.NaN;
         }
@@ -57,11 +56,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets or sets whether the section is relevant.
         /// </summary>
         public bool IsRelevant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the initial failure mechanism result.
-        /// </summary>
-        public InitialFailureMechanismResultType InitialFailureMechanismResult { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
