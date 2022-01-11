@@ -1010,10 +1010,10 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<FailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            foreach (FailureMechanismSectionResult sectionResult in sectionResults)
+            foreach (AdoptableFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.IsRelevant = random.NextBoolean();
                 sectionResult.InitialFailureMechanismResult = random.NextEnumValue<InitialFailureMechanismResultType>();

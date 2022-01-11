@@ -1108,8 +1108,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<FailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<FailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> expectedSectionResults,
+                                                                 IEnumerable<AdoptableFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,
