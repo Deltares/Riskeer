@@ -37,10 +37,10 @@ namespace Riskeer.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism,
-                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>
+                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<FailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
@@ -57,7 +57,7 @@ namespace Riskeer.HeightStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
 
             sectionResultsOld = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<FailureMechanismSectionResult>();
+            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -84,13 +84,13 @@ namespace Riskeer.HeightStructures.Data
 
         public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
 
-        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults => sectionResults;
+        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new FailureMechanismSectionResult(section));
+            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()

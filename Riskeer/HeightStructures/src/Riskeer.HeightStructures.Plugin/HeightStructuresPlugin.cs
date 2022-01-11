@@ -138,7 +138,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>(
+                HeightStructuresFailureMechanismSectionsContext, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>(
                 new HeightStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 

@@ -54,7 +54,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             bool furtherAnalysisNeeded = random.NextBoolean();
             double refinedSectionProbability = random.NextDouble();
 
-            var sectionResult = new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = isRelevant,
                 InitialFailureMechanismResult = initialFailureMechanismResultType,
@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 ManualInitialFailureMechanismResultSectionProbability = double.NaN,
                 RefinedSectionProbability = double.NaN

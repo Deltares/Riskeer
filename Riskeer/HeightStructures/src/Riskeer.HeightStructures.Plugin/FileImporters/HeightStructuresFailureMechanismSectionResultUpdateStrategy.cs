@@ -28,10 +28,10 @@ namespace Riskeer.HeightStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update either a <see cref="HeightStructuresFailureMechanismSectionResultOld"/>
-    /// or a <see cref="FailureMechanismSectionResult"/> instance with data from an old instance;
+    /// or an <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance;
     /// /// </summary>
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(HeightStructuresFailureMechanismSectionResultOld origin, HeightStructuresFailureMechanismSectionResultOld target)
         {
@@ -53,7 +53,7 @@ namespace Riskeer.HeightStructures.Plugin.FileImporters
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
         }
 
-        public void UpdateSectionResult(FailureMechanismSectionResult origin, FailureMechanismSectionResult target)
+        public void UpdateSectionResult(AdoptableFailureMechanismSectionResult origin, AdoptableFailureMechanismSectionResult target)
         {
             if (origin == null)
             {

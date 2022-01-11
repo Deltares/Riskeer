@@ -33,12 +33,12 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
     {
         /// <summary>
         /// Creates a <see cref="HeightStructuresSectionResultEntity"/> based on the information of the
-        /// <see cref="FailureMechanismSectionResult"/>.
+        /// <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="HeightStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static HeightStructuresSectionResultEntity Create(this FailureMechanismSectionResult result)
+        internal static HeightStructuresSectionResultEntity Create(this AdoptableFailureMechanismSectionResult result)
         {
             if (result == null)
             {

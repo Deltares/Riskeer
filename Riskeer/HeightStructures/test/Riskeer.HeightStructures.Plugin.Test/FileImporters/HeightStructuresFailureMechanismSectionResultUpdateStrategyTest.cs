@@ -32,7 +32,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        HeightStructuresFailureMechanismSectionResultUpdateStrategy, HeightStructuresFailureMechanismSectionResultOld, FailureMechanismSectionResult>
+        HeightStructuresFailureMechanismSectionResultUpdateStrategy, HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         protected override HeightStructuresFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
@@ -64,15 +64,15 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
         }
 
-        protected override FailureMechanismSectionResult CreateEmptySectionResult()
+        protected override AdoptableFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            return new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override FailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override AdoptableFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
             var random = new Random(39);
-            return new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
                 InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
@@ -82,7 +82,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             };
         }
 
-        protected override void AssertSectionResult(FailureMechanismSectionResult originResult, FailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(AdoptableFailureMechanismSectionResult originResult, AdoptableFailureMechanismSectionResult targetResult)
         {
             Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
             Assert.AreEqual(originResult.InitialFailureMechanismResult, targetResult.InitialFailureMechanismResult);
