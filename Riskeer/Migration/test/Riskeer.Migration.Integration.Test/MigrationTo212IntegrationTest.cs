@@ -93,6 +93,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDuneLocationCalculationOutput(reader);
 
                     AssertMacroStabilityInwardsFailureMechanismSectionResults(reader, sourceFilePath);
+                    AssertHeightStructuresSectionResults(reader, sourceFilePath);
 
                     AssertStrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
@@ -1051,6 +1052,32 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ProbabilityRefinementType] = 2 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL " +
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
+        }
+
+        #endregion
+
+        #region HeightStructures
+
+        private static void AssertHeightStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.HeightStructuresSectionResultEntity " +
+                ") " +
+                "FROM HeightStructuresSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.HeightStructuresSectionResultEntity OLD USING(HeightStructuresSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
+                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[RefinedSectionProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);

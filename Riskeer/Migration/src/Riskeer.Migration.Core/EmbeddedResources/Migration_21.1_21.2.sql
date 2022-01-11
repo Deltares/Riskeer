@@ -223,6 +223,24 @@ INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].Heig
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
+INSERT INTO HeightStructuresSectionResultEntity (
+    [HeightStructuresSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability]
+)
+SELECT
+    [HeightStructuresSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    0,
+    NULL
+FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
 
 INSERT INTO HydraulicLocationCalculationCollectionEntity (
