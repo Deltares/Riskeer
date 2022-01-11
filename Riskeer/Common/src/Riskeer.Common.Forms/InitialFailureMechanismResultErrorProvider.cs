@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms
         /// <summary>
         /// Creates a new instance of <see cref="InitialFailureMechanismResultErrorProvider{T}"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> to validate for.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> to validate for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to validate.</param>
         /// <param name="intersectionFunc">The function to determine whether a scenario is belonging
         /// to the given <paramref name="sectionResult"/>.</param>

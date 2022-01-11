@@ -43,15 +43,15 @@ namespace Riskeer.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Creates a default <see cref="FailureMechanismSectionResult"/>.
+        /// Creates a default <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="name">The name of the section.</param>
         /// <returns>A valid <see cref="TestFailureMechanismSectionResultOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <param name="name"></param>
         /// is <c>null</c>.</exception>
-        public static FailureMechanismSectionResult CreateFailureMechanismSectionResult(string name = "test")
+        public static AdoptableFailureMechanismSectionResult CreateFailureMechanismSectionResult(string name = "test")
         {
-            return new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(name));
+            return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(name));
         }
     }
 }

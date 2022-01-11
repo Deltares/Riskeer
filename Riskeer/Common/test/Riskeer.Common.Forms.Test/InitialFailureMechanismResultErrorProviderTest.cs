@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
             void Call() => new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
             void Call() => new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
             var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
@@ -114,7 +114,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             var calculationScenarios = new[]
             {
@@ -139,7 +139,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             var calculationScenarios = new[]
             {
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             var calculationScenarios = new[]
             {
@@ -190,7 +190,7 @@ namespace Riskeer.Common.Forms.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             var calculationScenarios = new[]
             {
@@ -216,7 +216,7 @@ namespace Riskeer.Common.Forms.Test
             // Setup
             var random = new Random(39);
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             var calculationScenarios = new[]
             {
