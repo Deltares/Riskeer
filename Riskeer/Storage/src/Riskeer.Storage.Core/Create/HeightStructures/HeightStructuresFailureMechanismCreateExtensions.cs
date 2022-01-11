@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -48,16 +49,16 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
             AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<HeightStructuresFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<FailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (FailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
                 HeightStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

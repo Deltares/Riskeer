@@ -20,25 +20,25 @@
 // All rights reserved.
 
 using System;
-using Riskeer.HeightStructures.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.HeightStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="HeightStructuresFailureMechanismSectionResultOld"/> related to creating a 
+    /// Extension methods for <see cref="FailureMechanismSectionResult"/> related to creating a 
     /// <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HeightStructuresSectionResultEntity"/> based on the information of the
-        /// <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.
+        /// <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="HeightStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static HeightStructuresSectionResultEntity Create(this HeightStructuresFailureMechanismSectionResultOld result)
+        internal static HeightStructuresSectionResultEntity Create(this FailureMechanismSectionResult result)
         {
             if (result == null)
             {
@@ -47,12 +47,11 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
 
             return new HeightStructuresSectionResultEntity
             {
-                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
-                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
-                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
-                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
-                ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
+                IsRelevant = Convert.ToByte(result.IsRelevant),
+                InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),
+                ManualInitialFailureMechanismResultSectionProbability = result.ManualInitialFailureMechanismResultSectionProbability.ToNaNAsNull(),
+                FurtherAnalysisNeeded = Convert.ToByte(result.FurtherAnalysisNeeded),
+                RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
             };
         }
     }

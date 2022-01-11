@@ -272,7 +272,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (HeightStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                HeightStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                FailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }

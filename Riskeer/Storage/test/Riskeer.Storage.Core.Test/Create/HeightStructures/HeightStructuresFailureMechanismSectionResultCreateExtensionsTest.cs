@@ -22,9 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Primitives;
-using Riskeer.HeightStructures.Data;
 using Riskeer.Storage.Core.Create.HeightStructures;
 using Riskeer.Storage.Core.DbContext;
 
@@ -49,51 +48,48 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
         {
             // Setup
             var random = new Random(21);
-            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-            double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssembly = random.NextBoolean();
-            double manualAssemblyProbability = random.NextDouble();
+            bool isRelevant = random.NextBoolean();
+            var initialFailureMechanismResultType = random.NextEnumValue<InitialFailureMechanismResultType>();
+            double manualSectionProbability = random.NextDouble();
+            bool furtherAnalysisNeeded = random.NextBoolean();
+            double refinedSectionProbability = random.NextDouble();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                DetailedAssessmentResult = detailedAssessmentResult,
-                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssembly = useManualAssembly,
-                ManualAssemblyProbability = manualAssemblyProbability
+                IsRelevant = isRelevant,
+                InitialFailureMechanismResult = initialFailureMechanismResultType,
+                ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
+                FurtherAnalysisNeeded = furtherAnalysisNeeded,
+                RefinedSectionProbability = refinedSectionProbability
             };
 
             // Call
             HeightStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
-            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
-            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
-            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(initialFailureMechanismResultType), entity.InitialFailureMechanismResultType);
+            Assert.AreEqual(manualSectionProbability, entity.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(Convert.ToByte(furtherAnalysisNeeded), entity.FurtherAnalysisNeeded);
+            Assert.AreEqual(refinedSectionProbability, entity.RefinedSectionProbability);
         }
 
         [Test]
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new FailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN,
-                ManualAssemblyProbability = double.NaN
+                ManualInitialFailureMechanismResultSectionProbability = double.NaN,
+                RefinedSectionProbability = double.NaN
             };
 
             // Call
             HeightStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.IsNull(entity.TailorMadeAssessmentProbability);
-            Assert.IsNull(entity.ManualAssemblyProbability);
+            Assert.IsNull(entity.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.IsNull(entity.RefinedSectionProbability);
         }
     }
 }

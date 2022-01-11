@@ -20,29 +20,28 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Primitives;
-using Riskeer.HeightStructures.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.HeightStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="HeightStructuresFailureMechanismSectionResultOld"/> 
+    /// This class defines extension methods for read operations for a <see cref="FailureMechanismSectionResult"/> 
     /// based on the <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information 
-        /// to update a <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.
+        /// to update a <see cref="FailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> used to 
+        /// <param name="entity">The <see cref="FailureMechanismSectionResult"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="HeightStructuresFailureMechanismSectionResultOld"/>.</returns>
+        /// <returns>A new <see cref="FailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this HeightStructuresSectionResultEntity entity,
-                                  HeightStructuresFailureMechanismSectionResultOld sectionResult)
+                                  FailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {
@@ -54,12 +53,12 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
-            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
-            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
-            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
-            sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
-            sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
+
+            sectionResult.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
+            sectionResult.InitialFailureMechanismResult = (InitialFailureMechanismResultType) entity.InitialFailureMechanismResultType;
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = entity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN();
+            sectionResult.FurtherAnalysisNeeded = Convert.ToBoolean(entity.FurtherAnalysisNeeded);
+            sectionResult.RefinedSectionProbability = entity.RefinedSectionProbability.ToNullAsNaN();
         }
     }
 }
