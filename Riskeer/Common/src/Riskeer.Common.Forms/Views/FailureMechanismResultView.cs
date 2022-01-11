@@ -21,9 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -34,6 +33,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Views
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Views
     /// <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.</typeparam>
     /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
-    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView, INotifyPropertyChanged
+    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
@@ -57,10 +57,10 @@ namespace Riskeer.Common.Forms.Views
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
-        private double failurePathAssemblyProbability;
 
         private bool probabilityResultTypeComboBoxUpdating;
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        private readonly NoProbabilityValueDoubleConverter converter;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.
@@ -103,32 +103,15 @@ namespace Riskeer.Common.Forms.Views
                 Observable = failureMechanismSectionResults
             };
 
+            converter = new NoProbabilityValueDoubleConverter();
+
             InitializeComboBox();
-            InitializeTextBox();
         }
 
         /// <summary>
         /// Gets the failure mechanism.
         /// </summary>
         public TFailureMechanism FailureMechanism { get; }
-
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double FailurePathAssemblyProbability
-        {
-            get => failurePathAssemblyProbability;
-            set
-            {
-                if (IsManualAssembly())
-                {
-                    FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-                    assemblyResult.ManualFailurePathAssemblyProbability = value;
-                    assemblyResult.NotifyObservers();
-                }
-
-                failurePathAssemblyProbability = value;
-                OnPropertyChanged(nameof(FailurePathAssemblyProbability));
-            }
-        }
 
         public object Data { get; set; }
 
@@ -214,16 +197,7 @@ namespace Riskeer.Common.Forms.Views
 
             probabilityResultTypeComboBox.EndUpdate();
         }
-
-        private void InitializeTextBox()
-        {
-            Binding failurePathAssemblyProbabilityBinding = failurePathAssemblyProbabilityTextBox.DataBindings.Add(nameof(TextBox.Text), this,
-                                                                                                                   nameof(FailurePathAssemblyProbability),
-                                                                                                                   true,
-                                                                                                                   DataSourceUpdateMode.OnValidation);
-            failurePathAssemblyProbabilityBinding.BindingComplete += FailurePathAssemblyProbabilityTextBoxBindingBindingComplete;
-        }
-
+        
         private void UpdateFailurePathAssemblyControls()
         {
             failurePathAssemblyProbabilityTextBox.Enabled = IsManualAssembly();
@@ -235,9 +209,10 @@ namespace Riskeer.Common.Forms.Views
         {
             ClearErrorMessage();
 
-            FailurePathAssemblyProbability = IsManualAssembly()
-                                                 ? FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability
-                                                 : TryGetFailurePathAssemblyProbability();
+            double failurePathAssemblyProbability = IsManualAssembly()
+                                                        ? FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability
+                                                        : TryGetFailurePathAssemblyProbability();
+            SetTextBoxValue(failurePathAssemblyProbability);
         }
 
         /// <summary>
@@ -329,29 +304,39 @@ namespace Riskeer.Common.Forms.Views
             UpdateFailurePathAssemblyControls();
         }
 
-        private void FailurePathAssemblyProbabilityTextBoxBindingBindingComplete(object sender, BindingCompleteEventArgs e)
-        {
-            if (IsManualAssembly())
-            {
-                if (e.BindingCompleteState != BindingCompleteState.Success)
-                {
-                    SetErrorMessage(e.ErrorText);
-                    FailurePathAssemblyProbability = double.NaN;
-                }
-                else if (e.BindingCompleteState == BindingCompleteState.Success)
-                {
-                    ClearErrorMessage();
-                }
-            }
-        }
-
         private void FailurePathAssemblyProbabilityTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                failureMechanismAssemblyLabel.Focus(); // Focus on different component to commit value
+                failureMechanismAssemblyLabel.Focus(); // Focus on different component to commit value and force a leave event
                 e.Handled = true;
             }
+        }
+
+        private void FailurePathAssemblyProbabilityTextBoxLeave(object sender, EventArgs e)
+        {
+            ClearErrorMessage();
+            ProcessFailurePathAssemblyProbabilityTextBox(failurePathAssemblyProbabilityTextBox.Text);
+        }
+
+        private void ProcessFailurePathAssemblyProbabilityTextBox(string value)
+        {
+            try
+            {
+                var probability = (double) converter.ConvertFrom(null, CultureInfo.CurrentCulture, value);
+                FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability = probability;
+
+                SetTextBoxValue(probability);
+            }
+            catch (Exception exception)
+            {
+                SetErrorMessage(exception.Message);
+            }
+        }
+
+        private void SetTextBoxValue(double probability)
+        {
+            failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.Format(probability);
         }
 
         private bool IsManualAssembly()
@@ -368,11 +353,6 @@ namespace Riskeer.Common.Forms.Views
         private void ClearErrorMessage()
         {
             errorProvider.SetError(failurePathAssemblyProbabilityTextBox, string.Empty);
-        }
-
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

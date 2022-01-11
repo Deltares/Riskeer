@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Views
@@ -98,6 +99,7 @@ namespace Riskeer.Common.Forms.Views
             this.failurePathAssemblyProbabilityTextBox.Name = "failurePathAssemblyProbabilityTextBox";
             this.failurePathAssemblyProbabilityTextBox.Size = new System.Drawing.Size(100, 20);
             this.failurePathAssemblyProbabilityTextBox.KeyDown += new KeyEventHandler(this.FailurePathAssemblyProbabilityTextBoxKeyDown);
+            this.failurePathAssemblyProbabilityTextBox.Leave += new EventHandler(this.FailurePathAssemblyProbabilityTextBoxLeave);
             this.failurePathAssemblyProbabilityTextBox.TabIndex = 4;
             // 
             // DataGridViewControl
