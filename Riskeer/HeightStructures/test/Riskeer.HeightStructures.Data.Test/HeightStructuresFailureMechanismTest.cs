@@ -102,12 +102,14 @@ namespace Riskeer.HeightStructures.Data.Test
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]
