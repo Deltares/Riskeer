@@ -481,7 +481,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(5, array.Length);
+            Assert.AreEqual(6, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
             CollectionAssert.Contains(array, failureMechanism.SectionResults);

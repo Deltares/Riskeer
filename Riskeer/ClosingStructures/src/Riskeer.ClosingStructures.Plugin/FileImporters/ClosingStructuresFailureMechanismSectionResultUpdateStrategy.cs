@@ -27,9 +27,9 @@ using Riskeer.Common.IO.FileImporters;
 namespace Riskeer.ClosingStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> instance with data
-    /// from an old <see cref="ClosingStructuresFailureMechanismSectionResultOld"/> instance.
-    /// </summary>
+    /// An update strategy that can be used to update either a <see cref="ClosingStructuresFailureMechanismSectionResultOld"/>
+    /// or an <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance;
+    /// /// </summary>
     public class ClosingStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
