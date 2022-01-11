@@ -267,8 +267,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.Sections);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, closingStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.ForeshoreProfiles);

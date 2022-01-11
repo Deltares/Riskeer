@@ -1707,6 +1707,7 @@ namespace Riskeer.Integration.Service.Test
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(changedObjects, closingStructuresFailureMechanism.ClosingStructures);
@@ -1943,7 +1944,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(ClosingStructuresFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<ClosingStructuresFailureMechanism>(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
