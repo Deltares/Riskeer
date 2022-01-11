@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// Base class for classes that hold information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionResult : Observable, IFailureMechanismSectionResult
+    public abstract class FailureMechanismSectionResult : Observable, IFailureMechanismSectionResult
     {
         private double manualInitialFailureMechanismResultSectionProbability;
         private double refinedSectionProbability;
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionResult(FailureMechanismSection section)
+        protected FailureMechanismSectionResult(FailureMechanismSection section)
         {
             if (section == null)
             {

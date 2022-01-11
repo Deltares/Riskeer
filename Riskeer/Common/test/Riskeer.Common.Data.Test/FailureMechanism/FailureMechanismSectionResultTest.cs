@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new FailureMechanismSectionResult(null);
+            void Call() => new TestFailureMechanismSectionResult(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionResult = new FailureMechanismSectionResult(section);
+            var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<Observable>(sectionResult);
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new FailureMechanismSectionResult(section);
+            var result = new TestFailureMechanismSectionResult(section);
 
             // Call
             void Call() => result.ManualInitialFailureMechanismResultSectionProbability = newValue;
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new FailureMechanismSectionResult(section);
+            var result = new TestFailureMechanismSectionResult(section);
 
             // Call
             result.ManualInitialFailureMechanismResultSectionProbability = newValue;
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new FailureMechanismSectionResult(section);
+            var result = new TestFailureMechanismSectionResult(section);
 
             // Call
             void Call() => result.RefinedSectionProbability = newValue;
@@ -132,13 +132,18 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new FailureMechanismSectionResult(section);
+            var result = new TestFailureMechanismSectionResult(section);
 
             // Call
             result.RefinedSectionProbability = newValue;
 
             // Assert
             Assert.AreEqual(newValue, result.RefinedSectionProbability);
+        }
+
+        private class TestFailureMechanismSectionResult : FailureMechanismSectionResult
+        {
+            public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
         }
     }
 }
