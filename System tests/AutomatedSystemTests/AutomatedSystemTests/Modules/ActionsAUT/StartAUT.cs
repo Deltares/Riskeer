@@ -105,7 +105,9 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 200ms.", new RecordItemIndex(0));
+            Report.Screenshot(ReportLevel.Info, "User", "", null, false, new RecordItemIndex(0));
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 200ms.", new RecordItemIndex(1));
             Delay.Duration(200, false);
             
             ResolveAppPath();
@@ -114,7 +116,7 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
             StartAUT_Run_application();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(4));
             Delay.Duration(1000, false);
             
         }

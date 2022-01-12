@@ -33,6 +33,19 @@ mode="Desktop">
 		</var>
 	</variables>
 	<recorditems>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="ce573239-ffbd-4d3f-a631-182c0d953cae">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</loggingrecorditem>
 		<explicitdelayitem
 		duration="200ms"
 		enabled="True"
