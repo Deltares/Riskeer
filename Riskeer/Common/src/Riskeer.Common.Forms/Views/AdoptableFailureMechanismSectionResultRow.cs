@@ -22,7 +22,9 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
@@ -97,6 +99,8 @@ namespace Riskeer.Common.Forms.Views
             assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
 
             CreateColumnStateDefinitions();
+
+            Update();
         }
 
         /// <summary>
@@ -181,8 +185,52 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
 
-        public override void Update() {}
-        
+        public override void Update()
+        {
+            UpdateDerivedData();
+            UpdateColumnStateDefinitions();
+            UpdateInitialFailureMechanismResultErrors();
+        }
+
+        private void UpdateInitialFailureMechanismResultErrors()
+        {
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt)
+            {
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
+                    calculateInitialFailureMechanismResultProbabilityFunc);
+            }
+        }
+
+        private void UpdateDerivedData()
+        {
+            ResetErrorTexts();
+            TryGetAssemblyResult();
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[assemblyGroupIndex].ErrorText = string.Empty;
+        }
+
+        private void TryGetAssemblyResult()
+        {
+            try
+            {
+                AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
+                    assessmentSection, IsRelevant, InitialFailureMechanismResult,
+                    InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
+                    SectionResult.RefinedSectionProbability);
+            }
+            catch (AssemblyException e)
+            {
+                AssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
+                ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = e.Message;
+                ColumnStateDefinitions[assemblyGroupIndex].ErrorText = e.Message;
+            }
+        }
+
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
@@ -191,6 +239,34 @@ namespace Riskeer.Common.Forms.Views
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(sectionProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(assemblyGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+        }
+
+        private void UpdateColumnStateDefinitions()
+        {
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
+
+            if (!IsRelevant || InitialFailureMechanismResult == InitialFailureMechanismResultType.NoFailureProbability)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex],
+                                               InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt);
+            }
+
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);
+
+            if (!IsRelevant || !FurtherAnalysisNeeded)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
+            }
+
+            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.AssemblyGroup);
         }
 
         public class ConstructionProperties
