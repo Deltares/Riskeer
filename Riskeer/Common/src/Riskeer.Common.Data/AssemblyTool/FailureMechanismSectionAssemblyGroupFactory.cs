@@ -43,6 +43,43 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
         /// <param name="initialFailureMechanismResultType">The <see cref="InitialFailureMechanismResultType"/> of the section.</param>
+        /// <param name="initialSectionProbability">The initial probability for the section.</param>
+        /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
+        /// <param name="refinedSectionProbability">The refined probability for the section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="initialFailureMechanismResultType"/> is invalid.</exception>
+        /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
+        public static FailureMechanismSectionAssemblyResult AssembleSection(
+            IAssessmentSection assessmentSection,
+            bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType,
+            double initialSectionProbability, bool furtherAnalysisNeeded, double refinedSectionProbability)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (!Enum.IsDefined(typeof(InitialFailureMechanismResultType), initialFailureMechanismResultType))
+            {
+                throw new InvalidEnumArgumentException(nameof(initialFailureMechanismResultType),
+                                                       (int) initialFailureMechanismResultType,
+                                                       typeof(InitialFailureMechanismResultType));
+            }
+
+            FailureMechanismSectionAssemblyInput input = CreateInput(
+                assessmentSection, isRelevant, initialFailureMechanismResultType,
+                initialSectionProbability, initialSectionProbability, furtherAnalysisNeeded,
+                refinedSectionProbability, refinedSectionProbability);
+
+            return PerformAssembly(input);
+        }
+
+        /// <summary>
+        /// Assembles the failure mechanism section based on the input arguments.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
+        /// <param name="isRelevant">The indicator whether the section is relevant.</param>
+        /// <param name="initialFailureMechanismResultType">The <see cref="InitialFailureMechanismResultType"/> of the section.</param>
         /// <param name="initialProfileProbability">The initial probability for the profile.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
@@ -87,16 +124,21 @@ namespace Riskeer.Common.Data.AssemblyTool
                                                        typeof(ProbabilityRefinementType));
             }
 
+            FailureMechanismSectionAssemblyInput input = CreateInput(
+                assessmentSection, isRelevant, initialFailureMechanismResultType,
+                initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded,
+                refinedProfileProbability, refinedSectionProbability, probabilityRefinementType, getNFunc);
+
+            return PerformAssembly(input);
+        }
+
+        private static FailureMechanismSectionAssemblyResult PerformAssembly(FailureMechanismSectionAssemblyInput input)
+        {
             IFailureMechanismSectionAssemblyCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismSectionAssemblyCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
-                FailureMechanismSectionAssemblyInput input = CreateInput(
-                    assessmentSection, isRelevant, initialFailureMechanismResultType,
-                    initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded,
-                    refinedProfileProbability, refinedSectionProbability, probabilityRefinementType, getNFunc);
-
                 return calculator.AssembleFailureMechanismSection(input);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
@@ -112,9 +154,6 @@ namespace Riskeer.Common.Data.AssemblyTool
                                                                         double refinedProfileProbability, double refinedSectionProbability,
                                                                         ProbabilityRefinementType probabilityRefinementType, Func<double> getNFunc)
         {
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            bool hasProbabilitySpecified = initialFailureMechanismResultType != InitialFailureMechanismResultType.NoFailureProbability;
-
             double sectionN = getNFunc();
 
             if (probabilityRefinementType == ProbabilityRefinementType.Profile)
@@ -126,6 +165,20 @@ namespace Riskeer.Common.Data.AssemblyTool
             {
                 refinedProfileProbability = refinedSectionProbability / sectionN;
             }
+
+            return CreateInput(assessmentSection, isRelevant, initialFailureMechanismResultType,
+                               initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded,
+                               refinedProfileProbability, refinedSectionProbability);
+        }
+
+        private static FailureMechanismSectionAssemblyInput CreateInput(IAssessmentSection assessmentSection,
+                                                                        bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType,
+                                                                        double initialProfileProbability, double initialSectionProbability,
+                                                                        bool furtherAnalysisNeeded,
+                                                                        double refinedProfileProbability, double refinedSectionProbability)
+        {
+            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+            bool hasProbabilitySpecified = initialFailureMechanismResultType != InitialFailureMechanismResultType.NoFailureProbability;
 
             return new FailureMechanismSectionAssemblyInput(
                 failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
