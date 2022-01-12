@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability<TestStructuresInput>(null);
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var calculationScenario1 = new TestStructuresCalculationScenario
             {
@@ -112,7 +112,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(
@@ -127,7 +127,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var calculationScenario = new TestStructuresCalculationScenario
             {
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var calculationScenario = new TestStructuresCalculationScenario
             {
@@ -179,7 +179,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new FailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableFailureMechanismSectionResult(section);
 
             var calculationScenario1 = new TestStructuresCalculationScenario
             {
@@ -223,7 +223,7 @@ namespace Riskeer.Common.Data.Test.Structures
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new FailureMechanismSectionResult(section);
+            var result = new AdoptableFailureMechanismSectionResult(section);
 
             var calculationScenarioA = new TestStructuresCalculationScenario
             {

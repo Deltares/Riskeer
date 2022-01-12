@@ -44,7 +44,7 @@ namespace Riskeer.Common.Data.Structures
         /// are no relevant calculations, when not all relevant calculations are performed or when the
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetInitialFailureMechanismResultProbability<T>(this FailureMechanismSectionResult sectionResult,
+        public static double GetInitialFailureMechanismResultProbability<T>(this AdoptableFailureMechanismSectionResult sectionResult,
                                                                             IEnumerable<StructuresCalculationScenario<T>> calculationScenarios)
             where T : IStructuresCalculationInput<StructureBase>, new()
         {
