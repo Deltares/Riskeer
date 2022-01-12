@@ -26,7 +26,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.HeightStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="FailureMechanismSectionResult"/> 
+    /// This class defines extension methods for read operations for an <see cref="AdoptableFailureMechanismSectionResult"/> 
     /// based on the <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresSectionResultEntityReadExtensions
@@ -38,7 +38,6 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
         /// <param name="entity">The <see cref="FailureMechanismSectionResult"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="FailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this HeightStructuresSectionResultEntity entity,
                                   AdoptableFailureMechanismSectionResult sectionResult)
