@@ -26,7 +26,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.HeightStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="FailureMechanismSectionResult"/> related to creating a 
+    /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating a 
     /// <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresFailureMechanismSectionResultCreateExtensions

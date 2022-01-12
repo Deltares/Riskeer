@@ -26,6 +26,10 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// </summary>
     public class AdoptableFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <inheritdoc />
+        /// <summary>
+        /// Creates a new instance of <see cref="AdoptableFailureMechanismSectionResult"/>.
+        /// </summary>
         public AdoptableFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             InitialFailureMechanismResult = InitialFailureMechanismResultType.Adopt;

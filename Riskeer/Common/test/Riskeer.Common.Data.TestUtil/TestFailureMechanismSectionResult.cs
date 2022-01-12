@@ -23,8 +23,12 @@ using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.TestUtil
 {
+    /// <summary>
+    /// Simple failure mechanism section result which can be used for testing.
+    /// </summary>
     public class TestFailureMechanismSectionResult : FailureMechanismSectionResult
     {
+        /// <inheritdoc />
         public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
     }
 }

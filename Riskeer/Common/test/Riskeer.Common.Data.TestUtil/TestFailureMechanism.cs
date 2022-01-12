@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
@@ -26,6 +27,9 @@ using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.TestUtil
 {
+    /// <summary>
+    /// Simple failure mechanism which can be used for testing.
+    /// </summary>
     public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, TestFailureMechanismSectionResult>,
                                         IHasGeneralInput
     {
@@ -34,12 +38,30 @@ namespace Riskeer.Common.Data.TestUtil
         private readonly ObservableList<FailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestFailureMechanism"/> with a default name and code.
+        /// </summary>
         public TestFailureMechanism()
             : this(defaultName, defaultCode) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestFailureMechanism"/> based on the input arguments.
+        /// </summary>
+        /// <param name="name">The name of the failure mechanism.</param>
+        /// <param name="code">The code of the failure mechanism.</param>
+        /// <exception cref="ArgumentException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
+        /// <item><paramref name="code"/> is <c>null</c> or empty.</item>
+        /// </list>
+        /// </exception>
         public TestFailureMechanism(string name, string code)
             : this(name, code, new List<ICalculation>()) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="TestFailureMechanism"/> based on the input arguments.
+        /// </summary>
+        /// <param name="calculations">The collection of <see cref="ICalculation"/>.</param>
         public TestFailureMechanism(IEnumerable<ICalculation> calculations)
             : this(defaultName, defaultCode, calculations) {}
 

@@ -77,6 +77,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
             Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
+            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
 
         [Test]
