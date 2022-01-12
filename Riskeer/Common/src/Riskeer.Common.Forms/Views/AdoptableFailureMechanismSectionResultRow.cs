@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
@@ -94,6 +95,8 @@ namespace Riskeer.Common.Forms.Views
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
             sectionProbabilityIndex = constructionProperties.SectionProbabilityIndex;
             assemblyGroupIndex = constructionProperties.AssemblyGroupIndex;
+
+            CreateColumnStateDefinitions();
         }
 
         /// <summary>
@@ -179,6 +182,16 @@ namespace Riskeer.Common.Forms.Views
         public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
 
         public override void Update() {}
+        
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(sectionProbabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(assemblyGroupIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+        }
 
         public class ConstructionProperties
         {
