@@ -104,11 +104,22 @@ namespace Riskeer.Common.Data.Test.Helpers
         }
 
         [Test]
+        public void ScenariosAreValid_RelevantScenariosNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => CalculationScenarioHelper.ScenariosAreValid<ICalculationScenario>(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("relevantScenarios", exception.ParamName);
+        }
+
+        [Test]
         public void ScenariosAreValid_ScenariosEmpty_ReturnsFalse()
         {
             // Call
             bool valid = CalculationScenarioHelper.ScenariosAreValid(Array.Empty<ICalculationScenario>());
-            
+
             // Assert
             Assert.IsFalse(valid);
         }
@@ -126,14 +137,14 @@ namespace Riskeer.Common.Data.Test.Helpers
             {
                 Contribution = (RoundedDouble) 0.1226
             };
-            
+
             // Call
             bool valid = CalculationScenarioHelper.ScenariosAreValid(new[]
             {
                 calculationScenario1,
                 calculationScenario2
             });
-            
+
             // Assert
             Assert.IsFalse(valid);
         }
@@ -157,14 +168,14 @@ namespace Riskeer.Common.Data.Test.Helpers
                 Contribution = (RoundedDouble) scenarioContribution2,
                 Output = new object()
             };
-            
+
             // Call
             bool valid = CalculationScenarioHelper.ScenariosAreValid(new[]
             {
                 calculationScenario1,
                 calculationScenario2
             });
-            
+
             // Assert
             Assert.IsFalse(valid);
         }
@@ -186,14 +197,14 @@ namespace Riskeer.Common.Data.Test.Helpers
                 Contribution = (RoundedDouble) scenarioContribution2,
                 Output = new object()
             };
-            
+
             // Call
             bool valid = CalculationScenarioHelper.ScenariosAreValid(new[]
             {
                 calculationScenario1,
                 calculationScenario2
             });
-            
+
             // Assert
             Assert.IsTrue(valid);
         }

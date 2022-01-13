@@ -72,17 +72,24 @@ namespace Riskeer.Common.Data.Helpers
 
             return (RoundedDouble) calculationScenarios.Aggregate<T, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }
-        
+
         /// <summary>
         /// Gets whether the calculation scenarios are valid.
         /// </summary>
-        /// <param name="relevantScenarios"></param>
+        /// <param name="relevantScenarios">All relevant scenarios to check.</param>
         /// <typeparam name="T">The type of the calculation scenarios.</typeparam>
         /// <returns><c>true</c> when there are calculation scenarios,
         /// they all have output and the total contribution is 1.0; <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="relevantScenarios"/>
+        /// is <c>null</c>.</exception>
         public static bool ScenariosAreValid<T>(T[] relevantScenarios)
             where T : ICalculationScenario
         {
+            if (relevantScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(relevantScenarios));
+            }
+
             return relevantScenarios.Any()
                    && relevantScenarios.All(s => s.HasOutput)
                    && Math.Abs(GetTotalContribution(relevantScenarios) - 1.0) <= 1e-6;
