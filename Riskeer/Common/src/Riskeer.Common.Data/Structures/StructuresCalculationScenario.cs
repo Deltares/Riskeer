@@ -28,6 +28,7 @@ namespace Riskeer.Common.Data.Structures
     /// <summary>
     /// This class holds the information for a structures calculation scenario.
     /// </summary>
+    /// <typeparam name="T">The type of input contained by the calculation scenario.</typeparam>
     public class StructuresCalculationScenario<T> : StructuresCalculation<T>, ICalculationScenario
         where T : IStructuresCalculationInput, new()
     {
