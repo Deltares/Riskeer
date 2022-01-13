@@ -278,8 +278,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.WaterPressureAsphaltCover.SectionResultsOld,
                 actualAssessmentSection.WaterPressureAsphaltCover.SectionResultsOld);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.ClosingStructures.SectionResultsOld,
-                actualAssessmentSection.ClosingStructures.SectionResultsOld);
+                expectedAssessmentSection.ClosingStructures.SectionResults,
+                actualAssessmentSection.ClosingStructures.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.MacroStabilityOutwards.SectionResultsOld,
                 actualAssessmentSection.MacroStabilityOutwards.SectionResultsOld);

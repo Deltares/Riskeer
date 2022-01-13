@@ -174,7 +174,7 @@ namespace Riskeer.Storage.Core.TestUtil
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism, assessmentSection);
             SetSections(closingStructuresFailureMechanism);
-            SetSectionResults(closingStructuresFailureMechanism.SectionResultsOld);
+            SetSectionResults(closingStructuresFailureMechanism.SectionResults);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
