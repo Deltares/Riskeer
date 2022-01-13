@@ -25,6 +25,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.ClosingStructures
@@ -48,16 +49,16 @@ namespace Riskeer.Storage.Core.Create.ClosingStructures
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<AdoptableFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (ClosingStructuresFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (AdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
                 ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);

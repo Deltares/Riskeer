@@ -458,7 +458,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (ClosingStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                ClosingStructuresFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                AdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }

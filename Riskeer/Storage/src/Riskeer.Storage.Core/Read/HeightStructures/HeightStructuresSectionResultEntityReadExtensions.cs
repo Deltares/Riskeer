@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
         /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information 
         /// to update an <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismSectionResult"/> used to 
+        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
@@ -51,7 +51,6 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
-
 
             sectionResult.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
             sectionResult.InitialFailureMechanismResult = (InitialFailureMechanismResultType) entity.InitialFailureMechanismResultType;

@@ -22,9 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 
@@ -37,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((ClosingStructuresSectionResultEntity) null).Read(new ClosingStructuresFailureMechanismSectionResultOld(
+            void Call() => ((ClosingStructuresSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
                                                                                   FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
@@ -64,36 +63,31 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         {
             // Setup
             var random = new Random(21);
-            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-            double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssembly = random.NextBoolean();
-            double manualAssemblyProbability = random.NextDouble();
+            bool isRelevant = random.NextBoolean();
+            var initialFailureMechanismResultType = random.NextEnumValue<InitialFailureMechanismResultType>();
+            double manualSectionProbability = random.NextDouble();
+            bool furtherAnalysisNeeded = random.NextBoolean();
+            double refinedSectionProbability = random.NextDouble();
 
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             var entity = new ClosingStructuresSectionResultEntity
             {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity,
-                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
-                DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
-                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssembly = Convert.ToByte(useManualAssembly),
-                ManualAssemblyProbability = manualAssemblyProbability
+                IsRelevant = Convert.ToByte(isRelevant),
+                InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
+                ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
+                FurtherAnalysisNeeded = Convert.ToByte(furtherAnalysisNeeded),
+                RefinedSectionProbability = refinedSectionProbability
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
-            Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
-            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
-            Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
-            Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
-            Assert.AreEqual(manualAssemblyProbability, sectionResult.ManualAssemblyProbability, 1e-6);
+            Assert.AreEqual(isRelevant, sectionResult.IsRelevant);
+            Assert.AreEqual(initialFailureMechanismResultType, sectionResult.InitialFailureMechanismResult);
+            Assert.AreEqual(manualSectionProbability, sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(furtherAnalysisNeeded, sectionResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(refinedSectionProbability, sectionResult.RefinedSectionProbability);
         }
 
         [Test]
@@ -105,14 +99,14 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
-            Assert.IsNaN(sectionResult.ManualAssemblyProbability);
+            Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.IsNaN(sectionResult.RefinedSectionProbability);
         }
     }
 }
