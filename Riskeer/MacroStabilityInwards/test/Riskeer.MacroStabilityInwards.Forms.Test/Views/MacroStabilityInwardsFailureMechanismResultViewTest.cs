@@ -152,7 +152,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.IsFalse(dataGridView.Columns[isRelevantIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[furtherAnalysisNeededIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[probabilityRefinementTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedProfileProbabilityIndex].ReadOnly);
