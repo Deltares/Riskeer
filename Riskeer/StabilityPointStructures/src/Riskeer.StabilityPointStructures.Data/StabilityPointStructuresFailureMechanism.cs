@@ -38,9 +38,10 @@ namespace Riskeer.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism,
-                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResultOld>
+                                                            IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
@@ -54,8 +55,10 @@ namespace Riskeer.StabilityPointStructures.Data
             };
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
-            sectionResults = new ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
+
+            sectionResultsOld = new ObservableList<StabilityPointStructuresFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -87,19 +90,21 @@ namespace Riskeer.StabilityPointStructures.Data
         {
             get
             {
-                return sectionResults;
+                return sectionResultsOld;
             }
         }
+
+        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new StabilityPointStructuresFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
