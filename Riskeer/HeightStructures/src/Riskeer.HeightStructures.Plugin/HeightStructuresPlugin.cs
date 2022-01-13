@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -277,7 +277,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>>
+            yield return new TreeNodeInfo<HeightStructuresProbabilityFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -478,8 +478,8 @@ namespace Riskeer.HeightStructures.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
+                new HeightStructuresProbabilityFailureMechanismSectionResultContext(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

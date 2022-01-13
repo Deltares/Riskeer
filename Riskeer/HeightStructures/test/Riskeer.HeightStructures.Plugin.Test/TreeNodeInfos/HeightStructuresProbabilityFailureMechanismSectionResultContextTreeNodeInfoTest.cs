@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
@@ -29,8 +28,8 @@ using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
@@ -45,7 +44,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresProbabilityFailureMechanismSectionResultContext));
         }
 
         [TearDown]
@@ -112,8 +111,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             }
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>(
-                new ObservableList<HeightStructuresFailureMechanismSectionResultOld>(), failureMechanism, assessmentSection);
+            var context = new HeightStructuresProbabilityFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
