@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
     public class MacroStabilityInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensionsTest
     {
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
+        public void GetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => MacroStabilityInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
@@ -45,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_CalculationScenariosNull_ThrowsArgumentNullException()
+        public void GetInitialFailureMechanismResultProbability_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -60,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        public void GetInitialFailureMechanismResultProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_NoScenarios_ReturnsNaN()
+        public void GetInitialFailureMechanismResultProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -109,7 +109,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_NoRelevantScenarios_ReturnsNaN()
+        public void GetInitialFailureMechanismResultProbability_NoRelevantScenarios_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -131,7 +131,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_ScenarioNotCalculated_ReturnsNaN()
+        public void GetInitialFailureMechanismResultProbability_ScenarioNotCalculated_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -151,7 +151,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_ScenarioWithNaNResults_ReturnsNaN()
+        public void GetInitialFailureMechanismResultProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -188,7 +188,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         [TestCase(0.0, 0.0)]
         [TestCase(0.0, 0.5)]
         [TestCase(0.3, 0.7 + 1e-4)]
-        public void SemiProbabilisticGetInitialFailureMechanismResultProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        public void GetInitialFailureMechanismResultProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
