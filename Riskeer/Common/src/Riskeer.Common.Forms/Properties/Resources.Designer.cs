@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1812,7 +1812,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerde faalkans (1/jaar).
+        ///   Looks up a localized string similar to Gecombineerde faalkans [1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_FailureMechanismAssemblyLabel {
             get {

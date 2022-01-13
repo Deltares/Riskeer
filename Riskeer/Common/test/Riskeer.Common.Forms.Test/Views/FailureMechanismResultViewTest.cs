@@ -115,7 +115,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(assemblyResultLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, assemblyResultLabel.Dock);
                 Assert.AreEqual(ContentAlignment.MiddleLeft, assemblyResultLabel.TextAlign);
-                Assert.AreEqual("Gecombineerde faalkans (1/jaar)", assemblyResultLabel.Text);
+                Assert.AreEqual("Gecombineerde faalkans [1/jaar]", assemblyResultLabel.Text);
 
                 var comboBox = (ComboBox) tableLayoutPanel.GetControlFromPosition(1, 0);
                 Assert.AreEqual(DockStyle.Fill, comboBox.Dock);

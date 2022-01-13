@@ -1428,8 +1428,8 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
         </value>
     </data>
     <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
-    <value>Gecombineerde faalkans (1/jaar)</value>
-  </data>
+      <value>Gecombineerde faalkans [1/jaar]</value>
+    </data>
     <data name="AssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen</value>
   </data>
