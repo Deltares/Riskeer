@@ -27,9 +27,9 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="FailureMechanismSectionResultOld"/>.
+    /// This class is a presentation object for a collection of <see cref="IFailureMechanismSectionResult"/>.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/>.</typeparam>
+    /// <typeparam name="T">The type of <see cref="IFailureMechanismSectionResult"/>.</typeparam>
     public class ProbabilityFailureMechanismSectionResultContext<T> : FailureMechanismSectionResultContext<T>
         where T : IFailureMechanismSectionResult
     {
