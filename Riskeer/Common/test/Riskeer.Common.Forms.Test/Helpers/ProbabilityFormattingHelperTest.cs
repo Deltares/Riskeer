@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Helpers;
 
@@ -39,17 +40,46 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase(1.0, "1/1")]
-        [TestCase(0.5, "1/2")]
-        [TestCase(0.6, "1/2")]
-        [TestCase(0.0001, "1/10.000")]
-        [TestCase(0.000000123456789, "1/8.100.000")]
-        [TestCase(-0.0001, "1/-10.000")]
-        [TestCase(-0.5, "1/-2")]
+        [TestCaseSource(nameof(GetProbabilityNotZeroTestCases))]
         public void Format_ProbabilityNotZero_ReturnOneOverReturnPeriod(double probability, string expectedText)
         {
             // Call
             string text = ProbabilityFormattingHelper.Format(probability);
+
+            // Assert
+            Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        public void FormatWithDiscreteNumbers_ProbabilityIsZero_ReturnOneOverInfinity()
+        {
+            // Call
+            string text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(0);
+
+            // Assert
+            Assert.AreEqual("1/Oneindig", text);
+        }
+
+        [Test]
+        [TestCase(double.NaN, "-")]
+        [TestCase(double.NegativeInfinity, "-Oneindig")]
+        [TestCase(double.PositiveInfinity, "Oneindig")]
+        public void FormatWithDiscreteNumbers_ProbabilityDiscreteNumber_ReturnsExpectedTextRepresentation(double probability, string expectedText)
+        {
+            // Call
+            string text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
+
+            // Assert
+            Assert.AreEqual(expectedText, text);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCaseSource(nameof(GetProbabilityNotZeroTestCases))]
+        public void FormatWithDiscreteNumbers_ProbabilityNotZero_ReturnOneOverReturnPeriod(double probability, string expectedText)
+        {
+            // Call
+            string text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
 
             // Assert
             Assert.AreEqual(expectedText, text);
@@ -80,6 +110,17 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedText, text);
+        }
+
+        private static IEnumerable<TestCaseData> GetProbabilityNotZeroTestCases()
+        {
+            yield return new TestCaseData(1.0, "1/1");
+            yield return new TestCaseData(0.5, "1/2");
+            yield return new TestCaseData(0.6, "1/2");
+            yield return new TestCaseData(0.0001, "1/10.000");
+            yield return new TestCaseData(0.000000123456789, "1/8.100.000");
+            yield return new TestCaseData(-0.0001, "1/-10.000");
+            yield return new TestCaseData(-0.5, "1/-2");
         }
     }
 }

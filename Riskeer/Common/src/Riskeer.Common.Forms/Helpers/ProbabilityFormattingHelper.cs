@@ -49,6 +49,33 @@ namespace Riskeer.Common.Forms.Helpers
         }
 
         /// <summary>
+        /// Formats the specified probability, including the discrete numbers <see cref="double.NaN"/>, <see cref="double.IsNegativeInfinity"/>
+        /// and <see cref="double.IsPositiveInfinity"/>.
+        /// </summary>
+        /// <param name="probability">The probability.</param>
+        /// <returns>The formatted text.</returns>
+        /// <exception cref="FormatException">Thrown when the probability cannot be formatted as a string.</exception>
+        public static string FormatWithDiscreteNumbers(double probability)
+        {
+            if (double.IsNaN(probability))
+            {
+                return Resources.RoundedDouble_No_result_dash;
+            }
+
+            if (double.IsNegativeInfinity(probability))
+            {
+                return CommonBaseResources.RoundedDouble_ToString_NegativeInfinity;
+            }
+
+            if (double.IsPositiveInfinity(probability))
+            {
+                return CommonBaseResources.RoundedDouble_ToString_PositiveInfinity;
+            }
+
+            return Format(probability);
+        }
+
+        /// <summary>
         /// Formats the specified return period to a probability.
         /// </summary>
         /// <param name="returnPeriod">The return period.</param>
