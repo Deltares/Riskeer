@@ -43,7 +43,24 @@ INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructur
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
-INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
+INSERT INTO ClosingStructuresSectionResultEntity (
+    [ClosingStructuresSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability]
+)
+SELECT
+    [ClosingStructuresSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    0,
+    NULL
+FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity (
     [DuneErosionFailureMechanismMetaEntityId],
