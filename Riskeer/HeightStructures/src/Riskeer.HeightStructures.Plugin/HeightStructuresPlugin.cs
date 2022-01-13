@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -45,6 +45,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Plugin;
@@ -185,17 +186,16 @@ namespace Riskeer.HeightStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>,
-                IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>,
-                HeightStructuresFailureMechanismResultViewOld>(() => Gui)
+                HeightStructuresProbabilityFailureMechanismSectionResultContext,
+                IObservableEnumerable<AdoptableFailureMechanismSectionResult>,
+                StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new HeightStructuresFailureMechanismResultViewOld(
-                    context.WrappedData,
-                    (HeightStructuresFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection)
+                CreateInstance = context => new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
+                    context.WrappedData, (HeightStructuresFailureMechanism) context.FailureMechanism,
+                    context.AssessmentSection, fm => fm.GeneralInput.N)
             };
 
             yield return new RiskeerViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>(() => Gui)
@@ -291,10 +291,9 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static bool CloseFailurePathViewForData(HeightStructuresFailurePathView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as HeightStructuresFailureMechanism;
 
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
@@ -318,7 +317,8 @@ namespace Riskeer.HeightStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput> view,
+                                                                   object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as HeightStructuresFailureMechanism;
 
@@ -334,7 +334,7 @@ namespace Riskeer.HeightStructures.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object dataToCloseFor)

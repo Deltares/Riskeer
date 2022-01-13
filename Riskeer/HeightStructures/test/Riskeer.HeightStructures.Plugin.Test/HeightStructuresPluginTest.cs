@@ -31,8 +31,9 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
@@ -152,9 +153,9 @@ namespace Riskeer.HeightStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>),
-                    typeof(HeightStructuresFailureMechanismResultViewOld));
+                    typeof(HeightStructuresProbabilityFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
+                    typeof(StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
