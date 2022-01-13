@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class HeightStructuresSectionResultEntity
+    public partial class HeightStructuresSectionResultEntity
     {
         public long HeightStructuresSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
         public byte FurtherAnalysisNeeded { get; set; }
         public double? RefinedSectionProbability { get; set; }
-    
+
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

@@ -25,19 +25,19 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.ClosingStructures;
+using Riskeer.Storage.Core.Read;
 
-namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
+namespace Riskeer.Storage.Core.Test.Read
 {
     [TestFixture]
-    public class ClosingStructuresSectionResultEntityReadExtensionsTest
+    public class StructuresSectionResultEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((ClosingStructuresSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
-                                                                                  FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+            void Call() => ((TestStructuresFailureMechanismSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
+                                                                                               FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new ClosingStructuresSectionResultEntity();
+            var entity = new TestStructuresFailureMechanismSectionResultEntity();
 
             // Call
             void Call() => entity.Read(null);
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             bool furtherAnalysisNeeded = random.NextBoolean();
             double refinedSectionProbability = random.NextDouble();
 
-            var entity = new ClosingStructuresSectionResultEntity
+            var entity = new TestStructuresFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
@@ -95,7 +95,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         {
             // Setup
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            var entity = new ClosingStructuresSectionResultEntity
+            var entity = new TestStructuresFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -107,6 +107,16 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             // Assert
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.IsNaN(sectionResult.RefinedSectionProbability);
+        }
+
+        private class TestStructuresFailureMechanismSectionResultEntity : IStructuresSectionResultEntity
+        {
+            public byte IsRelevant { get; set; }
+            public byte InitialFailureMechanismResultType { get; set; }
+            public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
+            public byte FurtherAnalysisNeeded { get; set; }
+            public double? RefinedSectionProbability { get; set; }
+            public FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
         }
     }
 }

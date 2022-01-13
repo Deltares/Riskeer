@@ -23,29 +23,29 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.HeightStructures
+namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating a 
-    /// <see cref="HeightStructuresSectionResultEntity"/>.
+    /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating an 
+    /// instance of <see cref="IStructuresSectionResultEntity"/>.
     /// </summary>
-    internal static class HeightStructuresFailureMechanismSectionResultCreateExtensions
+    internal static class StructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="HeightStructuresSectionResultEntity"/> based on the information of the
-        /// <see cref="AdoptableFailureMechanismSectionResult"/>.
+        /// Creates an instance of <see cref="IStructuresSectionResultEntity"/> 
+        /// based on the information of the <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>A new <see cref="HeightStructuresSectionResultEntity"/>.</returns>
+        /// <returns>An instance of <see cref="IStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static HeightStructuresSectionResultEntity Create(this AdoptableFailureMechanismSectionResult result)
+        internal static T Create<T>(this AdoptableFailureMechanismSectionResult result) where T : IStructuresSectionResultEntity, new()
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new HeightStructuresSectionResultEntity
+            return new T
             {
                 IsRelevant = Convert.ToByte(result.IsRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),

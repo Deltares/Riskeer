@@ -24,19 +24,19 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Storage.Core.Create.ClosingStructures;
+using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
+namespace Riskeer.Storage.Core.Test.Create
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest
+    public class StructuresFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((AdoptableFailureMechanismSectionResult) null).Create();
+            void Call() => ((AdoptableFailureMechanismSectionResult) null).Create<TestStructuresFailureMechanismSectionResultEntity>();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             };
 
             // Call
-            ClosingStructuresSectionResultEntity entity = sectionResult.Create();
+            var entity = sectionResult.Create<TestStructuresFailureMechanismSectionResultEntity>();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
@@ -85,11 +85,21 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             };
 
             // Call
-            ClosingStructuresSectionResultEntity entity = sectionResult.Create();
+            var entity = sectionResult.Create<TestStructuresFailureMechanismSectionResultEntity>();
 
             // Assert
             Assert.IsNull(entity.ManualInitialFailureMechanismResultSectionProbability);
             Assert.IsNull(entity.RefinedSectionProbability);
+        }
+
+        private class TestStructuresFailureMechanismSectionResultEntity : IStructuresSectionResultEntity
+        {
+            public byte IsRelevant { get; set; }
+            public byte InitialFailureMechanismResultType { get; set; }
+            public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
+            public byte FurtherAnalysisNeeded { get; set; }
+            public double? RefinedSectionProbability { get; set; }
+            public FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
         }
     }
 }

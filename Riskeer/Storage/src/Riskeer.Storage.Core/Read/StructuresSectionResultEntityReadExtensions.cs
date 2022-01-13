@@ -23,23 +23,23 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.HeightStructures
+namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="AdoptableFailureMechanismSectionResult"/> 
-    /// based on the <see cref="HeightStructuresSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for an <see cref="AdoptableFailureMechanismSectionResult"/>
+    /// based on the <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
-    internal static class HeightStructuresSectionResultEntityReadExtensions
+    internal static class StructuresSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information 
+        /// Reads the <see cref="ClosingStructuresSectionResultEntity"/> and use the information
         /// to update an <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> used to 
-        /// update the <paramref name="sectionResult"/>.</param>
+        /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> used to update 
+        /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void Read(this HeightStructuresSectionResultEntity entity,
+        internal static void Read(this IStructuresSectionResultEntity entity,
                                   AdoptableFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)

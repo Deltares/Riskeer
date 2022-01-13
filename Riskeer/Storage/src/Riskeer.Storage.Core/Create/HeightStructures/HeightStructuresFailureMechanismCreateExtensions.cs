@@ -60,7 +60,7 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
         {
             foreach (AdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                HeightStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<HeightStructuresSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.HeightStructuresSectionResultEntities.Add(sectionResultEntity);
             }
