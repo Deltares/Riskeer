@@ -239,6 +239,92 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenStructuresFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndAssemblyInfoUpdated()
+        {
+            // Given
+            var failureMechanism = new TestStructuresFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            var calculationScenario = new TestStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(section.StartPoint)
+                }
+            };
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> view = ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
+
+                // When
+                calculationScenario.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
+            }
+        }
+
+        [Test]
+        public void GivenStructuresFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new TestStructuresFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            var calculationScenario = new TestStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(section.StartPoint)
+                }
+            };
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> view = ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                var notifyPropertyChanged = false;
+                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                Assert.IsFalse(notifyPropertyChanged);
+
+                // When
+                calculationScenario.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+                Assert.IsTrue(notifyPropertyChanged);
+            }
+        }
+
         private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(TestStructuresFailureMechanism failureMechanism)
         {
             return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub());

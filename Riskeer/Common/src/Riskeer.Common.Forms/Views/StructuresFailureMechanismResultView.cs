@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Builders;
@@ -35,8 +36,8 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TStructuresInput">The type of input.</typeparam>
-    public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism> 
-        where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+    public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
+        where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
         private const int initialFailureMechanismResultIndex = 2;
@@ -45,7 +46,10 @@ namespace Riskeer.Common.Forms.Views
         private const int refinedSectionProbabilityIndex = 5;
         private const int sectionProbabilityIndex = 6;
         private const int assemblyGroupIndex = 7;
-        
+
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+
         private readonly IAssessmentSection assessmentSection;
         private readonly Func<TFailureMechanism, double> getNFunc;
 
@@ -61,7 +65,7 @@ namespace Riskeer.Common.Forms.Views
         public StructuresFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                     TFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection,
-                                                    Func<TFailureMechanism, double> getNFunc) 
+                                                    Func<TFailureMechanism, double> getNFunc)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -76,7 +80,25 @@ namespace Riskeer.Common.Forms.Views
 
             this.assessmentSection = assessmentSection;
             this.getNFunc = getNFunc;
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateInternalViewData,
+                cg => cg.Children.Concat(cg.Children
+                                           .OfType<StructuresCalculationScenario<TStructuresInput>>()
+                                           .Select(scenario => scenario.InputParameters)
+                                           .Cast<object>()))
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
+                UpdateInternalViewData,
+                c => c.Children)
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
         }
+
         protected override AdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult)
         {
             StructuresCalculationScenario<TStructuresInput>[] calculationScenarios = FailureMechanism.Calculations
@@ -97,6 +119,14 @@ namespace Riskeer.Common.Forms.Views
                     SectionProbabilityIndex = sectionProbabilityIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            calculationInputsObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
         }
 
         protected override double GetN()
