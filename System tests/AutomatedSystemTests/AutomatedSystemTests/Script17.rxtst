@@ -2,6 +2,12 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<testmodule
+			id="007d6dd7-8d36-4f01-9e73-9aa9a9db103c"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="01914755-74e5-4730-b5ee-3e28a289ffe6"
 			name="SelectStateFailurePathsAssembly">
@@ -1635,6 +1641,10 @@
 			id="9b312e6a-119e-4785-afd9-f99fb449b3aa"
 			name="ValidateStructureOfCalculationsFolder">
 			</smartfoldernode>
+			<testcase
+			id="9b7d059e-5f61-4598-8d88-9409bf8cf932"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49"
 			name="AddTraject">
@@ -2407,6 +2417,14 @@
 				<testcase
 				id="37adadfe-740c-4d17-b1f0-8610ec657a81"
 				name="Script17">
+					<testcase
+					id="9b7d059e-5f61-4598-8d88-9409bf8cf932"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="007d6dd7-8d36-4f01-9e73-9aa9a9db103c"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="f0863890-96dc-43bc-b908-6af2669f44ba"
 					name="script17_Scenario’s_opstellen">
@@ -5836,6 +5854,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9b312e6a-119e-4785-afd9-f99fb449b3aa">
+			</testcontainer>
+			<testcontainer
+			id="9b7d059e-5f61-4598-8d88-9409bf8cf932">
 			</testcontainer>
 			<testcontainer
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49">

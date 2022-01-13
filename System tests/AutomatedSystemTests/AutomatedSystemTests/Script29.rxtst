@@ -1148,6 +1148,12 @@
 			name="a)BackgroundMap">
 			</smartfoldernode>
 			<testmodule
+			id="4dd8e7e7-5aa8-4657-964e-5a1204700ecd"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="4e0209f2-4974-409f-859c-a96c00c8dd6f"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
 			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
@@ -1761,6 +1767,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testcase
+			id="85a3c9f1-960b-4f4d-b379-d5c05acbe835"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			id="85c80477-b489-48ce-858b-44638a9a14a5"
 			name="ReportScreenShotOfApplication">
@@ -3174,6 +3184,14 @@
 				<testcase
 				id="d9f46e49-056c-4e8b-a453-306c17602806"
 				name="Script29">
+					<testcase
+					id="85a3c9f1-960b-4f4d-b379-d5c05acbe835"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="4dd8e7e7-5aa8-4657-964e-5a1204700ecd"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="21114deb-06e3-49f6-85ff-11b20b73d8e5"
 					name="script29_Gegevens_tonen_op_kaart">
@@ -5783,6 +5801,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8443b3bb-b263-4823-ac47-9fb80d61b0fa">
+			</testcontainer>
+			<testcontainer
+			id="85a3c9f1-960b-4f4d-b379-d5c05acbe835">
 			</testcontainer>
 			<testcontainer
 			id="85c80477-b489-48ce-858b-44638a9a14a5">

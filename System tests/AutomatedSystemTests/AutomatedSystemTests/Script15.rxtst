@@ -697,6 +697,10 @@
 			id="34654bfe-ef73-4a94-953b-f59a2f3cf462"
 			name="MakeScreenshotOfDocumentView">
 			</smartfoldernode>
+			<testcase
+			id="35523cdf-1355-475b-b44d-f4ab30239350"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="3564532c-32de-4e99-8c34-c3a14fddcde7"
@@ -1716,6 +1720,12 @@
 			id="813f9d5e-3122-4eff-9467-87cf8a5491b8"
 			name="MakeScreenshotOfDocumentView">
 			</smartfoldernode>
+			<testmodule
+			id="822cb4ff-7f8b-4596-bacc-84d1be428b3e"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="823a090b-85fb-41f9-a45d-5d777a525c1f"
 			name="SelectState"
@@ -4198,6 +4208,14 @@
 				<testcase
 				id="a38b84dc-9266-49d9-9457-9740092668f1"
 				name="Script15">
+					<testcase
+					id="35523cdf-1355-475b-b44d-f4ab30239350"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="822cb4ff-7f8b-4596-bacc-84d1be428b3e"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="08adf017-662c-43fb-a395-1601a27769e5"
 					name="script15_CalculationHydraulicBoundaryConditions">
@@ -10564,6 +10582,9 @@
 			</testcontainer>
 			<testcontainer
 			id="34654bfe-ef73-4a94-953b-f59a2f3cf462">
+			</testcontainer>
+			<testcontainer
+			id="35523cdf-1355-475b-b44d-f4ab30239350">
 			</testcontainer>
 			<testcontainer
 			id="37bfa9ed-411e-418c-93cd-e94e465cf897">

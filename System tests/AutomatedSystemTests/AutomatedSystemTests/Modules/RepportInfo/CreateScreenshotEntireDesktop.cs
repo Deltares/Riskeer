@@ -20,64 +20,38 @@ using Ranorex.Core;
 using Ranorex.Core.Testing;
 using Ranorex.Core.Repository;
 
-namespace AutomatedSystemTests.Modules.ActionsAUT
+namespace AutomatedSystemTests.Modules.RepportInfo
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The StartAUT recording.
+    ///The CreateScreenshotEntireDesktop recording.
     /// </summary>
-    [TestModule("825ce2a6-cd3b-42f6-9972-8ced75f1a54f", ModuleType.Recording, 1)]
-    public partial class StartAUT : ITestModule
+    [TestModule("0f7ebadb-0285-4449-9422-0cd6fde5bf4d", ModuleType.Recording, 1)]
+    public partial class CreateScreenshotEntireDesktop : ITestModule
     {
         /// <summary>
         /// Holds an instance of the global::AutomatedSystemTests.AutomatedSystemTestsRepository repository.
         /// </summary>
         public static global::AutomatedSystemTests.AutomatedSystemTestsRepository repo = global::AutomatedSystemTests.AutomatedSystemTestsRepository.Instance;
 
-        static StartAUT instance = new StartAUT();
+        static CreateScreenshotEntireDesktop instance = new CreateScreenshotEntireDesktop();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public StartAUT()
+        public CreateScreenshotEntireDesktop()
         {
-            StartAutProcessIDVar = "";
-            AppPath = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static StartAUT Instance
+        public static CreateScreenshotEntireDesktop Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _StartAutProcessIDVar;
-
-        /// <summary>
-        /// Gets or sets the value of variable StartAutProcessIDVar.
-        /// </summary>
-        [TestVariable("8cd31747-b0d7-463c-aa3e-8ea07c17694e")]
-        public string StartAutProcessIDVar
-        {
-            get { return _StartAutProcessIDVar; }
-            set { _StartAutProcessIDVar = value; }
-        }
-
-        string _AppPath;
-
-        /// <summary>
-        /// Gets or sets the value of variable AppPath.
-        /// </summary>
-        [TestVariable("ae927c2e-4f2f-4656-ae88-d9198de4c5c4")]
-        public string AppPath
-        {
-            get { return _AppPath; }
-            set { _AppPath = value; }
-        }
 
 #endregion
 
@@ -99,23 +73,20 @@ namespace AutomatedSystemTests.Modules.ActionsAUT
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 200ms.", new RecordItemIndex(0));
-            Delay.Duration(200, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(0));
+            Delay.Duration(300, false);
             
-            ResolveAppPath();
-            Delay.Milliseconds(0);
+            // Create screenshot of desktop of computer in order to see if any (AUC) pop ups are being shown.
+            Report.Screenshot(ReportLevel.Info, "User", "Create screenshot of desktop of computer in order to see if any (AUC) pop ups are being shown.", null, false, new RecordItemIndex(1));
             
-            StartAUT_Run_application();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(3));
-            Delay.Duration(1000, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(2));
+            Delay.Duration(300, false);
             
         }
 

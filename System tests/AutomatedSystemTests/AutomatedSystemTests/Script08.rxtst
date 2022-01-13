@@ -1434,6 +1434,12 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="72f0d062-de4d-4c4b-bc56-8ae5bd1ad26d"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="768cf0b8-e4e9-44b4-b79f-7d849139360d"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -2170,6 +2176,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testcase
+			id="959bef95-b6b9-41e2-b3ae-9567484a6709"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			id="963c282c-c528-443b-82d8-14e9d5e98bdc"
 			name="ControlFailureMechanismContributions">
@@ -3165,6 +3175,14 @@
 				<testcase
 				id="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
 				name="Script08">
+					<testcase
+					id="959bef95-b6b9-41e2-b3ae-9567484a6709"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="72f0d062-de4d-4c4b-bc56-8ae5bd1ad26d"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					name="script08_Toetseis_op_toetsspoorniveau_per_traject_en_per_vak_bepalen">
@@ -5350,6 +5368,9 @@
 			</testcontainer>
 			<testcontainer
 			id="955eb10b-59ab-43b5-8fe4-fd5dfac15588">
+			</testcontainer>
+			<testcontainer
+			id="959bef95-b6b9-41e2-b3ae-9567484a6709">
 			</testcontainer>
 			<testcontainer
 			id="963c282c-c528-443b-82d8-14e9d5e98bdc">

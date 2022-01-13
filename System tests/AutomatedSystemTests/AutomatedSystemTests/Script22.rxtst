@@ -600,6 +600,10 @@
 				</parameters>
 			</smartfoldernode>
 			<testcase
+			id="65fcf8c4-29ad-4f7f-8666-3a04384f7fc9"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
+			<testcase
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b"
 			name="Script22"
 			reportlevel="Info;20">
@@ -1332,6 +1336,12 @@
 			name="ValidateValuesAssessment">
 			</smartfoldernode>
 			<testmodule
+			id="ea74d00e-7f81-47ec-a13e-1f2adc96bc16"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="ed2708e1-b812-43de-ac54-16a9c0cd2b7a"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
@@ -1473,6 +1483,14 @@
 				<testcase
 				id="6754469b-6bef-4898-a3ce-f0500c72e37b"
 				name="Script22">
+					<testcase
+					id="65fcf8c4-29ad-4f7f-8666-3a04384f7fc9"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="ea74d00e-7f81-47ec-a13e-1f2adc96bc16"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="78337b07-06ac-4efb-b70c-3605a183e682"
 					name="script22_Toetsoordelen_en_veiligheidsoordeel_bepalen">
@@ -2378,6 +2396,9 @@
 			</testcontainer>
 			<testcontainer
 			id="64927f77-bb7f-4081-aac4-4a7bc769d194">
+			</testcontainer>
+			<testcontainer
+			id="65fcf8c4-29ad-4f7f-8666-3a04384f7fc9">
 			</testcontainer>
 			<testcontainer
 			id="6754469b-6bef-4898-a3ce-f0500c72e37b">

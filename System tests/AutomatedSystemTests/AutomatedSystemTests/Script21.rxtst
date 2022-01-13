@@ -738,6 +738,10 @@
 			id="25b05b88-7808-4101-bc0a-00e177cd3686"
 			name="ValidateCustomAssessment">
 			</smartfoldernode>
+			<testcase
+			id="25b5439f-d0d5-471f-b7f8-2a6614228cfe"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			datasource="FMsInGroup1SimpleAssessment"
 			id="25c9a547-d46e-4860-8808-11b6ad1d95c7"
@@ -2847,6 +2851,12 @@
 			id="e0ce49c0-48d4-4cc6-9f3f-05aa3c2a276c"
 			name="DetailedAssessmentFMsGroup5WithoutDetailedAssessment">
 			</smartfoldernode>
+			<testmodule
+			id="e1a530be-9071-415a-a89b-7afa50a4d8e8"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
 			<teardown
 			id="e20e1340-f51c-46ec-9b7f-2b0b355745ce"
 			name="teardown">
@@ -3110,6 +3120,14 @@
 				<testcase
 				id="e73accf9-7ba2-423c-a256-1fea8f69131e"
 				name="Script21">
+					<testcase
+					id="25b5439f-d0d5-471f-b7f8-2a6614228cfe"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="e1a530be-9071-415a-a89b-7afa50a4d8e8"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="51bff513-6ec0-4273-9ee3-8d912bb40499"
 					name="script21_Toetsresultaten_importeren_en_registreren">
@@ -5902,6 +5920,9 @@
 			</testcontainer>
 			<testcontainer
 			id="25b05b88-7808-4101-bc0a-00e177cd3686">
+			</testcontainer>
+			<testcontainer
+			id="25b5439f-d0d5-471f-b7f8-2a6614228cfe">
 			</testcontainer>
 			<testcontainer
 			id="25c9a547-d46e-4860-8808-11b6ad1d95c7">

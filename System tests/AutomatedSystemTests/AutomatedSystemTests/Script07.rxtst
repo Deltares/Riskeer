@@ -90,6 +90,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testcase
+			id="2c71bb16-56d6-4df9-9fed-e397aa568fc0"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			datasource="boundaryTypesNames"
 			errorbehavior="ContinueNextIteration"
@@ -218,6 +222,12 @@
 					variablename="signallingValue">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="59465873-51c9-4d42-9a89-31d5580dffed"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="59c1a0f9-68c8-46b4-b48f-d67e70ea2bd7"
@@ -551,6 +561,14 @@
 				id="dba441a6-0552-4228-823c-eda631abaa89"
 				name="Script07">
 					<testcase
+					id="2c71bb16-56d6-4df9-9fed-e397aa568fc0"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="59465873-51c9-4d42-9a89-31d5580dffed"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
+					<testcase
 					id="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
 					name="script07_Toetseis_op_trajectniveau_bepalen">
 						<setup
@@ -748,6 +766,9 @@
 			</testcontainer>
 			<testcontainer
 			id="192e6baa-4a40-46e8-8772-533d4387f8c7">
+			</testcontainer>
+			<testcontainer
+			id="2c71bb16-56d6-4df9-9fed-e397aa568fc0">
 			</testcontainer>
 			<testcontainer
 			id="2e238d39-748e-4738-97ce-088ab7ca65de">

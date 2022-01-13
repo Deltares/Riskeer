@@ -1912,6 +1912,10 @@
 			id="7db15ab3-c87d-43b7-ba6c-5ad95dc78d3e"
 			name="AddBackgroundLayerExportedShapeFile">
 			</smartfoldernode>
+			<testcase
+			id="7ec7fa27-1f51-45db-ae12-c33cd7f27254"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<testmodule
 			id="7f34797f-c389-4d6b-b5e0-452c234a5215"
 			name="SelectState"
@@ -2230,6 +2234,12 @@
 			id="8c3b9c0d-d973-451c-a475-51fee2ca109a"
 			name="Sections(Vakindeling)">
 			</smartfoldernode>
+			<testmodule
+			id="8d69101c-e66c-420c-9f61-9e9854ea028a"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="8f7180bd-2e81-4f44-bd9a-456384929862"
 			name="CloseSectionsView">
@@ -3666,6 +3676,14 @@
 				<testcase
 				id="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
 				name="Script06">
+					<testcase
+					id="7ec7fa27-1f51-45db-ae12-c33cd7f27254"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="8d69101c-e66c-420c-9f61-9e9854ea028a"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					name="script06_Vakindeling_maken_of_aanpassen">
@@ -5561,6 +5579,9 @@
 			</testcontainer>
 			<testcontainer
 			id="7db15ab3-c87d-43b7-ba6c-5ad95dc78d3e">
+			</testcontainer>
+			<testcontainer
+			id="7ec7fa27-1f51-45db-ae12-c33cd7f27254">
 			</testcontainer>
 			<testcontainer
 			id="830552eb-aecf-4e03-b88d-f3caadce0247">

@@ -1061,6 +1061,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="6d553bd3-8128-4897-b71b-d3967ebc9f1c"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="6d5f9b21-e8ad-450b-90b3-c61967f3358b"
 			name="StartAllCalculationsInSelectedFolderInProjectExplorer"
 			ref="9c9a5824-8ab8-44a2-b76c-84bb3359d312"
@@ -2082,6 +2088,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testcase
+			id="e2fe72de-a007-44fe-a359-2714431537de"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<smartfoldernode
 			id="e3bbf36b-3bbd-47c3-b4f3-a3ce7e01e65d"
 			name="SelectCalculationsItem">
@@ -2427,6 +2437,14 @@
 				<testcase
 				id="cf827ffe-1dbe-42c7-9efc-b26b4ce18e62"
 				name="Script20">
+					<testcase
+					id="e2fe72de-a007-44fe-a359-2714431537de"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="6d553bd3-8128-4897-b71b-d3967ebc9f1c"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="ffd7722e-fb6a-4059-a901-6b57196a5a93"
 					name="script20_(Benaderde)_faalkans_berekenen_per_toetsvak">
@@ -4979,6 +4997,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e190283e-f20d-4bf2-b26a-119e0ac4e922">
+			</testcontainer>
+			<testcontainer
+			id="e2fe72de-a007-44fe-a359-2714431537de">
 			</testcontainer>
 			<testcontainer
 			id="e3bbf36b-3bbd-47c3-b4f3-a3ce7e01e65d">

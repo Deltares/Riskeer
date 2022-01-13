@@ -736,6 +736,12 @@
 			ref="be610d83-0566-4237-980c-570b403e4ee8"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="4e9dc213-dd9c-4091-9b2c-37c958098c1b"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="script10_LoopValidateOriginalSubsurfaceShcematizations"
 			errorbehavior="ContinueNextIteration"
@@ -2631,6 +2637,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testcase
+			id="b1513cc2-8f8a-46f7-82d5-cf4f6cb7d73e"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<testmodule
 			id="b26849d6-3393-41cd-a2f7-5e1bd96e6b90"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -3920,6 +3930,14 @@
 				<testcase
 				id="d47afadd-08b5-44e7-bfab-e3d5723c892a"
 				name="Script10">
+					<testcase
+					id="b1513cc2-8f8a-46f7-82d5-cf4f6cb7d73e"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="4e9dc213-dd9c-4091-9b2c-37c958098c1b"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="0aa9dcb3-bc47-46e1-b087-a8eda3368312"
 					name="script10_Profielschematisaties_en_ondergrondgegevens_importeren">
@@ -6063,6 +6081,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ae7a5676-2213-416d-9333-f79b23d53039">
+			</testcontainer>
+			<testcontainer
+			id="b1513cc2-8f8a-46f7-82d5-cf4f6cb7d73e">
 			</testcontainer>
 			<testcontainer
 			id="b6e127b6-2206-409a-b494-be3763bd22b7">

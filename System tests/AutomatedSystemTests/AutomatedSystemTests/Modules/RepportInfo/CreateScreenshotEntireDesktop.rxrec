@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
-mode="Desktop">
+id="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -19,22 +19,14 @@ mode="Desktop">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="StartAUT"
-	namespace="AutomatedSystemTests.Modules.ActionsAUT">
+	classname="CreateScreenshotEntireDesktop"
+	namespace="AutomatedSystemTests.Modules.RepportInfo">
 	</codegen>
 	<variables>
-		<var
-		id="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
-		name="StartAutProcessIDVar">
-		</var>
-		<var
-		id="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
-		name="AppPath">
-		</var>
 	</variables>
 	<recorditems>
 		<explicitdelayitem
-		duration="200ms"
+		duration="300ms"
 		enabled="True"
 		optional="False">
 			<comment>
@@ -42,38 +34,22 @@ mode="Desktop">
 			<bindings>
 			</bindings>
 		</explicitdelayitem>
-		<userrecorditem
-		classname="StartAUT"
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
 		enabled="True"
-		isexternaltestmethod="False"
-		methodname="ResolveAppPath"
-		namespace="AutomatedSystemTests.Modules.ActionsAUT"
-		optional="False">
+		message="Create screenshot of desktop of computer in order to see if any (AUC) pop ups are being shown."
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="827aaddf-a818-4376-8d7f-e5d4bb900959">
 			<comment>
+				Create screenshot of desktop of computer in order to see if any (AUC) pop ups are being shown.
 			</comment>
 			<bindings>
 			</bindings>
-			<arguments
-			id="bbf3c01d-2f45-48d9-aee0-30f94385857c">
-			</arguments>
-		</userrecorditem>
-		<userrecorditem
-		classname="StartAUT"
-		enabled="True"
-		isexternaltestmethod="False"
-		methodname="StartAUT_Run_application"
-		namespace="AutomatedSystemTests.Modules.ActionsAUT"
-		optional="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<arguments
-			id="9fa2bc53-f14f-4189-8c3e-fa8b3d0b2590">
-			</arguments>
-		</userrecorditem>
+		</loggingrecorditem>
 		<explicitdelayitem
-		duration="1000ms"
+		duration="300ms"
 		enabled="True"
 		optional="False">
 			<comment>
@@ -97,7 +73,7 @@ mode="Desktop">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		StartAUT.UserCode.cs
+		CreateScreenshotEntireDesktop.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

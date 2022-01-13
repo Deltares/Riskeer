@@ -710,6 +710,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testcase
+			id="4154b687-65c3-4208-9f9a-f5de4da10cf1"
+			name="TakeScreenshotOfDesktop">
+			</testcase>
 			<testmodule
 			id="42fb9ef9-353d-423d-8f80-949a326c9036"
 			name="ValidateTextMesage"
@@ -2133,6 +2137,12 @@
 			id="bb3921eb-bd06-41a1-93fb-7c6b378d03bc"
 			name="CompareWithReference">
 			</smartfoldernode>
+			<testmodule
+			id="bd5a0ad0-d545-4563-9124-11be51434449"
+			name="CreateScreenshotEntireDesktop"
+			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="bea194ea-0e52-47f7-b6b8-fef4de395cf6"
 			name="ValidateResultsClimateScenario">
@@ -2875,6 +2885,14 @@
 				<testcase
 				id="527a6f99-c5c5-4a08-ac6e-e8f25bc60876"
 				name="Script19">
+					<testcase
+					id="4154b687-65c3-4208-9f9a-f5de4da10cf1"
+					name="TakeScreenshotOfDesktop">
+						<testmodule
+						id="bd5a0ad0-d545-4563-9124-11be51434449"
+						name="CreateScreenshotEntireDesktop">
+						</testmodule>
+					</testcase>
 					<testcase
 					id="2cf29f17-6bb0-408c-8799-f364f7480df0"
 					name="script19_HBN_en_overslagdebiet_berekenen_voor_GEKB">
@@ -5089,6 +5107,9 @@
 			</testcontainer>
 			<testcontainer
 			id="3ee4eec9-b1dc-415e-8593-3dc5a0cb824e">
+			</testcontainer>
+			<testcontainer
+			id="4154b687-65c3-4208-9f9a-f5de4da10cf1">
 			</testcontainer>
 			<testcontainer
 			id="439a76dc-6672-4308-ae32-06466a960e4c">

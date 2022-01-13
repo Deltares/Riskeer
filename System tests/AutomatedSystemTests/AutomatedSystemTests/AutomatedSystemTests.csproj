@@ -1314,6 +1314,18 @@
       <UserCode>true</UserCode>
       <id>5d701daa-6729-41d0-8f56-928dceecb1fe</id>
     </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.cs">
+      <BoundTo>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</BoundTo>
+      <DependentUpon>CreateScreenshotEntireDesktop.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>eaa67ea6-86db-4180-bd14-d0bfe75ab110</id>
+    </Compile>
+    <Compile Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.UserCode.cs">
+      <BoundTo>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</BoundTo>
+      <DependentUpon>CreateScreenshotEntireDesktop.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2afacf56-19b1-47fd-b74a-e94b7559ebee</id>
+    </Compile>
     <Compile Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.cs">
       <BoundTo>8f3d8e09-69cb-4bd3-95c4-2a8d79fe9874</BoundTo>
       <DependentUpon>CreateScreenshotMessagesPanel.rxrec</DependentUpon>
@@ -3078,6 +3090,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a7fe9a81-f30b-4989-93d4-73a3b0f3ece5</id>
       <recordtableid>badbc62e-0842-46fe-b883-582d8a44310b</recordtableid>
+    </None>
+    <None Include="Modules\RepportInfo\CreateScreenshotEntireDesktop.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c3cbdf07-5f61-4169-8d8b-5e323c3a882c</id>
+      <recordtableid>0f7ebadb-0285-4449-9422-0cd6fde5bf4d</recordtableid>
     </None>
     <None Include="Modules\RepportInfo\CreateScreenshotMessagesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
