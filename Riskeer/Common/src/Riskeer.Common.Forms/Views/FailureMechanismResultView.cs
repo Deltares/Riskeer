@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -34,7 +33,6 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -59,8 +57,6 @@ namespace Riskeer.Common.Forms.Views
         private bool rowUpdating;
 
         private bool probabilityResultTypeComboBoxUpdating;
-
-        private readonly NoProbabilityValueDoubleConverter converter;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult,TSectionResultRow,TFailureMechanism}"/>.
@@ -102,8 +98,6 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = failureMechanismSectionResults
             };
-
-            converter = new NoProbabilityValueDoubleConverter();
 
             InitializeComboBox();
         }
@@ -197,7 +191,7 @@ namespace Riskeer.Common.Forms.Views
 
             probabilityResultTypeComboBox.EndUpdate();
         }
-        
+
         private void UpdateFailurePathAssemblyControls()
         {
             failurePathAssemblyProbabilityTextBox.Enabled = IsManualAssembly();
@@ -308,7 +302,7 @@ namespace Riskeer.Common.Forms.Views
         {
             if (e.KeyCode == Keys.Enter)
             {
-                failureMechanismAssemblyLabel.Focus(); // Focus on different component to commit value and force a leave event
+                failureMechanismAssemblyLabel.Focus(); // Focus on different component to raise a leave event on the text box
                 e.Handled = true;
             }
         }
@@ -316,27 +310,36 @@ namespace Riskeer.Common.Forms.Views
         private void FailurePathAssemblyProbabilityTextBoxLeave(object sender, EventArgs e)
         {
             ClearErrorMessage();
-            ProcessFailurePathAssemblyProbabilityTextBox(failurePathAssemblyProbabilityTextBox.Text);
+            ProcessFailurePathAssemblyProbabilityTextBox();
         }
 
-        private void ProcessFailurePathAssemblyProbabilityTextBox(string value)
+        private void ProcessFailurePathAssemblyProbabilityTextBox()
         {
+            if (!IsManualAssembly())
+            {
+                return;
+            }
+
             try
             {
-                var probability = (double) converter.ConvertFrom(null, CultureInfo.CurrentCulture, value);
-                FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability = probability;
+                double probability = ProbabilityParsingHelper.Parse(failurePathAssemblyProbabilityTextBox.Text);
+
+                FailurePathAssemblyResult failureMechanismAssemblyResult = FailureMechanism.AssemblyResult;
+                failureMechanismAssemblyResult.ManualFailurePathAssemblyProbability = probability;
+                failureMechanismAssemblyResult.NotifyObservers();
 
                 SetTextBoxValue(probability);
             }
-            catch (Exception exception)
+            catch (ArgumentException exception)
             {
                 SetErrorMessage(exception.Message);
+                failurePathAssemblyProbabilityTextBox.Focus();
             }
         }
 
         private void SetTextBoxValue(double probability)
         {
-            failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.Format(probability);
+            failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
         }
 
         private bool IsManualAssembly()

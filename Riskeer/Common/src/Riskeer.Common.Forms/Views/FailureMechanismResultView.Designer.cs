@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Views
