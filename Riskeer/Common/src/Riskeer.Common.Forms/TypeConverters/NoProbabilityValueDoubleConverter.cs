@@ -24,8 +24,6 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.Properties;
-using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Riskeer.Common.Forms.TypeConverters
 {
@@ -36,29 +34,12 @@ namespace Riskeer.Common.Forms.TypeConverters
     /// </summary>
     public class NoProbabilityValueDoubleConverter : TypeConverter
     {
-        private const string returnPeriodNotation = "1/";
-
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var doubleValue = (double) value;
             if (destinationType == typeof(string))
             {
-                if (double.IsNaN(doubleValue))
-                {
-                    return Resources.RoundedDouble_No_result_dash;
-                }
-
-                if (double.IsNegativeInfinity(doubleValue))
-                {
-                    return CommonBaseResources.RoundedDouble_ToString_NegativeInfinity;
-                }
-
-                if (double.IsPositiveInfinity(doubleValue))
-                {
-                    return CommonBaseResources.RoundedDouble_ToString_PositiveInfinity;
-                }
-
-                return ProbabilityFormattingHelper.Format(doubleValue);
+                return ProbabilityFormattingHelper.FormatWithDiscreteNumbers(doubleValue);
             }
 
             return base.ConvertTo(context, culture, value, destinationType);
@@ -69,32 +50,13 @@ namespace Riskeer.Common.Forms.TypeConverters
             var text = value as string;
             if (text != null)
             {
-                if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedDouble_No_result_dash)
-                {
-                    return double.NaN;
-                }
-
                 try
                 {
-                    if (!text.StartsWith(returnPeriodNotation))
-                    {
-                        return Convert.ToDouble(text);
-                    }
-
-                    string returnPeriodValue = text.Substring(2).ToLower();
-                    return returnPeriodValue != CommonBaseResources.RoundedDouble_ToString_PositiveInfinity.ToLower()
-                               ? 1 / Convert.ToDouble(returnPeriodValue)
-                               : 0.0;
+                    return ProbabilityParsingHelper.Parse(text);
                 }
-                catch (FormatException exception)
+                catch (ArgumentException exception)
                 {
-                    throw new NotSupportedException(Resources.Probability_Could_not_parse_string_to_probability,
-                                                    exception);
-                }
-                catch (OverflowException exception)
-                {
-                    throw new NotSupportedException(Resources.Probability_Value_too_large,
-                                                    exception);
+                    throw new NotSupportedException(exception.Message, exception);
                 }
             }
 
