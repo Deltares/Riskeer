@@ -1743,4 +1743,7 @@ faalkans per vak
     <data name="FailureMechanismSectionResultRow_Derived_DisplayName" xml:space="preserve">
     <value>&lt;afgeleid&gt;</value>
   </data>
+    <data name="FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number" xml:space="preserve">
+      <value>De waarde voor de faalkans ontbreekt.</value>
+    </data>
 </root>

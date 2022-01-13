@@ -756,7 +756,8 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
+                    ManualFailurePathAssemblyProbability = 0.1
                 }
             };
 
@@ -885,7 +886,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase("NotAProbability", "De waarde kon niet geïnterpreteerd worden als een kans.")]
         [TestCase("30", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
         [TestCase("-1", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenSetsDefaultFailurePathAssemblyProbabilityWithErrorAndNotifiesObservers(
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenSetsDefaultFailurePathAssemblyProbabilityWithError(
             string invalidValue,
             string expectedErrorMessage)
         {
@@ -926,6 +927,52 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetsDefaultFailurePathAssemblyProbabilityWithErrorAndNotifiesObserver()
+        {
+            // Given
+            const double manualProbability = 0.2;
+            const string manualProbabilityText = "1/5";
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
+                    ManualFailurePathAssemblyProbability = manualProbability
+                }
+            };
+            failureMechanism.AssemblyResult.Attach(observer);
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            {
+                // Precondition
+                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
+                Assert.AreEqual(manualProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                Assert.AreEqual("", errorMessage);
+
+                // When
+                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                textBoxTester.Enter("-");
+
+                // Then
+                Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+
+                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                Assert.AreEqual("De waarde voor de faalkans ontbreekt.", errorMessage);
             }
 
             mocks.VerifyAll();

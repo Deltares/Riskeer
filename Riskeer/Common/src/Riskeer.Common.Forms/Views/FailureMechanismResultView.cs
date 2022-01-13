@@ -33,6 +33,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -305,6 +306,13 @@ namespace Riskeer.Common.Forms.Views
                 failureMechanismAssemblyLabel.Focus(); // Focus on different component to raise a leave event on the text box
                 e.Handled = true;
             }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                ClearErrorMessage();
+                SetTextBoxValue(FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                e.Handled = true;
+            }
         }
 
         private void FailurePathAssemblyProbabilityTextBoxLeave(object sender, EventArgs e)
@@ -340,6 +348,10 @@ namespace Riskeer.Common.Forms.Views
         private void SetTextBoxValue(double probability)
         {
             failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
+            if (IsManualAssembly() && double.IsNaN(probability))
+            {
+                SetErrorMessage(Resources.FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number);
+            }
         }
 
         private bool IsManualAssembly()

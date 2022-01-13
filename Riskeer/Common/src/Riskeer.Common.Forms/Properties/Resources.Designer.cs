@@ -1899,6 +1899,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans ontbreekt..
+        /// </summary>
+        public static string FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Aanscherpen faalkans.
         /// </summary>
         public static string FailureMechanismResultView_ProbabilityRefinementType_DisplayName {
