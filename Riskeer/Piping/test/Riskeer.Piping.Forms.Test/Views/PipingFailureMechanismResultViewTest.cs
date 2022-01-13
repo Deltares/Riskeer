@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -180,7 +182,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
-            
+
             var failureMechanism = new PipingFailureMechanism
             {
                 ScenarioConfigurationType = scenarioConfigurationType
@@ -191,7 +193,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             });
 
             failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().ScenarioConfigurationType = scenarioConfigurationPerFailureMechanismSectionType;
-            
+
             failureMechanism.CalculationsGroup.Children.Add(
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section));
             failureMechanism.CalculationsGroup.Children.Add(
@@ -253,7 +255,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndAssemblyInfoUpdated()
+        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndPerformsAssembly()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -266,30 +268,36 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (PipingFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
+                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+
+                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+                
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
-                var notifyPropertyChanged = false;
-                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
-                
                 // Precondition
                 Assert.IsFalse(rowsChanged);
-                Assert.IsFalse(notifyPropertyChanged);
-                
+
                 // When
                 calculationScenario.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
-                Assert.IsTrue(notifyPropertyChanged);
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdated()
+        public void GivenPipingFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssembly()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -302,30 +310,36 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (PipingFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
+                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+
+                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
-                var notifyPropertyChanged = false;
-                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
-                
                 // Precondition
                 Assert.IsFalse(rowsChanged);
-                Assert.IsFalse(notifyPropertyChanged);
-                
+
                 // When
                 calculationScenario.InputParameters.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
-                Assert.IsTrue(notifyPropertyChanged);
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdated()
+        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssembly()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -335,25 +349,31 @@ namespace Riskeer.Piping.Forms.Test.Views
             });
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = ShowFailureMechanismResultsView(failureMechanism))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
+                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+
+                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
 
-                var notifyPropertyChanged = false;
-                view.PropertyChanged += (sender, args) => notifyPropertyChanged = true;
-                
                 // Precondition
                 Assert.IsFalse(rowsChanged);
-                Assert.IsFalse(notifyPropertyChanged);
-                
+
                 // When
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
 
                 // Then
                 Assert.IsTrue(rowsChanged);
-                Assert.IsTrue(notifyPropertyChanged);
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
 
