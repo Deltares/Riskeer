@@ -22,9 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Primitives;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.DbContext;
 
@@ -37,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((GrassCoverErosionInwardsFailureMechanismSectionResultOld) null).Create();
+            void Call() => ((AdoptableWithProfileProbabilityFailureMechanismSectionResult) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,51 +48,61 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         {
             // Setup
             var random = new Random(21);
-            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
-            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-            double tailorMadeAssessmentProbability = random.NextDouble();
-            bool useManualAssembly = random.NextBoolean();
-            double manualAssemblyProbability = random.NextDouble();
+            bool isRelevant = random.NextBoolean();
+            var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
+            double manualProfileProbability = random.NextDouble();
+            double manualSectionProbability = random.NextDouble();
+            bool furtherAnalysisNeeded = random.NextBoolean();
+            var probabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
+            double refinedProfileProbability = random.NextDouble();
+            double refinedSectionProbability = random.NextDouble();
 
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                SimpleAssessmentResult = simpleAssessmentResult,
-                DetailedAssessmentResult = detailedAssessmentResult,
-                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
-                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
-                UseManualAssembly = useManualAssembly,
-                ManualAssemblyProbability = manualAssemblyProbability
+                IsRelevant = isRelevant,
+                InitialFailureMechanismResult = initialFailureMechanismResultType,
+                ManualInitialFailureMechanismResultProfileProbability = manualProfileProbability,
+                ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
+                FurtherAnalysisNeeded = furtherAnalysisNeeded,
+                ProbabilityRefinementType = probabilityRefinementType,
+                RefinedProfileProbability = refinedProfileProbability,
+                RefinedSectionProbability = refinedSectionProbability
             };
 
             // Call
             GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
-            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
-            Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
-            Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
-            Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
+            Assert.AreEqual(Convert.ToByte(initialFailureMechanismResultType), entity.AdoptableInitialFailureMechanismResultType);
+            Assert.AreEqual(manualProfileProbability, entity.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(manualSectionProbability, entity.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(Convert.ToByte(furtherAnalysisNeeded), entity.FurtherAnalysisNeeded);
+            Assert.AreEqual(Convert.ToByte(probabilityRefinementType), entity.ProbabilityRefinementType);
+            Assert.AreEqual(refinedProfileProbability, entity.RefinedProfileProbability);
+            Assert.AreEqual(refinedSectionProbability, entity.RefinedSectionProbability);
         }
 
         [Test]
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                TailorMadeAssessmentProbability = double.NaN,
-                ManualAssemblyProbability = double.NaN
+                ManualInitialFailureMechanismResultProfileProbability = double.NaN,
+                ManualInitialFailureMechanismResultSectionProbability = double.NaN,
+                RefinedProfileProbability = double.NaN,
+                RefinedSectionProbability = double.NaN
             };
 
             // Call
             GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.IsNull(entity.TailorMadeAssessmentProbability);
-            Assert.IsNull(entity.ManualAssemblyProbability);
+            Assert.IsNull(entity.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.IsNull(entity.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.IsNull(entity.RefinedProfileProbability);
+            Assert.IsNull(entity.RefinedSectionProbability);
         }
     }
 }

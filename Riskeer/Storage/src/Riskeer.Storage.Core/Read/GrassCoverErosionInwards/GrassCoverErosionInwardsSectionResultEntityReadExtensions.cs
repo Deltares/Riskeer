@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Primitives;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -39,20 +39,13 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsSectionResultEntity"/> 
         /// used to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverErosionInwardsSectionResultEntity entity,
-                                  GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult,
-                                  ReadConversionCollector collector)
+                                  AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (collector == null)
-            {
-                throw new ArgumentNullException(nameof(collector));
             }
 
             if (sectionResult == null)
@@ -60,12 +53,14 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.SimpleAssessmentResult = (SimpleAssessmentValidityOnlyResultType) entity.SimpleAssessmentResult;
-            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
-            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
-            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
-            sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
-            sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
+            sectionResult.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
+            sectionResult.InitialFailureMechanismResult = (AdoptableInitialFailureMechanismResultType) entity.AdoptableInitialFailureMechanismResultType;
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = entity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN();
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = entity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN();
+            sectionResult.FurtherAnalysisNeeded = Convert.ToBoolean(entity.FurtherAnalysisNeeded);
+            sectionResult.ProbabilityRefinementType = (ProbabilityRefinementType) entity.ProbabilityRefinementType;
+            sectionResult.RefinedProfileProbability = entity.RefinedProfileProbability.ToNullAsNaN();
+            sectionResult.RefinedSectionProbability = entity.RefinedSectionProbability.ToNullAsNaN();
         }
     }
 }

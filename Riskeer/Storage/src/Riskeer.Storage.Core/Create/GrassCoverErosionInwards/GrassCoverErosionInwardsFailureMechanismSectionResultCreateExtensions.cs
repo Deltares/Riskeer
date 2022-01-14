@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -38,7 +39,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsSectionResultEntity Create(this GrassCoverErosionInwardsFailureMechanismSectionResultOld result)
+        internal static GrassCoverErosionInwardsSectionResultEntity Create(this AdoptableWithProfileProbabilityFailureMechanismSectionResult result)
         {
             if (result == null)
             {
@@ -47,12 +48,14 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
 
             var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
-                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
-                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
-                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
-                TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
-                UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
-                ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
+                IsRelevant = Convert.ToByte(result.IsRelevant),
+                AdoptableInitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),
+                ManualInitialFailureMechanismResultProfileProbability = result.ManualInitialFailureMechanismResultProfileProbability.ToNaNAsNull(),
+                ManualInitialFailureMechanismResultSectionProbability = result.ManualInitialFailureMechanismResultSectionProbability.ToNaNAsNull(),
+                FurtherAnalysisNeeded = Convert.ToByte(result.FurtherAnalysisNeeded),
+                ProbabilityRefinementType = Convert.ToByte(result.ProbabilityRefinementType),
+                RefinedProfileProbability = result.RefinedProfileProbability.ToNaNAsNull(),
+                RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
             };
 
             return sectionResultEntity;

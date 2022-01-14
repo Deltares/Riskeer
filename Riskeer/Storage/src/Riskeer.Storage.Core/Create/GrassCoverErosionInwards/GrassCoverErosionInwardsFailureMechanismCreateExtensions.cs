@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
@@ -46,7 +47,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
             AddEntitiesForGeneralInput(mechanism, entity);
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
@@ -72,10 +73,10 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
                 GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
