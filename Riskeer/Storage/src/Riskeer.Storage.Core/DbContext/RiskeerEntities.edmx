@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -165,7 +165,7 @@
           <Property Name="ClosingStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="tinyint" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
           <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
           <Property Name="RefinedSectionProbability" Type="real" />
@@ -455,12 +455,14 @@
           </Key>
           <Property Name="GrassCoverErosionInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="TailorMadeAssessmentProbability" Type="real" />
-          <Property Name="UseManualAssembly" Type="tinyint" Nullable="false" />
-          <Property Name="ManualAssemblyProbability" Type="real" />
+          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="real" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
+          <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
+          <Property Name="ProbabilityRefinementType" Type="tinyint" Nullable="false" />
+          <Property Name="RefinedProfileProbability" Type="real" />
+          <Property Name="RefinedSectionProbability" Type="real" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
           <Key>
@@ -663,7 +665,7 @@
           <Property Name="HeightStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="tinyint" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
           <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
           <Property Name="RefinedSectionProbability" Type="real" />
@@ -916,7 +918,7 @@
           <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="tinyint" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
           <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="real" />
           <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
@@ -1100,7 +1102,7 @@
           <Property Name="PipingSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="tinyint" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
           <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="real" />
           <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
@@ -5324,7 +5326,7 @@
           <Property Name="ClosingStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="Byte" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
           <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
           <Property Name="RefinedSectionProbability" Type="Double" />
@@ -5678,12 +5680,14 @@
           </Key>
           <Property Name="GrassCoverErosionInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
-          <Property Name="UseManualAssembly" Type="Byte" Nullable="false" />
-          <Property Name="ManualAssemblyProbability" Type="Double" />
+          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="Double" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
+          <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
+          <Property Name="ProbabilityRefinementType" Type="Byte" Nullable="false" />
+          <Property Name="RefinedProfileProbability" Type="Double" />
+          <Property Name="RefinedSectionProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsSectionResultEntity_0_0" FromRole="GrassCoverErosionInwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionOutwardsFailureMechanismMetaEntity">
@@ -5909,7 +5913,7 @@
           <Property Name="HeightStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="Byte" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
           <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
           <Property Name="RefinedSectionProbability" Type="Double" />
@@ -6184,7 +6188,7 @@
           <Property Name="MacroStabilityInwardsSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="Byte" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
           <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="Double" />
           <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
@@ -6381,7 +6385,7 @@
           <Property Name="PipingSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="IsRelevant" Type="Byte" Nullable="false" />
-          <Property Name="InitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="InitialAdoptableFailureMechanismResultType" Type="Byte" Nullable="false" />
           <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
           <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="Double" />
           <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
@@ -8999,7 +9003,7 @@
                 <ScalarProperty Name="RefinedSectionProbability" ColumnName="RefinedSectionProbability" />
                 <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
                 <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
-                <ScalarProperty Name="InitialFailureMechanismResultType" ColumnName="InitialFailureMechanismResultType" />
+                <ScalarProperty Name="InitialAdoptableFailureMechanismResultType" ColumnName="InitialAdoptableFailureMechanismResultType" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="ClosingStructuresSectionResultEntityId" ColumnName="ClosingStructuresSectionResultEntityId" />
@@ -9266,12 +9270,14 @@
           <EntitySetMapping Name="GrassCoverErosionInwardsSectionResultEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.GrassCoverErosionInwardsSectionResultEntity">
               <MappingFragment StoreEntitySet="GrassCoverErosionInwardsSectionResultEntity">
-                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
-                <ScalarProperty Name="UseManualAssembly" ColumnName="UseManualAssembly" />
-                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
-                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
-                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
-                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
+                <ScalarProperty Name="RefinedSectionProbability" ColumnName="RefinedSectionProbability" />
+                <ScalarProperty Name="RefinedProfileProbability" ColumnName="RefinedProfileProbability" />
+                <ScalarProperty Name="ProbabilityRefinementType" ColumnName="ProbabilityRefinementType" />
+                <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
+                <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
+                <ScalarProperty Name="ManualInitialFailureMechanismResultProfileProbability" ColumnName="ManualInitialFailureMechanismResultProfileProbability" />
+                <ScalarProperty Name="InitialAdoptableFailureMechanismResultType" ColumnName="InitialAdoptableFailureMechanismResultType" />
+                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsSectionResultEntityId" ColumnName="GrassCoverErosionInwardsSectionResultEntityId" />
               </MappingFragment>
@@ -9489,7 +9495,7 @@
                 <ScalarProperty Name="RefinedSectionProbability" ColumnName="RefinedSectionProbability" />
                 <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
                 <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
-                <ScalarProperty Name="InitialFailureMechanismResultType" ColumnName="InitialFailureMechanismResultType" />
+                <ScalarProperty Name="InitialAdoptableFailureMechanismResultType" ColumnName="InitialAdoptableFailureMechanismResultType" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="HeightStructuresSectionResultEntityId" ColumnName="HeightStructuresSectionResultEntityId" />
@@ -9742,7 +9748,7 @@
                 <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
                 <ScalarProperty Name="ManualInitialFailureMechanismResultProfileProbability" ColumnName="ManualInitialFailureMechanismResultProfileProbability" />
                 <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
-                <ScalarProperty Name="InitialFailureMechanismResultType" ColumnName="InitialFailureMechanismResultType" />
+                <ScalarProperty Name="InitialAdoptableFailureMechanismResultType" ColumnName="InitialAdoptableFailureMechanismResultType" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsSectionResultEntityId" ColumnName="MacroStabilityInwardsSectionResultEntityId" />
@@ -9931,7 +9937,7 @@
                 <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
                 <ScalarProperty Name="ManualInitialFailureMechanismResultProfileProbability" ColumnName="ManualInitialFailureMechanismResultProfileProbability" />
                 <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
-                <ScalarProperty Name="InitialFailureMechanismResultType" ColumnName="InitialFailureMechanismResultType" />
+                <ScalarProperty Name="InitialAdoptableFailureMechanismResultType" ColumnName="InitialAdoptableFailureMechanismResultType" />
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="PipingSectionResultEntityId" ColumnName="PipingSectionResultEntityId" />
