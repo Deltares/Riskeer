@@ -34,10 +34,10 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism,
-                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld, MacroStabilityInwardsFailureMechanismSectionResult>
+                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResultsOld;
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults;
+        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             };
 
             sectionResultsOld = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld>();
-            sectionResults = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -85,13 +85,13 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
 
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> SectionResults => sectionResults;
+        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
-            sectionResults.Add(new MacroStabilityInwardsFailureMechanismSectionResult(section));
+            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()

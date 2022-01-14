@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/>
         /// or <paramref name="calculationScenarios"/> is <c>null</c>.</exception>
-        public static double GetInitialFailureMechanismResultProbability(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
+        public static double GetInitialFailureMechanismResultProbability(this AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                          IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
                                                                          double modelFactor)
         {

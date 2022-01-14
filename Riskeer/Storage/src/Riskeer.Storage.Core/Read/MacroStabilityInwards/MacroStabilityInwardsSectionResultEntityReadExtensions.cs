@@ -21,26 +21,25 @@
 
 using System;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>
+    /// This class defines extension methods for read operations for an <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
     /// based on the <see cref="MacroStabilityInwardsSectionResultEntity"/>.
     /// </summary>
     internal static class MacroStabilityInwardsSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="MacroStabilityInwardsSectionResultEntity"/> and use the information to update a 
-        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="MacroStabilityInwardsSectionResultEntity"/> and use the information to update an
+        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="MacroStabilityInwardsSectionResultEntity"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this MacroStabilityInwardsSectionResultEntity entity, MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        internal static void Read(this MacroStabilityInwardsSectionResultEntity entity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {

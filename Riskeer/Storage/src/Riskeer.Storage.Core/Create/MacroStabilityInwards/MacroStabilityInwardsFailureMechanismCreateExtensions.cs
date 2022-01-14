@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -92,12 +93,12 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                MacroStabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                MacroStabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.CreateForMacroStabilityInwards();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.MacroStabilityInwardsSectionResultEntities.Add(sectionResultEntity);
             }

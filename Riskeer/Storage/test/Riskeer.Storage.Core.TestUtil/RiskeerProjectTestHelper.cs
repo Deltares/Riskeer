@@ -588,6 +588,23 @@ namespace Riskeer.Storage.Core.TestUtil
             assemblyResult.ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
             assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
         }
+        
+        private static void SetSectionResults(IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                sectionResult.IsRelevant = random.NextBoolean();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
+                sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
+                sectionResult.ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
+                sectionResult.RefinedProfileProbability = random.NextDouble();
+                sectionResult.RefinedSectionProbability = random.NextDouble();
+            }
+        }
 
         #region MacroStabilityOutwards FailureMechanism
 
@@ -1265,23 +1282,6 @@ namespace Riskeer.Storage.Core.TestUtil
             });
         }
 
-        private static void SetSectionResults(IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-
-            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
-                sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
-                sectionResult.ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
-                sectionResult.RefinedProfileProbability = random.NextDouble();
-                sectionResult.RefinedSectionProbability = random.NextDouble();
-            }
-        }
-
         private static void SetSectionConfigurations(IEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> sectionConfigurations)
         {
             var random = new Random(21);
@@ -1788,22 +1788,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 },
                 Output = null
             });
-        }
-
-        private static void SetSectionResults(IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
-                sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
-                sectionResult.ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
-                sectionResult.RefinedProfileProbability = random.NextDouble();
-                sectionResult.RefinedSectionProbability = random.NextDouble();
-            }
         }
 
         private static MacroStabilityInwardsSurfaceLine GetMacroStabilityInwardsSurfaceLine()

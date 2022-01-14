@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.MacroStabilityInwards.Data;
 
@@ -30,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
     /// from an old <see cref="MacroStabilityInwardsFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResultOld, MacroStabilityInwardsFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<MacroStabilityInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(MacroStabilityInwardsFailureMechanismSectionResultOld origin, MacroStabilityInwardsFailureMechanismSectionResultOld target)
         {
@@ -52,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.FileImporter
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
         }
 
-        public void UpdateSectionResult(MacroStabilityInwardsFailureMechanismSectionResult origin, MacroStabilityInwardsFailureMechanismSectionResult target)
+        public void UpdateSectionResult(AdoptableWithProfileProbabilityFailureMechanismSectionResult origin, AdoptableWithProfileProbabilityFailureMechanismSectionResult target)
         {
             if (origin == null)
             {

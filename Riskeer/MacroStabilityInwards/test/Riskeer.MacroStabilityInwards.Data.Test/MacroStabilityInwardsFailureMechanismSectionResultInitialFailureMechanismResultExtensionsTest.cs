@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null, 0.1);
@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             const double factorOfStability1 = 1.0 / 10.0;
             const double factorOfStability2 = 1.0 / 20.0;
@@ -98,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(
@@ -113,7 +113,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario calculationScenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
@@ -155,7 +155,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -200,7 +200,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             macroStabilityInwardsCalculationScenarioA.Contribution = (RoundedDouble) contributionA;
             macroStabilityInwardsCalculationScenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(new[]

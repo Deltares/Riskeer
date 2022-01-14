@@ -35,9 +35,10 @@ using Riskeer.MacroStabilityInwards.Data;
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// in the <see cref="MacroStabilityInwardsFailureMechanism"/>.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
+    public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
         MacroStabilityInwardsFailureMechanismSectionResultRow, MacroStabilityInwardsFailureMechanism>
     {
         private const int initialFailureMechanismResultIndex = 2;
@@ -60,11 +61,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of
-        /// <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> to show in the view.</param>
+        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismResultView(IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+        public MacroStabilityInwardsFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -93,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             };
         }
 
-        protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityInwardsFailureMechanismSectionResult sectionResult)
+        protected override MacroStabilityInwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             MacroStabilityInwardsCalculationScenario[] calculationScenarios = FailureMechanism.Calculations
                                                                                               .OfType<MacroStabilityInwardsCalculationScenario>()

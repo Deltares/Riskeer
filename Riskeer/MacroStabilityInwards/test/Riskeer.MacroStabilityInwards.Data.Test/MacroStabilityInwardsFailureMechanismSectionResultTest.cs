@@ -37,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<AdoptableFailureMechanismSectionResult>(sectionResult);
@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             void Call() => result.ManualInitialFailureMechanismResultProfileProbability = newValue;
@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             result.ManualInitialFailureMechanismResultProfileProbability = newValue;
@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             void Call() => result.RefinedProfileProbability = newValue;
@@ -117,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             result.RefinedProfileProbability = newValue;

@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
 using Riskeer.Storage.Core.DbContext;
 
@@ -37,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResult) null).Create();
+            void Call() => ((AdoptableWithProfileProbabilityFailureMechanismSectionResult) null).CreateForMacroStabilityInwards();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -58,7 +57,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             double refinedProfileProbability = random.NextDouble();
             double refinedSectionProbability = random.NextDouble();
 
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = isRelevant,
                 InitialFailureMechanismResult = initialFailureMechanismResultType,
@@ -71,7 +70,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             };
 
             // Call
-            MacroStabilityInwardsSectionResultEntity entity = sectionResult.Create();
+            MacroStabilityInwardsSectionResultEntity entity = sectionResult.CreateForMacroStabilityInwards();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
@@ -88,7 +87,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 ManualInitialFailureMechanismResultProfileProbability = double.NaN,
                 ManualInitialFailureMechanismResultSectionProbability = double.NaN,
@@ -97,7 +96,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             };
 
             // Call
-            MacroStabilityInwardsSectionResultEntity entity = sectionResult.Create();
+            MacroStabilityInwardsSectionResultEntity entity = sectionResult.CreateForMacroStabilityInwards();
 
             // Assert
             Assert.IsNull(entity.ManualInitialFailureMechanismResultProfileProbability);

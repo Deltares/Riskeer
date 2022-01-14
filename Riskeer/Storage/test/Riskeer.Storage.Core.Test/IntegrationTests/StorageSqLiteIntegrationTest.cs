@@ -724,6 +724,25 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
         }
 
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
+                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
+                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
+                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
+                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
+                                     });
+        }
+
         #region SpecificFailurePaths
 
         private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
@@ -1210,25 +1229,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      AssertPipingScenarioConfigurationPerFailureMechanismSection);
         }
 
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
-                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
-                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
-                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
-                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
-                                     });
-        }
-
         private static void AssertPipingProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel,
                                                                    PipingProbabilityAssessmentInput actualModel)
         {
@@ -1431,25 +1431,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedFailureMechanism.SurfaceLines,
                                      actualFailureMechanism.SurfaceLines,
                                      AssertMacroStabilityInwardsSurfaceLine);
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
-                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
-                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
-                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
-                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
-                                     });
         }
 
         private static void AssertMacroStabilityInwardsProbabilityAssessmentInput(MacroStabilityInwardsProbabilityAssessmentInput expectedModel,

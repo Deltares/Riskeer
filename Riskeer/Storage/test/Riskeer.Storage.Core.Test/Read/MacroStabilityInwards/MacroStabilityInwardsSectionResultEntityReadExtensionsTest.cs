@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.MacroStabilityInwards;
 
@@ -37,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             void Call() => ((MacroStabilityInwardsSectionResultEntity) null).Read(sectionResult);
@@ -87,7 +86,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
                 RefinedSectionProbability = refinedSectionProbability
             };
 
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -108,7 +107,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
         {
             // Setup
             var entity = new MacroStabilityInwardsSectionResultEntity();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

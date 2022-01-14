@@ -100,7 +100,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityInwardsFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
                     MacroStabilityInwardsFailureMechanismSectionResultRow,
                     MacroStabilityInwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
