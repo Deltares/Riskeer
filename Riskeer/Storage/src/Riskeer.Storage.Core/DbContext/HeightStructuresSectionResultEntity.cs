@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long HeightStructuresSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte IsRelevant { get; set; }
-        public byte InitialAdoptableFailureMechanismResultType { get; set; }
+        public byte AdoptableInitialFailureMechanismResultType { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
         public byte FurtherAnalysisNeeded { get; set; }
         public double? RefinedSectionProbability { get; set; }

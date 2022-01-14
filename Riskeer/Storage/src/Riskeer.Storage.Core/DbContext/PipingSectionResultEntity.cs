@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long PipingSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public byte IsRelevant { get; set; }
-        public byte InitialAdoptableFailureMechanismResultType { get; set; }
+        public byte AdoptableInitialFailureMechanismResultType { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
         public double? ManualInitialFailureMechanismResultProfileProbability { get; set; }
         public byte FurtherAnalysisNeeded { get; set; }
