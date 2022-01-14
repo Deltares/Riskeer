@@ -243,9 +243,9 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(InitialFailureMechanismResultType.Manual)]
-        [TestCase(InitialFailureMechanismResultType.NoFailureProbability)]
-        public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(InitialFailureMechanismResultType newValue)
+        [TestCase(AdoptableInitialFailureMechanismResultType.Manual)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability)]
+        public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(AdoptableInitialFailureMechanismResultType newValue)
         {
             // Given
             const double profileProbability = 0.1;
@@ -348,11 +348,11 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false, InitialFailureMechanismResultType.Adopt)]
-        [TestCase(true, InitialFailureMechanismResultType.Manual)]
-        [TestCase(true, InitialFailureMechanismResultType.NoFailureProbability)]
+        [TestCase(false, AdoptableInitialFailureMechanismResultType.Adopt)]
+        [TestCase(true, AdoptableInitialFailureMechanismResultType.Manual)]
+        [TestCase(true, AdoptableInitialFailureMechanismResultType.NoFailureProbability)]
         public void GivenRowWithIsRelevantAndInitialFailureMechanismResult_WhenErrorProviderReturnsError_ThenShowNoError(
-            bool isRelevant, InitialFailureMechanismResultType initialFailureMechanismResultType)
+            bool isRelevant, AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType)
         {
             // Given
             var mocks = new MockRepository();
@@ -399,7 +399,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         public void InitialFailureMechanismResult_SetNewValue_NotifyObserversAndPropertyChanged()
         {
-            const InitialFailureMechanismResultType newValue = InitialFailureMechanismResultType.NoFailureProbability;
+            const AdoptableInitialFailureMechanismResultType newValue = AdoptableInitialFailureMechanismResultType.NoFailureProbability;
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
                 row => row.InitialFailureMechanismResult = newValue,
                 result => result.InitialFailureMechanismResult,
@@ -628,7 +628,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+                row.InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual;
 
                 // Then
                 AssertFailureMechanismSectionAssemblyResult(new DefaultFailureMechanismSectionAssemblyResult(), row.AssemblyResult);
@@ -665,7 +665,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+                row.InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual;
 
                 // Then
                 const string expectedErrorText = "Message";
@@ -710,7 +710,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual;
+                row.InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
@@ -782,7 +782,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 IsRelevant = isRelevant,
                 FurtherAnalysisNeeded = true,
-                InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
+                InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual,
                 ProbabilityRefinementType = ProbabilityRefinementType.Both
             };
 
@@ -814,10 +814,10 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(InitialFailureMechanismResultType.Adopt, true, true)]
-        [TestCase(InitialFailureMechanismResultType.Manual, true, false)]
-        [TestCase(InitialFailureMechanismResultType.NoFailureProbability, false, true)]
-        public void Constructor_WithInitialFailureMechanismResult_ExpectedColumnStates(InitialFailureMechanismResultType initialFailureMechanismResultType,
+        [TestCase(AdoptableInitialFailureMechanismResultType.Adopt, true, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.Manual, true, false)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability, false, true)]
+        public void Constructor_WithInitialFailureMechanismResult_ExpectedColumnStates(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
                                                                                        bool isEnabled, bool isReadOnly)
         {
             // Setup

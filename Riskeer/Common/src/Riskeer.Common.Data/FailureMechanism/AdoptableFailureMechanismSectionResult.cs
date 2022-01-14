@@ -22,7 +22,8 @@
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Class that holds the information of the result of the <see cref="FailureMechanismSection"/> and is adoptable.
+    /// Class that holds the information of the result of the <see cref="FailureMechanismSection"/>
+    /// with an <see cref="AdoptableInitialFailureMechanismResultType"/>.
     /// </summary>
     public class AdoptableFailureMechanismSectionResult : FailureMechanismSectionResult
     {
@@ -32,12 +33,12 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         public AdoptableFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            InitialFailureMechanismResult = InitialFailureMechanismResultType.Adopt;
+            InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Adopt;
         }
 
         /// <summary>
-        /// Gets or sets the initial failure mechanism result.
+        /// Gets or sets the adoptable initial failure mechanism result.
         /// </summary>
-        public InitialFailureMechanismResultType InitialFailureMechanismResult { get; set; }
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult { get; set; }
     }
 }

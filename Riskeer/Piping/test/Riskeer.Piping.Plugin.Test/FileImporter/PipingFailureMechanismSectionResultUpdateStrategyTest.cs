@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             return new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
+                InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual,
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,

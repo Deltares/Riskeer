@@ -1016,7 +1016,7 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (AdoptableFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<InitialFailureMechanismResultType>();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
                 sectionResult.RefinedSectionProbability = random.NextDouble();
@@ -1272,7 +1272,7 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (PipingFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<InitialFailureMechanismResultType>();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
                 sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
@@ -1796,7 +1796,7 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<InitialFailureMechanismResultType>();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
                 sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();

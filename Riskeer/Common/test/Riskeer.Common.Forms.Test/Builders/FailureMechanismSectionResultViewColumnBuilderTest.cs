@@ -216,8 +216,8 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<InitialFailureMechanismResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<InitialFailureMechanismResultType>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<InitialFailureMechanismResultType>[]) columnData.DataSource);
+                IEnumerable<EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<AdoptableInitialFailureMechanismResultType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>[]) columnData.DataSource);
             }
         }
 

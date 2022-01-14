@@ -119,7 +119,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets or sets the initial failure mechanism result.
         /// </summary>
-        public InitialFailureMechanismResultType InitialFailureMechanismResult
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
         {
             get => SectionResult.InitialFailureMechanismResult;
             set
@@ -136,7 +136,7 @@ namespace Riskeer.Common.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultSectionProbability
         {
-            get => SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt
+            get => SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt
                        ? calculateInitialFailureMechanismResultProbabilityFunc()
                        : SectionResult.ManualInitialFailureMechanismResultSectionProbability;
             set
@@ -194,7 +194,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateInitialFailureMechanismResultErrors()
         {
-            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt)
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt)
             {
                 ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
                     calculateInitialFailureMechanismResultProbabilityFunc);
@@ -245,14 +245,14 @@ namespace Riskeer.Common.Forms.Views
         {
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
 
-            if (!IsRelevant || InitialFailureMechanismResult == InitialFailureMechanismResultType.NoFailureProbability)
+            if (!IsRelevant || InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex],
-                                               InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt);
+                                               InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt);
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);

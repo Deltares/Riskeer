@@ -27,33 +27,33 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class InitialFailureMechanismResultTypeTest : EnumWithResourcesDisplayNameTestFixture<InitialFailureMechanismResultType>
+    public class AdoptableInitialFailureMechanismResultTypeTest : EnumWithResourcesDisplayNameTestFixture<AdoptableInitialFailureMechanismResultType>
     {
-        protected override IDictionary<InitialFailureMechanismResultType, int> ExpectedValueForEnumValues =>
-            new Dictionary<InitialFailureMechanismResultType, int>
+        protected override IDictionary<AdoptableInitialFailureMechanismResultType, int> ExpectedValueForEnumValues =>
+            new Dictionary<AdoptableInitialFailureMechanismResultType, int>
             {
                 {
-                    InitialFailureMechanismResultType.Adopt, 1
+                    AdoptableInitialFailureMechanismResultType.Adopt, 1
                 },
                 {
-                    InitialFailureMechanismResultType.Manual, 2
+                    AdoptableInitialFailureMechanismResultType.Manual, 2
                 },
                 {
-                    InitialFailureMechanismResultType.NoFailureProbability, 3
+                    AdoptableInitialFailureMechanismResultType.NoFailureProbability, 3
                 }
             };
 
-        protected override IDictionary<InitialFailureMechanismResultType, string> ExpectedDisplayNameForEnumValues =>
-            new Dictionary<InitialFailureMechanismResultType, string>
+        protected override IDictionary<AdoptableInitialFailureMechanismResultType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<AdoptableInitialFailureMechanismResultType, string>
             {
                 {
-                    InitialFailureMechanismResultType.Adopt, "Overnemen"
+                    AdoptableInitialFailureMechanismResultType.Adopt, "Overnemen"
                 },
                 {
-                    InitialFailureMechanismResultType.Manual, "Handmatig invullen"
+                    AdoptableInitialFailureMechanismResultType.Manual, "Handmatig invullen"
                 },
                 {
-                    InitialFailureMechanismResultType.NoFailureProbability, "Geen faalkans"
+                    AdoptableInitialFailureMechanismResultType.NoFailureProbability, "Geen faalkans"
                 }
             };
     }

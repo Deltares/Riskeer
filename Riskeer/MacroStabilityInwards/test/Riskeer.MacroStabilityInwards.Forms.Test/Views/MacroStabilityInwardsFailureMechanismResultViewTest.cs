@@ -198,7 +198,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(true, cells[isRelevantIndex].Value);
-                Assert.AreEqual(InitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultIndex].Value);
+                Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultIndex].Value);
                 Assert.AreEqual(probability, cells[initialFailureMechanismResultProfileProbabilityIndex].Value);
                 Assert.AreEqual(probability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(section.Length),
                                 cells[initialFailureMechanismResultSectionProbabilityIndex].Value);

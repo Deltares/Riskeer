@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
-            var initialFailureMechanismResultType = random.NextEnumValue<InitialFailureMechanismResultType>();
+            var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
             double manualSectionProbability = random.NextDouble();
             bool furtherAnalysisNeeded = random.NextBoolean();
             double refinedSectionProbability = random.NextDouble();

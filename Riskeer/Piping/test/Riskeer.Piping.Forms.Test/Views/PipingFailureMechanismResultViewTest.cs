@@ -213,7 +213,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                 Assert.AreEqual(columnCount, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(true, cells[isRelevantIndex].Value);
-                Assert.AreEqual(InitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultIndex].Value);
+                Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, cells[initialFailureMechanismResultIndex].Value);
                 Assert.AreEqual(probability, cells[initialFailureMechanismResultProfileProbabilityIndex].FormattedValue);
                 Assert.AreEqual(probability, cells[initialFailureMechanismResultSectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[furtherAnalysisNeededIndex].FormattedValue);

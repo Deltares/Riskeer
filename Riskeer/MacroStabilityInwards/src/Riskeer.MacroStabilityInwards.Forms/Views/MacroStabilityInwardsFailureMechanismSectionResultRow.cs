@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Gets or sets the initial failure mechanism result.
         /// </summary>
-        public InitialFailureMechanismResultType InitialFailureMechanismResult
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
         {
             get => SectionResult.InitialFailureMechanismResult;
             set
@@ -160,7 +160,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultProfileProbability
         {
-            get => SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt
+            get => SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt
                        ? SectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor)
                        : SectionResult.ManualInitialFailureMechanismResultProfileProbability;
             set
@@ -177,7 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultSectionProbability
         {
-            get => SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt
+            get => SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt
                        ? SectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor)
                          * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(SectionResult.Section.Length)
                        : SectionResult.ManualInitialFailureMechanismResultSectionProbability;
@@ -280,7 +280,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void UpdateInitialFailureMechanismResultErrors()
         {
-            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt)
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt)
             {
                 string errorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
                     () => SectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor));
@@ -345,14 +345,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
 
-            if (!IsRelevant || InitialFailureMechanismResult == InitialFailureMechanismResultType.NoFailureProbability)
+            if (!IsRelevant || InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
             else
             {
-                bool initialFailureMechanismResultAdopt = InitialFailureMechanismResult == InitialFailureMechanismResultType.Adopt;
+                bool initialFailureMechanismResultAdopt = InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt;
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex], initialFailureMechanismResultAdopt);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex], initialFailureMechanismResultAdopt);
             }

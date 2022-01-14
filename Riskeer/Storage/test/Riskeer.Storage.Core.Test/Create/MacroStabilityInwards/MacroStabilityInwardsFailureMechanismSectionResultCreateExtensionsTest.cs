@@ -50,7 +50,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             // Setup
             var random = new Random(21);
             bool isRelevant = random.NextBoolean();
-            var initialFailureMechanismResultType = random.NextEnumValue<InitialFailureMechanismResultType>();
+            var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
             double manualProfileProbability = random.NextDouble();
             double manualSectionProbability = random.NextDouble();
             bool furtherAnalysisNeeded = random.NextBoolean();

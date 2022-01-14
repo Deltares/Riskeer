@@ -25,9 +25,9 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Specifies the types of the initial failure mechanism result.
+    /// Specifies the types of the adoptable initial failure mechanism result.
     /// </summary>
-    public enum InitialFailureMechanismResultType
+    public enum AdoptableInitialFailureMechanismResultType
     {
         /// <summary>
         /// Adopt the result from the failure mechanism.

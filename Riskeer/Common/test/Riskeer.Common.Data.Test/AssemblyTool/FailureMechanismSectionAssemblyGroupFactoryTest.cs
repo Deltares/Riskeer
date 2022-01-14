@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                null, random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                null, random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 random.NextDouble(), random.NextBoolean(), random.NextDouble());
 
             // Assert
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(21);
 
-            const InitialFailureMechanismResultType initialFailureMechanismResultType = (InitialFailureMechanismResultType) 99;
+            const AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType = (AdoptableInitialFailureMechanismResultType) 99;
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
@@ -71,15 +71,15 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 random.NextDouble(), random.NextBoolean(), random.NextDouble());
 
             // Assert
-            var expectedMessage = $"The value of argument 'initialFailureMechanismResultType' ({initialFailureMechanismResultType}) is invalid for Enum type '{nameof(InitialFailureMechanismResultType)}'.";
+            var expectedMessage = $"The value of argument 'initialFailureMechanismResultType' ({initialFailureMechanismResultType}) is invalid for Enum type '{nameof(AdoptableInitialFailureMechanismResultType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
-        [TestCase(InitialFailureMechanismResultType.Adopt, true)]
-        [TestCase(InitialFailureMechanismResultType.Manual, true)]
-        [TestCase(InitialFailureMechanismResultType.NoFailureProbability, false)]
-        public void AssembleSectionWithoutProfileProbability_WithInput_SetsInputOnCalculator(InitialFailureMechanismResultType initialFailureMechanismResultType,
+        [TestCase(AdoptableInitialFailureMechanismResultType.Adopt, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.Manual, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
+        public void AssembleSectionWithoutProfileProbability_WithInput_SetsInputOnCalculator(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
                                                                                              bool expectedHasProbabilitySpecified)
         {
             // Setup
@@ -130,7 +130,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Call
                 FailureMechanismSectionAssemblyResult output =
                     FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                        new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                        new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                         random.NextDouble(), random.NextBoolean(), random.NextDouble());
 
                 // Assert
@@ -155,7 +155,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Call
                 void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                    new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                     random.NextDouble(), random.NextBoolean(), random.NextDouble());
 
                 // Assert
@@ -178,7 +178,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                null, random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(), random.NextDouble(),
+                null, random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(), random.NextDouble(),
                 random.NextDouble(), random.NextBoolean(), random.NextDouble(), random.NextDouble(),
                 random.NextEnumValue<ProbabilityRefinementType>(), () => double.NaN);
 
@@ -195,7 +195,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 random.NextDouble(), random.NextDouble(), random.NextBoolean(), random.NextDouble(), random.NextDouble(),
                 random.NextEnumValue<ProbabilityRefinementType>(), null);
 
@@ -210,7 +210,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(21);
 
-            const InitialFailureMechanismResultType initialFailureMechanismResultType = (InitialFailureMechanismResultType) 99;
+            const AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType = (AdoptableInitialFailureMechanismResultType) 99;
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 random.NextEnumValue<ProbabilityRefinementType>(), () => double.NaN);
 
             // Assert
-            var expectedMessage = $"The value of argument 'initialFailureMechanismResultType' ({initialFailureMechanismResultType}) is invalid for Enum type '{nameof(InitialFailureMechanismResultType)}'.";
+            var expectedMessage = $"The value of argument 'initialFailureMechanismResultType' ({initialFailureMechanismResultType}) is invalid for Enum type '{nameof(AdoptableInitialFailureMechanismResultType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
@@ -233,7 +233,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 random.NextDouble(), random.NextDouble(), random.NextBoolean(), random.NextDouble(), random.NextDouble(),
                 probabilityRefinementType, () => double.NaN);
 
@@ -243,10 +243,10 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        [TestCase(InitialFailureMechanismResultType.Adopt, true)]
-        [TestCase(InitialFailureMechanismResultType.Manual, true)]
-        [TestCase(InitialFailureMechanismResultType.NoFailureProbability, false)]
-        public void AssembleSectionWithProfileProbability_WithInput_SetsInputOnCalculator(InitialFailureMechanismResultType initialFailureMechanismResultType,
+        [TestCase(AdoptableInitialFailureMechanismResultType.Adopt, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.Manual, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
+        public void AssembleSectionWithProfileProbability_WithInput_SetsInputOnCalculator(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
                                                                                           bool expectedHasProbabilitySpecified)
         {
             // Setup
@@ -306,7 +306,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Call
                 FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                    new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                     random.NextDouble(), random.NextDouble(), random.NextBoolean(), refinedProfileProbability, refinedSectionProbability,
                     probabilityRefinementType, () => 2.0);
 
@@ -331,7 +331,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Call
                 FailureMechanismSectionAssemblyResult output =
                     FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                        new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                        new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                         random.NextDouble(), random.NextDouble(), random.NextBoolean(), random.NextDouble(), random.NextDouble(),
                         random.NextEnumValue<ProbabilityRefinementType>(), () => 1.0);
 
@@ -357,7 +357,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Call
                 void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<InitialFailureMechanismResultType>(),
+                    new AssessmentSectionStub(), random.NextBoolean(), random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                     random.NextDouble(), random.NextDouble(), random.NextBoolean(), random.NextDouble(), random.NextDouble(),
                     random.NextEnumValue<ProbabilityRefinementType>(), () => double.NaN);
 

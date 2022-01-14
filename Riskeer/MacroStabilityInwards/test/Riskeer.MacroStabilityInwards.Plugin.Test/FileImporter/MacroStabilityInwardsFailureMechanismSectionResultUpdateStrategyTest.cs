@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.FileImporter
             return new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
+                InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual,
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,

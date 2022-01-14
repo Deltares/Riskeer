@@ -75,7 +75,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResult = InitialFailureMechanismResultType.Manual,
+                InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual,
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,
                 RefinedSectionProbability = random.NextDouble()
