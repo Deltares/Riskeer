@@ -21,12 +21,12 @@
 
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Common.Data.TestUtil
+namespace Riskeer.Storage.Core.TestUtil.FailureMechamismResults
 {
     /// <summary>
-    /// Simple structures failure mechanism section result entity that can be used in tests.
+    /// Simple implementation of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> that can be used in tests.
     /// </summary>
-    public class TestAdoptableFailureMechanismFailureMechanismSectionResultEntity : IAdoptableFailureMechanismSectionResultEntity
+    public class TestAdoptableFailureMechanismSectionResultEntity : IAdoptableFailureMechanismSectionResultEntity
     {
         public byte IsRelevant { get; set; }
         public byte AdoptableInitialFailureMechanismResultType { get; set; }

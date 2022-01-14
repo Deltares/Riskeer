@@ -26,6 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
+using Riskeer.Storage.Core.TestUtil.FailureMechamismResults;
 
 namespace Riskeer.Storage.Core.Test.Read
 {
@@ -36,8 +37,8 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((TestAdoptableFailureMechanismFailureMechanismSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
-                                                                                                              FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+            void Call() => ((TestAdoptableFailureMechanismSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
+                                                                                              FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +49,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new TestAdoptableFailureMechanismFailureMechanismSectionResultEntity();
+            var entity = new TestAdoptableFailureMechanismSectionResultEntity();
 
             // Call
             void Call() => entity.Read(null);
@@ -69,7 +70,7 @@ namespace Riskeer.Storage.Core.Test.Read
             bool furtherAnalysisNeeded = random.NextBoolean();
             double refinedSectionProbability = random.NextDouble();
 
-            var entity = new TestAdoptableFailureMechanismFailureMechanismSectionResultEntity
+            var entity = new TestAdoptableFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
                 AdoptableInitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
@@ -95,7 +96,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            var entity = new TestAdoptableFailureMechanismFailureMechanismSectionResultEntity
+            var entity = new TestAdoptableFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

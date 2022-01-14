@@ -25,5 +25,5 @@ namespace Riskeer.Storage.Core.DbContext
     /// Partial implementation of <see cref="PipingSectionResultEntity"/> that implements 
     /// <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public partial class PipingSectionResultEntity : IAdoptableWithProfileProbabilityFailureMechanismSectionResult {}
+    public partial class PipingSectionResultEntity : IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity {}
 }

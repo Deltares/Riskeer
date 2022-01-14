@@ -25,5 +25,5 @@ namespace Riskeer.Storage.Core.DbContext
     /// Partial implementation of <see cref="GrassCoverErosionInwardsSectionResultEntity"/> that implements 
     /// <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public partial class GrassCoverErosionInwardsSectionResultEntity : IAdoptableWithProfileProbabilityFailureMechanismSectionResult {}
+    public partial class GrassCoverErosionInwardsSectionResultEntity : IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity {}
 }

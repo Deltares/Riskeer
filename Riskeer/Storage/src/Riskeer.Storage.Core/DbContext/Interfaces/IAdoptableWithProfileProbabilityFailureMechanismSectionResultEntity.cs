@@ -25,7 +25,7 @@ namespace Riskeer.Storage.Core.DbContext
     /// Interface for a failure mechanism section result entity with an adoptable initial failure mechanism result type
     /// and profile probabilities.
     /// </summary>
-    public interface IAdoptableWithProfileProbabilityFailureMechanismSectionResult : IAdoptableFailureMechanismSectionResultEntity
+    public interface IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity : IAdoptableFailureMechanismSectionResultEntity
     {
         /// <summary>
         /// Gets or sets the value of the manual initial failure mechanism result per profile as a probability.

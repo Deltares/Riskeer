@@ -25,5 +25,5 @@ namespace Riskeer.Storage.Core.DbContext
     /// Partial implementation of <see cref="MacroStabilityInwardsSectionResultEntity"/> that implements 
     /// <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public partial class MacroStabilityInwardsSectionResultEntity : IAdoptableWithProfileProbabilityFailureMechanismSectionResult {}
+    public partial class MacroStabilityInwardsSectionResultEntity : IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity {}
 }
