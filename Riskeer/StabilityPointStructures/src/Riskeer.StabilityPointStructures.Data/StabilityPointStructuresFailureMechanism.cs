@@ -100,11 +100,13 @@ namespace Riskeer.StabilityPointStructures.Data
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new StabilityPointStructuresFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }
