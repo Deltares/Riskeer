@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class MacroStabilityInwardsSectionResultEntity
+    public partial class MacroStabilityInwardsSectionResultEntity
     {
         public long MacroStabilityInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
