@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Read
             }
 
             sectionResult.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            sectionResult.InitialFailureMechanismResult = (AdoptableInitialFailureMechanismResultType) entity.InitialAdoptableFailureMechanismResultType;
+            sectionResult.InitialFailureMechanismResult = (AdoptableInitialFailureMechanismResultType) entity.AdoptableInitialFailureMechanismResultType;
             sectionResult.ManualInitialFailureMechanismResultSectionProbability = entity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN();
             sectionResult.FurtherAnalysisNeeded = Convert.ToBoolean(entity.FurtherAnalysisNeeded);
             sectionResult.RefinedSectionProbability = entity.RefinedSectionProbability.ToNullAsNaN();
