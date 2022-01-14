@@ -1062,6 +1062,52 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEscPressed_ThenSetsFailurePathAssemblyProbabilityToOriginalValue()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            const double initialValue = 0.1;
+            const string initialValueText = "1/10";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
+                    ManualFailurePathAssemblyProbability = initialValue
+                }
+            };
+
+            using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
+            {
+                var textBoxTester = new ControlTester("failurePathAssemblyProbabilityTextBox");
+                const Keys keyData = Keys.Escape;
+
+                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
+                failurePathAssemblyProbabilityTextBox.TextChanged += (sender, args) =>
+                {
+                    textBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
+                };
+
+                // Precondition
+                Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
+
+                failureMechanism.AssemblyResult.Attach(observer);
+
+                // When
+                failurePathAssemblyProbabilityTextBox.Text = "NotAProbability";
+
+                // Then
+                Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+            }
+
+            mocks.VerifyAll();
+        }
+
         #endregion
     }
 }
