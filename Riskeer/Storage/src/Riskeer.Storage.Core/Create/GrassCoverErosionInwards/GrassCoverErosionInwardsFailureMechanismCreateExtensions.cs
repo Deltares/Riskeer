@@ -25,6 +25,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
@@ -78,7 +79,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
         {
             foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create<GrassCoverErosionInwardsSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
             }

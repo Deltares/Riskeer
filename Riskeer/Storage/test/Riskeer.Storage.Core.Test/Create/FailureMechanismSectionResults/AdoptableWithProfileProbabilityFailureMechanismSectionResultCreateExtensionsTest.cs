@@ -24,19 +24,19 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
-using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
+using Riskeer.Storage.Core.TestUtil.FailureMechamismResults;
 
-namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensionsTest
+    public class AdoptableWithProfileProbabilityFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((AdoptableWithProfileProbabilityFailureMechanismSectionResult) null).Create();
+            void Call() => ((AdoptableWithProfileProbabilityFailureMechanismSectionResult) null).Create<TestAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             };
 
             // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create();
+            var entity = sectionResult.Create<TestAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
@@ -96,7 +96,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             };
 
             // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create();
+            var entity = sectionResult.Create<TestAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
 
             // Assert
             Assert.IsNull(entity.ManualInitialFailureMechanismResultProfileProbability);

@@ -35,6 +35,7 @@ namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
         /// Creates an instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> 
         /// based on the information of the <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
+        /// <typeparam name="T">The type of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> to create.</typeparam>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>An instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>

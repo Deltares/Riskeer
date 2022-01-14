@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,32 +21,32 @@
 
 using System;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
+namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
 {
     /// <summary>
-    /// Extension methods for <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/> related to creating a 
-    /// <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.
+    /// Extension methods for <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> related to creating an 
+    /// instance of <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    internal static class GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensions
+    internal static class AdoptableWithProfileProbabilityFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="GrassCoverErosionInwardsSectionResultEntity"/>
-        /// based on the information of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultOld"/>.
+        /// Creates an instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> 
+        /// based on the information of the <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
+        /// <typeparam name="T">The type of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> to create.</typeparam>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>A new <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.</returns>
+        /// <returns>An instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsSectionResultEntity Create(this AdoptableWithProfileProbabilityFailureMechanismSectionResult result)
+        internal static T Create<T>(this AdoptableWithProfileProbabilityFailureMechanismSectionResult result) where T : IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, new()
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
+            var sectionResultEntity = new T
             {
                 IsRelevant = Convert.ToByte(result.IsRelevant),
                 AdoptableInitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),
