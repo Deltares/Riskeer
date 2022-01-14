@@ -38,7 +38,8 @@ namespace Riskeer.Storage.Core.Create
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>An instance of <see cref="IStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static T Create<T>(this AdoptableFailureMechanismSectionResult result) where T : IStructuresSectionResultEntity, new()
+        internal static T Create<T>(this AdoptableFailureMechanismSectionResult result)
+            where T : IStructuresSectionResultEntity, new()
         {
             if (result == null)
             {

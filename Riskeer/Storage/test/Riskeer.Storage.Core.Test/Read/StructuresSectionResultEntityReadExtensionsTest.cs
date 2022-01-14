@@ -108,15 +108,5 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.IsNaN(sectionResult.RefinedSectionProbability);
         }
-
-        private class TestStructuresFailureMechanismSectionResultEntity : IStructuresSectionResultEntity
-        {
-            public byte IsRelevant { get; set; }
-            public byte InitialFailureMechanismResultType { get; set; }
-            public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
-            public byte FurtherAnalysisNeeded { get; set; }
-            public double? RefinedSectionProbability { get; set; }
-            public FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
-        }
     }
 }

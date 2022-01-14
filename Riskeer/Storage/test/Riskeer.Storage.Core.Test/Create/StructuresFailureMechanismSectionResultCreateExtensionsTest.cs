@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.Create;
-using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Test.Create
 {
@@ -44,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithValues_ReturnsEntityWithExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -90,16 +89,6 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             Assert.IsNull(entity.ManualInitialFailureMechanismResultSectionProbability);
             Assert.IsNull(entity.RefinedSectionProbability);
-        }
-
-        private class TestStructuresFailureMechanismSectionResultEntity : IStructuresSectionResultEntity
-        {
-            public byte IsRelevant { get; set; }
-            public byte InitialFailureMechanismResultType { get; set; }
-            public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
-            public byte FurtherAnalysisNeeded { get; set; }
-            public double? RefinedSectionProbability { get; set; }
-            public FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
         }
     }
 }

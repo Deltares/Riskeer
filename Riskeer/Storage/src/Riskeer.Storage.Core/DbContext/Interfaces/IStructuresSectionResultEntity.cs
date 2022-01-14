@@ -22,16 +22,38 @@
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Interface for a section result entity.
+    /// Interface for a section result entity that represents a structures failure mechanism section result
     /// </summary>
     public interface IStructuresSectionResultEntity
     {
+        /// <summary>
+        /// Gets or sets whether the section result is relevant.
+        /// </summary>
         byte IsRelevant { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the initial failure mechanism result.
+        /// </summary>
         byte InitialFailureMechanismResultType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
+        /// </summary>
         double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether further analysis is needed.
+        /// </summary>
         byte FurtherAnalysisNeeded { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the refined probability per failure mechanism section result.
+        /// </summary>
         double? RefinedSectionProbability { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="FailureMechanismSectionEntity"/>.
+        /// </summary>
         FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

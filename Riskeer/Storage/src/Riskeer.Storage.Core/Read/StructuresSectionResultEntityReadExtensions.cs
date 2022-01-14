@@ -27,15 +27,15 @@ namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="AdoptableFailureMechanismSectionResult"/>
-    /// based on the <see cref="ClosingStructuresSectionResultEntity"/>.
+    /// based on the <see cref="IStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class StructuresSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="ClosingStructuresSectionResultEntity"/> and use the information
+        /// Reads the <see cref="IStructuresSectionResultEntity"/> and use the information
         /// to update an <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> used to update 
+        /// <param name="entity">The <see cref="IStructuresSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
