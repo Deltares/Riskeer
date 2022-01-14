@@ -33,6 +33,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
@@ -156,7 +157,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverErosionInwardsFailureMechanismSectionsContext, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
+                GrassCoverErosionInwardsFailureMechanismSectionsContext, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new GrassCoverErosionInwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
