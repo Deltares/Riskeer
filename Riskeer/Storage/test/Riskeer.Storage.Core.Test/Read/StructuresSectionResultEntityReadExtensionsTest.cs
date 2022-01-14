@@ -36,8 +36,8 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((TestStructuresFailureMechanismSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
-                                                                                               FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+            void Call() => ((TestAdoptableFailureMechanismFailureMechanismSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
+                                                                                                              FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new TestStructuresFailureMechanismSectionResultEntity();
+            var entity = new TestAdoptableFailureMechanismFailureMechanismSectionResultEntity();
 
             // Call
             void Call() => entity.Read(null);
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Read
             bool furtherAnalysisNeeded = random.NextBoolean();
             double refinedSectionProbability = random.NextDouble();
 
-            var entity = new TestStructuresFailureMechanismSectionResultEntity
+            var entity = new TestAdoptableFailureMechanismFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
                 InitialAdoptableFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
@@ -95,7 +95,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            var entity = new TestStructuresFailureMechanismSectionResultEntity
+            var entity = new TestAdoptableFailureMechanismFailureMechanismSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

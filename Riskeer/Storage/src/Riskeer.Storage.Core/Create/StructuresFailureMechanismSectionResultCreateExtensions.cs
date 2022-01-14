@@ -27,19 +27,18 @@ namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating an 
-    /// instance of <see cref="IStructuresSectionResultEntity"/>.
+    /// instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class StructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates an instance of <see cref="IStructuresSectionResultEntity"/> 
+        /// Creates an instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> 
         /// based on the information of the <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>An instance of <see cref="IStructuresSectionResultEntity"/>.</returns>
+        /// <returns>An instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static T Create<T>(this AdoptableFailureMechanismSectionResult result)
-            where T : IStructuresSectionResultEntity, new()
+        internal static T Create<T>(this AdoptableFailureMechanismSectionResult result) where T : IAdoptableFailureMechanismSectionResultEntity, new()
         {
             if (result == null)
             {

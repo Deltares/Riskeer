@@ -39,7 +39,7 @@ namespace Riskeer.Storage.Core.Read
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void Read(this IStructuresSectionResultEntity entity,
+        internal static void Read(this IAdoptableFailureMechanismSectionResultEntity entity,
                                   AdoptableFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)

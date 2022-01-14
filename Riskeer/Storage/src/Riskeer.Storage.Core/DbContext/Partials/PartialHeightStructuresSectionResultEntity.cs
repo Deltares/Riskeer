@@ -23,7 +23,7 @@ namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="HeightStructuresSectionResultEntity"/> that implements 
-    /// <see cref="IStructuresSectionResultEntity"/>.
+    /// <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public partial class HeightStructuresSectionResultEntity : IStructuresSectionResultEntity {}
+    public partial class HeightStructuresSectionResultEntity : IAdoptableFailureMechanismSectionResultEntity {}
 }

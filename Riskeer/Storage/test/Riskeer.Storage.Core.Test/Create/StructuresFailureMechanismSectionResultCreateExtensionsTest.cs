@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((AdoptableFailureMechanismSectionResult) null).Create<TestStructuresFailureMechanismSectionResultEntity>();
+            void Call() => ((AdoptableFailureMechanismSectionResult) null).Create<TestAdoptableFailureMechanismFailureMechanismSectionResultEntity>();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Test.Create
             };
 
             // Call
-            var entity = sectionResult.Create<TestStructuresFailureMechanismSectionResultEntity>();
+            var entity = sectionResult.Create<TestAdoptableFailureMechanismFailureMechanismSectionResultEntity>();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Create
             };
 
             // Call
-            var entity = sectionResult.Create<TestStructuresFailureMechanismSectionResultEntity>();
+            var entity = sectionResult.Create<TestAdoptableFailureMechanismFailureMechanismSectionResultEntity>();
 
             // Assert
             Assert.IsNull(entity.ManualInitialFailureMechanismResultSectionProbability);
