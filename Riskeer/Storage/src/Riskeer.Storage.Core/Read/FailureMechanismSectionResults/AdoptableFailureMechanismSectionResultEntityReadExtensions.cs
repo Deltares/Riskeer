@@ -23,19 +23,19 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read
+namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="AdoptableFailureMechanismSectionResult"/>
-    /// based on the <see cref="IStructuresSectionResultEntity"/>.
+    /// based on the <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    internal static class StructuresSectionResultEntityReadExtensions
+    internal static class AdoptableFailureMechanismSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IStructuresSectionResultEntity"/> and use the information
+        /// Reads the <see cref="IAdoptableFailureMechanismSectionResultEntity"/> and use the information
         /// to update an <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="IStructuresSectionResultEntity"/> used to update 
+        /// <param name="entity">The <see cref="IAdoptableFailureMechanismSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>

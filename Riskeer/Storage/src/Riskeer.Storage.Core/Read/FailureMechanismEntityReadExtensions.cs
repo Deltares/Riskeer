@@ -40,6 +40,7 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.DuneErosion;
+using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Read.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Read.HeightStructures;
@@ -147,7 +148,7 @@ namespace Riskeer.Storage.Core.Read
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(
                     sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result);
+                AdoptableFailureMechanismSectionResultEntityReadExtensions.Read(sectionResultEntity, result);
             }
         }
 
@@ -227,7 +228,7 @@ namespace Riskeer.Storage.Core.Read
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result);
+                AdoptableFailureMechanismSectionResultEntityReadExtensions.Read(sectionResultEntity, result);
             }
         }
 
@@ -566,7 +567,7 @@ namespace Riskeer.Storage.Core.Read
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result);
+                AdoptableFailureMechanismSectionResultEntityReadExtensions.Read(sectionResultEntity, result);
             }
         }
 
