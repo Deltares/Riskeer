@@ -37,9 +37,9 @@ using CommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="PipingFailureMechanismSectionResult"/>.
+    /// This class represents a row of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
     /// </summary>
-    public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly int initialFailureMechanismResultIndex;
         private readonly int initialFailureMechanismResultProfileProbabilityIndex;
@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
         /// <param name="initialFailureMechanismResultErrorProvider">The error provider to use for
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="PipingFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
-        internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
+        internal PipingFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                         IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                         IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
                                                         PipingFailureMechanism failureMechanism,

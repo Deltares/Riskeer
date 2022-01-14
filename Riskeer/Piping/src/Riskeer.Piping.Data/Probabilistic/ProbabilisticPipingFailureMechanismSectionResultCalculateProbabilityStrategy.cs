@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Piping.Data.Probabilistic
 {
@@ -29,16 +30,16 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// </summary>
     public class ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IPipingFailureMechanismSectionResultCalculateProbabilityStrategy
     {
-        private readonly PipingFailureMechanismSectionResult sectionResult;
+        private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<ProbabilisticPipingCalculationScenario> calculations;
 
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> to get the probabilities for.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
         /// <param name="calculations">All the <see cref="ProbabilisticPipingCalculationScenario"/> of the failure mechanism. </param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(PipingFailureMechanismSectionResult sectionResult,
+        public ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                             IEnumerable<ProbabilisticPipingCalculationScenario> calculations)
         {
             if (sectionResult == null)

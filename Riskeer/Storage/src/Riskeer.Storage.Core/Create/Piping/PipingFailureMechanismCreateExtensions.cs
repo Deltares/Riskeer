@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
@@ -58,10 +59,10 @@ namespace Riskeer.Storage.Core.Create.Piping
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResult> sectionResults,
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (PipingFailureMechanismSectionResult pipingFailureMechanismSectionResult in sectionResults)
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult pipingFailureMechanismSectionResult in sectionResults)
             {
                 PipingSectionResultEntity pipingSectionResultEntity = pipingFailureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(pipingFailureMechanismSectionResult.Section);

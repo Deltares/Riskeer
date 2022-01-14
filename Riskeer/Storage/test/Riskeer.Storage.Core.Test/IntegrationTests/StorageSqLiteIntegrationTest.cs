@@ -1211,8 +1211,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
         {
             AssertCollectionAndItems(expectedSectionResults,
                                      actualSectionResults,

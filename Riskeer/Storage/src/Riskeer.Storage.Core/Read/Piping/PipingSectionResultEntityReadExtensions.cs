@@ -21,26 +21,26 @@
 
 using System;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanismSectionResult"/> based on the
-    /// <see cref="PipingSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for an
+    /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// based on the <see cref="PipingSectionResultEntity"/>.
     /// </summary>
     internal static class PipingSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct a 
-        /// <see cref="PipingFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct an
+        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this PipingSectionResultEntity entity, PipingFailureMechanismSectionResult sectionResult)
+        internal static void Read(this PipingSectionResultEntity entity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {

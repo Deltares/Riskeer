@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null, scenario => null);
@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(Enumerable.Empty<ProbabilisticPipingCalculationScenario>(), null);
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var pipingCalculationScenario1 =
                 ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
@@ -122,7 +122,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(
@@ -137,7 +137,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var calculationScenario = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
             calculationScenario.IsRelevant = false;
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var pipingCalculationScenario =
                 ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
@@ -180,7 +180,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Data.Test
             pipingCalculationScenarioA.Contribution = (RoundedDouble) contributionA;
             pipingCalculationScenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(new[]
@@ -261,7 +261,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null, 0.1);
@@ -276,7 +276,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var pipingCalculationScenario1 =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
@@ -314,7 +314,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
@@ -328,7 +328,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
             calculationScenario.IsRelevant = false;
@@ -350,7 +350,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var pipingCalculationScenario =
                 SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
@@ -370,7 +370,7 @@ namespace Riskeer.Piping.Data.Test
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
+            var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
@@ -415,7 +415,7 @@ namespace Riskeer.Piping.Data.Test
             pipingCalculationScenarioA.Contribution = (RoundedDouble) contributionA;
             pipingCalculationScenarioB.Contribution = (RoundedDouble) contributionB;
 
-            var result = new PipingFailureMechanismSectionResult(section);
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
             double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(new[]

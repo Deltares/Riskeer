@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class PipingFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        PipingFailureMechanismSectionResultUpdateStrategy, PipingFailureMechanismSectionResultOld, PipingFailureMechanismSectionResult>
+        PipingFailureMechanismSectionResultUpdateStrategy, PipingFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         protected override PipingFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
@@ -64,15 +64,15 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
         }
 
-        protected override PipingFailureMechanismSectionResult CreateEmptySectionResult()
+        protected override AdoptableWithProfileProbabilityFailureMechanismSectionResult CreateEmptySectionResult()
         {
-            return new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            return new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
         }
 
-        protected override PipingFailureMechanismSectionResult CreateConfiguredSectionResult()
+        protected override AdoptableWithProfileProbabilityFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
             var random = new Random(39);
-            return new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            return new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
                 InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual,
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
         }
 
-        protected override void AssertSectionResult(PipingFailureMechanismSectionResult originResult, PipingFailureMechanismSectionResult targetResult)
+        protected override void AssertSectionResult(AdoptableWithProfileProbabilityFailureMechanismSectionResult originResult, AdoptableWithProfileProbabilityFailureMechanismSectionResult targetResult)
         {
             Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
             Assert.AreEqual(originResult.InitialFailureMechanismResult, targetResult.InitialFailureMechanismResult);

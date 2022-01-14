@@ -24,7 +24,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.DbContext;
 
@@ -37,7 +36,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).Create();
+            TestDelegate call = () => ((AdoptableWithProfileProbabilityFailureMechanismSectionResult) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,7 +57,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             double refinedProfileProbability = random.NextDouble();
             double refinedSectionProbability = random.NextDouble();
 
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = isRelevant,
                 InitialFailureMechanismResult = initialFailureMechanismResultType,
@@ -88,7 +87,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 ManualInitialFailureMechanismResultProfileProbability = double.NaN,
                 ManualInitialFailureMechanismResultSectionProbability = double.NaN,

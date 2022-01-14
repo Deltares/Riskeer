@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Piping.Data;
 
@@ -27,9 +28,10 @@ namespace Riskeer.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// An update strategy that can be used to update either a <see cref="PipingFailureMechanismSectionResultOld"/>
-    /// or a <see cref="PipingFailureMechanismSectionResult"/> instance with data from an old instance;
+    /// or an <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> instance with data from an old instance;
     /// </summary>
-    public class PipingFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<PipingFailureMechanismSectionResultOld, PipingFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<PipingFailureMechanismSectionResultOld,
+        AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(PipingFailureMechanismSectionResultOld origin, PipingFailureMechanismSectionResultOld target)
         {
@@ -51,7 +53,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
         }
 
-        public void UpdateSectionResult(PipingFailureMechanismSectionResult origin, PipingFailureMechanismSectionResult target)
+        public void UpdateSectionResult(AdoptableWithProfileProbabilityFailureMechanismSectionResult origin, AdoptableWithProfileProbabilityFailureMechanismSectionResult target)
         {
             if (origin == null)
             {

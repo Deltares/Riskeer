@@ -37,9 +37,10 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
-    /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
+    /// The view for the <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// in the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult,
+    public class PipingFailureMechanismResultView : FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
         PipingFailureMechanismSectionResultRow, PipingFailureMechanism>
     {
         private const int initialFailureMechanismResultIndex = 2;
@@ -62,12 +63,12 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingFailureMechanismSectionResult"/> to
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismResultView(IObservableEnumerable<PipingFailureMechanismSectionResult> failureMechanismSectionResults,
+        public PipingFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                 PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
             : base(failureMechanismSectionResults, failureMechanism)
@@ -117,7 +118,7 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
         }
 
-        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult)
+        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = GetScenarioConfigurationForSection(sectionResult);
 
@@ -207,7 +208,7 @@ namespace Riskeer.Piping.Forms.Views
                 sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
 
-        private IPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(PipingFailureMechanismSectionResult sectionResult,
+        private IPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                                          PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
         {
             return ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
@@ -215,13 +216,13 @@ namespace Riskeer.Piping.Forms.Views
                        : CreateProbabilisticCalculateStrategy(sectionResult);
         }
 
-        private ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateProbabilisticCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)
+        private ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateProbabilisticCalculateStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             return new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>());
         }
 
-        private SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateSemiProbabilisticCalculateStrategy(PipingFailureMechanismSectionResult sectionResult)
+        private SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateSemiProbabilisticCalculateStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             return new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
                 sectionResult, FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),

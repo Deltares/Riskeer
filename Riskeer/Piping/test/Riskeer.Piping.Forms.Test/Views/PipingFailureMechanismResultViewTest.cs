@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult,
+                Assert.IsInstanceOf<FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
                     PipingFailureMechanismSectionResultRow,
                     PipingFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
