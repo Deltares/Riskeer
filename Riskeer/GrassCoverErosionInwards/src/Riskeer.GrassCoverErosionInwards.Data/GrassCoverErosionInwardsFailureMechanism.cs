@@ -35,9 +35,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism,
-                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResultOld>
+                                                            IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
@@ -50,7 +51,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResults = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<GrassCoverErosionInwardsFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
         }
 
@@ -66,32 +68,22 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
 
-        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
 
-            sectionResults.Add(new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new GrassCoverErosionInwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
