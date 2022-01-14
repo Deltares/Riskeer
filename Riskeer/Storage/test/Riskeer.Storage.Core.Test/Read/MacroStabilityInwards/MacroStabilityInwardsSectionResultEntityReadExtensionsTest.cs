@@ -77,7 +77,7 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
+                InitialAdoptableFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
                 ManualInitialFailureMechanismResultProfileProbability = manualProfileProbability,
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
                 FurtherAnalysisNeeded = Convert.ToByte(furtherAnalysisNeeded),
