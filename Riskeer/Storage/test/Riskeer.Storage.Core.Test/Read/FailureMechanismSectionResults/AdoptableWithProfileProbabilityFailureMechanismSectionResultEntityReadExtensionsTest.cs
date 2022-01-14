@@ -25,12 +25,12 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.Piping;
+using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 
-namespace Riskeer.Storage.Core.Test.Read.Piping
+namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
 {
     [TestFixture]
-    public class PipingSectionResultEntityReadExtensionsTest
+    public class AdoptableWithProfileProbabilityFailureMechanismSectionResultEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()

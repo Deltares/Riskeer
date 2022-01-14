@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,24 +23,25 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.Piping
+namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
 {
     /// <summary>
     /// This class defines extension methods for read operations for an
     /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
-    /// based on the <see cref="PipingSectionResultEntity"/>.
+    /// based on the <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    internal static class PipingSectionResultEntityReadExtensions
+    internal static class AdoptableWithProfileProbabilityFailureMechanismSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct an
-        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and use the information
+        /// to update an <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this PipingSectionResultEntity entity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        internal static void Read(this IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity,
+                                  AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {
@@ -52,14 +53,10 @@ namespace Riskeer.Storage.Core.Read.Piping
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
-            sectionResult.InitialFailureMechanismResult = (AdoptableInitialFailureMechanismResultType) entity.AdoptableInitialFailureMechanismResultType;
+            entity.Read(sectionResult);
             sectionResult.ManualInitialFailureMechanismResultProfileProbability = entity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN();
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = entity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN();
-            sectionResult.FurtherAnalysisNeeded = Convert.ToBoolean(entity.FurtherAnalysisNeeded);
             sectionResult.ProbabilityRefinementType = (ProbabilityRefinementType) entity.ProbabilityRefinementType;
             sectionResult.RefinedProfileProbability = entity.RefinedProfileProbability.ToNullAsNaN();
-            sectionResult.RefinedSectionProbability = entity.RefinedSectionProbability.ToNullAsNaN();
         }
     }
 }
