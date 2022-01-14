@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,13 +23,13 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create
+namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
 {
     /// <summary>
     /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating an 
     /// instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    internal static class StructuresFailureMechanismSectionResultCreateExtensions
+    internal static class AdoptableFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
         /// Creates an instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> 

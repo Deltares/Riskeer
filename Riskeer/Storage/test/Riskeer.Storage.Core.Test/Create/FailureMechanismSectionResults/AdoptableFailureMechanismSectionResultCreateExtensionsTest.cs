@@ -24,12 +24,12 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Storage.Core.Create;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 
-namespace Riskeer.Storage.Core.Test.Create
+namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
 {
     [TestFixture]
-    public class StructuresFailureMechanismSectionResultCreateExtensionsTest
+    public class AdoptableFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()

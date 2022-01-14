@@ -26,6 +26,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.ClosingStructures
