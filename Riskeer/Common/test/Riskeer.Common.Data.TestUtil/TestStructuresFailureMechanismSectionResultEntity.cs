@@ -23,6 +23,9 @@ using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Common.Data.TestUtil
 {
+    /// <summary>
+    /// Simple structures failure mechanism section result entity that can be used in tests.
+    /// </summary>
     public class TestStructuresFailureMechanismSectionResultEntity : IStructuresSectionResultEntity
     {
         public byte IsRelevant { get; set; }
