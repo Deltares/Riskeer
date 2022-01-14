@@ -35,8 +35,9 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.ClosingStructures.Plugin.Test
 {
@@ -106,7 +107,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 Assert.AreEqual(9, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext)));
@@ -127,11 +128,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test
             var gui = mockRepository.Stub<IGui>();
             gui.Stub(g => g.ActiveStateInfo).Return(new StateInfo(string.Empty, symbol, fontFamily, p => p));
             mockRepository.ReplayAll();
-            
+
             using (var plugin = new ClosingStructuresPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -151,9 +152,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>),
-                    typeof(ClosingStructuresFailureMechanismResultViewOld));
+                    typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
+                    typeof(StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -173,7 +174,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                     Assert.AreSame(fontFamily, vi.GetFontFamily());
                 });
             }
-            
+
             mockRepository.VerifyAll();
         }
 
@@ -219,9 +220,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new ClosingStructuresPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();

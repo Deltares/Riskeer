@@ -29,9 +29,10 @@ using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
@@ -46,7 +47,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext));
         }
 
         [TearDown]
@@ -112,12 +113,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
-                var sectionResult = new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-                var sectionResultContext = new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
-                    new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>
-                    {
-                        sectionResult
-                    }, failureMechanism, assessmentSection);
+                var sectionResult = new ObservableList<AdoptableFailureMechanismSectionResult>
+                {
+                    new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                };
+                var sectionResultContext = new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
+                    sectionResult, failureMechanism, assessmentSection);
 
                 var gui = mockRepository.Stub<IGui>();
                 gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilder);

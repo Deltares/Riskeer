@@ -159,9 +159,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>) outputsFolder.Contents.ElementAt(2);
+            var failureMechanismResultsContext = (ClosingStructuresProbabilityFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var inAssemblyOutputComments = (Comment) outputsFolder.Contents.ElementAt(3);
@@ -175,7 +175,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 InAssembly = false
@@ -190,7 +190,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             var comment = (Comment) children[0];
             Assert.AreSame(failureMechanism.NotInAssemblyComments, comment);
-            
+
             mocks.VerifyAll();
         }
 

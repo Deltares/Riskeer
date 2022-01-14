@@ -52,6 +52,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Plugin;
@@ -109,16 +110,16 @@ namespace Riskeer.ClosingStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>,
-                IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld>,
-                ClosingStructuresFailureMechanismResultViewOld>(() => Gui)
+                ClosingStructuresProbabilityFailureMechanismSectionResultContext,
+                IObservableEnumerable<AdoptableFailureMechanismSectionResult>,
+                StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new ClosingStructuresFailureMechanismResultViewOld(
+                CreateInstance = context => new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
                     context.WrappedData,
-                    (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection)
+                    (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection, fm => fm.GeneralInput.N)
             };
 
             yield return new RiskeerViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>(() => Gui)
@@ -162,7 +163,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 CalculationContextOnNodeRemoved,
                 CalculationType.Probabilistic);
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>>
+            yield return new TreeNodeInfo<ClosingStructuresProbabilityFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -299,7 +300,8 @@ namespace Riskeer.ClosingStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput> view,
+                                                                   object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as ClosingStructuresFailureMechanism;
 
@@ -315,7 +317,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object dataToCloseFor)
@@ -476,8 +478,8 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
+                new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }
@@ -847,9 +849,9 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
-            {
-                calculation
-            }, message))
+                {
+                    calculation
+                }, message))
             {
                 UpdateStructureDerivedCalculationInput(calculation);
             }
