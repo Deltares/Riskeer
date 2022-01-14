@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            entity.Read(sectionResult);
+            ((IAdoptableFailureMechanismSectionResultEntity) entity).Read(sectionResult);
             sectionResult.ManualInitialFailureMechanismResultProfileProbability = entity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN();
             sectionResult.ProbabilityRefinementType = (ProbabilityRefinementType) entity.ProbabilityRefinementType;
             sectionResult.RefinedProfileProbability = entity.RefinedProfileProbability.ToNullAsNaN();
