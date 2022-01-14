@@ -28,9 +28,8 @@ using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
@@ -47,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext));
         }
 
         [TearDown]
@@ -92,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            var context = new MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext(
                 mechanism.SectionResults, mechanism, assessmentSection);
 
             // Call
