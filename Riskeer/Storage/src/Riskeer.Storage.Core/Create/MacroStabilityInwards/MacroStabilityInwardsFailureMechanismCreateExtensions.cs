@@ -26,6 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
@@ -98,7 +99,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
         {
             foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                MacroStabilityInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.CreateForMacroStabilityInwards();
+                var sectionResultEntity = failureMechanismSectionResult.Create<MacroStabilityInwardsSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.MacroStabilityInwardsSectionResultEntities.Add(sectionResultEntity);
             }

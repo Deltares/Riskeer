@@ -26,6 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.Piping
@@ -64,7 +65,7 @@ namespace Riskeer.Storage.Core.Create.Piping
         {
             foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult pipingFailureMechanismSectionResult in sectionResults)
             {
-                PipingSectionResultEntity pipingSectionResultEntity = pipingFailureMechanismSectionResult.Create();
+                var pipingSectionResultEntity = pipingFailureMechanismSectionResult.Create<PipingSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(pipingFailureMechanismSectionResult.Section);
                 section.PipingSectionResultEntities.Add(pipingSectionResultEntity);
             }
