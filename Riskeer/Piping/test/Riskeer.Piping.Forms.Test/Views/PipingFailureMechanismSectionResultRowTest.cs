@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -112,7 +112,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -134,7 +134,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -155,7 +155,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -180,7 +180,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             const double sectionProbability = 0.2;
 
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
@@ -252,7 +252,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             const double sectionProbability = 0.2;
 
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
@@ -287,7 +287,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -322,7 +322,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             const string errorText = "error";
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
             errorProvider.Expect(ep => ep.GetProbabilityValidationError(null))
                          .IgnoreArguments()
@@ -356,7 +356,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
             errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
                          .IgnoreArguments()
@@ -505,7 +505,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -534,7 +534,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -567,7 +567,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var random = new Random(39);
 
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -606,7 +606,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var random = new Random(39);
 
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -642,7 +642,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -684,7 +684,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -740,7 +740,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -773,7 +773,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -822,7 +822,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
                          .IgnoreArguments()
@@ -859,7 +859,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -899,7 +899,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 
@@ -934,7 +934,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var calculateStrategy = mocks.Stub<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             mocks.ReplayAll();
 

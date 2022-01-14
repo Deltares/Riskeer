@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Forms.Views
         private readonly int sectionNIndex;
         private readonly int assemblyGroupIndex;
 
-        private readonly IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
+        private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <see cref="PipingFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         internal PipingFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                        IPipingFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
+                                                        IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                         IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
                                                         PipingFailureMechanism failureMechanism,
                                                         IAssessmentSection assessmentSection,

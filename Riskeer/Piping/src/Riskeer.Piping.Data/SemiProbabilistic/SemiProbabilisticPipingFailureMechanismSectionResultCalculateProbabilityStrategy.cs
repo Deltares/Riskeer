@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// Strategy to calculate probabilities for <see cref="SemiProbabilisticPipingCalculationScenario"/>.
     /// </summary>
-    public class SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IPipingFailureMechanismSectionResultCalculateProbabilityStrategy
+    public class SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations;

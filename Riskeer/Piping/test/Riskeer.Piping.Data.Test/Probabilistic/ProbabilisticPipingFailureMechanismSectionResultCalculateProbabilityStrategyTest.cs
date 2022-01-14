@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), Enumerable.Empty<ProbabilisticPipingCalculationScenario>());
 
             // Assert
-            Assert.IsInstanceOf<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
+            Assert.IsInstanceOf<IFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
         }
         
         #region CalculateProfileProbability

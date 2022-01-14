@@ -28,7 +28,7 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// <summary>
     /// Strategy to calculate probabilities for <see cref="ProbabilisticPipingCalculationScenario"/>.
     /// </summary>
-    public class ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IPipingFailureMechanismSectionResultCalculateProbabilityStrategy
+    public class ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<ProbabilisticPipingCalculationScenario> calculations;

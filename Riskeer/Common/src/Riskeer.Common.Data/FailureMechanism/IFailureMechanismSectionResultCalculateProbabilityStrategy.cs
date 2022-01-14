@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Interface describing a strategy to calculate probabilities.
     /// </summary>
-    public interface IPipingFailureMechanismSectionResultCalculateProbabilityStrategy
+    public interface IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         /// <summary>
         /// Calculates the initial failure mechanism result probability per profile.

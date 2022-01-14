@@ -127,7 +127,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
                 new PipingFailureMechanism(), assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<IPipingFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
+            Assert.IsInstanceOf<IFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
             mocks.VerifyAll();
         }
         
