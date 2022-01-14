@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 205;
+        private const int expectedNumberOfRemovedInstances = 207;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(64, observables.Length);
+            Assert.AreEqual(65, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -227,6 +227,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
