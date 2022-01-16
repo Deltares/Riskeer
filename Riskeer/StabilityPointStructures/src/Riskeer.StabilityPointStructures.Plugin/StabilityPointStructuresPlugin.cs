@@ -278,7 +278,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResultOld>(
+                StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>(
                 new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -847,9 +847,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
-            {
-                calculation
-            }, message))
+                {
+                    calculation
+                }, message))
             {
                 UpdateStructureDerivedCalculationInput(calculation);
             }

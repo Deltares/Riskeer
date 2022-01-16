@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 207;
+        private const int expectedNumberOfRemovedInstances = 209;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(65, observables.Length);
+            Assert.AreEqual(66, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -296,8 +296,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
