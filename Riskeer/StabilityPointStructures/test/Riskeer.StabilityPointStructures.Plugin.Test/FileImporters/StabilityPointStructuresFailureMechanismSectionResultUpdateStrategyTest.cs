@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
 using Riskeer.Common.Primitives;
@@ -31,7 +32,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy, StabilityPointStructuresFailureMechanismSectionResultOld>
+        StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy, StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         protected override StabilityPointStructuresFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
@@ -61,6 +62,33 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.TailorMadeAssessmentProbability, targetResult.TailorMadeAssessmentProbability);
             Assert.AreEqual(originResult.UseManualAssembly, targetResult.UseManualAssembly);
             Assert.AreEqual(originResult.ManualAssemblyProbability, targetResult.ManualAssemblyProbability);
+        }
+
+        protected override AdoptableFailureMechanismSectionResult CreateEmptySectionResult()
+        {
+            return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
+
+        protected override AdoptableFailureMechanismSectionResult CreateConfiguredSectionResult()
+        {
+            var random = new Random(39);
+            return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                IsRelevant = true,
+                InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual,
+                ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
+                FurtherAnalysisNeeded = true,
+                RefinedSectionProbability = random.NextDouble()
+            };
+        }
+
+        protected override void AssertSectionResult(AdoptableFailureMechanismSectionResult originResult, AdoptableFailureMechanismSectionResult targetResult)
+        {
+            Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
+            Assert.AreEqual(originResult.InitialFailureMechanismResult, targetResult.InitialFailureMechanismResult);
+            Assert.AreEqual(originResult.ManualInitialFailureMechanismResultSectionProbability, targetResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(originResult.FurtherAnalysisNeeded, targetResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(originResult.RefinedSectionProbability, targetResult.RefinedSectionProbability);
         }
     }
 }

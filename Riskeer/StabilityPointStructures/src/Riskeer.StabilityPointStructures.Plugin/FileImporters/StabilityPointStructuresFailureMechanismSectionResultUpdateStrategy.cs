@@ -20,17 +20,18 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> instance with data
-    /// from an old <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/> instance.
+    /// /// An update strategy that can be used to update either a <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/>
+    /// /// or a <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResultOld>
+        : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(StabilityPointStructuresFailureMechanismSectionResultOld origin, StabilityPointStructuresFailureMechanismSectionResultOld target)
         {
@@ -50,6 +51,25 @@ namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
             target.TailorMadeAssessmentProbability = origin.TailorMadeAssessmentProbability;
             target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyProbability = origin.ManualAssemblyProbability;
+        }
+
+        public void UpdateSectionResult(AdoptableFailureMechanismSectionResult origin, AdoptableFailureMechanismSectionResult target)
+        {
+            if (origin == null)
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            target.IsRelevant = origin.IsRelevant;
+            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
+            target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
+            target.RefinedSectionProbability = origin.RefinedSectionProbability;
         }
     }
 }
