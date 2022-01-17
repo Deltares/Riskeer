@@ -101,7 +101,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
-                    MacroStabilityInwardsFailureMechanismSectionResultRow,
+                    AdoptableWithProfileProbabilityFailureMechanismSectionResultRow,
                     MacroStabilityInwardsFailureMechanism>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
