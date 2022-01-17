@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<PipingStructureFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<PipingStructureFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Piping bij kunstwerk", failureMechanism.Name);
             Assert.AreEqual("PKW", failureMechanism.Code);
@@ -48,6 +48,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             Assert.IsFalse(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]

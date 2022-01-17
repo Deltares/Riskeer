@@ -34,10 +34,11 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Piping Structure failure mechanism.
     /// </summary>
     public class PipingStructureFailureMechanism : FailureMechanismBase,
-                                                   IHasSectionResults<PipingStructureFailureMechanismSectionResultOld>,
+                                                   IHasSectionResults<PipingStructureFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>,
                                                    IHasGeneralInput
     {
-        private readonly ObservableList<PipingStructureFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<PipingStructureFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
@@ -45,7 +46,8 @@ namespace Riskeer.Integration.Data.StandAlone
         public PipingStructureFailureMechanism()
             : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<PipingStructureFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
+            sectionResultsOld = new ObservableList<PipingStructureFailureMechanismSectionResultOld>();
             GeneralInput = new GeneralInput
             {
                 ApplyLengthEffectInSection = false
@@ -66,19 +68,21 @@ namespace Riskeer.Integration.Data.StandAlone
         {
             get
             {
-                return sectionResults;
+                return sectionResultsOld;
             }
         }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new PipingStructureFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new PipingStructureFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
+
+        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults { get; }
     }
 }
