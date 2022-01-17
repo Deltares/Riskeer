@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <summary>
         /// Formats the specified probability.
         /// </summary>
-        /// <param name="probability">The probability.</param>
+        /// <param name="probability">The probability to format.</param>
         /// <returns>The formatted text.</returns>
         /// <exception cref="FormatException">Thrown when the probability cannot be formatted as a string.</exception>
         public static string Format(double probability)
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// Formats the specified probability, including the discrete numbers <see cref="double.NaN"/>, <see cref="double.IsNegativeInfinity"/>
         /// and <see cref="double.IsPositiveInfinity"/>.
         /// </summary>
-        /// <param name="probability">The probability.</param>
+        /// <param name="probability">The probability to format.</param>
         /// <returns>The formatted text.</returns>
         /// <exception cref="FormatException">Thrown when the probability cannot be formatted as a string.</exception>
         public static string FormatWithDiscreteNumbers(double probability)
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <summary>
         /// Formats the specified return period to a probability.
         /// </summary>
-        /// <param name="returnPeriod">The return period.</param>
+        /// <param name="returnPeriod">The return period to format.</param>
         /// <returns>The formatted text.</returns>
         /// <exception cref="FormatException">Thrown when the return period cannot be formatted as a string.</exception>
         public static string FormatFromReturnPeriod(int returnPeriod)

@@ -241,7 +241,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndPerformsAssembly()
+        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -284,7 +284,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssembly()
+        public void GivenMacroStabilityInwardsFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();

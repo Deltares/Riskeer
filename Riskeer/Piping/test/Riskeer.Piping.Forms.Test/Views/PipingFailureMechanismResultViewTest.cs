@@ -255,7 +255,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndPerformsAssembly()
+        public void GivenPipingFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -297,7 +297,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssembly()
+        public void GivenPipingFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -339,7 +339,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssembly()
+        public void GivenPipingFailureMechanismResultView_WhenScenarioConfigurationsPerFailureMechanismSectionNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();

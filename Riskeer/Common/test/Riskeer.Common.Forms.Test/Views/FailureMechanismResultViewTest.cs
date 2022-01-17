@@ -187,7 +187,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -223,7 +223,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismSectionResultCollectionUpdatedAndObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
         {
             // Given
             var sectionResults = new ObservableList<FailureMechanismSectionResult>();
@@ -255,7 +255,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidatedAndPerformsAssemblyCalculation()
+        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultObserversNotified_ThenDataGridViewInvalidatedAndAssemblyCalculationPerformed()
         {
             // Given
             var random = new Random(21);
@@ -330,7 +330,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenRowUpdatingAndSectionResultNotified_ThenNothingUpdates()
+        public void GivenFailureMechanismResultView_WhenRowUpdatingAndSectionResultObserversNotified_ThenNothingUpdates()
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -363,7 +363,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenSectionResultObserversNotified_ThenAllRowsUpdatedAndViewInvalidated()
         {
             // Given
             FailureMechanismSectionResult sectionResult1 = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -428,7 +428,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenColumnDoesAutoResize()
+        public void GivenFailureMechanismResultView_WhenSectionResultObserversNotified_ThenColumnDoesAutoResize()
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -458,7 +458,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsNotified_ThenEventHandlersDisconnected()
+        public void GivenFailureMechanismResultView_WhenResultRemovedAndSectionResultsObserversNotified_ThenEventHandlersDisconnected()
         {
             // Given
             FailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -674,7 +674,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenCalculatorFails_ThenSetsDefaultFailurePathAssemblyProbabilityWithError()
+        public void GivenFailureMechanismResultView_WhenCalculatorFails_ThenDefaultFailurePathAssemblyProbabilitySetWithError()
         {
             // Given
             var failureMechanism = new TestFailureMechanism
@@ -789,7 +789,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenSetsFailurePathAssemblyProbabilityTextBoxWithCorrectStateAndNotifiesObservers()
+        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailurePathAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -833,7 +833,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase(FailurePathAssemblyProbabilityResultType.Automatic, FailurePathAssemblyProbabilityResultType.Manual)]
         [TestCase(FailurePathAssemblyProbabilityResultType.Manual, FailurePathAssemblyProbabilityResultType.Automatic)]
-        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailurePathAssemblyProbabilityAndNotifyPropertyChangedEventRaised(
+        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailurePathAssemblyProbabilityUpdated(
             FailurePathAssemblyProbabilityResultType initialResultType,
             FailurePathAssemblyProbabilityResultType newResultType)
         {
@@ -886,7 +886,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase("NotAProbability", "De waarde kon niet geïnterpreteerd worden als een kans.")]
         [TestCase("30", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
         [TestCase("-1", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenSetsDefaultFailurePathAssemblyProbabilityWithError(
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenInitialFailurePathAssemblyProbabilitySetWithError(
             string invalidValue,
             string expectedErrorMessage)
         {
@@ -933,7 +933,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetsDefaultFailurePathAssemblyProbabilityWithErrorAndNotifiesObserver()
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetFailurePathAssemblyProbabilityWithErrorAndObserversNotified()
         {
             // Given
             const double manualProbability = 0.2;
@@ -982,7 +982,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase("0,1", "1/10", 0.1)]
         [TestCase("1/10", "1/10", 0.1)]
-        public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenSetsFailurePathAssemblyProbabilityAndNotifiesObservers(
+        public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenFailurePathAssemblyProbabilitySetAndObserversNotified(
             string validValue,
             string formattedValidValue,
             double expectedProbability)
@@ -1063,7 +1063,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEscPressed_ThenSetsFailurePathAssemblyProbabilityToOriginalValue()
+        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEnteredAndEscPressed_ThenFailurePathAssemblyProbabilitySetToInitialValue()
         {
             // Given
             var mocks = new MockRepository();

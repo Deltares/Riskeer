@@ -241,7 +241,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStructuresFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewAndPerformsAssembly()
+        public void GivenStructuresFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new TestStructuresFailureMechanism();
@@ -291,7 +291,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStructuresFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndPerformsAssembly()
+        public void GivenStructuresFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new TestStructuresFailureMechanism();
