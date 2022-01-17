@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Forms.Views
     /// in the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     public class PipingFailureMechanismResultView : FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
-        PipingFailureMechanismSectionResultRow, PipingFailureMechanism>
+        AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, PipingFailureMechanism>
     {
         private const int initialFailureMechanismResultIndex = 2;
         private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
@@ -118,15 +118,15 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
         }
 
-        protected override PipingFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = GetScenarioConfigurationForSection(sectionResult);
 
-            return new PipingFailureMechanismSectionResultRow(
+            return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
                 sectionResult, CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection),
                 CreateErrorProvider(sectionResult, scenarioConfigurationForSection),
-                FailureMechanism, assessmentSection,
-                new PipingFailureMechanismSectionResultRow.ConstructionProperties
+                () => FailureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length), assessmentSection,
+                new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
@@ -146,55 +146,55 @@ namespace Riskeer.Piping.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.Name));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.IsRelevant));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.IsRelevant));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResult));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultProfileProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
 
             FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.ProbabilityRefinementType));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProbabilityRefinementType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedProfileProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.RefinedProfileProbability));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedProfileProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.RefinedSectionProbability));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.RefinedSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyProfileProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.ProfileProbability));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProfileProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.SectionProbability));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionNColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.SectionN));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionN));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
-                nameof(PipingFailureMechanismSectionResultRow.AssemblyGroup));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
         private IInitialFailureMechanismResultErrorProvider CreateErrorProvider(FailureMechanismSectionResult sectionResult,

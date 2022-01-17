@@ -67,12 +67,12 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
-        internal AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                                 IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
-                                                                                 IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
-                                                                                 Func<double> getNFunc,
-                                                                                 IAssessmentSection assessmentSection,
-                                                                                 ConstructionProperties constructionProperties)
+        public AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+                                                                               IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
+                                                                               IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
+                                                                               Func<double> getNFunc,
+                                                                               IAssessmentSection assessmentSection,
+                                                                               ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
             if (calculateProbabilityStrategy == null)
