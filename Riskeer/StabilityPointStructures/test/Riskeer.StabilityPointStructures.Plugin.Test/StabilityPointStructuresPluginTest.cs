@@ -31,8 +31,9 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
@@ -106,7 +107,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 Assert.AreEqual(9, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresProbabilityFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresScenariosContext)));
@@ -129,9 +130,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new StabilityPointStructuresPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -151,9 +152,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld>),
-                    typeof(StabilityPointStructuresFailureMechanismResultViewOld));
+                    typeof(StabilityPointStructuresProbabilityFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
+                    typeof(StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -219,9 +220,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new StabilityPointStructuresPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
