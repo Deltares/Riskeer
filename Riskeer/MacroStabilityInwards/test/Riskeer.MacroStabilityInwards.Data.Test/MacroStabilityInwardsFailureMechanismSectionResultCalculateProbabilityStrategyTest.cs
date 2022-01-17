@@ -176,10 +176,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 sectionResult, calculations, new MacroStabilityInwardsFailureMechanism());
 
             // Call
-            double profileProbability = strategy.CalculateSectionProbability();
+            double sectionProbability = strategy.CalculateSectionProbability();
 
             // Assert
-            Assert.AreEqual(0.99078184, profileProbability, 1e-8);
+            Assert.AreEqual(0.99078184, sectionProbability, 1e-8);
         }
 
         [Test]
