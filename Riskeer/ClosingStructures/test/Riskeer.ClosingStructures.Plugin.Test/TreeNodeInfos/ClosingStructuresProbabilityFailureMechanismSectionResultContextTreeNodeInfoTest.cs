@@ -21,18 +21,13 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
@@ -104,34 +99,28 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
+            var mocks = new MockRepository();
+            var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                var sectionResult = new ObservableList<AdoptableFailureMechanismSectionResult>
-                {
-                    new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                };
-                var sectionResultContext = new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
-                    sectionResult, failureMechanism, assessmentSection);
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilder);
-                mockRepository.ReplayAll();
+                mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(sectionResultContext, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewControl);
             }
 
             // Assert
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
     }
 }
