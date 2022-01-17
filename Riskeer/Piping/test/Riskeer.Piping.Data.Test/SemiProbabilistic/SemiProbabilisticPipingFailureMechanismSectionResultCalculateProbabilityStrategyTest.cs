@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
-        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -70,7 +70,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculations", exception.ParamName);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -130,9 +130,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             Assert.IsInstanceOf<IFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
             mocks.VerifyAll();
         }
-        
-        #region CalculateProfileProbability
-        
+
         [Test]
         public void CalculateProfileProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
@@ -190,121 +188,6 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
-        public void CalculateProfileProbability_NoRelevantScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            calculationScenario.IsRelevant = false;
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new []
-                {
-                    calculationScenario
-                },
-                new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_ScenarioNotCalculated_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new []
-                {
-                    calculationScenario
-                },
-                new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_ScenarioWithNaNResults_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) 0.2;
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) 0.8;
-            calculationScenario2.Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
-
-            SemiProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
-        [TestCase(0.0, 0.0)]
-        [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-4)]
-        public void CalculateProfileProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contribution1, double contribution2)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-            
-            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            calculationScenario1.Contribution = (RoundedDouble) contribution1;
-            calculationScenario2.Contribution = (RoundedDouble) contribution2;
-
-            SemiProbabilisticPipingCalculationScenario[] calculations = new[]
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-        
-        #endregion
-        
-        #region CalculateSectionProbability
-        
-        [Test]
         public void CalculateSectionProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
@@ -359,118 +242,5 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Assert
             Assert.IsNaN(sectionProbability);
         }
-
-        [Test]
-        public void CalculateSectionProbability_NoRelevantScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            calculationScenario.IsRelevant = false;
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new []
-                {
-                    calculationScenario
-                },
-                new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-
-        [Test]
-        public void CalculateSectionProbability_ScenarioNotCalculated_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new []
-                {
-                    calculationScenario
-                },
-                new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-
-        [Test]
-        public void CalculateSectionProbability_ScenarioWithNaNResults_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) 0.2;
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) 0.8;
-            calculationScenario2.Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
-
-            SemiProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-
-        [Test]
-        [TestCase(0.0, 0.0)]
-        [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-4)]
-        public void CalculateSectionProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contribution1, double contribution2)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-            
-            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            calculationScenario1.Contribution = (RoundedDouble) contribution1;
-            calculationScenario2.Contribution = (RoundedDouble) contribution2;
-
-            SemiProbabilisticPipingCalculationScenario[] calculations = new[]
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-        
-        #endregion
     }
 }

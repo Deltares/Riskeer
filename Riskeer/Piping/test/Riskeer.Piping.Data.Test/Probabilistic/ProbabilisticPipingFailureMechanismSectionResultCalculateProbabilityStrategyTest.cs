@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.Probabilistic;
 
 namespace Riskeer.Piping.Data.Test.Probabilistic
@@ -47,7 +46,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -58,7 +57,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculations", exception.ParamName);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
         [Test]
@@ -74,8 +73,6 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
         }
-        
-        #region CalculateProfileProbability
 
         [Test]
         public void CalculateProfileProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
@@ -130,126 +127,6 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void CalculateProfileProbability_NoRelevantScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            calculationScenario.IsRelevant = false;
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new[]
-                {
-                    calculationScenario
-                });
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_ScenarioNotCalculated_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(
-                section);
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new[]
-                {
-                    calculationScenario
-                });
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
-        public void CalculateProfileProbability_ScenarioWithNaNResults_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            const double contribution1 = 0.2;
-            const double contribution2 = 0.8;
-
-            var calculationScenario1 =
-                ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 =
-                ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) contribution1;
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) contribution2;
-            calculationScenario2.Output = new ProbabilisticPipingOutput(new TestPartialProbabilisticPipingOutput(double.NaN, null),
-                                                                        new TestPartialProbabilisticPipingOutput(double.NaN, null));
-
-            ProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations);
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-
-        [Test]
-        [TestCase(0.0, 0.0)]
-        [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-4)]
-        public void CalculateProfileProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contribution1, double contribution2)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            calculationScenario1.Contribution = (RoundedDouble) contribution1;
-            calculationScenario2.Contribution = (RoundedDouble) contribution2;
-
-            ProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations);
-
-            // Call
-            double profileProbability = strategy.CalculateProfileProbability();
-
-            // Assert
-            Assert.IsNaN(profileProbability);
-        }
-        
-        #endregion
-        
-        #region CalculateSectionProbability
-
-        [Test]
         public void CalculateSectionProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
@@ -300,123 +177,5 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.IsNaN(sectionProbability);
         }
-
-        [Test]
-        public void CalculateSectionProbability_NoRelevantScenarios_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            calculationScenario.IsRelevant = false;
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new[]
-                {
-                    calculationScenario
-                });
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-
-        [Test]
-        public void CalculateSectionProbability_ScenarioNotCalculated_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario = ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(
-                section);
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, new[]
-                {
-                    calculationScenario
-                });
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-
-        [Test]
-        public void CalculateSectionProbability_ScenarioWithNaNResults_ReturnsNaN()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            const double contribution1 = 0.2;
-            const double contribution2 = 0.8;
-
-            var calculationScenario1 =
-                ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 =
-                ProbabilisticPipingCalculationTestFactory.CreateNotCalculatedCalculation<ProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) contribution1;
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) contribution2;
-            calculationScenario2.Output = new ProbabilisticPipingOutput(new TestPartialProbabilisticPipingOutput(double.NaN, null),
-                                                                        new TestPartialProbabilisticPipingOutput(double.NaN, null));
-
-            ProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations);
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-
-        [Test]
-        [TestCase(0.0, 0.0)]
-        [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-4)]
-        public void CalculateSectionProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contribution1, double contribution2)
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = ProbabilisticPipingCalculationTestFactory.CreateCalculation<ProbabilisticPipingCalculationScenario>(section);
-            calculationScenario1.Contribution = (RoundedDouble) contribution1;
-            calculationScenario2.Contribution = (RoundedDouble) contribution2;
-
-            ProbabilisticPipingCalculationScenario[] calculations =
-            {
-                calculationScenario1,
-                calculationScenario2
-            };
-
-            var strategy = new ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations);
-
-            // Call
-            double sectionProbability = strategy.CalculateSectionProbability();
-
-            // Assert
-            Assert.IsNaN(sectionProbability);
-        }
-        
-        #endregion
     }
 }

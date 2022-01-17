@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     public class SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
-        private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations;
+        private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
@@ -41,12 +41,12 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// Creates a new instance of <see cref="SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
-        /// <param name="calculations">All the <see cref="SemiProbabilisticPipingCalculationScenario"/> of the failure mechanism. </param>
+        /// <param name="calculationScenarios">All the <see cref="SemiProbabilisticPipingCalculationScenario"/> of the failure mechanism. </param>
         /// <param name="failureMechanism">The failure mechanism the calculation scenarios belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                                                IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations,
+                                                                                                IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
                                                                                                 PipingFailureMechanism failureMechanism,
                                                                                                 IAssessmentSection assessmentSection)
         {
@@ -55,9 +55,9 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (calculations == null)
+            if (calculationScenarios == null)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -71,14 +71,14 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
             }
 
             this.sectionResult = sectionResult;
-            this.calculations = calculations;
+            this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
         }
 
         public double CalculateProfileProbability()
         {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculations, assessmentSection.FailureMechanismContribution.Norm);
+            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.Norm);
         }
 
         public double CalculateSectionProbability()

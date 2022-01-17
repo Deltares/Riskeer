@@ -22,25 +22,30 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Probability;
 
-namespace Riskeer.Piping.Data.Probabilistic
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Strategy to calculate probabilities for <see cref="ProbabilisticPipingCalculationScenario"/>.
+    /// Strategy to calculate probabilities for <see cref="MacroStabilityInwardsCalculationScenario"/>.
     /// </summary>
-    public class ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
+    public class MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy : IFailureMechanismSectionResultCalculateProbabilityStrategy
     {
         private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
-        private readonly IEnumerable<ProbabilisticPipingCalculationScenario> calculationScenarios;
+        private readonly IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios;
+        private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
-        /// <param name="calculationScenarios">All the <see cref="ProbabilisticPipingCalculationScenario"/> of the failure mechanism. </param>
+        /// <param name="calculationScenarios">All the <see cref="MacroStabilityInwardsCalculationScenario"/> of the failure mechanism. </param>
+        /// <param name="failureMechanism">The failure mechanism the calculation scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                                            IEnumerable<ProbabilisticPipingCalculationScenario> calculationScenarios)
+        public MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
+            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
+            MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             if (sectionResult == null)
             {
@@ -52,18 +57,24 @@ namespace Riskeer.Piping.Data.Probabilistic
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             this.sectionResult = sectionResult;
             this.calculationScenarios = calculationScenarios;
+            this.failureMechanism = failureMechanism;
         }
 
         public double CalculateProfileProbability()
         {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, scenario => scenario.Output.ProfileSpecificOutput);
+            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, failureMechanism.GeneralInput.ModelFactor);
         }
 
         public double CalculateSectionProbability()
         {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, scenario => scenario.Output.SectionSpecificOutput);
+            return CalculateProfileProbability() * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length);
         }
     }
 }
