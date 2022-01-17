@@ -412,6 +412,45 @@ namespace Riskeer.Common.Forms.Test.Views
         #region Assembly
 
         [Test]
+        public void Constructor_AssemblyRan_InputCorrectlySetOnCalculator()
+        {
+            // Setup
+            const double initialSectionProbability = 0.2;
+
+            var mocks = new MockRepository();
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                var row = new AdoptableFailureMechanismSectionResultRow(result, () => initialSectionProbability, errorProvider, assessmentSection, ConstructionProperties);
+
+                // Assert
+                FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, input.SignalingNorm);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, input.LowerLimitNorm);
+                Assert.AreEqual(row.IsRelevant, input.IsRelevant);
+                Assert.IsTrue(input.HasProbabilitySpecified);
+                Assert.AreEqual(initialSectionProbability, input.InitialProfileProbability);
+                Assert.AreEqual(initialSectionProbability, input.InitialSectionProbability);
+                Assert.AreEqual(row.FurtherAnalysisNeeded, input.FurtherAnalysisNeeded);
+                Assert.AreEqual(row.RefinedSectionProbability, input.RefinedProfileProbability);
+                Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_AssemblyRan_ReturnCategoryGroups()
         {
             // Setup
