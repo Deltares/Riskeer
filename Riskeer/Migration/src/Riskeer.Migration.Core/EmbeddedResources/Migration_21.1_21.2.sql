@@ -443,7 +443,24 @@ INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].Stabilit
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
-INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
+INSERT INTO StabilityPointStructuresSectionResultEntity (
+    [StabilityPointStructuresSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [AdoptableInitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability]
+)
+SELECT
+    [StabilityPointStructuresSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    0,
+    NULL
+FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
     [StabilityStoneCoverFailureMechanismMetaEntityId],
     [FailureMechanismEntityId],

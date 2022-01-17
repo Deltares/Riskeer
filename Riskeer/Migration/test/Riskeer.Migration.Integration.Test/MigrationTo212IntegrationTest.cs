@@ -96,6 +96,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertMacroStabilityInwardsFailureMechanismSectionResults(reader, sourceFilePath);
                     AssertHeightStructuresSectionResults(reader, sourceFilePath);
                     AssertClosingStructuresSectionResults(reader, sourceFilePath);
+                    AssertStabilityPointStructuresSectionResults(reader, sourceFilePath);
 
                     AssertStrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
@@ -1044,6 +1045,15 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
+        #region StabilityPointStructures
+
+        private static void AssertStabilityPointStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertAdoptableFailureMechanismSectionResult(reader, "StabilityPointStructuresSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+        
         #region FailureMechanismSectionResults
 
         private static void AssertAdoptableFailureMechanismSectionResult(MigratedDatabaseReader reader,
