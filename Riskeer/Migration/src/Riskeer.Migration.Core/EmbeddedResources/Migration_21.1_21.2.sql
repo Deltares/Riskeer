@@ -47,7 +47,7 @@ INSERT INTO ClosingStructuresSectionResultEntity (
     [ClosingStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
-    [InitialFailureMechanismResultType],
+    [AdoptableInitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [FurtherAnalysisNeeded],
     [RefinedSectionProbability]
@@ -143,10 +143,33 @@ SELECT
     [FailureMechanismEntityId],
     [N],
     [DikeProfileCollectionSourcePath],
-    0                                                              
+    0
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
-INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
+INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
+    [GrassCoverErosionInwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [AdoptableInitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [ProbabilityRefinementType],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT 
+    [GrassCoverErosionInwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    2,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity (
     [GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
     [FailureMechanismEntityId],
@@ -243,7 +266,7 @@ INSERT INTO HeightStructuresSectionResultEntity (
     [HeightStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
-    [InitialFailureMechanismResultType],
+    [AdoptableInitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [FurtherAnalysisNeeded],
     [RefinedSectionProbability]
@@ -303,7 +326,7 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
     [MacroStabilityInwardsSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
-    [InitialFailureMechanismResultType],
+    [AdoptableInitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
     [FurtherAnalysisNeeded],
@@ -386,7 +409,7 @@ INSERT INTO PipingSectionResultEntity (
     [PipingSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
-    [InitialFailureMechanismResultType],
+    [AdoptableInitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
     [FurtherAnalysisNeeded],

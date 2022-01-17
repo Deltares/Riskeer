@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
         /// Reads the <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and use the information
         /// to update an <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> used to update 
+        /// <param name="entity">The <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

@@ -263,8 +263,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.Piping.SectionResults,
                 actualAssessmentSection.Piping.SectionResults);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.GrassCoverErosionInwards.SectionResultsOld,
-                actualAssessmentSection.GrassCoverErosionInwards.SectionResultsOld);
+                expectedAssessmentSection.GrassCoverErosionInwards.SectionResults,
+                actualAssessmentSection.GrassCoverErosionInwards.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.HeightStructures.SectionResults,
                 actualAssessmentSection.HeightStructures.SectionResults);
@@ -412,6 +412,40 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      });
         }
 
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
+                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
+                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
+                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
+                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
+                                     });
+        }
+
+        private static void AssertFailureMechanismSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> expectedSectionResults,
+                                                                 IEnumerable<AdoptableFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
+                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
+                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
+                                     });
+        }
+        
         private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism,
                                                    IFailureMechanism actualFailureMechanism)
         {
@@ -723,26 +757,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 assertAction(expectedReferenceValue, getActualReference());
             }
         }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
-                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
-                                         Assert.AreEqual(expectedItem.ProbabilityRefinementType, actualItem.ProbabilityRefinementType);
-                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
-                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
-                                     });
-        }
-
+        
         #region SpecificFailurePaths
 
         private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
@@ -1126,22 +1141,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
-
-        private static void AssertFailureMechanismSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> expectedSectionResults,
-                                                                 IEnumerable<AdoptableFailureMechanismSectionResult> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
-                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
-                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
-                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
-                                     });
-        }
-
+        
         private static void AssertHeightStructures(StructureCollection<HeightStructure> expectedHeightStructures,
                                                    StructureCollection<HeightStructure> actualHeightStructures)
         {

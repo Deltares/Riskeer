@@ -148,7 +148,7 @@ namespace Riskeer.Storage.Core.Read
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(
                     sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                AdoptableFailureMechanismSectionResultEntityReadExtensions.Read(sectionResultEntity, result);
+                sectionResultEntity.Read(result);
             }
         }
 
@@ -228,7 +228,7 @@ namespace Riskeer.Storage.Core.Read
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                AdoptableFailureMechanismSectionResultEntityReadExtensions.Read(sectionResultEntity, result);
+                sectionResultEntity.Read(result);
             }
         }
 
@@ -567,7 +567,7 @@ namespace Riskeer.Storage.Core.Read
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                AdoptableFailureMechanismSectionResultEntityReadExtensions.Read(sectionResultEntity, result);
+                sectionResultEntity.Read(result);
             }
         }
 

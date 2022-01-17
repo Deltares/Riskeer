@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.TestUtil
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
             SetSections(grassCoverErosionInwardsFailureMechanism);
-            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
+            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
