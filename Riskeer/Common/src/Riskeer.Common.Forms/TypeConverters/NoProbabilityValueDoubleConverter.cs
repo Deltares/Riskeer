@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
+using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.TypeConverters
@@ -54,7 +55,7 @@ namespace Riskeer.Common.Forms.TypeConverters
                 {
                     return ProbabilityParsingHelper.Parse(text);
                 }
-                catch (ArgumentException exception)
+                catch (ProbabilityParsingException exception)
                 {
                     throw new NotSupportedException(exception.Message, exception);
                 }

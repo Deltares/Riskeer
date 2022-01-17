@@ -32,6 +32,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
@@ -338,7 +339,8 @@ namespace Riskeer.Common.Forms.Views
 
                 SetTextBoxValue(probability);
             }
-            catch (ArgumentException exception)
+            catch (Exception exception) when (exception is ArgumentOutOfRangeException
+                                              || exception is ProbabilityParsingException)
             {
                 SetErrorMessage(exception.Message);
                 failurePathAssemblyProbabilityTextBox.Focus();

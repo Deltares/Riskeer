@@ -22,6 +22,7 @@
 using System;
 using System.Globalization;
 using NUnit.Framework;
+using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Helpers
@@ -79,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void Parse_ValueDoesNotRepresentProbability_ThrowsArgumentException()
+        public void Parse_ValueDoesNotRepresentProbability_ThrowsProbabilityParsingException()
         {
             // Setup
             const string invalidValue = "I'm not a number!";
@@ -88,13 +89,13 @@ namespace Riskeer.Common.Forms.Test.Helpers
             TestDelegate call = () => ProbabilityParsingHelper.Parse(invalidValue);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ProbabilityParsingException>(call);
             Assert.IsInstanceOf<FormatException>(exception.InnerException);
             Assert.AreEqual("De waarde kon niet geïnterpreteerd worden als een kans.", exception.Message);
         }
 
         [Test]
-        public void Parse_ValueTooLargeToStoreInDouble_ThrowsArgumentException()
+        public void Parse_ValueTooLargeToStoreInDouble_ThrowsProbabilityParsingException()
         {
             // Setup
             string invalidValue = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
@@ -103,7 +104,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             TestDelegate call = () => ProbabilityParsingHelper.Parse(invalidValue);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ProbabilityParsingException>(call);
             Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             Assert.AreEqual("De waarde is te groot of te klein.", exception.Message);
         }

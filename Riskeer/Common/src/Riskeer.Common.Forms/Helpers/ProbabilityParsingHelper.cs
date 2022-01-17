@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Properties;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -37,7 +38,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// </summary>
         /// <param name="value">The value to be parsed.</param>
         /// <returns>A <see cref="double"/> representing a probability.</returns>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
+        /// <exception cref="ProbabilityParsingException">Thrown when <paramref name="value"/> could not be successfully parsed as a probability.</exception>
         public static double Parse(string value)
         {
             if (string.IsNullOrWhiteSpace(value) || value.Trim() == Resources.RoundedDouble_No_result_dash)
@@ -59,13 +60,13 @@ namespace Riskeer.Common.Forms.Helpers
             }
             catch (FormatException exception)
             {
-                throw new ArgumentException(Resources.Probability_Could_not_parse_string_to_probability,
-                                            exception);
+                throw new ProbabilityParsingException(Resources.Probability_Could_not_parse_string_to_probability,
+                                                      exception);
             }
             catch (OverflowException exception)
             {
-                throw new ArgumentException(Resources.Probability_Value_too_large,
-                                            exception);
+                throw new ProbabilityParsingException(Resources.Probability_Value_too_large,
+                                                      exception);
             }
         }
     }
