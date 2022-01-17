@@ -34,12 +34,11 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long StabilityPointStructuresSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public byte SimpleAssessmentResult { get; set; }
-        public byte DetailedAssessmentResult { get; set; }
-        public byte TailorMadeAssessmentResult { get; set; }
-        public double? TailorMadeAssessmentProbability { get; set; }
-        public byte UseManualAssembly { get; set; }
-        public double? ManualAssemblyProbability { get; set; }
+        public byte IsRelevant { get; set; }
+        public byte AdoptableInitialFailureMechanismResultType { get; set; }
+        public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
+        public byte FurtherAnalysisNeeded { get; set; }
+        public double? RefinedSectionProbability { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }

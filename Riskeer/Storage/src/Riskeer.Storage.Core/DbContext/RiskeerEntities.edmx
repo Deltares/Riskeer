@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Repos\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RiskeerEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="Data Source=C:\Checkouts\Riskeer\Riskeer\Storage\src\Riskeer.Storage.Core\Riskeer.risk" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -1429,12 +1429,11 @@
           </Key>
           <Property Name="StabilityPointStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
-          <Property Name="TailorMadeAssessmentProbability" Type="real" />
-          <Property Name="UseManualAssembly" Type="tinyint" Nullable="false" />
-          <Property Name="ManualAssemblyProbability" Type="real" />
+          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="AdoptableInitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
+          <Property Name="FurtherAnalysisNeeded" Type="tinyint" Nullable="false" />
+          <Property Name="RefinedSectionProbability" Type="real" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverFailureMechanismMetaEntity">
           <Key>
@@ -6743,12 +6742,11 @@
           </Key>
           <Property Name="StabilityPointStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
-          <Property Name="TailorMadeAssessmentProbability" Type="Double" />
-          <Property Name="UseManualAssembly" Type="Byte" Nullable="false" />
-          <Property Name="ManualAssemblyProbability" Type="Double" />
+          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="AdoptableInitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
+          <Property Name="FurtherAnalysisNeeded" Type="Byte" Nullable="false" />
+          <Property Name="RefinedSectionProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" FromRole="StabilityPointStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverFailureMechanismMetaEntity">
@@ -10267,12 +10265,11 @@
           <EntitySetMapping Name="StabilityPointStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.StabilityPointStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresSectionResultEntity">
-                <ScalarProperty Name="ManualAssemblyProbability" ColumnName="ManualAssemblyProbability" />
-                <ScalarProperty Name="UseManualAssembly" ColumnName="UseManualAssembly" />
-                <ScalarProperty Name="TailorMadeAssessmentProbability" ColumnName="TailorMadeAssessmentProbability" />
-                <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
-                <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
-                <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
+                <ScalarProperty Name="RefinedSectionProbability" ColumnName="RefinedSectionProbability" />
+                <ScalarProperty Name="FurtherAnalysisNeeded" ColumnName="FurtherAnalysisNeeded" />
+                <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
+                <ScalarProperty Name="AdoptableInitialFailureMechanismResultType" ColumnName="AdoptableInitialFailureMechanismResultType" />
+                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="StabilityPointStructuresSectionResultEntityId" ColumnName="StabilityPointStructuresSectionResultEntityId" />
               </MappingFragment>
