@@ -32,7 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -180,9 +180,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld>),
-                    typeof(GrassCoverErosionInwardsFailureMechanismResultViewOld));
+                    typeof(GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(GrassCoverErosionInwardsFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

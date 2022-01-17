@@ -204,14 +204,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResultOld>,
-                IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld>,
-                GrassCoverErosionInwardsFailureMechanismResultViewOld>(() => Gui)
+                GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext,
+                IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                GrassCoverErosionInwardsFailureMechanismResultView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultViewOld(
+                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismResultView(
                     context.WrappedData,
                     (GrassCoverErosionInwardsFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection)
@@ -421,7 +421,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
 
@@ -437,7 +437,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object dataToCloseFor)
