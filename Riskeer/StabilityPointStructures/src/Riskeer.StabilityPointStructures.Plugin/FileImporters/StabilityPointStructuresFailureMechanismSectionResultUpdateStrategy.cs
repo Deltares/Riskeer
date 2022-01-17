@@ -28,7 +28,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update either a <see cref="StabilityPointStructuresFailureMechanismSectionResultOld"/>
-    /// or a <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance.
+    /// or an <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>

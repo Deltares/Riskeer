@@ -278,7 +278,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>(
+                StabilityPointStructuresFailureMechanismSectionsContext,
+                StabilityPointStructuresFailureMechanism,
+                StabilityPointStructuresFailureMechanismSectionResultOld,
+                AdoptableFailureMechanismSectionResult>(
                 new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
