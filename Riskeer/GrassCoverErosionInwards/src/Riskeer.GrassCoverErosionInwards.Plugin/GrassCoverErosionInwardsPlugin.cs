@@ -314,7 +314,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResultOld>>
+            yield return new TreeNodeInfo<GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -620,8 +620,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResultsOld, failureMechanism, assessmentSection),
+                new GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

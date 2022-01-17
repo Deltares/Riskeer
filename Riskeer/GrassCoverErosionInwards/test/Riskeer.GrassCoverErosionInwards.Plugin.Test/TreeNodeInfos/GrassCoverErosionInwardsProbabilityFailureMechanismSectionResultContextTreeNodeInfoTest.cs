@@ -27,9 +27,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
@@ -46,7 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResultOld>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext));
         }
 
         [TearDown]
@@ -88,16 +86,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld,
-                                                                                                                                     failureMechanism,
-                                                                                                                                     assessmentSection);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Resultaat", text);
