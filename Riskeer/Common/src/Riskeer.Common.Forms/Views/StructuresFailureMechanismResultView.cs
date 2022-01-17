@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data;
@@ -108,9 +109,9 @@ namespace Riskeer.Common.Forms.Views
             return new AdoptableFailureMechanismSectionResultRow(
                 sectionResult,
                 () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios),
-                new InitialFailureMechanismResultErrorProvider<StructuresCalculationScenario<TStructuresInput>>(
-                    sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments)),
-                assessmentSection, new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
+                CreateErrorProvider(sectionResult, calculationScenarios),
+                assessmentSection,
+                new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
@@ -167,6 +168,14 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
                 nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
+        }
+
+        private static InitialFailureMechanismResultErrorProvider<StructuresCalculationScenario<TStructuresInput>> CreateErrorProvider(
+            FailureMechanismSectionResult sectionResult, IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
+        {
+            return new InitialFailureMechanismResultErrorProvider<StructuresCalculationScenario<TStructuresInput>>(
+                sectionResult, calculationScenarios,
+                (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
         }
     }
 }

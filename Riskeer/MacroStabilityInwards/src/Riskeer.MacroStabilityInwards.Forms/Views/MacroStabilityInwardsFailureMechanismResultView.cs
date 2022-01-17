@@ -101,8 +101,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                                                                                               .ToArray();
             return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
                 sectionResult,
-                new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                    sectionResult, calculationScenarios, FailureMechanism),
+                CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
                 () => FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                 assessmentSection,
@@ -188,6 +187,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
+        }
+
+        private MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
+            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
+        {
+            return new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
+                sectionResult, calculationScenarios, FailureMechanism);
         }
 
         private static InitialFailureMechanismResultErrorProvider<MacroStabilityInwardsCalculationScenario> CreateErrorProvider(

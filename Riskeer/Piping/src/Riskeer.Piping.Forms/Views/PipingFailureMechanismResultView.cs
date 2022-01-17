@@ -123,9 +123,11 @@ namespace Riskeer.Piping.Forms.Views
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = GetScenarioConfigurationForSection(sectionResult);
 
             return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
-                sectionResult, CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection),
+                sectionResult,
+                CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection),
                 CreateErrorProvider(sectionResult, scenarioConfigurationForSection),
-                () => FailureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length), assessmentSection,
+                () => FailureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
+                assessmentSection,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
@@ -197,15 +199,16 @@ namespace Riskeer.Piping.Forms.Views
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
-        private IInitialFailureMechanismResultErrorProvider CreateErrorProvider(FailureMechanismSectionResult sectionResult,
-                                                                                PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
+        private IInitialFailureMechanismResultErrorProvider CreateErrorProvider(
+            FailureMechanismSectionResult sectionResult, PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
         {
             IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios = ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
                                                                                             ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                                             : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
 
             return new InitialFailureMechanismResultErrorProvider<IPipingCalculationScenario<PipingInput>>(
-                sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+                sectionResult, calculationScenarios,
+                (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
 
         private IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
