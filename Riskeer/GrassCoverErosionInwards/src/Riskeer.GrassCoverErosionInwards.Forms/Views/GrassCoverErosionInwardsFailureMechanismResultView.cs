@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Builders;
@@ -50,6 +51,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private const int sectionProbabilityIndex = 10;
         private const int sectionNIndex = 11;
         private const int assemblyGroupIndex = 12;
+
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -71,6 +75,22 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
 
             this.assessmentSection = assessmentSection;
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateInternalViewData,
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                   .Select(c => c.InputParameters)))
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
+                UpdateInternalViewData,
+                c => c.Children)
+            {
+                Observable = failureMechanism.CalculationsGroup
+            };
         }
 
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
@@ -100,6 +120,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                     SectionNIndex = sectionNIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            calculationInputsObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            base.Dispose(disposing);
         }
 
         protected override double GetN()
