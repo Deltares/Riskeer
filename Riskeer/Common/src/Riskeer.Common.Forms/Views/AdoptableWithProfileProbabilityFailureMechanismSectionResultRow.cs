@@ -307,7 +307,7 @@ namespace Riskeer.Common.Forms.Views
                     assessmentSection, IsRelevant, InitialFailureMechanismResult, InitialFailureMechanismResultProfileProbability,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                     SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
-                    ProbabilityRefinementType, getNFunc);
+                    ProbabilityRefinementType, getNFunc());
             }
             catch (AssemblyException e)
             {

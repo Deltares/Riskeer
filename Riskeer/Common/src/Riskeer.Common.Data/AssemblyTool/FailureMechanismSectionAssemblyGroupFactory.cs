@@ -86,9 +86,8 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         /// <param name="probabilityRefinementType">The <see cref="ProbabilityRefinementType"/> of the section.</param>
-        /// <param name="getNFunc">The <see cref="Func{TResult}"/> to get the N of the section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
-        /// or <paramref name="getNFunc"/> is <c>null</c>.</exception>
+        /// <param name="sectionN">The N of the section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="initialFailureMechanismResultType"/>
         /// or <paramref name="probabilityRefinementType"/> is invalid.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
@@ -98,16 +97,11 @@ namespace Riskeer.Common.Data.AssemblyTool
             double initialProfileProbability, double initialSectionProbability,
             bool furtherAnalysisNeeded,
             double refinedProfileProbability, double refinedSectionProbability,
-            ProbabilityRefinementType probabilityRefinementType, Func<double> getNFunc)
+            ProbabilityRefinementType probabilityRefinementType, double sectionN)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getNFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNFunc));
             }
 
             if (!Enum.IsDefined(typeof(AdoptableInitialFailureMechanismResultType), initialFailureMechanismResultType))
@@ -127,7 +121,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             FailureMechanismSectionAssemblyInput input = CreateInput(
                 assessmentSection, isRelevant, initialFailureMechanismResultType,
                 initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded,
-                refinedProfileProbability, refinedSectionProbability, probabilityRefinementType, getNFunc);
+                refinedProfileProbability, refinedSectionProbability, probabilityRefinementType, sectionN);
 
             return PerformAssembly(input);
         }
@@ -152,10 +146,8 @@ namespace Riskeer.Common.Data.AssemblyTool
                                                                         double initialProfileProbability, double initialSectionProbability,
                                                                         bool furtherAnalysisNeeded,
                                                                         double refinedProfileProbability, double refinedSectionProbability,
-                                                                        ProbabilityRefinementType probabilityRefinementType, Func<double> getNFunc)
+                                                                        ProbabilityRefinementType probabilityRefinementType, double sectionN)
         {
-            double sectionN = getNFunc();
-
             if (probabilityRefinementType == ProbabilityRefinementType.Profile)
             {
                 refinedSectionProbability = refinedProfileProbability * sectionN;
