@@ -83,6 +83,12 @@ namespace Riskeer.Integration.Data.StandAlone
             sectionResultsOld.Clear();
         }
 
-        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults { get; }
+        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults
+        {
+            get
+            {
+                return sectionResults;
+            }
+        }
     }
 }
