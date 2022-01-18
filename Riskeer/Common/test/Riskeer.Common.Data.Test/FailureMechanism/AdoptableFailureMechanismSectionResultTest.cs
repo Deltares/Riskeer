@@ -39,7 +39,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
-            Assert.AreSame(section, sectionResult.Section);
             Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, sectionResult.InitialFailureMechanismResult);
         }
     }
