@@ -126,7 +126,7 @@ namespace Riskeer.Piping.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection),
                 CreateErrorProvider(sectionResult, scenarioConfigurationForSection),
-                () => FailureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
+                CreateLengthEffectProvider(sectionResult),
                 assessmentSection,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
@@ -244,6 +244,13 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.SemiProbabilistic
                    || FailureMechanism.ScenarioConfigurationType == PipingScenarioConfigurationType.PerFailureMechanismSection
                    && scenarioConfigurationForSection.ScenarioConfigurationType == PipingScenarioConfigurationPerFailureMechanismSectionType.SemiProbabilistic;
+        }
+
+        private ILengthEffectProvider CreateLengthEffectProvider(IFailureMechanismSectionResult sectionResult)
+        {
+            return new LengthEffectProvider(
+                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                () => FailureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

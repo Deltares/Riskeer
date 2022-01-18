@@ -69,6 +69,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -76,7 +77,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, null, errorProvider, () => double.NaN, assessmentSection, ConstructionProperties);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, null, errorProvider, lengthEffectProvider, assessmentSection, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -90,6 +91,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -97,7 +99,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, null, () => double.NaN, assessmentSection, ConstructionProperties);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, null, lengthEffectProvider, assessmentSection, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -106,7 +108,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNFuncNull_ThrowsArgumentNullException()
+        public void Constructor_LengthEffectProviderNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -123,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNFunc", exception.ParamName);
+            Assert.AreEqual("lengthEffectProvider", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -134,13 +136,14 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, null, ConstructionProperties);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, null, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -155,6 +158,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -162,7 +166,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, assessmentSection, null);
+            void Call() => new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -182,6 +186,7 @@ namespace Riskeer.Common.Forms.Test.Views
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -193,7 +198,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(row);
@@ -254,6 +259,7 @@ namespace Riskeer.Common.Forms.Test.Views
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -261,7 +267,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(profileProbability, row.InitialFailureMechanismResultProfileProbability);
@@ -287,6 +293,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -297,7 +304,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(result.RefinedProfileProbability, row.RefinedProfileProbability);
@@ -326,6 +333,7 @@ namespace Riskeer.Common.Forms.Test.Views
                          .IgnoreArguments()
                          .Return(errorText)
                          .Repeat.Twice();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -334,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // When
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Then
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -359,6 +367,7 @@ namespace Riskeer.Common.Forms.Test.Views
             errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
                          .IgnoreArguments()
                          .Return("error message");
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -371,7 +380,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // When
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Then
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -505,6 +514,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -515,7 +525,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Call
                 setPropertyAction(row);
@@ -534,6 +544,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -541,7 +552,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Call
                 void Call() => setPropertyAction(row);
@@ -571,6 +582,8 @@ namespace Riskeer.Common.Forms.Test.Views
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(initialProfileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(initialSectionProbability);
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
+            lengthEffectProvider.Stub(lep => lep.SectionN).Return(n);
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSectionStub();
@@ -588,7 +601,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => n, assessmentSection, ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, assessmentSection, ConstructionProperties);
 
                 // Assert
                 FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
@@ -615,6 +628,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -628,7 +642,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
@@ -654,6 +668,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -666,7 +681,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
                     random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
@@ -690,6 +705,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -700,7 +716,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -732,6 +748,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -743,7 +760,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -788,6 +805,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -796,7 +814,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -821,6 +839,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -835,7 +854,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -873,6 +892,7 @@ namespace Riskeer.Common.Forms.Test.Views
             errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
                          .IgnoreArguments()
                          .Return(string.Empty);
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -884,7 +904,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -907,6 +927,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -919,7 +940,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -947,6 +968,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -959,7 +981,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -982,6 +1004,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -994,7 +1017,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup);
 
                 // Call
-                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, () => double.NaN, new AssessmentSectionStub(), ConstructionProperties);
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, new AssessmentSectionStub(), ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;

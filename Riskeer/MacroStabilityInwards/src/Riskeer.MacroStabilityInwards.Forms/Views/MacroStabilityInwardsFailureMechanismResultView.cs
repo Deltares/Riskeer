@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                () => FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
+                CreateLengthEffectProvider(sectionResult),
                 assessmentSection,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
@@ -202,6 +202,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             return new InitialFailureMechanismResultErrorProvider<MacroStabilityInwardsCalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+        }
+
+        private ILengthEffectProvider CreateLengthEffectProvider(IFailureMechanismSectionResult sectionResult)
+        {
+            return new LengthEffectProvider(
+                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                () => FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

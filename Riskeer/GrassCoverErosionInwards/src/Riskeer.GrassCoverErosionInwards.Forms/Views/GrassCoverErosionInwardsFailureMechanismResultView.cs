@@ -104,7 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                () => FailureMechanism.GeneralInput.N,
+                CreateLengthEffectProvider(),
                 assessmentSection,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
@@ -204,6 +204,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             return new InitialFailureMechanismResultErrorProvider<GrassCoverErosionInwardsCalculationScenario>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
+        }
+
+        private ILengthEffectProvider CreateLengthEffectProvider()
+        {
+            return new LengthEffectProvider(
+                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                () => FailureMechanism.GeneralInput.N);
         }
     }
 }

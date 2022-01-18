@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Views
 
         private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider;
-        private readonly Func<double> getNFunc;
+        private readonly ILengthEffectProvider lengthEffectProvider;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
         /// <param name="initialFailureMechanismResultErrorProvider">The error provider to use for
         /// the initial failure mechanism result.</param>
-        /// <param name="getNFunc">The <see cref="Func{TResult}"/> to get the N.</param>
+        /// <param name="lengthEffectProvider">The provider to get the length effect properties.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.</param>
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Views
         public AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                                                IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
-                                                                               Func<double> getNFunc,
+                                                                               ILengthEffectProvider lengthEffectProvider,
                                                                                IAssessmentSection assessmentSection,
                                                                                ConstructionProperties constructionProperties)
             : base(sectionResult)
@@ -86,9 +86,9 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(initialFailureMechanismResultErrorProvider));
             }
 
-            if (getNFunc == null)
+            if (lengthEffectProvider == null)
             {
-                throw new ArgumentNullException(nameof(getNFunc));
+                throw new ArgumentNullException(nameof(lengthEffectProvider));
             }
 
             if (assessmentSection == null)
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Forms.Views
 
             this.calculateProbabilityStrategy = calculateProbabilityStrategy;
             this.initialFailureMechanismResultErrorProvider = initialFailureMechanismResultErrorProvider;
-            this.getNFunc = getNFunc;
+            this.lengthEffectProvider = lengthEffectProvider;
             this.assessmentSection = assessmentSection;
 
             initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
@@ -308,7 +308,7 @@ namespace Riskeer.Common.Forms.Views
                     assessmentSection, IsRelevant, InitialFailureMechanismResult, InitialFailureMechanismResultProfileProbability,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                     SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
-                    ProbabilityRefinementType, getNFunc());
+                    ProbabilityRefinementType, lengthEffectProvider.SectionN);
             }
             catch (AssemblyException e)
             {
