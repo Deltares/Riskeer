@@ -1669,7 +1669,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(66, changedObjects.Length);
+            Assert.AreEqual(67, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1768,6 +1768,7 @@ namespace Riskeer.Integration.Service.Test
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism);

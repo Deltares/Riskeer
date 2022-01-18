@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(66, observables.Length);
+            Assert.AreEqual(67, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -366,6 +366,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResultsOld);
 
