@@ -230,6 +230,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.DikeProfiles);
