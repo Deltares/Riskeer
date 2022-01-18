@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      RiskeerCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 detailedAssessmentProbability = value;
             }
@@ -97,7 +97,7 @@ namespace Riskeer.Integration.Data.StandAlone.SectionResults
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      RiskeerCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      RiskeerCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 tailorMadeAssessmentProbability = value;
             }

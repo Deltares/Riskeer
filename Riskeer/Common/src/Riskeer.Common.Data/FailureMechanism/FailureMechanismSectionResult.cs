@@ -67,7 +67,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      Resources.FailureProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 manualInitialFailureMechanismResultSectionProbability = value;
             }
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
-                                                      Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_,
+                                                      Resources.FailureProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
                 refinedSectionProbability = value;
             }

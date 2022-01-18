@@ -159,9 +159,6 @@
   <data name="FailureMechanism_Calculations_DisplayName" xml:space="preserve">
     <value>Berekeningen</value>
   </data>
-  <data name="ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_" xml:space="preserve">
-    <value>De waarde voor de faalkans moet in het bereik {0} liggen.</value>
-  </data>
   <data name="Probability_Must_be_in_Range_0_" xml:space="preserve">
     <value>Kans moet in het bereik {0} liggen.</value>
   </data>

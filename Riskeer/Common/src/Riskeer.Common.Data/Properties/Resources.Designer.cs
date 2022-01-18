@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,16 +78,6 @@ namespace Riskeer.Common.Data.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik {0} liggen..
-        /// </summary>
-        public static string ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_needs_to_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("ArbitraryProbabilityFailureMechanismSectionResult_AssessmentProbability_Value_nee" +
-                        "ds_to_be_in_Range_0_", resourceCulture);
             }
         }
         
