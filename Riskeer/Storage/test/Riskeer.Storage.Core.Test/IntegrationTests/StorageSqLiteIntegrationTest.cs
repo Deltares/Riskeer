@@ -311,8 +311,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.StabilityStoneCover.SectionResultsOld,
                 actualAssessmentSection.StabilityStoneCover.SectionResultsOld);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.StabilityPointStructures.SectionResultsOld,
-                actualAssessmentSection.StabilityPointStructures.SectionResultsOld);
+                expectedAssessmentSection.StabilityPointStructures.SectionResults,
+                actualAssessmentSection.StabilityPointStructures.SectionResults);
 
             AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
                                      actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
@@ -445,7 +445,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
                                      });
         }
-        
+
         private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism,
                                                    IFailureMechanism actualFailureMechanism)
         {
@@ -757,7 +757,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 assertAction(expectedReferenceValue, getActualReference());
             }
         }
-        
+
         #region SpecificFailurePaths
 
         private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
@@ -1141,7 +1141,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
-        
+
         private static void AssertHeightStructures(StructureCollection<HeightStructure> expectedHeightStructures,
                                                    StructureCollection<HeightStructure> actualHeightStructures)
         {

@@ -186,7 +186,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism,
                                                               assessmentSection);
             SetSections(stabilityPointStructuresFailureMechanism);
-            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResultsOld);
+            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism);
@@ -588,7 +588,7 @@ namespace Riskeer.Storage.Core.TestUtil
             assemblyResult.ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
             assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
         }
-        
+
         private static void SetSectionResults(IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
