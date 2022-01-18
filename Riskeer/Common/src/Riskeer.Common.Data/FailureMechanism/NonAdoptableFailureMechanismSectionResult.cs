@@ -23,7 +23,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Class that holds the information of the result of the <see cref="FailureMechanismSection"/>
-    /// with an <see cref="NonAdoptableInitialFailureMechanismResultType"/>.
+    /// with a <see cref="NonAdoptableInitialFailureMechanismResultType"/>.
     /// </summary>
     public class NonAdoptableFailureMechanismSectionResult : FailureMechanismSectionResult
     {
