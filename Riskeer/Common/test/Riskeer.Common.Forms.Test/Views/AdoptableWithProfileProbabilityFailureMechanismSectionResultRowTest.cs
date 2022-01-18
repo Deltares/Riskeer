@@ -570,7 +570,55 @@ namespace Riskeer.Common.Forms.Test.Views
         #region Assembly
 
         [Test]
-        public void Constructor_AssemblyRan_InputCorrectlySetOnCalculator()
+        public void Constructor_AssemblyRanWithoutLengthEffect_InputCorrectlySetOnCalculator()
+        {
+            // Setup
+            const double initialProfileProbability = 0.1;
+            const double initialSectionProbability = 0.2;
+
+            var mocks = new MockRepository();
+            var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
+            calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(initialProfileProbability);
+            calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(initialSectionProbability);
+            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
+            lengthEffectProvider.Stub(lep => lep.UseLengthEffect).Return(false);
+            mocks.ReplayAll();
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                RefinedSectionProbability = 0.001
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, lengthEffectProvider, assessmentSection, ConstructionProperties);
+
+                // Assert
+                FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, input.SignalingNorm);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, input.LowerLimitNorm);
+                Assert.AreEqual(row.IsRelevant, input.IsRelevant);
+                Assert.IsTrue(input.HasProbabilitySpecified);
+                Assert.AreEqual(initialSectionProbability, input.InitialProfileProbability);
+                Assert.AreEqual(initialSectionProbability, input.InitialSectionProbability);
+                Assert.AreEqual(row.FurtherAnalysisNeeded, input.FurtherAnalysisNeeded);
+                Assert.AreEqual(row.RefinedSectionProbability, input.RefinedProfileProbability);
+                Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void Constructor_AssemblyRanWithLengthEffect_InputCorrectlySetOnCalculator()
         {
             // Setup
             const double initialProfileProbability = 0.1;
@@ -583,6 +631,7 @@ namespace Riskeer.Common.Forms.Test.Views
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(initialSectionProbability);
             var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
+            lengthEffectProvider.Stub(lep => lep.UseLengthEffect).Return(true);
             lengthEffectProvider.Stub(lep => lep.SectionN).Return(n);
             mocks.ReplayAll();
 
