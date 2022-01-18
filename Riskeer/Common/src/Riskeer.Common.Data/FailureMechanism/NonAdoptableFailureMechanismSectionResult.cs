@@ -37,7 +37,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         }
 
         /// <summary>
-        /// Gets or sets the non adoptable initial failure result.
+        /// Gets or sets the non adoptable initial failure mechanism result.
         /// </summary>
         public NonAdoptableInitialFailureMechanismResultType InitialFailureMechanismResult { get; set; }
     }
