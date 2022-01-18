@@ -64,13 +64,9 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResultsOld;
-            }
-        }
+        public IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
@@ -81,14 +77,6 @@ namespace Riskeer.Integration.Data.StandAlone
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
-        }
-
-        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults
-        {
-            get
-            {
-                return sectionResults;
-            }
         }
     }
 }
