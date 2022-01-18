@@ -110,11 +110,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithMacroStabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenFormWithMacroStabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible(bool useLengthEffect)
         {
             // Given
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                GeneralInput =
+                {
+                    ApplyLengthEffectInSection = useLengthEffect
+                }
+            };
+
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(new GrassCoverErosionInwardsFailureMechanism()))
+            using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Then
                 DataGridView dataGridView = GetDataGridView();
@@ -162,6 +172,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsTrue(dataGridView.Columns[sectionProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[sectionNIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[assemblyGroupIndex].ReadOnly);
+
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[probabilityRefinementTypeIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[refinedProfileProbabilityIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[profileProbabilityIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[sectionNIndex].Visible);
             }
         }
 
@@ -319,6 +335,57 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
                                                                                                                          .ToArray();
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenGrassCoverErosionInwardsFailureMechanismResultView_WhenApplyLengthEffectChangedAndFailureMechanismObserversNotified_ThenDataGridViewUpdated(
+            bool useLengthEffect)
+        {
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
+            {
+                GeneralInput =
+                {
+                    ApplyLengthEffectInSection = !useLengthEffect
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
+            failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+                Assert.AreEqual(!useLengthEffect, dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].Visible);
+                Assert.AreEqual(!useLengthEffect, dataGridView.Columns[probabilityRefinementTypeIndex].Visible);
+                Assert.AreEqual(!useLengthEffect, dataGridView.Columns[refinedProfileProbabilityIndex].Visible);
+                Assert.AreEqual(!useLengthEffect, dataGridView.Columns[profileProbabilityIndex].Visible);
+                Assert.AreEqual(!useLengthEffect, dataGridView.Columns[sectionNIndex].Visible);
+
+                // When
+                failureMechanism.GeneralInput.ApplyLengthEffectInSection = useLengthEffect;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[probabilityRefinementTypeIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[refinedProfileProbabilityIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[profileProbabilityIndex].Visible);
+                Assert.AreEqual(useLengthEffect, dataGridView.Columns[sectionNIndex].Visible);
             }
         }
 

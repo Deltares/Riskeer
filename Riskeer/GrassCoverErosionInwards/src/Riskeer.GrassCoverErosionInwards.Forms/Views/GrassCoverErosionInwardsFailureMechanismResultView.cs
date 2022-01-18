@@ -93,6 +93,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             };
         }
 
+        protected override void UpdateInternalViewData()
+        {
+            UpdateVisibility();
+            base.UpdateInternalViewData();
+        }
+
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
@@ -188,6 +194,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
+        }
+
+        private void UpdateVisibility()
+        {
+            bool useLengthEffect = FailureMechanism.GeneralInput.ApplyLengthEffectInSection;
+
+            DataGridViewControl.GetColumnFromIndex(initialFailureMechanismResultProfileProbabilityIndex).Visible = useLengthEffect;
+            DataGridViewControl.GetColumnFromIndex(probabilityRefinementTypeIndex).Visible = useLengthEffect;
+            DataGridViewControl.GetColumnFromIndex(refinedProfileProbabilityIndex).Visible = useLengthEffect;
+            DataGridViewControl.GetColumnFromIndex(profileProbabilityIndex).Visible = useLengthEffect;
+            DataGridViewControl.GetColumnFromIndex(sectionNIndex).Visible = useLengthEffect;
         }
 
         private GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
