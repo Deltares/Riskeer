@@ -72,11 +72,13 @@ namespace Riskeer.Integration.Data.StandAlone
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new PipingStructureFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }
