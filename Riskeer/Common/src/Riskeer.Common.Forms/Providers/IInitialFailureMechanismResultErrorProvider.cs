@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Riskeer.Common.Forms
+namespace Riskeer.Common.Forms.Providers
 {
     /// <summary>
     /// Interface for providing error messages about the initial failure mechanism result.

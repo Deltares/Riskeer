@@ -28,7 +28,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Helpers;
 using Riskeer.Common.Forms.Properties;
 
-namespace Riskeer.Common.Forms
+namespace Riskeer.Common.Forms.Providers
 {
     /// <summary>
     /// This class provides error messages about the initial failure mechanism result.

@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Forms.Providers;
 
 namespace Riskeer.Common.Forms.Views
 {

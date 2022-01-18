@@ -26,8 +26,9 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Providers;
 
-namespace Riskeer.Common.Forms.Test
+namespace Riskeer.Common.Forms.Test.Providers
 {
     [TestFixture]
     public class InitialFailureMechanismResultErrorProviderTest

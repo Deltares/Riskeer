@@ -27,6 +27,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.TypeConverters;
 using CommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 

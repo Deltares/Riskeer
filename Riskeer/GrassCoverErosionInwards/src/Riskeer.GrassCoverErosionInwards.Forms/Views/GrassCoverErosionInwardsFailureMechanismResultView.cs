@@ -26,8 +26,8 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 
