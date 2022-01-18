@@ -72,7 +72,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsSectionResults()
+        public void GetViewData_WithContext_ReturnsSectionResults()
         {
             // Setup
             var mocks = new MockRepository();
@@ -80,10 +80,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, string.Empty);
 
             var context = new HeightStructuresProbabilityFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
