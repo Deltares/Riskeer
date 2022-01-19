@@ -98,7 +98,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             string queryOldResultTable = "Gedetailleerde toets per vak\r\nfaalkans";
             string queryNewResultTable ="";
             var newResultTableType1 = new List<string>(){"STPH", "STBI"};
-            var newResultTableType2 = new List<string>(){"HTKW", "BSKW"};
+            var newResultTableType2 = new List<string>(){"HTKW", "BSKW", "STKWp", "GEKB"};
             if (newResultTableType1.Contains(labelFM)) {
                 queryNewResultTable = "mechanisme per doorsnede";
                 }
