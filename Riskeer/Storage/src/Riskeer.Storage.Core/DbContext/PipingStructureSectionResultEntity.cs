@@ -34,11 +34,11 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long PipingStructureSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public byte SimpleAssessmentResult { get; set; }
-        public byte DetailedAssessmentResult { get; set; }
-        public byte TailorMadeAssessmentResult { get; set; }
-        public byte UseManualAssembly { get; set; }
-        public byte ManualAssemblyCategoryGroup { get; set; }
+        public byte IsRelevant { get; set; }
+        public byte NonAdoptableInitialFailureMechanismResultType { get; set; }
+        public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
+        public byte FurtherAnalysisNeeded { get; set; }
+        public double? RefinedSectionProbability { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
