@@ -21,8 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.PipingStructure
@@ -42,18 +43,18 @@ namespace Riskeer.Storage.Core.Create.PipingStructure
         internal static FailureMechanismEntity Create(this PipingStructureFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.PipingAtStructure, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                PipingStructureSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                PipingStructureSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create<PipingStructureSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.PipingStructureSectionResultEntities.Add(sectionResultEntity);
             }
