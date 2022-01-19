@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 209;
+        private const int expectedNumberOfRemovedInstances = 211;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -370,6 +370,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResults);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
             CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
