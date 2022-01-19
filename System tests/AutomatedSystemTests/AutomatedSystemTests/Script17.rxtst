@@ -975,6 +975,12 @@
 					variableid="ec137b62-f031-4865-9b56-d28ed3a2ceb6"
 					variablename="jsonDataScenariosView">
 					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
+					variableid="3052acf7-896a-4e60-8e9e-634849f4cc8d"
+					variablename="labelFM">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule

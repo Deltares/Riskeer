@@ -38,6 +38,16 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             set { _jsonDataScenariosView = value; }
         }
         
+        
+        string _labelFM = "";
+        [TestVariable("3052acf7-896a-4e60-8e9e-634849f4cc8d")]
+        public string labelFM
+        {
+            get { return _labelFM; }
+            set { _labelFM = value; }
+        }
+        
+        
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
@@ -67,13 +77,8 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             
             var headerRow =rows[0];
             int indexColumnSectionName = GetIndex(headerRow, "Vak");
-            int indexColumnCombinedProbability = GetIndex(headerRow, "Gedetailleerde toets per vak\r\nfaalkans");
-            if (indexColumnCombinedProbability>0) {
-                Report.Warn("Old Result View Windows. Using column with header containing 'Gedetailleerde toets per vak\r\nfaalkans'");
-            } else {
-                Report.Warn("New Results View. Using column with header containing 'mechanisme per doorsnede'");
-                indexColumnCombinedProbability = GetIndex(headerRow, "mechanisme per doorsnede");
-            }
+            int indexColumnCombinedProbability = GetIndexCombinedProbability(headerRow);
+            
             rows.RemoveAt(0);
             
             foreach (var dataSection in dataSectionScenariosView) {
@@ -88,6 +93,27 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
         }
         
+        private int GetIndexCombinedProbability(Ranorex.Row row)
+        {
+            string queryOldResultTable = "Gedetailleerde toets per vak\r\nfaalkans";
+            string queryNewResultTable ="";
+            var newResultTableType1 = new List<string>(){"STPH", "STBI"};
+            var newResultTableType2 = new List<string>(){"HTKW", "BSKW"};
+            if (newResultTableType1.Contains(labelFM)) {
+                queryNewResultTable = "mechanisme per doorsnede";
+                }
+            else if(newResultTableType2.Contains(labelFM)) {
+                queryNewResultTable = "mechanisme per vak";
+                }
+            int indexColumnCombinedProbability = GetIndex(row, queryOldResultTable);
+            if (indexColumnCombinedProbability>0) {
+                Report.Warn($"Old Result View Windows. Using column with header containing {queryOldResultTable}");
+            } else {
+                Report.Warn($"New Results View. Using column with header containing '{queryNewResultTable}'");
+                indexColumnCombinedProbability = GetIndex(row, queryNewResultTable);
+            }
+            return indexColumnCombinedProbability;
+        }
         private void ValidateSectionResult(DataSectionScenariosView data, string actualProb)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
