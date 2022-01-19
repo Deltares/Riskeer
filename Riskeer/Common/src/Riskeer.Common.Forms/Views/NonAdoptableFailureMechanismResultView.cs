@@ -98,35 +98,35 @@ namespace Riskeer.Common.Forms.Views
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.Name));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.Name));
 
             FailureMechanismSectionResultViewColumnBuilder.AddIsRelevantColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.IsRelevant));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<NonAdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResult));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResult));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
 
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblySectionProbabilityColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.SectionProbability));
 
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.AssemblyGroup));
         }
     }
 }

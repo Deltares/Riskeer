@@ -144,7 +144,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.IsRelevant));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResult));
 

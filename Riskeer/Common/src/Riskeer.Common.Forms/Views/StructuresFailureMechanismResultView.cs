@@ -146,7 +146,7 @@ namespace Riskeer.Common.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
                 nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResult));
 

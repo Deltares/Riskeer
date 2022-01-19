@@ -172,7 +172,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         public void AddInitialFailureMechanismResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -183,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         public void AddInitialFailureMechanismResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -205,7 +205,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);

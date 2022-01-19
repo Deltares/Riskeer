@@ -100,8 +100,9 @@ namespace Riskeer.Common.Forms.Builders
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
+        /// <typeparam name="T">The type of the initial failure mechanism result enum.</typeparam>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddInitialFailureMechanismResultColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddInitialFailureMechanismResultColumn<T>(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -113,14 +114,14 @@ namespace Riskeer.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            IEnumerable<EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>> dataSource = CreateEnumDisplayWrappers<AdoptableInitialFailureMechanismResultType>();
+            IEnumerable<EnumDisplayWrapper<T>> dataSource = CreateEnumDisplayWrappers<T>();
 
             dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
                 Resources.FailureMechanismResultView_InitialFailureMechanismResultType_DisplayName,
                 dataSource,
-                nameof(EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>.Value),
-                nameof(EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>.DisplayName));
+                nameof(EnumDisplayWrapper<T>.Value),
+                nameof(EnumDisplayWrapper<T>.DisplayName));
         }
 
         /// <summary>
