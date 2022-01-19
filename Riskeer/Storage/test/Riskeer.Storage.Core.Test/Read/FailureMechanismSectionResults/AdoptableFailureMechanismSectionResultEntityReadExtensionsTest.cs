@@ -24,9 +24,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
-using Riskeer.Storage.Core.TestUtil.FailureMechamismResults;
+using Riskeer.Storage.Core.TestUtil.FailureMechanismResults;
 
 namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
 {
@@ -95,11 +94,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         public void Read_EntityWithNullValues_SectionResultWithNaNValues()
         {
             // Setup
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            var entity = new TestAdoptableFailureMechanismSectionResultEntity
-            {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
+            var entity = new TestAdoptableFailureMechanismSectionResultEntity();
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call

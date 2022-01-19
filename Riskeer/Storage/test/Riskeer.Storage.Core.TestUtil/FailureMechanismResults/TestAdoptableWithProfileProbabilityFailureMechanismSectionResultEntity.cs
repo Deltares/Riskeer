@@ -1,6 +1,6 @@
 ﻿using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.TestUtil.FailureMechamismResults
+namespace Riskeer.Storage.Core.TestUtil.FailureMechanismResults
 {
     /// <summary>
     /// Simple implementation of <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> that can be used in tests.

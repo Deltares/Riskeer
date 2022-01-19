@@ -21,7 +21,7 @@
 
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.TestUtil.FailureMechamismResults
+namespace Riskeer.Storage.Core.TestUtil.FailureMechanismResults
 {
     /// <summary>
     /// Simple implementation of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> that can be used in tests.
@@ -33,6 +33,5 @@ namespace Riskeer.Storage.Core.TestUtil.FailureMechamismResults
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
         public byte FurtherAnalysisNeeded { get; set; }
         public double? RefinedSectionProbability { get; set; }
-        public FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }
