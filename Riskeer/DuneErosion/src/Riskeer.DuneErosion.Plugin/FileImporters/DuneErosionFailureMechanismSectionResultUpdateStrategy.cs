@@ -31,7 +31,7 @@ namespace Riskeer.DuneErosion.Plugin.FileImporters
     /// from an old <see cref="DuneErosionFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class DuneErosionFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(DuneErosionFailureMechanismSectionResultOld origin, DuneErosionFailureMechanismSectionResultOld target)
         {
@@ -56,7 +56,7 @@ namespace Riskeer.DuneErosion.Plugin.FileImporters
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
 
-        public void UpdateSectionResult(AdoptableFailureMechanismSectionResult origin, AdoptableFailureMechanismSectionResult target)
+        public void UpdateSectionResult(NonAdoptableFailureMechanismSectionResult origin, NonAdoptableFailureMechanismSectionResult target)
         {
             if (origin == null)
             {
