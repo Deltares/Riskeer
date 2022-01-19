@@ -114,6 +114,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
             }
             return indexColumnCombinedProbability;
         }
+        
         private void ValidateSectionResult(DataSectionScenariosView data, string actualProb)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
@@ -139,12 +140,21 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
         {
             double actualValue = ProbabilityFractionToDouble(actualProbFraction);
             double expectedValue = ProbabilityFractionToDouble(expectedProbFraction);
-            return Math.Abs(actualValue-expectedValue) / expectedValue;
+            return Math.Abs(actualValue-expectedValue) / (expectedValue + 1.0e-20);
         }
         
         private double ProbabilityFractionToDouble(string probabilityFraction)
         {
-            return 1.0 / Int64.Parse(probabilityFraction.Substring(2, probabilityFraction.Length-2));
+            string denominator = probabilityFraction.Substring(2, probabilityFraction.Length-2);
+            if (denominator=="Oneindig") {
+                return 0.0;
+            } else {
+                try {
+                    return 1.0 / Int64.Parse(denominator);
+                } catch (Exception) {
+                    throw new Exception($"Bad-formed probability: {probabilityFraction}");
+                }
+            }
         }
         
         private double GetExpectedSumWeightedProbs(DataSectionScenariosView data, System.Globalization.CultureInfo currentCulture)
