@@ -196,7 +196,7 @@ namespace Riskeer.Storage.Core.TestUtil
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             ConfigurePipingStructureFailureMechanism(pipingStructureFailureMechanism);
             SetSections(pipingStructureFailureMechanism);
-            SetSectionResults(pipingStructureFailureMechanism.SectionResultsOld);
+            SetSectionResults(pipingStructureFailureMechanism.SectionResults);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             SetGeneralInput(microstabilityFailureMechanism, random.Next());
@@ -589,6 +589,19 @@ namespace Riskeer.Storage.Core.TestUtil
             assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
         }
 
+        private static void SetSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (AdoptableFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                sectionResult.IsRelevant = random.NextBoolean();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
+                sectionResult.RefinedSectionProbability = random.NextDouble();
+            }
+        }
+        
         private static void SetSectionResults(IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
@@ -602,6 +615,19 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
                 sectionResult.ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
                 sectionResult.RefinedProfileProbability = random.NextDouble();
+                sectionResult.RefinedSectionProbability = random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<NonAdoptableFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (NonAdoptableFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                sectionResult.IsRelevant = random.NextBoolean();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
                 sectionResult.RefinedSectionProbability = random.NextDouble();
             }
         }
@@ -1026,20 +1052,7 @@ namespace Riskeer.Storage.Core.TestUtil
             });
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
         }
-
-        private static void SetSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (AdoptableFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
-                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
-                sectionResult.RefinedSectionProbability = random.NextDouble();
-            }
-        }
-
+        
         #endregion
 
         #region Piping FailureMechanism
