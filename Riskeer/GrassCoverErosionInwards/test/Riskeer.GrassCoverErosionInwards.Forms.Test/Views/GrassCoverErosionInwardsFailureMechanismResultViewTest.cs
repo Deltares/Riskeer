@@ -112,7 +112,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GivenFormWithMacroStabilityInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible(bool useLengthEffect)
+        public void GivenFormWithGrassCoverErosionInwardsFailureMechanismResultView_ThenExpectedColumnsAreVisible(bool useLengthEffect)
         {
             // Given
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
