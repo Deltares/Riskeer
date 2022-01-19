@@ -33,9 +33,10 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResultOld>
+    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<DuneErosionFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<DuneErosionFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
         /// <summary>
@@ -44,7 +45,8 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<DuneErosionFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
         }
@@ -82,9 +84,11 @@ namespace Riskeer.DuneErosion.Data
         {
             get
             {
-                return sectionResults;
+                return sectionResultsOld;
             }
         }
+
+        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         /// <summary>
         /// Sets dune locations and calculations for the failure mechanism.
@@ -112,12 +116,12 @@ namespace Riskeer.DuneErosion.Data
         {
             base.AddSectionDependentData(section);
 
-            sectionResults.Add(new DuneErosionFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new DuneErosionFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
