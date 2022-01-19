@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class PipingStructureSectionResultEntity
+    public partial class PipingStructureSectionResultEntity
     {
         public long PipingStructureSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
