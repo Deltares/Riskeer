@@ -1006,6 +1006,7 @@ namespace Riskeer.Integration.Service.Test
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
@@ -1733,6 +1734,7 @@ namespace Riskeer.Integration.Service.Test
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism);
             CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, duneErosionFailureMechanism.SectionResults);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism);
@@ -1795,7 +1797,7 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.StrengthStabilityLengthwiseConstruction));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.DuneErosion));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.TechnicalInnovation));
             return expectedRemovedObjects;
         }

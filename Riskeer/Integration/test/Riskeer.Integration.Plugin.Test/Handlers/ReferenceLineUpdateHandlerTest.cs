@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 211;
+        private const int expectedNumberOfRemovedInstances = 213;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -311,8 +311,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, duneErosionFailureMechanism.SectionResults);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
