@@ -117,11 +117,13 @@ namespace Riskeer.DuneErosion.Data
             base.AddSectionDependentData(section);
 
             sectionResultsOld.Add(new DuneErosionFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }
