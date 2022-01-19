@@ -28,10 +28,10 @@ namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update either a <see cref="PipingStructureFailureMechanismSectionResultOld"/>
-    /// or an <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance;
+    /// or an <see cref="NonAdoptableFailureMechanismSectionResult"/> instance with data from an old instance;
     /// </summary>
     public class PipingStructureFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<PipingStructureFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+        : IFailureMechanismSectionResultUpdateStrategy<PipingStructureFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(PipingStructureFailureMechanismSectionResultOld origin, PipingStructureFailureMechanismSectionResultOld target)
         {
@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
         }
 
-        public void UpdateSectionResult(AdoptableFailureMechanismSectionResult origin, AdoptableFailureMechanismSectionResult target)
+        public void UpdateSectionResult(NonAdoptableFailureMechanismSectionResult origin, NonAdoptableFailureMechanismSectionResult target)
         {
             if (origin == null)
             {

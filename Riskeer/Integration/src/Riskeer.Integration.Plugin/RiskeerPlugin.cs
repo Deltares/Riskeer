@@ -851,7 +851,7 @@ namespace Riskeer.Integration.Plugin
                 new MicrostabilityFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                PipingStructureFailureMechanismSectionsContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
+                PipingStructureFailureMechanismSectionsContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>(
                 new PipingStructureFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
