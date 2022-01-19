@@ -29,7 +29,7 @@ namespace Riskeer.HeightStructures.Plugin.FileImporters
     /// <summary>
     /// An update strategy that can be used to update either a <see cref="HeightStructuresFailureMechanismSectionResultOld"/>
     /// or an <see cref="AdoptableFailureMechanismSectionResult"/> instance with data from an old instance;
-    /// /// </summary>
+    /// </summary>
     public class HeightStructuresFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
