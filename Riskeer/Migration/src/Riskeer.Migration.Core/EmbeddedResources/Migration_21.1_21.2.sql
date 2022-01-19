@@ -433,7 +433,24 @@ INSERT INTO PipingSoilLayerEntity SELECT * FROM [SOURCEPROJECT].PipingSoilLayerE
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
 INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingStochasticSoilProfileEntity;
 INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingStructureFailureMechanismMetaEntity;
-INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
+INSERT INTO PipingStructureSectionResultEntity (
+    [PipingStructureSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [NonAdoptableInitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability]
+)
+SELECT
+    [PipingStructureSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    0,
+    NULL
+FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
 INSERT INTO ProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
