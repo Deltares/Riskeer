@@ -40,7 +40,7 @@ namespace Riskeer.DuneErosion.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Duinafslag", failureMechanism.Name);
             Assert.AreEqual("DA", failureMechanism.Code);
             Assert.AreEqual(3, failureMechanism.Group);
