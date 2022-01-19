@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="AdoptableFailureMechanismSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> that is 
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <param name="calculateInitialFailureMechanismResultProbabilityFunc">The <see cref="Func{TResult}"/>
         /// to calculate the initial mechanism result probability.</param>
