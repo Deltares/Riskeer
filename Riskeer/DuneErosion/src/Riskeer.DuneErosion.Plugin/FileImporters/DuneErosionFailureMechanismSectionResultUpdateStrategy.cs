@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.DuneErosion.Data;
 
@@ -30,7 +31,7 @@ namespace Riskeer.DuneErosion.Plugin.FileImporters
     /// from an old <see cref="DuneErosionFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class DuneErosionFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResultOld>
+        : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(DuneErosionFailureMechanismSectionResultOld origin, DuneErosionFailureMechanismSectionResultOld target)
         {
@@ -53,6 +54,25 @@ namespace Riskeer.DuneErosion.Plugin.FileImporters
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
             target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
+        }
+
+        public void UpdateSectionResult(AdoptableFailureMechanismSectionResult origin, AdoptableFailureMechanismSectionResult target)
+        {
+            if (origin == null)
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            target.IsRelevant = origin.IsRelevant;
+            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
+            target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
+            target.RefinedSectionProbability = origin.RefinedSectionProbability;
         }
     }
 }
