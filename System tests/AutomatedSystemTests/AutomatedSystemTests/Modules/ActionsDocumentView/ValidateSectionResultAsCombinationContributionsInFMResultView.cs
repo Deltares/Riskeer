@@ -131,7 +131,7 @@ namespace AutomatedSystemTests.Modules.ActionsDocumentView
                 Report.Info("Expected probability (" + expectedProbNoSeparators + "), calculated based on data from Scenarios view, is not exactly equal to actual one (" + actualProbNoSeparators + ").");
                 Report.Info("Validating if they are almost equal (within 0.2 %).");
                 double relativeDeviation = CalculateRelativeDeviation(actualProbNoSeparators, expectedProbNoSeparators);
-                Report.Info("Relative deviation: " + (relativeDeviation * 100).ToString() + "%");
+                Report.Info("Relative deviation: " + Math.Round((relativeDeviation * 100), 4).ToString() + "%");
                 Validate.IsTrue(relativeDeviation<0.002);
             }
         }
