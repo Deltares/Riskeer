@@ -142,12 +142,12 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public object RefinedSectionProbability
+        public double RefinedSectionProbability
         {
             get => SectionResult.RefinedSectionProbability;
             set
             {
-                SectionResult.RefinedSectionProbability = (double) value;
+                SectionResult.RefinedSectionProbability = value;
                 UpdateInternalData();
             }
         }
