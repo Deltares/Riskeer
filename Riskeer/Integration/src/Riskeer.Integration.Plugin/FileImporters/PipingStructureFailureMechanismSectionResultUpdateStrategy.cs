@@ -28,7 +28,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update either a <see cref="PipingStructureFailureMechanismSectionResultOld"/>
-    /// or an <see cref="NonAdoptableFailureMechanismSectionResult"/> instance with data from an old instance;
+    /// or a <see cref="NonAdoptableFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class PipingStructureFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<PipingStructureFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
