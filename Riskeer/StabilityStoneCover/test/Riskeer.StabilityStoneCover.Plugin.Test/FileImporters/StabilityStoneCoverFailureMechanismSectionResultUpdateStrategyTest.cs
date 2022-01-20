@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
 using Riskeer.Common.Primitives;
@@ -31,7 +33,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<
-        StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy, StabilityStoneCoverFailureMechanismSectionResultOld>
+        StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy, StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         protected override StabilityStoneCoverFailureMechanismSectionResultOld CreateEmptySectionResultOld()
         {
@@ -66,6 +68,37 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
             Assert.AreEqual(originResult.UseManualAssembly, targetResult.UseManualAssembly);
             Assert.AreEqual(originResult.ManualAssemblyCategoryGroup, targetResult.ManualAssemblyCategoryGroup);
+        }
+
+        protected override NonAdoptableWithProfileProbabilityFailureMechanismSectionResult CreateEmptySectionResult()
+        {
+            return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+        }
+
+        protected override NonAdoptableWithProfileProbabilityFailureMechanismSectionResult CreateConfiguredSectionResult()
+        {
+            var random = new Random(39);
+            return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                IsRelevant = true,
+                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
+                ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
+                ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
+                FurtherAnalysisNeeded = true,
+                RefinedProfileProbability = random.NextDouble(),
+                RefinedSectionProbability = random.NextDouble()
+            };
+        }
+
+        protected override void AssertSectionResult(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult originResult, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult targetResult)
+        {
+            Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
+            Assert.AreEqual(originResult.InitialFailureMechanismResult, targetResult.InitialFailureMechanismResult);
+            Assert.AreEqual(originResult.ManualInitialFailureMechanismResultProfileProbability, targetResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(originResult.ManualInitialFailureMechanismResultSectionProbability, targetResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(originResult.FurtherAnalysisNeeded, targetResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(originResult.RefinedProfileProbability, targetResult.RefinedProfileProbability);
+            Assert.AreEqual(originResult.RefinedSectionProbability, targetResult.RefinedSectionProbability);
         }
     }
 }
