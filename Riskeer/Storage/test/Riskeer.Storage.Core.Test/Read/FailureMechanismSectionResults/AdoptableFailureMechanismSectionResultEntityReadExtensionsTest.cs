@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
 
             // Assert
             Assert.AreEqual(isRelevant, sectionResult.IsRelevant);
-            Assert.AreEqual(initialFailureMechanismResultType, sectionResult.InitialFailureMechanismResult);
+            Assert.AreEqual(initialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
             Assert.AreEqual(manualSectionProbability, sectionResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(furtherAnalysisNeeded, sectionResult.FurtherAnalysisNeeded);
             Assert.AreEqual(refinedSectionProbability, sectionResult.RefinedSectionProbability);

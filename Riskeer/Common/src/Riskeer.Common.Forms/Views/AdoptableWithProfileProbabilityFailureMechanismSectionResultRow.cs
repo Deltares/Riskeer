@@ -141,10 +141,10 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
         {
-            get => SectionResult.InitialFailureMechanismResult;
+            get => SectionResult.InitialFailureMechanismResultType;
             set
             {
-                SectionResult.InitialFailureMechanismResult = value;
+                SectionResult.InitialFailureMechanismResultType = value;
                 UpdateInternalData();
             }
         }
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultProfileProbability
         {
-            get => SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt
+            get => SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt
                        ? calculateProbabilityStrategy.CalculateProfileProbability()
                        : SectionResult.ManualInitialFailureMechanismResultProfileProbability;
             set
@@ -173,7 +173,7 @@ namespace Riskeer.Common.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultSectionProbability
         {
-            get => SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt
+            get => SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt
                        ? calculateProbabilityStrategy.CalculateSectionProbability()
                        : SectionResult.ManualInitialFailureMechanismResultSectionProbability;
             set
@@ -275,7 +275,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateInitialFailureMechanismResultErrors()
         {
-            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt)
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt)
             {
                 ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
                     calculateProbabilityStrategy.CalculateProfileProbability);

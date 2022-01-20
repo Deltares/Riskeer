@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
             }
 
             target.IsRelevant = origin.IsRelevant;
-            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.InitialFailureMechanismResultType = origin.InitialFailureMechanismResultType;
             target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
             target.ManualInitialFailureMechanismResultProfileProbability = origin.ManualInitialFailureMechanismResultProfileProbability;
             target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;

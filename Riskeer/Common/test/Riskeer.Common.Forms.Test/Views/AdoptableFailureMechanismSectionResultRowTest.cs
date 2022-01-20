@@ -158,7 +158,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<AdoptableFailureMechanismSectionResult>>(row);
                 Assert.AreEqual(result.IsRelevant, row.IsRelevant);
-                Assert.AreEqual(result.InitialFailureMechanismResult, row.InitialFailureMechanismResult);
+                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResult);
                 Assert.AreEqual(initialFailureMechanismResultProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
@@ -265,7 +265,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableFailureMechanismSectionResult(section)
             {
                 IsRelevant = isRelevant,
-                InitialFailureMechanismResult = initialFailureMechanismResultType
+                InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -300,7 +300,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const AdoptableInitialFailureMechanismResultType newValue = AdoptableInitialFailureMechanismResultType.NoFailureProbability;
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
                 row => row.InitialFailureMechanismResult = newValue,
-                result => result.InitialFailureMechanismResult,
+                result => result.InitialFailureMechanismResultType,
                 newValue);
         }
 
@@ -654,7 +654,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 IsRelevant = isRelevant,
                 FurtherAnalysisNeeded = true,
-                InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual
+                InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -697,7 +697,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
             {
-                InitialFailureMechanismResult = initialFailureMechanismResultType
+                InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
