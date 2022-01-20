@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
@@ -153,7 +155,24 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
         private static WaveImpactAsphaltCoverFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(-1, 0),
+                new Point2D(2, 0)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(2, 0),
+                new Point2D(4, 0)
+            });
+            
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                section1,
+                section2
+            }, "some/path/to/sections");
+            
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();

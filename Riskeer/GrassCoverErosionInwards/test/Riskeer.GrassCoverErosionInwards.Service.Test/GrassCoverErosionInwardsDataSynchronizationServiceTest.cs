@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
@@ -401,13 +403,29 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             DikeProfile dikeProfile1 = DikeProfileTestFactory.CreateDikeProfile("Profile 1", "ID 1");
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Profile 2", "ID 2");
 
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(-1, 0),
+                new Point2D(2, 0)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(2, 0),
+                new Point2D(4, 0)
+            });
+            
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
             {
                 dikeProfile1,
                 dikeProfile2
             }, "some/path/to/dikeprofiles");
-
+            failureMechanism.SetSections(new[]
+            {
+                section1,
+                section2
+            }, "some/path/to/sections");
+            
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
             var calculation = new GrassCoverErosionInwardsCalculation();
