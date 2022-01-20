@@ -493,9 +493,9 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld>),
-                    typeof(PipingStructureResultViewOld));
+                    typeof(PipingStructureFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>),
+                    typeof(NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

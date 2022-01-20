@@ -28,9 +28,9 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Integration.Forms.Views.SectionResultViews;
+using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(PipingStructureResultViewOld));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>));
         }
 
         [TearDown]
@@ -59,23 +59,27 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<PipingStructureFailureMechanismSectionResultOld>), info.ViewDataType);
+            Assert.AreEqual(typeof(PipingStructureFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
+        public void GetViewData_WithContext_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld,
-                                                                                                                 failureMechanism);
+            var context = new PipingStructureFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
+            Assert.AreSame(failureMechanism.SectionResults, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -93,93 +97,97 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new PipingStructureFailureMechanism();
-
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-
             mocks.ReplayAll();
 
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            var failureMechanism = new PipingStructureFailureMechanism();
+            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new PipingStructureFailureMechanism();
             var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
-
             mocks.ReplayAll();
 
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            var failureMechanism = new PipingStructureFailureMechanism();
+            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new PipingStructureFailureMechanism();
 
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });
-
             mocks.ReplayAll();
 
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             var failureMechanism = new PipingStructureFailureMechanism();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
 
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -188,35 +196,41 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(new PipingStructureFailureMechanism());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingStructureFailureMechanism();
 
-            using (var view = new PipingStructureResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CreateInstance_WithContext_ReturnsView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResultsOld,
-                failureMechanism);
+            var context = new PipingStructureFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingStructureResultViewOld>(view);
+            Assert.IsInstanceOf<NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>>(view);
+            mocks.VerifyAll();
         }
     }
 }

@@ -529,15 +529,8 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     (MicrostabilityFailureMechanism) context.FailureMechanism));
 
-            yield return CreateFailureMechanismResultViewInfo<
-                PipingStructureFailureMechanism,
-                PipingStructureFailureMechanismSectionResultOld,
-                PipingStructureResultViewOld,
-                PipingStructureSectionResultRowOld,
-                FailureMechanismAssemblyCategoryGroupControl>(
-                context => new PipingStructureResultViewOld(
-                    context.WrappedData,
-                    (PipingStructureFailureMechanism) context.FailureMechanism));
+            yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
+                fm => fm.GeneralInput.N);
 
             yield return CreateFailureMechanismResultViewInfo<
                 TechnicalInnovationFailureMechanism,
@@ -1327,6 +1320,24 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
+        private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
+            Func<TFailureMechanism, double> getNFunc)
+            where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult> 
+            where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+        {
+            return new RiskeerViewInfo<
+                TContext,
+                IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>,
+                NonAdoptableFailureMechanismResultView<TFailureMechanism>>(() => Gui)
+            {
+                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewData = context => context.WrappedData,
+                CloseForData = CloseFailureMechanismResultViewForData,
+                CreateInstance = context => new NonAdoptableFailureMechanismResultView<TFailureMechanism>(
+                    context.WrappedData, (TFailureMechanism) context.FailureMechanism, context.AssessmentSection, getNFunc)
+            };
+        }
+
         private TreeNodeInfo<TContext> CreateFailureMechanismSectionResultTreeNodeInfo<TContext, TSectionResult>()
             where TContext : ProbabilityFailureMechanismSectionResultContext<TSectionResult>
             where TSectionResult : NonAdoptableFailureMechanismSectionResult
@@ -1685,6 +1696,25 @@ namespace Riskeer.Integration.Plugin
             {
                 return failureMechanismContext.WrappedData is IHasSectionResults<FailureMechanismSectionResultOld> failureMechanismWithSectionResults
                        && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanismWithSectionResults.SectionResultsOld);
+            }
+
+            return false;
+        }
+
+        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism>(NonAdoptableFailureMechanismResultView<TFailureMechanism> view, object dataToCloseFor)
+            where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+        {
+            if (dataToCloseFor is IAssessmentSection assessmentSection)
+            {
+                return assessmentSection.GetFailureMechanisms()
+                                        .OfType<TFailureMechanism>()
+                                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+            }
+
+            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
+            {
+                return failureMechanismContext.WrappedData is TFailureMechanism failureMechanismWithSectionResults
+                       && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
             }
 
             return false;
