@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Views
         /// the source of this row.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
-        /// <see cref="AdoptableFailureMechanismSectionResultRow"/>.</param>
+        /// <see cref="NonAdoptableFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public NonAdoptableFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult,
                                                             IAssessmentSection assessmentSection,
