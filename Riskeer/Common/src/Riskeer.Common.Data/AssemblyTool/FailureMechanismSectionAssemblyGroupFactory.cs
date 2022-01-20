@@ -164,6 +164,47 @@ namespace Riskeer.Common.Data.AssemblyTool
         }
 
         /// <summary>
+        /// Assembles the failure mechanism section based on the input arguments.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
+        /// <param name="isRelevant">The indicator whether the section is relevant.</param>
+        /// <param name="initialFailureMechanismResultType">The <see cref="NonAdoptableInitialFailureMechanismResultType"/> of the section.</param>
+        /// <param name="initialProfileProbability">The initial probability for the profile.</param>
+        /// <param name="initialSectionProbability">The initial probability for the section.</param>
+        /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
+        /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
+        /// <param name="refinedSectionProbability">The refined probability for the section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="initialFailureMechanismResultType"/> is invalid.</exception>
+        /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
+        public static FailureMechanismSectionAssemblyResult AssembleSection(
+            IAssessmentSection assessmentSection,
+            bool isRelevant, NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
+            double initialProfileProbability, double initialSectionProbability,
+            bool furtherAnalysisNeeded,
+            double refinedProfileProbability, double refinedSectionProbability)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (!Enum.IsDefined(typeof(NonAdoptableInitialFailureMechanismResultType), initialFailureMechanismResultType))
+            {
+                throw new InvalidEnumArgumentException(nameof(initialFailureMechanismResultType),
+                                                       (int) initialFailureMechanismResultType,
+                                                       typeof(NonAdoptableInitialFailureMechanismResultType));
+            }
+
+            FailureMechanismSectionAssemblyInput input = CreateInput(
+                assessmentSection, isRelevant, initialFailureMechanismResultType,
+                initialProfileProbability, initialSectionProbability, furtherAnalysisNeeded,
+                refinedProfileProbability, refinedSectionProbability);
+
+            return PerformAssembly(input);
+        }
+
+        /// <summary>
         /// Performs the assembly based on the <see cref="FailureMechanismSectionAssemblyInput"/>.
         /// </summary>
         /// <param name="input">The input to use in the assembly.</param>
