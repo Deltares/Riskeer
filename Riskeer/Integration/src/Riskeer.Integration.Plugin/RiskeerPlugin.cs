@@ -1323,7 +1323,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc)
             where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult> 
-            where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1702,22 +1702,22 @@ namespace Riskeer.Integration.Plugin
         }
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism>(NonAdoptableFailureMechanismResultView<TFailureMechanism> view, object dataToCloseFor)
-            where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
         {
+            TFailureMechanism failureMechanism = null;
             if (dataToCloseFor is IAssessmentSection assessmentSection)
             {
-                return assessmentSection.GetFailureMechanisms()
-                                        .OfType<TFailureMechanism>()
-                                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<TFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
             {
-                return failureMechanismContext.WrappedData is TFailureMechanism failureMechanismWithSectionResults
-                       && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
+                failureMechanism = failureMechanismContext.WrappedData as TFailureMechanism;
             }
 
-            return false;
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion
