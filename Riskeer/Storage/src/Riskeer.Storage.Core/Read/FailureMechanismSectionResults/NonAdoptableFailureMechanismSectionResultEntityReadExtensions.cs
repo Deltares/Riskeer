@@ -26,14 +26,14 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="NonAdoptableFailureMechanismSectionResult"/>
+    /// This class defines extension methods for read operations for a <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// based on the <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class NonAdoptableFailureMechanismSectionResultEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> and use the information
-        /// to update an <see cref="NonAdoptableFailureMechanismSectionResult"/>.
+        /// to update a <see cref="NonAdoptableFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="entity">The <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
