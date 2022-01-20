@@ -104,7 +104,7 @@ namespace Riskeer.Common.Data.Test.Structures
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculations);
 
             // Assert
-            Assert.AreEqual(0.039607535209180436, initialFailureMechanismResultProbability, 1e-8);
+            Assert.AreEqual(0.039607535209180436, initialFailureMechanismResultProbability);
         }
 
         [Test]
