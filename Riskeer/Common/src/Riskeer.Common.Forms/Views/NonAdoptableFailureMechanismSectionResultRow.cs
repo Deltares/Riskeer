@@ -101,10 +101,10 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public NonAdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
         {
-            get => SectionResult.InitialFailureMechanismResult;
+            get => SectionResult.InitialFailureMechanismResultType;
             set
             {
-                SectionResult.InitialFailureMechanismResult = value;
+                SectionResult.InitialFailureMechanismResultType = value;
                 UpdateInternalData();
             }
         }

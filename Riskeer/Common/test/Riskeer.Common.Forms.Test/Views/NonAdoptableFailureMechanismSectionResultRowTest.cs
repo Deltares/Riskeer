@@ -101,7 +101,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<NonAdoptableFailureMechanismSectionResult>>(row);
                 Assert.AreEqual(result.IsRelevant, row.IsRelevant);
-                Assert.AreEqual(result.InitialFailureMechanismResult, row.InitialFailureMechanismResult);
+                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResult);
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const NonAdoptableInitialFailureMechanismResultType newValue = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
                 row => row.InitialFailureMechanismResult = newValue,
-                result => result.InitialFailureMechanismResult,
+                result => result.InitialFailureMechanismResultType,
                 newValue);
         }
 
@@ -441,7 +441,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 IsRelevant = isRelevant,
                 FurtherAnalysisNeeded = true,
-                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.Manual
+                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.Manual
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -473,7 +473,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
-                InitialFailureMechanismResult = initialFailureMechanismResultType
+                InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())

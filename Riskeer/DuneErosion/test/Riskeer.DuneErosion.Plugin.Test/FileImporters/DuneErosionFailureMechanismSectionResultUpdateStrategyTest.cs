@@ -81,7 +81,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
             return new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
+                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,
                 RefinedSectionProbability = random.NextDouble()
@@ -91,7 +91,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
         protected override void AssertSectionResult(NonAdoptableFailureMechanismSectionResult originResult, NonAdoptableFailureMechanismSectionResult targetResult)
         {
             Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
-            Assert.AreEqual(originResult.InitialFailureMechanismResult, targetResult.InitialFailureMechanismResult);
+            Assert.AreEqual(originResult.InitialFailureMechanismResultType, targetResult.InitialFailureMechanismResultType);
             Assert.AreEqual(originResult.ManualInitialFailureMechanismResultSectionProbability, targetResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(originResult.FurtherAnalysisNeeded, targetResult.FurtherAnalysisNeeded);
             Assert.AreEqual(originResult.RefinedSectionProbability, targetResult.RefinedSectionProbability);

@@ -454,7 +454,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      (expectedItem, actualItem) =>
                                      {
                                          Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
-                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
+                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResultType, actualItem.InitialFailureMechanismResultType);
                                          Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
                                          Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
                                          Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);

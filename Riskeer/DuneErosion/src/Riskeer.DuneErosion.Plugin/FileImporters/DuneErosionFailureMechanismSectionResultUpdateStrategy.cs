@@ -69,7 +69,7 @@ namespace Riskeer.DuneErosion.Plugin.FileImporters
             }
 
             target.IsRelevant = origin.IsRelevant;
-            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.InitialFailureMechanismResultType = origin.InitialFailureMechanismResultType;
             target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
             target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
             target.RefinedSectionProbability = origin.RefinedSectionProbability;
