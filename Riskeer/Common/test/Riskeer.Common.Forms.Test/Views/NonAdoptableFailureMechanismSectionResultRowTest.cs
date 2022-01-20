@@ -278,7 +278,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssemblyRan_ReturnCategoryGroups()
+        public void Constructor_AssemblyRan_ReturnsAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -299,7 +299,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
                 FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
-                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, rowAssemblyResult);
+                Assert.AreSame(calculatorOutput, row.AssemblyResult);
 
                 Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
@@ -327,14 +327,19 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Precondition
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
-                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, row.AssemblyResult);
+                Assert.AreSame(calculatorOutput, row.AssemblyResult);
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
                 row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
-                AssertFailureMechanismSectionAssemblyResult(new DefaultFailureMechanismSectionAssemblyResult(), row.AssemblyResult);
+                var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
+                FailureMechanismSectionAssemblyResult actualAssemblyResult = row.AssemblyResult;
+                Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
+                Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
+                Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
+                Assert.AreEqual(expectedAssemblyResult.AssemblyGroup, actualAssemblyResult.AssemblyGroup);
             }
         }
 
@@ -399,15 +404,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }
-        }
-
-        private static void AssertFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
-                                                                        FailureMechanismSectionAssemblyResult actual)
-        {
-            Assert.AreEqual(expected.N, actual.N);
-            Assert.AreEqual(expected.SectionProbability, actual.SectionProbability);
-            Assert.AreEqual(expected.ProfileProbability, actual.ProfileProbability);
-            Assert.AreEqual(expected.AssemblyGroup, actual.AssemblyGroup);
         }
 
         #endregion
