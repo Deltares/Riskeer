@@ -33,7 +33,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for creating results of a failure mechanism section assembly.
+    /// Factory for creating assembly results for a failure mechanism section.
     /// </summary>
     public static class FailureMechanismSectionAssemblyGroupFactory
     {
@@ -163,6 +163,12 @@ namespace Riskeer.Common.Data.AssemblyTool
             return PerformAssembly(input);
         }
 
+        /// <summary>
+        /// Performs the assembly based on the <see cref="FailureMechanismSectionAssemblyInput"/>.
+        /// </summary>
+        /// <param name="input">The input to use in the assembly.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
         private static FailureMechanismSectionAssemblyResult PerformAssembly(FailureMechanismSectionAssemblyInput input)
         {
             IFailureMechanismSectionAssemblyCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismSectionAssemblyCalculator(
