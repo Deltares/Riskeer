@@ -59,13 +59,7 @@ namespace Riskeer.DuneErosion.Data
         /// <summary>
         /// Gets the dune locations.
         /// </summary>
-        public IObservableEnumerable<DuneLocation> DuneLocations
-        {
-            get
-            {
-                return duneLocationCollection;
-            }
-        }
+        public IObservableEnumerable<DuneLocation> DuneLocations => duneLocationCollection;
 
         /// <summary>
         /// Gets the dune location calculations corresponding to the user defined target probabilities.
@@ -80,13 +74,7 @@ namespace Riskeer.DuneErosion.Data
             }
         }
 
-        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResultsOld;
-            }
-        }
+        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
 
         public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
