@@ -28,10 +28,10 @@ using Riskeer.Common.Data.Helpers;
 namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Extension methods for obtaining initial failure mechanism result probabilities
-    /// from output for an assessment of the macro stability inwards failure mechanism.
+    /// Extension methods for obtaining probabilities for a section result
+    /// of the macro stability inwards failure mechanism.
     /// </summary>
-    public static class MacroStabilityInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensions
+    public static class MacroStabilityInwardsFailureMechanismSectionResultExtensions
     {
         /// <summary>
         /// Gets the value for the initial failure mechanism result per failure mechanism section as a probability.

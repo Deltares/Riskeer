@@ -30,13 +30,13 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Common.Data.Test.Structures
 {
     [TestFixture]
-    public class StructuresFailureMechanismSectionResultInitialFailureMechanismResultExtensionsTest
+    public class StructuresFailureMechanismSectionResultExtensionsTest
     {
         [Test]
         public void GetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StructuresFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
+            void Call() => StructuresFailureMechanismSectionResultExtensions.GetInitialFailureMechanismResultProbability(
                 null, Enumerable.Empty<TestStructuresCalculationScenario>());
 
             // Assert

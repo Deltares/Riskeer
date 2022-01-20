@@ -25,19 +25,19 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 
-namespace Riskeer.MacroStabilityInwards.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensionsTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultExtensionsTest
     {
         [Test]
         public void GetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
-                null, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), 0.1);
+            void Call() => GrassCoverErosionInwardsFailureMechanismSectionResultExtensions.GetInitialFailureMechanismResultProbability(
+                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null, 0.1);
+            void Call() => failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -66,31 +66,32 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            const double factorOfStability1 = 1.0 / 10.0;
-            const double factorOfStability2 = 1.0 / 20.0;
+            GrassCoverErosionInwardsCalculationScenario calculationScenario1 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario2 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario3 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
 
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario1 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability1, section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(factorOfStability2, section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
+            calculationScenario1.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(1.1), null, null);
 
-            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) 0.2111;
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) 0.7889;
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
+            calculationScenario1.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.2), null, null);
 
-            MacroStabilityInwardsCalculationScenario[] calculations =
+            calculationScenario3.IsRelevant = false;
+
+            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {
-                macroStabilityInwardsCalculationScenario1,
-                macroStabilityInwardsCalculationScenario2,
-                macroStabilityInwardsCalculationScenario3
+                calculationScenario1,
+                calculationScenario2,
+                calculationScenario3
             };
 
             // Call
-            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculations, 1.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios);
 
             // Assert
-            Assert.AreEqual(0.99052414832077185, initialFailureMechanismResultProbability, 1e-8);
+            Assert.AreEqual(0.3973850177700996, initialFailureMechanismResultProbability);
         }
 
         [Test]
@@ -102,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Call
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(
-                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), 0.1);
+                Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             Assert.IsNaN(initialFailureMechanismResultProbability);
@@ -115,16 +116,16 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            MacroStabilityInwardsCalculationScenario calculationScenario =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
+            calculationScenario.IsRelevant = false;
 
-            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
+            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {
                 calculationScenario
             };
 
             // Call
-            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, 0.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios);
 
             // Assert
             Assert.IsNaN(initialFailureMechanismResultProbability);
@@ -137,14 +138,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
 
             // Call
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(new[]
             {
-                macroStabilityInwardsCalculationScenario
-            }, 0.1);
+                calculationScenario
+            });
 
             // Assert
             Assert.IsNaN(initialFailureMechanismResultProbability);
@@ -160,25 +160,24 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             const double contribution1 = 0.2;
             const double contribution2 = 0.8;
 
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario1 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario1 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario2 = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
 
-            macroStabilityInwardsCalculationScenario1.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario1.Contribution = (RoundedDouble) contribution1;
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) contribution1;
 
-            macroStabilityInwardsCalculationScenario2.IsRelevant = true;
-            macroStabilityInwardsCalculationScenario2.Contribution = (RoundedDouble) contribution2;
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) contribution2;
+            calculationScenario2.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN), null, null);
 
-            MacroStabilityInwardsCalculationScenario[] calculations =
+            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {
-                macroStabilityInwardsCalculationScenario1,
-                macroStabilityInwardsCalculationScenario2
+                calculationScenario1,
+                calculationScenario2
             };
 
             // Call
-            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculations, 0.1);
+            double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios);
 
             // Assert
             Assert.IsNaN(initialFailureMechanismResultProbability);
@@ -187,27 +186,24 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         [Test]
         [TestCase(0.0, 0.0)]
         [TestCase(0.0, 0.5)]
-        [TestCase(0.3, 0.7 + 1e-4)]
+        [TestCase(0.3, 0.7 + 1e-5)]
         public void GetInitialFailureMechanismResultProbability_RelevantScenarioContributionsDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenarioA =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenarioB =
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(section);
-
-            macroStabilityInwardsCalculationScenarioA.Contribution = (RoundedDouble) contributionA;
-            macroStabilityInwardsCalculationScenarioB.Contribution = (RoundedDouble) contributionB;
-
             var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            GrassCoverErosionInwardsCalculationScenario calculationScenarioA = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenarioB = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+            calculationScenarioA.Contribution = (RoundedDouble) contributionA;
+            calculationScenarioB.Contribution = (RoundedDouble) contributionB;
 
             // Call
             double initialFailureMechanismResultProbability = result.GetInitialFailureMechanismResultProbability(new[]
             {
-                macroStabilityInwardsCalculationScenarioA,
-                macroStabilityInwardsCalculationScenarioB
-            }, 0.1);
+                calculationScenarioA,
+                calculationScenarioB
+            });
 
             // Assert
             Assert.IsNaN(initialFailureMechanismResultProbability);
