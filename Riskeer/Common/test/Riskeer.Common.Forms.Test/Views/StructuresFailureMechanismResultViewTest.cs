@@ -291,7 +291,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenStructuresFailureMechanismResultView_WhenCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
+        public void GivenStructuresFailureMechanismResultView_WhenRootCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
             // Given
             var failureMechanism = new TestStructuresFailureMechanism();
@@ -320,11 +320,63 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
                 IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
                                                                                                                          .ToArray();
-                
+
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
-                
+
+                // Precondition
+                Assert.IsFalse(rowsChanged);
+
+                // When
+                calculationScenario.InputParameters.NotifyObservers();
+
+                // Then
+                Assert.IsTrue(rowsChanged);
+
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+                CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
+            }
+        }
+
+        [Test]
+        public void GivenStructuresFailureMechanismResultView_WhenNestedCalculationInputNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
+        {
+            // Given
+            var failureMechanism = new TestStructuresFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            var calculationScenario = new TestStructuresCalculationScenario
+            {
+                InputParameters =
+                {
+                    Structure = new TestStructure(section.StartPoint)
+                }
+            };
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculationScenario);
+            failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
+
+                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                         .ToArray();
+
+                var rowsChanged = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Rows.CollectionChanged += (sender, args) => rowsChanged = true;
+
                 // Precondition
                 Assert.IsFalse(rowsChanged);
 
