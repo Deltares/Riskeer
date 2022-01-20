@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilityFailureMechanismSectionResultContext{T}"/>.
         /// </summary>
-        /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResultOld"/> to wrap.</param>
+        /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/> of <see cref="IFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
