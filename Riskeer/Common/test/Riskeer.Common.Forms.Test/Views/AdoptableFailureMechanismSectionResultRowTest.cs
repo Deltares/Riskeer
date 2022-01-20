@@ -683,8 +683,8 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(AdoptableInitialFailureMechanismResultType.Adopt, true, true)]
         [TestCase(AdoptableInitialFailureMechanismResultType.Manual, true, false)]
         [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability, false, true)]
-        public void Constructor_WithInitialFailureMechanismResult_ExpectedColumnStates(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
-                                                                                       bool isEnabled, bool isReadOnly)
+        public void Constructor_WithInitialFailureMechanismResultType_ExpectedColumnStates(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
+                                                                                           bool isEnabled, bool isReadOnly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -750,8 +750,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
-        public void Constructor_WithAssemblyGroupsSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                           Color expectedBackgroundColor)
+        public void Constructor_WithAssemblyGroupSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                          Color expectedBackgroundColor)
         {
             // Setup
             var mocks = new MockRepository();
