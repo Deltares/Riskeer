@@ -32,19 +32,16 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     {
         private readonly AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult;
         private readonly IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios;
-        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> to get the probabilities for.</param>
         /// <param name="calculationScenarios">All the <see cref="GrassCoverErosionInwardsCalculationScenario"/> of the failure mechanism. </param>
-        /// <param name="failureMechanism">The failure mechanism the calculation scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
-            GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
             {
@@ -56,24 +53,18 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             this.sectionResult = sectionResult;
             this.calculationScenarios = calculationScenarios;
-            this.failureMechanism = failureMechanism;
         }
 
         public double CalculateProfileProbability()
         {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios);
+            return CalculateSectionProbability();
         }
 
         public double CalculateSectionProbability()
         {
-            return CalculateProfileProbability() * failureMechanism.GeneralInput.N;
+            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios);
         }
     }
 }

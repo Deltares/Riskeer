@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -207,12 +207,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             DataGridViewControl.GetColumnFromIndex(sectionNIndex).Visible = useLengthEffect;
         }
 
-        private GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
+        private static GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculationScenarios, FailureMechanism);
+                sectionResult, calculationScenarios);
         }
 
         private static InitialFailureMechanismResultErrorProvider<GrassCoverErosionInwardsCalculationScenario> CreateErrorProvider(

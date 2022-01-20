@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         {
             // Call
             void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), new GrassCoverErosionInwardsFailureMechanism());
+                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,27 +52,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Call
             void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), null, new GrassCoverErosionInwardsFailureMechanism());
+                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section),
-                Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -83,8 +67,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
             // Call
             var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section), Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionResultCalculateProbabilityStrategy>(strategy);
@@ -119,7 +102,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             };
 
             var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculationScenarios, new GrassCoverErosionInwardsFailureMechanism());
+                sectionResult, calculationScenarios);
 
             // Call
             double profileProbability = strategy.CalculateProfileProbability();
@@ -136,8 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Call
             double profileProbability = strategy.CalculateProfileProbability();
@@ -175,13 +157,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             };
 
             var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculationScenarios, new GrassCoverErosionInwardsFailureMechanism());
+                sectionResult, calculationScenarios);
 
             // Call
             double sectionProbability = strategy.CalculateSectionProbability();
 
             // Assert
-            Assert.AreEqual(0.79, sectionProbability);
+            Assert.AreEqual(0.3973850177700996, sectionProbability);
         }
 
         [Test]
@@ -192,8 +174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             var strategy = new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>());
 
             // Call
             double sectionProbability = strategy.CalculateSectionProbability();
