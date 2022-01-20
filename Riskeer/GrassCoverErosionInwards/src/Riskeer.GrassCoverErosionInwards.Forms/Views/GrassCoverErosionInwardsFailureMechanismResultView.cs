@@ -151,7 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.IsRelevant));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
