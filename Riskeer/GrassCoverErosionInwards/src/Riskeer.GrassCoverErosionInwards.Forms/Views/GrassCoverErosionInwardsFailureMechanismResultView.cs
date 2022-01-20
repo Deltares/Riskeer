@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -227,7 +227,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             return new LengthEffectProvider(
                 () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
-                () => FailureMechanism.GeneralInput.N);
+                () => 1.0);
         }
     }
 }
