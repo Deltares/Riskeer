@@ -137,9 +137,9 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the initial failure mechanism result.
+        /// Gets or sets the initial failure mechanism result type.
         /// </summary>
-        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResultType
         {
             get => SectionResult.InitialFailureMechanismResultType;
             set
@@ -307,7 +307,7 @@ namespace Riskeer.Common.Forms.Views
                 if (lengthEffectProvider.UseLengthEffect)
                 {
                     AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                        assessmentSection, IsRelevant, InitialFailureMechanismResult, InitialFailureMechanismResultProfileProbability,
+                        assessmentSection, IsRelevant, InitialFailureMechanismResultType, InitialFailureMechanismResultProfileProbability,
                         InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                         SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
                         ProbabilityRefinementType, lengthEffectProvider.SectionN);
@@ -315,7 +315,7 @@ namespace Riskeer.Common.Forms.Views
                 else
                 {
                     AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                        assessmentSection, IsRelevant, InitialFailureMechanismResult,
+                        assessmentSection, IsRelevant, InitialFailureMechanismResultType,
                         InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                         SectionResult.RefinedSectionProbability);
                 }
@@ -349,14 +349,14 @@ namespace Riskeer.Common.Forms.Views
         {
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
 
-            if (!IsRelevant || InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
+            if (!IsRelevant || InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
             else
             {
-                bool initialFailureMechanismResultAdopt = InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt;
+                bool initialFailureMechanismResultAdopt = InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex], initialFailureMechanismResultAdopt);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex], initialFailureMechanismResultAdopt);
             }
