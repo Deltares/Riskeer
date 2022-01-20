@@ -22,7 +22,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.DuneErosion
@@ -42,19 +44,19 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         internal static FailureMechanismEntity Create(this DuneErosionFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (DuneErosionFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                DuneErosionSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<DuneErosionSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
             }

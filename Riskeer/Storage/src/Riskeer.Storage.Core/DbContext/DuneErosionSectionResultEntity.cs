@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class DuneErosionSectionResultEntity
+    public partial class DuneErosionSectionResultEntity
     {
         public long DuneErosionSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
