@@ -118,9 +118,9 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the initial failure mechanism result.
+        /// Gets or sets the initial failure mechanism result type.
         /// </summary>
-        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResultType
         {
             get => SectionResult.InitialFailureMechanismResultType;
             set
@@ -220,7 +220,7 @@ namespace Riskeer.Common.Forms.Views
             try
             {
                 AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    assessmentSection, IsRelevant, InitialFailureMechanismResult,
+                    assessmentSection, IsRelevant, InitialFailureMechanismResultType,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                     SectionResult.RefinedSectionProbability);
             }
@@ -246,14 +246,14 @@ namespace Riskeer.Common.Forms.Views
         {
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
 
-            if (!IsRelevant || InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
+            if (!IsRelevant || InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex],
-                                               InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt);
+                                               InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt);
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);

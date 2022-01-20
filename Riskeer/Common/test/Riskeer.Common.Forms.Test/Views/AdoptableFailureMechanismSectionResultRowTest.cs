@@ -158,7 +158,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<AdoptableFailureMechanismSectionResult>>(row);
                 Assert.AreEqual(result.IsRelevant, row.IsRelevant);
-                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResult);
+                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
                 Assert.AreEqual(initialFailureMechanismResultProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
@@ -187,7 +187,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         [TestCase(AdoptableInitialFailureMechanismResultType.Manual)]
         [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability)]
-        public void GivenRowWithInitialFailureMechanismResultAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(AdoptableInitialFailureMechanismResultType newValue)
+        public void GivenRowWithInitialFailureMechanismResultTypeAdopt_WhenValueChanged_ThenInitialProbabilitiesChanged(AdoptableInitialFailureMechanismResultType newValue)
         {
             // Given
             var mocks = new MockRepository();
@@ -208,7 +208,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
 
                 // When
-                row.InitialFailureMechanismResult = newValue;
+                row.InitialFailureMechanismResultType = newValue;
 
                 // Then
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
@@ -218,7 +218,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRowWithIsRelevantTrueAndInitialFailureMechanismResultAdopt_WhenErrorProviderReturnsError_ThenShowError()
+        public void GivenRowWithIsRelevantTrueAndInitialFailureMechanismResultTypeAdopt_WhenErrorProviderReturnsError_ThenShowError()
         {
             // Given
             const string errorText = "error";
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(false, AdoptableInitialFailureMechanismResultType.Adopt)]
         [TestCase(true, AdoptableInitialFailureMechanismResultType.Manual)]
         [TestCase(true, AdoptableInitialFailureMechanismResultType.NoFailureProbability)]
-        public void GivenRowWithIsRelevantAndInitialFailureMechanismResult_WhenErrorProviderReturnsError_ThenShowNoError(
+        public void GivenRowWithIsRelevantAndInitialFailureMechanismResultType_WhenErrorProviderReturnsError_ThenShowNoError(
             bool isRelevant, AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType)
         {
             // Given
@@ -295,11 +295,11 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void InitialFailureMechanismResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void InitialFailureMechanismResultType_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             const AdoptableInitialFailureMechanismResultType newValue = AdoptableInitialFailureMechanismResultType.NoFailureProbability;
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.InitialFailureMechanismResult = newValue,
+                row => row.InitialFailureMechanismResultType = newValue,
                 result => result.InitialFailureMechanismResultType,
                 newValue);
         }
@@ -517,7 +517,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual;
+                row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
 
                 // Then
                 var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
@@ -557,7 +557,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual;
+                row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
 
                 // Then
                 const string expectedErrorText = "Message";
@@ -598,7 +598,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Manual;
+                row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
