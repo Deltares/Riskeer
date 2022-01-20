@@ -41,6 +41,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
@@ -126,7 +127,7 @@ namespace Riskeer.DuneErosion.Plugin
                 FailurePathEnabledContextMenuStrip,
                 FailurePathDisabledContextMenuStrip);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>>
+            yield return new TreeNodeInfo<DuneErosionFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -166,16 +167,18 @@ namespace Riskeer.DuneErosion.Plugin
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new RiskeerViewInfo<
-                FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>,
-                IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>,
-                DuneErosionFailureMechanismResultViewOld>(() => Gui)
+                DuneErosionFailureMechanismSectionResultContext,
+                IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>,
+                NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new DuneErosionFailureMechanismResultViewOld(
+                CreateInstance = context => new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
                     context.WrappedData,
-                    (DuneErosionFailureMechanism) context.FailureMechanism)
+                    (DuneErosionFailureMechanism) context.FailureMechanism,
+                    context.AssessmentSection,
+                    fm => fm.GeneralInput.N)
             };
 
             yield return new RiskeerViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>(() => Gui)
@@ -330,7 +333,8 @@ namespace Riskeer.DuneErosion.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism> view,
+                                                                   object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
 
@@ -448,8 +452,7 @@ namespace Riskeer.DuneErosion.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResultsOld, failureMechanism),
+                new DuneErosionFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }

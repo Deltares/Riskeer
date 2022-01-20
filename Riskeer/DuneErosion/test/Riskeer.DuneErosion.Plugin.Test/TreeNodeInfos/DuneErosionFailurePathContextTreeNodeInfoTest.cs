@@ -163,9 +163,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
                 }
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>) outputsFolder.Contents.ElementAt(1);
+                var failureMechanismResultsContext = (DuneErosionFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-                Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
+                Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
+                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
                 var inAssemblyOutputComments = (Comment) outputsFolder.Contents.ElementAt(2);
                 Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);

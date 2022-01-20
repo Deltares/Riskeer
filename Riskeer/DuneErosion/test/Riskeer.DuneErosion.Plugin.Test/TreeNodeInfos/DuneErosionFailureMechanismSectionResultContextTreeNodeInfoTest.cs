@@ -28,8 +28,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.Forms.ViewHost;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
@@ -46,7 +45,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailureMechanismSectionResultContext));
         }
 
         [TearDown]
@@ -89,11 +88,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new DuneErosionFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Resultaat", text);
