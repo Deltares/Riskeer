@@ -165,19 +165,18 @@ namespace Riskeer.Common.Forms.Views
 
         public override void Update()
         {
-            UpdateDerivedData();
+            UpdateAssemblyData();
             UpdateColumnStateDefinitions();
         }
 
-        private void UpdateDerivedData()
+        private void UpdateAssemblyData()
         {
-            ResetErrorTexts();
+            ResetAssemblyResultErrorTexts();
             TryGetAssemblyResult();
         }
 
-        private void ResetErrorTexts()
+        private void ResetAssemblyResultErrorTexts()
         {
-            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[assemblyGroupIndex].ErrorText = string.Empty;
         }

@@ -268,7 +268,7 @@ namespace Riskeer.Common.Forms.Views
 
         public override void Update()
         {
-            UpdateDerivedData();
+            UpdateAssemblyData();
             UpdateColumnStateDefinitions();
             UpdateInitialFailureMechanismResultErrors();
         }
@@ -282,18 +282,21 @@ namespace Riskeer.Common.Forms.Views
                 ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
                     calculateProbabilityStrategy.CalculateSectionProbability);
             }
+            else
+            {
+                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = string.Empty;
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+            }
         }
 
-        private void UpdateDerivedData()
+        private void UpdateAssemblyData()
         {
-            ResetErrorTexts();
+            ResetAssemblyResultErrorTexts();
             TryGetAssemblyResult();
         }
 
-        private void ResetErrorTexts()
+        private void ResetAssemblyResultErrorTexts()
         {
-            ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = string.Empty;
-            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[profileProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionNIndex].ErrorText = string.Empty;
