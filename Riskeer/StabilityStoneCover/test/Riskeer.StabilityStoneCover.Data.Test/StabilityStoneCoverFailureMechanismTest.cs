@@ -41,7 +41,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
             Assert.AreEqual(3, failureMechanism.Group);
@@ -52,6 +52,9 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
+
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]

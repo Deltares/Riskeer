@@ -34,9 +34,10 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
@@ -44,7 +45,8 @@ namespace Riskeer.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -68,31 +70,21 @@ namespace Riskeer.StabilityStoneCover.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
 
-        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new StabilityStoneCoverFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new StabilityStoneCoverFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
