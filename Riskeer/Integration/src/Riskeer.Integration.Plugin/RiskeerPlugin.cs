@@ -1158,13 +1158,13 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<MicrostabilityFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>>
             {
@@ -1327,7 +1327,21 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>()
+        private TreeNodeInfo<TContext> CreateFailureMechanismSectionResultTreeNodeInfo<TContext, TSectionResult>()
+            where TContext : ProbabilityFailureMechanismSectionResultContext<TSectionResult>
+            where TSectionResult : NonAdoptableFailureMechanismSectionResult
+        {
+            return new TreeNodeInfo<TContext>
+            {
+                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+        }
+
+        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultOldTreeNodeInfo<T>()
             where T : FailureMechanismSectionResultOld
         {
             return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
@@ -2521,17 +2535,16 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetPipingStructureFailurePathOutputs(PipingStructureFailureMechanism nodeData,
+        private static IEnumerable<object> GetPipingStructureFailurePathOutputs(PipingStructureFailureMechanism failureMechanism,
                                                                                 IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(nodeData,
-                                                              assessmentSection,
-                                                              () => nodeData.GeneralInput.N),
-                new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData, assessmentSection),
-                nodeData.InAssemblyOutputComments
+                new FailureMechanismAssemblyCategoriesContext(
+                    failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
+                new PipingStructureFailureMechanismSectionResultContext(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.InAssemblyOutputComments
             };
         }
 

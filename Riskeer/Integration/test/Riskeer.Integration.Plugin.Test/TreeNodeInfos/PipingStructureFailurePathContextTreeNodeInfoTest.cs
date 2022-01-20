@@ -36,7 +36,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -182,10 +182,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
             }
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>)
+            var failureMechanismResultsContext = (PipingStructureFailureMechanismSectionResultContext)
                 outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
             var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);

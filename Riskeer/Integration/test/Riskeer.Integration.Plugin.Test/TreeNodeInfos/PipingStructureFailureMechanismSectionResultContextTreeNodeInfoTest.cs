@@ -27,10 +27,8 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
@@ -38,85 +36,86 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class PipingStructureFailureMechanismSectionResultContextTreeNodeInfoTest
     {
+        private MockRepository mocks;
         private RiskeerPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
+            mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingStructureFailureMechanismSectionResultContext));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (plugin)
-            {
-                // Assert
-                Assert.IsNotNull(info.Text);
-                Assert.IsNull(info.ForeColor);
-                Assert.IsNotNull(info.Image);
-                Assert.IsNotNull(info.ContextMenuStrip);
-                Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNull(info.ChildNodeObjects);
-                Assert.IsNull(info.CanRename);
-                Assert.IsNull(info.OnNodeRenamed);
-                Assert.IsNull(info.CanRemove);
-                Assert.IsNull(info.OnNodeRemoved);
-                Assert.IsNull(info.CanCheck);
-                Assert.IsNull(info.CheckedState);
-                Assert.IsNull(info.OnNodeChecked);
-                Assert.IsNull(info.CanDrag);
-                Assert.IsNull(info.CanDrop);
-                Assert.IsNull(info.CanInsert);
-                Assert.IsNull(info.OnDrop);
-            }
+            mocks.ReplayAll();
+
+            // Assert
+            Assert.IsNotNull(info.Text);
+            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNull(info.ChildNodeObjects);
+            Assert.IsNull(info.CanRename);
+            Assert.IsNull(info.OnNodeRenamed);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanCheck);
+            Assert.IsNull(info.CheckedState);
+            Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNull(info.CanDrag);
+            Assert.IsNull(info.CanDrop);
+            Assert.IsNull(info.CanInsert);
+            Assert.IsNull(info.OnDrop);
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var mechanism = new PipingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
-                                                                                                                 mechanism);
-            using (plugin)
-            {
-                // Call
-                string text = info.Text(context);
+            mocks.ReplayAll();
 
-                // Assert
-                Assert.AreEqual("Resultaat", text);
-            }
+            // Call
+            string text = info.Text(null);
+
+            // Assert
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Setup
-            using (plugin)
-            {
-                // Call
-                Image image = info.Image(null);
+            mocks.ReplayAll();
 
-                // Assert
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismSectionResultIcon, image);
-            }
+            // Call
+            Image image = info.Image(null);
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismSectionResultIcon, image);
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-            using (plugin)
             using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub(mocks);
@@ -131,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            mocks.VerifyAll();
+            // Assert expectancies are called in TearDown()
         }
     }
 }
