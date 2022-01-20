@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public class AdoptableFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<AdoptableFailureMechanismSectionResult>
     {
-        private readonly int initialFailureMechanismResultIndex;
+        private readonly int initialFailureMechanismResultTypeIndex;
         private readonly int initialFailureMechanismResultSectionProbabilityIndex;
         private readonly int furtherAnalysisNeededIndex;
         private readonly int refinedSectionProbabilityIndex;
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.Views
             this.initialFailureMechanismResultErrorProvider = initialFailureMechanismResultErrorProvider;
             this.assessmentSection = assessmentSection;
 
-            initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
+            initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
             furtherAnalysisNeededIndex = constructionProperties.FurtherAnalysisNeededIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
@@ -234,7 +234,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
@@ -244,7 +244,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateColumnStateDefinitions()
         {
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultTypeIndex], !IsRelevant);
 
             if (!IsRelevant || InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
@@ -273,9 +273,9 @@ namespace Riskeer.Common.Forms.Views
         public class ConstructionProperties
         {
             /// <summary>
-            /// Sets the initial failure mechanism result index.
+            /// Sets the initial failure mechanism result type index.
             /// </summary>
-            public int InitialFailureMechanismResultIndex { internal get; set; }
+            public int InitialFailureMechanismResultTypeIndex { internal get; set; }
 
             /// <summary>
             /// Sets the initial failure mechanism result section probability index.

@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private static AdoptableFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
             new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
             {
-                InitialFailureMechanismResultIndex = 2,
+                InitialFailureMechanismResultTypeIndex = 2,
                 InitialFailureMechanismResultSectionProbabilityIndex = 3,
                 FurtherAnalysisNeededIndex = 4,
                 RefinedSectionProbabilityIndex = 5,
@@ -173,7 +173,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(6, columnStateDefinitions.Count);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultTypeIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisNeededIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
@@ -667,7 +667,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultIndex], isRelevant);
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultTypeIndex], isRelevant);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
