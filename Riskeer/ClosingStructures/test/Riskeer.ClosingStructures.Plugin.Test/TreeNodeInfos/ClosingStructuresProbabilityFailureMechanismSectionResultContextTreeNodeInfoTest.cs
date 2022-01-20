@@ -86,7 +86,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Call
             Image image = info.Image(null);

@@ -76,7 +76,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsFailureMechanismSectionResultDisplayName()
+        public void Text_Always_ReturnsName()
         {
             // Call
             string text = info.Text(null);

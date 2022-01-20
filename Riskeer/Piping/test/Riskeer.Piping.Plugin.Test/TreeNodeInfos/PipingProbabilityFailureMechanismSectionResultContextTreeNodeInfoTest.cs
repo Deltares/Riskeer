@@ -27,8 +27,6 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -87,21 +85,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new PipingFailureMechanism();
-            var context = new PipingProbabilityFailureMechanismSectionResultContext(mechanism.SectionResults, mechanism, assessmentSection);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Setup
             mocks.ReplayAll();

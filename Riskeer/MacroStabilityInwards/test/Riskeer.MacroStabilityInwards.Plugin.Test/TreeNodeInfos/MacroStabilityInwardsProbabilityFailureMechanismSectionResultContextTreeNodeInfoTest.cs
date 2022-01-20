@@ -27,8 +27,6 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -87,22 +85,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext(
-                mechanism.SectionResults, mechanism, assessmentSection);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Setup
             mocks.ReplayAll();
