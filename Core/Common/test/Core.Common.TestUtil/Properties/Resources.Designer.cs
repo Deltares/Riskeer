@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -98,6 +98,15 @@ namespace Core.Common.TestUtil.Properties {
             get {
                 object obj = ResourceManager.GetObject("Data", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display name.
+        /// </summary>
+        internal static string TestEnum_DisplayNameValueDisplayName {
+            get {
+                return ResourceManager.GetString("TestEnum_DisplayNameValueDisplayName", resourceCulture);
             }
         }
     }

@@ -20,9 +20,8 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Util.Attributes;
+using Core.Common.TestUtil;
 using Core.Common.Util.Exceptions;
-using Core.Common.Util.Test.Properties;
 using NUnit.Framework;
 
 namespace Core.Common.Util.Test
@@ -76,7 +75,7 @@ namespace Core.Common.Util.Test
             string displayName = wrapper.DisplayName;
 
             // Assert
-            Assert.AreEqual(Resources.EnumDisplayWrapperTest_DisplayNameValueDisplayName, displayName);
+            Assert.AreEqual("Display name", displayName);
         }
 
         [Test]
@@ -90,14 +89,6 @@ namespace Core.Common.Util.Test
 
             // Assert
             Assert.AreEqual(wrapper.DisplayName, wrapperToString);
-        }
-
-        private enum TestEnum
-        {
-            NoDisplayName,
-
-            [ResourcesDisplayName(typeof(Resources), nameof(Resources.EnumDisplayWrapperTest_DisplayNameValueDisplayName))]
-            DisplayName
         }
     }
 }

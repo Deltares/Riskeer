@@ -148,9 +148,6 @@
   <data name="MethodStringResource" xml:space="preserve">
     <value>Awesome method value</value>
   </data>
-  <data name="EnumDisplayWrapperTest_DisplayNameValueDisplayName" xml:space="preserve">
-    <value>Display name</value>
-  </data>
   <data name="SimpleEnum_FirstValue_DisplayName" xml:space="preserve">
     <value>&lt;first&gt;</value>
   </data>
