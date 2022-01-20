@@ -81,7 +81,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
             return new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.Manual,
+                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,
                 RefinedSectionProbability = random.NextDouble()

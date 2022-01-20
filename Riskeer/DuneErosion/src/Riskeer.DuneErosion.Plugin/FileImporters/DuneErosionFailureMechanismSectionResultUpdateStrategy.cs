@@ -27,8 +27,8 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="DuneErosionFailureMechanismSectionResultOld"/> instance with data
-    /// from an old <see cref="DuneErosionFailureMechanismSectionResultOld"/> instance.
+    /// An update strategy that can be used to update either a <see cref="DuneErosionFailureMechanismSectionResultOld"/>
+    /// or a <see cref="NonAdoptableFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class DuneErosionFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
