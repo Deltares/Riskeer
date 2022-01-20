@@ -69,7 +69,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.FileImporters
             }
 
             target.IsRelevant = origin.IsRelevant;
-            target.InitialFailureMechanismResult = origin.InitialFailureMechanismResult;
+            target.InitialFailureMechanismResultType = origin.InitialFailureMechanismResultType;
             target.ManualInitialFailureMechanismResultProfileProbability = origin.ManualInitialFailureMechanismResultProfileProbability;
             target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
             target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;

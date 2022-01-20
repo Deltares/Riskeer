@@ -81,7 +81,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
             return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
+                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,
@@ -93,7 +93,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
         protected override void AssertSectionResult(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult originResult, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult targetResult)
         {
             Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
-            Assert.AreEqual(originResult.InitialFailureMechanismResult, targetResult.InitialFailureMechanismResult);
+            Assert.AreEqual(originResult.InitialFailureMechanismResultType, targetResult.InitialFailureMechanismResultType);
             Assert.AreEqual(originResult.ManualInitialFailureMechanismResultProfileProbability, targetResult.ManualInitialFailureMechanismResultProfileProbability);
             Assert.AreEqual(originResult.ManualInitialFailureMechanismResultSectionProbability, targetResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(originResult.FurtherAnalysisNeeded, targetResult.FurtherAnalysisNeeded);
