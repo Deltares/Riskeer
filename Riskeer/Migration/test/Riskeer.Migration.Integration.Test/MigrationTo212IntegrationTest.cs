@@ -102,6 +102,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
                     
                     AssertPipingStructureFailureMechanismSectionResults(reader, sourceFilePath);
+                    AssertDuneErosionFailureMechanismSectionResults(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -1023,6 +1024,11 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateOutput);
         }
 
+        private static void AssertDuneErosionFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNonAdoptableFailureMechanismSectionResults(reader, "DuneErosionSectionResultEntity", sourceFilePath);
+        }
+        
         #endregion
 
         #region MacroStabilityInwards

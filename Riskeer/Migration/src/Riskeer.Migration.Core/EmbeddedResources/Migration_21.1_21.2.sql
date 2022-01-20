@@ -72,7 +72,24 @@ SELECT
     [FailureMechanismEntityId],
     [N]
 FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
-INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
+INSERT INTO DuneErosionSectionResultEntity (
+    [DuneErosionSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [NonAdoptableInitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability]
+)
+SELECT
+    [DuneErosionSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    0,
+    NULL
+FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
 INSERT INTO FailureMechanismEntity (
     [FailureMechanismEntityId],
