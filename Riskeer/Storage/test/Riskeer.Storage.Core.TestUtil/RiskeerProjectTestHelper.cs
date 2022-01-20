@@ -179,7 +179,7 @@ namespace Riskeer.Storage.Core.TestUtil
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
             SetSections(duneErosionFailureMechanism);
-            SetSectionResults(duneErosionFailureMechanism.SectionResultsOld);
+            SetSectionResults(duneErosionFailureMechanism.SectionResults);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
@@ -352,19 +352,6 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             var random = new Random(39);
             foreach (MicrostabilityFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(39);
-            foreach (PipingStructureFailureMechanismSectionResultOld sectionResult in sectionResults)
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
@@ -776,20 +763,6 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (StabilityPointStructuresFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyProbability = random.NextDouble();
-            }
-        }
-
         #endregion
 
         #region ClosingStructures FailureMechanism
@@ -886,20 +859,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "Closing structures B"
             });
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
-        }
-
-        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (ClosingStructuresFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyProbability = random.NextDouble();
-            }
         }
 
         #endregion
@@ -1990,26 +1949,6 @@ namespace Riskeer.Storage.Core.TestUtil
                         OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
                     }
                 });
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(21);
-            var firstSectionResultHasCalculation = false;
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityCalculationResultType>();
-                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyProbability = random.NextDouble();
-
-                if (!firstSectionResultHasCalculation)
-                {
-                    firstSectionResultHasCalculation = true;
-                }
-            }
         }
 
         #endregion

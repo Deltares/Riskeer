@@ -305,8 +305,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.PipingStructure.SectionResults,
                 actualAssessmentSection.PipingStructure.SectionResults);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.DuneErosion.SectionResultsOld,
-                actualAssessmentSection.DuneErosion.SectionResultsOld);
+                expectedAssessmentSection.DuneErosion.SectionResults,
+                actualAssessmentSection.DuneErosion.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.StabilityStoneCover.SectionResultsOld,
                 actualAssessmentSection.StabilityStoneCover.SectionResultsOld);
@@ -1050,26 +1050,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);
             AssertDuneLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<DuneErosionFailureMechanismSectionResultOld> expectedSectionResults,
-            IEnumerable<DuneErosionFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-                                     });
         }
 
         private static void AssertDuneLocations(IEnumerable<DuneLocation> expectedDuneLocations,
