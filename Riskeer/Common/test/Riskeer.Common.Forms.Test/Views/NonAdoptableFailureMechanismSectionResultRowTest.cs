@@ -101,7 +101,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<NonAdoptableFailureMechanismSectionResult>>(row);
                 Assert.AreEqual(result.IsRelevant, row.IsRelevant);
-                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResult);
+                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
@@ -138,11 +138,11 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void InitialFailureMechanismResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void InitialFailureMechanismResultType_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             const NonAdoptableInitialFailureMechanismResultType newValue = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.InitialFailureMechanismResult = newValue,
+                row => row.InitialFailureMechanismResultType = newValue,
                 result => result.InitialFailureMechanismResultType,
                 newValue);
         }
@@ -331,7 +331,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
+                row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
                 var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
@@ -364,7 +364,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
+                row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
                 const string expectedErrorText = "Message";
@@ -398,7 +398,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
+                row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
@@ -466,8 +466,8 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true, false)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false, true)]
-        public void Constructor_WithInitialFailureMechanismResult_ExpectedColumnStates(NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
-                                                                                       bool isEnabled, bool isReadOnly)
+        public void Constructor_WithInitialFailureMechanismResultType_ExpectedColumnStates(NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
+                                                                                           bool isEnabled, bool isReadOnly)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -516,8 +516,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
-        public void Constructor_WithAssemblyGroupsSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                           Color expectedBackgroundColor)
+        public void Constructor_WithAssemblyGroupSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                          Color expectedBackgroundColor)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

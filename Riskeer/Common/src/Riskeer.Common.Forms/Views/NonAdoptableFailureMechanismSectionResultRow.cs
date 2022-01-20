@@ -97,9 +97,9 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the initial failure mechanism result.
+        /// Gets or sets the initial failure mechanism result type.
         /// </summary>
-        public NonAdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
+        public NonAdoptableInitialFailureMechanismResultType InitialFailureMechanismResultType
         {
             get => SectionResult.InitialFailureMechanismResultType;
             set
@@ -187,7 +187,7 @@ namespace Riskeer.Common.Forms.Views
             try
             {
                 AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    assessmentSection, IsRelevant, InitialFailureMechanismResult,
+                    assessmentSection, IsRelevant, InitialFailureMechanismResultType,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                     SectionResult.RefinedSectionProbability);
             }
@@ -213,7 +213,7 @@ namespace Riskeer.Common.Forms.Views
         {
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
 
-            if (!IsRelevant || InitialFailureMechanismResult == NonAdoptableInitialFailureMechanismResultType.NoFailureProbability)
+            if (!IsRelevant || InitialFailureMechanismResultType == NonAdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }

@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Views
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<NonAdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
-                nameof(NonAdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResult));
+                nameof(NonAdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,
