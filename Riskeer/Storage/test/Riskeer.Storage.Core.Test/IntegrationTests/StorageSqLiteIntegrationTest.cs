@@ -308,8 +308,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.DuneErosion.SectionResults,
                 actualAssessmentSection.DuneErosion.SectionResults);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.StabilityStoneCover.SectionResultsOld,
-                actualAssessmentSection.StabilityStoneCover.SectionResultsOld);
+                expectedAssessmentSection.StabilityStoneCover.SectionResults,
+                actualAssessmentSection.StabilityStoneCover.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.StabilityPointStructures.SectionResults,
                 actualAssessmentSection.StabilityPointStructures.SectionResults);
@@ -442,6 +442,24 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
                                          Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
                                          Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
+                                     });
+        }
+        
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.IsRelevant, actualItem.IsRelevant);
+                                         Assert.AreEqual(expectedItem.InitialFailureMechanismResult, actualItem.InitialFailureMechanismResult);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultProfileProbability, actualItem.ManualInitialFailureMechanismResultProfileProbability);
+                                         Assert.AreEqual(expectedItem.ManualInitialFailureMechanismResultSectionProbability, actualItem.ManualInitialFailureMechanismResultSectionProbability);
+                                         Assert.AreEqual(expectedItem.FurtherAnalysisNeeded, actualItem.FurtherAnalysisNeeded);
+                                         Assert.AreEqual(expectedItem.RefinedProfileProbability, actualItem.RefinedProfileProbability);
                                          Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
                                      });
         }
@@ -806,22 +824,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> expectedSectionResults,
-                                                                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
-                                     });
-        }
-
         private static void AssertStabilityPointStructures(StructureCollection<StabilityPointStructure> expectedStabilityPointStructures,
                                                            StructureCollection<StabilityPointStructure> actualStabilityPointStructures)
         {
@@ -938,22 +940,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertClosingStructures(expectedFailureMechanism.ClosingStructures, actualFailureMechanism.ClosingStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-        }
-
-        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> expectedSectionResults,
-                                                                 IEnumerable<ClosingStructuresFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
-                                     });
         }
 
         private static void AssertClosingStructures(StructureCollection<ClosingStructure> expectedClosingStructures,
@@ -1744,23 +1730,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> expectedSectionResults,
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
-                                     });
-        }
-
         private static void AssertGrassCoverErosionInwardsCalculationScenario(GrassCoverErosionInwardsCalculationScenario expectedCalculation,
                                                                               GrassCoverErosionInwardsCalculationScenario actualCalculation)
         {
@@ -1925,25 +1894,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-        }
-
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> expectedSectionResults,
-                                                                 IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-                                     });
         }
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation,

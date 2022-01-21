@@ -156,7 +156,7 @@ namespace Riskeer.Storage.Core.TestUtil
             AddForeshoreProfiles(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
             ConfigureStabilityStoneCoverFailureMechanism(stabilityStoneCoverFailureMechanism, assessmentSection);
             SetSections(stabilityStoneCoverFailureMechanism);
-            SetSectionResults(stabilityStoneCoverFailureMechanism.SectionResultsOld);
+            SetSectionResults(stabilityStoneCoverFailureMechanism.SectionResults);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             AddForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
@@ -615,6 +615,22 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.InitialFailureMechanismResult = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
+                sectionResult.RefinedSectionProbability = random.NextDouble();
+            }
+        }
+        
+        private static void SetSectionResults(IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                sectionResult.IsRelevant = random.NextBoolean();
+                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
+                sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
+                sectionResult.RefinedProfileProbability = random.NextDouble();
                 sectionResult.RefinedSectionProbability = random.NextDouble();
             }
         }
@@ -2209,23 +2225,6 @@ namespace Riskeer.Storage.Core.TestUtil
                         new WaveConditionsOutput(9, 8, 7, 6, 5, 0.4, 0.3, 0.2, 0.1, CalculationConvergence.NotCalculated)
                     })
                 });
-        }
-
-        private static void SetSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (StabilityStoneCoverFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            }
         }
 
         #endregion
