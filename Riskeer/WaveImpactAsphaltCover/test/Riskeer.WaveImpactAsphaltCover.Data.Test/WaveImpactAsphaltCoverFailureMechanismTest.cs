@@ -51,8 +51,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]

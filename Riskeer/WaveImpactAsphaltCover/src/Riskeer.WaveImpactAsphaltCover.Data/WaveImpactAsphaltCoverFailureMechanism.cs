@@ -35,9 +35,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
@@ -45,7 +46,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code, 3)
         {
-            sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -75,31 +77,21 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public CalculationGroup WaveConditionsCalculationGroup { get; }
 
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                return WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-            }
-        }
+        public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
 
-        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
