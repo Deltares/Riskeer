@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
-            Assert.AreEqual(Convert.ToByte(initialFailureMechanismResultType), entity.AdoptableInitialFailureMechanismResultType);
+            Assert.AreEqual(Convert.ToByte(initialFailureMechanismResultType), entity.InitialFailureMechanismResultType);
             Assert.AreEqual(manualProfileProbability, entity.ManualInitialFailureMechanismResultProfileProbability);
             Assert.AreEqual(manualSectionProbability, entity.ManualInitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(Convert.ToByte(furtherAnalysisNeeded), entity.FurtherAnalysisNeeded);

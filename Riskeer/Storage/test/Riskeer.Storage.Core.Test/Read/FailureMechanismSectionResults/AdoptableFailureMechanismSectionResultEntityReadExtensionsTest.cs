@@ -72,7 +72,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             var entity = new TestAdoptableFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                AdoptableInitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
+                InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
                 FurtherAnalysisNeeded = Convert.ToByte(furtherAnalysisNeeded),
                 RefinedSectionProbability = refinedSectionProbability

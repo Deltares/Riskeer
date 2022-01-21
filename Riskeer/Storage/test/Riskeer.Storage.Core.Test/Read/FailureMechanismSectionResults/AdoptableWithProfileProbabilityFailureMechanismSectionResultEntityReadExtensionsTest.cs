@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             var entity = new PipingSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
-                AdoptableInitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
+                InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
                 ManualInitialFailureMechanismResultProfileProbability = manualProfileProbability,
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
                 FurtherAnalysisNeeded = Convert.ToByte(furtherAnalysisNeeded),

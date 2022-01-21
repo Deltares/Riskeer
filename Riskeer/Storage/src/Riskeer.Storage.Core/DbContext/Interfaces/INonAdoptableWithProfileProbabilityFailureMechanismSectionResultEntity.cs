@@ -19,19 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.Storage.Core.DbContext;
-
-namespace Riskeer.Storage.Core.TestUtil.FailureMechanismResults
+namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Simple implementation of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> that can be used in tests.
+    /// Interface for a failure mechanism section result entity with a non-adoptable initial failure mechanism result type.
     /// </summary>
-    public class TestAdoptableFailureMechanismSectionResultEntity : IAdoptableFailureMechanismSectionResultEntity
+    public interface INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity : INonAdoptableFailureMechanismSectionResultEntity
     {
-        public byte IsRelevant { get; set; }
-        public byte InitialFailureMechanismResultType { get; set; }
-        public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
-        public byte FurtherAnalysisNeeded { get; set; }
-        public double? RefinedSectionProbability { get; set; }
+        /// <summary>
+        /// Gets or sets the value of the manual initial failure mechanism result per profile as a probability.
+        /// </summary>
+        double? ManualInitialFailureMechanismResultProfileProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the refined probability per profile.
+        /// </summary>
+        double? RefinedProfileProbability { get; set; }
     }
 }

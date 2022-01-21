@@ -34,7 +34,7 @@ namespace Riskeer.Storage.Core.DbContext
         /// <summary>
         /// Gets or sets the type of the initial failure mechanism result.
         /// </summary>
-        byte NonAdoptableInitialFailureMechanismResultType { get; set; }
+        byte InitialFailureMechanismResultType { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
