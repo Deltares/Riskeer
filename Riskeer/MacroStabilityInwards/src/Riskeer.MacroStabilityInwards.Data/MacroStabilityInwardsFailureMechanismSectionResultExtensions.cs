@@ -24,27 +24,29 @@ using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Helpers;
-using Riskeer.Common.Data.Probability;
 
-namespace Riskeer.GrassCoverErosionInwards.Data
+namespace Riskeer.MacroStabilityInwards.Data
 {
     /// <summary>
-    /// Extension methods for obtaining initial failure mechanism result probabilities
-    /// from output for an assessment of the grass cover erosion inwards failure mechanism.
+    /// Extension methods for obtaining probabilities for a section result
+    /// of the macro stability inwards failure mechanism.
     /// </summary>
-    public static class GrassCoverErosionInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensions
+    public static class MacroStabilityInwardsFailureMechanismSectionResultExtensions
     {
         /// <summary>
-        /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
+        /// Gets the value for the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
         /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
+        /// <param name="modelFactor">The model factor used to calculate a reliability from a stability factor.</param>
         /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
-        /// contribution of the relevant calculations don't add up to 1.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// contributions of the relevant calculations don't add up to 1.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/>
+        /// or <paramref name="calculationScenarios"/> is <c>null</c>.</exception>
         public static double GetInitialFailureMechanismResultProbability(this AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                         IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
+                                                                         IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
+                                                                         double modelFactor)
         {
             if (sectionResult == null)
             {
@@ -56,10 +58,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            GrassCoverErosionInwardsCalculationScenario[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<GrassCoverErosionInwardsCalculationScenario>(
-                                                                                               calculationScenarios,
-                                                                                               (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments))
-                                                                                           .ToArray();
+            MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<MacroStabilityInwardsCalculationScenario>(
+                                                                                            calculationScenarios,
+                                                                                            (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
+                                                                                        .ToArray();
 
             if (!CalculationScenarioHelper.ScenariosAreValid(relevantScenarios))
             {
@@ -67,10 +69,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             }
 
             double totalInitialFailureMechanismResult = 0;
-            foreach (GrassCoverErosionInwardsCalculationScenario scenario in relevantScenarios)
+            foreach (MacroStabilityInwardsCalculationScenario scenario in relevantScenarios)
             {
-                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.OvertoppingOutput.Reliability);
-                totalInitialFailureMechanismResult += derivedOutput.Probability * (double) scenario.Contribution;
+                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output, modelFactor);
+                totalInitialFailureMechanismResult += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
             }
 
             return totalInitialFailureMechanismResult;

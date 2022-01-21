@@ -51,8 +51,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]
@@ -72,6 +75,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
             Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
+
+            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
+            Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
 
         [Test]
@@ -94,12 +100,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]

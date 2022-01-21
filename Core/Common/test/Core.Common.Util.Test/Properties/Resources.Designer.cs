@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -127,15 +127,6 @@ namespace Core.Common.Util.Test.Properties {
         internal static string ClassStringResource {
             get {
                 return ResourceManager.GetString("ClassStringResource", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Display name.
-        /// </summary>
-        internal static string EnumDisplayWrapperTest_DisplayNameValueDisplayName {
-            get {
-                return ResourceManager.GetString("EnumDisplayWrapperTest_DisplayNameValueDisplayName", resourceCulture);
             }
         }
         

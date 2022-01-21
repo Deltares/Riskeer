@@ -24,28 +24,28 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Data;
+using Riskeer.StabilityStoneCover.Data;
 
-namespace Riskeer.DuneErosion.Forms.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
-    /// for the <see cref="DuneErosionFailureMechanism"/>.
+    /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
+    /// for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class DuneErosionFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
         /// of <see cref="NonAdoptableFailureMechanismSectionResult"/> to wrap.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/>
+        /// <param name="failureMechanism">The <see cref="StabilityStoneCoverFailureMechanism"/>
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneErosionFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> wrappedSectionResults,
-                                                               DuneErosionFailureMechanism failureMechanism,
-                                                               IAssessmentSection assessmentSection)
+        public StabilityStoneCoverFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+                                                                       IFailureMechanism failureMechanism,
+                                                                       IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
 }

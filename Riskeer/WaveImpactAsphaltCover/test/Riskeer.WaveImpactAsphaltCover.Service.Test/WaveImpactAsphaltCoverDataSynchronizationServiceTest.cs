@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Service;
 using Riskeer.Revetment.Data;
@@ -126,6 +128,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
                                                               .Concat(failureMechanism.SectionResultsOld)
+                                                              .Concat(failureMechanism.SectionResults)
                                                               .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
                                                               .ToArray();
@@ -138,13 +141,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(4, array.Length);
+            Assert.AreEqual(5, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
 
@@ -153,7 +158,24 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
         private static WaveImpactAsphaltCoverFailureMechanism CreateFullyConfiguredFailureMechanism()
         {
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(-1, 0),
+                new Point2D(2, 0)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(2, 0),
+                new Point2D(4, 0)
+            });
+            
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            failureMechanism.SetSections(new[]
+            {
+                section1,
+                section2
+            }, "some/path/to/sections");
+            
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();

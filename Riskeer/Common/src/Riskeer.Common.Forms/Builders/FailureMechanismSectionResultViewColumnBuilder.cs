@@ -96,13 +96,13 @@ namespace Riskeer.Common.Forms.Builders
 
         /// <summary>
         /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
-        /// <see cref="AdoptableInitialFailureMechanismResultType"/>.
+        /// dropdown with items of <typeparamref name="T"/>.
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
-        /// <typeparam name="T">The type of the initial failure mechanism result enum.</typeparam>
+        /// <typeparam name="T">The initial failure mechanism result type enum.</typeparam>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddInitialFailureMechanismResultColumn<T>(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddInitialFailureMechanismResultTypeColumn<T>(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {

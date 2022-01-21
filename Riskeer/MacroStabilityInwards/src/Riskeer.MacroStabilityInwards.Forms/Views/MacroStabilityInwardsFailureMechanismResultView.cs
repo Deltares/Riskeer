@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     public class MacroStabilityInwardsFailureMechanismResultView : FailureMechanismResultView<AdoptableWithProfileProbabilityFailureMechanismSectionResult,
         AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, MacroStabilityInwardsFailureMechanism>
     {
-        private const int initialFailureMechanismResultIndex = 2;
+        private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
         private const int furtherAnalysisNeededIndex = 5;
@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 assessmentSection,
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
-                    InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
+                    InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
                     FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
@@ -144,9 +144,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.IsRelevant));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResult));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultProfileProbabilityColumn(
                 DataGridViewControl,

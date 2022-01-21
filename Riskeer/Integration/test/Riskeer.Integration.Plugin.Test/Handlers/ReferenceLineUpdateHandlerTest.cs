@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 213;
+        private const int expectedNumberOfRemovedInstances = 217;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(68, observables.Length);
+            Assert.AreEqual(70, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -249,8 +249,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
@@ -259,8 +261,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.Sections);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);

@@ -80,11 +80,13 @@ namespace Riskeer.StabilityStoneCover.Data
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new StabilityStoneCoverFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }

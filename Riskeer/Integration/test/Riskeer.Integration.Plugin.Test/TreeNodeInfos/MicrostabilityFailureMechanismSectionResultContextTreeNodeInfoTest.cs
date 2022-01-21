@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -80,13 +79,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsName()
         {
             // Setup
-            var mechanism = new MicrostabilityFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(mechanism.SectionResultsOld,
-                                                                                                                mechanism);
             using (plugin)
             {
                 // Call
-                string text = info.Text(context);
+                string text = info.Text(null);
 
                 // Assert
                 Assert.AreEqual("Resultaat", text);
@@ -94,7 +90,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Setup
             using (plugin)

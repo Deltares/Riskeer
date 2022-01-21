@@ -34,7 +34,7 @@ using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensionsTest
+    public class PipingFailureMechanismSectionResultExtensionsTest
     {
         #region Probabilistic
 
@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.Test
         public void ProbabilisticGetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
+            void Call() => PipingFailureMechanismSectionResultExtensions.GetInitialFailureMechanismResultProbability(
                 null, Enumerable.Empty<ProbabilisticPipingCalculationScenario>(), scenario => null);
 
             // Assert
@@ -248,7 +248,7 @@ namespace Riskeer.Piping.Data.Test
         public void SemiProbabilisticGetInitialFailureMechanismResultProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingFailureMechanismSectionResultInitialFailureMechanismResultExtensions.GetInitialFailureMechanismResultProbability(
+            void Call() => PipingFailureMechanismSectionResultExtensions.GetInitialFailureMechanismResultProbability(
                 null, Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(), 0.1);
 
             // Assert

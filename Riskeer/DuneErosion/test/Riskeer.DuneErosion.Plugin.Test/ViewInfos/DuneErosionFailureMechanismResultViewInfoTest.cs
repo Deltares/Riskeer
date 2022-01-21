@@ -63,7 +63,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
+        public void GetViewData_WithContext_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();

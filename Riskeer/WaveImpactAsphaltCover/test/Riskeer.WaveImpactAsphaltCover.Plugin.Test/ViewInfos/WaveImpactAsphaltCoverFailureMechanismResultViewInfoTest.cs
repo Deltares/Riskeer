@@ -27,10 +27,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 {
@@ -46,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveImpactAsphaltCoverFailureMechanismResultViewOld));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>));
         }
 
         [TearDown]
@@ -59,20 +58,20 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>), info.ViewDataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
+        public void GetViewData_WithContext_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResultsOld,
+            var context = new WaveImpactAsphaltCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);
 
@@ -80,7 +79,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
+            Assert.AreSame(failureMechanism.SectionResults, viewData);
             mocks.VerifyAll();
         }
 
@@ -104,7 +103,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -131,7 +132,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -157,7 +160,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -173,9 +178,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -183,15 +193,22 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new WaveImpactAsphaltCoverFailureMechanism());
@@ -199,6 +216,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -211,7 +230,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -235,7 +256,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            using (var view = new WaveImpactAsphaltCoverFailureMechanismResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => double.NaN, fm => true))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -255,8 +278,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResultsOld,
+            var context = new WaveImpactAsphaltCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);
 
@@ -264,7 +287,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismResultViewOld>(view);
+            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }

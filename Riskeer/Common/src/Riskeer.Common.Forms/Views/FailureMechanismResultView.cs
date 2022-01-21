@@ -276,7 +276,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                return FailurePathAssemblyResultFactory.AssemblyFailurePath(GetN(), sectionResultRows.Select(r => r.AssemblyResult));
+                return FailurePathAssemblyResultFactory.AssembleFailurePath(GetN(), sectionResultRows.Select(r => r.AssemblyResult));
             }
             catch (AssemblyException e)
             {

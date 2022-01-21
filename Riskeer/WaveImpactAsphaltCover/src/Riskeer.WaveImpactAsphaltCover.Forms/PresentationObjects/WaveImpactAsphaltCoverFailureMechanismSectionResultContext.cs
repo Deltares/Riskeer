@@ -24,28 +24,28 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
-namespace Riskeer.DuneErosion.Forms.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
-    /// for the <see cref="DuneErosionFailureMechanism"/>.
+    /// for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class DuneErosionFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
         /// of <see cref="NonAdoptableFailureMechanismSectionResult"/> to wrap.</param>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/>
+        /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneErosionFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> wrappedSectionResults,
-                                                               DuneErosionFailureMechanism failureMechanism,
-                                                               IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+                                                                          WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
 }

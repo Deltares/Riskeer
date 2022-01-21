@@ -21,17 +21,13 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Data;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
@@ -39,31 +35,25 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultContextTreeNodeInfoTest
     {
-        private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismSectionResultContext));
         }
 
         [TearDown]
         public void TearDown()
         {
             plugin.Dispose();
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Assert
             Assert.IsNotNull(info.Text);
             Assert.IsNull(info.ForeColor);
@@ -88,25 +78,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsName()
         {
-            // Setup
-            mocks.ReplayAll();
-
-            var mechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(mechanism.SectionResultsOld, mechanism);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
-            // Setup
-            mocks.ReplayAll();
-
             // Call
             Image image = info.Image(null);
 
@@ -118,19 +99,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var section = new FailureMechanismSection("A",
-                                                      new[]
-                                                      {
-                                                          new Point2D(0, 0)
-                                                      });
-            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResultOld(section);
-            var sectionResultContext = new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
-                new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>
-                {
-                    sectionResult
-                }, failureMechanism);
-
+            var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
@@ -138,18 +107,18 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(sectionResultContext, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(sectionResultContext, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewControl);
             }
 
             // Assert
-            // Assert expectancies are called in TearDown()
+            mocks.VerifyAll();
         }
     }
 }

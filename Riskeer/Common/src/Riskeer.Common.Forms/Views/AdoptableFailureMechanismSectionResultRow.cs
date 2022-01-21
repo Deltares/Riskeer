@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public class AdoptableFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<AdoptableFailureMechanismSectionResult>
     {
-        private readonly int initialFailureMechanismResultIndex;
+        private readonly int initialFailureMechanismResultTypeIndex;
         private readonly int initialFailureMechanismResultSectionProbabilityIndex;
         private readonly int furtherAnalysisNeededIndex;
         private readonly int refinedSectionProbabilityIndex;
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.Views
             this.initialFailureMechanismResultErrorProvider = initialFailureMechanismResultErrorProvider;
             this.assessmentSection = assessmentSection;
 
-            initialFailureMechanismResultIndex = constructionProperties.InitialFailureMechanismResultIndex;
+            initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
             furtherAnalysisNeededIndex = constructionProperties.FurtherAnalysisNeededIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
@@ -118,14 +118,14 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the initial failure mechanism result.
+        /// Gets or sets the initial failure mechanism result type.
         /// </summary>
-        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResultType
         {
-            get => SectionResult.InitialFailureMechanismResult;
+            get => SectionResult.InitialFailureMechanismResultType;
             set
             {
-                SectionResult.InitialFailureMechanismResult = value;
+                SectionResult.InitialFailureMechanismResultType = value;
                 UpdateInternalData();
             }
         }
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double InitialFailureMechanismResultSectionProbability
         {
-            get => SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt
+            get => SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt
                        ? calculateInitialFailureMechanismResultProbabilityFunc()
                        : SectionResult.ManualInitialFailureMechanismResultSectionProbability;
             set
@@ -165,12 +165,12 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public object RefinedSectionProbability
+        public double RefinedSectionProbability
         {
             get => SectionResult.RefinedSectionProbability;
             set
             {
-                SectionResult.RefinedSectionProbability = (double) value;
+                SectionResult.RefinedSectionProbability = value;
                 UpdateInternalData();
             }
         }
@@ -188,29 +188,32 @@ namespace Riskeer.Common.Forms.Views
 
         public override void Update()
         {
-            UpdateDerivedData();
+            UpdateAssemblyData();
             UpdateColumnStateDefinitions();
             UpdateInitialFailureMechanismResultErrors();
         }
 
         private void UpdateInitialFailureMechanismResultErrors()
         {
-            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt)
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt)
             {
                 ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
                     calculateInitialFailureMechanismResultProbabilityFunc);
             }
+            else
+            {
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+            }
         }
 
-        private void UpdateDerivedData()
+        private void UpdateAssemblyData()
         {
-            ResetErrorTexts();
+            ResetAssemblyResultErrorTexts();
             TryGetAssemblyResult();
         }
 
-        private void ResetErrorTexts()
+        private void ResetAssemblyResultErrorTexts()
         {
-            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[sectionProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[assemblyGroupIndex].ErrorText = string.Empty;
         }
@@ -220,7 +223,7 @@ namespace Riskeer.Common.Forms.Views
             try
             {
                 AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                    assessmentSection, IsRelevant, InitialFailureMechanismResult,
+                    assessmentSection, IsRelevant, InitialFailureMechanismResultType,
                     InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
                     SectionResult.RefinedSectionProbability);
             }
@@ -234,7 +237,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(initialFailureMechanismResultIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(initialFailureMechanismResultTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
@@ -244,16 +247,16 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateColumnStateDefinitions()
         {
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultIndex], !IsRelevant);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[initialFailureMechanismResultTypeIndex], !IsRelevant);
 
-            if (!IsRelevant || InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
+            if (!IsRelevant || InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.NoFailureProbability)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex],
-                                               InitialFailureMechanismResult == AdoptableInitialFailureMechanismResultType.Adopt);
+                                               InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt);
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);
@@ -273,9 +276,9 @@ namespace Riskeer.Common.Forms.Views
         public class ConstructionProperties
         {
             /// <summary>
-            /// Sets the initial failure mechanism result index.
+            /// Sets the initial failure mechanism result type index.
             /// </summary>
-            public int InitialFailureMechanismResultIndex { internal get; set; }
+            public int InitialFailureMechanismResultTypeIndex { internal get; set; }
 
             /// <summary>
             /// Sets the initial failure mechanism result section probability index.

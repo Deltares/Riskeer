@@ -26,27 +26,25 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Helpers;
 using Riskeer.Common.Data.Probability;
 
-namespace Riskeer.Common.Data.Structures
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
-    /// Extension methods for obtaining initial failure mechanism result probabilities
-    /// from output for an assessment of a structures failure mechanism.
+    /// Extension methods for obtaining probabilities for a section result
+    /// of the grass cover erosion inwards failure mechanism.
     /// </summary>
-    public static class StructuresFailureMechanismSectionResultInitialFailureMechanismResultExtensions
+    public static class GrassCoverErosionInwardsFailureMechanismSectionResultExtensions
     {
         /// <summary>
-        /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
+        /// Gets the value for the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
         /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
-        /// <typeparam name="T">The type of the structure which can be assigned to the calculation.</typeparam>
         /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
-        /// contribution of the relevant calculations don't add up to 1.</returns>
+        /// contributions of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetInitialFailureMechanismResultProbability<T>(this AdoptableFailureMechanismSectionResult sectionResult,
-                                                                            IEnumerable<StructuresCalculationScenario<T>> calculationScenarios)
-            where T : IStructuresCalculationInput<StructureBase>, new()
+        public static double GetInitialFailureMechanismResultProbability(this AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+                                                                         IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
             {
@@ -58,10 +56,10 @@ namespace Riskeer.Common.Data.Structures
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            StructuresCalculationScenario<T>[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<StructuresCalculationScenario<T>>(
-                                                                                    calculationScenarios,
-                                                                                    (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments))
-                                                                                .ToArray();
+            GrassCoverErosionInwardsCalculationScenario[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<GrassCoverErosionInwardsCalculationScenario>(
+                                                                                               calculationScenarios,
+                                                                                               (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments))
+                                                                                           .ToArray();
 
             if (!CalculationScenarioHelper.ScenariosAreValid(relevantScenarios))
             {
@@ -69,9 +67,9 @@ namespace Riskeer.Common.Data.Structures
             }
 
             double totalInitialFailureMechanismResult = 0;
-            foreach (StructuresCalculationScenario<T> scenario in relevantScenarios)
+            foreach (GrassCoverErosionInwardsCalculationScenario scenario in relevantScenarios)
             {
-                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.Reliability);
+                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.OvertoppingOutput.Reliability);
                 totalInitialFailureMechanismResult += derivedOutput.Probability * (double) scenario.Contribution;
             }
 

@@ -20,26 +20,35 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 
-namespace Riskeer.Common.Data.Test.FailureMechanism
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class AdoptableFailureMechanismSectionResultTest
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var sectionResult = new AdoptableFailureMechanismSectionResult(section);
+            var context = new WaveImpactAsphaltCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
-            Assert.AreEqual(AdoptableInitialFailureMechanismResultType.Adopt, sectionResult.InitialFailureMechanismResultType);
+            Assert.IsInstanceOf<ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
+            mocks.VerifyAll();
         }
     }
 }

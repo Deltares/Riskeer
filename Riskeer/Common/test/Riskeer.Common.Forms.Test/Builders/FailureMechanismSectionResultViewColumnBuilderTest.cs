@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -169,10 +170,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         #region Initial Failure Mechanism Result
 
         [Test]
-        public void AddInitialFailureMechanismResultColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddInitialFailureMechanismResultTypeColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<TestEnum>(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -180,10 +181,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddInitialFailureMechanismResultColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddInitialFailureMechanismResultTypeColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<TestEnum>(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -191,7 +192,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddInitialFailureMechanismResultColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddInitialFailureMechanismResultTypeColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -205,7 +206,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<TestEnum>(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
@@ -216,8 +217,8 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<AdoptableInitialFailureMechanismResultType>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<AdoptableInitialFailureMechanismResultType>[]) columnData.DataSource);
+                IEnumerable<EnumDisplayWrapper<TestEnum>> expectedDataSource = CreateExpectedEnumDisplayWrappers<TestEnum>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<TestEnum>[]) columnData.DataSource);
             }
         }
 

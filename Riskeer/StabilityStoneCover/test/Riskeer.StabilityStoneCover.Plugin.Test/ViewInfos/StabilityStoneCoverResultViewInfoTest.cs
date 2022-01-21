@@ -27,10 +27,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.Views;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 {
@@ -46,7 +45,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverResultViewOld));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>));
         }
 
         [TearDown]
@@ -59,26 +58,26 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedFailureMechanismResult()
+        public void GetViewData_WithContext_ReturnsWrappedFailureMechanismResult()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResultsOld, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
+            Assert.AreSame(failureMechanism.SectionResults, viewData);
             mocks.VerifyAll();
         }
 
@@ -103,15 +102,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -129,15 +130,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -154,24 +157,30 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -179,15 +188,21 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityStoneCoverFailureMechanism());
@@ -195,8 +210,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
-        
+
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
@@ -207,15 +224,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -228,15 +247,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var context = new StabilityStoneCoverFailurePathContext(new StabilityStoneCoverFailureMechanism(), assessmentSection);
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            using (var view = new StabilityStoneCoverResultViewOld(failureMechanism.SectionResultsOld, failureMechanism))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -247,16 +268,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResultsOld,
-                failureMechanism,
-                assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StabilityStoneCoverResultViewOld>(view);
+            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }

@@ -33,12 +33,12 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         public AdoptableFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
-            InitialFailureMechanismResult = AdoptableInitialFailureMechanismResultType.Adopt;
+            InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Adopt;
         }
 
         /// <summary>
-        /// Gets or sets the adoptable initial failure mechanism result.
+        /// Gets or sets the adoptable initial failure mechanism result type.
         /// </summary>
-        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResult { get; set; }
+        public AdoptableInitialFailureMechanismResultType InitialFailureMechanismResultType { get; set; }
     }
 }

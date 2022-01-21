@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.Views
         where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
-        private const int initialFailureMechanismResultIndex = 2;
+        private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
         private const int furtherAnalysisNeededIndex = 4;
         private const int refinedSectionProbabilityIndex = 5;
@@ -114,7 +114,7 @@ namespace Riskeer.Common.Forms.Views
                 assessmentSection,
                 new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
-                    InitialFailureMechanismResultIndex = initialFailureMechanismResultIndex,
+                    InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
                     FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
@@ -146,9 +146,9 @@ namespace Riskeer.Common.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableFailureMechanismSectionResultRow.IsRelevant));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultColumn<AdoptableInitialFailureMechanismResultType>(
+            FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultTypeColumn<AdoptableInitialFailureMechanismResultType>(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResult));
+                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddInitialFailureMechanismResultSectionProbabilityColumn(
                 DataGridViewControl,

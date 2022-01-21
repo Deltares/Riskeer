@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = isRelevant,
-                InitialFailureMechanismResult = initialFailureMechanismResultType,
+                InitialFailureMechanismResultType = initialFailureMechanismResultType,
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
                 FurtherAnalysisNeeded = furtherAnalysisNeeded,
                 RefinedSectionProbability = refinedSectionProbability

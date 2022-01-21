@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure path could not be successfully assembled.</exception>
-        public static double AssemblyFailurePath(double failurePathN,
+        public static double AssembleFailurePath(double failurePathN,
                                                  IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults)
         {
             if (failureMechanismSectionAssemblyResults == null)

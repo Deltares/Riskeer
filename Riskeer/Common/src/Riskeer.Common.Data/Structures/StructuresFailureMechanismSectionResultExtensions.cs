@@ -24,29 +24,29 @@ using System.Collections.Generic;
 using System.Linq;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Helpers;
+using Riskeer.Common.Data.Probability;
 
-namespace Riskeer.MacroStabilityInwards.Data
+namespace Riskeer.Common.Data.Structures
 {
     /// <summary>
-    /// Extension methods for obtaining initial failure mechanism result probabilities
-    /// from output for an assessment of the macro stability inwards failure mechanism.
+    /// Extension methods for obtaining probabilities for a section result
+    /// of a structures failure mechanism.
     /// </summary>
-    public static class MacroStabilityInwardsFailureMechanismSectionResultInitialFailureMechanismResultExtensions
+    public static class StructuresFailureMechanismSectionResultExtensions
     {
         /// <summary>
-        /// Gets the value for the initial failure mechanism result of safety per failure mechanism section as a probability.
+        /// Gets the value for the initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the initial failure mechanism result probability for.</param>
         /// <param name="calculationScenarios">All probabilistic calculation scenarios in the failure mechanism.</param>
-        /// <param name="modelFactor">The model factor used to calculate a reliability from a stability factor.</param>
+        /// <typeparam name="T">The type of the structure which can be assigned to the calculation.</typeparam>
         /// <returns>The calculated initial failure mechanism result probability; or <see cref="double.NaN"/> when there
         /// are no relevant calculations, when not all relevant calculations are performed or when the
-        /// contribution of the relevant calculations don't add up to 1.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/>
-        /// or <paramref name="calculationScenarios"/> is <c>null</c>.</exception>
-        public static double GetInitialFailureMechanismResultProbability(this AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                         IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
-                                                                         double modelFactor)
+        /// contributions of the relevant calculations don't add up to 1.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static double GetInitialFailureMechanismResultProbability<T>(this AdoptableFailureMechanismSectionResult sectionResult,
+                                                                            IEnumerable<StructuresCalculationScenario<T>> calculationScenarios)
+            where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (sectionResult == null)
             {
@@ -58,10 +58,10 @@ namespace Riskeer.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<MacroStabilityInwardsCalculationScenario>(
-                                                                                            calculationScenarios,
-                                                                                            (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments))
-                                                                                        .ToArray();
+            StructuresCalculationScenario<T>[] relevantScenarios = sectionResult.GetRelevantCalculationScenarios<StructuresCalculationScenario<T>>(
+                                                                                    calculationScenarios,
+                                                                                    (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments))
+                                                                                .ToArray();
 
             if (!CalculationScenarioHelper.ScenariosAreValid(relevantScenarios))
             {
@@ -69,10 +69,10 @@ namespace Riskeer.MacroStabilityInwards.Data
             }
 
             double totalInitialFailureMechanismResult = 0;
-            foreach (MacroStabilityInwardsCalculationScenario scenario in relevantScenarios)
+            foreach (StructuresCalculationScenario<T> scenario in relevantScenarios)
             {
-                DerivedMacroStabilityInwardsOutput derivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(scenario.Output, modelFactor);
-                totalInitialFailureMechanismResult += derivedOutput.MacroStabilityInwardsProbability * (double) scenario.Contribution;
+                ProbabilityAssessmentOutput derivedOutput = ProbabilityAssessmentOutputFactory.Create(scenario.Output.Reliability);
+                totalInitialFailureMechanismResult += derivedOutput.Probability * (double) scenario.Contribution;
             }
 
             return totalInitialFailureMechanismResult;

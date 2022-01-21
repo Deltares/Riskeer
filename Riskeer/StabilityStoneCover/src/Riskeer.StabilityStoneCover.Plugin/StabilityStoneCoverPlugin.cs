@@ -34,6 +34,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -42,6 +43,7 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util.Helpers;
@@ -106,16 +108,16 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 CloseForData = CloseFailurePathViewForData
             };
 
-            yield return new RiskeerViewInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>,
-                IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld>,
-                StabilityStoneCoverResultViewOld>(() => Gui)
+            yield return new RiskeerViewInfo<StabilityStoneCoverFailureMechanismSectionResultContext,
+                IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new StabilityStoneCoverResultViewOld(
-                    context.WrappedData,
-                    (StabilityStoneCoverFailureMechanism) context.FailureMechanism)
+                CreateInstance = context => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
+                    context.WrappedData, (StabilityStoneCoverFailureMechanism) context.FailureMechanism, context.AssessmentSection,
+                    fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection)
             };
 
             yield return new RiskeerViewInfo<StabilityStoneCoverWaveConditionsInputContext,
@@ -173,7 +175,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>>
+            yield return new TreeNodeInfo<StabilityStoneCoverFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -254,7 +256,10 @@ namespace Riskeer.StabilityStoneCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
+                StabilityStoneCoverFailureMechanismSectionsContext,
+                StabilityStoneCoverFailureMechanism,
+                StabilityStoneCoverFailureMechanismSectionResultOld,
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -269,15 +274,14 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private static bool CloseFailurePathViewForData(StabilityStoneCoverFailurePathView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityStoneCoverResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism> view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 
@@ -293,7 +297,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion
@@ -398,8 +402,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResultsOld, failureMechanism),
+                new StabilityStoneCoverFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }
@@ -451,17 +454,14 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as StabilityStoneCoverWaveConditionsCalculation;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is StabilityStoneCoverWaveConditionsCalculation calculation)
                 {
                     childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                                  nodeData.WrappedData,
                                                                                                  nodeData.FailureMechanism,
                                                                                                  nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
                                                                                                       nodeData.WrappedData,

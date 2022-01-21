@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private static NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
             new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
             {
-                InitialFailureMechanismResultIndex = 2,
+                InitialFailureMechanismResultTypeIndex = 2,
                 InitialFailureMechanismResultSectionProbabilityIndex = 3,
                 FurtherAnalysisNeededIndex = 4,
                 RefinedSectionProbabilityIndex = 5,
@@ -101,7 +101,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<NonAdoptableFailureMechanismSectionResult>>(row);
                 Assert.AreEqual(result.IsRelevant, row.IsRelevant);
-                Assert.AreEqual(result.InitialFailureMechanismResult, row.InitialFailureMechanismResult);
+                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
                 Assert.AreEqual(6, columnStateDefinitions.Count);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultTypeIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisNeededIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
@@ -138,12 +138,12 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void InitialFailureMechanismResult_SetNewValue_NotifyObserversAndPropertyChanged()
+        public void InitialFailureMechanismResultType_SetNewValue_NotifyObserversAndPropertyChanged()
         {
             const NonAdoptableInitialFailureMechanismResultType newValue = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.InitialFailureMechanismResult = newValue,
-                result => result.InitialFailureMechanismResult,
+                row => row.InitialFailureMechanismResultType = newValue,
+                result => result.InitialFailureMechanismResultType,
                 newValue);
         }
 
@@ -278,7 +278,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssemblyRan_ReturnCategoryGroups()
+        public void Constructor_AssemblyRan_ReturnsAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -299,7 +299,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
                 FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
-                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, rowAssemblyResult);
+                Assert.AreSame(calculatorOutput, row.AssemblyResult);
 
                 Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
@@ -327,14 +327,19 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Precondition
                 FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
-                AssertFailureMechanismSectionAssemblyResult(calculatorOutput, row.AssemblyResult);
+                Assert.AreSame(calculatorOutput, row.AssemblyResult);
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
+                row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
-                AssertFailureMechanismSectionAssemblyResult(new DefaultFailureMechanismSectionAssemblyResult(), row.AssemblyResult);
+                var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
+                FailureMechanismSectionAssemblyResult actualAssemblyResult = row.AssemblyResult;
+                Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
+                Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
+                Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
+                Assert.AreEqual(expectedAssemblyResult.AssemblyGroup, actualAssemblyResult.AssemblyGroup);
             }
         }
 
@@ -359,7 +364,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
+                row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
                 const string expectedErrorText = "Message";
@@ -393,21 +398,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // When
                 calculator.ThrowExceptionOnCalculate = false;
-                row.InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
+                row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
                 // Then
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }
-        }
-
-        private static void AssertFailureMechanismSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
-                                                                        FailureMechanismSectionAssemblyResult actual)
-        {
-            Assert.AreEqual(expected.N, actual.N);
-            Assert.AreEqual(expected.SectionProbability, actual.SectionProbability);
-            Assert.AreEqual(expected.ProfileProbability, actual.ProfileProbability);
-            Assert.AreEqual(expected.AssemblyGroup, actual.AssemblyGroup);
         }
 
         #endregion
@@ -445,7 +441,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 IsRelevant = isRelevant,
                 FurtherAnalysisNeeded = true,
-                InitialFailureMechanismResult = NonAdoptableInitialFailureMechanismResultType.Manual
+                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.Manual
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -457,7 +453,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultIndex], isRelevant);
+                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultTypeIndex], isRelevant);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
@@ -470,14 +466,14 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true, false)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false, true)]
-        public void Constructor_WithInitialFailureMechanismResult_ExpectedColumnStates(NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
-                                                                                       bool isEnabled, bool isReadOnly)
+        public void Constructor_WithInitialFailureMechanismResultType_ExpectedColumnStates(NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType,
+                                                                                           bool isEnabled, bool isReadOnly)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
-                InitialFailureMechanismResult = initialFailureMechanismResultType
+                InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -520,8 +516,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
-        public void Constructor_WithAssemblyGroupsSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                           Color expectedBackgroundColor)
+        public void Constructor_WithAssemblyGroupSet_ExpectedColumnStates(FailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                          Color expectedBackgroundColor)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
