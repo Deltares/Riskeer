@@ -31,7 +31,8 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -124,9 +125,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>),
-                    typeof(WaveImpactAsphaltCoverFailureMechanismResultViewOld));
+                    typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -157,7 +158,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverHydraulicLoadsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyWaveImpactAsphaltCoverOutput)));
