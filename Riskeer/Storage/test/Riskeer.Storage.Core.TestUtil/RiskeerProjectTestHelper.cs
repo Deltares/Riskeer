@@ -626,7 +626,7 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.IsRelevant = random.NextBoolean();
-                sectionResult.InitialFailureMechanismResult = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
+                sectionResult.InitialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
                 sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();

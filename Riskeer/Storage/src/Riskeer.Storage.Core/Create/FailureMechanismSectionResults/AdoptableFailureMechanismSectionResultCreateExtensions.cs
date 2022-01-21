@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
             return new T
             {
                 IsRelevant = Convert.ToByte(result.IsRelevant),
-                InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResult),
+                InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResultType),
                 ManualInitialFailureMechanismResultSectionProbability = result.ManualInitialFailureMechanismResultSectionProbability.ToNaNAsNull(),
                 FurtherAnalysisNeeded = Convert.ToByte(result.FurtherAnalysisNeeded),
                 RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
