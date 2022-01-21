@@ -90,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             double initialFailureMechanismResultProbability = failureMechanismSectionResult.GetInitialFailureMechanismResultProbability(calculations, 1.1);
 
             // Assert
-            Assert.AreEqual(0.99052414832077185, initialFailureMechanismResultProbability, 1e-8);
+            Assert.AreEqual(0.99052414832077185, initialFailureMechanismResultProbability);
         }
 
         [Test]
