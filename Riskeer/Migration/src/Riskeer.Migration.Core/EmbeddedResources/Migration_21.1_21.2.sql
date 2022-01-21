@@ -509,7 +509,28 @@ SELECT
     [N],
     0
 FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
-INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
+INSERT INTO StabilityStoneCoverSectionResultEntity (
+    [StabilityStoneCoverSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [StabilityStoneCoverSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity (
     [StabilityStoneCoverWaveConditionsCalculationEntityId],
     [CalculationGroupEntityId],
