@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,7 +38,7 @@ namespace Riskeer.DuneErosion.Forms.PresentationObjects
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
-        /// of <see cref="AdoptableFailureMechanismSectionResult"/> to wrap.</param>
+        /// of <see cref="NonAdoptableFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/>
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
