@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.StabilityStoneCover.Data;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.StabilityStoneCover
@@ -43,7 +45,7 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         internal static FailureMechanismEntity Create(this StabilityStoneCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StabilityStoneRevetment, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
@@ -53,12 +55,12 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                StabilityStoneCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<StabilityStoneCoverSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
             }

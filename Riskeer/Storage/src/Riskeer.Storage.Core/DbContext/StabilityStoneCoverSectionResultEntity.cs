@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class StabilityStoneCoverSectionResultEntity
+    public partial class StabilityStoneCoverSectionResultEntity
     {
         public long StabilityStoneCoverSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
