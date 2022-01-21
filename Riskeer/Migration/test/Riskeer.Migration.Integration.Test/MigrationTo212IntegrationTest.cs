@@ -103,6 +103,7 @@ namespace Riskeer.Migration.Integration.Test
                     
                     AssertPipingStructureFailureMechanismSectionResults(reader, sourceFilePath);
                     AssertDuneErosionFailureMechanismSectionResults(reader, sourceFilePath);
+                    AssertStabilityStoneCoverSectionResults(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -1067,6 +1068,15 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
+        #region StabilityStoneCover
+
+        private static void AssertStabilityStoneCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "StabilityStoneCoverSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
         #region FailureMechanismSectionResults
 
         private static void AssertAdoptableFailureMechanismSectionResults(MigratedDatabaseReader reader,
@@ -1084,7 +1094,7 @@ namespace Riskeer.Migration.Integration.Test
                 $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[IsRelevant] = 1 " +
-                "AND NEW.[AdoptableInitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[FurtherAnalysisNeeded] = 0 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL; " +
@@ -1108,7 +1118,7 @@ namespace Riskeer.Migration.Integration.Test
                 $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[IsRelevant] = 1 " +
-                "AND NEW.[AdoptableInitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
                 "AND NEW.[FurtherAnalysisNeeded] = 0 " +
@@ -1135,10 +1145,36 @@ namespace Riskeer.Migration.Integration.Test
                 $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[IsRelevant] = 1 " +
-                "AND NEW.[NonAdoptableInitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[FurtherAnalysisNeeded] = 0 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
+        }
+        
+        private static void AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(MigratedDatabaseReader reader,
+                                                                                                string failureMechanismSectionResultEntityName,
+                                                                                                string sourceFilePath)
+        {
+            string validateFailureMechanismSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                $"FROM SOURCEPROJECT.{failureMechanismSectionResultEntityName} " +
+                ") " +
+                $"FROM {failureMechanismSectionResultEntityName} NEW " +
+                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[IsRelevant] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
+                "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
+                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[RefinedSectionProbability] IS NULL " +
+                "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
