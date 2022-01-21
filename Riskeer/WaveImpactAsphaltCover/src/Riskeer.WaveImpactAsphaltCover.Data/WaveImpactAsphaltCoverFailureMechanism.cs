@@ -87,11 +87,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new WaveImpactAsphaltCoverFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }
