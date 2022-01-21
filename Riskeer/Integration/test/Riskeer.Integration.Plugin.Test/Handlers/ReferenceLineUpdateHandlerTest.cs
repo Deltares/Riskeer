@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(69, observables.Length);
+            Assert.AreEqual(70, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -249,8 +249,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);

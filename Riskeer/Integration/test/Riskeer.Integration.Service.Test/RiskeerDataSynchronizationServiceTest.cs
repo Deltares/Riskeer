@@ -1671,7 +1671,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(69, changedObjects.Length);
+            Assert.AreEqual(70, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1698,6 +1698,7 @@ namespace Riskeer.Integration.Service.Test
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(changedObjects, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
@@ -1892,7 +1893,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
+            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLine<WaveImpactAsphaltCoverFailureMechanism>(failureMechanism))
             {
                 yield return failureMechanismObject;
             }
