@@ -192,7 +192,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(21);
 
-            const AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType = (AdoptableInitialFailureMechanismResultType) 99;
+            const NonAdoptableInitialFailureMechanismResultType initialFailureMechanismResultType = (NonAdoptableInitialFailureMechanismResultType) 99;
 
             // Call
             void Call() => FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
@@ -200,7 +200,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 random.NextDouble(), random.NextBoolean(), random.NextDouble());
 
             // Assert
-            var expectedMessage = $"The value of argument 'initialFailureMechanismResultType' ({initialFailureMechanismResultType}) is invalid for Enum type '{nameof(AdoptableInitialFailureMechanismResultType)}'.";
+            var expectedMessage = $"The value of argument 'initialFailureMechanismResultType' ({initialFailureMechanismResultType}) is invalid for Enum type '{nameof(NonAdoptableInitialFailureMechanismResultType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 

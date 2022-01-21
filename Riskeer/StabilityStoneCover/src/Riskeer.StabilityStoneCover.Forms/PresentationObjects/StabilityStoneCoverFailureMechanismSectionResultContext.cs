@@ -38,7 +38,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
-        /// of <see cref="AdoptableFailureMechanismSectionResult"/> to wrap.</param>
+        /// of <see cref="NonAdoptableFailureMechanismSectionResult"/> to wrap.</param>
         /// <param name="failureMechanism">The <see cref="StabilityStoneCoverFailureMechanism"/>
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
