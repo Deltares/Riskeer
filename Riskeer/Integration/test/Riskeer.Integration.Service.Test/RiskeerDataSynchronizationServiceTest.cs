@@ -1671,7 +1671,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(71, changedObjects.Length);
+            Assert.AreEqual(72, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1758,6 +1758,7 @@ namespace Riskeer.Integration.Service.Test
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism.SectionResults);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism);

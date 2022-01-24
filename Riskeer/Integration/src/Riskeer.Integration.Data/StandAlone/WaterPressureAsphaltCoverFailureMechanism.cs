@@ -33,10 +33,11 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Water Pressure on Asphalt failure mechanism.
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanism : FailureMechanismBase,
-                                                             IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>,
+                                                             IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                              IHasGeneralInput
     {
-        private readonly ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
@@ -44,7 +45,8 @@ namespace Riskeer.Integration.Data.StandAlone
         public WaterPressureAsphaltCoverFailureMechanism()
             : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             GeneralInput = new GeneralInput();
         }
 
@@ -58,23 +60,19 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new WaterPressureAsphaltCoverFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
