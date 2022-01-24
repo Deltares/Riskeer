@@ -162,7 +162,7 @@ namespace Riskeer.Storage.Core.TestUtil
             AddForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
             ConfigureWaveImpactAsphaltCoverFailureMechanism(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
             SetSections(waveImpactAsphaltCoverFailureMechanism);
-            SetSectionResults(waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
+            SetSectionResults(waveImpactAsphaltCoverFailureMechanism.SectionResults);
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
@@ -2337,23 +2337,6 @@ namespace Riskeer.Storage.Core.TestUtil
                         new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
                     })
                 });
-        }
-
-        private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(37);
-            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            }
         }
 
         #endregion

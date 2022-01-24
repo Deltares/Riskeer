@@ -645,7 +645,28 @@ SELECT
     [DeltaL],
     0
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
-INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
+INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
+[WaveImpactAsphaltCoverSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [WaveImpactAsphaltCoverSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity (
     [WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
     [CalculationGroupEntityId],

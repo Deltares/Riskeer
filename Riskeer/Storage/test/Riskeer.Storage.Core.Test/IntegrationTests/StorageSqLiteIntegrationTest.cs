@@ -287,8 +287,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.MacroStabilityInwards.SectionResults,
                 actualAssessmentSection.MacroStabilityInwards.SectionResults);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.WaveImpactAsphaltCover.SectionResultsOld,
-                actualAssessmentSection.WaveImpactAsphaltCover.SectionResultsOld);
+                expectedAssessmentSection.WaveImpactAsphaltCover.SectionResults,
+                actualAssessmentSection.WaveImpactAsphaltCover.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.GrassCoverErosionOutwards.SectionResultsOld,
                 actualAssessmentSection.GrassCoverErosionOutwards.SectionResultsOld);
@@ -1933,23 +1933,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-        }
-
-        private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> expectedSectionResults,
-                                                                 IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults, actualSectionResults, (expectedItem, actualItem) =>
-            {
-                Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedSignalingNorm, actualItem.DetailedAssessmentResultForFactorizedSignalingNorm);
-                Assert.AreEqual(expectedItem.DetailedAssessmentResultForSignalingNorm, actualItem.DetailedAssessmentResultForSignalingNorm);
-                Assert.AreEqual(expectedItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, actualItem.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
-                Assert.AreEqual(expectedItem.DetailedAssessmentResultForLowerLimitNorm, actualItem.DetailedAssessmentResultForLowerLimitNorm);
-                Assert.AreEqual(expectedItem.DetailedAssessmentResultForFactorizedLowerLimitNorm, actualItem.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-                Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-            });
         }
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation,

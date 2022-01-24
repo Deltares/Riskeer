@@ -85,6 +85,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityStoneCoverCalculations(reader, sourceFilePath);
 
                     AssertWaveImpactAsphaltCoverCalculations(reader, sourceFilePath);
+                    AssertWaveImpactAsphaltCoverSectionResults(reader, sourceFilePath);
 
                     AssertWaveConditionCalculationOutputs(reader);
 
@@ -510,6 +511,11 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateOtherCalculations);
         }
+        
+        private static void AssertWaveImpactAsphaltCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "WaveImpactAsphaltCoverSectionResultEntity", sourceFilePath);
+        }
 
         #endregion
 
@@ -524,7 +530,7 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "StabilityStoneCoverWaveConditionsOutputEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "WaveImpactAsphaltCoverWaveConditionsOutputEntity"));
         }
-
+        
         #endregion
 
         #region StandAlone
