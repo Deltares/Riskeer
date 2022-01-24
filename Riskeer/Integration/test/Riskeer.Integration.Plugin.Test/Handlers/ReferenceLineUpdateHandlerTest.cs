@@ -242,6 +242,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
