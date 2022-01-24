@@ -329,10 +329,6 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new FailureMechanismSectionAssemblyCategoriesProperties(context.GetFailureMechanismSectionAssemblyCategoriesFunc())
             };
-            yield return new PropertyInfo<AssemblyResultCategoriesContext, AssemblyResultCategoriesProperties>
-            {
-                CreateInstance = context => new AssemblyResultCategoriesProperties(context.GetAssemblyCategoriesFunc(), context.WrappedData)
-            };
             yield return new PropertyInfo<StructuresOutputContext, StructuresOutputProperties>
             {
                 CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
