@@ -1143,7 +1143,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<MicrostabilityFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
@@ -2505,7 +2505,7 @@ namespace Riskeer.Integration.Plugin
                                        GetMicrostabilityFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetMicrostabilityFailurePathOutputs(nodeData.WrappedData),
+                                       GetMicrostabilityFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
@@ -2519,13 +2519,12 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetMicrostabilityFailurePathOutputs(MicrostabilityFailureMechanism nodeData)
+        private static IEnumerable<object> GetMicrostabilityFailurePathOutputs(MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData),
-                nodeData.InAssemblyOutputComments
+                new MicrostabilityFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.InAssemblyOutputComments
             };
         }
 
