@@ -34,6 +34,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -264,7 +265,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
+                GrassCoverErosionOutwardsFailureMechanismSectionsContext, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new GrassCoverErosionOutwardsFailureMechanismSectionResultUpdateStrategy());
         }
 
