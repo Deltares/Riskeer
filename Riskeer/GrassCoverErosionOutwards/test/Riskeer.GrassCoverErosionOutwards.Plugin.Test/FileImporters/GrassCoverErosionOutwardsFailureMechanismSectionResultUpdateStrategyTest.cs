@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.FileImporters
             return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = true,
-                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.Manual,
+                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 FurtherAnalysisNeeded = true,
