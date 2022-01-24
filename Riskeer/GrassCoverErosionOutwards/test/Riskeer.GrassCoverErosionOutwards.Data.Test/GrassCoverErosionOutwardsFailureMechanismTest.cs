@@ -34,13 +34,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
     public class GrassCoverErosionOutwardsFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Grasbekleding erosie buitentalud", failureMechanism.Name);
             Assert.AreEqual("GEBU", failureMechanism.Code);
             Assert.AreEqual(3, failureMechanism.Group);
@@ -51,6 +52,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]
