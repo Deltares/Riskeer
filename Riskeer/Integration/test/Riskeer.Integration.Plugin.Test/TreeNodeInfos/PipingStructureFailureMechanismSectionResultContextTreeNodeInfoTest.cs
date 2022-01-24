@@ -28,7 +28,7 @@ using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos

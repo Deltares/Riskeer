@@ -39,7 +39,6 @@ using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 

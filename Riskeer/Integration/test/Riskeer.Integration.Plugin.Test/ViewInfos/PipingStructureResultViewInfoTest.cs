@@ -30,7 +30,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {

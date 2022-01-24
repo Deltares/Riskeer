@@ -26,7 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
 
-namespace Riskeer.Integration.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
