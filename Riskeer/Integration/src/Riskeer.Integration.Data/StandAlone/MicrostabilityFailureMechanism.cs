@@ -67,11 +67,13 @@ namespace Riskeer.Integration.Data.StandAlone
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new MicrostabilityFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }

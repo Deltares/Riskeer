@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 219;
+        private const int expectedNumberOfRemovedInstances = 221;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -345,8 +345,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, microstabilityFailureMechanism);
             CollectionAssert.Contains(observables, microstabilityFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, microstabilityFailureMechanism.SectionResults);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);

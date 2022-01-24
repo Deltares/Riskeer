@@ -1754,6 +1754,7 @@ namespace Riskeer.Integration.Service.Test
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism);
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism.SectionResults);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.Contains(changedObjects, waterPressureAsphaltCoverFailureMechanism);
@@ -1789,7 +1790,7 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.MacroStabilityOutwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.Microstability));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Microstability));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityStoneCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaveImpactAsphaltCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.WaterPressureAsphaltCover));
