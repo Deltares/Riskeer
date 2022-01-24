@@ -45,8 +45,11 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             Assert.AreEqual("Dijken en dammen - Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AWO", failureMechanism.Code);
             Assert.AreEqual(4, failureMechanism.Group);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNotNull(failureMechanism.GeneralInput);
+
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]

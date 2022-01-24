@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(71, observables.Length);
+            Assert.AreEqual(72, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -351,8 +351,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);
             CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism.SectionResults);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.Sections);
