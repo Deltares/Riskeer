@@ -419,25 +419,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen voor dit traject.
-        /// </summary>
-        public static string FailureMechanismAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategories_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen voor dit traject en toetsspoor..
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_D" +
-                        "escription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De categoriegrenzen per vak voor dit toetsspoor..
         /// </summary>
         public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description {
