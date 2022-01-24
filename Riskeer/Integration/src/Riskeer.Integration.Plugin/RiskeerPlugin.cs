@@ -626,16 +626,6 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
-                                                                                       context.AssessmentSection,
-                                                                                       context.GetFailureMechanismCategoriesFunc,
-                                                                                       context.GetFailureMechanismSectionAssemblyCategoriesFunc)
-            };
-
             yield return new RiskeerViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
@@ -1322,7 +1312,7 @@ namespace Riskeer.Integration.Plugin
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc)
-            where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult> 
+            where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
             where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
