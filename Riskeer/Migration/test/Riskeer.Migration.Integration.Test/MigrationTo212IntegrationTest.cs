@@ -101,7 +101,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertStrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
-                    
+
                     AssertPipingStructureFailureMechanismSectionResults(reader, sourceFilePath);
                     AssertDuneErosionFailureMechanismSectionResults(reader, sourceFilePath);
                     AssertStabilityStoneCoverSectionResults(reader, sourceFilePath);
@@ -348,6 +348,88 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionEntity);
         }
 
+        #region WaveConditions
+
+        private static void AssertWaveConditionCalculationOutputs(MigratedDatabaseReader reader)
+        {
+            const string validateOutputQueryFormat =
+                "SELECT COUNT() = 0 " +
+                "FROM [{0}]; ";
+            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "GrassCoverErosionOutwardsWaveConditionsOutputEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "StabilityStoneCoverWaveConditionsOutputEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "WaveImpactAsphaltCoverWaveConditionsOutputEntity"));
+        }
+
+        #endregion
+
+        #region MacroStabilityOutwards
+
+        private static void AssertMacroStabilityOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateFailureMechanismEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.MacroStabilityOutwardsFailureMechanismMetaEntity " +
+                ") " +
+                "FROM MacroStabilityOutwardsFailureMechanismMetaEntity NEW " +
+                "JOIN SOURCEPROJECT.MacroStabilityOutwardsFailureMechanismMetaEntity OLD USING(MacroStabilityOutwardsFailureMechanismMetaEntityId) " +
+                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
+                "AND NEW.[A] IS OLD.[A] " +
+                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards
+
+        private static void AssertMacroStabilityInwardsFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "MacroStabilityInwardsSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
+        #region HeightStructures
+
+        private static void AssertHeightStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertAdoptableFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
+        #region ClosingStructures
+
+        private static void AssertClosingStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertAdoptableFailureMechanismSectionResults(reader, "ClosingStructuresSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
+        #region StabilityPointStructures
+
+        private static void AssertStabilityPointStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertAdoptableFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
+        #region StabilityStoneCover
+
+        private static void AssertStabilityStoneCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "StabilityStoneCoverSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
         #region StabilityStoneCover
 
         private static void AssertStabilityStoneCoverFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
@@ -511,26 +593,12 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateOtherCalculations);
         }
-        
+
         private static void AssertWaveImpactAsphaltCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "WaveImpactAsphaltCoverSectionResultEntity", sourceFilePath);
         }
 
-        #endregion
-
-        #region WaveConditions
-
-        private static void AssertWaveConditionCalculationOutputs(MigratedDatabaseReader reader)
-        {
-            const string validateOutputQueryFormat =
-                "SELECT COUNT() = 0 " +
-                "FROM [{0}]; ";
-            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "GrassCoverErosionOutwardsWaveConditionsOutputEntity"));
-            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "StabilityStoneCoverWaveConditionsOutputEntity"));
-            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "WaveImpactAsphaltCoverWaveConditionsOutputEntity"));
-        }
-        
         #endregion
 
         #region StandAlone
@@ -964,29 +1032,6 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
-        #region MacroStabilityOutwards
-
-        private static void AssertMacroStabilityOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateFailureMechanismEntity =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
-                "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.MacroStabilityOutwardsFailureMechanismMetaEntity " +
-                ") " +
-                "FROM MacroStabilityOutwardsFailureMechanismMetaEntity NEW " +
-                "JOIN SOURCEPROJECT.MacroStabilityOutwardsFailureMechanismMetaEntity OLD USING(MacroStabilityOutwardsFailureMechanismMetaEntityId) " +
-                "WHERE NEW.[FailureMechanismEntityId] = OLD.[FailureMechanismEntityId] " +
-                "AND NEW.[A] IS OLD.[A] " +
-                "AND NEW.[ApplyLengthEffectInSection] = 0;" +
-                "DETACH SOURCEPROJECT;";
-
-            reader.AssertReturnedDataIsValid(validateFailureMechanismEntity);
-        }
-
-        #endregion
-
         #region DuneErosion
 
         private static void AssertDuneErosionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1034,51 +1079,6 @@ namespace Riskeer.Migration.Integration.Test
         private static void AssertDuneErosionFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableFailureMechanismSectionResults(reader, "DuneErosionSectionResultEntity", sourceFilePath);
-        }
-        
-        #endregion
-
-        #region MacroStabilityInwards
-
-        private static void AssertMacroStabilityInwardsFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            AssertAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "MacroStabilityInwardsSectionResultEntity", sourceFilePath);
-        }
-
-        #endregion
-
-        #region HeightStructures
-
-        private static void AssertHeightStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            AssertAdoptableFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity", sourceFilePath);
-        }
-
-        #endregion
-
-        #region ClosingStructures
-
-        private static void AssertClosingStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            AssertAdoptableFailureMechanismSectionResults(reader, "ClosingStructuresSectionResultEntity", sourceFilePath);
-        }
-
-        #endregion
-
-        #region StabilityPointStructures
-
-        private static void AssertStabilityPointStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            AssertAdoptableFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity", sourceFilePath);
-        }
-
-        #endregion
-
-        #region StabilityStoneCover
-
-        private static void AssertStabilityStoneCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "StabilityStoneCoverSectionResultEntity", sourceFilePath);
         }
 
         #endregion
@@ -1159,10 +1159,10 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionResults);
         }
-        
+
         private static void AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(MigratedDatabaseReader reader,
-                                                                                                string failureMechanismSectionResultEntityName,
-                                                                                                string sourceFilePath)
+                                                                                                   string failureMechanismSectionResultEntityName,
+                                                                                                   string sourceFilePath)
         {
             string validateFailureMechanismSectionResults =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
