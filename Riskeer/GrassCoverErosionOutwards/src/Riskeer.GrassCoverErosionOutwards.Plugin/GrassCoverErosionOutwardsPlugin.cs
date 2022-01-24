@@ -43,6 +43,7 @@ using Riskeer.Common.Forms.ImportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util.Helpers;
@@ -126,16 +127,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>,
-                IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>,
-                GrassCoverErosionOutwardsFailureMechanismResultViewOld>(() => Gui)
+                GrassCoverErosionOutwardsFailureMechanismSectionResultContext,
+                IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new GrassCoverErosionOutwardsFailureMechanismResultViewOld(
-                    context.WrappedData,
-                    (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism)
+                CreateInstance = context => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
+                    context.WrappedData, (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection,
+                    fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection)
             };
 
             yield return new RiskeerViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
@@ -273,15 +274,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private static bool CloseFailurePathViewForData(GrassCoverErosionOutwardsFailurePathView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
 
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultViewOld view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism> view,
+                                                                   object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
 
@@ -297,7 +298,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion
@@ -456,17 +457,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as GrassCoverErosionOutwardsWaveConditionsCalculation;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
                 {
                     childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                                        nodeData.WrappedData,
                                                                                                        nodeData.FailureMechanism,
                                                                                                        nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                             nodeData.WrappedData,
