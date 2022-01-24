@@ -25,9 +25,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
-namespace Riskeer.Integration.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
 {
     [TestFixture]
     public class PipingStructureFailureMechanismSectionResultContextTest

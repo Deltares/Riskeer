@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Forms.PresentationObjects;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.TestUtil;
 
