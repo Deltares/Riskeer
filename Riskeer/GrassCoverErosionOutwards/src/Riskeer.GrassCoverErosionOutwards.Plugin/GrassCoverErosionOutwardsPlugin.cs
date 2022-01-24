@@ -174,7 +174,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 WaveConditionsCalculationContextOnNodeRemoved,
                 CalculationType.Hydraulic);
 
-            yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>>
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -404,8 +404,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
-                    failureMechanism.SectionResultsOld, failureMechanism),
+                new GrassCoverErosionOutwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
         }
