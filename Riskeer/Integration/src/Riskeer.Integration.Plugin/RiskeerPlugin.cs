@@ -846,7 +846,7 @@ namespace Riskeer.Integration.Plugin
                 new TechnicalInnovationFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
+                WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
 
             yield return new UpdateInfo<SpecificFailurePathSectionsContext>
