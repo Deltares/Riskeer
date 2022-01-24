@@ -540,12 +540,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismAssemblyCategoriesContextBase),
-                    typeof(IFailureMechanism),
-                    typeof(FailureMechanismAssemblyCategoriesView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
                     typeof(MacroStabilityOutwardsAssemblyCategoriesContext),
                     typeof(MacroStabilityOutwardsFailureMechanism),
                     typeof(MacroStabilityOutwardsAssemblyCategoriesView));
