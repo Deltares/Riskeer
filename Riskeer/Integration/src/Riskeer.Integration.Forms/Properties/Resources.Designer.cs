@@ -401,16 +401,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen per vak voor dit toetsspoor..
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCateg" +
-                        "ories_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Heeft vakindeling.
         /// </summary>
         public static string FailureMechanismMergeDataRow_HasSections_DisplayName {
