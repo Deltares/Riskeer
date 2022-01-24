@@ -23,6 +23,8 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
@@ -43,7 +45,7 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         internal static FailureMechanismEntity Create(this WaveImpactAsphaltCoverFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.WaveImpactOnAsphaltRevetment, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
@@ -52,12 +54,12 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (WaveImpactAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<WaveImpactAsphaltCoverSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
             }

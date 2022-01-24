@@ -22,8 +22,8 @@
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Partial implementation of <see cref="StabilityStoneCoverSectionResultEntity"/> that implements 
+    /// Partial implementation of <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> that implements 
     /// <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public partial class StabilityStoneCoverSectionResultEntity : INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity {}
+    public partial class WaveImpactAsphaltCoverSectionResultEntity : INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity {}
 }

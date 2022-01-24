@@ -30,7 +30,7 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class WaveImpactAsphaltCoverSectionResultEntity
+    public partial class WaveImpactAsphaltCoverSectionResultEntity
     {
         public long WaveImpactAsphaltCoverSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
