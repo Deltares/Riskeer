@@ -487,9 +487,9 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld>),
-                    typeof(MicrostabilityResultViewOld));
+                    typeof(MicrostabilityFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
