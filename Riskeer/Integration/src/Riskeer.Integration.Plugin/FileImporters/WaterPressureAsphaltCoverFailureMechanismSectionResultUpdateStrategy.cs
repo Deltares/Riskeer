@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 
@@ -30,7 +31,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     /// from an old <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> instance.
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy
-        : IFailureMechanismSectionResultUpdateStrategy<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>
+        : IFailureMechanismSectionResultUpdateStrategy<WaterPressureAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         public void UpdateSectionResultOld(WaterPressureAsphaltCoverFailureMechanismSectionResultOld origin, WaterPressureAsphaltCoverFailureMechanismSectionResultOld target)
         {
@@ -48,6 +49,27 @@ namespace Riskeer.Integration.Plugin.FileImporters
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;
             target.UseManualAssembly = origin.UseManualAssembly;
             target.ManualAssemblyCategoryGroup = origin.ManualAssemblyCategoryGroup;
+        }
+
+        public void UpdateSectionResult(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult origin, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult target)
+        {
+            if (origin == null)
+            {
+                throw new ArgumentNullException(nameof(origin));
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            target.IsRelevant = origin.IsRelevant;
+            target.InitialFailureMechanismResultType = origin.InitialFailureMechanismResultType;
+            target.ManualInitialFailureMechanismResultProfileProbability = origin.ManualInitialFailureMechanismResultProfileProbability;
+            target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
+            target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
+            target.RefinedProfileProbability = origin.RefinedProfileProbability;
+            target.RefinedSectionProbability = origin.RefinedSectionProbability;
         }
     }
 }
