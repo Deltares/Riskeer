@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismSectionAssemblyCategory>>>(properties);
             Assert.AreSame(expectedFailureMechanismSectionCategories, properties.Data);
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
+            TestHelper.AssertTypeConverter<FailureMechanismSectionAssemblyCategoriesProperties, ExpandableArrayConverter>(
                 nameof(FailureMechanismSectionAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
 
             AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismSectionAssemblyCategoryProperties(

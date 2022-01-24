@@ -342,11 +342,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(FailureMechanismAssemblyCategoriesContext),
-                    typeof(FailureMechanismAssemblyCategoriesProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
                     typeof(MacroStabilityOutwardsAssemblyCategoriesContext),
                     typeof(FailureMechanismSectionAssemblyCategoriesProperties));
 

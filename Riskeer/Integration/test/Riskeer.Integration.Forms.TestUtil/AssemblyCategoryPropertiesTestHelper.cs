@@ -34,33 +34,6 @@ namespace Riskeer.Integration.Forms.TestUtil
     {
         /// <summary>
         /// Asserts whether the content of <paramref name="properties"/> equals the given
-        /// <paramref name="expectedFailureMechanismCategories"/> and <paramref name="expectedFailureMechanismSectionCategories"/>.
-        /// </summary>
-        /// <param name="expectedFailureMechanismCategories">The collection of expected <see cref="FailureMechanismAssemblyCategory"/>.</param>
-        /// <param name="expectedFailureMechanismSectionCategories">The collection of expected <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
-        /// <param name="properties">The actual <see cref="FailureMechanismAssemblyCategoriesProperties"/> to assert.</param>
-        /// <exception cref="AssertionException">Thrown when the content of <paramref name="properties"/> does not equal
-        /// <paramref name="expectedFailureMechanismCategories"/> and <paramref name="expectedFailureMechanismSectionCategories"/>.</exception>
-        public static void AssertFailureMechanismAndFailureMechanismSectionAssemblyCategoryProperties(
-            IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories,
-            IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories,
-            FailureMechanismAssemblyCategoriesProperties properties)
-        {
-            Assert.AreEqual(expectedFailureMechanismCategories.Count(), properties.FailureMechanismAssemblyCategories.Length);
-            for (var i = 0; i < expectedFailureMechanismCategories.Count(); i++)
-            {
-                FailureMechanismAssemblyCategory category = expectedFailureMechanismCategories.ElementAt(i);
-                FailureMechanismAssemblyCategoryProperties property = properties.FailureMechanismAssemblyCategories[i];
-                Assert.AreEqual(category.Group, property.Group);
-                Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
-            }
-
-            AssertFailureMechanismSectionAssemblyCategoryProperties(expectedFailureMechanismSectionCategories, properties);
-        }
-
-        /// <summary>
-        /// Asserts whether the content of <paramref name="properties"/> equals the given
         /// <paramref name="expectedFailureMechanismCategories"/>.
         /// </summary>
         /// <param name="expectedFailureMechanismCategories">The collection of expected <see cref="FailureMechanismAssemblyCategory"/>.</param>
