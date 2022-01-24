@@ -1433,24 +1433,6 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
     <data name="AssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen</value>
   </data>
-    <data name="CategoryProperties_Group_Description" xml:space="preserve">
-    <value>Naam van de categorie.</value>
-  </data>
-    <data name="CategoryProperties_Group_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
-    <data name="CategoryProperties_LowerBoundary_Description" xml:space="preserve">
-    <value>Ondergrens van de categorie.</value>
-  </data>
-    <data name="CategoryProperties_LowerBoundary_DisplayName" xml:space="preserve">
-    <value>Ondergrens [1/jaar]</value>
-  </data>
-    <data name="CategoryProperties_UpperBoundary_Description" xml:space="preserve">
-    <value>Bovengrens van de categorie.</value>
-  </data>
-    <data name="CategoryProperties_UpperBoundary_DisplayName" xml:space="preserve">
-    <value>Bovengrens [1/jaar]</value>
-  </data>
     <data name="AssemblyCategory_Color_DisplayName" xml:space="preserve">
     <value>Kleur</value>
   </data>
