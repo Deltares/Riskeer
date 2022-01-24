@@ -34,7 +34,7 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverResultViewInfoTest
+    public class StabilityStoneCoverFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
