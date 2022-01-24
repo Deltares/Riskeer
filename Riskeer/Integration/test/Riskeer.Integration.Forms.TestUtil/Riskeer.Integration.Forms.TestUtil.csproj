@@ -10,8 +10,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj"/>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
