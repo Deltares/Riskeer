@@ -32,10 +32,11 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Microstability failure mechanism.
     /// </summary>
-    public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResultOld>,
+    public class MicrostabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<MicrostabilityFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                   IHasGeneralInput
     {
-        private readonly ObservableList<MicrostabilityFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<MicrostabilityFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MicrostabilityFailureMechanism"/> class.
@@ -43,7 +44,8 @@ namespace Riskeer.Integration.Data.StandAlone
         public MicrostabilityFailureMechanism()
             : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<MicrostabilityFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<MicrostabilityFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             GeneralInput = new GeneralInput();
         }
 
@@ -57,23 +59,19 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<MicrostabilityFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new MicrostabilityFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new MicrostabilityFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }
