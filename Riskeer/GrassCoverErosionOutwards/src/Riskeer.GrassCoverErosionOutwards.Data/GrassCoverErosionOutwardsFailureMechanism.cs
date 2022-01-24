@@ -81,11 +81,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         {
             base.AddSectionDependentData(section);
             sectionResultsOld.Add(new GrassCoverErosionOutwardsFailureMechanismSectionResultOld(section));
+            sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
             sectionResultsOld.Clear();
+            sectionResults.Clear();
         }
     }
 }
