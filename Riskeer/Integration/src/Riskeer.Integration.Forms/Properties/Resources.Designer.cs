@@ -392,24 +392,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen voor de gecombineerde toetssporen in groep 1 en 2..
-        /// </summary>
-        public static string CategoryBoundariesGroupOneAndTwo_Description {
-            get {
-                return ResourceManager.GetString("CategoryBoundariesGroupOneAndTwo_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen groep 1 en 2.
-        /// </summary>
-        public static string CategoryBoundariesGroupOneAndTwo_DisplayName {
-            get {
-                return ResourceManager.GetString("CategoryBoundariesGroupOneAndTwo_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetsspoor.
         /// </summary>
         public static string FailureMechanism_Name_DisplayName {
@@ -479,24 +461,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string FailurePath_Name_Description {
             get {
                 return ResourceManager.GetString("FailurePath_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De gecombineerde faalkansruimte voor de toetssporen in groep 1 en 2..
-        /// </summary>
-        public static string FailureProbabilityMarginFactor_Description {
-            get {
-                return ResourceManager.GetString("FailureProbabilityMarginFactor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gecombineerde faalkansruimte.
-        /// </summary>
-        public static string FailureProbabilityMarginFactor_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureProbabilityMarginFactor_DisplayName", resourceCulture);
             }
         }
         
