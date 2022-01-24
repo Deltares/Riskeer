@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(28, propertyInfos.Length);
+                Assert.AreEqual(27, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -404,7 +404,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(34, viewInfos.Length);
+                Assert.AreEqual(33, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
