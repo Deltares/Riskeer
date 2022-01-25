@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
@@ -43,7 +45,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         internal static FailureMechanismEntity Create(this GrassCoverErosionOutwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
@@ -65,12 +67,12 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (GrassCoverErosionOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<GrassCoverErosionOutwardsSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
             }

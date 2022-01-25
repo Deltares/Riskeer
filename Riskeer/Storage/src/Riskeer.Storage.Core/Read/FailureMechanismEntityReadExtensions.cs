@@ -726,7 +726,7 @@ namespace Riskeer.Storage.Core.Read
             foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                GrassCoverErosionOutwardsFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(result);
             }
