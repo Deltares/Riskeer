@@ -31,6 +31,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -342,6 +343,96 @@ namespace Riskeer.Storage.Core.Test.Read
             return failureMechanismSectionEntity;
         }
 
+        private static void SetSectionResult(IAdoptableFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisNeeded = Convert.ToByte(random.NextBoolean());
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+        }
+
+        private static void AssertSectionResults(AdoptableFailureMechanismSectionResult sectionResult, IAdoptableFailureMechanismSectionResultEntity sectionResultEntity)
+        {
+            Assert.AreEqual(sectionResult.IsRelevant, Convert.ToBoolean(sectionResultEntity.IsRelevant));
+            Assert.AreEqual(sectionResult.InitialFailureMechanismResultType, (AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.FurtherAnalysisNeeded, Convert.ToBoolean(sectionResultEntity.FurtherAnalysisNeeded));
+            Assert.AreEqual(sectionResult.RefinedSectionProbability, sectionResultEntity.RefinedSectionProbability.ToNullAsNaN());
+        }
+
+        private static void SetSectionResult(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisNeeded = Convert.ToByte(random.NextBoolean());
+            sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
+            sectionResult.RefinedProfileProbability = random.NextDouble();
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+        }
+
+        private static void AssertSectionResults(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity)
+        {
+            Assert.AreEqual(sectionResult.IsRelevant, Convert.ToBoolean(sectionResultEntity.IsRelevant));
+            Assert.AreEqual(sectionResult.InitialFailureMechanismResultType, (AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultProfileProbability, sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.FurtherAnalysisNeeded, Convert.ToBoolean(sectionResultEntity.FurtherAnalysisNeeded));
+            Assert.AreEqual(sectionResult.ProbabilityRefinementType, (ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType);
+            Assert.AreEqual(sectionResult.RefinedProfileProbability, sectionResultEntity.RefinedProfileProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.RefinedSectionProbability, sectionResultEntity.RefinedSectionProbability.ToNullAsNaN());
+        }
+
+        private static void SetSectionResult(INonAdoptableFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisNeeded = Convert.ToByte(random.NextBoolean());
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+        }
+
+        private static void AssertSectionResults(NonAdoptableFailureMechanismSectionResult sectionResult, INonAdoptableFailureMechanismSectionResultEntity sectionResultEntity)
+        {
+            Assert.AreEqual(sectionResult.IsRelevant, Convert.ToBoolean(sectionResultEntity.IsRelevant));
+            Assert.AreEqual(sectionResult.InitialFailureMechanismResultType, (NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.FurtherAnalysisNeeded, Convert.ToBoolean(sectionResultEntity.FurtherAnalysisNeeded));
+            Assert.AreEqual(sectionResult.RefinedSectionProbability, sectionResultEntity.RefinedSectionProbability.ToNullAsNaN());
+        }
+
+        private static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisNeeded = Convert.ToByte(random.NextBoolean());
+            sectionResult.RefinedProfileProbability = random.NextDouble();
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+        }
+
+        private static void AssertSectionResults(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity)
+        {
+            Assert.AreEqual(sectionResult.IsRelevant, Convert.ToBoolean(sectionResultEntity.IsRelevant));
+            Assert.AreEqual(sectionResult.InitialFailureMechanismResultType, (NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultProfileProbability, sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.ManualInitialFailureMechanismResultSectionProbability, sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.FurtherAnalysisNeeded, Convert.ToBoolean(sectionResultEntity.FurtherAnalysisNeeded));
+            Assert.AreEqual(sectionResult.RefinedProfileProbability, sectionResultEntity.RefinedProfileProbability.ToNullAsNaN());
+            Assert.AreEqual(sectionResult.RefinedSectionProbability, sectionResultEntity.RefinedSectionProbability.ToNullAsNaN());
+        }
+
         #region Dune Erosion
 
         [Test]
@@ -382,6 +473,8 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
+            SetSectionResult(duneErosionSectionResultEntity);
+
             failureMechanismSectionEntity.DuneErosionSectionResultEntities.Add(duneErosionSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
@@ -409,6 +502,9 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities).First());
         }
 
         [Test]
@@ -862,6 +958,8 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
+            SetSectionResult(pipingSectionResultEntity);
+
             var pipingScenarioConfigurationPerFailureMechanismSectionEntity = new PipingScenarioConfigurationPerFailureMechanismSectionEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
@@ -892,6 +990,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).First());
         }
 
         [Test]
@@ -1230,10 +1331,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/File/Path";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Add(new MacroStabilityInwardsSectionResultEntity
+            var macroStabilityInwardsSectionResultEntity = new MacroStabilityInwardsSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Add(macroStabilityInwardsSectionResultEntity);
+            SetSectionResult(macroStabilityInwardsSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -1258,6 +1362,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities).First());
         }
 
         [Test]
@@ -1539,7 +1646,9 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
+            SetSectionResult(grassCoverErosionInwardsSectionResultEntity);
             failureMechanismSectionEntity.GrassCoverErosionInwardsSectionResultEntities.Add(grassCoverErosionInwardsSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -1565,6 +1674,9 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities).First());
         }
 
         [Test]
@@ -1753,6 +1865,8 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
+            SetSectionResult(grassCoverErosionOutwardsSectionResultEntity);
+
             failureMechanismSectionEntity.GrassCoverErosionOutwardsSectionResultEntities.Add(grassCoverErosionOutwardsSectionResultEntity);
             var entity = new FailureMechanismEntity
             {
@@ -1779,6 +1893,9 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities).First());
         }
 
         [Test]
@@ -2011,10 +2128,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.StabilityStoneCoverSectionResultEntities.Add(new StabilityStoneCoverSectionResultEntity
+            var stabilityStoneCoverSectionResultEntity = new StabilityStoneCoverSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            SetSectionResult(stabilityStoneCoverSectionResultEntity);
+            failureMechanismSectionEntity.StabilityStoneCoverSectionResultEntities.Add(stabilityStoneCoverSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -2042,6 +2162,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities).First());
         }
 
         #endregion
@@ -2227,10 +2350,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.WaveImpactAsphaltCoverSectionResultEntities.Add(new WaveImpactAsphaltCoverSectionResultEntity
+            var waveImpactAsphaltCoverSectionResultEntity = new WaveImpactAsphaltCoverSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            SetSectionResult(waveImpactAsphaltCoverSectionResultEntity);
+            failureMechanismSectionEntity.WaveImpactAsphaltCoverSectionResultEntities.Add(waveImpactAsphaltCoverSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -2258,6 +2384,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities).First());
         }
 
         #endregion
@@ -2507,10 +2636,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.HeightStructuresSectionResultEntities.Add(new HeightStructuresSectionResultEntity
+            var heightStructuresSectionResultEntity = new HeightStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            SetSectionResult(heightStructuresSectionResultEntity);
+            failureMechanismSectionEntity.HeightStructuresSectionResultEntities.Add(heightStructuresSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -2538,6 +2670,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities).First());
         }
 
         #endregion
@@ -2800,10 +2935,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.ClosingStructuresSectionResultEntities.Add(new ClosingStructuresSectionResultEntity
+            var closingStructuresSectionResultEntity = new ClosingStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            SetSectionResult(closingStructuresSectionResultEntity);
+            failureMechanismSectionEntity.ClosingStructuresSectionResultEntities.Add(closingStructuresSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -2828,6 +2966,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities).First());
         }
 
         #endregion
@@ -3100,10 +3241,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.StabilityPointStructuresSectionResultEntities.Add(new StabilityPointStructuresSectionResultEntity
+            var stabilityPointStructuresSectionResultEntity = new StabilityPointStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            SetSectionResult(stabilityPointStructuresSectionResultEntity);
+            failureMechanismSectionEntity.StabilityPointStructuresSectionResultEntities.Add(stabilityPointStructuresSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -3131,6 +3275,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities).First());
         }
 
         #endregion
@@ -3228,10 +3375,13 @@ namespace Riskeer.Storage.Core.Test.Read
             const string filePath = "failureMechanismSections/FilePath";
 
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            failureMechanismSectionEntity.PipingStructureSectionResultEntities.Add(new PipingStructureSectionResultEntity
+            var pipingStructureSectionResultEntity = new PipingStructureSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
-            });
+            };
+            SetSectionResult(pipingStructureSectionResultEntity);
+            failureMechanismSectionEntity.PipingStructureSectionResultEntities.Add(pipingStructureSectionResultEntity);
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
@@ -3259,6 +3409,9 @@ namespace Riskeer.Storage.Core.Test.Read
                             failureMechanism.Sections.Count());
             Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
                             failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(failureMechanism.SectionResults.First(),
+                                 entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities).First());
         }
 
         #endregion
