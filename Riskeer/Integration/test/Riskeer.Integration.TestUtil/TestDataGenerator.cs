@@ -123,7 +123,6 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.DuneErosion);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffInwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards);
-            SetFullyConfiguredFailureMechanism(assessmentSection.MacroStabilityOutwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.Microstability);
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
             SetFullyConfiguredFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction);

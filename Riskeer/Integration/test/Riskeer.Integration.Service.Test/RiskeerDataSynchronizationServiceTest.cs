@@ -1015,10 +1015,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
 
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.SectionResultsOld);
-
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResultsOld);
@@ -1671,7 +1667,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(75, changedObjects.Length);
+            Assert.AreEqual(73, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1747,10 +1743,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.Contains(changedObjects, macroStabilityInwardsFailureMechanism.SurfaceLines);
 
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism);
-            CollectionAssert.Contains(changedObjects, macroStabilityOutwardsFailureMechanism.SectionResultsOld);
-
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism);
             CollectionAssert.Contains(changedObjects, microstabilityFailureMechanism.SectionResultsOld);
@@ -1791,7 +1783,6 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Piping));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.MacroStabilityInwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.MacroStabilityOutwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.Microstability));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityStoneCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaveImpactAsphaltCover));

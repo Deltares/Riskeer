@@ -361,21 +361,20 @@ namespace Riskeer.Integration.Forms.Test.Merge
             AssertDataGridViewRow(expectedAssessmentSection.Piping, rows[0].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.GrassCoverErosionInwards, rows[1].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.MacroStabilityInwards, rows[2].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.MacroStabilityOutwards, rows[3].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.Microstability, rows[4].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.StabilityStoneCover, rows[5].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.WaveImpactAsphaltCover, rows[6].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.WaterPressureAsphaltCover, rows[7].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverErosionOutwards, rows[8].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverSlipOffOutwards, rows[9].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverSlipOffInwards, rows[10].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.HeightStructures, rows[11].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.ClosingStructures, rows[12].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.PipingStructure, rows[13].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.StabilityPointStructures, rows[14].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.StrengthStabilityLengthwiseConstruction, rows[15].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[16].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[17].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.Microstability, rows[3].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.StabilityStoneCover, rows[4].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.WaveImpactAsphaltCover, rows[5].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.WaterPressureAsphaltCover, rows[6].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverErosionOutwards, rows[7].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverSlipOffOutwards, rows[8].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverSlipOffInwards, rows[9].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.HeightStructures, rows[10].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.ClosingStructures, rows[11].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.PipingStructure, rows[12].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.StabilityPointStructures, rows[13].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.StrengthStabilityLengthwiseConstruction, rows[14].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[15].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[16].Cells);
         }
 
         private static void AssertFailurePathRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)

@@ -188,11 +188,6 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSections(stabilityPointStructuresFailureMechanism);
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
 
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism);
-            SetSections(macroStabilityOutwardsFailureMechanism);
-            SetSectionResults(macroStabilityOutwardsFailureMechanism.SectionResultsOld);
-
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             ConfigurePipingStructureFailureMechanism(pipingStructureFailureMechanism);
             SetSections(pipingStructureFailureMechanism);

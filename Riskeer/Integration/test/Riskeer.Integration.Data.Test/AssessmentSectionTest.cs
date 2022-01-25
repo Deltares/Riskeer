@@ -88,7 +88,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.NotNull(assessmentSection.Piping);
             Assert.NotNull(assessmentSection.GrassCoverErosionInwards);
             Assert.NotNull(assessmentSection.MacroStabilityInwards);
-            Assert.NotNull(assessmentSection.MacroStabilityOutwards);
             Assert.NotNull(assessmentSection.Microstability);
             Assert.NotNull(assessmentSection.StabilityStoneCover);
             Assert.NotNull(assessmentSection.WaveImpactAsphaltCover);
@@ -237,13 +236,12 @@ namespace Riskeer.Integration.Data.Test
             IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
-            Assert.AreEqual(18, failureMechanisms.Length);
+            Assert.AreEqual(17, failureMechanisms.Length);
             CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,
                 assessmentSection.MacroStabilityInwards,
-                assessmentSection.MacroStabilityOutwards,
                 assessmentSection.Microstability,
                 assessmentSection.StabilityStoneCover,
                 assessmentSection.WaveImpactAsphaltCover,
@@ -470,81 +468,76 @@ namespace Riskeer.Integration.Data.Test
 
         private static void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
         {
-            Tuple<double, bool>[] contributionTuples = GetContributionsTuples(composition).ToArray();
-            double[] contributions = contributionTuples.Select(tuple => tuple.Item1).ToArray();
+            double[] contributions = GetContributions(composition).ToArray();
 
             Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
             Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
             Assert.AreEqual(contributions[2], assessmentSection.MacroStabilityInwards.Contribution);
-            Assert.AreEqual(contributions[3], assessmentSection.MacroStabilityOutwards.Contribution);
-            Assert.AreEqual(contributions[4], assessmentSection.StabilityStoneCover.Contribution);
-            Assert.AreEqual(contributions[5], assessmentSection.WaveImpactAsphaltCover.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.GrassCoverErosionOutwards.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.HeightStructures.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.ClosingStructures.Contribution);
-            Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
-            Assert.AreEqual(contributions[10], assessmentSection.StabilityPointStructures.Contribution);
-            Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);
-            Assert.AreEqual(contributions[12], assessmentSection.OtherFailureMechanism.Contribution);
+            Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
+            Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
+            Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
+            Assert.AreEqual(contributions[6], assessmentSection.HeightStructures.Contribution);
+            Assert.AreEqual(contributions[7], assessmentSection.ClosingStructures.Contribution);
+            Assert.AreEqual(contributions[8], assessmentSection.PipingStructure.Contribution);
+            Assert.AreEqual(contributions[9], assessmentSection.StabilityPointStructures.Contribution);
+            Assert.AreEqual(contributions[10], assessmentSection.DuneErosion.Contribution);
+            Assert.AreEqual(contributions[11], assessmentSection.OtherFailureMechanism.Contribution);
         }
 
-        private static IEnumerable<Tuple<double, bool>> GetContributionsTuples(AssessmentSectionComposition composition)
+        private static IEnumerable<double> GetContributions(AssessmentSectionComposition composition)
         {
-            Tuple<double, bool>[] contributions = null;
+            double[] contributions = null;
             switch (composition)
             {
                 case AssessmentSectionComposition.Dike:
-                    contributions = new[]
+                    contributions = new double[]
                     {
-                        new Tuple<double, bool>(24, true),
-                        new Tuple<double, bool>(24, true),
-                        new Tuple<double, bool>(4, true),
-                        new Tuple<double, bool>(4, false),
-                        new Tuple<double, bool>(5, true),
-                        new Tuple<double, bool>(5, true),
-                        new Tuple<double, bool>(5, true),
-                        new Tuple<double, bool>(24, true),
-                        new Tuple<double, bool>(4, true),
-                        new Tuple<double, bool>(2, true),
-                        new Tuple<double, bool>(2, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(30, true)
+                        24,
+                        24,
+                        4,
+                        5,
+                        5,
+                        5,
+                        24,
+                        4,
+                        2,
+                        2,
+                        0,
+                        30
                     };
                     break;
                 case AssessmentSectionComposition.Dune:
-                    contributions = new[]
+                    contributions = new double[]
                     {
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(4, false),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(0, true),
-                        new Tuple<double, bool>(70, true),
-                        new Tuple<double, bool>(30, true)
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        70,
+                        30
                     };
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
-                    contributions = new[]
+                    contributions = new double[]
                     {
-                        new Tuple<double, bool>(24, true),
-                        new Tuple<double, bool>(24, true),
-                        new Tuple<double, bool>(4, true),
-                        new Tuple<double, bool>(4, false),
-                        new Tuple<double, bool>(5, true),
-                        new Tuple<double, bool>(5, true),
-                        new Tuple<double, bool>(5, true),
-                        new Tuple<double, bool>(24, true),
-                        new Tuple<double, bool>(4, true),
-                        new Tuple<double, bool>(2, true),
-                        new Tuple<double, bool>(2, true),
-                        new Tuple<double, bool>(10, true),
-                        new Tuple<double, bool>(20, true)
+                        24,
+                        24,
+                        4,
+                        5,
+                        5,
+                        5,
+                        24,
+                        4,
+                        2,
+                        2,
+                        10,
+                        20
                     };
                     break;
                 default:
@@ -679,9 +672,6 @@ namespace Riskeer.Integration.Data.Test
             yield return new FailureMechanismTestData((section, failureMechanism) => section.MacroStabilityInwards = (MacroStabilityInwardsFailureMechanism) failureMechanism,
                                                       new MacroStabilityInwardsFailureMechanism(),
                                                       section => section.MacroStabilityInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.MacroStabilityOutwards = (MacroStabilityOutwardsFailureMechanism) failureMechanism,
-                                                      new MacroStabilityOutwardsFailureMechanism(),
-                                                      section => section.MacroStabilityOutwards);
             yield return new FailureMechanismTestData((section, failureMechanism) => section.Microstability = (MicrostabilityFailureMechanism) failureMechanism,
                                                       new MicrostabilityFailureMechanism(),
                                                       section => section.Microstability);

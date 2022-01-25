@@ -469,29 +469,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenMacroStabilityOutwardsFailureMechanismNotified_ThenAttachedObserverNotified()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
-            {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
-                resultObserver.Attach(observer);
-
-                // When
-                assessmentSection.MacroStabilityOutwards.NotifyObservers();
-
-                // Then
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenMicrostabilityFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
@@ -617,8 +594,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
                                           new Action(() => assessmentSection1.GrassCoverErosionInwards = assessmentSection2.GrassCoverErosionInwards));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, MacroStabilityInwardsFailureMechanism>(assessmentSection => assessmentSection.MacroStabilityInwards),
                                           new Action(() => assessmentSection1.MacroStabilityInwards = assessmentSection2.MacroStabilityInwards));
-            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, MacroStabilityOutwardsFailureMechanism>(assessmentSection => assessmentSection.MacroStabilityOutwards),
-                                          new Action(() => assessmentSection1.MacroStabilityOutwards = assessmentSection2.MacroStabilityOutwards));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, MicrostabilityFailureMechanism>(assessmentSection => assessmentSection.Microstability),
                                           new Action(() => assessmentSection1.Microstability = assessmentSection2.Microstability));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, StabilityStoneCoverFailureMechanism>(assessmentSection => assessmentSection.StabilityStoneCover),

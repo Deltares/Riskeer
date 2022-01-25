@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 227;
+        private const int expectedNumberOfRemovedInstances = 223;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(75, observables.Length);
+            Assert.AreEqual(73, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -335,12 +335,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.StochasticSoilModels);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SurfaceLines);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SurfaceLines);
-
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macroStabilityOutwardsFailureMechanism.SectionResultsOld);
-            CollectionAssert.Contains(observables, macroStabilityOutwardsFailureMechanism);
-            CollectionAssert.Contains(observables, macroStabilityOutwardsFailureMechanism.SectionResultsOld);
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);

@@ -80,7 +80,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, random.Next(1, 10));
 
-            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityOutwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, random.Next(1, 10));

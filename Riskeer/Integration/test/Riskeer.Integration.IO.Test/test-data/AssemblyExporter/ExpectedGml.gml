@@ -231,8 +231,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
@@ -257,8 +257,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
@@ -283,8 +283,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
@@ -309,8 +309,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
@@ -335,8 +335,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -361,8 +361,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -387,8 +387,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -413,8 +413,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -439,8 +439,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -465,8 +465,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -491,8 +491,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
@@ -517,8 +517,8 @@
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
         <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
-        <asm:faalkans>0.25</asm:faalkans>
+        <asm:categorieVak>VI-vak</asm:categorieVak>
+        <asm:faalkans>1</asm:faalkans>
       </asm:toetsoordeelVak>
       <asm:toetsoordeelVak>
         <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>

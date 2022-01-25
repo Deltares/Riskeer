@@ -268,7 +268,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, 2);
 
-            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityOutwards, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, 2);

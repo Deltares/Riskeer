@@ -59,7 +59,6 @@ namespace Riskeer.Integration.Data
         private PipingFailureMechanism piping;
         private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards;
         private MacroStabilityInwardsFailureMechanism macroStabilityInwards;
-        private MacroStabilityOutwardsFailureMechanism macroStabilityOutwards;
         private MicrostabilityFailureMechanism microstability;
         private StabilityStoneCoverFailureMechanism stabilityStoneCover;
         private WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover;
@@ -117,7 +116,6 @@ namespace Riskeer.Integration.Data
             piping = new PipingFailureMechanism();
             grassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
             macroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
-            macroStabilityOutwards = new MacroStabilityOutwardsFailureMechanism();
             microstability = new MicrostabilityFailureMechanism();
             stabilityStoneCover = new StabilityStoneCoverFailureMechanism();
             waveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
@@ -191,24 +189,6 @@ namespace Riskeer.Integration.Data
             {
                 ValidateContribution(macroStabilityInwards, value);
                 macroStabilityInwards = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards
-        {
-            get
-            {
-                return macroStabilityOutwards;
-            }
-            set
-            {
-                ValidateContribution(macroStabilityOutwards, value);
-                macroStabilityOutwards = value;
             }
         }
 
@@ -547,7 +527,6 @@ namespace Riskeer.Integration.Data
             yield return Piping;
             yield return GrassCoverErosionInwards;
             yield return MacroStabilityInwards;
-            yield return MacroStabilityOutwards;
             yield return Microstability;
             yield return StabilityStoneCover;
             yield return WaveImpactAsphaltCover;
@@ -600,7 +579,6 @@ namespace Riskeer.Integration.Data
                     Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
-                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
@@ -616,7 +594,6 @@ namespace Riskeer.Integration.Data
                     Piping.Contribution = 0;
                     GrassCoverErosionInwards.Contribution = 0;
                     MacroStabilityInwards.Contribution = 0;
-                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 0;
                     WaveImpactAsphaltCover.Contribution = 0;
                     GrassCoverErosionOutwards.Contribution = 0;
@@ -632,7 +609,6 @@ namespace Riskeer.Integration.Data
                     Piping.Contribution = 24;
                     GrassCoverErosionInwards.Contribution = 24;
                     MacroStabilityInwards.Contribution = 4;
-                    MacroStabilityOutwards.Contribution = 4;
                     StabilityStoneCover.Contribution = 5;
                     WaveImpactAsphaltCover.Contribution = 5;
                     GrassCoverErosionOutwards.Contribution = 5;
