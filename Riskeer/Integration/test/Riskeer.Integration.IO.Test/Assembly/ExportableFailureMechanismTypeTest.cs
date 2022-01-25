@@ -39,9 +39,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
                         ExportableFailureMechanismType.STBI, 1
                     },
                     {
-                        ExportableFailureMechanismType.STBU, 2
-                    },
-                    {
                         ExportableFailureMechanismType.STPH, 3
                     },
                     {

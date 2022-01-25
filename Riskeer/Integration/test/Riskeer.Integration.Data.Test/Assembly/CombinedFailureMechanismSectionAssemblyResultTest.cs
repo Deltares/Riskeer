@@ -67,7 +67,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.Piping);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.GrassCoverErosionInwards);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.MacroStabilityInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.MacroStabilityOutwards);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.Microstability);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StabilityStoneCover);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.WaveImpactAsphaltCover);
@@ -96,7 +95,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var pipingResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var grassCoverErosionInwardsResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var macroStabilityInwardsResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var macroStabilityOutwardsResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var microstabilityResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var stabilityStoneCoverResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var waveImpactAsphaltCoverResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -119,7 +117,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                Piping = pipingResult,
                                                                                GrassCoverErosionInwards = grassCoverErosionInwardsResult,
                                                                                MacroStabilityInwards = macroStabilityInwardsResult,
-                                                                               MacroStabilityOutwards = macroStabilityOutwardsResult,
                                                                                Microstability = microstabilityResult,
                                                                                StabilityStoneCover = stabilityStoneCoverResult,
                                                                                WaveImpactAsphaltCover = waveImpactAsphaltCoverResult,
@@ -144,7 +141,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(pipingResult, result.Piping);
             Assert.AreEqual(grassCoverErosionInwardsResult, result.GrassCoverErosionInwards);
             Assert.AreEqual(macroStabilityInwardsResult, result.MacroStabilityInwards);
-            Assert.AreEqual(macroStabilityOutwardsResult, result.MacroStabilityOutwards);
             Assert.AreEqual(microstabilityResult, result.Microstability);
             Assert.AreEqual(stabilityStoneCoverResult, result.StabilityStoneCover);
             Assert.AreEqual(waveImpactAsphaltCoverResult, result.WaveImpactAsphaltCover);

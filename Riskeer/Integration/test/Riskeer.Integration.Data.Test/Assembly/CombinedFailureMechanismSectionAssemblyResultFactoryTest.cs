@@ -113,7 +113,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Piping]), results[i].Piping);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionInwards]), results[i].GrassCoverErosionInwards);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.MacroStabilityInwards]), results[i].MacroStabilityInwards);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.MacroStabilityOutwards]), results[i].MacroStabilityOutwards);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Microstability]), results[i].Microstability);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityStoneCover]), results[i].StabilityStoneCover);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.WaveImpactAsphaltCover]), results[i].WaveImpactAsphaltCover);
@@ -170,7 +169,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Piping);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverErosionInwards);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].MacroStabilityInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].MacroStabilityOutwards);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Microstability);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StabilityStoneCover);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].WaveImpactAsphaltCover);

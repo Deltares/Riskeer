@@ -54,8 +54,6 @@ namespace Riskeer.Integration.IO.Creators
             {
                 case ExportableFailureMechanismType.STBI:
                     return SerializableFailureMechanismType.STBI;
-                case ExportableFailureMechanismType.STBU:
-                    return SerializableFailureMechanismType.STBU;
                 case ExportableFailureMechanismType.STPH:
                     return SerializableFailureMechanismType.STPH;
                 case ExportableFailureMechanismType.STMI:

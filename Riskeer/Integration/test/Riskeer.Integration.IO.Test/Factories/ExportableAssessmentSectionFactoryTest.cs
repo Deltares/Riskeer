@@ -262,52 +262,46 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                exportableFailureMechanisms.ElementAt(3));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
-                                                               ExportableFailureMechanismType.STBU,
-                                                               ExportableFailureMechanismGroup.Group4,
-                                                               assessmentSection.MacroStabilityOutwards,
-                                                               exportableFailureMechanisms.ElementAt(4));
-
-            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.STMI,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.Microstability,
-                                                               exportableFailureMechanisms.ElementAt(5));
+                                                               exportableFailureMechanisms.ElementAt(4));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.GABU,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.GrassCoverSlipOffOutwards,
-                                                               exportableFailureMechanisms.ElementAt(6));
+                                                               exportableFailureMechanisms.ElementAt(5));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.GABI,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.GrassCoverSlipOffInwards,
-                                                               exportableFailureMechanisms.ElementAt(7));
+                                                               exportableFailureMechanisms.ElementAt(6));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.PKW,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.PipingStructure,
-                                                               exportableFailureMechanisms.ElementAt(8));
+                                                               exportableFailureMechanisms.ElementAt(7));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.AWO,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.WaterPressureAsphaltCover,
-                                                               exportableFailureMechanisms.ElementAt(9));
+                                                               exportableFailureMechanisms.ElementAt(8));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.STKWl,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.StrengthStabilityLengthwiseConstruction,
-                                                               exportableFailureMechanisms.ElementAt(10));
+                                                               exportableFailureMechanisms.ElementAt(9));
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.INN,
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.TechnicalInnovation,
-                                                               exportableFailureMechanisms.ElementAt(11));
+                                                               exportableFailureMechanisms.ElementAt(10));
         }
 
         private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,

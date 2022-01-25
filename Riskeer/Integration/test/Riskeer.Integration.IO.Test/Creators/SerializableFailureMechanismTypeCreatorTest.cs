@@ -47,7 +47,6 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCase(ExportableFailureMechanismType.STBI, SerializableFailureMechanismType.STBI)]
-        [TestCase(ExportableFailureMechanismType.STBU, SerializableFailureMechanismType.STBU)]
         [TestCase(ExportableFailureMechanismType.STPH, SerializableFailureMechanismType.STPH)]
         [TestCase(ExportableFailureMechanismType.STMI, SerializableFailureMechanismType.STMI)]
         [TestCase(ExportableFailureMechanismType.AGK, SerializableFailureMechanismType.AGK)]

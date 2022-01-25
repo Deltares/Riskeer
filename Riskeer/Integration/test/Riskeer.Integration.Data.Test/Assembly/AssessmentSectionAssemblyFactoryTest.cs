@@ -782,7 +782,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     Assert.AreEqual(expectedOutput[i].Piping, output[i].Piping);
                     Assert.AreEqual(expectedOutput[i].GrassCoverErosionInwards, output[i].GrassCoverErosionInwards);
                     Assert.AreEqual(expectedOutput[i].MacroStabilityInwards, output[i].MacroStabilityInwards);
-                    Assert.AreEqual(expectedOutput[i].MacroStabilityOutwards, output[i].MacroStabilityOutwards);
                     Assert.AreEqual(expectedOutput[i].Microstability, output[i].Microstability);
                     Assert.AreEqual(expectedOutput[i].StabilityStoneCover, output[i].StabilityStoneCover);
                     Assert.AreEqual(expectedOutput[i].WaveImpactAsphaltCover, output[i].WaveImpactAsphaltCover);

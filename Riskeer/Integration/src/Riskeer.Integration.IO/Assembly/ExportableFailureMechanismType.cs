@@ -32,11 +32,6 @@ namespace Riskeer.Integration.IO.Assembly
         STBI = 1,
 
         /// <summary>
-        /// Represents the failure mechanism macro stability outwards.
-        /// </summary>
-        STBU = 2,
-
-        /// <summary>
         /// Represents the failure mechanism piping.
         /// </summary>
         STPH = 3,
