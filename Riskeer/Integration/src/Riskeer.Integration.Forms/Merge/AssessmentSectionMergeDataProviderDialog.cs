@@ -156,7 +156,6 @@ namespace Riskeer.Integration.Forms.Merge
                                            new FailureMechanismMergeDataRow(assessmentSection.Piping),
                                            new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
                                            new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
-                                           new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityOutwards),
                                            new FailureMechanismMergeDataRow(assessmentSection.Microstability),
                                            new FailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
                                            new FailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
