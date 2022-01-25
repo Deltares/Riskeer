@@ -815,14 +815,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                 return;
             }
 
-            var macroStabilityOutwards = failureMechanism as MacroStabilityOutwardsFailureMechanism;
-            if (macroStabilityOutwards != null)
-            {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(macroStabilityOutwards).ManualAssemblyCategoryGroup),
-                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-                return;
-            }
-
             var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
             if (waterPressureAsphaltCover != null)
             {
@@ -923,50 +915,47 @@ namespace Riskeer.Integration.Forms.Test.Views
             MacroStabilityInwardsFailureMechanism macroStabilityInwards = assessmentSection.MacroStabilityInwards;
             AssertAssemblyCells(macroStabilityInwards, assemblyOutput, rows[2].Cells);
 
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = assessmentSection.MacroStabilityOutwards;
-            AssertAssemblyCells(macroStabilityOutwards, assemblyCategoryGroup, rows[3].Cells);
-
             MicrostabilityFailureMechanism microStability = assessmentSection.Microstability;
-            AssertAssemblyCells(microStability, assemblyCategoryGroup, rows[4].Cells);
+            AssertAssemblyCells(microStability, assemblyCategoryGroup, rows[3].Cells);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
-            AssertAssemblyCells(stabilityStoneCover, assemblyCategoryGroup, rows[5].Cells);
+            AssertAssemblyCells(stabilityStoneCover, assemblyCategoryGroup, rows[4].Cells);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
-            AssertAssemblyCells(waveImpactAsphaltCover, assemblyCategoryGroup, rows[6].Cells);
+            AssertAssemblyCells(waveImpactAsphaltCover, assemblyCategoryGroup, rows[5].Cells);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = assessmentSection.WaterPressureAsphaltCover;
-            AssertAssemblyCells(waterPressureAsphaltCover, assemblyCategoryGroup, rows[7].Cells);
+            AssertAssemblyCells(waterPressureAsphaltCover, assemblyCategoryGroup, rows[6].Cells);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
-            AssertAssemblyCells(grassCoverErosionOutwards, assemblyCategoryGroup, rows[8].Cells);
+            AssertAssemblyCells(grassCoverErosionOutwards, assemblyCategoryGroup, rows[7].Cells);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = assessmentSection.GrassCoverSlipOffOutwards;
-            AssertAssemblyCells(grassCoverSlipOffOutwards, assemblyCategoryGroup, rows[9].Cells);
+            AssertAssemblyCells(grassCoverSlipOffOutwards, assemblyCategoryGroup, rows[8].Cells);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = assessmentSection.GrassCoverSlipOffInwards;
-            AssertAssemblyCells(grassCoverSlipOffInwards, assemblyCategoryGroup, rows[10].Cells);
+            AssertAssemblyCells(grassCoverSlipOffInwards, assemblyCategoryGroup, rows[9].Cells);
 
             HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
-            AssertAssemblyCells(heightStructures, assemblyOutput, rows[11].Cells);
+            AssertAssemblyCells(heightStructures, assemblyOutput, rows[10].Cells);
 
             ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
-            AssertAssemblyCells(closingStructures, assemblyOutput, rows[12].Cells);
+            AssertAssemblyCells(closingStructures, assemblyOutput, rows[11].Cells);
 
             PipingStructureFailureMechanism pipingStructure = assessmentSection.PipingStructure;
-            AssertAssemblyCells(pipingStructure, assemblyCategoryGroup, rows[13].Cells);
+            AssertAssemblyCells(pipingStructure, assemblyCategoryGroup, rows[12].Cells);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
-            AssertAssemblyCells(stabilityPointStructures, assemblyOutput, rows[14].Cells);
+            AssertAssemblyCells(stabilityPointStructures, assemblyOutput, rows[13].Cells);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            AssertAssemblyCells(strengthStabilityLengthwiseConstruction, assemblyCategoryGroup, rows[15].Cells);
+            AssertAssemblyCells(strengthStabilityLengthwiseConstruction, assemblyCategoryGroup, rows[14].Cells);
 
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
-            AssertAssemblyCells(duneErosion, assemblyCategoryGroup, rows[16].Cells);
+            AssertAssemblyCells(duneErosion, assemblyCategoryGroup, rows[15].Cells);
 
             TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
-            AssertAssemblyCells(technicalInnovation, assemblyCategoryGroup, rows[17].Cells);
+            AssertAssemblyCells(technicalInnovation, assemblyCategoryGroup, rows[16].Cells);
         }
 
         private static void AssertAssemblyCells(IFailureMechanism failureMechanism, DataGridViewCellCollection cells)

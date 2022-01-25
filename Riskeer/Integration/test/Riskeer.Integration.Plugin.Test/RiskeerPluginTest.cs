@@ -394,7 +394,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(30, viewInfos.Length);
+                Assert.AreEqual(29, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -516,12 +516,6 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(AssemblyResultPerSectionMapContext),
                     typeof(AssessmentSection),
                     typeof(AssemblyResultPerSectionMapView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(MacroStabilityOutwardsFailurePathContext),
-                    typeof(MacroStabilityOutwardsFailureMechanism),
-                    typeof(FailureMechanismWithDetailedAssessmentView<MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResultOld>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

@@ -164,7 +164,6 @@ namespace Riskeer.Integration.Forms.Views
                 CreatePipingFailureMechanismAssemblyResultRow(),
                 CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow(),
                 CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow(),
-                CreateMacroStabilityOutwardsFailureMechanismAssemblyResultRow(),
                 CreateMicrostabilityFailureMechanismAssemblyResultRow(),
                 CreateStabilityStoneCoverFailureMechanismAssemblyResultRow(),
                 CreateWaveImpactFailureMechanismAssemblyResultRow(),
@@ -383,15 +382,6 @@ namespace Riskeer.Integration.Forms.Views
         #endregion
 
         #region Group 4
-
-        private FailureMechanismAssemblyResultRowBase CreateMacroStabilityOutwardsFailureMechanismAssemblyResultRow()
-        {
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = AssessmentSection.MacroStabilityOutwards;
-            return new FailureMechanismAssemblyCategoryGroupResultRow(macroStabilityOutwards,
-                                                                      () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(macroStabilityOutwards,
-                                                                                                                                                           AssessmentSection,
-                                                                                                                                                           true));
-        }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateMicrostabilityFailureMechanismAssemblyResultRow()
         {

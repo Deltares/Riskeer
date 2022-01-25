@@ -90,13 +90,6 @@ namespace Riskeer.Integration.Data.Assembly
                                                   assessmentSection, MacroStabilityInwardsAssemblyFunc, useManual));
             }
 
-            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
-            if (failureMechanisms.Contains(macroStabilityOutwardsFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResultsOld,
-                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc, useManual));
-            }
-
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             if (failureMechanisms.Contains(microstabilityFailureMechanism))
             {
@@ -272,15 +265,6 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection, useManual) => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection, useManual);
-            }
-        }
-
-        private static Func<MacroStabilityOutwardsFailureMechanismSectionResultOld, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
-        {
-            get
-            {
-                return (sectionResult, assessmentSection, useManual) => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.MacroStabilityOutwards, assessmentSection, useManual);
             }
         }
 
