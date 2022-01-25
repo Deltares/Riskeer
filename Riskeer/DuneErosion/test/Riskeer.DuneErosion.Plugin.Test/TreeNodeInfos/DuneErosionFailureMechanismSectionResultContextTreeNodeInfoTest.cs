@@ -46,54 +46,60 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailureMechanismSectionResultContext));
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
-            Assert.IsNotNull(info.Image);
-            Assert.IsNotNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.CheckedState);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.OnDrop);
+            // Setup
+            using (plugin)
+            {
+                // Assert
+                Assert.IsNotNull(info.Text);
+                Assert.IsNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNotNull(info.ContextMenuStrip);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.CheckedState);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
+            }
         }
 
         [Test]
         public void Text_Always_ReturnsName()
         {
-            // Call
-            string text = info.Text(null);
+            // Setup
+            using (plugin)
+            {
+                // Call
+                string text = info.Text(null);
 
-            // Assert
-            Assert.AreEqual("Resultaat", text);
+                // Assert
+                Assert.AreEqual("Resultaat", text);
+            }
         }
 
         [Test]
         public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
-            // Call
-            Image image = info.Image(null);
+            // Setup
+            using (plugin)
+            {
+                // Call
+                Image image = info.Image(null);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismSectionResultIcon, image);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.FailureMechanismSectionResultIcon, image);
+            }
         }
 
         [Test]
@@ -105,7 +111,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
-            using (plugin) // This is needed to prevent interference from mocks in dispose
+            using (plugin)
             using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub(mocks);
