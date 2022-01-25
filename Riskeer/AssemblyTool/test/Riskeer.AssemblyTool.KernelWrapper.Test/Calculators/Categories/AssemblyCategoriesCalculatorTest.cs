@@ -43,10 +43,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssemblyCategoriesCalculator(null);
+            void Call() => new AssemblyCategoriesCalculator(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("factory", exception.ParamName);
         }
 
@@ -133,10 +133,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(Call);
                 Assert.IsNotNull(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
@@ -159,329 +159,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(Call);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
                 {
                     new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
                 }), exception.Message);
             }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismCategories_WithInput_InputCorrectlySetToKernel()
-        {
-            // Setup
-            AssemblyCategoriesInput assemblyCategoriesInput = CreateRandomAssemblyCategoriesInput();
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismCategories();
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                calculator.CalculateFailureMechanismCategories(assemblyCategoriesInput);
-
-                // Assert
-                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.LowerLimitNorm);
-                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.SignalingNorm);
-                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismContribution);
-                Assert.AreEqual(assemblyCategoriesInput.N, kernel.N);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
-        {
-            // Setup
-            CategoriesList<FailureMechanismCategory> output = CategoriesListTestFactory.CreateFailureMechanismCategories();
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismCategoriesOutput = output;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                IEnumerable<FailureMechanismAssemblyCategory> result = calculator.CalculateFailureMechanismCategories(
-                    CreateRandomAssemblyCategoriesInput());
-
-                // Assert
-                AssemblyCategoryAssert.AssertFailureMechanismAssemblyCategories(output, result);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
-        {
-            // Setup
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.ThrowExceptionOnCalculate = true;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                TestDelegate test = () => calculator.CalculateFailureMechanismCategories(
-                    CreateRandomAssemblyCategoriesInput());
-
-                // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismCategories_KernelThrowsAssemblyException_ThrowAssemblyCategoriesCalculatorException()
-        {
-            // Setup
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.ThrowAssemblyExceptionOnCalculate = true;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                TestDelegate test = () => calculator.CalculateFailureMechanismCategories(
-                    CreateRandomAssemblyCategoriesInput());
-
-                // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
-                {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
-                }), exception.Message);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
-        {
-            // Setup
-            AssemblyCategoriesInput assemblyCategoriesInput = CreateRandomAssemblyCategoriesInput();
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                calculator.CalculateFailureMechanismSectionCategories(assemblyCategoriesInput);
-
-                // Assert
-                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.LowerLimitNorm);
-                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.SignalingNorm);
-                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismContribution);
-                Assert.AreEqual(assemblyCategoriesInput.N, kernel.N);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
-        {
-            // Setup
-            CategoriesList<FmSectionCategory> output = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = output;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(
-                    CreateRandomAssemblyCategoriesInput());
-
-                // Assert
-                AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
-        {
-            // Setup
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.ThrowExceptionOnCalculate = true;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(
-                    CreateRandomAssemblyCategoriesInput());
-
-                // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
-            }
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_KernelThrowsAssemblyException_ThrowAssemblyCategoriesCalculatorException()
-        {
-            // Setup
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.ThrowAssemblyExceptionOnCalculate = true;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(
-                    CreateRandomAssemblyCategoriesInput());
-
-                // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
-                {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
-                }), exception.Message);
-            }
-        }
-
-        [Test]
-        public void CalculateGeotechnicalFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
-        {
-            // Setup
-            var random = new Random(21);
-            double normativeNorm = random.NextDouble();
-            double failureMechanismN = random.NextDouble(1, 10);
-            double failureMechanismContribution = random.NextDouble();
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                calculator.CalculateGeotechnicalFailureMechanismSectionCategories(normativeNorm,
-                                                                                  failureMechanismN,
-                                                                                  failureMechanismContribution);
-
-                // Assert
-                Assert.AreEqual(normativeNorm, kernel.AssessmentSectionNorm);
-                Assert.AreEqual(failureMechanismContribution, kernel.FailureMechanismContribution);
-                Assert.AreEqual(failureMechanismN, kernel.N);
-            }
-        }
-
-        [Test]
-        public void CalculateGeotechnicalFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
-        {
-            // Setup
-            var random = new Random(21);
-            CategoriesList<FmSectionCategory> output = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = output;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicalFailureMechanismSectionCategories(
-                    random.NextDouble(),
-                    random.NextDouble(1, 10),
-                    random.NextDouble());
-
-                // Assert
-                AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
-            }
-        }
-
-        [Test]
-        public void CalculateGeotechnicalFailureMechanismSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.ThrowExceptionOnCalculate = true;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                TestDelegate test = () => calculator.CalculateGeotechnicalFailureMechanismSectionCategories(
-                    random.NextDouble(),
-                    random.NextDouble(1, 10),
-                    random.NextDouble());
-
-                // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
-            }
-        }
-
-        [Test]
-        public void CalculateGeotechnicalFailureMechanismSectionCategories_KernelThrowsAssemblyException_ThrowAssemblyCategoriesCalculatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.ThrowAssemblyExceptionOnCalculate = true;
-
-                var calculator = new AssemblyCategoriesCalculator(factory);
-
-                // Call
-                TestDelegate test = () => calculator.CalculateGeotechnicalFailureMechanismSectionCategories(
-                    random.NextDouble(),
-                    random.NextDouble(1, 10),
-                    random.NextDouble());
-
-                // Assert
-                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
-                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
-                {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
-                }), exception.Message);
-            }
-        }
-
-        private static AssemblyCategoriesInput CreateRandomAssemblyCategoriesInput()
-        {
-            var random = new Random(11);
-            return new AssemblyCategoriesInput(random.NextDouble(1, 5),
-                                               random.NextDouble(),
-                                               random.NextDouble(0.0, 0.5),
-                                               random.NextDouble(0.5, 1.0));
         }
     }
 }
