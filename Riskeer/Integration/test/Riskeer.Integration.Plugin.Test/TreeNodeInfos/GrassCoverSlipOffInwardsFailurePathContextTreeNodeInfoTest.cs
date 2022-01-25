@@ -32,7 +32,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -166,10 +165,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>)
-                outputFolder.Contents.ElementAt(0);
+            var failureMechanismResultsContext = (GrassCoverSlipOffInwardsFailureMechanismSectionResultContext) outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-            Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);

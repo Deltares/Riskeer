@@ -1093,7 +1093,7 @@ namespace Riskeer.Integration.Plugin
             };
 
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
@@ -2366,7 +2366,7 @@ namespace Riskeer.Integration.Plugin
                                        GetGrassCoverSlipOffInwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetGrassCoverSlipOffInwardsFailurePathOutputs(nodeData.WrappedData),
+                                       GetGrassCoverSlipOffInwardsFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
@@ -2380,13 +2380,13 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailurePathOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailurePathOutputs(GrassCoverSlipOffInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData),
-                nodeData.InAssemblyOutputComments
+                new GrassCoverSlipOffInwardsFailureMechanismSectionResultContext(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.InAssemblyOutputComments
             };
         }
 
