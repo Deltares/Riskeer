@@ -302,21 +302,6 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
-                sectionResult.DetailedAssessmentProbability = random.NextDouble();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
-                sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            }
-        }
-
         private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> sectionResults)
         {
             var random = new Random(39);
@@ -616,15 +601,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.RefinedSectionProbability = random.NextDouble();
             }
         }
-
-        #region MacroStabilityOutwards FailureMechanism
-
-        private static void ConfigureMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism)
-        {
-            macroStabilityOutwardsFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A = 0.6;
-        }
-
-        #endregion
 
         #region PipingStructure FailureMechanism
 
