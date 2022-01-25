@@ -104,7 +104,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 MergePiping = true,
                 MergeGrassCoverErosionInwards = true,
                 MergeMacroStabilityInwards = true,
-                MergeMacroStabilityOutwards = true,
                 MergeMicrostability = true,
                 MergeStabilityStoneCover = true,
                 MergeWaveImpactAsphaltCover = true,
@@ -128,7 +127,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
             Assert.AreSame(sourceAssessmentSection.GrassCoverErosionInwards, targetAssessmentSection.GrassCoverErosionInwards);
             Assert.AreSame(sourceAssessmentSection.MacroStabilityInwards, targetAssessmentSection.MacroStabilityInwards);
-            Assert.AreSame(sourceAssessmentSection.MacroStabilityOutwards, targetAssessmentSection.MacroStabilityOutwards);
             Assert.AreSame(sourceAssessmentSection.Microstability, targetAssessmentSection.Microstability);
             Assert.AreSame(sourceAssessmentSection.StabilityStoneCover, targetAssessmentSection.StabilityStoneCover);
             Assert.AreSame(sourceAssessmentSection.WaveImpactAsphaltCover, targetAssessmentSection.WaveImpactAsphaltCover);
@@ -162,7 +160,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreNotSame(sourceAssessmentSection.Piping, targetAssessmentSection.Piping);
             Assert.AreNotSame(sourceAssessmentSection.GrassCoverErosionInwards, targetAssessmentSection.GrassCoverErosionInwards);
             Assert.AreNotSame(sourceAssessmentSection.MacroStabilityInwards, targetAssessmentSection.MacroStabilityInwards);
-            Assert.AreNotSame(sourceAssessmentSection.MacroStabilityOutwards, targetAssessmentSection.MacroStabilityOutwards);
             Assert.AreNotSame(sourceAssessmentSection.Microstability, targetAssessmentSection.Microstability);
             Assert.AreNotSame(sourceAssessmentSection.StabilityStoneCover, targetAssessmentSection.StabilityStoneCover);
             Assert.AreNotSame(sourceAssessmentSection.WaveImpactAsphaltCover, targetAssessmentSection.WaveImpactAsphaltCover);
@@ -194,7 +191,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                                     MergePiping = true,
                                                     MergeGrassCoverErosionInwards = true,
                                                     MergeMacroStabilityInwards = true,
-                                                    MergeMacroStabilityOutwards = true,
                                                     MergeMicrostability = true,
                                                     MergeStabilityStoneCover = true,
                                                     MergeWaveImpactAsphaltCover = true,
@@ -215,11 +211,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(19, msgs.Length);
+                Assert.AreEqual(18, msgs.Length);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Piping' zijn vervangen.", msgs[1]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Macrostabiliteit buitenwaarts' zijn vervangen.", msgs[4]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Microstabiliteit' zijn vervangen.", msgs[5]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Stabiliteit steenzetting' zijn vervangen.", msgs[6]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Golfklappen op asfaltbekleding' zijn vervangen.", msgs[7]);

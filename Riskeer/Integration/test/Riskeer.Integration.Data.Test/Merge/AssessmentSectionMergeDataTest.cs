@@ -67,7 +67,6 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.IsFalse(mergeData.MergePiping);
             Assert.IsFalse(mergeData.MergeGrassCoverErosionInwards);
             Assert.IsFalse(mergeData.MergeMacroStabilityInwards);
-            Assert.IsFalse(mergeData.MergeMacroStabilityOutwards);
             Assert.IsFalse(mergeData.MergeMicrostability);
             Assert.IsFalse(mergeData.MergeStabilityStoneCover);
             Assert.IsFalse(mergeData.MergeWaveImpactAsphaltCover);
@@ -97,7 +96,6 @@ namespace Riskeer.Integration.Data.Test.Merge
                 MergePiping = random.NextBoolean(),
                 MergeGrassCoverErosionInwards = random.NextBoolean(),
                 MergeMacroStabilityInwards = random.NextBoolean(),
-                MergeMacroStabilityOutwards = random.NextBoolean(),
                 MergeMicrostability = random.NextBoolean(),
                 MergeStabilityStoneCover = random.NextBoolean(),
                 MergeWaveImpactAsphaltCover = random.NextBoolean(),
@@ -122,7 +120,6 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.AreEqual(constructionProperties.MergePiping, mergeData.MergePiping);
             Assert.AreEqual(constructionProperties.MergeGrassCoverErosionInwards, mergeData.MergeGrassCoverErosionInwards);
             Assert.AreEqual(constructionProperties.MergeMacroStabilityInwards, mergeData.MergeMacroStabilityInwards);
-            Assert.AreEqual(constructionProperties.MergeMacroStabilityOutwards, mergeData.MergeMacroStabilityOutwards);
             Assert.AreEqual(constructionProperties.MergeMicrostability, mergeData.MergeMicrostability);
             Assert.AreEqual(constructionProperties.MergeStabilityStoneCover, mergeData.MergeStabilityStoneCover);
             Assert.AreEqual(constructionProperties.MergeWaveImpactAsphaltCover, mergeData.MergeWaveImpactAsphaltCover);

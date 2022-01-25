@@ -288,12 +288,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 LogMergeMessage(targetAssessmentSection.MacroStabilityInwards);
             }
 
-            if (mergeData.MergeMacroStabilityOutwards)
-            {
-                targetAssessmentSection.MacroStabilityOutwards = sourceAssessmentSection.MacroStabilityOutwards;
-                LogMergeMessage(targetAssessmentSection.MacroStabilityOutwards);
-            }
-
             if (mergeData.MergeMicrostability)
             {
                 targetAssessmentSection.Microstability = sourceAssessmentSection.Microstability;

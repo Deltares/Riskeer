@@ -55,7 +55,6 @@ namespace Riskeer.Integration.Data.Merge
             MergePiping = properties.MergePiping;
             MergeGrassCoverErosionInwards = properties.MergeGrassCoverErosionInwards;
             MergeMacroStabilityInwards = properties.MergeMacroStabilityInwards;
-            MergeMacroStabilityOutwards = properties.MergeMacroStabilityOutwards;
             MergeMicrostability = properties.MergeMicrostability;
             MergeStabilityStoneCover = properties.MergeStabilityStoneCover;
             MergeWaveImpactAsphaltCover = properties.MergeWaveImpactAsphaltCover;
@@ -92,11 +91,6 @@ namespace Riskeer.Integration.Data.Merge
         /// Gets the indicator whether macro stability inwards should be merged.
         /// </summary>
         public bool MergeMacroStabilityInwards { get; }
-
-        /// <summary>
-        /// Gets the indicator whether macro stability outwards should be merged.
-        /// </summary>
-        public bool MergeMacroStabilityOutwards { get; }
 
         /// <summary>
         /// Gets the indicator whether microstability should be merged.
@@ -192,11 +186,6 @@ namespace Riskeer.Integration.Data.Merge
             /// Gets or sets the indicator whether macro stability inwards should be merged.
             /// </summary>
             public bool MergeMacroStabilityInwards { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether macro stability outwards should be merged.
-            /// </summary>
-            public bool MergeMacroStabilityOutwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the indicator whether microstability should be merged.

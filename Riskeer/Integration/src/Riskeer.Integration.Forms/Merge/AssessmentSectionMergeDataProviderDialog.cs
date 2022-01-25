@@ -82,7 +82,6 @@ namespace Riskeer.Integration.Forms.Merge
                     MergePiping = FailureMechanismIsSelectedToMerge<PipingFailureMechanism>(),
                     MergeGrassCoverErosionInwards = FailureMechanismIsSelectedToMerge<GrassCoverErosionInwardsFailureMechanism>(),
                     MergeMacroStabilityInwards = FailureMechanismIsSelectedToMerge<MacroStabilityInwardsFailureMechanism>(),
-                    MergeMacroStabilityOutwards = FailureMechanismIsSelectedToMerge<MacroStabilityOutwardsFailureMechanism>(),
                     MergeMicrostability = FailureMechanismIsSelectedToMerge<MicrostabilityFailureMechanism>(),
                     MergeStabilityStoneCover = FailureMechanismIsSelectedToMerge<StabilityStoneCoverFailureMechanism>(),
                     MergeWaveImpactAsphaltCover = FailureMechanismIsSelectedToMerge<WaveImpactAsphaltCoverFailureMechanism>(),

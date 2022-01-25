@@ -282,7 +282,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergePiping);
                 Assert.IsFalse(result.MergeGrassCoverErosionInwards);
                 Assert.IsFalse(result.MergeMacroStabilityInwards);
-                Assert.IsFalse(result.MergeMacroStabilityOutwards);
                 Assert.IsFalse(result.MergeMicrostability);
                 Assert.IsFalse(result.MergeStabilityStoneCover);
                 Assert.IsFalse(result.MergeWaveImpactAsphaltCover);
@@ -339,7 +338,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergePiping);
                 Assert.IsTrue(result.MergeGrassCoverErosionInwards);
                 Assert.IsTrue(result.MergeMacroStabilityInwards);
-                Assert.IsTrue(result.MergeMacroStabilityOutwards);
                 Assert.IsTrue(result.MergeMicrostability);
                 Assert.IsTrue(result.MergeStabilityStoneCover);
                 Assert.IsTrue(result.MergeWaveImpactAsphaltCover);
