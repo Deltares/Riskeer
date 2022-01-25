@@ -78,6 +78,7 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionOutwardsCalculations(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsSectionResults(reader, sourceFilePath);
 
                     AssertMacroStabilityOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
 
@@ -1030,6 +1031,11 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateOtherCalculations);
         }
 
+        private void AssertGrassCoverErosionOutwardsSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "GrassCoverErosionOutwardsSectionResultEntity", sourceFilePath);
+        }
+        
         #endregion
 
         #region DuneErosion

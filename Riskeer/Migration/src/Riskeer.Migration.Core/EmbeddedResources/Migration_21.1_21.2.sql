@@ -201,7 +201,28 @@ SELECT
     [ForeshoreProfileCollectionSourcePath],
     0
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
-INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
+INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
+[GrassCoverErosionOutwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [GrassCoverErosionOutwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
     [GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
     [CalculationGroupEntityId],
