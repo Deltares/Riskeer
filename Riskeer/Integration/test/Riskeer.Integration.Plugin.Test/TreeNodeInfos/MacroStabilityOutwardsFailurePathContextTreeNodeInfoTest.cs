@@ -27,17 +27,12 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -166,30 +161,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InAssemblyInputComments, inAssemblyInputComments);
 
             var outputFolder = (CategoryTreeFolder) children[1];
-            Assert.AreEqual(3, outputFolder.Contents.Count());
+            Assert.AreEqual(2, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismAssemblyCategoriesContext = (MacroStabilityOutwardsAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-
-                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
-                Assert.AreEqual(probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length), calculator.FailureMechanismN);
-            }
-
             var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>)
-                outputFolder.Contents.ElementAt(1);
+                outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResultsOld, failureMechanismResultsContext.WrappedData);
 
-            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(2);
+            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);
         }
 

@@ -51,7 +51,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Controls;
@@ -79,7 +78,6 @@ using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Forms.Factories;
@@ -1140,17 +1138,6 @@ namespace Riskeer.Integration.Plugin
                 Image = context => Resources.AssemblyResultPerSection,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<MacroStabilityOutwardsAssemblyCategoriesContext>
-            {
-                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RiskeerCommonFormsResources.NormsIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
@@ -2437,12 +2424,8 @@ namespace Riskeer.Integration.Plugin
         private static IEnumerable<object> GetMacroStabilityOutwardsFailurePathOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
                                                                                        IAssessmentSection assessmentSection)
         {
-            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
             return new object[]
             {
-                new MacroStabilityOutwardsAssemblyCategoriesContext(nodeData,
-                                                                    assessmentSection,
-                                                                    () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(
                     nodeData.SectionResultsOld, nodeData, assessmentSection),
                 nodeData.InAssemblyOutputComments
