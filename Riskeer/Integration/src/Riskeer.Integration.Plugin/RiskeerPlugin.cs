@@ -496,15 +496,8 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism));
 
-            yield return CreateFailureMechanismResultViewInfo<
-                GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld,
-                GrassCoverSlipOffOutwardsResultViewOld,
-                GrassCoverSlipOffOutwardsSectionResultRowOld,
-                FailureMechanismAssemblyCategoryGroupControl>(
-                context => new GrassCoverSlipOffOutwardsResultViewOld(
-                    context.WrappedData,
-                    (GrassCoverSlipOffOutwardsFailureMechanism) context.FailureMechanism));
+            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(
+                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
 
             yield return CreateFailureMechanismResultViewInfo<MicrostabilityFailureMechanismSectionResultContext, MicrostabilityFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);

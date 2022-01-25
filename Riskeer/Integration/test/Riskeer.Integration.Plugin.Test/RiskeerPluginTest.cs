@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -466,9 +466,9 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>),
-                    typeof(GrassCoverSlipOffOutwardsResultViewOld));
+                    typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
