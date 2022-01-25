@@ -27,8 +27,8 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/> instance with data
-    /// from an old <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/> instance.
+    /// An update strategy that can be used to update either a <see cref="StabilityStoneCoverFailureMechanismSectionResultOld"/>
+    /// or a <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>

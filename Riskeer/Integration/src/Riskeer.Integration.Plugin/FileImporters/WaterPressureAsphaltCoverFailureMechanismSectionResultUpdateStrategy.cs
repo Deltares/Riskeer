@@ -27,8 +27,8 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> instance with data
-    /// from an old <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/> instance.
+    /// An update strategy that can be used to update either a <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResultOld"/>
+    /// or a <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<WaterPressureAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>

@@ -27,8 +27,8 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters
 {
     /// <summary>
-    /// An update strategy that can be used to update a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/> instance with data
-    /// from an old <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/> instance.
+    /// An update strategy that can be used to update either a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultOld"/>
+    /// or a <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> instance with data from an old instance.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy
         : IFailureMechanismSectionResultUpdateStrategy<WaveImpactAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
