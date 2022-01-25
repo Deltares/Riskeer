@@ -460,9 +460,9 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>),
-                    typeof(GrassCoverSlipOffInwardsResultViewOld));
+                    typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

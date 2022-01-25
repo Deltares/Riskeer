@@ -486,15 +486,8 @@ namespace Riskeer.Integration.Plugin
                     () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
-            yield return CreateFailureMechanismResultViewInfo<
-                GrassCoverSlipOffInwardsFailureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismSectionResultOld,
-                GrassCoverSlipOffInwardsResultViewOld,
-                GrassCoverSlipOffInwardsSectionResultRowOld,
-                FailureMechanismAssemblyCategoryGroupControl>(
-                context => new GrassCoverSlipOffInwardsResultViewOld(
-                    context.WrappedData,
-                    (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism));
+            yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(
+                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
 
             yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, GrassCoverSlipOffOutwardsFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
