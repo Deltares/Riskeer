@@ -247,7 +247,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
 
             AssertPipingFailureMechanism(expectedAssessmentSection.Piping, actualAssessmentSection.Piping);
-            AssertMacroStabilityOutwardsFailureMechanism(expectedAssessmentSection.MacroStabilityOutwards, actualAssessmentSection.MacroStabilityOutwards);
             AssertMacroStabilityInwardsFailureMechanism(expectedAssessmentSection.MacroStabilityInwards, actualAssessmentSection.MacroStabilityInwards);
             AssertGrassCoverErosionInwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionInwards, actualAssessmentSection.GrassCoverErosionInwards);
             AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
@@ -280,9 +279,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.ClosingStructures.SectionResults,
                 actualAssessmentSection.ClosingStructures.SectionResults);
-            AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.MacroStabilityOutwards.SectionResultsOld,
-                actualAssessmentSection.MacroStabilityOutwards.SectionResultsOld);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.MacroStabilityInwards.SectionResults,
                 actualAssessmentSection.MacroStabilityInwards.SectionResults);
@@ -1944,34 +1940,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
         }
         
-        #endregion
-
-        #region MacroStabilityOutwards FailureMechanism
-
-        private static void AssertMacroStabilityOutwardsFailureMechanism(MacroStabilityOutwardsFailureMechanism expectedFailureMechanism,
-                                                                         MacroStabilityOutwardsFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A, actualFailureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.A);
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> expectedSectionResults,
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentProbability, actualItem.DetailedAssessmentProbability);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-                                     });
-        }
-
         #endregion
 
         #region Hydraulic Boundary Database

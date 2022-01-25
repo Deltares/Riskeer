@@ -33,7 +33,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.FailurePath;
-using Riskeer.Integration.Data.StandAlone.Input;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
@@ -463,55 +462,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityInwards
                                                                                                 .MacroStabilityInwardsProbabilityAssessmentInput;
-            Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
-        }
-
-        [Test]
-        public void Read_WithMacroStabilityOutwardsFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInMacroStabilityOutwardsFailureMechanism()
-        {
-            // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            var random = new Random(21);
-            bool inAssembly = random.NextBoolean();
-            double parameterA = random.NextDouble();
-            const string inAssemblyInputComments = "Some input text";
-            const string inAssemblyOutputComments = "Some output text";
-            const string notInAssemblyComments = "Really not in assembly";
-            const string calculationsInputComments = "Some calculations comments";
-
-            var failureMechanismEntity = new FailureMechanismEntity
-            {
-                FailureMechanismType = (int) FailureMechanismType.MacroStabilityOutwards,
-                InAssembly = Convert.ToByte(inAssembly),
-                InAssemblyInputComments = inAssemblyInputComments,
-                InAssemblyOutputComments = inAssemblyOutputComments,
-                NotInAssemblyComments = notInAssemblyComments,
-                CalculationsInputComments = calculationsInputComments,
-                MacroStabilityOutwardsFailureMechanismMetaEntities =
-                {
-                    new MacroStabilityOutwardsFailureMechanismMetaEntity
-                    {
-                        A = parameterA
-                    }
-                }
-            };
-            entity.FailureMechanismEntities.Add(failureMechanismEntity);
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            AssessmentSection section = entity.Read(collector);
-
-            // Assert
-            Assert.AreEqual(inAssembly, section.MacroStabilityOutwards.InAssembly);
-            Assert.AreEqual(inAssemblyInputComments, section.MacroStabilityOutwards.InAssemblyInputComments.Body);
-            Assert.AreEqual(inAssemblyOutputComments, section.MacroStabilityOutwards.InAssemblyOutputComments.Body);
-            Assert.AreEqual(notInAssemblyComments, section.MacroStabilityOutwards.NotInAssemblyComments.Body);
-            Assert.IsNull(section.MacroStabilityOutwards.FailureMechanismSectionSourcePath);
-
-            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = section.MacroStabilityOutwards
-                                                                                                 .MacroStabilityOutwardsProbabilityAssessmentInput;
             Assert.AreEqual(parameterA, probabilityAssessmentInput.A);
         }
 

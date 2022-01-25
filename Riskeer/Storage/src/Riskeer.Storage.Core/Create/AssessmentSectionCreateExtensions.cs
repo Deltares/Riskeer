@@ -35,7 +35,6 @@ using Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards;
 using Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards;
 using Riskeer.Storage.Core.Create.HeightStructures;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
-using Riskeer.Storage.Core.Create.MacroStabilityOutwards;
 using Riskeer.Storage.Core.Create.Microstability;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.Create.PipingStructure;
@@ -96,7 +95,6 @@ namespace Riskeer.Storage.Core.Create
             entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.ClosingStructures.Create(registry));
             entity.FailureMechanismEntities.Add(section.MacroStabilityInwards.Create(registry));
-            entity.FailureMechanismEntities.Add(section.MacroStabilityOutwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionOutwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverSlipOffInwards.Create(registry));

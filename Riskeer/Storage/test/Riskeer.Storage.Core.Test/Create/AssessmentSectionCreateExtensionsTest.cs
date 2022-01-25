@@ -117,11 +117,10 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(lowerLimitNorm, entity.LowerLimitNorm);
             Assert.AreEqual(signalingNorm, entity.SignalingNorm);
             Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNormType);
-            Assert.AreEqual(18, entity.FailureMechanismEntities.Count);
+            Assert.AreEqual(17, entity.FailureMechanismEntities.Count);
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.MacroStabilityInwards));
-            Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.MacroStabilityOutwards));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Microstability));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StabilityStoneRevetment));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.WaveImpactOnAsphaltRevetment));

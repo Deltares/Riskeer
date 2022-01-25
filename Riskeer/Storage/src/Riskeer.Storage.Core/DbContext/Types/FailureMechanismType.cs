@@ -87,11 +87,6 @@ namespace Riskeer.Storage.Core.DbContext
         StabilityPointStructures = 12,
 
         /// <summary>
-        /// Macrostabiliteit buitenwaarts - STBU
-        /// </summary>
-        MacroStabilityOutwards = 13,
-
-        /// <summary>
         /// Microstabiliteit - STMI
         /// </summary>
         Microstability = 14,
