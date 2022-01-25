@@ -406,9 +406,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(
-                    failureMechanism, assessmentSection, () => failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(
-                        assessmentSection.ReferenceLine.Length)),
                 new WaveImpactAsphaltCoverFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments

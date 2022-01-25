@@ -35,7 +35,6 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
@@ -880,12 +879,8 @@ namespace Riskeer.Piping.Plugin
 
         private static IEnumerable<object> GetFailurePathOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                              assessmentSection,
-                                                              () => probabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length)),
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new PipingProbabilityFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),

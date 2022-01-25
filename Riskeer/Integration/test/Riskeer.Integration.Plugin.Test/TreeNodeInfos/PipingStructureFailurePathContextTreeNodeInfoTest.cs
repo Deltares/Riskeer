@@ -27,9 +27,6 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
@@ -164,29 +161,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InAssemblyInputComments, inAssemblyInputComments);
 
             var outputFolder = (CategoryTreeFolder) children[1];
-            Assert.AreEqual(3, outputFolder.Contents.Count());
+            Assert.AreEqual(2, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
-            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-
-                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                Assert.AreEqual(failureMechanism.GeneralInput.N, calculator.AssemblyCategoriesInput.N);
-            }
-
             var failureMechanismResultsContext = (PipingStructureFailureMechanismSectionResultContext)
-                outputFolder.Contents.ElementAt(1);
+                outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(2);
+            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);
         }
 

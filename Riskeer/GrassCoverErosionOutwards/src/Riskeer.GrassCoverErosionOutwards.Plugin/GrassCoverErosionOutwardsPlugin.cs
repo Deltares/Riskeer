@@ -404,7 +404,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new GrassCoverErosionOutwardsFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };

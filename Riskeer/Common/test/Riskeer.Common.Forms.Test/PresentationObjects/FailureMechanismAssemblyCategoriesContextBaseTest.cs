@@ -115,9 +115,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                    assessmentSection,
-                                                                                    null);
+            TestDelegate call = () => new TestFailureMechanismAssemblyCategoriesContextBase(failureMechanism,
+                                                                                            assessmentSection,
+                                                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

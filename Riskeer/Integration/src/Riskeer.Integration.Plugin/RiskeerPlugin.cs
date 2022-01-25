@@ -1141,17 +1141,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<FailureMechanismAssemblyCategoriesContext>
-            {
-                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RiskeerCommonFormsResources.NormsIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<AssemblyResultsContext>
             {
                 Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
@@ -2498,8 +2487,6 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(
-                    failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new PipingStructureFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments

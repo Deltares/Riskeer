@@ -476,7 +476,6 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
