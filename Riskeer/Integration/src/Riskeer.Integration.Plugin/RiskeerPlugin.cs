@@ -592,14 +592,6 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
-                                                                             context.GetAssemblyCategoriesFunc)
-            };
-
             yield return new RiskeerViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
