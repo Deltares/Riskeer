@@ -33,10 +33,11 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Grass Cover Slip Off Outwards failure mechanism.
     /// </summary>
     public class GrassCoverSlipOffOutwardsFailureMechanism : FailureMechanismBase,
-                                                             IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>,
+                                                             IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                              IHasGeneralInput
     {
-        private readonly ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> sectionResults;
+        private readonly ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> sectionResultsOld;
+        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> class.
@@ -44,7 +45,8 @@ namespace Riskeer.Integration.Data.StandAlone
         public GrassCoverSlipOffOutwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code, 4)
         {
-            sectionResults = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
+            sectionResultsOld = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
+            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             GeneralInput = new GeneralInput();
         }
 
@@ -58,23 +60,19 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> SectionResultsOld
-        {
-            get
-            {
-                return sectionResults;
-            }
-        }
+        public IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
+
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section));
+            sectionResultsOld.Add(new GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            sectionResultsOld.Clear();
         }
     }
 }

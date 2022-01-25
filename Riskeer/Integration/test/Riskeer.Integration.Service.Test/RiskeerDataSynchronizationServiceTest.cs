@@ -1671,7 +1671,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(73, changedObjects.Length);
+            Assert.AreEqual(74, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1764,6 +1764,7 @@ namespace Riskeer.Integration.Service.Test
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism);
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
+            CollectionAssert.Contains(changedObjects, grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffInwardsFailureMechanism);
@@ -1795,7 +1796,7 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaveImpactAsphaltCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.WaterPressureAsphaltCover));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverErosionOutwards));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.GrassCoverSlipOffOutwards));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.GrassCoverSlipOffOutwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.GrassCoverSlipOffInwards));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.HeightStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.ClosingStructures));
