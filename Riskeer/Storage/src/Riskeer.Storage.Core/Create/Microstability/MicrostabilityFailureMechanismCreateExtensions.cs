@@ -21,8 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.Microstability
@@ -43,18 +44,18 @@ namespace Riskeer.Storage.Core.Create.Microstability
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.Microstability, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<MicrostabilityFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                MicrostabilitySectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<MicrostabilitySectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.MicrostabilitySectionResultEntities.Add(sectionResultEntity);
             }
