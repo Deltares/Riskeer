@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -74,12 +75,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var random = new Random(39);
             return new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                IsRelevant = true,
-                InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual,
+                IsRelevant = random.NextBoolean(),
+                InitialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = true,
-                ProbabilityRefinementType = ProbabilityRefinementType.Both,
+                FurtherAnalysisNeeded = random.NextBoolean(),
+                ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>(),
                 RefinedSectionProbability = random.NextDouble(),
                 RefinedProfileProbability = random.NextDouble()
             };

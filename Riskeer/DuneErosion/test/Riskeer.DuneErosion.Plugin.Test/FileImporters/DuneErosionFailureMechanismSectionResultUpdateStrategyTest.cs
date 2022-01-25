@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
@@ -80,10 +81,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.FileImporters
             var random = new Random(39);
             return new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                IsRelevant = true,
-                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
+                IsRelevant = random.NextBoolean(),
+                InitialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = true,
+                FurtherAnalysisNeeded = random.NextBoolean(),
                 RefinedSectionProbability = random.NextDouble()
             };
         }

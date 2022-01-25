@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -71,10 +72,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             var random = new Random(39);
             return new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                IsRelevant = true,
-                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
+                IsRelevant = random.NextBoolean(),
+                InitialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = true,
+                FurtherAnalysisNeeded = random.NextBoolean(),
                 RefinedSectionProbability = random.NextDouble()
             };
         }

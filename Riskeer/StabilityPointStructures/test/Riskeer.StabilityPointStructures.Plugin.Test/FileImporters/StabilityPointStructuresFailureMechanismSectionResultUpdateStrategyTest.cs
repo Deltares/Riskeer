@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -74,10 +75,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var random = new Random(39);
             return new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                IsRelevant = true,
-                InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual,
+                IsRelevant = random.NextBoolean(),
+                InitialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = true,
+                FurtherAnalysisNeeded = random.NextBoolean(),
                 RefinedSectionProbability = random.NextDouble()
             };
         }

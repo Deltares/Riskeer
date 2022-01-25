@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
@@ -80,11 +81,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.FileImporters
             var random = new Random(39);
             return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                IsRelevant = true,
-                InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability,
+                IsRelevant = random.NextBoolean(),
+                InitialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = true,
+                FurtherAnalysisNeeded = random.NextBoolean(),
                 RefinedProfileProbability = random.NextDouble(),
                 RefinedSectionProbability = random.NextDouble()
             };
