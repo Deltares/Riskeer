@@ -215,20 +215,20 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Piping' zijn vervangen.", msgs[1]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Microstabiliteit' zijn vervangen.", msgs[5]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Stabiliteit steenzetting' zijn vervangen.", msgs[6]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Golfklappen op asfaltbekleding' zijn vervangen.", msgs[7]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Wateroverdruk bij asfaltbekleding' zijn vervangen.", msgs[8]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie buitentalud' zijn vervangen.", msgs[9]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Grasbekleding afschuiven buitentalud' zijn vervangen.", msgs[10]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Grasbekleding afschuiven binnentalud' zijn vervangen.", msgs[11]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Hoogte kunstwerk' zijn vervangen.", msgs[12]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[13]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Piping bij kunstwerk' zijn vervangen.", msgs[14]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[15]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[16]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinafslag' zijn vervangen.", msgs[17]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[18]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Microstabiliteit' zijn vervangen.", msgs[4]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Stabiliteit steenzetting' zijn vervangen.", msgs[5]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Golfklappen op asfaltbekleding' zijn vervangen.", msgs[6]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Wateroverdruk bij asfaltbekleding' zijn vervangen.", msgs[7]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie buitentalud' zijn vervangen.", msgs[8]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Grasbekleding afschuiven buitentalud' zijn vervangen.", msgs[9]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Dijken en dammen - Grasbekleding afschuiven binnentalud' zijn vervangen.", msgs[10]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Hoogte kunstwerk' zijn vervangen.", msgs[11]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[12]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Piping bij kunstwerk' zijn vervangen.", msgs[13]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[15]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinafslag' zijn vervangen.", msgs[16]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[17]);
             });
         }
 
