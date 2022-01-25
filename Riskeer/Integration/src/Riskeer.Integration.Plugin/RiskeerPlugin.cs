@@ -1114,7 +1114,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
@@ -2424,7 +2424,7 @@ namespace Riskeer.Integration.Plugin
                                        GetGrassCoverSlipOffOutwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetGrassCoverSlipOffOutwardsFailurePathOutputs(nodeData.WrappedData),
+                                       GetGrassCoverSlipOffOutwardsFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
@@ -2438,13 +2438,13 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailurePathOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailurePathOutputs(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData),
-                nodeData.InAssemblyOutputComments
+                new GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext(
+                    failureMechanism.SectionResults, failureMechanism, assessmentSection),
+                failureMechanism.InAssemblyOutputComments
             };
         }
 
