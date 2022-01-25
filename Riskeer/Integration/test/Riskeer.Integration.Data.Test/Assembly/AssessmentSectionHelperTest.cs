@@ -94,7 +94,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 assessmentSection => assessmentSection.StabilityStoneCover,
                 assessmentSection => assessmentSection.GrassCoverSlipOffInwards,
                 assessmentSection => assessmentSection.GrassCoverSlipOffOutwards,
-                assessmentSection => assessmentSection.MacroStabilityOutwards,
                 assessmentSection => assessmentSection.Microstability,
                 assessmentSection => assessmentSection.PipingStructure,
                 assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction,
@@ -127,7 +126,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, nrOfSections);
 
-            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityOutwards, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, nrOfSections);

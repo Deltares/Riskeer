@@ -324,17 +324,6 @@ namespace Riskeer.Integration.Data.TestUtil
                 sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
             }, assessmentSection => assessmentSection.Microstability);
 
-            yield return new AssessmentSectionConfiguration(assessmentSection =>
-            {
-                MacroStabilityOutwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityOutwards;
-                failureMechanism.InAssembly = true;
-                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-                MacroStabilityOutwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
-                sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, assessmentSection => assessmentSection.MacroStabilityOutwards);
-
             yield return new AssessmentSectionConfiguration(section =>
             {
                 WaterPressureAsphaltCoverFailureMechanism failureMechanism = section.WaterPressureAsphaltCover;

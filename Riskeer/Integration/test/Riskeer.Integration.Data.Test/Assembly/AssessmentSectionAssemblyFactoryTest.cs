@@ -431,14 +431,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 return;
             }
 
-            var macroStabilityOutwards = failureMechanism as MacroStabilityOutwardsFailureMechanism;
-            if (macroStabilityOutwards != null)
-            {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(macroStabilityOutwards).ManualAssemblyCategoryGroup),
-                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-                return;
-            }
-
             var waterPressureAsphaltCover = failureMechanism as WaterPressureAsphaltCoverFailureMechanism;
             if (waterPressureAsphaltCover != null)
             {
@@ -980,7 +972,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 assessmentSection.WaveImpactAsphaltCover,
                 assessmentSection.GrassCoverErosionOutwards,
                 assessmentSection.DuneErosion,
-                assessmentSection.MacroStabilityOutwards,
                 assessmentSection.Microstability,
                 assessmentSection.WaterPressureAsphaltCover,
                 assessmentSection.GrassCoverSlipOffOutwards,
