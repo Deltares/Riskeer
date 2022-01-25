@@ -532,15 +532,8 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     (StrengthStabilityLengthwiseConstructionFailureMechanism) context.FailureMechanism));
 
-            yield return CreateFailureMechanismResultViewInfo<
-                WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResultOld,
-                WaterPressureAsphaltCoverResultViewOld,
-                WaterPressureAsphaltCoverSectionResultRowOld,
-                FailureMechanismAssemblyCategoryGroupControl>(
-                context => new WaterPressureAsphaltCoverResultViewOld(
-                    context.WrappedData,
-                    (WaterPressureAsphaltCoverFailureMechanism) context.FailureMechanism));
+            yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
+                fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
 
             yield return new RiskeerViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>,
@@ -1127,7 +1120,7 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>>
             {
@@ -2649,13 +2642,16 @@ namespace Riskeer.Integration.Plugin
 
         private static object[] WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects(WaterPressureAsphaltCoverFailurePathContext nodeData)
         {
+            IAssessmentSection assessmentSection = nodeData.Parent;
+            WaterPressureAsphaltCoverFailureMechanism failureMechanism = nodeData.WrappedData;
+            
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetWaterPressureAsphaltCoverFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetWaterPressureAsphaltCoverFailurePathInputs(failureMechanism, assessmentSection),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetWaterPressureAsphaltCoverFailurePathOutputs(nodeData.WrappedData),
+                                       GetWaterPressureAsphaltCoverFailurePathOutputs(failureMechanism, assessmentSection),
                                        TreeFolderCategory.Output)
             };
         }
@@ -2669,12 +2665,11 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailurePathOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailurePathOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
-                new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData),
+                new WaterPressureAsphaltCoverFailureMechanismSectionResultContext(nodeData.SectionResults, nodeData, assessmentSection),
                 nodeData.InAssemblyOutputComments
             };
         }
