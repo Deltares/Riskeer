@@ -94,7 +94,6 @@
     <ProjectReference Include="..\..\src\Riskeer.Integration.IO\Riskeer.Integration.IO.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Plugin\Riskeer.Integration.Plugin.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.Integration.Service\Riskeer.Integration.Service.csproj" />
-    <ProjectReference Include="..\Riskeer.Integration.Forms.TestUtil\Riskeer.Integration.Forms.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
