@@ -35,7 +35,7 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsResultViewInfoTest
+    public class GrassCoverSlipOffInwardsFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
         private RiskeerPlugin plugin;
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>));
         }
 
         [TearDown]
@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverSlipOffInwardsFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -70,8 +70,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext(
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var context = new GrassCoverSlipOffInwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -100,9 +100,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
@@ -127,9 +127,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
@@ -172,14 +172,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
@@ -198,12 +198,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffOutwardsFailureMechanism());
+            failurePathContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffInwardsFailureMechanism());
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
@@ -223,15 +223,15 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext(
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var context = new GrassCoverSlipOffInwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>>(view);
+            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }

@@ -28,14 +28,14 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
-using Riskeer.Integration.Forms.Views.SectionResultViews;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class MacroStabilityOutwardsResultViewInfoTest
+    public class WaterPressureAsphaltCoverFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
         private RiskeerPlugin plugin;
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityOutwardsResultViewOld));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>));
         }
 
         [TearDown]
@@ -59,8 +59,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld>), info.ViewDataType);
+            Assert.AreEqual(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -69,17 +69,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(failureMechanism.SectionResultsOld,
-                                                                                                                                   failureMechanism,
-                                                                                                                                   assessmentSection);
+            
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var context = new WaterPressureAsphaltCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(failureMechanism.SectionResultsOld, viewData);
+            Assert.AreSame(failureMechanism.SectionResults, viewData);
             mocks.VerifyAll();
         }
 
@@ -101,9 +100,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -119,21 +119,22 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
-            otherAssessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, otherAssessmentSection))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, otherAssessmentSection);
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -147,7 +148,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
@@ -156,7 +157,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -173,13 +175,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
             failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
-
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -196,16 +199,18 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanismContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MacroStabilityOutwardsFailureMechanism());
+
+            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            failurePathContext.Expect(fm => fm.WrappedData).Return(new WaterPressureAsphaltCoverFailureMechanism());
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (var view = new MacroStabilityOutwardsResultViewOld(failureMechanism.SectionResultsOld, failureMechanism, assessmentSection))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
+                bool closeForData = info.CloseForData(view, failurePathContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -219,19 +224,17 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            var context = new WaterPressureAsphaltCoverFailureMechanismSectionResultContext(
+                failureMechanism.SectionResults, failureMechanism, assessmentSection);
             mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var context = new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(
-                failureMechanism.SectionResultsOld,
-                failureMechanism,
-                assessmentSection);
-
+            
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityOutwardsResultViewOld>(view);
+            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }
