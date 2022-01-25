@@ -150,7 +150,7 @@ namespace Riskeer.Storage.Core.TestUtil
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
             ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, assessmentSection);
             SetSections(grassCoverErosionOutwardsFailureMechanism);
-            SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResultsOld);
+            SetSectionResults(grassCoverErosionOutwardsFailureMechanism.SectionResults);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             AddForeshoreProfiles(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
@@ -2090,23 +2090,6 @@ namespace Riskeer.Storage.Core.TestUtil
                             new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
                         })
                 });
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(37);
-            foreach (GrassCoverErosionOutwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            }
         }
 
         #endregion
