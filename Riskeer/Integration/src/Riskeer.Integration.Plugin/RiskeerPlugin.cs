@@ -1050,15 +1050,6 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
-            yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<Comment>
             {
                 Text = comment => Resources.Comment_DisplayName,

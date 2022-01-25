@@ -579,7 +579,7 @@ namespace Riskeer.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(43, treeNodeInfos.Length);
+                Assert.AreEqual(42, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicLoadsStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationsStateRootContext)));
@@ -613,7 +613,6 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Comment)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultTotalContext)));
