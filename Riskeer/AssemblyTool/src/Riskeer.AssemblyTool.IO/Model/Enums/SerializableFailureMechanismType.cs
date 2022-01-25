@@ -35,12 +35,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         STBI = 1,
 
         /// <summary>
-        /// Represents the failure mechanism macro stability outwards.
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBU)]
-        STBU = 2,
-
-        /// <summary>
         /// Represents the failure mechanism piping.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH)]

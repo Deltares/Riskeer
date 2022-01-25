@@ -39,9 +39,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                         SerializableFailureMechanismType.STBI, 1
                     },
                     {
-                        SerializableFailureMechanismType.STBU, 2
-                    },
-                    {
                         SerializableFailureMechanismType.STPH, 3
                     },
                     {
@@ -101,9 +98,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 {
                     {
                         SerializableFailureMechanismType.STBI, "STBI"
-                    },
-                    {
-                        SerializableFailureMechanismType.STBU, "STBU"
                     },
                     {
                         SerializableFailureMechanismType.STPH, "STPH"

@@ -84,7 +84,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("GEEN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup4);
 
             Assert.AreEqual("STBI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBI);
-            Assert.AreEqual("STBU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBU);
             Assert.AreEqual("STPH", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH);
             Assert.AreEqual("STMI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTMI);
             Assert.AreEqual("AGK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAGK);

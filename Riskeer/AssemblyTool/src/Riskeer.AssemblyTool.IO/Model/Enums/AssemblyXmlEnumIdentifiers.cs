@@ -290,11 +290,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         public const string SerializableFailureMechanismTypeSTBI = "STBI";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismType.STBU"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismTypeSTBU = "STBU";
-
-        /// <summary>
         /// Identifier for <see cref="SerializableFailureMechanismType.STPH"/>.
         /// </summary>
         public const string SerializableFailureMechanismTypeSTPH = "STPH";
