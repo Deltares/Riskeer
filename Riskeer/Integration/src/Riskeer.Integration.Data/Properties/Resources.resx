@@ -138,12 +138,6 @@
   <data name="GrassCoverSlipOffInwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding afschuiven binnentalud</value>
   </data>
-  <data name="MacroStabilityOutwardsFailureMechanism_Code" xml:space="preserve">
-    <value>STBU</value>
-  </data>
-  <data name="MacroStabilityOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Macrostabiliteit buitenwaarts</value>
-  </data>
   <data name="MicrostabilityFailureMechanism_Code" xml:space="preserve">
     <value>STMI</value>
   </data>

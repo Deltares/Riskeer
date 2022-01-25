@@ -155,24 +155,6 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STBU.
-        /// </summary>
-        public static string MacroStabilityOutwardsFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Macrostabiliteit buitenwaarts.
-        /// </summary>
-        public static string MacroStabilityOutwardsFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("MacroStabilityOutwardsFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to STMI.
         /// </summary>
         public static string MicrostabilityFailureMechanism_Code {
