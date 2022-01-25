@@ -101,7 +101,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         DA = 12,
 
         /// <summary>
-        /// Represents the failure mechanism height structurews.
+        /// Represents the failure mechanism height structures.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeHTKW)]
         HTKW = 13,
