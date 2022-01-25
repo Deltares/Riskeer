@@ -41,21 +41,20 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int pipingIndex = 4;
         private const int grassCoverErosionInwardsIndex = 5;
         private const int macroStabilityInwardsIndex = 6;
-        private const int macroStabilityOutwardsIndex = 7;
-        private const int microstabililityIndex = 8;
-        private const int stabilityStoneCoverIndex = 9;
-        private const int waveImpactAsphaltCoverIndex = 10;
-        private const int waterPressureAsphaltCoverIndex = 11;
-        private const int grassCoverErosionOutwardsIndex = 12;
-        private const int grassCoverSlipOffOutwardsIndex = 13;
-        private const int grassCoverSlipOffInwardsIndex = 14;
-        private const int heightStructuresIndex = 15;
-        private const int closingStructuresIndex = 16;
-        private const int pipingStructureIndex = 17;
-        private const int stabilityPointStructuresIndex = 18;
-        private const int strengthStabilityLengthwiseIndex = 19;
-        private const int duneErosionIndex = 20;
-        private const int technicalInnovationIndex = 21;
+        private const int microstabililityIndex = 7;
+        private const int stabilityStoneCoverIndex = 8;
+        private const int waveImpactAsphaltCoverIndex = 9;
+        private const int waterPressureAsphaltCoverIndex = 10;
+        private const int grassCoverErosionOutwardsIndex = 11;
+        private const int grassCoverSlipOffOutwardsIndex = 12;
+        private const int grassCoverSlipOffInwardsIndex = 13;
+        private const int heightStructuresIndex = 14;
+        private const int closingStructuresIndex = 15;
+        private const int pipingStructureIndex = 16;
+        private const int stabilityPointStructuresIndex = 17;
+        private const int strengthStabilityLengthwiseIndex = 18;
+        private const int duneErosionIndex = 19;
+        private const int technicalInnovationIndex = 20;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
@@ -81,12 +80,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(19, columnStateDefinitions.Count);
+            Assert.AreEqual(18, columnStateDefinitions.Count);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, totalResultIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverErosionInwardsIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, macroStabilityInwardsIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, macroStabilityOutwardsIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, microstabililityIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityStoneCoverIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, waveImpactAsphaltCoverIndex);
@@ -111,7 +109,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.Piping), row.Piping);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.MacroStabilityInwards), row.MacroStabilityInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.MacroStabilityOutwards), row.MacroStabilityOutwards);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.Microstability), row.Microstability);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StabilityStoneCover), row.StabilityStoneCover);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
@@ -147,7 +144,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                     Piping = categoryGroup,
                     GrassCoverErosionInwards = categoryGroup,
                     MacroStabilityInwards = categoryGroup,
-                    MacroStabilityOutwards = categoryGroup,
                     Microstability = categoryGroup,
                     StabilityStoneCover = categoryGroup,
                     WaveImpactAsphaltCover = categoryGroup,
@@ -174,7 +170,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverErosionInwardsIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[macroStabilityInwardsIndex], expectedBackgroundColor);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[macroStabilityOutwardsIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[microstabililityIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityStoneCoverIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[waveImpactAsphaltCoverIndex], expectedBackgroundColor);
@@ -204,7 +199,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                     Piping = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     GrassCoverErosionInwards = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     MacroStabilityInwards = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                    MacroStabilityOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     Microstability = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     StabilityStoneCover = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     WaveImpactAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),

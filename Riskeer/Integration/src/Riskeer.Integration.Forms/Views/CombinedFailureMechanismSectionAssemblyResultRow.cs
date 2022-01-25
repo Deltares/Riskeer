@@ -39,21 +39,20 @@ namespace Riskeer.Integration.Forms.Views
         private const int pipingIndex = 4;
         private const int grassCoverErosionInwardsIndex = 5;
         private const int macroStabilityInwardsIndex = 6;
-        private const int macroStabilityOutwardsIndex = 7;
-        private const int microstabililityIndex = 8;
-        private const int stabilityStoneCoverIndex = 9;
-        private const int waveImpactAsphaltCoverIndex = 10;
-        private const int waterPressureAsphaltCoverIndex = 11;
-        private const int grassCoverErosionOutwardsIndex = 12;
-        private const int grassCoverSlipOffOutwardsIndex = 13;
-        private const int grassCoverSlipOffInwardsIndex = 14;
-        private const int heightStructuresIndex = 15;
-        private const int closingStructuresIndex = 16;
-        private const int pipingStructureIndex = 17;
-        private const int stabilityPointStructuresIndex = 18;
-        private const int strengthStabilityLengthwiseConstructionIndex = 19;
-        private const int duneErosionIndex = 20;
-        private const int technicalInnovationIndex = 21;
+        private const int microstabililityIndex = 7;
+        private const int stabilityStoneCoverIndex = 8;
+        private const int waveImpactAsphaltCoverIndex = 9;
+        private const int waterPressureAsphaltCoverIndex = 10;
+        private const int grassCoverErosionOutwardsIndex = 11;
+        private const int grassCoverSlipOffOutwardsIndex = 12;
+        private const int grassCoverSlipOffInwardsIndex = 13;
+        private const int heightStructuresIndex = 14;
+        private const int closingStructuresIndex = 15;
+        private const int pipingStructureIndex = 16;
+        private const int stabilityPointStructuresIndex = 17;
+        private const int strengthStabilityLengthwiseConstructionIndex = 18;
+        private const int duneErosionIndex = 19;
+        private const int technicalInnovationIndex = 20;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -155,17 +154,6 @@ namespace Riskeer.Integration.Forms.Views
             get
             {
                 return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
-            }
-        }
-
-        /// <summary>
-        /// Gets the assembly result for macro stability outwards.
-        /// </summary>
-        public string MacroStabilityOutwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityOutwards);
             }
         }
 
@@ -331,7 +319,6 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(pipingIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(grassCoverErosionInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(macroStabilityInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-            ColumnStateDefinitions.Add(macroStabilityOutwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(microstabililityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(stabilityStoneCoverIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(waveImpactAsphaltCoverIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
@@ -354,7 +341,6 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[pipingIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.Piping);
             ColumnStateDefinitions[grassCoverErosionInwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
             ColumnStateDefinitions[macroStabilityInwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
-            ColumnStateDefinitions[macroStabilityOutwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.MacroStabilityOutwards);
             ColumnStateDefinitions[microstabililityIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.Microstability);
             ColumnStateDefinitions[stabilityStoneCoverIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
             ColumnStateDefinitions[waveImpactAsphaltCoverIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);

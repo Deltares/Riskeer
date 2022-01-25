@@ -180,9 +180,6 @@ namespace Riskeer.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.MacroStabilityInwards),
                                                  MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.MacroStabilityOutwards),
-                                                 IntegrationDataResources.MacroStabilityOutwardsFailureMechanism_Code,
-                                                 true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Microstability),
                                                  IntegrationDataResources.MicrostabilityFailureMechanism_Code,
                                                  true);
