@@ -741,10 +741,6 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverSlipOffOutwardsFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityOutwardsFailureMechanismSectionsContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsFailureMechanismSectionResultOld>(
-                new MacroStabilityOutwardsFailureMechanismSectionResultUpdateStrategy());
-
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 MicrostabilityFailureMechanismSectionsContext, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new MicrostabilityFailureMechanismSectionResultUpdateStrategy());
 

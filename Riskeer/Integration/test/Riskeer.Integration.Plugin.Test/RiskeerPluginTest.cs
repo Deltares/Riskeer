@@ -708,7 +708,7 @@ namespace Riskeer.Integration.Plugin.Test
         }
 
         [Test]
-        public void GetImportInfos_ReturnsSupportedUpdateInfos()
+        public void GetUpdateInfos_ReturnsSupportedUpdateInfos()
         {
             // Setup
             using (var plugin = new RiskeerPlugin())
@@ -717,11 +717,10 @@ namespace Riskeer.Integration.Plugin.Test
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(10, updateInfos.Length);
+                Assert.AreEqual(9, updateInfos.Length);
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverSlipOffInwardsFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionsContext)));
-                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MacroStabilityOutwardsFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MicrostabilityFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(PipingStructureFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext)));
