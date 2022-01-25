@@ -1179,17 +1179,6 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<AssemblyResultCategoriesContext>
-            {
-                Text = context => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                Image = context => RiskeerCommonFormsResources.NormsIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<AssemblyResultPerSectionMapContext>
             {
                 Text = context => Resources.AssemblyResultPerSection_Map_DisplayName,
@@ -3092,7 +3081,6 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
-                new AssemblyResultCategoriesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection),
                 new AssemblyResultPerSectionMapContext(assessmentSection)

@@ -174,18 +174,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(context).ToArray();
 
                 // Assert
-                Assert.AreEqual(4, objects.Length);
+                Assert.AreEqual(3, objects.Length);
 
-                var assemblyResultCategoriesContext = (AssemblyResultCategoriesContext) objects[0];
-                Assert.AreSame(assessmentSection, assemblyResultCategoriesContext.WrappedData);
-
-                var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[1];
+                var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[0];
                 Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);
 
-                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[2];
+                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
 
-                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionMapContext) objects[3];
+                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionMapContext) objects[2];
                 Assert.AreSame(assessmentSection, assemblyResultPerSectionMapContext.WrappedData);
             }
         }
