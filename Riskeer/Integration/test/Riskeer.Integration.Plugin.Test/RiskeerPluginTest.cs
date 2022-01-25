@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(25, propertyInfos.Length);
+                Assert.AreEqual(24, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -249,11 +249,6 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(SpecificFailurePathContext),
                     typeof(SpecificFailurePathProperties));
-
-                PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(MacroStabilityOutwardsFailurePathContext),
-                    typeof(MacroStabilityOutwardsFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
