@@ -854,12 +854,6 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MacroStabilityOutwardsFailurePathContext>(
-                MacroStabilityOutwardsFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
-
             yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MicrostabilityFailurePathContext>(
                 MicrostabilityFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
@@ -2016,7 +2010,6 @@ namespace Riskeer.Integration.Plugin
                 new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsFailurePathContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsFailurePathContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new MacroStabilityOutwardsFailurePathContext(assessmentSection.MacroStabilityOutwards, assessmentSection),
                 new MicrostabilityFailurePathContext(assessmentSection.Microstability, assessmentSection),
                 new StabilityStoneCoverFailurePathContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
@@ -2346,43 +2339,6 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverSlipOffOutwardsFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
-            };
-        }
-
-        #endregion
-
-        #region MacroStabilityOutwardsFailurePathContext TreeNodeInfo
-
-        private static object[] MacroStabilityOutwardsFailurePathEnabledChildNodeObjects(MacroStabilityOutwardsFailurePathContext nodeData)
-        {
-            return new object[]
-            {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetMacroStabilityOutwardsFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
-                                       TreeFolderCategory.Input),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetMacroStabilityOutwardsFailurePathOutputs(nodeData.WrappedData, nodeData.Parent),
-                                       TreeFolderCategory.Output)
-            };
-        }
-
-        private static IEnumerable<object> GetMacroStabilityOutwardsFailurePathInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new MacroStabilityOutwardsFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InAssemblyInputComments
-            };
-        }
-
-        private static IEnumerable<object> GetMacroStabilityOutwardsFailurePathOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
-                                                                                       IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData, assessmentSection),
-                nodeData.InAssemblyOutputComments
             };
         }
 
