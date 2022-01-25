@@ -201,7 +201,7 @@ namespace Riskeer.Storage.Core.TestUtil
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             SetGeneralInput(microstabilityFailureMechanism, random.Next());
             SetSections(microstabilityFailureMechanism);
-            SetSectionResults(microstabilityFailureMechanism.SectionResultsOld);
+            SetSectionResults(microstabilityFailureMechanism.SectionResults);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             SetGeneralInput(waterPressureAsphaltCoverFailureMechanism, random.Next());
@@ -339,19 +339,6 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             var random = new Random(39);
             foreach (GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(39);
-            foreach (MicrostabilityFailureMechanismSectionResultOld sectionResult in sectionResults)
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();

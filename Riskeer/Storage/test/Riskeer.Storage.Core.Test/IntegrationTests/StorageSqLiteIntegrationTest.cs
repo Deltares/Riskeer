@@ -299,8 +299,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.GrassCoverSlipOffOutwards.SectionResultsOld,
                 actualAssessmentSection.GrassCoverSlipOffOutwards.SectionResultsOld);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.Microstability.SectionResultsOld,
-                actualAssessmentSection.Microstability.SectionResultsOld);
+                expectedAssessmentSection.Microstability.SectionResults,
+                actualAssessmentSection.Microstability.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.PipingStructure.SectionResults,
                 actualAssessmentSection.PipingStructure.SectionResults);

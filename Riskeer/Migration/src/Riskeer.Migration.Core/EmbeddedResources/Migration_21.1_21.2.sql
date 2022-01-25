@@ -202,7 +202,7 @@ SELECT
     0
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
-[GrassCoverErosionOutwardsSectionResultEntityId],
+    [GrassCoverErosionOutwardsSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -412,7 +412,28 @@ SELECT
     0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 14;
-INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
+INSERT INTO MicrostabilitySectionResultEntity (
+    [MicrostabilitySectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [MicrostabilitySectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 
 INSERT INTO PipingFailureMechanismMetaEntity (
