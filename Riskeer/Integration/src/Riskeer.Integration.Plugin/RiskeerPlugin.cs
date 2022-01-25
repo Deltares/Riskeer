@@ -519,24 +519,6 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
 
-            yield return new RiskeerViewInfo<
-                ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>,
-                IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld>,
-                MacroStabilityOutwardsResultViewOld>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                CloseForData = CloseFailureMechanismResultViewForData<MacroStabilityOutwardsFailureMechanism,
-                    MacroStabilityOutwardsFailureMechanismSectionResultOld,
-                    MacroStabilityOutwardsResultViewOld,
-                    MacroStabilityOutwardsSectionResultRowOld,
-                    FailureMechanismAssemblyCategoryGroupControl>,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = context => new MacroStabilityOutwardsResultViewOld(
-                    context.WrappedData,
-                    (MacroStabilityOutwardsFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection)
-            };
-
             yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,

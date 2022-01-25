@@ -394,7 +394,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(31, viewInfos.Length);
+                Assert.AreEqual(30, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -451,12 +451,6 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
                     typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanism>));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResultOld>),
-                    typeof(MacroStabilityOutwardsResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
