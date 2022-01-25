@@ -592,14 +592,6 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<MacroStabilityOutwardsAssemblyCategoriesContext, MacroStabilityOutwardsFailureMechanism, MacroStabilityOutwardsAssemblyCategoriesView>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new MacroStabilityOutwardsAssemblyCategoriesView((MacroStabilityOutwardsFailureMechanism) context.WrappedData,
-                                                                                             context.AssessmentSection,
-                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc)
-            };
             yield return new RiskeerViewInfo<AssemblyResultCategoriesContext, AssessmentSection, AssemblyResultCategoriesView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyCategories_DisplayName,
@@ -607,6 +599,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultCategoriesView(context.WrappedData,
                                                                              context.GetAssemblyCategoriesFunc)
             };
+
             yield return new RiskeerViewInfo<AssemblyResultPerSectionMapContext, AssessmentSection, AssemblyResultPerSectionMapView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
@@ -2637,7 +2630,7 @@ namespace Riskeer.Integration.Plugin
         {
             IAssessmentSection assessmentSection = nodeData.Parent;
             WaterPressureAsphaltCoverFailureMechanism failureMechanism = nodeData.WrappedData;
-            
+
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,

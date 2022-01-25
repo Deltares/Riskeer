@@ -437,15 +437,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen per vak.
-        /// </summary>
-        public static string FailureMechanismSectionAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategories_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Naam van het faalpad..
         /// </summary>
         public static string FailurePath_Name_Description {
