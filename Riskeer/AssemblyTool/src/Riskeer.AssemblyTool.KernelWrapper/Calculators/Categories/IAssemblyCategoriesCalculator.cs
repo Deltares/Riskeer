@@ -40,42 +40,5 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// while performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(
             double signalingNorm, double lowerLimitNorm);
-
-        /// <summary>
-        /// Performs the calculation for getting the failure mechanism categories.
-        /// </summary>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="FailureMechanismAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// while performing the calculation.</exception>
-        IEnumerable<FailureMechanismAssemblyCategory> CalculateFailureMechanismCategories(AssemblyCategoriesInput assemblyCategoriesInput);
-
-        /// <summary>
-        /// Performs the calculation for getting the failure mechanism section categories.
-        /// </summary>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// while performing the calculation.</exception>
-        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
-            AssemblyCategoriesInput assemblyCategoriesInput);
-
-        /// <summary>
-        /// Performs the calculation for getting the geotechnical failure mechanism section categories.
-        /// </summary>
-        /// <param name="normativeNorm">The norm which has been defined on the assessment section.</param>
-        /// <param name="failureMechanismN">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// while performing the calculation.</exception>
-        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(double normativeNorm,
-                                                                                                                    double failureMechanismN,
-                                                                                                                    double failureMechanismContribution);
     }
 }
