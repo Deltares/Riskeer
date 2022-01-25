@@ -58,7 +58,6 @@ namespace Riskeer.Integration.Data.Assembly
             Piping = properties.Piping;
             GrassCoverErosionInwards = properties.GrassCoverErosionInwards;
             MacroStabilityInwards = properties.MacroStabilityInwards;
-            MacroStabilityOutwards = properties.MacroStabilityOutwards;
             Microstability = properties.Microstability;
             StabilityStoneCover = properties.StabilityStoneCover;
             WaveImpactAsphaltCover = properties.WaveImpactAsphaltCover;
@@ -111,11 +110,6 @@ namespace Riskeer.Integration.Data.Assembly
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityInwards { get; }
-
-        /// <summary>
-        /// Gets the assembly result for macro stability outwards.
-        /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityOutwards { get; }
 
         /// <summary>
         /// Gets the assembly result for microstability.
@@ -200,7 +194,6 @@ namespace Riskeer.Integration.Data.Assembly
                 Piping = FailureMechanismSectionAssemblyCategoryGroup.None;
                 GrassCoverErosionInwards = FailureMechanismSectionAssemblyCategoryGroup.None;
                 MacroStabilityInwards = FailureMechanismSectionAssemblyCategoryGroup.None;
-                MacroStabilityOutwards = FailureMechanismSectionAssemblyCategoryGroup.None;
                 Microstability = FailureMechanismSectionAssemblyCategoryGroup.None;
                 StabilityStoneCover = FailureMechanismSectionAssemblyCategoryGroup.None;
                 WaveImpactAsphaltCover = FailureMechanismSectionAssemblyCategoryGroup.None;
@@ -231,11 +224,6 @@ namespace Riskeer.Integration.Data.Assembly
             /// Gets or sets the assembly result for macro stability inwards.
             /// </summary>
             public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityInwards { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the assembly result for macro stability outwards.
-            /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityOutwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for microstability.

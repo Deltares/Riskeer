@@ -80,7 +80,6 @@ namespace Riskeer.Integration.Data.Assembly
                 Piping = GetCategoryGroup(assessmentSection.Piping, failureMechanisms, failureMechanismResults),
                 GrassCoverErosionInwards = GetCategoryGroup(assessmentSection.GrassCoverErosionInwards, failureMechanisms, failureMechanismResults),
                 MacroStabilityInwards = GetCategoryGroup(assessmentSection.MacroStabilityInwards, failureMechanisms, failureMechanismResults),
-                MacroStabilityOutwards = GetCategoryGroup(assessmentSection.MacroStabilityOutwards, failureMechanisms, failureMechanismResults),
                 Microstability = GetCategoryGroup(assessmentSection.Microstability, failureMechanisms, failureMechanismResults),
                 StabilityStoneCover = GetCategoryGroup(assessmentSection.StabilityStoneCover, failureMechanisms, failureMechanismResults),
                 WaveImpactAsphaltCover = GetCategoryGroup(assessmentSection.WaveImpactAsphaltCover, failureMechanisms, failureMechanismResults),
