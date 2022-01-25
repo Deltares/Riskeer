@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 225;
+        private const int expectedNumberOfRemovedInstances = 227;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
