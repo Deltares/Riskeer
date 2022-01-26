@@ -99,7 +99,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.NotNull(assessmentSection.ClosingStructures);
             Assert.NotNull(assessmentSection.PipingStructure);
             Assert.NotNull(assessmentSection.StabilityPointStructures);
-            Assert.NotNull(assessmentSection.StrengthStabilityLengthwiseConstruction);
             Assert.NotNull(assessmentSection.DuneErosion);
             Assert.NotNull(assessmentSection.TechnicalInnovation);
 
@@ -236,7 +235,7 @@ namespace Riskeer.Integration.Data.Test
             IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
-            Assert.AreEqual(17, failureMechanisms.Length);
+            Assert.AreEqual(16, failureMechanisms.Length);
             CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
@@ -253,7 +252,6 @@ namespace Riskeer.Integration.Data.Test
                 assessmentSection.ClosingStructures,
                 assessmentSection.PipingStructure,
                 assessmentSection.StabilityPointStructures,
-                assessmentSection.StrengthStabilityLengthwiseConstruction,
                 assessmentSection.DuneErosion,
                 assessmentSection.TechnicalInnovation
             }, failureMechanisms);
@@ -705,9 +703,6 @@ namespace Riskeer.Integration.Data.Test
             yield return new FailureMechanismTestData((section, failureMechanism) => section.StabilityPointStructures = (StabilityPointStructuresFailureMechanism) failureMechanism,
                                                       new StabilityPointStructuresFailureMechanism(),
                                                       section => section.StabilityPointStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.StrengthStabilityLengthwiseConstruction = (StrengthStabilityLengthwiseConstructionFailureMechanism) failureMechanism,
-                                                      new StrengthStabilityLengthwiseConstructionFailureMechanism(),
-                                                      section => section.StrengthStabilityLengthwiseConstruction);
             yield return new FailureMechanismTestData((section, failureMechanism) => section.DuneErosion = (DuneErosionFailureMechanism) failureMechanism,
                                                       new DuneErosionFailureMechanism(),
                                                       section => section.DuneErosion);

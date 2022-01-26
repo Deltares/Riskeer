@@ -125,7 +125,6 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards);
             SetFullyConfiguredFailureMechanism(assessmentSection.Microstability);
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
-            SetFullyConfiguredFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetFullyConfiguredFailureMechanism(assessmentSection.TechnicalInnovation);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 

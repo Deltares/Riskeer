@@ -1031,10 +1031,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.Sections);
             CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
 
-            StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
-
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResultsOld);
@@ -1667,7 +1663,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(73, changedObjects.Length);
+            Assert.AreEqual(71, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1763,10 +1759,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, grassCoverSlipOffInwardsFailureMechanism.SectionResults);
 
-            StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            CollectionAssert.Contains(changedObjects, stabilityLengthwiseConstructionFailureMechanism);
-            CollectionAssert.Contains(changedObjects, stabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
-
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResultsOld);
@@ -1794,7 +1786,6 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.ClosingStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.StrengthStabilityLengthwiseConstruction));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.TechnicalInnovation));
             return expectedRemovedObjects;

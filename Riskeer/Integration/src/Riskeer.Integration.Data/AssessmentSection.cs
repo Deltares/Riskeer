@@ -70,7 +70,6 @@ namespace Riskeer.Integration.Data
         private ClosingStructuresFailureMechanism closingStructures;
         private PipingStructureFailureMechanism pipingStructure;
         private StabilityPointStructuresFailureMechanism stabilityPointStructures;
-        private StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction;
         private DuneErosionFailureMechanism duneErosion;
         private TechnicalInnovationFailureMechanism technicalInnovation;
         private RoundedDouble failureProbabilityMarginFactor;
@@ -126,7 +125,6 @@ namespace Riskeer.Integration.Data
             heightStructures = new HeightStructuresFailureMechanism();
             closingStructures = new ClosingStructuresFailureMechanism();
             stabilityPointStructures = new StabilityPointStructuresFailureMechanism();
-            strengthStabilityLengthwiseConstruction = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             pipingStructure = new PipingStructureFailureMechanism();
             duneErosion = new DuneErosionFailureMechanism();
             technicalInnovation = new TechnicalInnovationFailureMechanism();
@@ -391,24 +389,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction
-        {
-            get
-            {
-                return strengthStabilityLengthwiseConstruction;
-            }
-            set
-            {
-                ValidateContribution(strengthStabilityLengthwiseConstruction, value);
-                strengthStabilityLengthwiseConstruction = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the "Duinafslag" failure mechanism.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
@@ -538,7 +518,6 @@ namespace Riskeer.Integration.Data
             yield return ClosingStructures;
             yield return PipingStructure;
             yield return StabilityPointStructures;
-            yield return StrengthStabilityLengthwiseConstruction;
             yield return DuneErosion;
             yield return TechnicalInnovation;
         }

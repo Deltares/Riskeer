@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 223;
+        private const int expectedNumberOfRemovedInstances = 219;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(73, observables.Length);
+            Assert.AreEqual(71, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -367,12 +367,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism);
             CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism.SectionResults);
-
-            StrengthStabilityLengthwiseConstructionFailureMechanism stabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
-            CollectionAssert.Contains(observables, stabilityLengthwiseConstructionFailureMechanism);
-            CollectionAssert.Contains(observables, stabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
