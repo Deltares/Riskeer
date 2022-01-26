@@ -678,13 +678,12 @@ namespace Riskeer.Integration.Plugin.Test
                 UpdateInfo[] updateInfos = plugin.GetUpdateInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(8, updateInfos.Length);
+                Assert.AreEqual(7, updateInfos.Length);
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(ForeshoreProfilesContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverSlipOffInwardsFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(GrassCoverSlipOffOutwardsFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MicrostabilityFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(PipingStructureFailureMechanismSectionsContext)));
-                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(TechnicalInnovationFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(SpecificFailurePathSectionsContext)));
             }

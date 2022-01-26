@@ -702,10 +702,6 @@ namespace Riskeer.Integration.Plugin
                 new PipingStructureFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                TechnicalInnovationFailureMechanismSectionsContext, TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
-                new TechnicalInnovationFailureMechanismSectionResultUpdateStrategy());
-
-            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
                 WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new WaterPressureAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
 
