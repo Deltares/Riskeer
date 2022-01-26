@@ -251,10 +251,6 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new PipingStructureFailurePathProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StrengthStabilityLengthwiseConstructionFailurePathContext, StrengthStabilityLengthwiseConstructionFailurePathProperties>
-            {
-                CreateInstance = context => new StrengthStabilityLengthwiseConstructionFailurePathProperties(context.WrappedData, context.Parent)
-            };
             yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
             {
                 CreateInstance = context => new CalculationGroupContextProperties(context)
