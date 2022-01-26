@@ -67,7 +67,6 @@ namespace Riskeer.Integration.Data.Merge
             MergePipingStructure = properties.MergePipingStructure;
             MergeStabilityPointStructures = properties.MergeStabilityPointStructures;
             MergeDuneErosion = properties.MergeDuneErosion;
-            MergeTechnicalInnovation = properties.MergeTechnicalInnovation;
             MergeSpecificFailurePaths = properties.MergeSpecificFailurePaths;
         }
 
@@ -150,11 +149,6 @@ namespace Riskeer.Integration.Data.Merge
         /// Gets the indicator whether dune erosion should be merged.
         /// </summary>
         public bool MergeDuneErosion { get; }
-
-        /// <summary>
-        /// Gets the indicator whether technical innovation should be merged.
-        /// </summary>
-        public bool MergeTechnicalInnovation { get; }
 
         /// <summary>
         /// Gets the collection of specific failure paths that should be merged.
@@ -240,11 +234,6 @@ namespace Riskeer.Integration.Data.Merge
             /// Gets or sets the indicator whether dune erosion should be merged.
             /// </summary>
             public bool MergeDuneErosion { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether technical innovation should be merged.
-            /// </summary>
-            public bool MergeTechnicalInnovation { internal get; set; }
 
             /// <summary>
             /// Gets the list of specific failure paths that should be merged.

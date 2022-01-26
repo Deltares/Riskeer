@@ -371,12 +371,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 targetAssessmentSection.DuneErosion = sourceAssessmentSection.DuneErosion;
                 LogMergeMessage(targetAssessmentSection.DuneErosion);
             }
-
-            if (mergeData.MergeTechnicalInnovation)
-            {
-                targetAssessmentSection.TechnicalInnovation = sourceAssessmentSection.TechnicalInnovation;
-                LogMergeMessage(targetAssessmentSection.TechnicalInnovation);
-            }
         }
 
         private static void UpdateCalculationHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(

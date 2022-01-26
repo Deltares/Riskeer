@@ -93,8 +93,7 @@ namespace Riskeer.Integration.Forms.Merge
                     MergeClosingStructures = FailureMechanismIsSelectedToMerge<ClosingStructuresFailureMechanism>(),
                     MergePipingStructure = FailureMechanismIsSelectedToMerge<PipingStructureFailureMechanism>(),
                     MergeStabilityPointStructures = FailureMechanismIsSelectedToMerge<StabilityPointStructuresFailureMechanism>(),
-                    MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
-                    MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>()
+                    MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>()
                 };
                 constructionProperties.MergeSpecificFailurePaths.AddRange(GetSelectedSpecificFailurePathsToMerge());
 
@@ -166,8 +165,7 @@ namespace Riskeer.Integration.Forms.Merge
                                            new FailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
                                            new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
                                            new FailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
-                                           new FailureMechanismMergeDataRow(assessmentSection.DuneErosion),
-                                           new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
+                                           new FailureMechanismMergeDataRow(assessmentSection.DuneErosion)
                                        }
                                        .Concat(assessmentSection.SpecificFailurePaths.Select(fp => new FailurePathMergeDataRow(fp)))
                                        .ToArray();

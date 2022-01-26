@@ -294,7 +294,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergePipingStructure);
                 Assert.IsFalse(result.MergeStabilityPointStructures);
                 Assert.IsFalse(result.MergeDuneErosion);
-                Assert.IsFalse(result.MergeTechnicalInnovation);
                 CollectionAssert.IsEmpty(result.MergeSpecificFailurePaths);
             }
         }
@@ -349,7 +348,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergePipingStructure);
                 Assert.IsTrue(result.MergeStabilityPointStructures);
                 Assert.IsTrue(result.MergeDuneErosion);
-                Assert.IsTrue(result.MergeTechnicalInnovation);
                 CollectionAssert.AreEqual(assessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
             }
         }
@@ -371,7 +369,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
             AssertDataGridViewRow(expectedAssessmentSection.PipingStructure, rows[12].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.StabilityPointStructures, rows[13].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[14].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[15].Cells);
         }
 
         private static void AssertFailurePathRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
