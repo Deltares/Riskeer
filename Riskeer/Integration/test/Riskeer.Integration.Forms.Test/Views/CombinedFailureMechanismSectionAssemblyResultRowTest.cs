@@ -53,7 +53,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int duneErosionIndex = 18;
-        private const int technicalInnovationIndex = 19;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
@@ -79,7 +78,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(17, columnStateDefinitions.Count);
+            Assert.AreEqual(16, columnStateDefinitions.Count);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, totalResultIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverErosionInwardsIndex);
@@ -96,7 +95,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructureIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityPointStructuresIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, technicalInnovationIndex);
 
             Assert.AreEqual(result.SectionNumber, row.SectionNumber);
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
@@ -119,7 +117,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StabilityPointStructures), row.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.DuneErosion), row.DuneErosion);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.TechnicalInnovation), row.TechnicalInnovation);
         }
 
         [Test]
@@ -152,8 +149,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = categoryGroup,
                     PipingStructure = categoryGroup,
                     StabilityPointStructures = categoryGroup,
-                    DuneErosion = categoryGroup,
-                    TechnicalInnovation = categoryGroup
+                    DuneErosion = categoryGroup
                 });
 
             // Call
@@ -178,7 +174,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[technicalInnovationIndex], expectedBackgroundColor);
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult()
@@ -205,8 +200,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                    DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                    TechnicalInnovation = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                    DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
                 });
         }
     }

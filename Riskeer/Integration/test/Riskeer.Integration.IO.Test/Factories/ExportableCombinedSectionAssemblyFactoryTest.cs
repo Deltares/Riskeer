@@ -109,8 +109,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                          ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                                                                          PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                                                                          StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                                                                         DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                                                                         TechnicalInnovation = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                                                                         DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
                                                                      });
         }
 

@@ -70,7 +70,6 @@ namespace Riskeer.Integration.Data.Assembly
             PipingStructure = properties.PipingStructure;
             StabilityPointStructures = properties.StabilityPointStructures;
             DuneErosion = properties.DuneErosion;
-            TechnicalInnovation = properties.TechnicalInnovation;
         }
 
         /// <summary>
@@ -171,11 +170,6 @@ namespace Riskeer.Integration.Data.Assembly
         public FailureMechanismSectionAssemblyCategoryGroup DuneErosion { get; }
 
         /// <summary>
-        /// Gets the assembly result for technical innovation.
-        /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup TechnicalInnovation { get; }
-
-        /// <summary>
         /// Container for properties for constructing a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>s
         public class ConstructionProperties
@@ -200,7 +194,6 @@ namespace Riskeer.Integration.Data.Assembly
                 PipingStructure = FailureMechanismSectionAssemblyCategoryGroup.None;
                 StabilityPointStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
                 DuneErosion = FailureMechanismSectionAssemblyCategoryGroup.None;
-                TechnicalInnovation = FailureMechanismSectionAssemblyCategoryGroup.None;
             }
 
             /// <summary>
@@ -277,11 +270,6 @@ namespace Riskeer.Integration.Data.Assembly
             /// Gets or sets the assembly result for dune erosion.
             /// </summary>
             public FailureMechanismSectionAssemblyCategoryGroup DuneErosion { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the assembly result for technical innovation.
-            /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup TechnicalInnovation { internal get; set; }
         }
     }
 }

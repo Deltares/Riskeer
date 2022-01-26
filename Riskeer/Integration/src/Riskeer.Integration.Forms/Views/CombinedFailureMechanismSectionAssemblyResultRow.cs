@@ -51,7 +51,6 @@ namespace Riskeer.Integration.Forms.Views
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int duneErosionIndex = 18;
-        private const int technicalInnovationIndex = 19;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -288,17 +287,6 @@ namespace Riskeer.Integration.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Gets the assembly result for technical innovation.
-        /// </summary>
-        public string TechnicalInnovation
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
-            }
-        }
-
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         private void CreateColumnStateDefinitions()
@@ -319,7 +307,6 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(pipingStructureIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-            ColumnStateDefinitions.Add(technicalInnovationIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void SetColumnStateDefinitionColors()
@@ -340,7 +327,6 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
-            ColumnStateDefinitions[technicalInnovationIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
         }
 
         private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)

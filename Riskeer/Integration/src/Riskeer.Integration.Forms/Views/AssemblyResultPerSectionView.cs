@@ -216,9 +216,6 @@ namespace Riskeer.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.DuneErosion),
                                                  DuneErosionDataResources.DuneErosionFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TechnicalInnovation),
-                                                 IntegrationDataResources.TechnicalInnovationFailureMechanism_Code,
-                                                 true);
 
             SetDataSource();
         }

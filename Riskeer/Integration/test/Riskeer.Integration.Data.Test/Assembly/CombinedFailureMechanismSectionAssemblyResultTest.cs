@@ -79,7 +79,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.DuneErosion);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.TechnicalInnovation);
         }
 
         [Test]
@@ -106,7 +105,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var pipingStructureResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var stabilityPointStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var duneErosionResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var technicalInnovationResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
             var result = new CombinedFailureMechanismSectionAssemblyResult(sectionNumber, sectionStart, sectionEnd, totalResult,
@@ -126,8 +124,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                ClosingStructures = closingStructuresResult,
                                                                                PipingStructure = pipingStructureResult,
                                                                                StabilityPointStructures = stabilityPointStructuresResult,
-                                                                               DuneErosion = duneErosionResult,
-                                                                               TechnicalInnovation = technicalInnovationResult
+                                                                               DuneErosion = duneErosionResult
                                                                            });
 
             // Assert
@@ -150,7 +147,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(pipingStructureResult, result.PipingStructure);
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
-            Assert.AreEqual(technicalInnovationResult, result.TechnicalInnovation);
         }
     }
 }
