@@ -344,15 +344,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 return;
             }
 
-            var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
-            if (technicalInnovation != null)
-            {
-                AssertSectionsWithResult(technicalInnovation.SectionResultsOld,
-                                         ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(technicalInnovation).ManualAssemblyCategoryGroup),
-                                         actualInput.Single());
-                return;
-            }
-
             var microStability = failureMechanism as MicrostabilityFailureMechanism;
             if (microStability != null)
             {
