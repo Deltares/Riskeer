@@ -98,7 +98,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("BSKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeBSKW);
             Assert.AreEqual("PKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypePKW);
             Assert.AreEqual("STKWp", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWp);
-            Assert.AreEqual("STKWl", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWl);
             Assert.AreEqual("INN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeINN);
 
             Assert.AreEqual("EENVDGETS", AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeSimpleAssessment);
