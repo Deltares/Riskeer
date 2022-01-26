@@ -156,7 +156,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, expectedSectionResult.CombinedSectionAssemblyResult.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = expectedSectionResult.FailureMechanismResults;
-            Assert.AreEqual(16, failureMechanismCombinedSectionResults.Count());
+            Assert.AreEqual(15, failureMechanismCombinedSectionResults.Count());
             Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.SectionAssemblyResult.AssemblyMethod == ExportableAssemblyMethod.WBI3B1));
 
             Assert.AreEqual(actualCombinedSectionAssemblyResult.Piping, failureMechanismCombinedSectionResults.ElementAt(0).SectionAssemblyResult.AssemblyCategory);
@@ -203,9 +203,6 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             Assert.AreEqual(actualCombinedSectionAssemblyResult.DuneErosion, failureMechanismCombinedSectionResults.ElementAt(14).SectionAssemblyResult.AssemblyCategory);
             Assert.AreEqual(ExportableFailureMechanismType.DA, failureMechanismCombinedSectionResults.ElementAt(14).Code);
-
-            Assert.AreEqual(actualCombinedSectionAssemblyResult.TechnicalInnovation, failureMechanismCombinedSectionResults.ElementAt(15).SectionAssemblyResult.AssemblyCategory);
-            Assert.AreEqual(ExportableFailureMechanismType.INN, failureMechanismCombinedSectionResults.ElementAt(15).Code);
         }
     }
 }

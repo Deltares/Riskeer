@@ -99,11 +99,6 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Represents the failure mechanism stability point structures.
         /// </summary>
-        STKWp = 16,
-
-        /// <summary>
-        /// Represents the failure mechanism technical innovation.
-        /// </summary>
-        INN = 18
+        STKWp = 16
     }
 }

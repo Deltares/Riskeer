@@ -79,9 +79,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
                     },
                     {
                         ExportableFailureMechanismType.STKWp, 16
-                    },
-                    {
-                        ExportableFailureMechanismType.INN, 18
                     }
                 };
             }

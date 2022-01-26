@@ -232,7 +232,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
-            Assert.AreEqual(10, exportableFailureMechanisms.Count());
+            Assert.AreEqual(9, exportableFailureMechanisms.Count());
 
             FailureMechanismAssemblyCategoryGroup expectedFailureMechanismAssemblyOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value;
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
@@ -288,12 +288,6 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                ExportableFailureMechanismGroup.Group4,
                                                                assessmentSection.WaterPressureAsphaltCover,
                                                                exportableFailureMechanisms.ElementAt(8));
-
-            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
-                                                               ExportableFailureMechanismType.INN,
-                                                               ExportableFailureMechanismGroup.Group4,
-                                                               assessmentSection.TechnicalInnovation,
-                                                               exportableFailureMechanisms.ElementAt(9));
         }
 
         private static void AssertExportableFailureMechanismWithoutProbability(FailureMechanismAssemblyCategoryGroup expectedAssemblyOutput,

@@ -148,8 +148,7 @@ namespace Riskeer.Integration.IO.Factories
                 ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
                 ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
                 ExportablePipingStructureFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.PipingStructure, assessmentSection),
-                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
-                ExportableTechnicalInnovationFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.TechnicalInnovation, assessmentSection)
+                ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection)
             };
         }
 
