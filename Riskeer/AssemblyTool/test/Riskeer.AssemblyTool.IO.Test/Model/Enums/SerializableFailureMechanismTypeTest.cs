@@ -79,9 +79,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     },
                     {
                         SerializableFailureMechanismType.STKWp, 16
-                    },
-                    {
-                        SerializableFailureMechanismType.INN, 18
                     }
                 };
             }
@@ -137,9 +134,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     },
                     {
                         SerializableFailureMechanismType.STKWp, "STKWp"
-                    },
-                    {
-                        SerializableFailureMechanismType.INN, "INN"
                     }
                 };
             }

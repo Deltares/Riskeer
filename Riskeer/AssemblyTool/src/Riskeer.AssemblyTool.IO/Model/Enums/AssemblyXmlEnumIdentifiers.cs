@@ -359,11 +359,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string SerializableFailureMechanismTypeSTKWp = "STKWp";
 
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismType.INN"/>
-        /// </summary>
-        public const string SerializableFailureMechanismTypeINN = "INN";
-
         #endregion
 
         #region SerializableAssessmentType

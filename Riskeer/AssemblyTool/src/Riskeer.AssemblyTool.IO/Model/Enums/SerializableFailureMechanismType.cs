@@ -116,12 +116,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Represents the failure mechanism stability point structures.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWp)]
-        STKWp = 16,
-
-        /// <summary>
-        /// Represents the failure mechanism technical innovation.
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeINN)]
-        INN = 18
+        STKWp = 16
     }
 }
