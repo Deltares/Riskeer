@@ -215,11 +215,6 @@ namespace Riskeer.Storage.Core.TestUtil
 
             SetSectionResults(assessmentSection.DuneErosion.SectionResultsOld);
 
-            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            SetGeneralInput(technicalInnovationFailureMechanism, random.Next());
-            SetSections(technicalInnovationFailureMechanism);
-            SetSectionResults(technicalInnovationFailureMechanism.SectionResultsOld);
-
             var i = 0;
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm =>
             {
@@ -259,18 +254,6 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                        "WindDirection",
                                                                                        "WindSpeed",
                                                                                        "Comment");
-        }
-
-        private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(39);
-            foreach (TechnicalInnovationFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            }
         }
 
         private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> sectionResults)

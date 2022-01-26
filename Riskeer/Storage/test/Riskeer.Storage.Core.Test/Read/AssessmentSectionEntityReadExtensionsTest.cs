@@ -968,22 +968,10 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            FailureMechanismEntity technicalInnovation = CreateFailureMechanismEntity(
-                technicalInnovationsInAssembly,
-                FailureMechanismType.TechnicalInnovations);
-            technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities = new List<TechnicalInnovationFailureMechanismMetaEntity>
-            {
-                new TechnicalInnovationFailureMechanismMetaEntity
-                {
-                    N = 6.0
-                }
-            };
-
             entity.FailureMechanismEntities.Add(microstability);
             entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
-            entity.FailureMechanismEntities.Add(technicalInnovation);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
@@ -1023,14 +1011,6 @@ namespace Riskeer.Storage.Core.Test.Read
                                         grassRevetmentSlidingInwards.CalculationsInputComments,
                                         section.GrassCoverSlipOffInwards,
                                         grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N);
-
-            AssertFailureMechanismEqual(technicalInnovationsInAssembly,
-                                        technicalInnovation.InAssemblyInputComments,
-                                        technicalInnovation.InAssemblyOutputComments,
-                                        technicalInnovation.NotInAssemblyComments,
-                                        technicalInnovation.CalculationsInputComments,
-                                        section.TechnicalInnovation,
-                                        technicalInnovation.TechnicalInnovationFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]

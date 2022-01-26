@@ -99,11 +99,6 @@ namespace Riskeer.Storage.Core.DbContext
         /// <summary>
         /// Grasbekleding afschuiven binnentalud - GABI
         /// </summary>
-        GrassRevetmentSlidingInwards = 16,
-
-        /// <summary>
-        /// Technische innovaties - INN
-        /// </summary>
-        TechnicalInnovations = 18
+        GrassRevetmentSlidingInwards = 16
     }
 }

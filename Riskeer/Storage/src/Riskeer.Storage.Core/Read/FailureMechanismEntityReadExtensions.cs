@@ -312,43 +312,6 @@ namespace Riskeer.Storage.Core.Read
 
         #endregion
 
-        #region Technical Innovation
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="TechnicalInnovationFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="TechnicalInnovationFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsTechnicalInnovationFailureMechanism(this FailureMechanismEntity entity,
-                                                                       TechnicalInnovationFailureMechanism failureMechanism,
-                                                                       ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadTechnicalInnovationMechanismSectionResults(failureMechanism, collector);
-            entity.ReadTechnicalInnovationGeneralInput(failureMechanism.GeneralInput);
-        }
-
-        private static void ReadTechnicalInnovationMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                           TechnicalInnovationFailureMechanism failureMechanism,
-                                                                           ReadConversionCollector collector)
-        {
-            foreach (TechnicalInnovationSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.TechnicalInnovationSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                TechnicalInnovationFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        private static void ReadTechnicalInnovationGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
-        {
-            entity.TechnicalInnovationFailureMechanismMetaEntities.Single().Read(generalInput);
-        }
-
-        #endregion
-
         #region Water Pressure Asphalt
 
         /// <summary>
