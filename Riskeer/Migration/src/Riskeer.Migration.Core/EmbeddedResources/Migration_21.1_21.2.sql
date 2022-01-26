@@ -663,7 +663,28 @@ SELECT
     [Timestamp],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
-INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
+INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
+    [WaterPressureAsphaltCoverSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [WaterPressureAsphaltCoverSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
 INSERT INTO WaterPressureAsphaltCoverFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
     [N],
