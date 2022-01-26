@@ -346,15 +346,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 return;
             }
 
-            var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
-            if (strengthStabilityLengthwiseConstruction != null)
-            {
-                AssertSectionsWithResult(strengthStabilityLengthwiseConstruction.SectionResultsOld,
-                                         ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(strengthStabilityLengthwiseConstruction).ManualAssemblyCategoryGroup),
-                                         actualInput.Single());
-                return;
-            }
-
             var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
             if (technicalInnovation != null)
             {

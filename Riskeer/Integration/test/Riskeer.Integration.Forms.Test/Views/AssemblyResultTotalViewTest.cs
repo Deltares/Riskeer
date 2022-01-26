@@ -791,14 +791,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                 return;
             }
 
-            var strengthStabilityLengthwiseConstruction = failureMechanism as StrengthStabilityLengthwiseConstructionFailureMechanism;
-            if (strengthStabilityLengthwiseConstruction != null)
-            {
-                Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(GetFailureMechanismSectionResult(strengthStabilityLengthwiseConstruction).ManualAssemblyCategoryGroup),
-                                failureMechanismAssemblyCalculator.FailureMechanismSectionCategories.Single());
-                return;
-            }
-
             var technicalInnovation = failureMechanism as TechnicalInnovationFailureMechanism;
             if (technicalInnovation != null)
             {
