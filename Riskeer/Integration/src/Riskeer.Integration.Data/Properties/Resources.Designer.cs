@@ -200,24 +200,6 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INN.
-        /// </summary>
-        public static string TechnicalInnovationFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("TechnicalInnovationFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Technische innovaties - Technische innovaties.
-        /// </summary>
-        public static string TechnicalInnovationFailureMechanismFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("TechnicalInnovationFailureMechanismFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to AWO.
         /// </summary>
         public static string WaterPressureAsphaltCoverFailureMechanism_Code {

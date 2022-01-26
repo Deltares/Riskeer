@@ -144,12 +144,6 @@
   <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Microstabiliteit</value>
   </data>
-  <data name="TechnicalInnovationFailureMechanism_Code" xml:space="preserve">
-    <value>INN</value>
-  </data>
-  <data name="TechnicalInnovationFailureMechanismFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Technische innovaties - Technische innovaties</value>
-  </data>
   <data name="WaterPressureAsphaltCoverFailureMechanism_Code" xml:space="preserve">
     <value>AWO</value>
   </data>
