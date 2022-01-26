@@ -64,7 +64,6 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer grassCoverSlipOffOutwardsObserver;
         private readonly Observer microstabilityObserver;
         private readonly Observer pipingStructureObserver;
-        private readonly Observer technicalInnovationObserver;
         private readonly Observer waterPressureAsphaltCoverObserver;
 
         /// <summary>
@@ -135,9 +134,6 @@ namespace Riskeer.Integration.Forms.Observers
             pipingStructureObserver = CreateFailureMechanismObserver<PipingStructureFailureMechanism,
                 PipingStructureFailureMechanismSectionResultOld>(assessmentSection.PipingStructure);
 
-            technicalInnovationObserver = CreateFailureMechanismObserver<TechnicalInnovationFailureMechanism,
-                TechnicalInnovationFailureMechanismSectionResultOld>(assessmentSection.TechnicalInnovation);
-
             waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
                 WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(assessmentSection.WaterPressureAsphaltCover);
         }
@@ -171,7 +167,6 @@ namespace Riskeer.Integration.Forms.Observers
             grassCoverSlipOffOutwardsObserver.Dispose();
             microstabilityObserver.Dispose();
             pipingStructureObserver.Dispose();
-            technicalInnovationObserver.Dispose();
             waterPressureAsphaltCoverObserver.Dispose();
         }
 
@@ -191,7 +186,6 @@ namespace Riskeer.Integration.Forms.Observers
             grassCoverSlipOffOutwardsObserver.Observable = assessmentSection.GrassCoverSlipOffOutwards;
             microstabilityObserver.Observable = assessmentSection.Microstability;
             pipingStructureObserver.Observable = assessmentSection.PipingStructure;
-            technicalInnovationObserver.Observable = assessmentSection.TechnicalInnovation;
             waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
         }
 

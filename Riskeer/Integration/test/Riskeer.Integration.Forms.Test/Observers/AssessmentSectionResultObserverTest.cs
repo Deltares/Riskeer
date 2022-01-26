@@ -515,29 +515,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenTechnicalInnovationFailureMechanismNotified_ThenAttachedObserverNotified()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
-            {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
-                resultObserver.Attach(observer);
-
-                // When
-                assessmentSection.TechnicalInnovation.NotifyObservers();
-
-                // Then
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenWaterPressureAsphaltCoverFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
@@ -595,8 +572,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
                                           new Action(() => assessmentSection1.WaterPressureAsphaltCover = assessmentSection2.WaterPressureAsphaltCover));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, DuneErosionFailureMechanism>(assessmentSection => assessmentSection.DuneErosion),
                                           new Action(() => assessmentSection1.DuneErosion = assessmentSection2.DuneErosion));
-            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, TechnicalInnovationFailureMechanism>(assessmentSection => assessmentSection.TechnicalInnovation),
-                                          new Action(() => assessmentSection1.TechnicalInnovation = assessmentSection2.TechnicalInnovation));
         }
 
         private static AssessmentSection CreateAssessmentSection()
