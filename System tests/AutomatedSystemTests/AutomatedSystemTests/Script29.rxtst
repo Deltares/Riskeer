@@ -4121,7 +4121,7 @@
 		</DataSource>
 		<DataSource
 		id="0d420ad5-d83c-4a9a-afdf-fabff26e11c8"
-		lastknownrowcount="18"
+		lastknownrowcount="15"
 		name="script29a_LoopItemWithMap"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4165,14 +4165,6 @@
 					</td>
 					<td>
 						@STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STBU
-					</td>
-					<td>
-						@STBU
 					</td>
 				</tr>
 				<tr>
@@ -4265,26 +4257,10 @@
 				</tr>
 				<tr>
 					<td>
-						STKWl
-					</td>
-					<td>
-						@STKWl
-					</td>
-				</tr>
-				<tr>
-					<td>
 						DA
 					</td>
 					<td>
 						@DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						INN
-					</td>
-					<td>
-						@INN
 					</td>
 				</tr>
 			</table>
@@ -5162,7 +5138,7 @@
 						Hydraulische belastingen
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5170,7 +5146,7 @@
 						Toetsoordeel&gt;Gecombineerd toetsoordeel
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5178,7 +5154,7 @@
 						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5186,7 +5162,7 @@
 						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
 					</td>
 					<td>
-						STBU, STMI, GABU, GABI, PKW, DA
+						STMI, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5194,7 +5170,7 @@
 						Toetsoordeel&gt;Toetsoordeel toets op maat
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5202,7 +5178,7 @@
 						Vakindeling&gt;Vakindeling (eindpunten)
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5210,7 +5186,7 @@
 						Vakindeling&gt;Vakindeling (startpunten)
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5218,7 +5194,7 @@
 						Vakindeling&gt;Vakindeling
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 				<tr>
@@ -5226,14 +5202,14 @@
 						Referentielijn
 					</td>
 					<td>
-						STBU, STMI, AWO, GABU, GABI, PKW, STKWl, DA, INN
+						STMI, AWO, GABU, GABI, PKW, DA
 					</td>
 				</tr>
 			</table>
 		</DataSource>
 		<DataSource
 		id="3f5a8dbd-25da-4bd0-a16b-366688a393ac"
-		lastknownrowcount="18"
+		lastknownrowcount="15"
 		name="script29b_LoopFMs"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -5409,20 +5385,6 @@
 				</tr>
 				<tr>
 					<td>
-						STBU
-					</td>
-					<td>
-						Project_andere.risk
-					</td>
-					<td>
-						52-60
-					</td>
-					<td>
-						@STBU
-					</td>
-				</tr>
-				<tr>
-					<td>
 						STMI
 					</td>
 					<td>
@@ -5489,34 +5451,6 @@
 					</td>
 					<td>
 						@PKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						STKWl
-					</td>
-					<td>
-						Project_andere.risk
-					</td>
-					<td>
-						52-54,56-60
-					</td>
-					<td>
-						@STKWl
-					</td>
-				</tr>
-				<tr>
-					<td>
-						INN
-					</td>
-					<td>
-						Project_andere.risk
-					</td>
-					<td>
-						52-54,56-60
-					</td>
-					<td>
-						@INN
 					</td>
 				</tr>
 			</table>
