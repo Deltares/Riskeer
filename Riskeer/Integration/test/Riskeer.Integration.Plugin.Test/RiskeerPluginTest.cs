@@ -381,15 +381,15 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new RiskeerPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(29, viewInfos.Length);
+                Assert.AreEqual(27, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -434,12 +434,6 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(FailurePathsStateRootContext),
                     typeof(AssessmentSectionExtendedView));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>),
-                    typeof(StrengthStabilityLengthwiseConstructionResultViewOld));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -535,12 +529,6 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(PipingStructureFailurePathContext),
                     typeof(PipingStructureFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(StrengthStabilityLengthwiseConstructionFailurePathContext),
-                    typeof(StrengthStabilityLengthwiseConstructionFailureMechanism),
-                    typeof(FailureMechanismWithoutDetailedAssessmentView<StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

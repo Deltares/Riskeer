@@ -447,14 +447,6 @@ namespace Riskeer.Integration.Plugin
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
-            yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<StrengthStabilityLengthwiseConstructionFailurePathContext, StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithoutDetailedAssessmentView<StrengthStabilityLengthwiseConstructionFailureMechanism, StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => StrengthStabilityLengthwiseConstructionAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
-
             yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<TechnicalInnovationFailurePathContext, TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
                 context => new FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
                     context.WrappedData,
@@ -492,16 +484,6 @@ namespace Riskeer.Integration.Plugin
                 context => new TechnicalInnovationResultViewOld(
                     context.WrappedData,
                     (TechnicalInnovationFailureMechanism) context.FailureMechanism));
-
-            yield return CreateFailureMechanismResultViewInfo<
-                StrengthStabilityLengthwiseConstructionFailureMechanism,
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld,
-                StrengthStabilityLengthwiseConstructionResultViewOld,
-                StrengthStabilityLengthwiseConstructionSectionResultRowOld,
-                FailureMechanismAssemblyCategoryGroupControl>(
-                context => new StrengthStabilityLengthwiseConstructionResultViewOld(
-                    context.WrappedData,
-                    (StrengthStabilityLengthwiseConstructionFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
