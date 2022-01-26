@@ -124,7 +124,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.ClosingStructures]), results[i].ClosingStructures);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.PipingStructure]), results[i].PipingStructure);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures]), results[i].StabilityPointStructures);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StrengthStabilityLengthwiseConstruction]), results[i].StrengthStabilityLengthwiseConstruction);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion]), results[i].DuneErosion);
                 Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.TechnicalInnovation]), results[i].TechnicalInnovation);
             }
@@ -180,7 +179,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].ClosingStructures);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].PipingStructure);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StabilityPointStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StrengthStabilityLengthwiseConstruction);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].DuneErosion);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].TechnicalInnovation);
             }

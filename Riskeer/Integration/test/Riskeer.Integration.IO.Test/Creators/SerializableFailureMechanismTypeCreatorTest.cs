@@ -61,7 +61,6 @@ namespace Riskeer.Integration.IO.Test.Creators
         [TestCase(ExportableFailureMechanismType.BSKW, SerializableFailureMechanismType.BSKW)]
         [TestCase(ExportableFailureMechanismType.PKW, SerializableFailureMechanismType.PKW)]
         [TestCase(ExportableFailureMechanismType.STKWp, SerializableFailureMechanismType.STKWp)]
-        [TestCase(ExportableFailureMechanismType.STKWl, SerializableFailureMechanismType.STKWl)]
         [TestCase(ExportableFailureMechanismType.INN, SerializableFailureMechanismType.INN)]
         public void Create_WithFailureMechanismType_ReturnsExpectedValues(ExportableFailureMechanismType failureMechanismType,
                                                                           SerializableFailureMechanismType expectedFailureMechanismType)

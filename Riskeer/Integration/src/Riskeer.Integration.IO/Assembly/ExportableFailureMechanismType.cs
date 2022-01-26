@@ -102,11 +102,6 @@ namespace Riskeer.Integration.IO.Assembly
         STKWp = 16,
 
         /// <summary>
-        /// Represents the failure mechanism strength stability lengthwise construction.
-        /// </summary>
-        STKWl = 17,
-
-        /// <summary>
         /// Represents the failure mechanism technical innovation.
         /// </summary>
         INN = 18

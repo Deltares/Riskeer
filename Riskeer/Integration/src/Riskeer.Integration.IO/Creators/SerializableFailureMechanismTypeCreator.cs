@@ -82,8 +82,6 @@ namespace Riskeer.Integration.IO.Creators
                     return SerializableFailureMechanismType.PKW;
                 case ExportableFailureMechanismType.STKWp:
                     return SerializableFailureMechanismType.STKWp;
-                case ExportableFailureMechanismType.STKWl:
-                    return SerializableFailureMechanismType.STKWl;
                 case ExportableFailureMechanismType.INN:
                     return SerializableFailureMechanismType.INN;
                 default:

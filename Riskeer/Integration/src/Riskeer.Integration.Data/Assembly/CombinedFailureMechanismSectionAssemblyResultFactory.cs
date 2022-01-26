@@ -91,7 +91,6 @@ namespace Riskeer.Integration.Data.Assembly
                 ClosingStructures = GetCategoryGroup(assessmentSection.ClosingStructures, failureMechanisms, failureMechanismResults),
                 PipingStructure = GetCategoryGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
                 StabilityPointStructures = GetCategoryGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
-                StrengthStabilityLengthwiseConstruction = GetCategoryGroup(assessmentSection.StrengthStabilityLengthwiseConstruction, failureMechanisms, failureMechanismResults),
                 DuneErosion = GetCategoryGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
                 TechnicalInnovation = GetCategoryGroup(assessmentSection.TechnicalInnovation, failureMechanisms, failureMechanismResults)
             };

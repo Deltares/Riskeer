@@ -97,7 +97,6 @@ namespace Riskeer.Integration.IO.Factories
                 CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.ClosingStructures, ExportableFailureMechanismType.BSKW),
                 CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.PipingStructure, ExportableFailureMechanismType.PKW),
                 CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityPointStructures, ExportableFailureMechanismType.STKWp),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StrengthStabilityLengthwiseConstruction, ExportableFailureMechanismType.STKWl),
                 CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.DuneErosion, ExportableFailureMechanismType.DA),
                 CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.TechnicalInnovation, ExportableFailureMechanismType.INN)
             };
