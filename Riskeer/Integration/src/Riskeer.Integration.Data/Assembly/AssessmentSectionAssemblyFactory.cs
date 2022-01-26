@@ -230,8 +230,7 @@ namespace Riskeer.Integration.Data.Assembly
                 WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, useManual),
                 GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, useManual),
                 GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, useManual),
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, useManual),
-                TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.TechnicalInnovation, useManual)
+                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, useManual)
             };
         }
     }

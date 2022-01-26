@@ -175,8 +175,7 @@ namespace Riskeer.Integration.Forms.Views
                 CreateClosingStructuresFailureMechanismAssemblyResultRow(),
                 CreatePipingStructureFailureMechanismAssemblyResultRow(),
                 CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow(),
-                CreateDuneErosionFailureMechanismAssemblyResultRow(),
-                CreateTechnicalInnovationFailureMechanismAssemblyResultRow()
+                CreateDuneErosionFailureMechanismAssemblyResultRow()
             };
 
             dataGridViewControl.SetDataSource(assemblyResultRows);
@@ -415,13 +414,6 @@ namespace Riskeer.Integration.Forms.Views
             PipingStructureFailureMechanism pipingStructure = AssessmentSection.PipingStructure;
             return new FailureMechanismAssemblyCategoryGroupResultRow(pipingStructure,
                                                                       () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure, true));
-        }
-
-        private FailureMechanismAssemblyCategoryGroupResultRow CreateTechnicalInnovationFailureMechanismAssemblyResultRow()
-        {
-            TechnicalInnovationFailureMechanism technicalInnovation = AssessmentSection.TechnicalInnovation;
-            return new FailureMechanismAssemblyCategoryGroupResultRow(technicalInnovation,
-                                                                      () => TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(technicalInnovation, true));
         }
 
         #endregion

@@ -174,13 +174,6 @@ namespace Riskeer.Integration.Data.Assembly
                                                   DuneErosionAssemblyFunc, useManual));
             }
 
-            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            if (failureMechanisms.Contains(technicalInnovationFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(technicalInnovationFailureMechanism.SectionResultsOld,
-                                                  TechnicalInnovationAssemblyFunc, useManual));
-            }
-
             return inputs;
         }
 
@@ -357,14 +350,6 @@ namespace Riskeer.Integration.Data.Assembly
             get
             {
                 return DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
-            }
-        }
-
-        private static Func<TechnicalInnovationFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
-        {
-            get
-            {
-                return TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
             }
         }
 
