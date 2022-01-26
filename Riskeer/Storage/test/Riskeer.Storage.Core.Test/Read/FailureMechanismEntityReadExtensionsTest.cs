@@ -100,6 +100,50 @@ namespace Riskeer.Storage.Core.Test.Read
             WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
             Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
+        
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithSectionsSet_ReturnsNewWaterPressureAsphaltCoverFailureMechanismWithFailureMechanismSectionsAdded()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            var waterPressureAsphaltCoverSectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            SetSectionResult(waterPressureAsphaltCoverSectionResultEntity);
+
+            failureMechanismSectionEntity.WaterPressureAsphaltCoverSectionResultEntities.Add(waterPressureAsphaltCoverSectionResultEntity);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                WaterPressureAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+        }
 
         #endregion
 
