@@ -53,7 +53,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.GuiServices;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -87,8 +86,6 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
-using Riskeer.Integration.Forms.Views.SectionResultRows;
-using Riskeer.Integration.Forms.Views.SectionResultViews;
 using Riskeer.Integration.IO.Exporters;
 using Riskeer.Integration.IO.Importers;
 using Riskeer.Integration.Plugin.FileImporters;
@@ -443,14 +440,6 @@ namespace Riskeer.Integration.Plugin
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
                     () => PipingStructureAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
 
-            yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<TechnicalInnovationFailurePathContext, TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => TechnicalInnovationAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
-
             yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<WaterPressureAsphaltCoverFailurePathContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
                 context => new FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
                     context.WrappedData,
@@ -470,16 +459,6 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
                 fm => fm.GeneralInput.N);
-
-            yield return CreateFailureMechanismResultViewInfo<
-                TechnicalInnovationFailureMechanism,
-                TechnicalInnovationFailureMechanismSectionResultOld,
-                TechnicalInnovationResultViewOld,
-                TechnicalInnovationSectionResultRowOld,
-                FailureMechanismAssemblyCategoryGroupControl>(
-                context => new TechnicalInnovationResultViewOld(
-                    context.WrappedData,
-                    (TechnicalInnovationFailureMechanism) context.FailureMechanism));
 
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
@@ -1115,27 +1094,6 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
-            TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
-            Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
-            where TResult : FailureMechanismSectionResultOld
-            where TView : FailureMechanismResultViewOld<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
-            where TResultRow : FailureMechanismSectionResultRowOld<TResult>
-            where TAssemblyResultControl : AssemblyResultControl, new()
-        {
-            return new RiskeerViewInfo<
-                FailureMechanismSectionResultContext<TResult>,
-                IObservableEnumerable<TResult>,
-                TView>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>,
-                GetViewData = context => context.WrappedData,
-                CreateInstance = createInstanceFunc
-            };
-        }
-
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc)
             where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
@@ -1513,29 +1471,6 @@ namespace Riskeer.Integration.Plugin
         #endregion
 
         #region FailureMechanismResults ViewInfo
-
-        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(TView view, object dataToCloseFor)
-            where TView : FailureMechanismResultViewOld<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
-            where TResult : FailureMechanismSectionResultOld
-            where TResultRow : FailureMechanismSectionResultRowOld<TResult>
-            where TAssemblyResultControl : AssemblyResultControl, new()
-        {
-            if (dataToCloseFor is IAssessmentSection assessmentSection)
-            {
-                return assessmentSection.GetFailureMechanisms()
-                                        .OfType<IHasSectionResults<FailureMechanismSectionResultOld>>()
-                                        .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResultsOld, fm.SectionResultsOld));
-            }
-
-            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
-            {
-                return failureMechanismContext.WrappedData is IHasSectionResults<FailureMechanismSectionResultOld> failureMechanismWithSectionResults
-                       && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanismWithSectionResults.SectionResultsOld);
-            }
-
-            return false;
-        }
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(TView view, object dataToCloseFor)
             where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>

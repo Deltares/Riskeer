@@ -63,7 +63,6 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.PropertyClasses;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 using Riskeer.Integration.Forms.Views;
-using Riskeer.Integration.Forms.Views.SectionResultViews;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test
@@ -384,7 +383,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(27, viewInfos.Length);
+                Assert.AreEqual(25, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -462,12 +461,6 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>),
-                    typeof(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResultOld>),
-                    typeof(TechnicalInnovationResultViewOld));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
                     typeof(Comment),
                     typeof(CommentView));
 
@@ -524,12 +517,6 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(PipingStructureFailurePathContext),
                     typeof(PipingStructureFailureMechanism),
                     typeof(FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>));
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(TechnicalInnovationFailurePathContext),
-                    typeof(TechnicalInnovationFailureMechanism),
-                    typeof(FailureMechanismWithoutDetailedAssessmentView<TechnicalInnovationFailureMechanism, TechnicalInnovationFailureMechanismSectionResultOld>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
