@@ -515,29 +515,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenStrengthStabilityLengthwiseConstructionFailureMechanismNotified_ThenAttachedObserverNotified()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
-            {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
-                resultObserver.Attach(observer);
-
-                // When
-                assessmentSection.StrengthStabilityLengthwiseConstruction.NotifyObservers();
-
-                // Then
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenTechnicalInnovationFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
@@ -616,8 +593,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
                                           new Action(() => assessmentSection1.GrassCoverSlipOffOutwards = assessmentSection2.GrassCoverSlipOffOutwards));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, WaterPressureAsphaltCoverFailureMechanism>(assessmentSection => assessmentSection.WaterPressureAsphaltCover),
                                           new Action(() => assessmentSection1.WaterPressureAsphaltCover = assessmentSection2.WaterPressureAsphaltCover));
-            yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, StrengthStabilityLengthwiseConstructionFailureMechanism>(assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction),
-                                          new Action(() => assessmentSection1.StrengthStabilityLengthwiseConstruction = assessmentSection2.StrengthStabilityLengthwiseConstruction));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, DuneErosionFailureMechanism>(assessmentSection => assessmentSection.DuneErosion),
                                           new Action(() => assessmentSection1.DuneErosion = assessmentSection2.DuneErosion));
             yield return new TestCaseData(assessmentSection1, new Func<AssessmentSection, TechnicalInnovationFailureMechanism>(assessmentSection => assessmentSection.TechnicalInnovation),

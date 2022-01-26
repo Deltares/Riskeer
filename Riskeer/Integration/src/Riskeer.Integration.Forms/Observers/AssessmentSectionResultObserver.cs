@@ -64,7 +64,6 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer grassCoverSlipOffOutwardsObserver;
         private readonly Observer microstabilityObserver;
         private readonly Observer pipingStructureObserver;
-        private readonly Observer strengthStabilityLengthwiseConstructionObserver;
         private readonly Observer technicalInnovationObserver;
         private readonly Observer waterPressureAsphaltCoverObserver;
 
@@ -136,9 +135,6 @@ namespace Riskeer.Integration.Forms.Observers
             pipingStructureObserver = CreateFailureMechanismObserver<PipingStructureFailureMechanism,
                 PipingStructureFailureMechanismSectionResultOld>(assessmentSection.PipingStructure);
 
-            strengthStabilityLengthwiseConstructionObserver = CreateFailureMechanismObserver<StrengthStabilityLengthwiseConstructionFailureMechanism,
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>(assessmentSection.StrengthStabilityLengthwiseConstruction);
-
             technicalInnovationObserver = CreateFailureMechanismObserver<TechnicalInnovationFailureMechanism,
                 TechnicalInnovationFailureMechanismSectionResultOld>(assessmentSection.TechnicalInnovation);
 
@@ -175,7 +171,6 @@ namespace Riskeer.Integration.Forms.Observers
             grassCoverSlipOffOutwardsObserver.Dispose();
             microstabilityObserver.Dispose();
             pipingStructureObserver.Dispose();
-            strengthStabilityLengthwiseConstructionObserver.Dispose();
             technicalInnovationObserver.Dispose();
             waterPressureAsphaltCoverObserver.Dispose();
         }
@@ -196,7 +191,6 @@ namespace Riskeer.Integration.Forms.Observers
             grassCoverSlipOffOutwardsObserver.Observable = assessmentSection.GrassCoverSlipOffOutwards;
             microstabilityObserver.Observable = assessmentSection.Microstability;
             pipingStructureObserver.Observable = assessmentSection.PipingStructure;
-            strengthStabilityLengthwiseConstructionObserver.Observable = assessmentSection.StrengthStabilityLengthwiseConstruction;
             technicalInnovationObserver.Observable = assessmentSection.TechnicalInnovation;
             waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
         }
