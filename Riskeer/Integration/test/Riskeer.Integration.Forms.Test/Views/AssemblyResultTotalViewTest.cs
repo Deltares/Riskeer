@@ -942,9 +942,6 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
             AssertAssemblyCells(duneErosion, assemblyCategoryGroup, rows[14].Cells);
-
-            TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
-            AssertAssemblyCells(technicalInnovation, assemblyCategoryGroup, rows[15].Cells);
         }
 
         private static void AssertAssemblyCells(IFailureMechanism failureMechanism, DataGridViewCellCollection cells)

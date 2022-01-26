@@ -966,8 +966,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 assessmentSection.WaterPressureAsphaltCover,
                 assessmentSection.GrassCoverSlipOffOutwards,
                 assessmentSection.GrassCoverSlipOffInwards,
-                assessmentSection.PipingStructure,
-                assessmentSection.TechnicalInnovation
+                assessmentSection.PipingStructure
             };
         }
 

@@ -96,7 +96,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 assessmentSection => assessmentSection.GrassCoverSlipOffOutwards,
                 assessmentSection => assessmentSection.Microstability,
                 assessmentSection => assessmentSection.PipingStructure,
-                assessmentSection => assessmentSection.TechnicalInnovation,
                 assessmentSection => assessmentSection.WaterPressureAsphaltCover
             };
 
@@ -130,7 +129,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, nrOfSections);
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, nrOfSections);
-            FailureMechanismTestHelper.AddSections(assessmentSection.TechnicalInnovation, nrOfSections);
 
             return assessmentSection;
         }

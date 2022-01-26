@@ -273,7 +273,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, 2);
-            FailureMechanismTestHelper.AddSections(assessmentSection.TechnicalInnovation, 2);
 
             return assessmentSection;
         }

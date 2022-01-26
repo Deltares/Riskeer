@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     assessmentSection, assessmentSection.GetFailureMechanisms(), random.NextBoolean());
 
                 // Assert
-                Assert.AreEqual(16, inputs.Count());
+                Assert.AreEqual(15, inputs.Count());
 
                 AssertSections(assessmentSection.Piping.SectionResultsOld, inputs.ElementAt(0));
                 AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResultsOld, inputs.ElementAt(1));
@@ -107,7 +107,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssertSections(assessmentSection.PipingStructure.SectionResultsOld, inputs.ElementAt(12));
                 AssertSections(assessmentSection.StabilityPointStructures.SectionResultsOld, inputs.ElementAt(13));
                 AssertSections(assessmentSection.DuneErosion.SectionResultsOld, inputs.ElementAt(14));
-                AssertSections(assessmentSection.TechnicalInnovation.SectionResultsOld, inputs.ElementAt(15));
             }
         }
 
@@ -152,7 +151,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             yield return new TestCaseData(assessmentSection, assessmentSection.PipingStructure);
             yield return new TestCaseData(assessmentSection, assessmentSection.StabilityPointStructures);
             yield return new TestCaseData(assessmentSection, assessmentSection.DuneErosion);
-            yield return new TestCaseData(assessmentSection, assessmentSection.TechnicalInnovation);
         }
 
         private static void AssertSectionsWithResult<T>(IEnumerable<T> originalSectionResults,

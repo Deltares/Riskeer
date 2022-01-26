@@ -293,17 +293,6 @@ namespace Riskeer.Integration.Data.TestUtil
 
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
-                failureMechanism.InAssembly = true;
-                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-                TechnicalInnovationFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
-                sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, assessmentSection => assessmentSection.TechnicalInnovation);
-
-            yield return new AssessmentSectionConfiguration(assessmentSection =>
-            {
                 MicrostabilityFailureMechanism failureMechanism = assessmentSection.Microstability;
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
