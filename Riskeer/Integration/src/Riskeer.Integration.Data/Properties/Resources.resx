@@ -144,9 +144,6 @@
   <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Microstabiliteit</value>
   </data>
-  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_Code" xml:space="preserve">
-    <value>STKWl</value>
-  </data>
   <data name="TechnicalInnovationFailureMechanism_Code" xml:space="preserve">
     <value>INN</value>
   </data>
@@ -161,9 +158,6 @@
   </data>
   <data name="AssessmentSection_Id_0" xml:space="preserve">
     <value>Traject {0}</value>
-  </data>
-  <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Sterkte en stabiliteit langsconstructies</value>
   </data>
   <data name="AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims" xml:space="preserve">
     <value>Voor een of meerdere toetssporen kan geen oordeel worden bepaald.</value>

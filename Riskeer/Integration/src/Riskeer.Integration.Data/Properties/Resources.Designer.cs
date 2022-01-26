@@ -200,24 +200,6 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STKWl.
-        /// </summary>
-        public static string StrengthStabilityLengthwiseConstructionFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("StrengthStabilityLengthwiseConstructionFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Sterkte en stabiliteit langsconstructies.
-        /// </summary>
-        public static string StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to INN.
         /// </summary>
         public static string TechnicalInnovationFailureMechanism_Code {
