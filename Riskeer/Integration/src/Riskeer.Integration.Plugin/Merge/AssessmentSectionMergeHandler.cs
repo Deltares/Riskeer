@@ -366,12 +366,6 @@ namespace Riskeer.Integration.Plugin.Merge
                 LogMergeMessage(targetAssessmentSection.StabilityPointStructures);
             }
 
-            if (mergeData.MergeStrengthStabilityLengthwiseConstruction)
-            {
-                targetAssessmentSection.StrengthStabilityLengthwiseConstruction = sourceAssessmentSection.StrengthStabilityLengthwiseConstruction;
-                LogMergeMessage(targetAssessmentSection.StrengthStabilityLengthwiseConstruction);
-            }
-
             if (mergeData.MergeDuneErosion)
             {
                 targetAssessmentSection.DuneErosion = sourceAssessmentSection.DuneErosion;

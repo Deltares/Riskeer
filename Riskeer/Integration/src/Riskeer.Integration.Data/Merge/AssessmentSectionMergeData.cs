@@ -66,7 +66,6 @@ namespace Riskeer.Integration.Data.Merge
             MergeClosingStructures = properties.MergeClosingStructures;
             MergePipingStructure = properties.MergePipingStructure;
             MergeStabilityPointStructures = properties.MergeStabilityPointStructures;
-            MergeStrengthStabilityLengthwiseConstruction = properties.MergeStrengthStabilityLengthwiseConstruction;
             MergeDuneErosion = properties.MergeDuneErosion;
             MergeTechnicalInnovation = properties.MergeTechnicalInnovation;
             MergeSpecificFailurePaths = properties.MergeSpecificFailurePaths;
@@ -146,11 +145,6 @@ namespace Riskeer.Integration.Data.Merge
         /// Gets the indicator whether stability point structures should be merged.
         /// </summary>
         public bool MergeStabilityPointStructures { get; }
-
-        /// <summary>
-        /// Gets the indicator whether strength stability lengthwise construction should be merged.
-        /// </summary>
-        public bool MergeStrengthStabilityLengthwiseConstruction { get; }
 
         /// <summary>
         /// Gets the indicator whether dune erosion should be merged.
@@ -241,11 +235,6 @@ namespace Riskeer.Integration.Data.Merge
             /// Gets or sets the indicator whether stability point structures should be merged.
             /// </summary>
             public bool MergeStabilityPointStructures { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the indicator whether strength stability lengthwise construction should be merged.
-            /// </summary>
-            public bool MergeStrengthStabilityLengthwiseConstruction { internal get; set; }
 
             /// <summary>
             /// Gets or sets the indicator whether dune erosion should be merged.

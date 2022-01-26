@@ -293,7 +293,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergeClosingStructures);
                 Assert.IsFalse(result.MergePipingStructure);
                 Assert.IsFalse(result.MergeStabilityPointStructures);
-                Assert.IsFalse(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsFalse(result.MergeDuneErosion);
                 Assert.IsFalse(result.MergeTechnicalInnovation);
                 CollectionAssert.IsEmpty(result.MergeSpecificFailurePaths);
@@ -349,7 +348,6 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergeClosingStructures);
                 Assert.IsTrue(result.MergePipingStructure);
                 Assert.IsTrue(result.MergeStabilityPointStructures);
-                Assert.IsTrue(result.MergeStrengthStabilityLengthwiseConstruction);
                 Assert.IsTrue(result.MergeDuneErosion);
                 Assert.IsTrue(result.MergeTechnicalInnovation);
                 CollectionAssert.AreEqual(assessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
@@ -372,9 +370,8 @@ namespace Riskeer.Integration.Forms.Test.Merge
             AssertDataGridViewRow(expectedAssessmentSection.ClosingStructures, rows[11].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.PipingStructure, rows[12].Cells);
             AssertDataGridViewRow(expectedAssessmentSection.StabilityPointStructures, rows[13].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.StrengthStabilityLengthwiseConstruction, rows[14].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[15].Cells);
-            AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[16].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[14].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[15].Cells);
         }
 
         private static void AssertFailurePathRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)

@@ -115,7 +115,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 MergeClosingStructures = true,
                 MergePipingStructure = true,
                 MergeStabilityPointStructures = true,
-                MergeStrengthStabilityLengthwiseConstruction = true,
                 MergeDuneErosion = true,
                 MergeTechnicalInnovation = true
             });
@@ -138,7 +137,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreSame(sourceAssessmentSection.ClosingStructures, targetAssessmentSection.ClosingStructures);
             Assert.AreSame(sourceAssessmentSection.PipingStructure, targetAssessmentSection.PipingStructure);
             Assert.AreSame(sourceAssessmentSection.StabilityPointStructures, targetAssessmentSection.StabilityPointStructures);
-            Assert.AreSame(sourceAssessmentSection.StrengthStabilityLengthwiseConstruction, targetAssessmentSection.StrengthStabilityLengthwiseConstruction);
             Assert.AreSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
             Assert.AreSame(sourceAssessmentSection.TechnicalInnovation, targetAssessmentSection.TechnicalInnovation);
         }
@@ -171,7 +169,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             Assert.AreNotSame(sourceAssessmentSection.ClosingStructures, targetAssessmentSection.ClosingStructures);
             Assert.AreNotSame(sourceAssessmentSection.PipingStructure, targetAssessmentSection.PipingStructure);
             Assert.AreNotSame(sourceAssessmentSection.StabilityPointStructures, targetAssessmentSection.StabilityPointStructures);
-            Assert.AreNotSame(sourceAssessmentSection.StrengthStabilityLengthwiseConstruction, targetAssessmentSection.StrengthStabilityLengthwiseConstruction);
             Assert.AreNotSame(sourceAssessmentSection.DuneErosion, targetAssessmentSection.DuneErosion);
             Assert.AreNotSame(sourceAssessmentSection.TechnicalInnovation, targetAssessmentSection.TechnicalInnovation);
         }
@@ -202,7 +199,6 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                                     MergeClosingStructures = true,
                                                     MergePipingStructure = true,
                                                     MergeStabilityPointStructures = true,
-                                                    MergeStrengthStabilityLengthwiseConstruction = true,
                                                     MergeDuneErosion = true,
                                                     MergeTechnicalInnovation = true
                                                 }));
@@ -211,7 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                Assert.AreEqual(18, msgs.Length);
+                Assert.AreEqual(17, msgs.Length);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Piping' zijn vervangen.", msgs[1]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
@@ -226,9 +222,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[12]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Piping bij kunstwerk' zijn vervangen.", msgs[13]);
                 Assert.AreEqual("Gegevens van het generieke faalpad 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Kunstwerken - Sterkte en stabiliteit langsconstructies' zijn vervangen.", msgs[15]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinafslag' zijn vervangen.", msgs[16]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[17]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinafslag' zijn vervangen.", msgs[15]);
+                Assert.AreEqual("Gegevens van het generieke faalpad 'Technische innovaties - Technische innovaties' zijn vervangen.", msgs[16]);
             });
         }
 

@@ -93,7 +93,6 @@ namespace Riskeer.Integration.Forms.Merge
                     MergeClosingStructures = FailureMechanismIsSelectedToMerge<ClosingStructuresFailureMechanism>(),
                     MergePipingStructure = FailureMechanismIsSelectedToMerge<PipingStructureFailureMechanism>(),
                     MergeStabilityPointStructures = FailureMechanismIsSelectedToMerge<StabilityPointStructuresFailureMechanism>(),
-                    MergeStrengthStabilityLengthwiseConstruction = FailureMechanismIsSelectedToMerge<StrengthStabilityLengthwiseConstructionFailureMechanism>(),
                     MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>(),
                     MergeTechnicalInnovation = FailureMechanismIsSelectedToMerge<TechnicalInnovationFailureMechanism>()
                 };
@@ -167,7 +166,6 @@ namespace Riskeer.Integration.Forms.Merge
                                            new FailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
                                            new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
                                            new FailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
-                                           new FailureMechanismMergeDataRow(assessmentSection.StrengthStabilityLengthwiseConstruction),
                                            new FailureMechanismMergeDataRow(assessmentSection.DuneErosion),
                                            new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
                                        }
