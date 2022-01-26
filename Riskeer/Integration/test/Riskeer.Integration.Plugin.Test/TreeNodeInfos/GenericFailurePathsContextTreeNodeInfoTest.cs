@@ -175,7 +175,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(context).ToArray();
 
                 // Assert
-                Assert.AreEqual(16, objects.Length);
+                Assert.AreEqual(15, objects.Length);
                 var pipingFailurePathContext = (PipingFailurePathContext) objects[0];
                 Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
@@ -235,10 +235,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var duneErosionFailurePathContext = (DuneErosionFailurePathContext) objects[14];
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, duneErosionFailurePathContext.Parent);
-
-                var technicalInnovationFailurePathContext = (TechnicalInnovationFailurePathContext) objects[15];
-                Assert.AreSame(assessmentSection.TechnicalInnovation, technicalInnovationFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, technicalInnovationFailurePathContext.Parent);
             }
         }
 

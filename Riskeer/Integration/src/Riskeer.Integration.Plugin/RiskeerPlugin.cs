@@ -815,12 +815,6 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<TechnicalInnovationFailurePathContext>(
-                TechnicalInnovationFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
-
             yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<WaterPressureAsphaltCoverFailurePathContext>(
                 WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
@@ -989,7 +983,6 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
@@ -1133,19 +1126,6 @@ namespace Riskeer.Integration.Plugin
             where TSectionResult : NonAdoptableFailureMechanismSectionResult
         {
             return new TreeNodeInfo<TContext>
-            {
-                Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
-                Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .Build()
-            };
-        }
-
-        private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultOldTreeNodeInfo<T>()
-            where T : FailureMechanismSectionResultOld
-        {
-            return new TreeNodeInfo<FailureMechanismSectionResultContext<T>>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -1910,8 +1890,7 @@ namespace Riskeer.Integration.Plugin
                 new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection),
                 new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
                 new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
-                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection),
-                new TechnicalInnovationFailurePathContext(assessmentSection.TechnicalInnovation, assessmentSection)
+                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 
@@ -2299,42 +2278,6 @@ namespace Riskeer.Integration.Plugin
                 new PipingStructureFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
-            };
-        }
-
-        #endregion
-
-        #region TechnicalInnovationFailurePathContext TreeNodeInfo
-
-        private static object[] TechnicalInnovationFailurePathEnabledChildNodeObjects(TechnicalInnovationFailurePathContext nodeData)
-        {
-            return new object[]
-            {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetTechnicalInnovationFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
-                                       TreeFolderCategory.Input),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetTechnicalInnovationFailurePathOutputs(nodeData.WrappedData),
-                                       TreeFolderCategory.Output)
-            };
-        }
-
-        private static IEnumerable<object> GetTechnicalInnovationFailurePathInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new TechnicalInnovationFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InAssemblyInputComments
-            };
-        }
-
-        private static IEnumerable<object> GetTechnicalInnovationFailurePathOutputs(TechnicalInnovationFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData),
-                nodeData.InAssemblyOutputComments
             };
         }
 
